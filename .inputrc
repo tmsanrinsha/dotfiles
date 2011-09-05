@@ -1,0 +1,10 @@
+set convert-meta off
+set meta-flag on
+set output-meta on
+
+"\e[A": history-search-backward'
+"\e[0A": history-search-backward'
+"\e[B": history-search-forward'
+"\e[0B": history-search-forward'
+"\C-n": history-search-forward'
+"\C-p": history-search-backward'
