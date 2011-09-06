@@ -97,7 +97,7 @@ if [ $SHLVL = 1 ];then
 fi
 
 #実行中のコマンドまたはカレントディレクトリの表示
-#.screenでterm xterm-256colorと設定している場合
+#.screenrcでterm xterm-256colorと設定している場合
 if [ $TERM = xterm-256color ];then
     preexec() {
         echo -ne "\ek#${1%% *}\e\\"
