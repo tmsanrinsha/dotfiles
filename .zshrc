@@ -88,7 +88,21 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
+#----------------------------------------------------------
+# screenの設定
+#----------------------------------------------------------
 #screenの自動起動
 if [ $SHLVL = 1 ];then
     screen
+fi
+
+#実行中のコマンドまたはカレントディレクトリの表示
+#.screenでterm xterm-256colorと設定している場合
+if [ $TERM = xterm-256color ];then
+    preexec() {
+        echo -ne "\ek#${1%% *}\e\\"
+    }
+    precmd() {
+        echo -ne "\ek$(basename $(pwd))\e\\"
+    }
 fi
