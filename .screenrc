@@ -1,0 +1,14 @@
+startup_message off
+autodetach on
+defscrollback 10000
+caption always "%{=b kr} %n %t %{= wb} %W%? @%u%?%? [%h]%?"
+encoding utf-8 utf-8
+defkanji utf-8
+defencoding utf-8
+escape ^Tt
+vbell off
+bind l windowlist
+#256色対応
+defbce on 
+term xterm-256color
+termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
