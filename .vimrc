@@ -134,7 +134,7 @@ source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 "----------------------------------------------------------
 " マップ
 "----------------------------------------------------------
-imap jj <ESC>
+inoremap jj <ESC>
 
 
 "----------------------------------------------------------
@@ -208,6 +208,7 @@ set fileencodings=ucs-bom
 "----------------------------------------------------------
 ":Man <man>でマニュアルを開く
 runtime ftplugin/man.vim
+nmap K <Leader>K
 "コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
 "http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 ".zshrc .bashrc等にも記述が必要
