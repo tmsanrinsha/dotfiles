@@ -12,6 +12,7 @@ alias ls="ls -G"
 #
 export LANG=ja_JP.UTF-8
 #export LANG=ja_JP.eucJP
+export PAGER=less
 
 ## Keybind configuration
 #
