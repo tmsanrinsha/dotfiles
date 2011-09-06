@@ -1,3 +1,4 @@
+
 #補完
 autoload -U compinit
 compinit
@@ -12,7 +13,11 @@ alias ls="ls -G"
 #
 export LANG=ja_JP.UTF-8
 #export LANG=ja_JP.eucJP
-export PAGER=less
+
+#export PAGER=/usr/local/share/vim/vim73/macros/less.sh
+#export PAGER=less
+# lessで色つきの表示に対応させる
+export LESS='-R'
 
 ## Keybind configuration
 #
@@ -74,6 +79,14 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
+
+#manのpagerとしてvimの:Manを使う。
+#.vimrcにも設定が必要
+#http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 #screenの自動起動
 if [ $SHLVL = 1 ];then
