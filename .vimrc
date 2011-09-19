@@ -15,7 +15,6 @@ set laststatus=2
 
 " ステータスライン
 set statusline=%<%f%=%m[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%2v,%3l/%L]
-"set statusline=%<%f%=%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%9(\ %m%r\ %)[%4v][%12(\ %5l/%5L%)]
 
 "256色
 set t_Co=256
@@ -45,11 +44,22 @@ set wildmenu "コマンド入力時にTabを押すと補完メニューを表示
 cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>
 
+
 "----------------------------------------------------------
-" バッファの切り替え
+" バッファ
 "----------------------------------------------------------
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+
+" buftabs 
+" http://www.vim.org/scripts/script.php?script_id=1664
+" バッファタブにパスを省略してファイル名のみ表示する
+let g:buftabs_only_basename=1
+" バッファタブをステータスライン内に表示する
+let g:buftabs_in_statusline=1
+" 現在のバッファをハイライト
+let g:buftabs_active_highlight_group="Visual"
+
  
 "----------------------------------------------------------
 " タブ・インデント
