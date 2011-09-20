@@ -20,15 +20,6 @@ set laststatus=2
 
 set statusline=%f%=%m[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 
-"buftab
-"http://www.vim.org/scripts/script.php?script_id=1664
-" バッファタブにパスを省略してファイル名のみ表示する
-let g:buftabs_only_basename=1
-" バッファタブをステータスライン内に表示する
-let g:buftabs_in_statusline=1
-" 現在のバッファをハイライト
-let g:buftabs_active_highlight_group="Visual"
-
 "256色
 set t_Co=256
 
