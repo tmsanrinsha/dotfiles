@@ -7,14 +7,27 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
+
+"----------------------------------------------------------
+" ステータスライン 
+"----------------------------------------------------------
+
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
 "               0: 全く表示しない
 "               1: ウィンドウの数が2以上のときのみ表示
 "               2: 常に表示
 set laststatus=2
 
-" ステータスライン
-set statusline=%<%f%=%m[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%2v,%3l/%L]
+set statusline=%f%=%m[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
+
+"buftab
+"http://www.vim.org/scripts/script.php?script_id=1664
+" バッファタブにパスを省略してファイル名のみ表示する
+let g:buftabs_only_basename=1
+" バッファタブをステータスライン内に表示する
+let g:buftabs_in_statusline=1
+" 現在のバッファをハイライト
+let g:buftabs_active_highlight_group="Visual"
 
 "256色
 set t_Co=256
