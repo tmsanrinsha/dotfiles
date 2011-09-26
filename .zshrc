@@ -46,10 +46,20 @@ setopt list_packed
 #
 # set prompt
 #
+# 現在のホストによってプロンプトの色を変える。
+case `hostname` in
+    localhost.com) col=33;;  # 黄
+    water) col=36;;  # 水色
+    green) col=32;;  # 緑
+    *) col=35;; # それ以外のホストは紫
+esac
+
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
 local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
-PROMPT="%{"$'\e'"[33m%}[%n@%m:%~]$pct " 
-PROMPT2="%{"$'\e'"[33m%}%_%#%{"$'\e'"[m%} " 
+PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
+PROMPT2="%{"$'\e'"[${col}m%}%_%#%{"$'\e'"[m%} " 
+#PROMPT="%{"$'\e'"[33m%}[%n@%m:%~]$pct " 
+#PROMPT2="%{"$'\e'"[33m%}%_%#%{"$'\e'"[m%} " 
 SPROMPT="%{"$'\e'"[31m%}%r is correct? [y,n,a,e]:%{"$'\e'"[m%} "
 
 # set terminal title including current directory
