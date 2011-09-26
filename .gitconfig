@@ -1,0 +1,15 @@
+[alias]
+	co = checkout
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
+[user]
+	name = ****
+	email = ****
+[github]
+	user = ****
+	token = ****
+[color]
+	ui = auto
