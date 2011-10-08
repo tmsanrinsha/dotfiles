@@ -54,6 +54,8 @@ cnoremap <C-N> <DOWN>
 "----------------------------------------------------------
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+"変更中のファイルでも、保存しないで他のファイルを表示
+set hidden
 
 " buftabs 
 " http://www.vim.org/scripts/script.php?script_id=1664
@@ -141,7 +143,7 @@ set backspace=indent,eol,start
 "----------------------------------------------------------
 " カッコ・タグの対応
 "----------------------------------------------------------
-set showmatch "括弧の対応
+set showmatch matchtime=1 "括弧の対応
 source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 
 
@@ -157,6 +159,8 @@ inoremap jj <ESC>
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
 
 " 文字コードの自動認識
 "if &encoding !=# 'utf-8'
