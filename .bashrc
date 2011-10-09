@@ -1,8 +1,9 @@
-export LC_CTYPE="ja_JP.UTF-8"
+# bash, zsh共通設定の読み込み
+. ~/.zashrc
 
-export LSCOLORS=exfxcxdxbxegedabagacad
-alias ls='ls -G'
-PS1="\[\e[0;36m\][\u@\h \w]\\$ \[\e[0m\]"
+
+# PS1="\[\e[0;36m\][\u@\h \w]\\$ \[\e[0m\]"
+PS1="\[\e[0;${col}m\][\u@\h \w]\\$ \[\e[0m\]"
  
 #前方一致でヒストリ検索
 bind '"\e[A": history-search-backward'
