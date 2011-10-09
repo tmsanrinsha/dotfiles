@@ -103,10 +103,10 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #----------------------------------------------------------
 # screenの設定
 #----------------------------------------------------------
-#screenの自動起動
-#if [ $SHLVL = 1 ];then
-#    screen
-#fi
+screenの自動起動
+if [ $SHLVL = 1 ];then
+    screen
+fi
 
 #実行中のコマンドまたはカレントディレクトリの表示
 #.screenrcでterm xterm-256colorと設定している場合
