@@ -1,0 +1,34 @@
+# vim:filetype=sh
+# bash, zsh共通設定
+export LC_CTYPE="ja_JP.UTF-8"
+
+#export PAGER=/usr/local/share/vim/vim73/macros/less.sh
+#export PAGER=less
+# lessで色つきの表示に対応させる
+export LESS='-R'
+
+export LSCOLORS=exfxcxdxbxegedabagacad
+alias ls='ls -G'
+
+alias grep='grep --color=auto'
+
+# 現在のホストによってプロンプトの色を変える。
+case `hostname` in
+    localhost.com) col=33;;  # 黄
+    water) col=36;;  # 水色
+    green) col=32;;  # 緑
+    *) col=35;; # それ以外のホストは紫
+esac
+
+#manのpagerとしてvimの:Manを使う。
+#.vimrcにも設定が必要
+#http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+
+#screenの自動起動
+if [ $SHLVL = 1 ];then
+    screen
+fi
