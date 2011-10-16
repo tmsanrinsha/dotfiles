@@ -6,10 +6,10 @@
 PS1="\[\e[0;${col}m\][\u@\h \w]\\$ \[\e[0m\]"
  
 #前方一致でヒストリ検索
-bind '"\e[A": history-search-backward'
-bind '"\e[0A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[0B": history-search-forward'
+#bind '"\e[A": history-search-backward'
+#bind '"\e[0A": history-search-backward'
+#bind '"\e[B": history-search-forward'
+#bind '"\e[0B": history-search-forward'
 bind '"\C-n": history-search-forward'
 bind '"\C-p": history-search-backward'
  
