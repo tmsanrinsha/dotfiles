@@ -8,8 +8,12 @@ export LC_CTYPE="ja_JP.UTF-8"
 # lessで色つきの表示に対応させる
 export LESS='-R'
 
-export LSCOLORS=exfxcxdxbxegedabagacad
-alias ls='ls -G'
+if [ `uname` = FreeBSD ];then
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    alias ls='ls -G'
+else
+    alias ls='ls --color'
+fi
 
 alias grep='grep --color=auto'
 
