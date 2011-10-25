@@ -7,7 +7,9 @@ defkanji utf-8
 defencoding utf-8
 escape ^Tt
 vbell off
+defmonitor on
 bind l windowlist
+
 #Vimのビジュアルモード風にコピー
 markkeys ' =v'
 markkeys ' =y'
@@ -20,3 +22,27 @@ bind p paste .
 defbce on 
 term xterm-256color
 termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+
+# Window関連
+#rを打ってリサイズモード。j, kでウィンドウの大きさを変える。
+#j,k以外のキーで終了
+bind r eval 'echo "Resize window"' 'command -c resize'
+#bind -c resize ^] command
+bind -c resize ; eval 'resize +1' 'command -c resize'
+bind -c resize - eval 'resize -1' 'command -c resize'
+
+bind s split
+
+#move current window
+bind j focus down
+bind ^j focus down
+bind k focus up
+bind ^k focus up
+
+#close current window
+bind q remove
+bind ^q remove
+
+#close all other windows
+bind o only
+bind ^o only
