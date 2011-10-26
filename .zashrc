@@ -34,6 +34,6 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
 #screenの自動起動
-if [ $SHLVL = 1 ];then
-    screen
-fi
+#if [ $SHLVL = 1 ];then
+#    screen
+#fi
