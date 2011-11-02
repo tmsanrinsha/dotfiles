@@ -1,5 +1,7 @@
 #bash, zsh共通設定の読み込み
-. ~/.zashrc
+if [ -f ~/.bashrc ]; then
+    . ~/.zashrc
+fi
 
 #補完
 autoload -U compinit
@@ -83,4 +85,9 @@ if [ $TERM = xterm-256color ];then
     precmd() {
         echo -ne "\ek$(basename $(pwd))\e\\"
     }
+fi
+
+
+if [ -f ~/.zsh_option ]; then
+    . ~/.zsh_option
 fi

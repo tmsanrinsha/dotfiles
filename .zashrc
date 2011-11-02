@@ -37,3 +37,8 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #if [ $SHLVL = 1 ];then
 #    screen
 #fi
+
+
+if [ -f ~/.zash_option ]; then
+    . ~/.zash_option
+fi
