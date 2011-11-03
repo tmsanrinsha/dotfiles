@@ -38,7 +38,8 @@ setopt list_packed
 
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
 local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
-PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
+#PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
+PROMPT="%{"$'\e'"[${col}m%}[%m:%~]$pct " 
 PROMPT2="%{"$'\e'"[${col}m%}%_%#%{"$'\e'"[m%} " 
 SPROMPT="%{"$'\e'"[31m%}%r is correct? [y,n,a,e]:%{"$'\e'"[m%} "
 
