@@ -1,7 +1,7 @@
 # vim:filetype=sh
 # bash, zsh共通設定
 export LANG='ja_JP.UTF-8'
-export LC_CTYPE="ja_JP.UTF-8"
+export LC_CTYPE="C"
 
 #export PAGER=/usr/local/share/vim/vim73/macros/less.sh
 #export PAGER=less
@@ -33,10 +33,11 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
-#screenの自動起動
-#if [ $SHLVL = 1 ];then
-#    screen
-#fi
+#Screenを起動していないとき自動起動
+if [ $TERM != 'xterm-256color' ];then
+    #すでに screen セッションがある場合そこに接続し、なければ作成する
+    screen -xR
+fi
 
 
 if [ -f ~/.zash_option ]; then

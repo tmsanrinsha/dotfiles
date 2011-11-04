@@ -46,3 +46,6 @@ bind ^q remove
 #close all other windows
 bind o only
 bind ^o only
+
+bind x kill
+bind ^x kill
