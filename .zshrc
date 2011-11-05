@@ -13,6 +13,12 @@ zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'b
 # emacs like keybind -e
 # vi like keybind -v
 bindkey -e
+#DELで一文字削除
+bindkey "^[[3~" delete-char
+#HOMEは行頭へ
+bindkey "^[[1~" beginning-of-line
+#Endで行末へ
+bindkey "^[[4~" end-of-line
 
 # auto change directory
 #
