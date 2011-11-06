@@ -8,6 +8,14 @@ autoload -U compinit
 compinit
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 
+#グローバルエイリアス
+alias -g L='| less'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g GI='| grep -i'
+
+
 ## Keybind configuration
 #
 # emacs like keybind -e
