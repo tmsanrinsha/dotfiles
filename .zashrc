@@ -11,6 +11,7 @@ export PAGER=/usr/local/share/vim/vim73/macros/less.sh
 #export LESSOPEN="| /usr/bin/lesspipe.sh %s"
 #export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 
+# alias
 if [ `uname` = FreeBSD ];then
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -G'
@@ -25,6 +26,12 @@ alias lla='ls -la'
 alias grep='grep --color=auto'
 alias vi='vim'
 
+# PATHの設定
+# ${HOME}/binがPATHになければ追加
+echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
+if [ $? -ne 0 ];then
+    export PATH="${PATH}:${HOME}/bin"
+fi
 
 # 現在のホストによってプロンプトの色を変える。
 case `hostname` in
