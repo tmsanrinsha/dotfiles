@@ -28,8 +28,10 @@ alias vi='vim'
 
 # PATHの設定
 # ${HOME}/binがPATHになければ追加
-echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
-if [ $? -ne 0 ];then
+if echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
+then
+    : #ヌルコマンド（何もしない）
+else
     export PATH="${PATH}:${HOME}/bin"
 fi
 
@@ -51,8 +53,7 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 
 #screenがインストールされていて、Screenを起動していないときは自動起動
 #ただし、.screenrcでterm xterm-256colorと設定しているとする
-which screen 1>/dev/null 2>&1
-if [ $? -eq 0 -a $TERM != 'xterm-256color' ];then
+if which screen 1>/dev/null 2>&1 && [ $TERM != 'xterm-256color' ];then 
     #すでに screen セッションがある場合そこに接続し、なければ作成する
     screen -xR 
 fi
