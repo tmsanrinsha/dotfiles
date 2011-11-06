@@ -18,7 +18,14 @@ else
     alias ls='ls --color'
 fi
 
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
 alias grep='grep --color=auto'
+alias G='| grep'
+alias vi='vim'
+
 
 # 現在のホストによってプロンプトの色を変える。
 case `hostname` in
