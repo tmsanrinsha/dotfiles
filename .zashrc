@@ -36,12 +36,13 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
-#Screenを起動していないとき自動起動
-if [ $TERM != 'xterm-256color' ];then
+#screenがインストールされていて、Screenを起動していないときは自動起動
+#ただし、.screenrcでterm xterm-256colorと設定しているとする
+which screen 1>/dev/null 2>&1
+if [ $? -eq 0 -a $TERM != 'xterm-256color' ];then
     #すでに screen セッションがある場合そこに接続し、なければ作成する
-    screen -xR
+    screen -xR 
 fi
-
 
 if [ -f ~/.zash_option ]; then
     . ~/.zash_option
