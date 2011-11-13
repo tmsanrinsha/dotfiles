@@ -53,9 +53,10 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 
 #screenがインストールされていて、Screenを起動していないときは自動起動
 #ただし、.screenrcでterm xterm-256colorと設定しているとする
-if which screen 1>/dev/null 2>&1 && [ $TERM != 'xterm-256color' ];then 
-    #すでに screen セッションがある場合そこに接続し、なければ作成する
-    screen -xR 
+if [ $TERM != 'xterm-256color' ];then 
+    # すでに screen セッションがある場合そこに接続し、なければ作成する
+    # screenがないときのエラーは/dev/nullに送る
+    screen -xR 2>/dev/null
 fi
 
 if [ -f ~/.zash_option ]; then
