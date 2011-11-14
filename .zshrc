@@ -33,8 +33,10 @@ bindkey "^[[4~" end-of-line
 setopt auto_cd
 
 # auto directory pushd that you can get dirs list by cd -[tab]
-#
+# cd +[tab]で逆順に表示
 setopt auto_pushd
+# cd -[tab]とcd +[tab]の役割を逆にする
+setopt pushd_minus
 
 # command correct edition before each completion attempt
 #
