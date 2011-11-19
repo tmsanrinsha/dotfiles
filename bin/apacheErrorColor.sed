@@ -1,11 +1,19 @@
 #!/usr/bin/sed -f
-# Apacheのエラーログのカラー化
+## Apacheのエラーログのカラー化
 # http://d.hatena.ne.jp/y-kawaz/20110713/1310532417
 # を元に作った
-# 使い方
+
+## ダウンロード
+# はエスケープ文字。VimだとC-v Ecsで入力できる
+# curl -O https://raw.github.com/tmsanrinsha/dotfiles/master/bin/apacheErrorColor.sed
+# などで直接ダウンロードすれば問題ない
+# テキストにコピーした場合などは直す必要がある。
+
+## 使い方
 # PATHを通して
 # tail -f /var/log/httpd-error.log | apacheErrorColor.sed
 # など
+
 ## MEMO
 # [0m  reset
 # [1m  bold
