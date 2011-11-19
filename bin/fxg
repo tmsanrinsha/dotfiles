@@ -1,0 +1,15 @@
+#!/bin/sh
+# find <dir> -type f -print0 | xargs -0 grep --color=auto <search term>を
+# するシェルスクリプト
+# 引数1がディレクトリ、引数2が検索語。
+# 引数が1つの場合は、カレントディレクトリを引数1で検索
+
+COMMAND="${0##*/}"
+usage() {
+    echo "${COMMAND} [<dir>] <search name>"
+    exit
+}
+[ "$1" = '-h' -o "$1" = '-help' ] && usage
+
+[ -d "$1" ] && DIR=$1 && shift || DIR=.
+find "${DIR}" -type f -print0 | xargs -0 grep --color=auto $1
