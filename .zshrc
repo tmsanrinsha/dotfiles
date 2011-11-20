@@ -99,7 +99,7 @@ if [ $TERM = xterm-256color ];then
         echo -ne "\ek#${1%% *}\e\\"
     }
     precmd() {
-        echo -ne "\ek$(basename))\e\\"
+        echo -ne "\ek$(basename $(pwd))\e\\"
     }
 fi
 
