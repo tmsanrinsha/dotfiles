@@ -2,6 +2,7 @@ startup_message off
 autodetach on
 defscrollback 10000
 caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
+#hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
 encoding utf-8 utf-8
 defkanji utf-8
 defencoding utf-8
