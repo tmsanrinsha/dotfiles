@@ -25,8 +25,8 @@ alias la='ls -a'
 alias lla='ls -la'
 alias grep='grep --color=auto'
 alias vi='vim'
-# カレントディレクトリのファイル名をフルパスで表示
-alias fp="find `pwd` -maxdepth 1 -mindepth 1"
+# カレントディレクトリのファイル名をFull Pathで表示
+alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 
 # PATHの設定
 # ${HOME}/binがPATHになければ追加
