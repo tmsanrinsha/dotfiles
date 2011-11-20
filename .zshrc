@@ -1,5 +1,5 @@
 #bash, zsh共通設定の読み込み
-if [ -f ~/.bashrc ]; then
+if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi
 
