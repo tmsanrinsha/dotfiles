@@ -15,7 +15,6 @@ alias -g T='| tail'
 alias -g G='| grep'
 alias -g GI='| grep -i'
 
-
 ## Keybind configuration
 #
 # emacs like keybind -e
@@ -100,7 +99,7 @@ if [ $TERM = xterm-256color ];then
         echo -ne "\ek#${1%% *}\e\\"
     }
     precmd() {
-        echo -ne "\ek$(basename $(pwd))\e\\"
+        echo -ne "\ek$(basename))\e\\"
     }
 fi
 
