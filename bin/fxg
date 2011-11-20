@@ -12,4 +12,6 @@ usage() {
 [ "$1" = '-h' -o "$1" = '-help' ] && usage
 
 [ -d "$1" ] && DIR=$1 && shift || DIR=.
-find "${DIR}" -type f -print0 | xargs -0 grep --color=auto $1
+#find "${DIR}" -type f -print0 | xargs -0 grep --color=auto $1
+#ドットで始まるディレクトリは検索しない
+find "${DIR}" -type f ! -regex ".*/\..*/.*" -print0 | xargs -0 grep --color=auto $1
