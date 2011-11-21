@@ -3,9 +3,19 @@ autodetach on
 defscrollback 10000
 caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
 #hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
-encoding utf-8 utf-8
-defkanji utf-8
-defencoding utf-8
+
+#defkanji utf-8   defkanjiは設定しなくても大丈夫みたい
+defencoding utf-8 #defaltのエンコード
+
+#encoding utf-8 utf-8
+#そのウィンドウのエンコード。
+#defencodingで設定しているのでここで設定しなくてよい気がする
+#むしろ特定のウィンドウのエンコードを変更したいときにこのコマンドを使う
+#第一引数が文字のエンコード。第2引数が端末のエンコード
+#例えば端末のエンコードがUTF-8でEUC-JPのファイルを見たい場合は
+#Ctrl+A :encoding eucjpと打つ
+#端末のエンコードはいじらなくてよい
+
 escape ^Tt
 vbell off
 defmonitor on
