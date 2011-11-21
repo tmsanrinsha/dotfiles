@@ -16,7 +16,7 @@ defencoding utf-8 #defaltのエンコード
 #Ctrl+A :encoding eucjpと打つ
 #端末のエンコードはいじらなくてよい
 
-escape ^Tt
+escape ^Aa
 vbell off
 defmonitor on
 bind l windowlist
