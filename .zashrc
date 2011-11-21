@@ -25,6 +25,7 @@ alias la='ls -a'
 alias lla='ls -la'
 alias grep='grep --color=auto'
 alias vi='vim'
+alias vie='vim -R' #readonlyで開く。view
 # カレントディレクトリのファイル名をFull Pathで表示
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 
