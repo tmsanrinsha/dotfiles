@@ -1,43 +1,40 @@
 startup_message off
 autodetach on
+vbell off
+defmonitor on
 defscrollback 10000
 altscreen on #Vimを起動して終了したときVimの画面を残さないなど
 caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
 #hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
-
-#defkanji utf-8   defkanjiは設定しなくても大丈夫みたい
-defencoding utf-8 #defaltのエンコード
-
-#encoding utf-8 utf-8
-#そのウィンドウのエンコード。
-#defencodingで設定しているのでここで設定しなくてよい気がする
-#むしろ特定のウィンドウのエンコードを変更したいときにこのコマンドを使う
-#第一引数が文字のエンコード。第2引数が端末のエンコード
-#例えば端末のエンコードがUTF-8でEUC-JPのファイルを見たい場合は
-#Ctrl+A :encoding eucjpと打つ
-#端末のエンコードはいじらなくてよい
-
-escape ^Aa
-vbell off
-defmonitor on
-bind l windowlist
-
-#Vimのビジュアルモード風にコピー
-markkeys ' =v'
-markkeys ' =y'
-#/?をインクリメンタルサーチに
-markkeys "^S=/"
-markkeys "^R=?"
-bind p paste .
+escape ^A^A
+#bind l windowlist
 
 #256色対応
 defbce on 
 term xterm-256color
 termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
 
+#-------------------------------------------------------------------------------
+# 文字エンコーディング
+#-------------------------------------------------------------------------------
+defkanji utf-8
+defencoding utf-8 #defaltのエンコード
+encoding utf-8 utf-8
+# そのウィンドウのエンコード。
+# 第一引数が文字のエンコード。第2引数が端末のエンコード
+# 例えば端末のエンコードがUTF-8でEUC-JPのファイルを見たい場合は
+# Ctrl+A :encoding eucと打つ
+# 端末のエンコードはいじらなくてよい
+bind u encoding utf8
+bind ^U encoding utf8
+bind e encoding euc
+bind ^E encoding euc
+
+#-------------------------------------------------------------------------------
 # Window関連
-#rを打ってリサイズモード。j, kでウィンドウの大きさを変える。
-#j,k以外のキーで終了
+#-------------------------------------------------------------------------------
+# rを打ってリサイズモード。;,-でウィンドウの大きさを変える。
+# ;,-以外のキーで終了
 bind r eval 'echo "Resize window"' 'command -c resize'
 #bind -c resize ^] command
 bind -c resize ; eval 'resize +1' 'command -c resize'
@@ -61,3 +58,14 @@ bind ^o only
 
 bind x kill
 bind ^x kill
+
+#-------------------------------------------------------------------------------
+# コピーモード
+#-------------------------------------------------------------------------------
+#Vimのビジュアルモード風にコピー
+markkeys ' =v'
+markkeys ' =y'
+#/?をインクリメンタルサーチに
+markkeys "^S=/"
+markkeys "^R=?"
+bind p paste .
