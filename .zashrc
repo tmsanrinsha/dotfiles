@@ -1,15 +1,15 @@
 # vim:filetype=sh
 # bash, zsh共通設定
 export LANG='ja_JP.UTF-8'
-#export LC_CTYPE="C"
+export LC_CTYPE="C"
 
-export PAGER=/usr/local/share/vim/vim73/macros/less.sh
+#export PAGER=/usr/local/share/vim/vim73/macros/less.sh
 #export PAGER=less
 # lessで色つきの表示に対応させる
 #export LESS='-R'
 #export LESS='-M' 
 #export LESSOPEN="| /usr/bin/lesspipe.sh %s"
-#export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
+export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 
 # alias
 if [ `uname` = FreeBSD ];then
@@ -30,24 +30,18 @@ alias vie='vim -R' #readonlyで開く。view
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 
 # PATHの設定
-# ${HOME}/binがPATHになければ追加
+# $HOME/binがPATHになければ追加
 if echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
 then
     : #ヌルコマンド（何もしない）
 else
-    export PATH="${PATH}:${HOME}/bin"
+    export PATH="$HOME/bin:$PATH"
 fi
 
-#gitのbinディレクトリにPATHを通す
-export PATH="${PATH}:${HOME}/git/dotfiles/bin"
-
-# 現在のホストによってプロンプトの色を変える。
-case `hostname` in
-    localhost.com) col=33;;  # 黄
-    water) col=36;;  # 水色
-    green) col=32;;  # 緑
-    *) col=35;; # それ以外のホストは紫
-esac
+# $HOME/local/binと$HOME/git/dotfiles/binにパスを通す
+# $HOME/local/binは自分の環境でコンパイルしたプログラムが入っている
+# $HOME/git/dotfiles/binはGitHubに上げているスクリプトが入っている 
+export PATH="$HOME/local/bin:$HOME/git/dotfiles/bin:$PATH"
 
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要

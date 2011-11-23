@@ -4,9 +4,15 @@ vbell off
 defmonitor on
 defscrollback 10000
 altscreen on #Vimを起動して終了したときVimの画面を残さないなど
+# 普通のANSI Color
 caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
+# Solarized dark
+# caption always "%{= KB} %-w%?%F%{= kr}%:%{= kW}%? %n %t %{-}%+w"
+# Solarized light
+#caption always "%{= WY} %-w%?%F%{= mw}%:%{= kW}%? %n %t %{-}%+w"
 #hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
-escape ^A^A
+
+escape ^Zz
 #bind l windowlist
 
 #256色対応

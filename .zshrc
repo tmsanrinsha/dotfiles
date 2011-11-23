@@ -26,6 +26,9 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 #Endで行末へ
 bindkey "^[[4~" end-of-line
+# 単語境界にならない記号の設定
+# /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # auto change directory
 #
@@ -53,9 +56,47 @@ setopt list_packed
 
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
 local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
+
+# Solarized用に作ったがボツ
+# 現在のホストによってプロンプトの色を変える。
+# http://absolute-area.com/post/6664864690/zshを参考にした
+#if [ `uname` = FreeBSD ];then
+#    colnum=$((0x`hostname | md5 | cut -c1` % 8))
+#else
+#    colnum=$((0x`hostname | md5sum | cut -c1` % 8))
+#fi
+# hostnameをmd5でハッシュに変更して、最初の一文字を取る
+#colnum=$((0x`hostname | md5 | cut -c1` % 8))
+# これを16進法の数値にして8の余りを求める。
+# 8の余りを求めたのはsolarizedの8色だけ使いたいので
+#case $colnum in
+#    0) col=136;;  # yellow   
+#    1) col=166;;  # brred    
+#    2) col=160;;  # red      
+#    3) col=125;;  # magenta  
+#    4) col=61;;   # brmagenta
+#    5) col=33;;   # blue     
+#    6) col=37;;   # cyan     
+#    7) col=64;;   # green    
+#esac
+
+# 現在のホストによってプロンプトの色を変える。
+# http://absolute-area.com/post/6664864690/zshを参考にした
+if [ `uname` = FreeBSD ];then
+    col=$((0x`hostname | md5 | cut -c1-8` % 226 + 16))
+else
+    col=$((0x`hostname | md5sum | cut -c1-8` % 226 + 16))
+fi
+# hostnameをmd5でハッシュに変更する
+# 長いとエラーが出るので最初の8文字を使う
+# 0-15はdefault terminal color、
+# 最後の24色はグレースケールなのでこれを取り除いた226色を使う
+# xtermの色についてはこちら
+# http://frexx.de/xterm-256-notes/
+
 #PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
-PROMPT="%{"$'\e'"[${col}m%}[%m:%~]$pct " 
-PROMPT2="%{"$'\e'"[${col}m%}%_%#%{"$'\e'"[m%} " 
+PROMPT="%{"$'\e'"[38;5;${col}m%}[%m:%~]$pct " 
+PROMPT2="%{"$'\e'"[38;5;${col}m%}%_%#%{"$'\e'"[m%} " 
 SPROMPT="%{"$'\e'"[31m%}%r is correct? [y,n,a,e]:%{"$'\e'"[m%} "
 
 # set terminal title including current directory
@@ -96,10 +137,10 @@ setopt share_history        # share command history data
 #.screenrcでterm xterm-256colorと設定している場合
 if [ $TERM = xterm-256color ];then
     preexec() {
-        echo -ne "\ek#${1%% *}\e\\"
+        echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
     }
     precmd() {
-        echo -ne "\ek$(basename $(pwd))\e\\"
+        echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
     }
 fi
 
