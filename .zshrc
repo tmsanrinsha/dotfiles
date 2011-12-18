@@ -145,6 +145,6 @@ if [ $TERM = xterm-256color ];then
 fi
 
 
-if [ -f ~/.zsh_option ]; then
-    . ~/.zsh_option
+if [ -f ~/.zshrc.local ]; then
+    . ~/.zshrc.local
 fi
