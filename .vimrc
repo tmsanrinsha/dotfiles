@@ -244,13 +244,15 @@ inoremap jj <ESC>
 set encoding=utf-8
 set fileencoding=utf-8
 
-" fileencodings
 " ファイルのエンコードの判定を前から順番にする
 " ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
 " BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
-" 使用頻度が高そうな順番にした
 " http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
-set fileencodings=ucs-bom,utf-8,euc-jp,cp932,sjis,cp20932,iso-2022-jp
+" Vimテクニックバイブル
+" 2-7ファイルの文字コードを変換するに書いてあるfileencodingsを変更して
+" ucs-bomを最初にした
+" また、2つあるeuc-jpの2番目を消した
+set fileencodings=ucs-bom,iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,eucjp-ms,cp932
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double

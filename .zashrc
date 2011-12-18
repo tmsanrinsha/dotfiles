@@ -54,7 +54,7 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 if [ $TERM != 'xterm-256color' ];then 
     # すでに screen セッションがある場合そこに接続し、なければ作成する
     # screenがないときのエラーは/dev/nullに送る
-    screen -R 2>/dev/null
+    screen -RU 2>/dev/null
 fi
 
 if [ -f ~/.zashrc.local ]; then
