@@ -14,9 +14,9 @@ bind '"\C-p": history-search-backward'
 # 現在のホストによってプロンプトの色を変える。
 # http://absolute-area.com/post/6664864690/zshを参考にした
 if [ `uname` = FreeBSD ];then
-    col=$((0x`hostname | md5 | cut -c1-8` % 226 + 16))
+    col=$((0x`hostname | md5 | cut -c1-8` % 214 + 17))
 else
-    col=$((0x`hostname | md5sum | cut -c1-8` % 226 + 16))
+    col=$((0x`hostname | md5sum | cut -c1-8` % 214 + 17))
 fi
 # hostnameをmd5でハッシュに変更する
 # 長いとエラーが出るので最初の8文字を使う
