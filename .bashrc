@@ -52,6 +52,6 @@ if [ $TERM = xterm-256color ];then
     PROMPT_COMMAND="$PROMPT_COMMAND; screen_title" 
 fi
 
-if [ -f ~/.bash_option ]; then
-    . ~/.bash_option
+if [ -f ~/.bashrc.local ]; then
+    . ~/.bashrc.local
 fi
