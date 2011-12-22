@@ -9,3 +9,21 @@ set output-meta on
 #"\e[0B": history-search-forward
 "\C-n": history-search-forward
 "\C-p": history-search-backward
+
+# readlineマクロ
+# http://d.hatena.ne.jp/xyk/touch/20110207/1297045517http://d.hatena.ne.jp/xyk/touch/20110207/http://d.hatena.ne.jp/xyk/touch/20110207/12970455171297045517
+$if mysql
+    # MySQL pager
+    # http://d.hatena.ne.jp/xyk/touch/20110207/1297045517
+    # MySQLの出力先をVimにする
+    "\C-xv": "\P vim - -R -c 'set nowrap' -c 'set ft=mysql'"
+    # - 標準出力を標準入力として受け取る
+    # -R readonlyで開く。readonlyにしないと閉じるときに!が必要になるので
+    # -c   ~/.vimrc ファイルを読み込んだ後に、コマンドを実行
+    # -cmd ~/.vimrc ファイルを読み込む前に、コマンドを実行
+    # set nowrap テキストを折り返さない
+    # set ft=mysql filetypeをMySQLにする
+    #
+    # pagerの設定を解除
+    "\C-xq": nopager
+$endif
