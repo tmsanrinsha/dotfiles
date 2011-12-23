@@ -11,13 +11,43 @@ fi
 bind '"\C-n": history-search-forward'
 bind '"\C-p": history-search-backward'
 
+# set prompt
+
+# Solarized
+# https://github.com/seebi/dircolors-solarized
 # 現在のホストによってプロンプトの色を変える。
 # http://absolute-area.com/post/6664864690/zshを参考にした
 if [ `uname` = FreeBSD ];then
-    col=$((0x`hostname | md5 | cut -c1-8` % 214 + 17))
+    colnum=$((0x`hostname | md5 | cut -c1` % 8))
 else
-    col=$((0x`hostname | md5sum | cut -c1-8` % 214 + 17))
+    colnum=$((0x`hostname | md5sum | cut -c1` % 8))
 fi
+# `hostname | md5 | cut -c1`
+# hostnameをmd5でハッシュに変更して、最初の一文字を取る
+# $((0x`...` % 8))
+# これを16進法の数値にして8の余りを求める。
+# 8の余りを求めたのはsolarizedの8色だけ使いたいので
+case $colnum in
+    0) col=136;;  # yellow   
+    1) col=166;;  # brred    
+    2) col=160;;  # red      
+    3) col=125;;  # magenta  
+    4) col=61;;   # brmagenta
+    5) col=33;;   # blue     
+    6) col=37;;   # cyan     
+    7) col=64;;   # green    
+esac
+
+
+
+
+# 現在のホストによってプロンプトの色を変える。
+# http://absolute-area.com/post/6664864690/zshを参考にした
+#if [ `uname` = FreeBSD ];then
+#    col=$((0x`hostname | md5 | cut -c1-8` % 214 + 17))
+#else
+#    col=$((0x`hostname | md5sum | cut -c1-8` % 214 + 17))
+#fi
 # hostnameをmd5でハッシュに変更する
 # 長いとエラーが出るので最初の8文字を使う
 # 0-15はdefault terminal color、
