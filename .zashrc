@@ -7,7 +7,7 @@
 #export LESS='-R'
 #export LESS='-M' 
 #export LESSOPEN="| /usr/bin/lesspipe.sh %s"
-export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
+#export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 
 # alias
 if [ `uname` = FreeBSD ];then
@@ -28,7 +28,7 @@ alias vie='vim -R' #readonlyで開く。view
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 
 # PATHの設定
-# $HOME/binがPATHになければ追加
+# $HOME/binがPATHになければ追加。シェルスクリプトなどを置くフォルダ
 if echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
 then
     : #ヌルコマンド（何もしない）
@@ -36,10 +36,22 @@ else
     export PATH="$HOME/bin:$PATH"
 fi
 
-# $HOME/local/binと$HOME/git/dotfiles/binにパスを通す
-# $HOME/local/binは自分の環境でコンパイルしたプログラムが入っている
-# $HOME/git/dotfiles/binはGitHubに上げているスクリプトが入っている 
-export PATH="$HOME/local/bin:$HOME/git/dotfiles/bin:$PATH"
+# $HOME/git/dotfiles/binがPATHになければ追加。GitHubに上げているスクリプトが入っているフォルダ
+if echo $PATH | grep "\(^\|:\)${HOME}/git/dotfiles/bin\($\|:\)" 1>/dev/null 2>&1
+then
+    : #ヌルコマンド（何もしない）
+else
+    export PATH="$HOME/git/dotfiles/bin:$PATH"
+fi
+
+# $HOME/local/binがPATHになければ追加。makeで作った実行ファイルを置くフォルダ
+if echo $PATH | grep "\(^\|:\)${HOME}/local/bin\($\|:\)" 1>/dev/null 2>&1
+then
+    : #ヌルコマンド（何もしない）
+else
+    export PATH="$HOME/local/bin:$PATH"
+fi
+
 
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
