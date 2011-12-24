@@ -13,7 +13,7 @@ SED=`which sed`
 
 [ -d "$1" ] && DIR=$1 && shift || DIR=.
 (cd ${DIR}; pwd)
-${FIND} "${DIR}" "$@" | sort | \
+${FIND} "${DIR}" "$@" | \
 ${SED} -e "s,^${DIR},," \
        -e '/^$/d' \
        -e 's,[^/]*/\([^/]*\)$,\+--\1,' \
