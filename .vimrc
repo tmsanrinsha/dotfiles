@@ -357,5 +357,5 @@ if v:version >= 702
 endif
 
 if filereadable(expand('~/.vimrc.local'))
-    :source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
