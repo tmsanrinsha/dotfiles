@@ -168,7 +168,7 @@ endif
 " 検索
 "-------------------------------------------------------------------------------
 set incsearch
-set ignorecase "検索パターンに大文字を含まなければ大文字小文字を区別しない
+"set ignorecase "検索パターンに大文字を含まなければ大文字小文字を区別しない
 set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
 set nohlsearch "検索結果をハイライトしない
 
@@ -221,9 +221,9 @@ elseif &term == "xterm" && v:version > 603
     let &t_EI .= "\e[1 q"
 endif
 
-set notimeout      " マッピングについてタイムアウトしない
-set ttimeout       " 端末のキーコードについてタイムアウトする
-set timeoutlen=100 " 100 ミリ秒後にタイムアウトする
+"set notimeout      " マッピングについてタイムアウトしない
+"set ttimeout       " 端末のキーコードについてタイムアウトする
+set timeoutlen=300 " ミリ秒後にタイムアウトする
 
 
 " カッコ・タグの対応
@@ -337,6 +337,16 @@ if v:version >= 702
     "let g:neocomplcache_disable_auto_complete = 1
     "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+    " 結局Recommended key-mappingsが使いやすい
+    " Shell like behavior(my setting)
+    " complet_common_stringではsmartcaseが効かない
+    " 余計な候補を出して欲しくないので
+    " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
+    " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
+    "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
+    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
