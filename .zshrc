@@ -7,6 +7,11 @@ fi
 autoload -U compinit
 compinit
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+# Incremental completion on zsh
+# http://mimosa-pudica.net/zsh-incremental.html
+if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
+    . ~/.zsh/plugin/incr-0.2.zsh
+fi
 
 #グローバルエイリアス
 alias -g L='| less'
@@ -26,6 +31,7 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 #Endで行末へ
 bindkey "^[[4~" end-of-line
+
 # 単語境界にならない記号の設定
 # /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
@@ -34,8 +40,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 #
 setopt auto_cd
 
-# auto directory pushd that you can get dirs list by cd -[tab]
-# cd +[tab]で逆順に表示
+# auto directory pushd that you can get dirs list by cd -(+)[tab]
+# -:古いのが上、+:新しいのが上
 setopt auto_pushd
 # cd -[tab]とcd +[tab]の役割を逆にする
 setopt pushd_minus
@@ -48,11 +54,31 @@ setopt correct
 #
 setopt list_packed
 
-
-## Default shell configuration
+#----------------------------------------------------------
+# 履歴
+#----------------------------------------------------------
+# historical backward/forward search with linehead string binded to ^P/^N
 #
-# set prompt
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+#カーソル位置が行末になったほうがいい人は
+#history-beginning-search-backward-end
+#history-beginning-search-forward-end
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
 
+## Command history configuration
+#
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+#----------------------------------------------------------
+# プロンプト
+#----------------------------------------------------------
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
 local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
 
@@ -110,27 +136,6 @@ kterm*|xterm)
     }
     ;;
 esac
-
- 
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-#カーソル位置が行末になったほうがいい人は
-#history-beginning-search-backward-end
-#history-beginning-search-forward-end
-bindkey "^P" history-beginning-search-backward
-bindkey "^N" history-beginning-search-forward
-
-
-## Command history configuration
-#
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
 
 #----------------------------------------------------------
 # screenの設定
