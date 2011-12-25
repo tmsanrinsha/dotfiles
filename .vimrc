@@ -221,9 +221,9 @@ elseif &term == "xterm" && v:version > 603
     let &t_EI .= "\e[1 q"
 endif
 
-"set notimeout      " マッピングについてタイムアウトしない
-"set ttimeout       " 端末のキーコードについてタイムアウトする
-"set timeoutlen=100 " 100 ミリ秒後にタイムアウトする
+set notimeout      " マッピングについてタイムアウトしない
+set ttimeout       " 端末のキーコードについてタイムアウトする
+set timeoutlen=100 " 100 ミリ秒後にタイムアウトする
 
 
 " カッコ・タグの対応
