@@ -286,7 +286,8 @@ if v:version >= 702
     " Use neocomplcache.
     let g:neocomplcache_enable_at_startup = 1
     " Use smartcase.
-    let g:neocomplcache_enable_smart_case = 1
+    "let g:neocomplcache_enable_smart_case = 1
+    let g:neocomplcache_enable_smart_case = 0
     " Use camel case completion.
     let g:neocomplcache_enable_camel_case_completion = 1
     " Use underbar completion.
@@ -317,16 +318,16 @@ if v:version >= 702
     " SuperTab like snippets behavior.
     "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    "" Recommended key-mappings.
+    "" <CR>: close popup and save indent.
+    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    "" <TAB>: completion.
+    "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "" <C-h>, <BS>: close popup and delete backword char.
+    "inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    "inoremap <expr><C-y>  neocomplcache#close_popup()
+    "inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
     " AutoComplPop like behavior.
     "let g:neocomplcache_enable_auto_select = 1
@@ -338,14 +339,13 @@ if v:version >= 702
     "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-    " 結局Recommended key-mappingsが使いやすい
     " Shell like behavior(my setting)
     " complet_common_stringではsmartcaseが効かない
     " 余計な候補を出して欲しくないので
     " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
     " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
-    "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
-    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
+    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
 
     " Enable omni completion.

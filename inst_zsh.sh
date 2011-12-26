@@ -32,14 +32,17 @@ cd zsh-$VERSION || exit 1
 make || exit 1
 make install || exit 1
 
-# ログインシェルの変更は
+# ログインシェルの変更
 # chsh -s $HOME/loca/bin/zsh  
 # で変更しようとすると
-# chsh: $HOME/loca/bin/zsh: non-standard shell
+# chsh: <$HOME>/loca/bin/zsh: non-standard shell
 # というエラーが出て変更できない
-# root権限がある場合はvipwで変更する
+# sudo vi /etc/shellsで
+# <$HOME>/local/bin/zshを追記しておくと上記のエラーはなくなる
+# わざわざ/etc/shells書き換えなくても
+# sudo vipwで変更することもできる
 # もしPATHを間違えると、ログインできなくなってしまうので
-# vipwで変更したら、別の端末を立ち上げてログイン出来るか確認すること
+# ログインシェルを変更したら、別の端末を立ち上げてログイン出来るか確認すること
 
 # root権限がなくて、現在のログインシェルがbashの場合は、.bash_profileの最初の部分に
 # if [ -f $HOME/local/bin/zsh ]; then
