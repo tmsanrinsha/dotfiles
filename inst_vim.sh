@@ -35,7 +35,7 @@ fi
 
 cd $HOME/local/src/vim$(echo $VERSION | tr -d .) || exit 1
 #patchが途中で止まってしまう。途中で我慢して./configure以下を手で入力した
-cat patches/${VERSION}.* | patch -p0 || exit 1
+cat patches/${VERSION}.* | patch -p0
 
 # ./configure --helpでオプションの詳細が見れる
 # --with-featuresで何が入るかはこちら
@@ -43,6 +43,8 @@ cat patches/${VERSION}.* | patch -p0 || exit 1
 ./configure \
 --with-features=big \
 --enable-pythoninterp \
+--disable-gui \
+--without-x 
 --prefix=$HOME/local || exit 1
  
 make || exit 1
