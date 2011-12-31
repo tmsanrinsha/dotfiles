@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash -x
 # screenを$HOME/local/bin以下にインストールする
-# うまくいかなかった
+# automake14とgmakeが必要
 # http://yskwkzhr.blogspot.com/2011/12/lets-use-development-version-gnu-screen.htmlの
 # 開発版 GNU Screen 導入手順に従う
 GIT_DIR=$HOME/git
@@ -52,4 +52,4 @@ cd screen/src || exit 1
 --enable-rxvt_osc \
 --enable-use-locale \
 --enable-telnet || exit 1
-make & make install
+gmake & gmake install
