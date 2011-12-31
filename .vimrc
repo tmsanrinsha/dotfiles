@@ -223,7 +223,7 @@ endif
 
 "set notimeout      " マッピングについてタイムアウトしない
 "set ttimeout       " 端末のキーコードについてタイムアウトする
-set timeoutlen=300 " ミリ秒後にタイムアウトする
+set timeoutlen=500 " ミリ秒後にタイムアウトする
 
 
 " カッコ・タグの対応
