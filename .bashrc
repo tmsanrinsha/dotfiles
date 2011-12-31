@@ -11,6 +11,10 @@ fi
 bind '"\C-n": history-search-forward'
 bind '"\C-p": history-search-backward'
 
+# 補完の設定
+complete -d cd
+complete -c man
+
 # set prompt
 
 # Solarized
@@ -37,9 +41,6 @@ case $colnum in
     6) col=37;;   # cyan     
     7) col=64;;   # green    
 esac
-
-
-
 
 # 現在のホストによってプロンプトの色を変える。
 # http://absolute-area.com/post/6664864690/zshを参考にした
