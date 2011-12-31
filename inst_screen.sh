@@ -1,8 +1,13 @@
 #!/usr/local/bin/bash -x
 # screenを$HOME/local/bin以下にインストールする
-# automake14とgmakeが必要
-# http://yskwkzhr.blogspot.com/2011/12/lets-use-development-version-gnu-screen.htmlの
+# http://sanrinsha.lolipop.jp/blog/2011/12/%E9%96%8B%E7%99%BA%E7%89%88gnu-screen%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html
+# automakeとgmakeが必要
+# FreeBSDの場合は
+# sudo pkg_add -r automake14
+# sudo pkg_add -r gmake
 # 開発版 GNU Screen 導入手順に従う
+# http://yskwkzhr.blogspot.com/2011/12/lets-use-development-version-gnu-screen.htmlの
+# ホームディレクトリにgitというディレクトリがあるとする
 GIT_DIR=$HOME/git
 mkdir -p $HOME/local/{bin,src}
 cd $HOME/local/src/ || exit 1
@@ -41,7 +46,7 @@ else
     exit 1
 fi
 
-cd $HOME/git || exit 1
+cd $GIT_DIR || exit 1
 git clone git://git.savannah.gnu.org/screen.git || exit 1
 cd screen/src || exit 1
 ./autogen.sh || exit 1
