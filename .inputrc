@@ -16,7 +16,7 @@ $if mysql
     # MySQL pager
     # http://d.hatena.ne.jp/xyk/touch/20110207/1297045517
     # MySQLの出力先をVimにする
-    "\C-xv": "\P vim - -R -c 'set nowrap' -c 'set ft=mysql'"
+    "\C-xv": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'"
     # http://vim-jp.org/vimdoc-ja/starting.html
     # - 標準入力を読み込む
     # -R readonlyで開く。readonlyにしないと閉じるときに!が必要になるので
@@ -26,5 +26,5 @@ $if mysql
     # set ft=mysql filetypeをMySQLにする
     #
     # pagerの設定を解除
-    "\C-xq": nopager
+    "\C-xq": "nopager"
 $endif
