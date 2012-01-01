@@ -11,7 +11,7 @@ set output-meta on
 "\C-p": history-search-backward
 
 # readlineマクロ
-# http://d.hatena.ne.jp/xyk/touch/20110207/1297045517http://d.hatena.ne.jp/xyk/touch/20110207/http://d.hatena.ne.jp/xyk/touch/20110207/12970455171297045517
+# http://d.hatena.ne.jp/hirose31/20090531/1243777478
 $if mysql
     # MySQL pager
     # http://d.hatena.ne.jp/xyk/touch/20110207/1297045517

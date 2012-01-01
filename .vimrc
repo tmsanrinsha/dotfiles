@@ -69,15 +69,6 @@ nnoremap <S-Tab> :bp<CR>
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
 
-" buftabs 
-" http://www.vim.org/scripts/script.php?script_id=1664
-" バッファタブにパスを省略してファイル名のみ表示する
-let g:buftabs_only_basename=1
-" バッファタブをステータスライン内に表示する
-let g:buftabs_in_statusline=1
-" 現在のバッファをハイライト
-let g:buftabs_active_highlight_group="Visual"
-let g:buftabs_separator = " "  
 "-------------------------------------------------------------------------------
 " ウィンドウ
 "-------------------------------------------------------------------------------
