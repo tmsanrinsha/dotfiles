@@ -18,7 +18,8 @@ set ruler
 "               2: 常に表示
 set laststatus=2
 
-set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
+"set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
+set statusline=%F%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 
 "256色
 set t_Co=256
@@ -184,14 +185,10 @@ vnoremap ?v <ESC>?\%V
 " カーソル
 "-------------------------------------------------------------------------------
 "カーソルを表示行で移動する。
-nnoremap j gj
-nnoremap k gk
-nnoremap <down> gj
-nnoremap <up> gk
-vnoremap j gj
-vnoremap k gk
-vnoremap <down> gj
-vnoremap <up> gk
+noremap j gj
+noremap k gk
+noremap <down> gj
+noremap <up> gk
  
 " backspaceキーの挙動を設定する
 " " indent        : 行頭の空白の削除を許す
