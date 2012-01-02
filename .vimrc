@@ -107,26 +107,26 @@ set pastetoggle=<F11>
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
-if &term =~ "xterm" && v:version > 603
-    "for screen
-    " .screenrcでterm xterm-256colorとしている場合 
-    if &term == "xterm-256color"
-        let &t_SI = &t_SI . "\eP\e[?2004h\e\\"
-        let &t_EI = "\eP\e[?2004l\e\\" . &t_EI
-        let &pastetoggle = "\e[201~"
-    elseif &term == "xterm" 
-        let &t_SI .= &t_SI . "\e[?2004h"  
-        let &t_EI .= "\e[?2004l" . &t_EI
-        let &pastetoggle = "\e[201~" 
-    endif
+"if &term =~ "xterm" && v:version > 603
+"    "for screen
+"    " .screenrcでterm xterm-256colorとしている場合 
+"    if &term == "xterm-256color"
+"        let &t_SI = &t_SI . "\eP\e[?2004h\e\\"
+"        let &t_EI = "\eP\e[?2004l\e\\" . &t_EI
+"        let &pastetoggle = "\e[201~"
+"    elseif &term == "xterm" 
+"        let &t_SI .= &t_SI . "\e[?2004h"  
+"        let &t_EI .= "\e[?2004l" . &t_EI
+"        let &pastetoggle = "\e[201~" 
+"    endif
 
-    function XTermPasteBegin(ret) 
-        set paste 
-        return a:ret 
-    endfunction 
-
-    imap <special> <expr> <Esc>[200~ XTermPasteBegin("") 
-endif
+"    function XTermPasteBegin(ret) 
+"        set paste 
+"        return a:ret 
+"    endfunction 
+"
+"    imap <special> <expr> <Esc>[200~ XTermPasteBegin("") 
+"endif
 
 "-------------------------------------------------------------------------------
 " マウス
@@ -199,15 +199,15 @@ set backspace=indent,eol,start
 "カーソルの形状の変化
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
 
-if &term == "xterm-256color" && v:version > 603
-    "let &t_SI .= "\eP\e[3 q\e\\"
-    let &t_SI .= "\eP\e[?25h\e[5 q\e\\"
-    let &t_EI .= "\eP\e[1 q\e\\"
-elseif &term == "xterm" && v:version > 603
-    "let &t_SI .= "\e[3 q"
-    let &t_SI .= "\e[?25h\e[5 q"
-    let &t_EI .= "\e[1 q"
-endif
+"if &term == "xterm-256color" && v:version > 603
+"    "let &t_SI .= "\eP\e[3 q\e\\"
+"    let &t_SI .= "\eP\e[?25h\e[5 q\e\\"
+"    let &t_EI .= "\eP\e[1 q\e\\"
+"elseif &term == "xterm" && v:version > 603
+"    "let &t_SI .= "\e[3 q"
+"    let &t_SI .= "\e[?25h\e[5 q"
+"    let &t_EI .= "\e[1 q"
+"endif
 
 "set notimeout      " マッピングについてタイムアウトしない
 "set ttimeout       " 端末のキーコードについてタイムアウトする
