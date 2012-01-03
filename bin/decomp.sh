@@ -3,14 +3,16 @@
 
 COMMAND="${0##*/}"
 usage() {
-    echo "${COMMAND} filename"
+    echo "usage: ${COMMAND} filename"
     exit
 }
 
 [ "$1" = '-h' -o "$1" = '-help' -o $# -ne 1 ] && usage
 
 # 変数展開して拡張子の取得
-EXTENSION="${1#*.}"
+#EXTENSION="${1#*.}"
+EXTENSION="${1##*.}"
+echo $EXTENSION
 
 # 解凍方法は
 # http://uguisu.skr.jp/Windows/tar.html
