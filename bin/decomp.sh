@@ -9,10 +9,12 @@ usage() {
 
 [ "$1" = '-h' -o "$1" = '-help' -o $# -ne 1 ] && usage
 
-# 変数展開して拡張子の取得
-#EXTENSION="${1#*.}"
+# 変数展開して一番後ろの拡張子の取得
 EXTENSION="${1##*.}"
-echo $EXTENSION
+# 後ろから2番目の拡張子がtarのときはtarを追加する
+if echo $1 | grep "\.tar\.[^.]*$" 1>/dev/null 2>&1; then
+    EXTENSION=tar.$EXTENSION
+fi
 
 # 解凍方法は
 # http://uguisu.skr.jp/Windows/tar.html
