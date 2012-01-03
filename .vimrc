@@ -50,10 +50,12 @@ filetype plugin indent on
 "コマンドモードの補完をシェルコマンドの補完のようにする
 "http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
 set wildmode=list:longest
+
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>
 
+set history=100000 "保存する履歴の数
 
 "-------------------------------------------------------------------------------
 " バッファ
