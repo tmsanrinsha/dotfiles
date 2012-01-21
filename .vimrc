@@ -336,6 +336,8 @@ if v:version >= 702
     " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
     "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    
+    
 
 
     " Enable omni completion.
