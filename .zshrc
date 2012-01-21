@@ -14,6 +14,7 @@ if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
 fi
 
 #グローバルエイリアス
+alias -g A='| awk'
 alias -g L='| less'
 alias -g H='| head'
 alias -g T='| tail'
