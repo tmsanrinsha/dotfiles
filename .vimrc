@@ -19,7 +19,7 @@ set ruler
 set laststatus=2
 
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
-set statusline=%F%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 
 "256色
 set t_Co=256
@@ -71,6 +71,16 @@ nnoremap <S-Tab> :bp<CR>
 
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
+
+" buftabs
+" http://www.vim.org/scripts/script.php?script_id=1664
+" バッファタブにパスを省略してファイル名のみ表示する
+let g:buftabs_only_basename=1
+" バッファタブをステータスライン内に表示する
+let g:buftabs_in_statusline=1
+" 現在のバッファをハイライト
+let g:buftabs_active_highlight_group="Visual"
+let g:buftabs_separator = " " 
 
 "-------------------------------------------------------------------------------
 " ウィンドウ
@@ -238,11 +248,13 @@ set fileencoding=utf-8
 " ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
 " BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
 " http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
-" Vimテクニックバイブル
-" 2-7ファイルの文字コードを変換するに書いてあるfileencodingsを変更して
-" ucs-bomを最初にした
-" また、2つあるeuc-jpの2番目を消した
-set fileencodings=ucs-bom,iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,eucjp-ms,cp932
+" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
+" ただし2つあるeuc-jpの2番目を消した
+if has("win32")
+    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
+else
+    set fileencodings=ucs-boms,utf-8,euc-jp
+endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
