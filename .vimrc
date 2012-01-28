@@ -39,7 +39,7 @@ filetype plugin indent on
 "                0: 表示しない
 "                1: 2個以上のタブページがあるときのみ表示
 "                2: 常に表示
-" set showtabline=1
+set showtabline=1
 
 
 "-------------------------------------------------------------------------------
@@ -172,10 +172,9 @@ endif
 " 検索
 "-------------------------------------------------------------------------------
 set incsearch
-"set ignorecase "検索パターンに大文字を含まなければ大文字小文字を区別しない
+set ignorecase "検索パターンの大文字小文字を区別しない
 set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
 set nohlsearch "検索結果をハイライトしない
-
 
 " ESCキー2度押しでハイライトのトグル
 nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
@@ -235,6 +234,8 @@ source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 "-------------------------------------------------------------------------------
 " gf(goto file)の設定
 "-------------------------------------------------------------------------------
+" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
+" ファイルの検索の範囲の変更
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
 setlocal path+=./;/
 autocmd FileType apache setlocal path+=./;/
@@ -261,6 +262,7 @@ set fileencoding=utf-8
 if has("win32")
     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
 else
+    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
     set fileencodings=ucs-boms,utf-8,euc-jp
 endif
 
@@ -285,6 +287,15 @@ let $PAGER=''
 "Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
+"-------------------------------------------------------------------------------
+" sudo.vim
+"-------------------------------------------------------------------------------
+" sudo権限で保存する
+" http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
+nnoremap :es :e sudo:%<CR><C-^>:bd!<CR>
+nnoremap :ws :w sudo:%<CR>
+
 
 "-------------------------------------------------------------------------------
 " neocomplcache
