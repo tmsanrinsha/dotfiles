@@ -27,7 +27,7 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias grep='grep --color=auto'
+alias grep='egrep --color=auto'
 alias pg='ps aux | grep'
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
