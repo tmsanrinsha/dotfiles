@@ -16,6 +16,15 @@ if [ ! -f ~/.vim/plugin/buftabs.vim ]; then
     curl -o buftabs.vim "http://www.vim.org/scripts/download_script.php?src_id=15439"
 fi
 
+# yankring.vimのインストール 
+# 何故か失敗
+#if [ ! -f ~/.vim/plugin/yankring.vim ]; then
+#    cd ~/.vim
+#    curl -vO yankring.zip "http://www.vim.org/scripts/download_script.php?src_id=16536" | exit 1
+#    unzip yankring.zip | exit 1
+#    rm yankring.zip | exit 1
+#fi
+
 # ここからgitが必要 
 
 # emacscommandline
