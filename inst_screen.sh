@@ -27,7 +27,7 @@ fi
 VERSION=1.4.16 
 $CURL http://ftp.gnu.org/gnu/m4/m4-${VERSION}.tar.bz2
 bzip2 -dc m4-${VERSION}.tar.bz2 | tar xvf - || exit 1
-cd m2-${VERSION} || exit 1
+cd m4-${VERSION} || exit 1
 ./configure --prefix=$HOME/local && make && make install || exit 1
 cd ..
 
