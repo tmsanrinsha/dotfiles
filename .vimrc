@@ -7,6 +7,7 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
+"set cursorline
 
 "-------------------------------------------------------------------------------
 " ステータスライン 
@@ -90,7 +91,10 @@ let g:buftabs_only_basename=1
 let g:buftabs_in_statusline=1
 " 現在のバッファをハイライト
 let g:buftabs_active_highlight_group="Visual"
-let g:buftabs_separator = " " 
+"let g:buftabs_separator = " " 
+"let g:buftabs_marker_start = ""
+"let g:buftabs_marker_end = ""
+let g:buftabs_marker_modified = "+"
 
 "-------------------------------------------------------------------------------
 " ウィンドウ
@@ -216,6 +220,10 @@ noremap <up> gk
 " " eol           : 改行の削除を許す
 " " start         : 挿入モードの開始位置での削除を許す
 set backspace=indent,eol,start
+
+" カーソルを行頭、行末で止まらないようにする。
+" http://vimwiki.net/?'whichwrap'
+set whichwrap=b,s,h,l,<,>,[,],~
 
 "カーソルの形状の変化
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html

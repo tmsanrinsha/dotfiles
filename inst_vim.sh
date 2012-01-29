@@ -2,6 +2,7 @@
 # 自分のホームディレクトリにVimをインストールする
 # 参考にしたサイト
 # http://www.glidenote.com/archives/422
+# patchesが途中で止まってしまうので最新版にはならない
 
 # http://www.vim.org/download.phpで最新バージョンを確かめる
 VERSION=7.3
@@ -34,7 +35,9 @@ else
 fi
 
 cd $HOME/local/src/vim$(echo $VERSION | tr -d .) || exit 1
-#patchが途中で止まってしまう。途中で我慢して./configure以下を手で入力した
+# patchの-p0はディレクトリ構造を無視しないオプション
+# http://www.koikikukan.com/archives/2006/02/17-235135.php
+# patchが途中で止まってしまう
 cat patches/${VERSION}.* | patch -p0
 
 # ./configure --helpでオプションの詳細が見れる

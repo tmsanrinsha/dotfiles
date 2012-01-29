@@ -16,6 +16,14 @@ if [ ! -f ~/.vim/plugin/buftabs.vim ]; then
     curl -o buftabs.vim "http://www.vim.org/scripts/download_script.php?src_id=15439"
 fi
 
+# カラー表示化されたmru.vimのインストール
+# https://sites.google.com/site/fudist/Home/modify
+# if [ ! -f ~/.vim/plugin/mru.vim ]; then
+#     curl -o mru.vim "http://www.vim.org/scripts/download_script.php?src_id=11919"
+#     curl -Lo mru.patch "https://sites.google.com/site/fudist/files/mru.patch?attredirects=0"
+#     patch -p0 < mru.patch
+# fi
+
 # yankring.vimのインストール 
 # 何故か失敗
 #if [ ! -f ~/.vim/plugin/yankring.vim ]; then
