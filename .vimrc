@@ -81,21 +81,21 @@ if filereadable(expand('~/.vim/plugin/Kwbd.vim'))
     nmap :bd<CR> <Plug>Kwbd
 endif
 
-
-
 " buftabs
+" ステータスラインにバッファ一覧を表示するプラグイン
 " http://www.vim.org/scripts/script.php?script_id=1664
 " バッファタブにパスを省略してファイル名のみ表示する
-let g:buftabs_only_basename=1
-" バッファタブをステータスライン内に表示する
-let g:buftabs_in_statusline=1
-" 現在のバッファをハイライト
-let g:buftabs_active_highlight_group="Visual"
-"let g:buftabs_separator = " " 
-"let g:buftabs_marker_start = ""
-"let g:buftabs_marker_end = ""
-let g:buftabs_marker_modified = "+"
-
+if filereadable(expand('~/.vim/plugin/buftabs.vim'))
+    let g:buftabs_only_basename=1
+    " バッファタブをステータスライン内に表示する
+    let g:buftabs_in_statusline=1
+    " 現在のバッファをハイライト
+    let g:buftabs_active_highlight_group="Visual"
+    "let g:buftabs_separator = " " 
+    "let g:buftabs_marker_start = ""
+    "let g:buftabs_marker_end = ""
+    let g:buftabs_marker_modified = "+"
+endif
 "-------------------------------------------------------------------------------
 " ウィンドウ
 "-------------------------------------------------------------------------------
