@@ -201,8 +201,8 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 "nnoremap # :<C-u>set hlsearch<Return>#
 
 "ヴィビュアルモードで選択した範囲だけ検索
-vnoremap /v <ESC>/\%V
-vnoremap ?v <ESC>?\%V
+vnoremap /v<CR> <ESC>/\%V
+vnoremap ?v<CR> <ESC>?\%V
 
  
  
@@ -214,6 +214,8 @@ noremap j gj
 noremap k gk
 noremap <down> gj
 noremap <up> gk
+noremap 0 g0
+noremap $ g$
  
 " backspaceキーの挙動を設定する
 " " indent        : 行頭の空白の削除を許す
@@ -223,7 +225,7 @@ set backspace=indent,eol,start
 
 " カーソルを行頭、行末で止まらないようにする。
 " http://vimwiki.net/?'whichwrap'
-set whichwrap=b,s,h,l,<,>,[,],~
+"set whichwrap=b,s,h,l,<,>,[,],~
 
 "カーソルの形状の変化
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
@@ -240,7 +242,7 @@ set whichwrap=b,s,h,l,<,>,[,],~
 
 "set notimeout      " マッピングについてタイムアウトしない
 "set ttimeout       " 端末のキーコードについてタイムアウトする
-set timeoutlen=500 " ミリ秒後にタイムアウトする
+"set timeoutlen=500 " ミリ秒後にタイムアウトする
 
 "-------------------------------------------------------------------------------
 " カッコ・タグの対応
@@ -254,9 +256,8 @@ source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 "-------------------------------------------------------------------------------
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
 " ファイルの検索の範囲の変更
-autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-setlocal path+=./;/
-autocmd FileType apache setlocal path+=./;/
+autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
+set path+=./;/
 
 
 "-------------------------------------------------------------------------------
@@ -311,8 +312,8 @@ source $VIMRUNTIME/menu.vim
 "-------------------------------------------------------------------------------
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-nnoremap :es :e sudo:%<CR><C-^>:bd!<CR>
-nnoremap :ws :w sudo:%<CR>
+nnoremap :es<CR> :e sudo:%<CR><C-^>:bd!<CR>
+nnoremap :ws<CR> :w sudo:%<CR>
 
 
 "-------------------------------------------------------------------------------
