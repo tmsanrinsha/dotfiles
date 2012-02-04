@@ -17,7 +17,9 @@ fi
 alias -g A='| awk'
 alias -g L='| less'
 alias -g H='| head'
-alias -g T='| tail'
+alias -g T='| tail -f'
+alias -g R='| tail -r'
+alias -g V='| vim - -R'
 alias -g G='| grep'
 alias -g GI='| grep -i'
 
@@ -41,11 +43,31 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 #
 setopt auto_cd
 
+#------------------------------------------------------------------------------
+# auto_pushd
+#------------------------------------------------------------------------------
 # auto directory pushd that you can get dirs list by cd -(+)[tab]
 # -:古いのが上、+:新しいのが上
 setopt auto_pushd
 # cd -[tab]とcd +[tab]の役割を逆にする
 setopt pushd_minus
+# pushdで同じディレクトリを重複してpushしない
+setopt pushd_ignore_dups
+
+# pushdを端末間で共有したり、ログアウトしても残るようにする
+# http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
+function share_pushd_preexec {
+    pwd >> ~/.pushd_history
+}
+function share_pushd_precmd {
+    pwd >> ~/.pushd_history
+    while read line
+    do
+        cd $line
+    done <~/.pushd_history
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r > ~/.pushd_history
+}
+#------------------------------------------------------------------------------
 
 # command correct edition before each completion attempt
 #
@@ -55,9 +77,9 @@ setopt correct
 #
 setopt list_packed
 
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 # 履歴
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 # historical backward/forward search with linehead string binded to ^P/^N
 #
 autoload history-search-end
@@ -76,10 +98,13 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
+setopt hist_ignore_space     # 先頭にスペースを入れると履歴に残さない
 
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 # プロンプト
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
+# 改行のない出力をプロンプトで上書きするのを防ぐ
+unsetopt promptcr
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
 local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
 
@@ -138,19 +163,37 @@ kterm*|xterm)
     ;;
 esac
 
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 # screenの設定
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 #実行中のコマンドまたはカレントディレクトリの表示
 #.screenrcでterm xterm-256colorと設定している場合
 if [ $TERM = xterm-256color ];then
-    preexec() {
+    screen_preexec() {
         echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
     }
-    precmd() {
+    screen_precmd() {
         echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
     }
+else
+    screen_preexec() {
+        :
+    }
+    screen_precmd() {
+        :
+    }
 fi
+
+
+function preexec {
+    share_pushd_preexec
+    screen_preexec
+}
+
+function precmd {
+     share_pushd_precmd
+     screen_precmd
+}
 
 
 if [ -f ~/.zshrc.local ]; then
