@@ -12,4 +12,4 @@ ln -svn $HOME/git/dotfiles/.zshrc $HOME
 mkdir $HOME/bin
 ln -svn $HOME/git/dotfiles/bin/apacheErrorColor.sed $HOME/bin
 ln -svn $HOME/git/dotfiles/bin/fxg $HOME/bin
-ln -svn $HOME/git/dotfiles/bin/tree $HOME/bin
+ln -svn $HOME/git/dotfiles/bin/tree.sh $HOME/bin
