@@ -63,7 +63,7 @@ function share_pushd_precmd {
     pwd >> ~/.pushd_history
     while read line
     do
-        cd $line
+        cd $line 1>/dev/null 2>&1
     done <~/.pushd_history
     dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r > ~/.pushd_history
 }
