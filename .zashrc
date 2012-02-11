@@ -80,6 +80,13 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #    screen -RU 2>/dev/null
 #fi
 
+#tmuxがインストールされていて、tmuxを起動していないときは自動起動
+#ただし、.tmux.confでset-option -g default-terminal xterm-256colorと設定しているとする
+if [ $TERM != 'xterm-256color' ];then 
+    # すでに tmux セッションがある場合そこに接続し、なければ作成する
+    tmux -2 a || tmux -2
+fi
+
 if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
