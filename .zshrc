@@ -20,14 +20,17 @@ alias -g H='| head'
 alias -g T='| tail -f'
 alias -g R='| tail -r'
 alias -g V='| vim - -R'
-alias -g G='| grep'
-alias -g GI='| grep -i'
+alias -g G='| egrep'
+alias -g GI='| egrep -i'
 
 ## Keybind configuration
 #
 # emacs like keybind -e
 # vi like keybind -v
 bindkey -e
+bindkey "^/" undo
+bindkey "^[/" redo
+# bindkey "\e[Z" reverse-menu-complete #zsh -Yと打って、Tabを押したら、すぐに補完する設定の時のみ有効
 #DELで一文字削除
 bindkey "^[[3~" delete-char
 #HOMEは行頭へ
@@ -60,12 +63,18 @@ function share_pushd_preexec {
     pwd >> ~/.pushd_history
 }
 function share_pushd_precmd {
+    # 現在のディレクトリに戻ってこれるように書き込み
     pwd >> ~/.pushd_history
+    # 上の書き込みで重複が生じた場合かもしれないので重複を削除
+    cat ~/.pushd_history | uniq > .pushd_history
     while read line
     do
-        cd $line 1>/dev/null 2>&1
+        # ディレクトリが削除されていることもあるので調べる
+        [ -d $line ] && cd $line
     done <~/.pushd_history
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r > ~/.pushd_history
+    # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
+    # 最新のを10だけ保存することにする
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r -n 10 > ~/.pushd_history
 }
 #------------------------------------------------------------------------------
 
