@@ -1,5 +1,5 @@
 #!//bin/sh
-# find $1 -type f -print0 | xargs -0 grep --color=auto $2を
+# find $1 -type f -print0 | xargs -0 egrep --color=auto $2を
 # するシェルスクリプト
 # 引数が1つの場合は、カレントディレクトリを$1で検索
 

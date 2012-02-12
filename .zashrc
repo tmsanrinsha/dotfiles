@@ -27,14 +27,17 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias grep='egrep --color=auto'
-alias pg='ps aux | grep'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias pe='ps aux | egrep'
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
 # カレントディレクトリのファイル名をFull Pathで表示
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 # ファイルを解凍するシェルスクリプト
 alias dc='decomp.sh'
+# find $1 type f -print0 | xargs -0 egrep --color=auto $2
+alias fxg='fxg.sh'
 # -2は256色のためのオプション
 alias tm='tmux -2 a || tmux -2'
 
