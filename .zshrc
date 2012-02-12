@@ -20,7 +20,8 @@ alias -g H='| head'
 alias -g T='| tail -f'
 alias -g R='| tail -r'
 alias -g V='| vim - -R'
-alias -g G='| egrep'
+alias -g G='| grep'
+alias -g E='| egrep'
 alias -g GI='| egrep -i'
 
 ## Keybind configuration
