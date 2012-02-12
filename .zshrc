@@ -66,7 +66,7 @@ function share_pushd_precmd {
     # 現在のディレクトリに戻ってこれるように書き込み
     pwd >> ~/.pushd_history
     # 上の書き込みで重複が生じた場合かもしれないので重複を削除
-    cat ~/.pushd_history | uniq > .pushd_history
+    cat ~/.pushd_history | uniq > ~/.pushd_history
     while read line
     do
         # ディレクトリが削除されていることもあるので調べる
