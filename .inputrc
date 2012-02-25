@@ -27,4 +27,15 @@ $if mysql
     #
     # pagerの設定を解除
     "\C-xq": "nopager"
+
+    # 文字化け対策
+    # UTF-8送受信の文字コードをUTF-8にする
+    "\C-xu": "set names utf8;"
+    # set names utf8で
+    #  character_set_client      utf8  クライアントが送信する文字コード
+    #  character_set_connection  utf8  文字コード情報が無い文字列の文字コード
+    #  character_set_results     utf8  クライアントへ送信する文字コード
+    # を変更する
+    # http://www.dbonline.jp/mysql/myini/index3.html]
+    # http://d.hatena.ne.jp/ichiro_tanaka/20090305/1236236041 
 $endif
