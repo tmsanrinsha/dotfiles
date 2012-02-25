@@ -29,7 +29,7 @@ $if mysql
     "\C-xq": "nopager"
 
     # 文字化け対策
-    # UTF-8送受信の文字コードをUTF-8にする
+    # 送受信の文字コードをUTF-8にする
     "\C-xu": "set names utf8;"
     # set names utf8で
     #  character_set_client      utf8  クライアントが送信する文字コード
