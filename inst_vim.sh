@@ -45,9 +45,10 @@ cat patches/${VERSION}.* | patch -p0
 # https://sites.google.com/site/vimdocja/various-html#:version
 ./configure \
 --with-features=big \
+--enable-multibyte \
 --enable-pythoninterp \
 --disable-gui \
---without-x 
+--without-x \
 --prefix=$HOME/local || exit 1
  
 make || exit 1
