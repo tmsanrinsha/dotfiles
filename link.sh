@@ -11,6 +11,6 @@ ln -svn $HOME/git/my_git/dotfiles/.zashrc $HOME
 ln -svn $HOME/git/my_git/dotfiles/.zashrc.local $HOME
 ln -svn $HOME/git/my_git/dotfiles/.zshrc $HOME
 mkdir $HOME/bin
-ln -svn $HOME/git/my_git/dotfiles/bin/apacheErrorColor.sed $HOME/bin
-ln -svn $HOME/git/my_git/dotfiles/bin/fxg.sh $HOME/bin
-ln -svn $HOME/git/my_git/dotfiles/bin/tree.sh $HOME/bin
+ln -svn $HOME/git/my_git/dotfiles/script/apacheErrorColor.sed $HOME/script
+ln -svn $HOME/git/my_git/dotfiles/script/fxg.sh $HOME/script
+ln -svn $HOME/git/my_git/dotfiles/script/tree.sh $HOME/script
