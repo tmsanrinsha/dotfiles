@@ -42,20 +42,20 @@ alias fxg='fxg.sh'
 alias tm='tmux -2 a || tmux -2'
 
 # PATHの設定
-# $HOME/binがPATHになければ追加。シェルスクリプトなどを置くフォルダ
-if echo $PATH | grep "\(^\|:\)${HOME}/bin\($\|:\)" 1>/dev/null 2>&1
+# $HOME/scriptがPATHになければ追加。シェルスクリプトなどを置くフォルダ
+if echo $PATH | grep "\(^\|:\)${HOME}/script\($\|:\)" 1>/dev/null 2>&1
 then
     : #ヌルコマンド（何もしない）
 else
-    export PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/script:$PATH"
 fi
 
-# $HOME/git/dotfiles/binがPATHになければ追加。GitHubに上げているスクリプトが入っているフォルダ
-if echo $PATH | grep "\(^\|:\)${HOME}/git/dotfiles/bin\($\|:\)" 1>/dev/null 2>&1
+# $HOME/git/dotfiles/scriptがPATHになければ追加。GitHubに上げているスクリプトが入っているフォルダ
+if echo $PATH | grep "\(^\|:\)${HOME}/git/dotfiles/script\($\|:\)" 1>/dev/null 2>&1
 then
     : #ヌルコマンド（何もしない）
 else
-    export PATH="$HOME/git/dotfiles/bin:$PATH"
+    export PATH="$HOME/git/dotfiles/script:$PATH"
 fi
 
 # $HOME/local/binがPATHになければ追加。makeで作った実行ファイルを置くフォルダ
