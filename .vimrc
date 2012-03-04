@@ -7,7 +7,7 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
-"set cursorline
+set cursorline
 
 "-------------------------------------------------------------------------------
 " ステータスライン 
