@@ -1,0 +1,6 @@
+# vim:filetype=sh
+# tmuxが起動してなければ、ssh-agentをkill
+if ! tmux ls 1>/dev/null 2>&1; then
+    ssh-agent -k 1>/dev/null 2>&1
+fi
+    

@@ -1,0 +1,4 @@
+# vim:filetype=sh
+if [ -f ~/.zash_logout.local ]; then
+    . ~/.zash_logout.local
+fi
