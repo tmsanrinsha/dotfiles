@@ -85,9 +85,15 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 
 #tmuxがインストールされていて、tmuxを起動していないときは自動起動
 #ただし、.tmux.confでset-option -g default-terminal xterm-256colorと設定しているとする
-if [ $TERM != 'xterm-256color' ];then 
+if [ -x /usr/local/bin/tmux -a $TERM != 'xterm-256color' ];then 
     # すでに tmux セッションがある場合そこに接続し、なければ作成する
     tmux -2 a || tmux -2
+fi
+
+# nvm
+if [ -f ~/.nvm/nvm.sh ]; then
+    . ~/.nvm/nvm.sh
+    nvm alias default v0.6.11 > /dev/null
 fi
 
 if [ -f ~/.zashrc.local ]; then

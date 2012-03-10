@@ -206,12 +206,6 @@ function precmd {
 }
 
 
-# nvm
-if [[ -f ~/.nvm/nvm.sh ]]; then
-    . ~/.nvm/nvm.sh
-    nvm alias default v0.6.11 > /dev/null
-fi
-
 if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
 fi
