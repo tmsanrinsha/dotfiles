@@ -9,8 +9,18 @@ set number
 set ruler
 set cursorline
 
+" 不可視文字の可視化（Vimテクニックバイブル1-11）
+" set list listchars=tab:>-,trail:_
+" 全角スペースをハイライト
+scriptencoding utf-8
+
+augroup highlightIdeograpicSpace
+    autocmd!
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
 "-------------------------------------------------------------------------------
-" ステータスライン 
+" ステータスライン
 "-------------------------------------------------------------------------------
 
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
@@ -96,6 +106,7 @@ if filereadable(expand('~/.vim/plugin/buftabs.vim'))
     "let g:buftabs_marker_end = ""
     let g:buftabs_marker_modified = "+"
 endif
+
 "-------------------------------------------------------------------------------
 " ウィンドウ
 "-------------------------------------------------------------------------------
@@ -191,7 +202,7 @@ set smartcase "検索パターンに大文字を含んでいたら大文字小�
 set nohlsearch "検索結果をハイライトしない
 
 " ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
+nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
 
 "set hlsearch  " highlight search
 "nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
@@ -244,11 +255,24 @@ set backspace=indent,eol,start
 "set ttimeout       " 端末のキーコードについてタイムアウトする
 "set timeoutlen=500 " ミリ秒後にタイムアウトする
 
+inoremap <silent> <C-[> <ESC>
+
+
 "-------------------------------------------------------------------------------
 " カッコ・タグの対応
 "-------------------------------------------------------------------------------
 set showmatch matchtime=1 "括弧の対応
 source $VIMRUNTIME/macros/matchit.vim "HTML tag match
+
+"-------------------------------------------------------------------------------
+" 構文チェック
+"-------------------------------------------------------------------------------
+" Vimテクニックバイブル1-13
+" PHPプログラムの構文チェック
+augroup phpsyntaxcheck
+    autocmd!
+    autocmd BufWrite *.php w !php -l
+augroup END
 
 
 "-------------------------------------------------------------------------------
