@@ -3,6 +3,17 @@ if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi
 
+
+# 重複パスの除去
+# http://d.hatena.ne.jp/yascentur/20111111/1321015289
+#LD_LIBRARY_PATH=${HOME}/lib:$LD_LIBRARY_PATH
+#INCLUDE=${HOME}/include:$INCLUDE
+
+[ -z "$ld_library_path" ] && typeset -T LD_LIBRARY_PATH ld_library_path
+[ -z "$include" ] && typeset -T INCLUDE include
+typeset -U path cdpath fpath manpath ld_library_path include
+
+
 #補完
 autoload -U compinit
 compinit
