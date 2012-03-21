@@ -1,3 +1,6 @@
+let &t_SI .= "\e[<r"
+let &t_EI .= "\e[<s\e[<0t"
+let &t_te .= "\e[<0t\e[<s"
 set nocompatible "vi互換にしない
 
 "-------------------------------------------------------------------------------
@@ -255,7 +258,7 @@ set backspace=indent,eol,start
 "set ttimeout       " 端末のキーコードについてタイムアウトする
 "set timeoutlen=500 " ミリ秒後にタイムアウトする
 
-inoremap <silent> <C-[> <ESC>
+"inoremap <silent> <C-[> <ESC>
 
 
 "-------------------------------------------------------------------------------
@@ -271,8 +274,9 @@ source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 " PHPプログラムの構文チェック
 augroup phpsyntaxcheck
     autocmd!
-    autocmd BufWrite *.php w !php -l
+    autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
 augroup END
+"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 
 
 "-------------------------------------------------------------------------------
@@ -283,6 +287,11 @@ augroup END
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
 set path+=./;/
 
+"-------------------------------------------------------------------------------
+" MySQLのEditor 
+"-------------------------------------------------------------------------------
+" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
+au BufRead /var/tmp/sql* set ft=mysql
 
 "-------------------------------------------------------------------------------
 " マップ
