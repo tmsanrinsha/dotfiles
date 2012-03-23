@@ -348,11 +348,15 @@ source $VIMRUNTIME/menu.vim
 nnoremap :es<CR> :e sudo:%<CR><C-^>:bd!<CR>
 nnoremap :ws<CR> :w sudo:%<CR>
 
+"-------------------------------------------------------------------------------
+" yankring.vim
+"-------------------------------------------------------------------------------
+let g:yankring_manual_clipboard_check = 0
 
 "-------------------------------------------------------------------------------
 " neocomplcache
 "-------------------------------------------------------------------------------
-" setting examples:
+" setsudo.vimting examples:
 if v:version >= 702
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
