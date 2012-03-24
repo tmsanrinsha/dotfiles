@@ -93,7 +93,15 @@ if [ -x /usr/local/bin/tmux -a $TERM != 'xterm-256color' ];then
 fi
 
 # nvm
+# http://sanrinsha.lolipop.jp/blog/2012/03/node-jsnvm.html
 if [ -f ~/.nvm/nvm.sh ]; then
+    # nvm.shにnvm用のMANPATHを追加する部分があるが
+    # MANPATHはデフォルトだと空なので
+    # MANPATH="$NVM_DIR/$2/share/man:$MANPATH"
+    # だとnvmのマニュアルへのPATHのみになってしまうので
+    # 予めセットしておく
+    export MANPATH=`manpath`
+
     . ~/.nvm/nvm.sh
     nvm alias default v0.6.11 > /dev/null
 fi
