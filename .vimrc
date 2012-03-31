@@ -1,10 +1,56 @@
-let &t_SI .= "\e[<r"
-let &t_EI .= "\e[<s\e[<0t"
-let &t_te .= "\e[<0t\e[<s"
+"-------------------------------------------------------------------------------
+" NeoBundle {{{
+"-------------------------------------------------------------------------------
 set nocompatible "vi互換にしない
+filetype plugin indent off     " required!
+
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+" let NeoBundle manage NeoBundle
+" required! 
+NeoBundle 'Shougo/neobundle.vim'
+" recommended to install
+NeoBundle 'Shougo/vimproc'
+" after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/unite.vim'
+" My Bundles here:
+"
+" original repos on github
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'houtsnip/vim-emacscommandline'
+NeoBundle 'scrooloose/syntastic'
+"" vim-scripts repos
+NeoBundle 'sudo.vim'
+NeoBundle 'YankRing.vim'
+NeoBundle 'molokai'
+"NeoBundle 'L9'
+"NeoBundle 'FuzzyFinder'
+"NeoBundle 'rails.vim'
+"" non github repos
+"NeoBundle 'git://git.wincent.com/command-t.git'
+"" non git repos
+"NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
+"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"}}}
+
+inoremap jj <ESC>
+
 
 "-------------------------------------------------------------------------------
-" 表示
+" 表示 {{{ 
 "-------------------------------------------------------------------------------
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
@@ -22,8 +68,27 @@ augroup highlightIdeograpicSpace
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
+"}}}
+
+
 "-------------------------------------------------------------------------------
-" ステータスライン
+" タブ・インデント {{{
+"-------------------------------------------------------------------------------
+"ファイル内の <Tab> が対応する空白の数
+set tabstop=4 
+"<Tab> の挿入や <BS> の使用等の編集操作をするときに、<Tab> が対応する空白の数
+set softtabstop=4 
+"インデントの各段階に使われる空白の数
+set shiftwidth=4 
+set expandtab
+"新しい行のインデントを現在行と同じくする
+set autoindent 
+set smartindent
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" ステータスライン {{{
 "-------------------------------------------------------------------------------
 
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
@@ -34,45 +99,24 @@ set laststatus=2
 
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+"}}}
 
-"256色
+
+"-------------------------------------------------------------------------------
+" カラースキーム {{{
+"-------------------------------------------------------------------------------
+" 256色
 set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
 colorscheme molokai
-syntax enable
 "set background=dark
 "colorscheme solarized
-filetype plugin indent on
- 
-"https://github.com/tpope/vim-pathogen
-"call pathogen#infect()
-
-"タブページの設定
-" いつタブページのラベルを表示するかを指定する。
-"                0: 表示しない
-"                1: 2個以上のタブページがあるときのみ表示
-"                2: 常に表示
-set showtabline=1
+"}}}
 
 
 "-------------------------------------------------------------------------------
-" コマンドモード
-"-------------------------------------------------------------------------------
-"set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
-
-"コマンドモードの補完をシェルコマンドの補完のようにする
-"http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
-set wildmode=list:longest
-
-"前方一致をCtrl+PとCtrl+Nで
-cnoremap <C-P> <UP>
-cnoremap <C-N> <DOWN>
-
-set history=100000 "保存する履歴の数
-
-"-------------------------------------------------------------------------------
-" バッファ
+" バッファ {{{
 "-------------------------------------------------------------------------------
 " <S-Tab>はTera Termのデフォルトの設定では使えない
 " 設定方法はこちら
@@ -109,9 +153,11 @@ if filereadable(expand('~/.vim/plugin/buftabs.vim'))
     "let g:buftabs_marker_end = ""
     let g:buftabs_marker_modified = "+"
 endif
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" ウィンドウ
+" ウィンドウ {{{
 "-------------------------------------------------------------------------------
 nnoremap <C-w>; <C-w>+
 "縦分割されたウィンドウのスクロールを同期させる
@@ -120,24 +166,39 @@ nnoremap <C-w>; <C-w>+
 "横スクロールも同期させたい場合はこちら
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
 nnoremap <F10> :set scrollbind!<CR>
- 
-"-------------------------------------------------------------------------------
-" タブ・インデント
-"-------------------------------------------------------------------------------
-"ファイル内の <Tab> が対応する空白の数
-set tabstop=4 
-"<Tab> の挿入や <BS> の使用等の編集操作をするときに、<Tab> が対応する空白の数
-set softtabstop=4 
-"インデントの各段階に使われる空白の数
-set shiftwidth=4 
-set expandtab
-"新しい行のインデントを現在行と同じくする
-set autoindent 
-set smartindent
+"}}}
 
 
 "-------------------------------------------------------------------------------
-" paste
+" タブ {{{
+"-------------------------------------------------------------------------------
+" いつタブページのラベルを表示するかを指定する。
+"                0: 表示しない
+"                1: 2個以上のタブページがあるときのみ表示
+"                2: 常に表示
+set showtabline=1
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" コマンドモード {{{
+"-------------------------------------------------------------------------------
+"set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
+
+"コマンドモードの補完をシェルコマンドの補完のようにする
+"http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
+set wildmode=list:longest
+
+"前方一致をCtrl+PとCtrl+Nで
+cnoremap <C-P> <UP>
+cnoremap <C-N> <DOWN>
+
+set history=100000 "保存する履歴の数
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" paste {{{
 "-------------------------------------------------------------------------------
 "pasteモードのトグル。autoindentをonにしてペーストすると
 "インデントが入った文章が階段状になってしまう。
@@ -167,9 +228,90 @@ set pastetoggle=<F11>
 "
 "    imap <special> <expr> <Esc>[200~ XTermPasteBegin("") 
 "endif
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" マウス
+" 検索 {{{
+"-------------------------------------------------------------------------------
+set incsearch
+set ignorecase "検索パターンの大文字小文字を区別しない
+set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
+set nohlsearch "検索結果をハイライトしない
+
+" ESCキー2度押しでハイライトのトグル
+nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
+
+"set hlsearch  " highlight search
+"nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
+"nnoremap / :<C-u>set hlsearch<Return>/
+"nnoremap ? :<C-u>set hlsearch<Return>?
+"nnoremap * :<C-u>set hlsearch<Return>*
+"nnoremap # :<C-u>set hlsearch<Return>#
+
+"ヴィビュアルモードで選択した範囲だけ検索
+vnoremap /v<CR> <ESC>/\%V
+vnoremap ?v<CR> <ESC>?\%V
+"}}}
+ 
+ 
+"-------------------------------------------------------------------------------
+" カーソル {{{
+"-------------------------------------------------------------------------------
+"カーソルを表示行で移動する。
+noremap j gj
+noremap k gk
+noremap <down> gj
+noremap <up> gk
+noremap 0 g0
+noremap $ g$
+ 
+" backspaceキーの挙動を設定する
+" " indent        : 行頭の空白の削除を許す
+" " eol           : 改行の削除を許す
+" " start         : 挿入モードの開始位置での削除を許す
+set backspace=indent,eol,start
+
+" <C-u>, <C-w>した文字列をアンドゥできるようにする
+" http://vim-users.jp/2009/10/hack81/
+inoremap <C-u>  <C-g>u<C-u>
+inoremap <C-w>  <C-g>u<C-w>
+
+" カーソルを行頭、行末で止まらないようにする。
+" http://vimwiki.net/?'whichwrap'
+"set whichwrap=b,s,h,l,<,>,[,],~
+
+"カーソルの形状の変化
+"http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
+
+"if &term == "xterm-256color" && v:version > 603
+"    "let &t_SI .= "\eP\e[3 q\e\\"
+"    let &t_SI .= "\eP\e[?25h\e[5 q\e\\"
+"    let &t_EI .= "\eP\e[1 q\e\\"
+"elseif &term == "xterm" && v:version > 603
+"    "let &t_SI .= "\e[3 q"
+"    let &t_SI .= "\e[?25h\e[5 q"
+"    let &t_EI .= "\e[1 q"
+"endif
+
+"set notimeout      " マッピングについてタイムアウトしない
+"set ttimeout       " 端末のキーコードについてタイムアウトする
+"set timeoutlen=500 " ミリ秒後にタイムアウトする
+
+"inoremap <silent> <C-[> <ESC>
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" カッコ・タグの対応 {{{
+"-------------------------------------------------------------------------------
+set showmatch matchtime=1 "括弧の対応
+source $VIMRUNTIME/macros/matchit.vim "HTML tag match
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" マウス {{{
 "-------------------------------------------------------------------------------
 " Enable mouse support.
 " Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
@@ -195,112 +337,24 @@ if has('gui_running')
     " Hide mouse pointer on insert mode.
     set mousehide
 endif
-
-"-------------------------------------------------------------------------------
-" 検索
-"-------------------------------------------------------------------------------
-set incsearch
-set ignorecase "検索パターンの大文字小文字を区別しない
-set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
-set nohlsearch "検索結果をハイライトしない
-
-" ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
-
-"set hlsearch  " highlight search
-"nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
-"nnoremap / :<C-u>set hlsearch<Return>/
-"nnoremap ? :<C-u>set hlsearch<Return>?
-"nnoremap * :<C-u>set hlsearch<Return>*
-"nnoremap # :<C-u>set hlsearch<Return>#
-
-"ヴィビュアルモードで選択した範囲だけ検索
-vnoremap /v<CR> <ESC>/\%V
-vnoremap ?v<CR> <ESC>?\%V
-
- 
- 
-"-------------------------------------------------------------------------------
-" カーソル
-"-------------------------------------------------------------------------------
-"カーソルを表示行で移動する。
-noremap j gj
-noremap k gk
-noremap <down> gj
-noremap <up> gk
-noremap 0 g0
-noremap $ g$
- 
-" backspaceキーの挙動を設定する
-" " indent        : 行頭の空白の削除を許す
-" " eol           : 改行の削除を許す
-" " start         : 挿入モードの開始位置での削除を許す
-set backspace=indent,eol,start
-
-" カーソルを行頭、行末で止まらないようにする。
-" http://vimwiki.net/?'whichwrap'
-"set whichwrap=b,s,h,l,<,>,[,],~
-
-"カーソルの形状の変化
-"http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
-
-"if &term == "xterm-256color" && v:version > 603
-"    "let &t_SI .= "\eP\e[3 q\e\\"
-"    let &t_SI .= "\eP\e[?25h\e[5 q\e\\"
-"    let &t_EI .= "\eP\e[1 q\e\\"
-"elseif &term == "xterm" && v:version > 603
-"    "let &t_SI .= "\e[3 q"
-"    let &t_SI .= "\e[?25h\e[5 q"
-"    let &t_EI .= "\e[1 q"
-"endif
-
-"set notimeout      " マッピングについてタイムアウトしない
-"set ttimeout       " 端末のキーコードについてタイムアウトする
-"set timeoutlen=500 " ミリ秒後にタイムアウトする
-
-"inoremap <silent> <C-[> <ESC>
+"}}}
 
 
 "-------------------------------------------------------------------------------
-" カッコ・タグの対応
-"-------------------------------------------------------------------------------
-set showmatch matchtime=1 "括弧の対応
-source $VIMRUNTIME/macros/matchit.vim "HTML tag match
-
-"-------------------------------------------------------------------------------
-" 構文チェック
-"-------------------------------------------------------------------------------
-" Vimテクニックバイブル1-13
-" PHPプログラムの構文チェック
-augroup phpsyntaxcheck
-    autocmd!
-    autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
-augroup END
-"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
-
-
-"-------------------------------------------------------------------------------
-" gf(goto file)の設定
+" gf(goto file)の設定 {{{
 "-------------------------------------------------------------------------------
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
 " ファイルの検索の範囲の変更
-autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
+augroup htmlInclude
+    autocmd!
+    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
+augroup END
 set path+=./;/
-
-"-------------------------------------------------------------------------------
-" MySQLのEditor 
-"-------------------------------------------------------------------------------
-" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-au BufRead /var/tmp/sql* set ft=mysql
-
-"-------------------------------------------------------------------------------
-" マップ
-"-------------------------------------------------------------------------------
-inoremap jj <ESC>
+"}}}
 
 
 "-------------------------------------------------------------------------------
-" 文字コード
+" 文字コード {{{
 "-------------------------------------------------------------------------------
 set encoding=utf-8
 set fileencoding=utf-8
@@ -320,10 +374,56 @@ endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" Syntax {{{
+"-------------------------------------------------------------------------------
+syntax enable
+
+" Vimテクニックバイブル1-13
+" PHPプログラムの構文チェック
+" http://d.hatena.ne.jp/i_ogi/20070321/1174495931
+"augroup phpsyntaxcheck
+"    autocmd!
+"    autocmd FileType php set makeprg=php\ -l\ % | set errorformat=%m\ in\ %f\ on\ line\ %l
+"    "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
+"    autocmd BufWrite *.php w | make
+"augroup END
+"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+
+let php_sql_query=1 " 文字列中のSQLをハイライトする
+let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
+let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
+let php_folding = 1 " クラスと関数の折りたたみ(folding)を有効にする 
+augroup php
+    autocmd!
+    au Syntax php set foldmethod=syntax
+augroup END
+
+augroup vim
+    autocmd!
+    au Syntax vim set foldmethod=marker
+augroup END
+
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" MySQL {{{
+"-------------------------------------------------------------------------------
+" Editorの設定
+" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
+augroup mysqlEditor
+    autocmd!
+    au BufRead /var/tmp/sql* set ft=mysql
+augroup END
+"}}}
   
 
 "-------------------------------------------------------------------------------
-" Manual
+" Manual {{{
 "-------------------------------------------------------------------------------
 ":Man <man>でマニュアルを開く
 runtime ftplugin/man.vim
@@ -332,29 +432,37 @@ nmap K <Leader>K
 "http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 ".zshrc .bashrc等にも記述が必要
 let $PAGER=''
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" gVim
+" gVim {{{
 "-------------------------------------------------------------------------------
 "Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" sudo.vim
+" sudo.vim {{{
 "-------------------------------------------------------------------------------
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 nnoremap :es<CR> :e sudo:%<CR><C-^>:bd!<CR>
 nnoremap :ws<CR> :w sudo:%<CR>
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" yankring.vim
+" yankring.vim {{{
 "-------------------------------------------------------------------------------
 let g:yankring_manual_clipboard_check = 0
+"}}}
+
 
 "-------------------------------------------------------------------------------
-" neocomplcache
+" neocomplcache {{{
 "-------------------------------------------------------------------------------
 " setsudo.vimting examples:
 if v:version >= 702
@@ -430,6 +538,7 @@ if v:version >= 702
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
@@ -443,6 +552,8 @@ if v:version >= 702
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
+"}}}
+
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
