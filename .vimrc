@@ -1,6 +1,8 @@
 "-------------------------------------------------------------------------------
 " NeoBundle {{{
 "-------------------------------------------------------------------------------
+" https://github.com/Shougo/neobundle.vim
+" http://vim-users.jp/2011/10/hack238/
 set nocompatible "vi互換にしない
 filetype plugin indent off     " required!
 
@@ -11,27 +13,65 @@ endif
 " let NeoBundle manage NeoBundle
 " required! 
 NeoBundle 'Shougo/neobundle.vim'
+
 " recommended to install
+" https://github.com/Shougo/vimproc
 NeoBundle 'Shougo/vimproc'
 " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+" https://github.com/Shougo/vimproc
 NeoBundle 'Shougo/vimshell'
+" https://github.com/Shougo/unite.vim
 NeoBundle 'Shougo/unite.vim'
+
 " My Bundles here:
 "
-" original repos on github
+"" original repos on github --------------------------------------------------
+" ファイラー
+" https://github.com/Shougo/vimfiler
 NeoBundle 'Shougo/vimfiler'
+
+" 補完候補の自動表示
+" https://github.com/Shougo/neocomplcache
 NeoBundle 'Shougo/neocomplcache'
+
+" スニペット補完
+" https://github.com/Shougo/neocomplcache-snippets-complete
 NeoBundle 'Shougo/neocomplcache-snippets-complete'
-NeoBundle 'houtsnip/vim-emacscommandline'
+
+" コマンドモードをEmacsキーバインドにする
+" https://github.com/houtsnip/vim-emacscommandline
+NeoBundle 'houtsnip/vim-emacscommandline' 
+
+" ファイルを保存時にシンタックスのチェック
+" https://github.com/scrooloose/syntastic
 NeoBundle 'scrooloose/syntastic'
-"" vim-scripts repos
+
+" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+" https://github.com/rgarver/Kwbd.vim
+NeoBundle 'rgarver/Kwbd.vim'
+
+" 自分で修正したプラグイン
+" https://github.com/tmsanrinsha/vim
+NeoBundle 'tmsanrinsha/vim'
+
+"" vim-scripts repos ---------------------------------------------------------
+" sudo権限でファイルを開く・保存
+" http://www.vim.org/scripts/script.php?script_id=729
 NeoBundle 'sudo.vim'
+
+" ヤンクの履歴を選択してペースト
+" http://www.vim.org/scripts/script.php?script_id=1234
 NeoBundle 'YankRing.vim'
+
+" カラースキーム
+" http://www.vim.org/scripts/script.php?script_id=2340
 NeoBundle 'molokai'
+
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
 "NeoBundle 'rails.vim'
-"" non github repos
+
+"" non github repos ----------------------------------------------------------
 "NeoBundle 'git://git.wincent.com/command-t.git'
 "" non git repos
 "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
@@ -127,6 +167,17 @@ nnoremap <S-Tab> :bp<CR>
 "nnoremap <C-n> :bn<CR>
 "nnoremap <C-p> :bp<CR>
 
+nnoremap <Esc>1 :b1<CR>
+nnoremap <Esc>2 :b2<CR>
+nnoremap <Esc>3 :b3<CR>
+nnoremap <Esc>4 :b4<CR>
+nnoremap <Esc>5 :b5<CR>
+nnoremap <Esc>6 :b6<CR>
+nnoremap <Esc>7 :b7<CR>
+nnoremap <Esc>8 :b8<CR>
+nnoremap <Esc>9 :b9<CR>
+nnoremap <Esc>0 :b10<CR>
+
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
 
@@ -134,15 +185,16 @@ set hidden
 " http://vim.wikia.com/wiki/Deleting_a_buffer_without_closing_the_window
 " 上のサイトのAlternative Scriptを~/.vim/plugin/Kwbd.vimに保存する
 " set hiddenを設定しておく必要あり
-if filereadable(expand('~/.vim/plugin/Kwbd.vim'))
+if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     nmap :bd<CR> <Plug>Kwbd
 endif
 
 " buftabs
 " ステータスラインにバッファ一覧を表示するプラグイン
 " http://www.vim.org/scripts/script.php?script_id=1664
+" http://sanrinsha.lolipop.jp/blog/2012/01/buftabs-vim-%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B.html
 " バッファタブにパスを省略してファイル名のみ表示する
-if filereadable(expand('~/.vim/plugin/buftabs.vim'))
+if filereadable(expand('~/.vim/bundle/vim/plugin/buftabs.vim'))
     let g:buftabs_only_basename=1
     " バッファタブをステータスライン内に表示する
     let g:buftabs_in_statusline=1
@@ -449,8 +501,8 @@ source $VIMRUNTIME/menu.vim
 "-------------------------------------------------------------------------------
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-nnoremap :es<CR> :e sudo:%<CR><C-^>:bd!<CR>
-nnoremap :ws<CR> :w sudo:%<CR>
+nmap :es<CR> :e sudo:%<CR><C-^>:bd<CR>
+nmap :ws<CR> :w sudo:%<CR>
 "}}}
 
 
