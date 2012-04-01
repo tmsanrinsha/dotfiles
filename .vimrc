@@ -46,13 +46,17 @@ NeoBundle 'houtsnip/vim-emacscommandline'
 " https://github.com/scrooloose/syntastic
 NeoBundle 'scrooloose/syntastic'
 
+" ミニバッファにバッファ一覧を表示
+" https://github.com/fholgado/minibufexpl.vim
+NeoBundle 'fholgado/minibufexpl.vim'
+ 
 " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
 " https://github.com/rgarver/Kwbd.vim
 NeoBundle 'rgarver/Kwbd.vim'
 
 " 自分で修正したプラグイン
 " https://github.com/tmsanrinsha/vim
-NeoBundle 'tmsanrinsha/vim'
+" NeoBundle 'tmsanrinsha/vim'
 
 "" vim-scripts repos ---------------------------------------------------------
 " sudo権限でファイルを開く・保存
@@ -189,22 +193,22 @@ if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     nmap :bd<CR> <Plug>Kwbd
 endif
 
-" buftabs
-" ステータスラインにバッファ一覧を表示するプラグイン
-" http://www.vim.org/scripts/script.php?script_id=1664
-" http://sanrinsha.lolipop.jp/blog/2012/01/buftabs-vim-%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B.html
-" バッファタブにパスを省略してファイル名のみ表示する
-if filereadable(expand('~/.vim/bundle/vim/plugin/buftabs.vim'))
-    let g:buftabs_only_basename=1
-    " バッファタブをステータスライン内に表示する
-    let g:buftabs_in_statusline=1
-    " 現在のバッファをハイライト
-    let g:buftabs_active_highlight_group="Visual"
-    "let g:buftabs_separator = " " 
-    "let g:buftabs_marker_start = ""
-    "let g:buftabs_marker_end = ""
-    let g:buftabs_marker_modified = "+"
-endif
+"" buftabs
+"" ステータスラインにバッファ一覧を表示するプラグイン
+"" http://www.vim.org/scripts/script.php?script_id=1664
+"" http://sanrinsha.lolipop.jp/blog/2012/01/buftabs-vim-%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B.html
+"" バッファタブにパスを省略してファイル名のみ表示する
+"if filereadable(expand('~/.vim/bundle/vim/plugin/buftabs.vim'))
+"    let g:buftabs_only_basename=1
+"    " バッファタブをステータスライン内に表示する
+"    let g:buftabs_in_statusline=1
+"    " 現在のバッファをハイライト
+"    let g:buftabs_active_highlight_group="Visual"
+"    "let g:buftabs_separator = " " 
+"    "let g:buftabs_marker_start = ""
+"    "let g:buftabs_marker_end = ""
+"    let g:buftabs_marker_modified = "+"
+"endif
 "}}}
 
 
