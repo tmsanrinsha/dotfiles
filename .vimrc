@@ -54,6 +54,10 @@ NeoBundle 'fholgado/minibufexpl.vim'
 " https://github.com/rgarver/Kwbd.vim
 NeoBundle 'rgarver/Kwbd.vim'
 
+" ステータスラインをカスタマイズ
+" https://github.com/Lokaltog/vim-powerline
+NeoBundle 'Lokaltog/vim-powerline'
+
 " 自分で修正したプラグイン
 " https://github.com/tmsanrinsha/vim
 " NeoBundle 'tmsanrinsha/vim'
@@ -89,6 +93,7 @@ filetype plugin indent on     " required!
 " :NeoBundleInstall(!)    - install(update) bundles
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "}}}
+
 
 inoremap jj <ESC>
 
@@ -142,7 +147,7 @@ set smartindent
 set laststatus=2
 
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
-set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+"set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 "}}}
 
 
@@ -514,6 +519,22 @@ nmap :ws<CR> :w sudo:%<CR>
 " yankring.vim {{{
 "-------------------------------------------------------------------------------
 let g:yankring_manual_clipboard_check = 0
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" Mini Buf Explorer {{{
+"-------------------------------------------------------------------------------
+let g:miniBufExplSplitBelow=1  " Put new window below
+                               " current or on the
+                               " right for vertical split
+"}}}
+
+
+"-------------------------------------------------------------------------------
+" Powerline for vim {{{
+"-------------------------------------------------------------------------------
+let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 "}}}
 
 
