@@ -60,7 +60,7 @@ NeoBundle 'Lokaltog/vim-powerline'
 
 " 自分で修正したプラグイン
 " https://github.com/tmsanrinsha/vim
-" NeoBundle 'tmsanrinsha/vim'
+NeoBundle 'tmsanrinsha/vim'
 
 "" vim-scripts repos ---------------------------------------------------------
 " sudo権限でファイルを開く・保存
@@ -73,7 +73,7 @@ NeoBundle 'YankRing.vim'
 
 " カラースキーム
 " http://www.vim.org/scripts/script.php?script_id=2340
-NeoBundle 'molokai'
+"NeoBundle 'molokai'
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
@@ -99,7 +99,7 @@ inoremap jj <ESC>
 
 
 "-------------------------------------------------------------------------------
-" 表示 {{{ 
+" 表示 {{{
 "-------------------------------------------------------------------------------
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
@@ -108,13 +108,13 @@ set ruler
 set cursorline
 
 " 不可視文字の可視化（Vimテクニックバイブル1-11）
-" set list listchars=tab:>-,trail:_
+set list listchars=tab:>-,trail:_
 " 全角スペースをハイライト
 scriptencoding utf-8
 
 augroup highlightIdeograpicSpace
     autocmd!
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 "}}}
