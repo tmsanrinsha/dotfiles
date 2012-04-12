@@ -32,8 +32,15 @@ alias lla='ls -la'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias pe='ps aux | egrep'
+alias tree='tree -FC'
+
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
+if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
+    alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
+fi
+
+
 # カレントディレクトリのファイル名をFull Pathで表示
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 # ファイルを解凍するシェルスクリプト
