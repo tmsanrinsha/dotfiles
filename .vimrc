@@ -1,4 +1,4 @@
-"-------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " NeoBundle {{{
 "-------------------------------------------------------------------------------
 " https://github.com/Shougo/neobundle.vim
@@ -49,7 +49,7 @@ NeoBundle 'scrooloose/syntastic'
 " ミニバッファにバッファ一覧を表示
 " https://github.com/fholgado/minibufexpl.vim
 NeoBundle 'fholgado/minibufexpl.vim'
- 
+
 " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
 " https://github.com/rgarver/Kwbd.vim
 NeoBundle 'rgarver/Kwbd.vim'
@@ -94,8 +94,7 @@ filetype plugin indent on     " required!
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "}}}
 
-
-inoremap jj <ESC>
+ 
 
 
 "-------------------------------------------------------------------------------
@@ -105,7 +104,7 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
-set cursorline
+"set cursorline
 
 " 不可視文字の可視化（Vimテクニックバイブル1-11）
 set list listchars=tab:>-,trail:_
@@ -165,55 +164,77 @@ colorscheme molokai
 
 
 "-------------------------------------------------------------------------------
+" Mapping {{{
+"-------------------------------------------------------------------------------
+set timeout timeoutlen=3000 ttimeoutlen=100
+
+if !has('gui_running')
+    " ターミナル上でのメタキーの設定
+    set <M-0>=0
+    set <M-1>=1
+    set <M-2>=2
+    set <M-3>=3
+    set <M-4>=4
+    set <M-5>=5
+    set <M-6>=6
+    set <M-7>=7
+    set <M-8>=8
+    set <M-9>=9
+    set <M-n>=n
+    set <M-p>=p
+
+    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
+    " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
+    " MapFastKeycode: helper for fast keycode mappings
+    " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
+    function! <SID>MapFastKeycode(key, keycode)
+        if s:fast_i == 46
+            echohl WarningMsg
+            echomsg "Unable to map ".a:key.": out of spare keycodes"
+            echohl None
+            return
+        endif
+        let vkeycode = '<'.(s:fast_i/23==0 ? '' : 'S-').'F'.(15+s:fast_i%23).'>'
+        exec 'set '.vkeycode.'='.a:keycode
+        exec 'map '.vkeycode.' '.a:key
+        let s:fast_i += 1
+    endfunction
+    let s:fast_i = 0
+
+    call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
+    call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
+endif
+
+inoremap jj <ESC>
+"}}}
+
+
+"-------------------------------------------------------------------------------
 " バッファ {{{
 "-------------------------------------------------------------------------------
-" <S-Tab>はTera Termのデフォルトの設定では使えない
-" 設定方法はこちら
-" http://sanrinsha.lolipop.jp/blog/2011/10/tera-term.html
-" 面倒な場合は下の<C-n><C-p>の方法をとるべし
-nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
-"nnoremap <C-n> :bn<CR>
-"nnoremap <C-p> :bp<CR>
-
-nnoremap <Esc>1 :b1<CR>
-nnoremap <Esc>2 :b2<CR>
-nnoremap <Esc>3 :b3<CR>
-nnoremap <Esc>4 :b4<CR>
-nnoremap <Esc>5 :b5<CR>
-nnoremap <Esc>6 :b6<CR>
-nnoremap <Esc>7 :b7<CR>
-nnoremap <Esc>8 :b8<CR>
-nnoremap <Esc>9 :b9<CR>
-nnoremap <Esc>0 :b10<CR>
+nnoremap <M-n> :bn<CR>
+nnoremap <M-p> :bp<CR>
+nnoremap <M-1> :b1<CR>
+nnoremap <M-2> :b2<CR>
+nnoremap <M-3> :b3<CR>
+nnoremap <M-4> :b4<CR>
+nnoremap <M-5> :b5<CR>
+nnoremap <M-6> :b6<CR>
+nnoremap <M-7> :b7<CR>
+nnoremap <M-8> :b8<CR>
+nnoremap <M-9> :b9<CR>
+nnoremap <M-0> :b10<CR>
 
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
 
-" ウィンドウを分割していて:bdしてもレイアウトが崩れないようにする
-" http://vim.wikia.com/wiki/Deleting_a_buffer_without_closing_the_window
-" 上のサイトのAlternative Scriptを~/.vim/plugin/Kwbd.vimに保存する
+" bclose.vim
+" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+" https://github.com/rgarver/Kwbd.vim
 " set hiddenを設定しておく必要あり
 if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     nmap :bd<CR> <Plug>Kwbd
 endif
-
-"" buftabs
-"" ステータスラインにバッファ一覧を表示するプラグイン
-"" http://www.vim.org/scripts/script.php?script_id=1664
-"" http://sanrinsha.lolipop.jp/blog/2012/01/buftabs-vim-%E3%83%90%E3%83%83%E3%83%95%E3%82%A1%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B.html
-"" バッファタブにパスを省略してファイル名のみ表示する
-"if filereadable(expand('~/.vim/bundle/vim/plugin/buftabs.vim'))
-"    let g:buftabs_only_basename=1
-"    " バッファタブをステータスライン内に表示する
-"    let g:buftabs_in_statusline=1
-"    " 現在のバッファをハイライト
-"    let g:buftabs_active_highlight_group="Visual"
-"    "let g:buftabs_separator = " " 
-"    "let g:buftabs_marker_start = ""
-"    "let g:buftabs_marker_end = ""
-"    let g:buftabs_marker_modified = "+"
-"endif
 "}}}
 
 
@@ -221,23 +242,45 @@ endif
 " ウィンドウ {{{
 "-------------------------------------------------------------------------------
 nnoremap <C-w>; <C-w>+
+"  常にカーソル行を真ん中に
+"set scrolloff=999
+
+
 "縦分割されたウィンドウのスクロールを同期させる
-"同期させたいウィンドウ上で<F10>を押せばおｋ
-"解除はもう一度<F10>を押す
+"同期させたいウィンドウ上で<F12>を押せばおｋ
+"解除はもう一度<F12>を押す
 "横スクロールも同期させたい場合はこちら
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
-nnoremap <F10> :set scrollbind!<CR>
+nnoremap <F12> :set scrollbind!<CR>
 "}}}
 
 
 "-------------------------------------------------------------------------------
 " タブ {{{
 "-------------------------------------------------------------------------------
-" いつタブページのラベルを表示するかを指定する。
-"                0: 表示しない
-"                1: 2個以上のタブページがあるときのみ表示
-"                2: 常に表示
+"  いつタブページのラベルを表示するかを指定する。
+"  0: 表示しない
+"  1: 2個以上のタブページがあるときのみ表示
+"  2: 常に表示
 set showtabline=1
+
+nnoremap <C-T>c :tabnew<CR>
+nnoremap <C-T>q :tabc<CR>
+
+nnoremap <C-Tab> :tabn<CR>
+nnoremap <S-C-Tab> :tabp<CR>
+
+nnoremap <C-T>1  :1tabn<CR>
+nnoremap <C-T>2  :2tabn<CR>
+nnoremap <C-T>3  :3tabn<CR>
+nnoremap <C-T>4  :4tabn<CR>
+nnoremap <C-T>5  :5tabn<CR>
+nnoremap <C-T>6  :6tabn<CR>
+nnoremap <C-T>7  :7tabn<CR>
+nnoremap <C-T>8  :8tabn<CR>
+nnoremap <C-T>9  :9tabn<CR>
+nnoremap <C-T>0  :10tabn<CR>
+
 "}}}
 
 
@@ -301,14 +344,7 @@ set smartcase "検索パターンに大文字を含んでいたら大文字小�
 set nohlsearch "検索結果をハイライトしない
 
 " ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
-
-"set hlsearch  " highlight search
-"nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
-"nnoremap / :<C-u>set hlsearch<Return>/
-"nnoremap ? :<C-u>set hlsearch<Return>?
-"nnoremap * :<C-u>set hlsearch<Return>*
-"nnoremap # :<C-u>set hlsearch<Return>#
+nnoremap <Esc><Esc> :set hlsearch!<CR>
 
 "ヴィビュアルモードで選択した範囲だけ検索
 vnoremap /v<CR> <ESC>/\%V
@@ -357,9 +393,9 @@ inoremap <C-w>  <C-g>u<C-w>
 
 "set notimeout      " マッピングについてタイムアウトしない
 "set ttimeout       " 端末のキーコードについてタイムアウトする
-"set timeoutlen=500 " ミリ秒後にタイムアウトする
+"set timeoutlen=0 " ミリ秒後にタイムアウトする
+"set timeout timeoutlen=3000 ttimeoutlen=100
 
-"inoremap <silent> <C-[> <ESC>
 "}}}
 
 
@@ -386,6 +422,8 @@ if &term == "xterm-256color"
     augroup END 
  
     " screenでマウスを使用するとフリーズするのでその対策 
+    " Tere Termだと自動で認識されているかも
+    " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
     set ttymouse=xterm2 
 endif 
 
@@ -426,7 +464,7 @@ set fileencoding=utf-8
 " http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
 " 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
 " ただし2つあるeuc-jpの2番目を消した
-if has("win32")
+if has("win32") || has("win64")
     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
 else
     " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
@@ -525,7 +563,7 @@ let g:yankring_manual_clipboard_check = 0
 "-------------------------------------------------------------------------------
 " Mini Buf Explorer {{{
 "-------------------------------------------------------------------------------
-let g:miniBufExplSplitBelow=1  " Put new window below
+"let g:miniBufExplSplitBelow=1  " Put new window below
                                " current or on the
                                " right for vertical split
 "}}}
