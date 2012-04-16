@@ -38,6 +38,5 @@ $if mysql
     # を変更する
     # http://www.dbonline.jp/mysql/myini/index3.html]
     # http://d.hatena.ne.jp/ichiro_tanaka/20090305/1236236041 
-    "C
     "\C-xf": "show full columns from "
 $endif
