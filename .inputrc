@@ -16,7 +16,7 @@ $if mysql
     # MySQL pager
     # http://d.hatena.ne.jp/xyk/touch/20110207/1297045517
     # MySQLの出力先をVimにする
-    "\C-xv": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'"
+    "\C-xv": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'\n"
     # http://vim-jp.org/vimdoc-ja/starting.html
     # - 標準入力を読み込む
     # -R readonlyで開く。readonlyにしないと閉じるときに!が必要になるので
@@ -26,11 +26,11 @@ $if mysql
     # set ft=mysql filetypeをMySQLにする
     #
     # pagerの設定を解除
-    "\C-xq": "nopager"
+    "\C-xq": "nopager\n"
 
     # 文字化け対策
     # 送受信の文字コードをUTF-8にする
-    "\C-xu": "set names utf8;"
+    "\C-xu": "set names utf8;\n"
     # set names utf8で
     #  character_set_client      utf8  クライアントが送信する文字コード
     #  character_set_connection  utf8  文字コード情報が無い文字列の文字コード
@@ -38,4 +38,6 @@ $if mysql
     # を変更する
     # http://www.dbonline.jp/mysql/myini/index3.html]
     # http://d.hatena.ne.jp/ichiro_tanaka/20090305/1236236041 
+    "C
+    "\C-xf": "show full columns from "
 $endif
