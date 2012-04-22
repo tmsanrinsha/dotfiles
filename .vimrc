@@ -104,7 +104,7 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
-"set cursorline
+set cursorline
 
 " 不可視文字の可視化（Vimテクニックバイブル1-11）
 set list listchars=tab:>-,trail:_
