@@ -478,6 +478,7 @@ set ambiwidth=double
 " Syntax {{{
 "-------------------------------------------------------------------------------
 syntax enable
+set foldmethod=marker
 
 " Vimテクニックバイブル1-13
 " PHPプログラムの構文チェック
@@ -499,10 +500,10 @@ augroup php
     au Syntax php set foldmethod=syntax
 augroup END
 
-augroup vim
-    autocmd!
-    au Syntax vim set foldmethod=marker
-augroup END
+"augroup vim
+"    autocmd!
+"    au Syntax vim set foldmethod=marker
+"augroup END
 
 "}}}
 
