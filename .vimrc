@@ -94,8 +94,6 @@ filetype plugin indent on     " required!
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "}}}
 
- 
-
 
 "-------------------------------------------------------------------------------
 " 表示 {{{
@@ -233,7 +231,7 @@ set hidden
 " https://github.com/rgarver/Kwbd.vim
 " set hiddenを設定しておく必要あり
 if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
-    nmap :bd<CR> <Plug>Kwbd
+    nmap <Leader>bd <Plug>Kwbd
 endif
 "}}}
 
@@ -347,8 +345,8 @@ set nohlsearch "検索結果をハイライトしない
 nnoremap <Esc><Esc> :set hlsearch!<CR>
 
 "ヴィビュアルモードで選択した範囲だけ検索
-vnoremap /v<CR> <ESC>/\%V
-vnoremap ?v<CR> <ESC>?\%V
+vnoremap <Leader>/ <ESC>/\%V
+vnoremap <Leader>? <ESC>?\%V
 "}}}
  
  
@@ -548,8 +546,8 @@ source $VIMRUNTIME/menu.vim
 "-------------------------------------------------------------------------------
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-nmap :es<CR> :e sudo:%<CR><C-^>:bd<CR>
-nmap :ws<CR> :w sudo:%<CR>
+nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+nmap <Leader>w :w sudo:%<CR>
 "}}}
 
 
