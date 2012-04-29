@@ -100,9 +100,8 @@ setopt correct
 #
 setopt list_packed
 
-#------------------------------------------------------------------------------
-# 履歴
-#------------------------------------------------------------------------------
+# 履歴 {{{
+#==============================================================================
 # historical backward/forward search with linehead string binded to ^P/^N
 #
 autoload history-search-end
@@ -122,6 +121,8 @@ SAVEHIST=10000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
 setopt hist_ignore_space     # 先頭にスペースを入れると履歴に残さない
+setopt interactive_comments # 対話シェルでコメントを使えるようにする
+# }}}
 
 #------------------------------------------------------------------------------
 # プロンプト
