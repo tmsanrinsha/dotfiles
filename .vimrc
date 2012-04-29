@@ -121,14 +121,14 @@ augroup END
 " タブ・インデント {{{
 "-------------------------------------------------------------------------------
 "ファイル内の <Tab> が対応する空白の数
-set tabstop=4 
+set tabstop=4
 "<Tab> の挿入や <BS> の使用等の編集操作をするときに、<Tab> が対応する空白の数
-set softtabstop=4 
+set softtabstop=4
 "インデントの各段階に使われる空白の数
-set shiftwidth=4 
+set shiftwidth=4
 set expandtab
 "新しい行のインデントを現在行と同じくする
-set autoindent 
+set autoindent
 set smartindent
 "}}}
 
@@ -542,12 +542,24 @@ source $VIMRUNTIME/menu.vim
 
 
 "-------------------------------------------------------------------------------
+" vimfiler {{{
+"-------------------------------------------------------------------------------
+let g:vimfiler_as_default_explorer = 1
+"}}}
+
+"-------------------------------------------------------------------------------
 " sudo.vim {{{
 "-------------------------------------------------------------------------------
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
-nmap <Leader>w :w sudo:%<CR>
+"nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+"nmap <Leader>w :w sudo:%<CR>
+if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
+    nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
+else
+   nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+endif
+nnoremap <Leader>w :w sudo:%<CR>
 "}}}
 
 
@@ -564,6 +576,13 @@ let g:yankring_manual_clipboard_check = 0
 "let g:miniBufExplSplitBelow=1  " Put new window below
                                " current or on the
                                " right for vertical split
+"function! Md()
+"    return expand("%:p")
+"    "echo "a"
+"    "set paste
+"endfunction
+""let g:statusLineText = "-MiniBufExplorer-" . Md()
+"let g:statusLineText = Md()
 "}}}
 
 
@@ -571,6 +590,7 @@ let g:yankring_manual_clipboard_check = 0
 " Powerline for vim {{{
 "-------------------------------------------------------------------------------
 let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+let g:Powerline_stl_path_style = 'short'
 "}}}
 
 

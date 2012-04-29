@@ -26,7 +26,7 @@ fi
 
 #グローバルエイリアス
 alias -g A='| awk'
-alias -g L='| less'
+alias -g L='| less -R'
 alias -g H='| head'
 alias -g T='| tail -f'
 alias -g R='| tail -r'

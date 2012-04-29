@@ -5,10 +5,13 @@
     br = branch
     hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
 [user]
-	name = ****
-	email = ****
+    name = ****
+    email = ****
 [github]
-	user = ****
-	token = ****
+    user = ****
+    token = ****
 [color]
-	ui = auto
+    ui = auto
+[core]
+    pager=cat
+    editor=vim
