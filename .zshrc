@@ -60,8 +60,7 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 #
 setopt auto_cd
 
-#------------------------------------------------------------------------------
-# auto_pushd
+# auto_pushd {{{
 #------------------------------------------------------------------------------
 # auto directory pushd that you can get dirs list by cd -(+)[tab]
 # -:古いのが上、+:新しいのが上
@@ -70,27 +69,8 @@ setopt auto_pushd
 setopt pushd_minus
 # pushdで同じディレクトリを重複してpushしない
 setopt pushd_ignore_dups
+# }}}
 
-# pushdを端末間で共有したり、ログアウトしても残るようにする
-# http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
-function share_pushd_preexec {
-    pwd >> ~/.pushd_history
-}
-function share_pushd_precmd {
-    # 現在のディレクトリに戻ってこれるように書き込み
-    pwd >> ~/.pushd_history
-    # 上の書き込みで重複が生じた場合かもしれないので重複を削除
-    cat ~/.pushd_history | uniq >> ~/.pushd_history
-    while read line
-    do
-        # ディレクトリが削除されていることもあるので調べる
-        [ -d $line ] && cd $line
-    done <~/.pushd_history
-    # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
-    # 最新のを10だけ保存することにする
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r | tail -n 10 > ~/.pushd_history
-}
-#------------------------------------------------------------------------------
 
 # command correct edition before each completion attempt
 #
@@ -113,6 +93,9 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward
 bindkey "^N" history-beginning-search-forward
 
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+
 ## Command history configuration
 #
 HISTFILE=~/.zsh_history
@@ -124,13 +107,21 @@ setopt hist_ignore_space     # 先頭にスペースを入れると履歴に残�
 setopt interactive_comments # 対話シェルでコメントを使えるようにする
 # }}}
 
-#------------------------------------------------------------------------------
-# プロンプト
-#------------------------------------------------------------------------------
+#==============================================================================
+# precmd系 {{{
+#==============================================================================
+# http://d.hatena.ne.jp/kiririmode/20120327/p1
+# add-zsh-hook precmd your_functionするための設定
+autoload -Uz add-zsh-hook
+
+# プロンプト {{{
+#==============================================================================
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
+autoload -Uz colors; colors
 #C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
-local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
+#local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
+local pct="%0(?||%18(?||%{$bg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
 
 ## Solarized
 ## https://github.com/seebi/dircolors-solarized
@@ -172,22 +163,36 @@ else
     num=$((0x`hostname | md5sum | cut -c1-8` % 217 + 1))
 fi
 #PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
-PROMPT="%{"$'\e'"[38;5;${colArr[$num]}m%}[%m:%~]$pct " 
-PROMPT2="%{"$'\e'"[38;5;${colArr[$num]}m%}%_%#%{"$'\e'"[m%} " 
-SPROMPT="%{"$'\e'"[31m%}%r is correct? [y,n,a,e]:%{"$'\e'"[m%} "
+#PROMPT="%{"$'\e'"[38;5;${colArr[$num]}m%}[%m:%~]$pct "
 
-# set terminal title including current directory
-#
+color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
+bgcolor="%{"$'\e'"[48;5;${colArr[$num]}m%}"
+# パスの~の部分の色を反転させる
+function update_prompt() {
+    tildepwd=$(pwd | sed "s|$HOME|$bgcolor%{"$'\e'"[30m%}~%{"$'\e'"[m%}$color|")
+    #PROMPT="${pct}${color}[%m:${tildepwd}]$pct "
+    PROMPT="${pct}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
+}
+add-zsh-hook precmd update_prompt
+
+PROMPT2="%{"$'\e'"[38;5;${colArr[$num]}m%}%_>%{${reset_color}%} "
+SPROMPT="%{$bg[blue]%}%{$suggest%}(._.%)? %r is correct? [n,y,a,e]:%{${reset_color}%} "
+setopt print_exit_value
+# }}}
+
+# set terminal title including current directory {{{
+#==============================================================================
 case "${TERM}" in
 kterm*|xterm)
-    precmd() {
+    terminal_title_precmd() {
         echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
     }
+    add-zsh-hook precmd terminal_title_precmd
     ;;
 esac
+# }}}
 
-#------------------------------------------------------------------------------
-# screenの設定
+# screenの設定 {{{
 #------------------------------------------------------------------------------
 #実行中のコマンドまたはカレントディレクトリの表示
 #.screenrcでterm xterm-256colorと設定している場合
@@ -198,25 +203,45 @@ if [ $TERM = xterm-256color ];then
     screen_precmd() {
         echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
     }
-else
-    screen_preexec() {
-        :
-    }
-    screen_precmd() {
-        :
-    }
+    add-zsh-hook preexec screen_preexec
+    add-zsh-hook precmd screen_precmd
 fi
+# }}}
 
-
-function preexec {
-    share_pushd_preexec
-    screen_preexec
+# pushdを端末間で共有したり、ログアウトしても残るようにする {{{
+#==============================================================================
+# http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
+function share_pushd_preexec {
+    pwd >> ~/.pushd_history
 }
-
-function precmd {
-     share_pushd_precmd
-     screen_precmd
+function share_pushd_precmd {
+    # 現在のディレクトリに戻ってこれるように書き込み
+    pwd >> ~/.pushd_history
+    # 上の書き込みで重複が生じた場合かもしれないので重複を削除
+    cat ~/.pushd_history | uniq >> ~/.pushd_history
+    while read line
+    do
+        # ディレクトリが削除されていることもあるので調べる
+        [ -d $line ] && cd $line
+    done <~/.pushd_history
+    # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
+    # 最新のを10だけ保存することにする
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r | tail -n 10 > ~/.pushd_history
 }
+add-zsh-hook preexec share_pushd_preexec
+add-zsh-hook precmd share_pushd_precmd
+# }}}
+# }}}
+
+# function preexec {
+#     share_pushd_preexec
+#     screen_preexec
+# }
+#
+# function precmd {
+#      share_pushd_precmd
+#      screen_precmd
+# }
 
 
 if [ -f ~/.zshrc.local ]; then
