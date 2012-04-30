@@ -24,7 +24,7 @@ if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
     . ~/.zsh/plugin/incr-0.2.zsh
 fi
 
-#グローバルエイリアス
+# グローバルエイリアス {{{
 alias -g A='| awk'
 alias -g L='| less -R'
 alias -g H='| head'
@@ -36,8 +36,9 @@ alias -g E='| egrep'
 alias -g GI='| egrep -i'
 alias -g X='-print0 | xargs -0'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
+# }}}
 
-## Keybind configuration
+# Keybind configuration {{{
 #
 # emacs like keybind -e
 # vi like keybind -v
@@ -51,17 +52,16 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 #Endで行末へ
 bindkey "^[[4~" end-of-line
+# }}}
 
 # 単語境界にならない記号の設定
 # /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # auto change directory
-#
 setopt auto_cd
 
 # auto_pushd {{{
-#------------------------------------------------------------------------------
 # auto directory pushd that you can get dirs list by cd -(+)[tab]
 # -:古いのが上、+:新しいのが上
 setopt auto_pushd
@@ -71,13 +71,7 @@ setopt pushd_minus
 setopt pushd_ignore_dups
 # }}}
 
-
-# command correct edition before each completion attempt
-#
-setopt correct
-
 # compacked complete list display
-#
 setopt list_packed
 
 # 履歴 {{{
@@ -111,73 +105,60 @@ setopt interactive_comments # 対話シェルでコメントを使えるよう�
 # precmd系 {{{
 #==============================================================================
 # http://d.hatena.ne.jp/kiririmode/20120327/p1
-# add-zsh-hook precmd your_functionするための設定
+# add-zsh-hook precmd functionするための設定
 autoload -Uz add-zsh-hook
 
 # プロンプト {{{
 #==============================================================================
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
+setopt print_exit_value
 autoload -Uz colors; colors
-#C-zでサスペンドしたとき(18)以外のエラー終了時に%#を赤く表示
-#local pct="%0(?||%18(?||%{"$'\e'"[31m%}))%#%{"$'\e'"[m%}"
-local pct="%0(?||%18(?||%{$bg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
-
-## Solarized
-## https://github.com/seebi/dircolors-solarized
-## 現在のホストによってプロンプトの色を変える。
-## http://absolute-area.com/post/6664864690/zshを参考にした
-#if [ `uname` = FreeBSD ];then
-#    colnum=$((0x`hostname | md5 | cut -c1` % 8))
-#else
-#    colnum=$((0x`hostname | md5sum | cut -c1` % 8))
-#fi
-## `hostname | md5 | cut -c1`
-## hostnameをmd5でハッシュに変更して、最初の一文字を取る
-## $((0x`...` % 8))
-## これを16進法の数値にして8の余りを求める。
-## 8の余りを求めたのはsolarizedの8色だけ使いたいので
-#case $colnum in
-#    0) col=136;;  # yellow   
-#    1) col=166;;  # brred    
-#    2) col=160;;  # red      
-#    3) col=125;;  # magenta  
-#    4) col=61;;   # brmagenta
-#    5) col=33;;   # blue     
-#    6) col=37;;   # cyan     
-#    7) col=64;;   # green    
-#esac
 
 # 現在のホストによってプロンプトの色を変える。
-# http://absolute-area.com/post/6664864690/zshを参考にした
 # 256色の内、カラーで背景黒の時見やすい色はこの217色かな
 colArr=({1..6} {9..14} {22..186} {190..229})
-# xtermの色についてはこちら
-# http://frexx.de/xterm-256-notes/
 
-# hostnameをmd5でハッシュに変更する
-# 長いとエラーが出るので最初の8文字を使う
+# hostnameをmd5でハッシュに変更し、1-217の数値を生成する
+# hostnameが長いとエラーが出るので最初の8文字を使う
 if [ `uname` = FreeBSD ];then
     num=$((0x`hostname | md5 | cut -c1-8` % 217 + 1)) # zshの配列のインデックスは1から
 else
     num=$((0x`hostname | md5sum | cut -c1-8` % 217 + 1))
 fi
-#PROMPT="%{"$'\e'"[${col}m%}[%n@%m:%~]$pct " 
-#PROMPT="%{"$'\e'"[38;5;${colArr[$num]}m%}[%m:%~]$pct "
 
 color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
-bgcolor="%{"$'\e'"[48;5;${colArr[$num]}m%}"
-# パスの~の部分の色を反転させる
-function update_prompt() {
-    tildepwd=$(pwd | sed "s|$HOME|$bgcolor%{"$'\e'"[30m%}~%{"$'\e'"[m%}$color|")
-    #PROMPT="${pct}${color}[%m:${tildepwd}]$pct "
-    PROMPT="${pct}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
-}
-add-zsh-hook precmd update_prompt
 
-PROMPT2="%{"$'\e'"[38;5;${colArr[$num]}m%}%_>%{${reset_color}%} "
-SPROMPT="%{$bg[blue]%}%{$suggest%}(._.%)? %r is correct? [n,y,a,e]:%{${reset_color}%} "
-setopt print_exit_value
+#C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
+local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
+
+function prompt_precmd() {
+    # パスの~の部分の色を反転させる
+    tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
+    PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
+}
+add-zsh-hook precmd prompt_precmd
+
+PROMPT2="${color}%_>%{${reset_color}%} "
+# command correct edition before each completion attempt
+setopt correct
+SPROMPT="%{$fg[yellow]%}(._.%)? %r is correct? [n,y,a,e]:%{${reset_color}%} "
+
+# 参考にしたサイト
+# ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
+#  - http://gihyo.jp/dev/serial/01/zsh-book/0003
+#  - C-zでサスペンドしたとき(18)以外のエラー終了時の設定を参考にした
+#  - エスケープシーケンスの記述、プロンプトで使える特殊文字の表がある
+# ■【コラム】漢のzsh (2) 取りあえず、プロンプトを整えておく。カッコつけたいからね | エンタープライズ | マイナビニュース
+#  - http://news.mynavi.jp/column/zsh/002/index.html
+#  - SPROMPTの設定
+# ■zshでログイン先によってプロンプトに表示されるホスト名の色を自動で変える - absolute-area
+#  - http://absolute-area.com/post/6664864690/zsh
+# ■The 256 color mode of xterm
+#  - http://frexx.de/xterm-256-notes/
+# ■可愛いzshの作り方 - プログラムモグモグ
+#  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
+#  - 顔文字を参考にした
 # }}}
 
 # set terminal title including current directory {{{
@@ -193,7 +174,7 @@ esac
 # }}}
 
 # screenの設定 {{{
-#------------------------------------------------------------------------------
+#==============================================================================
 #実行中のコマンドまたはカレントディレクトリの表示
 #.screenrcでterm xterm-256colorと設定している場合
 if [ $TERM = xterm-256color ];then
@@ -232,17 +213,6 @@ add-zsh-hook preexec share_pushd_preexec
 add-zsh-hook precmd share_pushd_precmd
 # }}}
 # }}}
-
-# function preexec {
-#     share_pushd_preexec
-#     screen_preexec
-# }
-#
-# function precmd {
-#      share_pushd_precmd
-#      screen_precmd
-# }
-
 
 if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
