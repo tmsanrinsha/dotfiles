@@ -95,7 +95,7 @@ filetype plugin indent on     " required!
 "}}}
 
 
-"-------------------------------------------------------------------------------
+""-------------------------------------------------------------------------------
 " 表示 {{{
 "-------------------------------------------------------------------------------
 set showmode "現在のモードを表示
@@ -156,6 +156,7 @@ set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
 colorscheme molokai
+"let g:molokai_original = 0
 "set background=dark
 "colorscheme solarized
 "}}}
@@ -591,7 +592,7 @@ let g:yankring_manual_clipboard_check = 0
 " Powerline for vim {{{
 "-------------------------------------------------------------------------------
 let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-let g:Powerline_stl_path_style = 'short'
+"let g:Powerline_stl_path_style = 'short'
 "}}}
 
 

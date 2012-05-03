@@ -132,11 +132,25 @@ color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
 #C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
 local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
 
+
+#function prompt_preexec() {
+#    # preexecの中で
+#    #  $0はpreexec
+#    #  $1は入力されたコマンド
+#    #  $2は入力されたエイリアスが展開されたコマンド
+#    # setopt print_exit_valueと挙動を似せるために$2をとっておく
+#    prompt_cmd=$2
+#}
 function prompt_precmd() {
+    ## setopt print_exit_valueをセットしたときのようなメッセージを作る
+    ## ただし、setopt print exit_valueの場合はcommand1;command2と打った時
+    #err="%0(?||%18(?||%{$fg[red]%}(;_;%)! zsh: exit $?   $prompt_cmd%{${reset_color}%}"$'\n'"))"
+    err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
     # パスの~の部分の色を反転させる
     tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
     PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
 }
+#add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
 PROMPT2="${color}%_>%{${reset_color}%} "
