@@ -38,6 +38,13 @@ alias -g X='-print0 | xargs -0'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 # }}}
 
+# zmv
+# http://ref.layer8.sh/ja/entry/show/id/2694
+# http://d.hatena.ne.jp/mollifier/20101227/p1
+autoload -Uz zmv
+alias zmv='zmv -W'
+
+
 # Keybind configuration {{{
 #
 # emacs like keybind -e

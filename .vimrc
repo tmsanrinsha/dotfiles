@@ -73,7 +73,12 @@ NeoBundle 'YankRing.vim'
 
 " カラースキーム
 " http://www.vim.org/scripts/script.php?script_id=2340
-"NeoBundle 'molokai'
+NeoBundle 'molokai'
+
+NeoBundle 'altercation/vim-colors-solarized'
+set background=light
+colorscheme solarized
+let g:solarized_termcolors=256
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
