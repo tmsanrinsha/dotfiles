@@ -12,34 +12,44 @@
 export LANG='ja_JP.UTF-8'
 export EDITOR='vim'
 
-# svnとtreeの文字化け対策
-alias lcc="export LC_CTYPE='C'"
-# 日本語入力用
-alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
-
 # alias
+# ls
 if [ `uname` = FreeBSD ];then
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -G'
 else
     alias ls='ls --color'
 fi
-
 alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+
+alias cp='cp -i'
+alias mv='mv -i'
+
+# sudo
+# http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
+alias sudo='sudo '
+
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
+alias pg='ps aux | grep'
 alias pe='ps aux | egrep'
 alias tree='tree -FC'
+alias smw='sudo chmod a+w'
 
+# vim
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
 if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
     alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
 fi
 
+# svnとtreeの文字化け対策
+alias lcc="export LC_CTYPE='C'"
+# 日本語入力用
+alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
 
 # カレントディレクトリのファイル名をFull Pathで表示
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
