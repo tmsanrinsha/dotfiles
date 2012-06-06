@@ -71,6 +71,8 @@ NeoBundle 'sudo.vim'
 " http://www.vim.org/scripts/script.php?script_id=1234
 NeoBundle 'YankRing.vim'
 
+NeoBundle 'Align'
+
 NeoBundle 'altercation/vim-colors-solarized'
 set background=light
 colorscheme solarized
@@ -93,6 +95,9 @@ filetype plugin indent on     " required!
 " :NeoBundleList          - list configured bundles
 " :NeoBundleInstall(!)    - install(update) bundles
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :Unite neobundle/install:!
+" :Unite neobundle/install:neocomplcache
+" :Unite neobundle/install:neocomplcache:unite.vim
 "}}}
 
 
