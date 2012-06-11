@@ -1,1 +1,3 @@
-/home/tmiwa/git/my_git/dotfiles/.ackrc
+--type-set=inc=.inc
+--type-set=ini=.ini
+--type-set=conf=.conf
