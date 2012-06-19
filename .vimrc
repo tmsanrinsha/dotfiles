@@ -73,10 +73,11 @@ NeoBundle 'YankRing.vim'
 
 NeoBundle 'Align'
 
-NeoBundle 'altercation/vim-colors-solarized'
-set background=light
-colorscheme solarized
-let g:solarized_termcolors=256
+NeoBundle 'confluencewiki.vim'
+"NeoBundle 'altercation/vim-colors-solarized'
+"set background=light
+"colorscheme solarized
+"let g:solarized_termcolors=256
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
@@ -173,42 +174,42 @@ colorscheme molokai
 "-------------------------------------------------------------------------------
 set timeout timeoutlen=3000 ttimeoutlen=100
 
-"if !has('gui_running')
-"    " ターミナル上でのメタキーの設定
-"    set <M-0>=0
-"    set <M-1>=1
-"    set <M-2>=2
-"    set <M-3>=3
-"    set <M-4>=4
-"    set <M-5>=5
-"    set <M-6>=6
-"    set <M-7>=7
-"    set <M-8>=8
-"    set <M-9>=9
-"    set <M-n>=n
-"    set <M-p>=p
-"
-"    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
-"    " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
-"    " MapFastKeycode: helper for fast keycode mappings
-"    " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
-"    function! <SID>MapFastKeycode(key, keycode)
-"        if s:fast_i == 46
-"            echohl WarningMsg
-"            echomsg "Unable to map ".a:key.": out of spare keycodes"
-"            echohl None
-"            return
-"        endif
-"        let vkeycode = '<'.(s:fast_i/23==0 ? '' : 'S-').'F'.(15+s:fast_i%23).'>'
-"        exec 'set '.vkeycode.'='.a:keycode
-"        exec 'map '.vkeycode.' '.a:key
-"        let s:fast_i += 1
-"    endfunction
-"    let s:fast_i = 0
-"
-"    call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
-"    call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
-"endif
+if !has('gui_running')
+    " ターミナル上でのメタキーの設定
+    set <M-0>=0
+    set <M-1>=1
+    set <M-2>=2
+    set <M-3>=3
+    set <M-4>=4
+    set <M-5>=5
+    set <M-6>=6
+    set <M-7>=7
+    set <M-8>=8
+    set <M-9>=9
+    set <M-n>=n
+    set <M-p>=p
+
+    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
+    " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
+    " MapFastKeycode: helper for fast keycode mappings
+    " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
+    function! <SID>MapFastKeycode(key, keycode)
+        if s:fast_i == 46
+            echohl WarningMsg
+            echomsg "Unable to map ".a:key.": out of spare keycodes"
+            echohl None
+            return
+        endif
+        let vkeycode = '<'.(s:fast_i/23==0 ? '' : 'S-').'F'.(15+s:fast_i%23).'>'
+        exec 'set '.vkeycode.'='.a:keycode
+        exec 'map '.vkeycode.' '.a:key
+        let s:fast_i += 1
+    endfunction
+    let s:fast_i = 0
+
+    call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
+    call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
+endif
 
 inoremap jj <ESC>
 "}}}
@@ -217,9 +218,9 @@ inoremap jj <ESC>
 "-------------------------------------------------------------------------------
 " バッファ {{{
 "-------------------------------------------------------------------------------
-nmap <M-n> :bn<CR>
+nnoremap <M-n> :bn<CR>
 nnoremap <M-p> :bp<CR>
-nmap <A-1> :b1<CR>
+nnoremap <M-1> :b1<CR>
 nnoremap <M-2> :b2<CR>
 nnoremap <M-3> :b3<CR>
 nnoremap <M-4> :b4<CR>
