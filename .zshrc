@@ -96,16 +96,26 @@ bindkey "^N" history-beginning-search-forward
 
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
+## C-sでのヒストリ検索が潰されてしまうため、出力停止・開始用にC-s/C-qを使わない。
+setopt no_flow_control
+# 対話シェルでコメントを使えるようにする
+setopt interactive_comments
 
 ## Command history configuration
 #
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
-setopt hist_ignore_space     # 先頭にスペースを入れると履歴に残さない
-setopt interactive_comments # 対話シェルでコメントを使えるようにする
+## ヒストリファイルにコマンドラインだけではなく実行時刻と実行時間も保存する。
+setopt extended_history
+## 同じコマンドラインを連続で実行した場合はヒストリに登録しない。
+setopt hist_ignore_dups
+## スペースで始まるコマンドラインはヒストリに追加しない。
+setopt hist_ignore_space
+## すぐにヒストリファイルに追記する。
+setopt inc_append_history
+## zshプロセス間でヒストリを共有する。
+setopt share_history
 # }}}
 
 #==============================================================================
