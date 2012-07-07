@@ -1,0 +1,18 @@
+#!/bin/sh
+# 「gitリポジトリからファイルを完全に消去する方法」をコマンドにしてみた
+# http://d.hatena.ne.jp/tyru/20091030/git_shred
+# にあるコード
+
+progname=`basename $0`
+usage () {
+    cat <<EOM
+Usage: $progname <file>; git push --force
+EOM
+    exit 1
+}
+
+
+if [ $# != 1 -o "$1" = '-h' ]; then usage; fi
+command git filter-branch \
+    -f --index-filter \
+    "git update-index --remove '$1'" HEAD
