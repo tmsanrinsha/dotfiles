@@ -58,6 +58,9 @@ NeoBundle 'rgarver/Kwbd.vim'
 " https://github.com/Lokaltog/vim-powerline
 NeoBundle 'Lokaltog/vim-powerline'
 
+" https://github.com/thinca/vim-quickrun
+NeoBundle 'thinca/vim-quickrun'
+
 " 自分で修正したプラグイン
 " https://github.com/tmsanrinsha/vim
 NeoBundle 'tmsanrinsha/vim'
