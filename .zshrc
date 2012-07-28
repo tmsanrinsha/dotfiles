@@ -227,8 +227,9 @@ function share_pushd_preexec {
     pwd >> ~/.pushd_history
 }
 function share_pushd_precmd {
-    TAC=`which tac 2>/dev/null`
-    if [ $TAC = '' ]; then
+    if [ which tac 1>/dev/null 2>&1 ];then
+        TAC=`which tac`
+    else
         TAC='tail -r'
     fi
 
@@ -243,7 +244,7 @@ function share_pushd_precmd {
     done <~/.pushd_history
     # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
     # 最新のを10だけ保存することにする
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | $TAC | tail -n 10 > ~/.pushd_history
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} | tail -n 10 > ~/.pushd_history
 }
 add-zsh-hook preexec share_pushd_preexec
 add-zsh-hook precmd share_pushd_precmd
