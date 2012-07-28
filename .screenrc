@@ -12,7 +12,8 @@ caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
 #caption always "%{= WY} %-w%?%F%{= mw}%:%{= kW}%? %n %t %{-}%+w"
 #hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
 
-escape ^Zz
+escape ^Qq
+
 #bind l windowlist
 
 #256色対応
