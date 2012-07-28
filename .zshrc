@@ -227,6 +227,11 @@ function share_pushd_preexec {
     pwd >> ~/.pushd_history
 }
 function share_pushd_precmd {
+    TAC=`which tac 2>/dev/null`
+    if [ $TAC = '' ]; then
+        TAC='tail -r'
+    fi
+
     # 現在のディレクトリに戻ってこれるように書き込み
     pwd >> ~/.pushd_history
     # 上の書き込みで重複が生じた場合かもしれないので重複を削除
@@ -238,7 +243,7 @@ function share_pushd_precmd {
     done <~/.pushd_history
     # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
     # 最新のを10だけ保存することにする
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | tail -r | tail -n 10 > ~/.pushd_history
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | $TAC | tail -n 10 > ~/.pushd_history
 }
 add-zsh-hook preexec share_pushd_preexec
 add-zsh-hook precmd share_pushd_precmd
