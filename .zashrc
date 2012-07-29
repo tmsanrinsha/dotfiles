@@ -110,7 +110,11 @@ if [ -x /usr/local/bin/tmux -a $TERM != 'xterm-256color' ];then
     tmux -2 a || tmux -2
 fi
 
-# nvm
+# gist {{{
+export GISTY_DIR="$HOME/gists"
+# }}}
+
+# nvm {{{
 # http://sanrinsha.lolipop.jp/blog/2012/03/node-jsnvm.html
 if [ -f ~/.nvm/nvm.sh ]; then
     # nvm.shにnvm用のMANPATHを追加する部分があるが
@@ -123,7 +127,16 @@ if [ -f ~/.nvm/nvm.sh ]; then
     . ~/.nvm/nvm.sh
     nvm alias default v0.6.11 > /dev/null
 fi
+# }}}
 
+# .zashrc.local {{{
 if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
+# }}}
+
+# cygwin {{{
+if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
+    . ~/.zashrc.cygwin
+fi
+# }}}

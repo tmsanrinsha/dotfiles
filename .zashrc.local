@@ -4,7 +4,7 @@
 # ssh-agent
 # http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
 if which ssh-agent 1>/dev/null 2>&1; then
-    agentPID=`pgrep ssh-agent | head -1`
+    agentPID=`ps | grep ssh-agent | head -1 | awk '{print $1}'`
     # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
     agentSOCK=$(find /tmp/ssh-* -name agent.$(expr $agentPID - 1 2>/dev/null) 2>/dev/null)
     if [ "$agentPID" = "" -o "$agentSOCK" = "" ]; then
