@@ -110,8 +110,9 @@ if [ -x /usr/local/bin/tmux -a $TERM != 'xterm-256color' ];then
     tmux -2 a || tmux -2
 fi
 
-# gist {{{
+# gisty {{{
 export GISTY_DIR="$HOME/gists"
+export GISTY_SSL_VERIFY="NONE"
 # }}}
 
 # nvm {{{
