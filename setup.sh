@@ -10,4 +10,4 @@ PWD=`pwd`
 ln -vn $PWD/bin/* $HOME/bin
 
 # http://betterthangrep.com/
-curl http://betterthangrep.com/ack-standalone > ~/local/bin/ack && chmod 0755 ~/local/bin/ack
+curl http://betterthangrep.com/ack-standalone > ~/bin/ack && chmod 0755 ~/bin/ack
