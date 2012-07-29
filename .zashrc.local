@@ -21,6 +21,10 @@ if which ssh-agent 1>/dev/null 2>&1; then
 fi
 
 
+if [ -f ~/.zashrc.secret ]; then
+    . ~/.zashrc.secret
+fi
+
 if [ -f ~/.zashrc.local2 ]; then
     . ~/.zashrc.local2
 fi
