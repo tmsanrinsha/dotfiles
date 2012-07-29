@@ -2,24 +2,28 @@
 #export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
 
 # ssh-agent
-# http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
-if which ssh-agent 1>/dev/null 2>&1; then
-    agentPID=`ps | grep ssh-agent | head -1 | awk '{print $1}'`
-    # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
-    agentSOCK=$(find /tmp/ssh-* -name agent.$(expr $agentPID - 1 2>/dev/null) 2>/dev/null)
-    if [ "$agentPID" = "" -o "$agentSOCK" = "" ]; then
-        unset SSH_AUTH_SOCK SSH_AGENT_PID
-        eval `ssh-agent`
-        ssh-add
-    else
-        export SSH_AGENT_PID=$agentPID
-        export SSH_AUTH_SOCK=$agentSOCK
-        if ! ssh-add -l 1>/dev/null 2>&1 ; then
+if [[ `uname` = CYGWIN* ]]; then
+    # pagentの読み込み。未設定
+    :
+else
+    # http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
+    if which ssh-agent 1>/dev/null 2>&1; then
+        agentPID=`ps | grep ssh-agent | head -1 | awk '{print $1}'`
+        # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
+        agentSOCK=$(find /tmp/ssh-* -name agent.$(expr $agentPID - 1 2>/dev/null) 2>/dev/null)
+        if [ "$agentPID" = "" -o "$agentSOCK" = "" ]; then
+            unset SSH_AUTH_SOCK SSH_AGENT_PID
+            eval `ssh-agent`
             ssh-add
+        else
+            export SSH_AGENT_PID=$agentPID
+            export SSH_AUTH_SOCK=$agentSOCK
+            if ! ssh-add -l 1>/dev/null 2>&1 ; then
+                ssh-add
+            fi
         fi
     fi
 fi
-
 
 if [ -f ~/.zashrc.secret ]; then
     . ~/.zashrc.secret
