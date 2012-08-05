@@ -8,7 +8,7 @@ if [[ `uname` = CYGWIN* ]]; then
 else
     # http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
     if which ssh-agent 1>/dev/null 2>&1; then
-        agentPID=`ps | grep ssh-agent | head -1 | awk '{print $1}'`
+        agentPID=`ps x | grep ssh-agent | grep -v grep | head -1 | awk '{print $1}'`
         # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
         agentSOCK=$(find /tmp/ssh-* -name agent.$(expr $agentPID - 1 2>/dev/null) 2>/dev/null)
         if [ "$agentPID" = "" -o "$agentSOCK" = "" ]; then
@@ -18,11 +18,13 @@ else
         else
             export SSH_AGENT_PID=$agentPID
             export SSH_AUTH_SOCK=$agentSOCK
+            # 秘密鍵がセットされてなかったら追加
             if ! ssh-add -l 1>/dev/null 2>&1 ; then
                 ssh-add
             fi
         fi
     fi
+    :
 fi
 
 if [ -f ~/.zashrc.secret ]; then
