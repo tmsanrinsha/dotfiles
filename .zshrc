@@ -13,16 +13,54 @@ fi
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
 
+# Keybind configuration {{{
+#
+# emacs like keybind -e
+# vi    like keybind -v
+bindkey -e
+bindkey "^/" undo
+bindkey "^[/" redo
+#DELで一文字削除
+bindkey "^[[3~" delete-char
+#HOMEは行頭へ
+bindkey "^[[1~" beginning-of-line
+#Endで行末へ
+bindkey "^[[4~" end-of-line
+# }}}
 
-#補完
-autoload -U compinit
-compinit
+# 補完 {{{
+autoload -U compinit && compinit
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+# 補完対象が2つ以上の時、選択できるようにする
+zstyle ':completion:*:default' menu select=2
+#bindkey '^i'    menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
+bindkey "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
+zstyle ':completion:*' use-cache true
+
 # Incremental completion on zsh
 # http://mimosa-pudica.net/zsh-incremental.html
 if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
     . ~/.zsh/plugin/incr-0.2.zsh
 fi
+
+## 補完関数を作るための設定 {{{
+# http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
+zstyle ':completion:*' verbose yes
+#zstyle ':completion:*' format '%BCompleting %d%b'
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+# site-functionsのリロード
+rsf() {
+  local f
+  f=(~/local/share/zsh/site-functions/*(.))
+  unfunction $f:t 2> /dev/null
+  autoload -U $f:t
+}
+## }}}
+# }}}
 
 # グローバルエイリアス {{{
 alias -g A='| awk'
@@ -45,21 +83,6 @@ autoload -Uz zmv
 alias zmv='zmv -W'
 
 
-# Keybind configuration {{{
-#
-# emacs like keybind -e
-# vi like keybind -v
-bindkey -e
-bindkey "^/" undo
-bindkey "^[/" redo
-# bindkey "\e[Z" reverse-menu-complete #zsh -Yと打って、Tabを押したら、すぐに補完する設定の時のみ有効
-#DELで一文字削除
-bindkey "^[[3~" delete-char
-#HOMEは行頭へ
-bindkey "^[[1~" beginning-of-line
-#Endで行末へ
-bindkey "^[[4~" end-of-line
-# }}}
 
 # 単語境界にならない記号の設定
 # /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
