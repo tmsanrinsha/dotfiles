@@ -585,7 +585,7 @@ let g:yankring_manual_clipboard_check = 0
 "-------------------------------------------------------------------------------
 " Mini Buf Explorer {{{
 "-------------------------------------------------------------------------------
-"let g:miniBufExplSplitBelow=1  " Put new window below
+let g:miniBufExplSplitBelow=1  " Put new window below
                                " current or on the
                                " right for vertical split
 "function! Md()
