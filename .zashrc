@@ -111,7 +111,7 @@ if [ -x /usr/local/bin/tmux -a $TERM != 'xterm-256color' ];then
 fi
 
 # svn {{{
-alias svnvd='svn diff --diff-cmd=~bin/svnvimdiff'
+alias svnvd='svn diff --diff-cmd ~/bin/svnvimdiff'
 # }}}
 
 # gisty {{{
