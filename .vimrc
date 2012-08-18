@@ -80,6 +80,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " http://www.vim.org/scripts/script.php?script_id=1732
     "NeoBundle 'rdark'
 
+    " tmuxのシンタックス
+    NeoBundle 'https://github.com/zaiste/tmux.vim.git'
+
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
     "NeoBundle 'rails.vim'
