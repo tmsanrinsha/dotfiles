@@ -11,7 +11,7 @@ else
         agentPID=`ps x | grep ssh-agent | grep -v grep | head -1 | awk '{print $1}'`
         # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
         agentSOCK=$(find /tmp/ssh-* -name agent.$(expr $agentPID - 1 2>/dev/null) 2>/dev/null)
-        if [ "$agentPID" = "" -o "$agentSOCK" = "" ]; then
+        if [ -z $agentPID -o -z $agentSOCK ]; then
             unset SSH_AUTH_SOCK SSH_AGENT_PID
             eval `ssh-agent`
             ssh-add
