@@ -1,106 +1,120 @@
-" NeoBundle {{{
+" Pluginのチェック {{{
+" ==============================================================================
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colorss/'  . a:plugin . '.vim'))
+endfunction
+"}}}
+
+" neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-set nocompatible "vi互換にしない
-filetype off     " required!
+if s:has_plugin('neobundle')
+    set nocompatible "vi互換にしない
+    filetype off     " required!
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+    if has('vim_starting')
+      set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+    call neobundle#rc(expand('~/.vim/bundle/'))
 
-" let NeoBundle manage NeoBundle
-" required!
-NeoBundle 'Shougo/neobundle.vim'
+    " let NeoBundle manage NeoBundle
+    " required!
+    NeoBundle 'Shougo/neobundle.vim'
 
-" recommended to install
-NeoBundle 'Shougo/vimproc'
-" after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+    " recommended to install
+    NeoBundle 'Shougo/vimproc'
+    " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
+    NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/vimshell'
+    NeoBundle 'Shougo/vimfiler'
 
-NeoBundle 'thinca/vim-qfreplace'
+    NeoBundle 'thinca/vim-qfreplace'
 
-" 補完候補の自動表示
-NeoBundle 'Shougo/neocomplcache'
-" スニペット補完
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+    " 補完候補の自動表示
+    NeoBundle 'Shougo/neocomplcache'
+    " スニペット補完
+    NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
-" コマンドモードをEmacsキーバインドにする
-NeoBundle 'https://github.com/houtsnip/vim-emacscommandline.git'
+    " コマンドモードをEmacsキーバインドにする
+    NeoBundle 'https://github.com/houtsnip/vim-emacscommandline.git'
 
-" ファイルを保存時にシンタックスのチェック
-" https://github.com/scrooloose/syntastic
-NeoBundle 'scrooloose/syntastic'
+    " ファイルを保存時にシンタックスのチェック
+    " https://github.com/scrooloose/syntastic
+    NeoBundle 'scrooloose/syntastic'
 
-" ミニバッファにバッファ一覧を表示
-" https://github.com/fholgado/minibufexpl.vim
-NeoBundle 'fholgado/minibufexpl.vim'
+    " ミニバッファにバッファ一覧を表示
+    " https://github.com/fholgado/minibufexpl.vim
+    NeoBundle 'fholgado/minibufexpl.vim'
 
-" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-" https://github.com/rgarver/Kwbd.vim
-NeoBundle 'rgarver/Kwbd.vim'
+    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+    " https://github.com/rgarver/Kwbd.vim
+    NeoBundle 'rgarver/Kwbd.vim'
 
-" ステータスラインをカスタマイズ
-" https://github.com/Lokaltog/vim-powerline
-NeoBundle 'Lokaltog/vim-powerline'
+    " ステータスラインをカスタマイズ
+    " https://github.com/Lokaltog/vim-powerline
+    NeoBundle 'Lokaltog/vim-powerline'
 
-" https://github.com/thinca/vim-quickrun
-NeoBundle 'thinca/vim-quickrun'
+    " https://github.com/thinca/vim-quickrun
+    NeoBundle 'thinca/vim-quickrun'
 
-" 自分で修正したプラグイン
-" https://github.com/tmsanrinsha/vim
-NeoBundle 'tmsanrinsha/vim'
+    " 自分で修正したプラグイン
+    " https://github.com/tmsanrinsha/vim
+    NeoBundle 'tmsanrinsha/vim'
 
-" sudo権限でファイルを開く・保存
-" http://www.vim.org/scripts/script.php?script_id=729
-NeoBundle 'sudo.vim'
+    " sudo権限でファイルを開く・保存
+    " http://www.vim.org/scripts/script.php?script_id=729
+    NeoBundle 'sudo.vim'
 
-" ヤンクの履歴を選択してペースト
-" http://www.vim.org/scripts/script.php?script_id=1234
-NeoBundle 'YankRing.vim'
+    " ヤンクの履歴を選択してペースト
+    " http://www.vim.org/scripts/script.php?script_id=1234
+    NeoBundle 'YankRing.vim'
 
-NeoBundle 'Align'
+    NeoBundle 'Align'
 
-NeoBundle 'confluencewiki.vim'
+    NeoBundle 'confluencewiki.vim'
 
-" colorscheme
-NeoBundle 'altercation/vim-colors-solarized'
-" http://www.vim.org/scripts/script.php?script_id=1732
-"NeoBundle 'rdark'
+    " colorscheme
+    NeoBundle 'altercation/vim-colors-solarized'
+    " http://www.vim.org/scripts/script.php?script_id=1732
+    "NeoBundle 'rdark'
 
-"NeoBundle 'L9'
-"NeoBundle 'FuzzyFinder'
-"NeoBundle 'rails.vim'
+    "NeoBundle 'L9'
+    "NeoBundle 'FuzzyFinder'
+    "NeoBundle 'rails.vim'
 
-"" non github repos ----------------------------------------------------------
-"NeoBundle 'git://git.wincent.com/command-t.git'
-"" non git repos
-"NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
-
-
-filetype plugin indent on     " required!
-"
-" Brief help
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install(update) bundles
-" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-" :Unite neobundle/install:!
-" :Unite neobundle/install:neocomplcache
-" :Unite neobundle/install:neocomplcache:unite.vim
+    "" non github repos ----------------------------------------------------------
+    "NeoBundle 'git://git.wincent.com/command-t.git'
+    "" non git repos
+    "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
+    "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 
 
-" Installation check.
-if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
-        \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-  "finish
+    filetype plugin indent on     " required!
+
+    " Brief help
+    " :NeoBundleList          - list configured bundles
+    " :NeoBundleInstall(!)    - install(update) bundles
+    " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+    " :Unite neobundle/install:!
+    " :Unite neobundle/install:neocomplcache
+    " :Unite neobundle/install:neocomplcache:unite.vim
+
+
+    " Installation check.
+    if neobundle#exists_not_installed_bundles()
+      echomsg 'Not installed bundles : ' .
+            \ string(neobundle#get_not_installed_bundle_names())
+      echomsg 'Please execute ":NeoBundleInstall" command.'
+      "finish
+    endif
+else
+    set nocompatible "vi互換にしない
+    filetype plugin indent on
 endif
 "}}}
 
@@ -112,16 +126,17 @@ set number
 set ruler
 set cursorline
 
-" 不可視文字の可視化（Vimテクニックバイブル1-11）
+" 不可視文字の可視化（Vimテクニックバイブル1-11） {{{
 set list listchars=tab:>-,trail:_
+
 " 全角スペースをハイライト
 scriptencoding utf-8
-
 augroup highlightIdeograpicSpace
     autocmd!
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
+"}}}
 "}}}
 
 " タブ・インデント {{{
@@ -157,9 +172,13 @@ set laststatus=2
 set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
-colorscheme molokai
-set background=dark
-let g:molokai_original = 1
+if s:has_plugin('monokai')
+    colorscheme molokai
+    set background=dark
+    let g:molokai_original = 1
+else
+    colorscheme default
+endif
 "colorscheme solarized
 "set background=dark
 "let g:solarized_termcolors=256
