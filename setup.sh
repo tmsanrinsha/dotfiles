@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
@@ -22,7 +22,7 @@ find `pwd` -type f -regex ".*/\..*" ! -regex ".*/\.git.*" | xargs -I{} $ln -sv {
 
 
 # http://betterthangrep.com/
-if [ ! -f ~/bin/ack ];then
+if [ ! -x ~/bin/ack ];then
     curl http://betterthangrep.com/ack-standalone > ~/bin/ack
     chmod a+x ~/bin/ack
 fi
@@ -31,9 +31,14 @@ fi
 
 # http://d.hatena.ne.jp/hnw/20120602
 # https://github.com/hnw/fakegit
-if [ ! -f ~/bin/pseudo/git ];then
+if [ ! -x ~/bin/pseudo/git ];then
     curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/bin/pseudo/git
     chmod a+x $HOME/bin/pseudo/git
+fi
+
+if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
+    mkdir -p ~/.vim/bundle
+    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
 . ~/.bash_profile
