@@ -1,17 +1,8 @@
-" Pluginのチェック {{{
-" ==============================================================================
-function! s:has_plugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colorss/'  . a:plugin . '.vim'))
-endfunction
-"}}}
-
 " neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-if s:has_plugin('neobundle')
+if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     set nocompatible "vi互換にしない
     filetype off     " required!
 
@@ -26,8 +17,16 @@ if s:has_plugin('neobundle')
     NeoBundle 'Shougo/neobundle.vim'
 
     " recommended to install
-    NeoBundle 'Shougo/vimproc'
+    "NeoBundle 'Shougo/vimproc'
     " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+    NeoBundle 'Shougo/vimproc', {
+      \   'build' : {
+      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+      \     'cygwin'  : 'make -f make_cygwin.mak',
+      \     'mac'     : 'make -f make_mac.mak',
+      \     'unix'    : 'make -f make_unix.mak',
+      \   },
+      \ }
 
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/vimshell'
@@ -116,6 +115,16 @@ else
     set nocompatible "vi互換にしない
     filetype plugin indent on
 endif
+"}}}
+
+" Pluginの有無をチェックする関数 {{{
+" ==============================================================================
+" http://yomi322.hateblo.jp/entry/2012/06/20/225559
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'  . a:plugin . '.vim'))
+endfunction
 "}}}
 
 " 表示 {{{
@@ -594,13 +603,6 @@ augroup END
 "}}}
 
 " >>>> Plugin >>>> {{{
-" Pluginのチェック {{{
-" ==============================================================================
-function! s:has_plugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-endfunction
-"}}}
 
 " vim-emacscommandline {{{
 " ==============================================================================
