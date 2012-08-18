@@ -17,8 +17,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/neobundle.vim'
 
     " recommended to install
-    "NeoBundle 'Shougo/vimproc'
-    " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
     NeoBundle 'Shougo/vimproc', {
       \   'build' : {
       \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -181,7 +179,7 @@ set laststatus=2
 set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
-if s:has_plugin('monokai')
+if s:has_plugin('molokai')
     colorscheme molokai
     set background=dark
     let g:molokai_original = 1
