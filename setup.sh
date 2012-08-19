@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -ex
 # dotfilesにシンボリックリンクを貼る
 find `pwd` -type f -regex ".*/\..*" ! -regex ".*/\.git.*" | xargs -I{} ln -svn {} $HOME
 
