@@ -1,6 +1,15 @@
 # vim:filetype=sh
 # tmuxが起動してなければ、ssh-agentをkill
-if ! tmux ls 1>/dev/null 2>&1; then
-    ssh-agent -k 1>/dev/null 2>&1
+#if ! tmux ls 1>/dev/null 2>&1; then
+#    ssh-agent -k 1>/dev/null 2>&1
+#fi
+
+# ssh-pageant
+if [ -x /usr/bin/ssh-pageant -a -n "$SSH_PAGEANT_PID" ]; then
+    eval $(/usr/bin/ssh-pageant -qk 2>/dev/null)
+elif which ssh-agent 1>/dev/null 2>&1 && [ -n "$SSH_AGENT_PID" ]; then
+    TTNUM=`ps | awk '{if (NR != 1) print $2}' | sort | uniq | wc -l`
+    if [ $TTNUM -eq 1 ]; then
+        eval $(/usr/bin/ssh-agent -qk 2>/dev/null)
+    fi
 fi
-    
