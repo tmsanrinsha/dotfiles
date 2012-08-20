@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+tmux start-server
+tmux new-session -d -n tmux-ssh-window -s tmux-ssh
+
+for i in $*
+do
+    tmux split-window -v -t tmux-ssh
+    tmux send-keys "ssh $i" C-m
+    tmux select-layout -t tmux-ssh main-horizontal
+done
+tmux kill-pane -t 0
+
+tmux select-window -t tmux-ssh
+tmux select-pane -t 0
+tmux select-layout -t tmux-ssh main-horizontal
+tmux set-window-option synchronize-panes on
+tmux -2 attach-session -t tmux-ssh
