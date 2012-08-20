@@ -38,7 +38,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
     " コマンドモードをEmacsキーバインドにする
-    NeoBundle 'https://github.com/houtsnip/vim-emacscommandline.git'
+    NeoBundle 'houtsnip/vim-emacscommandline'
 
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
@@ -69,7 +69,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    NeoBundle 'YankRing.vim'
+    "NeoBundle 'YankRing.vim'
 
     NeoBundle 'Align'
 
@@ -81,7 +81,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'rdark'
 
     " tmuxのシンタックス
-    NeoBundle 'https://github.com/zaiste/tmux.vim.git'
+    NeoBundle 'zaiste/tmux.vim'
 
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
@@ -309,11 +309,17 @@ nnoremap [TAB]0  :10tabn<CR>
 
 " コマンドモード {{{
 " ==============================================================================
-"set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
+" 補完 {{{
+" ------------------------------------------------------------------------------
+" set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する（リスト表示の方が好みなのでコメントアウト）
+"
+" コマンドモードの補完をシェルコマンドの補完のようにする
+" http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
+" <TAB>で共通する最長の文字列まで補完して一覧表示
+" 再度<Tab>を打つと候補を選択。<S-Tab>で逆
+set wildmode=list:longest,full
+"}}}
 
-"コマンドモードの補完をシェルコマンドの補完のようにする
-"http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
-set wildmode=list:longest
 
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
@@ -322,11 +328,31 @@ cnoremap <C-N> <DOWN>
 set history=100000 "保存する履歴の数
 "}}}
 
-" CD {{{
-augroup CD
-    autocmd!
-    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
-augroup END
+" 検索 {{{
+" ==============================================================================
+set incsearch
+set ignorecase "検索パターンの大文字小文字を区別しない
+set nosmartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
+set nohlsearch "検索結果をハイライトしない
+
+" ESCキー2度押しでハイライトのトグル
+nnoremap <Esc><Esc> :set hlsearch!<CR>
+
+"ヴィビュアルモードで選択した範囲だけ検索
+vnoremap <Leader>/ <ESC>/\%V
+vnoremap <Leader>? <ESC>?\%V
+"}}}
+ 
+" ディレクトリ・ファイル {{{
+" ==============================================================================
+"augroup CD
+"    autocmd!
+"    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
+"augroup END
+" 現在編集中のファイルのディレクトリをカレントディレクトリにする
+nnoremap <silent><Leader>cd :cd %:h<CR>
+" 現在編集中のファイルのフルパスを表示する
+nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "}}}
 
 " paste {{{
@@ -361,21 +387,6 @@ set pastetoggle=<F11>
 "endif
 "}}}
 
-" 検索 {{{
-" ==============================================================================
-set incsearch
-set ignorecase "検索パターンの大文字小文字を区別しない
-set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
-set nohlsearch "検索結果をハイライトしない
-
-" ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :set hlsearch!<CR>
-
-"ヴィビュアルモードで選択した範囲だけ検索
-vnoremap <Leader>/ <ESC>/\%V
-vnoremap <Leader>? <ESC>?\%V
-"}}}
- 
 " カーソル {{{
 " ==============================================================================
 "カーソルを表示行で移動する。
@@ -427,34 +438,47 @@ set showmatch matchtime=1 "括弧の対応
 source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 "}}}
 
-" マウス {{{
+" vimdiff {{{
 " ==============================================================================
-" Enable mouse support.
-" Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
-set mouse=a 
- 
-" For screen. 
-" .screenrcでterm xterm-256colorとしている場合 
-if &term == "xterm-256color" 
-    augroup MyAutoCmd 
-        autocmd VimLeave * :set mouse= 
-    augroup END 
- 
-    " screenでマウスを使用するとフリーズするのでその対策 
-    " Tere Termだと自動で認識されているかも
-    " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
-    set ttymouse=xterm2 
-endif 
+nnoremap [VIMDIFF] <Nop>
+nmap <Leader>d [VIMDIFF]
+nnoremap <silent> [VIMDIFF]t :diffthis<CR>
+nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
+nnoremap <silent> [VIMDIFF]o :diffoff<CR>
+nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+"}}}
 
-if has('gui_running')
-    " Show popup menu if right click.
-    set mousemodel=popup
+" Manual {{{
+" ==============================================================================
+":Man <man>でマニュアルを開く
+runtime ftplugin/man.vim
+nmap K <Leader>K
+"コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
+"http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+".zshrc .bashrc等にも記述が必要
+let $PAGER=''
 
-    " Don't focus the window when the mouse pointer is moved.
-    set nomousefocus
-    " Hide mouse pointer on insert mode.
-    set mousehide
-endif
+autocmd FileType help nmap <buffer><silent> q :q<CR>
+"}}}
+
+" vimrcの編集 {{{
+" ==============================================================================
+" http://vim-users.jp/2009/09/hack74/
+" .vimrcと.gvimrcの編集
+nnoremap <silent> <Leader>ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
+
+" Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> <Leader>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> <Leader>rg :<C-u>source $MYGVIMRC<CR>
+
+""vimrc auto update
+"augroup MyAutoCmd
+"  autocmd!
+"  " nested: autocmdの実行中に更に別のautocmdを実行する
+"  autocmd BufWritePost .vimrc nested source $MYVIMRC
+"  " autocmd BufWritePost .vimrc RcbVimrc
+"augroup END
 "}}}
 
 " gf(goto file)の設定 {{{
@@ -490,27 +514,39 @@ endif
 set ambiwidth=double
 "}}}
 
-" vimdiff {{{
+" マウス {{{
 " ==============================================================================
-nnoremap [VIMDIFF] <Nop>
-nmap <Leader>d [VIMDIFF]
-nnoremap <silent> [VIMDIFF]t :diffthis<CR>
-nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
-nnoremap <silent> [VIMDIFF]o :diffoff<CR>
-nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+" Enable mouse support.
+" Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
+set mouse=a 
+ 
+" For screen. 
+" .screenrcでterm xterm-256colorとしている場合 
+if &term == "xterm-256color" 
+    augroup MyAutoCmd 
+        autocmd VimLeave * :set mouse= 
+    augroup END 
+ 
+    " screenでマウスを使用するとフリーズするのでその対策 
+    " Tere Termだと自動で認識されているかも
+    " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
+    set ttymouse=xterm2 
+endif 
+
+if has('gui_running')
+    " Show popup menu if right click.
+    set mousemodel=popup
+
+    " Don't focus the window when the mouse pointer is moved.
+    set nomousefocus
+    " Hide mouse pointer on insert mode.
+    set mousehide
+endif
 "}}}
 
-" Manual {{{
-" ==============================================================================
-":Man <man>でマニュアルを開く
-runtime ftplugin/man.vim
-nmap K <Leader>K
-"コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
-"http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
-".zshrc .bashrc等にも記述が必要
-let $PAGER=''
-
-autocmd FileType help nmap <buffer><silent> q :q<CR>
+" printing {{{
+set printoptions=wrap:y,number:y,header:0
+set printfont=Andale\ Mono:h12:cUTF8
 "}}}
 
 " gVim {{{
@@ -536,6 +572,8 @@ set foldmethod=marker
 "augroup END
 "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
+
+" >>>> Language >>>> {{{
 
 " HTML {{{
 " ==============================================================================
@@ -578,7 +616,17 @@ augroup MapHTMLKeys
         inoremap <buffer> \" &#8221;
     endfunction " MapHTMLKeys()
 augroup END
-    "}}}
+"}}}
+
+" input </ to auto close tag on XML {{{
+" ------------------------------------------------------------------------------
+" https://github.com/sorah/config/blob/master/vim/dot.vimrc
+augroup MyXML
+  autocmd!
+  autocmd Filetype xml  inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+augroup END
+"}}}
 "}}}
 
 " PHP {{{
@@ -602,6 +650,8 @@ augroup mysqlEditor
     au BufRead /var/tmp/sql* setlocal ft=mysql
 augroup END
 "}}}
+
+" <<<< Language <<<< }}}
 
 " >>>> Plugin >>>> {{{
 
@@ -785,6 +835,7 @@ if s:has_plugin('vimshell') && v:version >= 702
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
 "}}}
+
 " <<<< Plugin <<<< }}}
 
 if filereadable(expand('~/.vimrc.local'))
