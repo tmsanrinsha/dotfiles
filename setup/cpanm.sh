@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -ex
 
-test -f ~/bin || mkdir ~/bin
+test -d ~/bin || mkdir ~/bin
 cd ~/bin
-curl -LOk http://xrl.us/cpanm
+curl -LO http://xrl.us/cpanm
 chmod +x cpanm
-
-cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+export PERL5LIB="${HOME}/perl5/lib/perl5:$PERL5LIB"
+cpanm --local-lib=~/perl5 local::lib
+test -d ~/.profile.d || mkdir ~/.profile.d
+echo 'eval $(perl -I ~/perl6/lib/perl5/ -Mlocal::lib)' > ~/.profile.d/cpanm.sh
+source ~/.profile.d/cpanm.sh
