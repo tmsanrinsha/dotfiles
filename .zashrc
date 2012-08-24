@@ -173,13 +173,6 @@ fi
 # ==============================================================================
 # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
 alias perlls="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
-# cpanm {{{
-if [ -d ~/perl5 ]; then
-
-    export PERL_CPANM_OPT="--local-lib=~/perl5"
-    export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
-fi
-#}}}
 #}}}
 
 # .zashrc.cygwin {{{
