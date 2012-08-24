@@ -1,11 +1,35 @@
 #!/usr/bin/env bash
 
-# dotfilesにリンクを貼る
-find `pwd` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print | xargs -I{} ln -v {} $HOME
+set -ex
 
-[ ! -d ~/bin ] && mkdir ~/bin
-# 実行ファイルにリンクを貼る
-find `pwd`/bin -maxdepth 1 -type f | xargs -I{} ln -v {} $HOME/bin
+## dotfilesにリンクを貼る
+##find `pwd` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print | xargs -I{} ln -v {} $HOME
+#for file in `find \`pwd\` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print`;
+#do
+#    [ ! -f ~/`basename $file` ] && ln -v $file ~
+#done
+#
+#[ ! -d ~/bin ] && mkdir ~/bin
+## 実行ファイルにリンクを貼る
+##find `pwd`/bin -maxdepth 1 -type f | xargs -I{} ln -v {} $HOME/bin
+#for file in `find \`pwd\`/bin -type f`;
+#do
+#    [ ! -f ~/`basename $file` ] && ln -v $file ~
+#done
+
+# 必要なディレクトリの作成
+for dir in .profile.d bin/cygwin
+do
+    [ ! -d ~/$dir ] && mkdir -p ~/$dir
+done
+
+# リンクの作成
+gitdir=`pwd | sed 's|/setup$||'`
+for file in `find .. -type f ! -regex '.*.\.git.*' ! -regex '.*setup.*' ! -regex '.*README.*' | sed 's|../||'`
+do
+    [ ! -f ~/$file ] && ln -v $gitdir/$file ~/$file
+done
+
 
 # http://betterthangrep.com/
 if [ ! -x ~/bin/ack ];then
@@ -34,5 +58,3 @@ if [[ `uname` = CYGWIN* ]]; then
         chmod a+x ~/bin/cygwin/ln
     fi
 fi
-
-. ~/.bash_profile

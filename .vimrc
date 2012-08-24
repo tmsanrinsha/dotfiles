@@ -238,9 +238,9 @@ if !has('gui_running')
             set <M-Space>=<Esc><Space>
         elseif c=='|' || c=='"'
             exec "set <M-\\".c.">=\<Esc>\\".c
-        elseif c=='>' || c==']'
+        elseif c=='>' || c=='['
             "set <M-\>>=\<Esc>> Meta->に対してsetできない
-            "set <M-]>=\<Esc>] これがあるとvim起動した後、2cが打たれる
+            "set <M-[>=\<Esc>[ これがあるとvim起動した後、2cが打たれる
         else
             exec "set <M-".c.">=\<Esc>".c
         endif
@@ -306,11 +306,11 @@ endif
 "nnoremap <A-j> <C-w>j
 "nnoremap <A-k> <C-w>k
 "nnoremap <A-l> <C-w>l
-"nnoremap <A--> <C-w>-
-"nnoremap <A-;> <C-w>+
-"nnoremap <A-,> <C-w>>
-"nnoremap <A-.> <C-w><
-"nnoremap <A-0> <C-w>=
+nnoremap <A--> <C-w>-
+nnoremap <A-;> <C-w>+
+nnoremap <A-,> <C-w>>
+nnoremap <A-.> <C-w><
+nnoremap <A-0> <C-w>=
 
 
 "  常にカーソル行を真ん中に
@@ -390,6 +390,7 @@ vnoremap <Leader>? <ESC>?\%V
 
 " ビジュアルモード {{{
 " =============================================================================
+vnoremap <C-a> vggVG
 " vipで選択後、IやAで挿入できるようにする {{{
 " -----------------------------------------------------------------------------
 " http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
@@ -933,7 +934,8 @@ if s:has_plugin('quickrun')
     let g:quickrun_config = {}
     let g:quickrun_config['_'] = {
                 \   'runner'                    : 'vimproc',
-                \   'runner/vimproc/updatetime' : 100
+                \   'runner/vimproc/updatetime' : 100,
+                \   'outputter/buffer/split'    : ''
                 \}
 
     " phpunit {{{
@@ -946,7 +948,6 @@ if s:has_plugin('quickrun')
     augroup END
 
     let g:quickrun_config['php.phpunit'] = {
-                \   'outputter/buffer/split' : '',
                 \   'command'                : 'phpunit',
                 \   'cmdopt'                 : '',
                 \   'exec'                   : '%c %o %s'
@@ -975,6 +976,7 @@ endif
 " ==============================================================================
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
+    let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
     let g:EasyMotion_mapping_f = 'f'
     let g:EasyMotion_mapping_F = 'F'
 endif
