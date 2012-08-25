@@ -4,43 +4,36 @@
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
 set nocompatible "vi互換にしない
-filetype plugin indent off     " required!
+filetype off     " required!
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle/'))
 endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
 " let NeoBundle manage NeoBundle
 " required! 
 NeoBundle 'Shougo/neobundle.vim'
 
 " recommended to install
-" https://github.com/Shougo/vimproc
 NeoBundle 'Shougo/vimproc'
 " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-" https://github.com/Shougo/vimproc
-NeoBundle 'Shougo/vimshell'
-" https://github.com/Shougo/unite.vim
-NeoBundle 'Shougo/unite.vim'
 
-" My Bundles here:
-"
-"" original repos on github --------------------------------------------------
-" ファイラー
-" https://github.com/Shougo/vimfiler
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 
-" 補完候補の自動表示
-" https://github.com/Shougo/neocomplcache
-NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'thinca/vim-qfreplace'
 
+" 補完候補の自動表示
+NeoBundle 'Shougo/neocomplcache'
 " スニペット補完
-" https://github.com/Shougo/neocomplcache-snippets-complete
 NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
 " コマンドモードをEmacsキーバインドにする
 " https://github.com/houtsnip/vim-emacscommandline
-NeoBundle 'houtsnip/vim-emacscommandline' 
+NeoBundle 'houtsnip/vim-emacscommandline'
 
 " ファイルを保存時にシンタックスのチェック
 " https://github.com/scrooloose/syntastic
@@ -77,10 +70,7 @@ NeoBundle 'YankRing.vim'
 NeoBundle 'Align'
 
 NeoBundle 'confluencewiki.vim'
-"NeoBundle 'altercation/vim-colors-solarized'
-"set background=light
-"colorscheme solarized
-"let g:solarized_termcolors=256
+NeoBundle 'altercation/vim-colors-solarized'
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
@@ -102,6 +92,15 @@ filetype plugin indent on     " required!
 " :Unite neobundle/install:!
 " :Unite neobundle/install:neocomplcache
 " :Unite neobundle/install:neocomplcache:unite.vim
+
+
+" Installation check.
+if neobundle#exists_not_installed_bundles()
+  echomsg 'Not installed bundles : ' .
+        \ string(neobundle#get_not_installed_bundle_names())
+  echomsg 'Please execute ":NeoBundleInstall" command.'
+  "finish
+endif
 "}}}
 
 
@@ -166,9 +165,11 @@ set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
 colorscheme molokai
-"let g:molokai_original = 0
-"set background=dark
+set background=dark
+let g:molokai_original = 1
 "colorscheme solarized
+"set background=dark
+"let g:solarized_termcolors=256
 "}}}
 
 
@@ -602,11 +603,36 @@ let g:miniBufExplSplitBelow=1  " Put new window below
 " Powerline for vim {{{
 "-------------------------------------------------------------------------------
 let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+"let g:Powerline_theme = 'skwp'
+"let g:Powerline_colorscheme = 'skwp'
+"let g:Powerline_colorscheme = 'default_customized'
 "let g:Powerline_stl_path_style = 'short'
+"let g:Powerline_symbols = 'fancy'
+call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+"call Pl#Hi#Segments(['SPLIT'], {
+"		\ 'n': ['white', 'gray2'],
+"		\ 'N': ['white', 'gray0'],
+"		\ 'i': ['white', 'gray0'],
+"		\ }),
 "}}}
 
 
-"-------------------------------------------------------------------------------
+" vimshell {{{
+" ,is: シェルを起動
+nnoremap <silent> ,is<CR> :VimShell<CR>
+nnoremap ,isi :VimShellInteractive<Space>
+" ,ipy: pythonを非同期で起動
+nnoremap <silent> ,ipy :VimShellInteractive python<CR>
+" ,irb: irbを非同期で起動
+nnoremap <silent> ,irb :VimShellInteractive irb<CR>
+nnoremap <silent> ,iph :VimShellInteractive php<CR>
+nnoremap <silent> ,iph :VimShellInteractive php<CR>
+" ,ss: 非同期で開いたインタプリタに現在の行を評価させる
+vmap <silent> ,ss :VimShellSendString<CR>
+" 選択中に,ss: 非同期で開いたインタプリタに選択行を評価させる
+nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
+" }}}
+
 " neocomplcache {{{
 "-------------------------------------------------------------------------------
 " setsudo.vimting examples:
@@ -675,9 +701,6 @@ if v:version >= 702
     " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
     "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-    
-    
-
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
