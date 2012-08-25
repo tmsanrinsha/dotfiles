@@ -250,7 +250,7 @@ function share_pushd_preexec {
     pwd >> ~/.pushd_history
 }
 function share_pushd_precmd {
-    if [ which tac 1>/dev/null 2>&1 ];then
+    if which tac 1>/dev/null 2>&1;then
         TAC=`which tac`
     else
         TAC='tail -r'
