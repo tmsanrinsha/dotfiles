@@ -1,0 +1,7 @@
+alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/ -c /package'
+
+ln(){
+      mapfile -t a < <(cygpath -aw "$@")
+        [ -d "$2" ] && d=/d || d=
+          cmd /c mklink $d "${a[@]}"
+}
