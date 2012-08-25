@@ -265,7 +265,6 @@ nnoremap <F12> :set scrollbind!<CR>
 "}}}
 
 
-"-------------------------------------------------------------------------------
 " タブ {{{
 "-------------------------------------------------------------------------------
 "  いつタブページのラベルを表示するかを指定する。
@@ -274,23 +273,24 @@ nnoremap <F12> :set scrollbind!<CR>
 "  2: 常に表示
 set showtabline=1
 
-nnoremap <C-T>c :tabnew<CR>
-nnoremap <C-T>q :tabc<CR>
+nnoremap [TAB] <Nop>
+nmap <C-T> [TAB]
+nnoremap [TAB]c :tabnew<CR>
+nnoremap [TAB]q :tabc<CR>
 
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <S-C-Tab> :tabp<CR>
 
-nnoremap <C-T>1  :1tabn<CR>
-nnoremap <C-T>2  :2tabn<CR>
-nnoremap <C-T>3  :3tabn<CR>
-nnoremap <C-T>4  :4tabn<CR>
-nnoremap <C-T>5  :5tabn<CR>
-nnoremap <C-T>6  :6tabn<CR>
-nnoremap <C-T>7  :7tabn<CR>
-nnoremap <C-T>8  :8tabn<CR>
-nnoremap <C-T>9  :9tabn<CR>
-nnoremap <C-T>0  :10tabn<CR>
-
+nnoremap [TAB]1  :1tabn<CR>
+nnoremap [TAB]2  :2tabn<CR>
+nnoremap [TAB]3  :3tabn<CR>
+nnoremap [TAB]4  :4tabn<CR>
+nnoremap [TAB]5  :5tabn<CR>
+nnoremap [TAB]6  :6tabn<CR>
+nnoremap [TAB]7  :7tabn<CR>
+nnoremap [TAB]8  :8tabn<CR>
+nnoremap [TAB]9  :9tabn<CR>
+nnoremap [TAB]0  :10tabn<CR>
 "}}}
 
 
@@ -485,8 +485,16 @@ endif
 set ambiwidth=double
 "}}}
 
-
+" vimdiff {{{
 "-------------------------------------------------------------------------------
+nnoremap [VIMDIFF] <nop>
+nmap <Leader>d [VIMDIFF]
+nnoremap <silent> [VIMDIFF]t :diffthis<CR>
+nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
+nnoremap <silent> [VIMDIFF]o :diffoff<CR>
+nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+"}}}
+
 " Syntax {{{
 "-------------------------------------------------------------------------------
 syntax enable
@@ -618,19 +626,18 @@ call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
 
 
 " vimshell {{{
-" ,is: シェルを起動
-nnoremap <silent> ,is<CR> :VimShell<CR>
-nnoremap ,isi :VimShellInteractive<Space>
-" ,ipy: pythonを非同期で起動
-nnoremap <silent> ,ipy :VimShellInteractive python<CR>
-" ,irb: irbを非同期で起動
-nnoremap <silent> ,irb :VimShellInteractive irb<CR>
-nnoremap <silent> ,iph :VimShellInteractive php<CR>
-nnoremap <silent> ,iph :VimShellInteractive php<CR>
-" ,ss: 非同期で開いたインタプリタに現在の行を評価させる
-vmap <silent> ,ss :VimShellSendString<CR>
-" 選択中に,ss: 非同期で開いたインタプリタに選択行を評価させる
-nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
+nnoremap [VIMSHELL] <Nop>
+nmap <leader>H [VIMSHELL]
+nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
+nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
+nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
+nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
+nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
+nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+" <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+"vmap <silent> <Leader>ss :VimShellSendString<CR>
+"" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+"nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 " }}}
 
 " neocomplcache {{{
