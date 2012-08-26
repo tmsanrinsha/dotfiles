@@ -550,6 +550,8 @@ nmap K <Leader>K
 "http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 ".zshrc .bashrc等にも記述が必要
 let $PAGER=''
+
+autocmd FileType help nmap <buffer><silent> q :q<CR>
 "}}}
 
 
