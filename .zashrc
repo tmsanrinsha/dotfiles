@@ -46,6 +46,8 @@ alias vie='vim -R' #readonlyで開く。view
 if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
     alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
 fi
+alias vsh="vim -c 'VimShell'"
+alias vf="vim -c 'VimFiler'"
 
 # svnとtreeの文字化け対策
 alias lcc="export LC_CTYPE='C'"
