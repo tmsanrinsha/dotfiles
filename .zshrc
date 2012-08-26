@@ -152,7 +152,7 @@ autoload -Uz add-zsh-hook
 #==============================================================================
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
-setopt print_exit_value
+#setopt print_exit_value
 autoload -Uz colors; colors
 
 # 現在のホストによってプロンプトの色を変える。
@@ -170,7 +170,7 @@ fi
 color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
 
 #C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
-local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
+#local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
 
 
 #function prompt_preexec() {
@@ -185,10 +185,13 @@ function prompt_precmd() {
     ## setopt print_exit_valueをセットしたときのようなメッセージを作る
     ## ただし、setopt print exit_valueの場合はcommand1;command2と打った時
     #err="%0(?||%18(?||%{$fg[red]%}(;_;%)! zsh: exit $?   $prompt_cmd%{${reset_color}%}"$'\n'"))"
-    err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
+    #err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
     # パスの~の部分の色を反転させる
-    tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
-    PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
+    #tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
+    #PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
+
+    pct="%0(?||%18(?||%{$fg[red]%}))%#%{${reset_color}%}"
+    PROMPT="${color}[%m:%~]${pct} "
 }
 #add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
@@ -196,7 +199,7 @@ add-zsh-hook precmd prompt_precmd
 PROMPT2="${color}%_>%{${reset_color}%} "
 # command correct edition before each completion attempt
 setopt correct
-SPROMPT="%{$fg[yellow]%}(._.%)? %r is correct? [n,y,a,e]:%{${reset_color}%} "
+SPROMPT="%{$fg[yellow]%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 
 # 参考にしたサイト
 # ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
