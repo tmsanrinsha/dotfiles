@@ -313,8 +313,13 @@ cnoremap <C-N> <DOWN>
 set history=100000 "保存する履歴の数
 "}}}
 
+" CD {{{
+augroup CD
+    autocmd!
+    au BufEnter * execute ":lcd " . expand("%:p:h")
+augroup END
+"}}}
 
-"-------------------------------------------------------------------------------
 " paste {{{
 "-------------------------------------------------------------------------------
 "pasteモードのトグル。autoindentをonにしてペーストすると
@@ -490,7 +495,7 @@ set ambiwidth=double
 
 " vimdiff {{{
 "-------------------------------------------------------------------------------
-nnoremap [VIMDIFF] <nop>
+nnoremap [VIMDIFF] <Nop>
 nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
 nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
@@ -571,6 +576,10 @@ source $VIMRUNTIME/menu.vim
 " vimfiler {{{
 "-------------------------------------------------------------------------------
 let g:vimfiler_as_default_explorer = 1
+nnoremap [VIMFILER] <Nop>
+nmap <Leader>f [VIMFILER]
+nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
 "}}}
 
 "-------------------------------------------------------------------------------
