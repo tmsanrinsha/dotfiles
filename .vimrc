@@ -58,7 +58,6 @@ NeoBundle 'thinca/vim-quickrun'
 " https://github.com/tmsanrinsha/vim
 NeoBundle 'tmsanrinsha/vim'
 
-"" vim-scripts repos ---------------------------------------------------------
 " sudo権限でファイルを開く・保存
 " http://www.vim.org/scripts/script.php?script_id=729
 NeoBundle 'sudo.vim'
@@ -70,7 +69,11 @@ NeoBundle 'YankRing.vim'
 NeoBundle 'Align'
 
 NeoBundle 'confluencewiki.vim'
+
+" colorscheme
 NeoBundle 'altercation/vim-colors-solarized'
+" http://www.vim.org/scripts/script.php?script_id=1732
+NeoBundle 'rdark'
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
@@ -653,7 +656,7 @@ if v:version >= 702
     " Use smartcase.
     let g:neocomplcache_enable_smart_case = 1
     " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 1
+    let g:neocomplcache_enable_camel_case_completion = 0
     " Use underbar completion.
     let g:neocomplcache_enable_underbar_completion = 1
     " Set minimum syntax keyword length.
