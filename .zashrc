@@ -71,14 +71,6 @@ then
 else
     export PATH="$HOME/bin:$PATH"
 fi
-#
-## $HOME/git/dotfiles/scriptがPATHになければ追加。GitHubに上げているスクリプトが入っているフォルダ
-#if echo $PATH | grep "\(^\|:\)${HOME}/git/dotfiles/script\($\|:\)" 1>/dev/null 2>&1
-#then
-#    : #ヌルコマンド（何もしない）
-#else
-#    export PATH="$HOME/git/dotfiles/script:$PATH"
-#fi
 
 # $HOME/local/binがPATHになければ追加。makeで作った実行ファイルを置くフォルダ
 if echo $PATH | grep "\(^\|:\)${HOME}/local/bin\($\|:\)" 1>/dev/null 2>&1
@@ -88,6 +80,7 @@ else
     export PATH="$HOME/local/bin:$PATH"
 fi
 
+export PATH="$PATH:$HOME/bin/pseudo"
 
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
