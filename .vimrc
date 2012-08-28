@@ -73,7 +73,7 @@ NeoBundle 'confluencewiki.vim'
 " colorscheme
 NeoBundle 'altercation/vim-colors-solarized'
 " http://www.vim.org/scripts/script.php?script_id=1732
-NeoBundle 'rdark'
+"NeoBundle 'rdark'
 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'
