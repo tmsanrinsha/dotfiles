@@ -522,7 +522,7 @@ set foldmethod=marker
 let php_sql_query=1 " 文字列中のSQLをハイライトする
 let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
-let php_folding = 1 " クラスと関数の折りたたみ(folding)を有効にする 
+let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする 
 augroup php
     autocmd!
     au Syntax php set foldmethod=syntax
