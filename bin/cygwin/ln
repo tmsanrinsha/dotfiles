@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+CMDNAME=`basename $0`
+
+usage() {
+    cat <<EOT
+usage: $CMDNAME -s source_(file|dir) [target_(file|dir)]
+       $CMDNAME -s source_(file|dir) ... target_dir
+       $CMDNAME    source_file [target_(file|dir)]
+       $CMDNAME    source_file ... target_dir
+EOT
+# FreeBSDのln
+# usage: ln [-s [-F] | -L | -P] [-f | -i] [-hnv] source_file [target_file]
+#        ln [-s [-F] | -L | -P] [-f | -i] [-hnv] source_file ... target_dir
+#        link source_file target_file
+}
+
+H=/H
+
+while getopts sFLPfihnv OPT
+do
+  case $OPT in
+    "s" ) H= ;;
+    "h" ) usage; exit 1 ;;
+  esac
+done
+
+shift `expr $OPTIND - 1`
+
+echo $@
+
+[ -d "$1" ] && D=/D
+
+mapfile -t a < <(cygpath -w "$@")
+cmd /c mklink $D $H ${a[1]} ${a[0]}
+
+#  mapfile -t a < <(cygpath -aw "$@")
+#  [ -d "$2" ] && d=/d || d=
+#  cmd /c mklink $d "${a[@]}"
+
+
+exit 0
