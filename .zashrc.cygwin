@@ -1,1 +1,3 @@
+# vim:filetype=sh
+export PAtH="$HOME/bin/cygwin:$PATH"
 alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/ -c /package'
