@@ -83,11 +83,6 @@ fi
 # 正規のコマンドがないときの仮のコマンド
 export PATH="$PATH:$HOME/bin/pseudo"
 
-if [[ `uname` = CYGWIN* ]]; then
-    export PAtH="$HOME/bin/cygwin:$PATH"
-fi
-
-
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
 #http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
