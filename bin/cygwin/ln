@@ -9,11 +9,35 @@ usage: $CMDNAME -s source_(file|dir) [target_(file|dir)]
        $CMDNAME    source_file [target_(file|dir)]
        $CMDNAME    source_file ... target_dir
 EOT
-# FreeBSDのln
-# usage: ln [-s [-F] | -L | -P] [-f | -i] [-hnv] source_file [target_file]
-#        ln [-s [-F] | -L | -P] [-f | -i] [-hnv] source_file ... target_dir
-#        link source_file target_file
 }
+
+# Usage:
+#   exec_mklink source target
+#     source - Cygwin上のsourceのパス
+#     target - Cygwin上のtargetのパス
+#
+# Description:
+#   mklinkを実行する
+exec_mklink() {
+    [ -d "$1" ] && local D=/D
+
+    # ディレクトリのハードリンクは作れない
+    # $Hはハードリンクオプションを表すグローバル変数
+    if [ "$D" == '/D' -a "$H" == '/H' ]; then
+        echo ${CMDNAME}: $2: Is a directory
+        exit 1
+    fi
+
+    if [ -d "$2" ]; then
+        target_file="${2}/`basename $1`"
+    else
+        target_file="${2}"
+    fi
+
+    cmd /c mklink $D $H `cygpath -w $target_file` `cygpath -w $1`
+}
+
+[ "$1" = '-h' -o "$1" = '--help' ] && usage && exit 1
 
 H=/H
 
@@ -21,22 +45,32 @@ while getopts sFLPfihnv OPT
 do
   case $OPT in
     "s" ) H= ;;
-    "h" ) usage; exit 1 ;;
+    # s以外のオプションは無視
   esac
 done
 
+# オプション部分を取り除く
 shift `expr $OPTIND - 1`
 
-echo $@
-
-[ -d "$1" ] && D=/D
-
-mapfile -t a < <(cygpath -w "$@")
-cmd /c mklink $D $H ${a[1]} ${a[0]}
-
-#  mapfile -t a < <(cygpath -aw "$@")
-#  [ -d "$2" ] && d=/d || d=
-#  cmd /c mklink $d "${a[@]}"
-
+if [ $# -eq 0 ]; then
+    usage
+    exit 1
+elif [ $# -eq 1 ]; then # 引数が1つの時はカレントディレクトリに同名のリンクを作る
+    target=`basename $1`
+    exec_mklink $1 $target
+elif [ $# -eq 2 ]; then
+    exec_mklink $1 $2
+else
+    eval target=\${$#}
+    if [ ! -d "$target" ]; then # 引数が3つ以上のときは最後の引数はディレクトリ
+        echo ${CMDNAME}: ${target}: No such directory
+        exit 1
+    fi
+    while [ "$1" != "$target" ]
+    do
+        exec_mklink $1 $target
+        shift
+    done
+fi
 
 exit 0
