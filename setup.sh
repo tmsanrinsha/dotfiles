@@ -4,7 +4,7 @@ if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
     if [ ! -x ~/bin/cygwin/ln ]; then
         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
-        chmod 0755 ~/bin/cygwin/ln
+        chmod a+x ~/bin/cygwin/ln
         ln=~/bin/cygwin/ln
     fi
 else
