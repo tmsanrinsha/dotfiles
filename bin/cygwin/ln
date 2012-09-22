@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# http://sanrinsha.lolipop.jp/blog/2012/09/cygwin%E3%81%AEln%E3%82%92mklink%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html
 
 CMDNAME=`basename $0`
 
@@ -24,7 +25,7 @@ exec_mklink() {
     # ディレクトリのハードリンクは作れない
     # $Hはハードリンクオプションを表すグローバル変数
     if [ "$D" == '/D' -a "$H" == '/H' ]; then
-        echo ${CMDNAME}: $2: Is a directory
+        echo ${CMDNAME}: $1: Is a directory
         exit 1
     fi
 
