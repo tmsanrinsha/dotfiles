@@ -1,4 +1,3 @@
-" -------------------------------------------------------------------------------
 " NeoBundle {{{
 "-------------------------------------------------------------------------------
 " https://github.com/Shougo/neobundle.vim
@@ -107,7 +106,6 @@ endif
 "}}}
 
 
-"-------------------------------------------------------------------------------
 " 表示 {{{
 "-------------------------------------------------------------------------------
 set showmode "現在のモードを表示
@@ -316,7 +314,7 @@ set history=100000 "保存する履歴の数
 " CD {{{
 augroup CD
     autocmd!
-    au BufEnter * execute ":lcd " . expand("%:p:h")
+    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 augroup END
 "}}}
 
@@ -503,51 +501,6 @@ nnoremap <silent> [VIMDIFF]o :diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
 
-" Syntax {{{
-"-------------------------------------------------------------------------------
-syntax enable
-set foldmethod=marker
-
-" Vimテクニックバイブル1-13
-" PHPプログラムの構文チェック
-" http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-"augroup phpsyntaxcheck
-"    autocmd!
-"    autocmd FileType php set makeprg=php\ -l\ % | set errorformat=%m\ in\ %f\ on\ line\ %l
-"    "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
-"    autocmd BufWrite *.php w | make
-"augroup END
-"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
-
-let php_sql_query=1 " 文字列中のSQLをハイライトする
-let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
-let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
-let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする 
-augroup php
-    autocmd!
-    au Syntax php set foldmethod=syntax
-augroup END
-
-"augroup vim
-"    autocmd!
-"    au Syntax vim set foldmethod=marker
-"augroup END
-
-"}}}
-
-
-"-------------------------------------------------------------------------------
-" MySQL {{{
-"-------------------------------------------------------------------------------
-" Editorの設定
-" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-augroup mysqlEditor
-    autocmd!
-    au BufRead /var/tmp/sql* set ft=mysql
-augroup END
-"}}}
-  
-
 "-------------------------------------------------------------------------------
 " Manual {{{
 "-------------------------------------------------------------------------------
@@ -571,6 +524,88 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 "}}}
 
+" Syntax {{{
+"-------------------------------------------------------------------------------
+syntax enable
+set foldmethod=marker
+
+" Vimテクニックバイブル1-13
+" PHPプログラムの構文チェック
+" http://d.hatena.ne.jp/i_ogi/20070321/1174495931
+"augroup phpsyntaxcheck
+"    autocmd!
+"    autocmd FileType php set makeprg=php\ -l\ % | set errorformat=%m\ in\ %f\ on\ line\ %l
+"    "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
+"    autocmd BufWrite *.php w | make
+"augroup END
+"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+"}}}
+
+" HTML {{{
+" ==============================================================================
+" HTML Key Mappings for Typing Character Codes: {{{
+" ------------------------------------------------------------------------------
+" * http://www.stripey.com/vim/html.html
+" * https://github.com/sigwyg/dotfiles/blob/8c70c4032ebad90a8d92b76b1c5d732f28559e40/.vimrc
+"
+" |--------------------------------------------------------------------
+" |Keys     |Insert   |For  |Comment
+" |---------|---------|-----|-------------------------------------------
+" |\&       |&amp;    |&    |ampersand
+" |\<       |&lt;     |<    |less-than sign
+" |\>       |&gt;     |>    |greater-than sign
+" |\.       |&middot; |・   |middle dot (decimal point)
+" |\?       |&#8212;  |?    |em-dash
+" |\2       |&#8220;  |“   |open curved double quote
+" |\"       |&#8221;  |”   |close curved double quote
+" |\`       |&#8216;  |‘   |open curved single quote
+" |\'       |&#8217;  |’   |close curved single quote (apostrophe)
+" |\`       |`        |`    |OS-dependent open single quote
+" |\'       |'        |'    |OS-dependent close or vertical single quote
+" |\<Space> |&nbsp;   |     |non-breaking space
+" |---------------------------------------------------------------------
+"
+augroup MapHTMLKeys
+    autocmd!
+    autocmd FileType html call MapHTMLKeys()
+    function! MapHTMLKeys()
+        inoremap <buffer> \\ \
+        inoremap <buffer> \& &amp;
+        inoremap <buffer> \< &lt;
+        inoremap <buffer> \> &gt;
+        inoremap <buffer> \. ・
+        inoremap <buffer> \- &#8212;
+        inoremap <buffer> \<Space> &nbsp;
+        inoremap <buffer> \` &#8216;
+        inoremap <buffer> \' &#8217;
+        inoremap <buffer> \2 &#8220;
+        inoremap <buffer> \" &#8221;
+    endfunction " MapHTMLKeys()
+augroup END
+    "}}}
+"}}}
+
+" PHP {{{
+" ==============================================================================
+let php_sql_query=1 " 文字列中のSQLをハイライトする
+let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
+let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
+"let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする (重い)
+" augroup php
+"     autocmd!
+"     au Syntax php set foldmethod=syntax
+" augroup END
+"}}}
+
+" MySQL {{{
+" ==============================================================================
+" Editorの設定
+" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
+augroup mysqlEditor
+    autocmd!
+    au BufRead /var/tmp/sql* setlocal ft=mysql
+augroup END
+"}}}
 
 "-------------------------------------------------------------------------------
 " vimfiler {{{
