@@ -12,7 +12,7 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 " let NeoBundle manage NeoBundle
-" required! 
+" required!
 NeoBundle 'Shougo/neobundle.vim'
 
 " recommended to install
@@ -103,7 +103,6 @@ if neobundle#exists_not_installed_bundles()
   "finish
 endif
 "}}}
-
 
 " 表示 {{{
 " ==============================================================================
@@ -575,19 +574,31 @@ augroup mysqlEditor
 augroup END
 "}}}
 
+" >>>> Plugin >>>> {{{
+" Pluginのチェック {{{
+" ==============================================================================
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+endfunction
+"}}}
+
 " vim-emacscommandline {{{
 " ==============================================================================
 " これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
+" has_pluginの中に入れるとなぜか設定できない
 cmap <Esc><C-H> <Esc><BS>
 "}}}
 
 " vimfiler {{{
 " ==============================================================================
-let g:vimfiler_as_default_explorer = 1
-nnoremap [VIMFILER] <Nop>
-nmap <Leader>f [VIMFILER]
-nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
-nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+if s:has_plugin('vimfiler')
+    let g:vimfiler_as_default_explorer = 1
+    nnoremap [VIMFILER] <Nop>
+    nmap <Leader>f [VIMFILER]
+    nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+endif
 "}}}
 
 " sudo.vim {{{
@@ -596,24 +607,29 @@ nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 "nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
 "nmap <Leader>w :w sudo:%<CR>
-if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
-    nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
-else
-   nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+if s:has_plugin('sudo')
+    "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
+    if s:has_plugin('bclose')
+        nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
+    else
+        nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+    endif
+    nnoremap <Leader>w :w sudo:%<CR>
 endif
-nnoremap <Leader>w :w sudo:%<CR>
 "}}}
 
-" yankring.vim {{{
+" YankRing.vim {{{
 " ==============================================================================
-let g:yankring_manual_clipboard_check = 0
+if s:has_plugin('yankring.vim')
+    let g:yankring_manual_clipboard_check = 0
+endif
 "}}}
 
-" Mini Buf Explorer {{{
+" minibufexpl.vim {{{
 " ==============================================================================
-let g:miniBufExplSplitBelow=1  " Put new window below
-                               " current or on the
-                               " right for vertical split
+if s:has_plugin('minibufexpl')
+    " Put new window below current or on the right for vertical split
+    let g:miniBufExplSplitBelow=1
 "function! Md()
 "    return expand("%:p")
 "    "echo "a"
@@ -621,43 +637,48 @@ let g:miniBufExplSplitBelow=1  " Put new window below
 "endfunction
 ""let g:statusLineText = "-MiniBufExplorer-" . Md()
 "let g:statusLineText = Md()
+endif
 "}}}
 
-" Powerline for vim {{{
+" vim-powerline{{{
 " ==============================================================================
-let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-"let g:Powerline_theme = 'skwp'
-"let g:Powerline_colorscheme = 'skwp'
-"let g:Powerline_colorscheme = 'default_customized'
-"let g:Powerline_stl_path_style = 'short'
-"let g:Powerline_symbols = 'fancy'
-call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
-"call Pl#Hi#Segments(['SPLIT'], {
-"		\ 'n': ['white', 'gray2'],
-"		\ 'N': ['white', 'gray0'],
-"		\ 'i': ['white', 'gray0'],
-"		\ }),
+if s:has_plugin('Powerline')
+    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+    "let g:Powerline_theme = 'skwp'
+    "let g:Powerline_colorscheme = 'skwp'
+    "let g:Powerline_colorscheme = 'default_customized'
+    "let g:Powerline_stl_path_style = 'short'
+    "let g:Powerline_symbols = 'fancy'
+    call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Hi#Segments(['SPLIT'], {
+    "		\ 'n': ['white', 'gray2'],
+    "		\ 'N': ['white', 'gray0'],
+    "		\ 'i': ['white', 'gray0'],
+    "		\ }),
+endif
 "}}}
 
 " vimshell {{{
-nnoremap [VIMSHELL] <Nop>
-nmap <leader>H [VIMSHELL]
-nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
-nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
-nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
-nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
-nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
-nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
-" <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
-"vmap <silent> <Leader>ss :VimShellSendString<CR>
-"" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
-"nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+" ==============================================================================
+if s:has_plugin('vimshell')
+    nnoremap [VIMSHELL] <Nop>
+    nmap <leader>H [VIMSHELL]
+    nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
+    nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
+    nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
+    nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
+    nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
+    nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+    " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+    "vmap <silent> <Leader>ss :VimShellSendString<CR>
+    "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+    "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+endif
 " }}}
 
 " neocomplcache {{{
 " ==============================================================================
-" setsudo.vimting examples:
-if v:version >= 702
+if s:has_plugin('vimshell') && v:version >= 702
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -742,6 +763,7 @@ if v:version >= 702
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
 "}}}
+" <<<< Plugin <<<< }}}
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
