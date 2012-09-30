@@ -156,15 +156,15 @@ unsetopt promptcr
 autoload -Uz colors; colors
 
 # 現在のホストによってプロンプトの色を変える。
-# 256色の内、カラーで背景黒の時見やすい色はこの217色かな
-colArr=({1..6} {9..14} {22..186} {190..229})
+# 256色の内、カラーで背景黒の時見やすい色はこの216色かな
+colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 
 # hostnameをmd5でハッシュに変更し、1-217の数値を生成する
 # hostnameが長いとエラーが出るので最初の8文字を使う
 if [ `uname` = FreeBSD ];then
-    num=$((0x`hostname | md5 | cut -c1-8` % 217 + 1)) # zshの配列のインデックスは1から
+    num=$((0x`hostname | md5 | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
 else
-    num=$((0x`hostname | md5sum | cut -c1-8` % 217 + 1))
+    num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
 fi
 
 color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
