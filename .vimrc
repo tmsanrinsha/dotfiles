@@ -1,137 +1,156 @@
-" -------------------------------------------------------------------------------
-" NeoBundle {{{
-"-------------------------------------------------------------------------------
+" neobundle.vim {{{
+" ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-set nocompatible "vi互換にしない
-filetype off     " required!
+if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
+    set nocompatible "vi互換にしない
+    filetype off     " required!
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+    if has('vim_starting')
+      set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+    call neobundle#rc(expand('~/.vim/bundle/'))
 
-" let NeoBundle manage NeoBundle
-" required! 
-NeoBundle 'Shougo/neobundle.vim'
+    " let NeoBundle manage NeoBundle
+    " required!
+    NeoBundle 'Shougo/neobundle.vim'
 
-" recommended to install
-NeoBundle 'Shougo/vimproc'
-" after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+    " recommended to install
+    NeoBundle 'Shougo/vimproc', {
+      \   'build' : {
+      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+      \     'cygwin'  : 'make -f make_cygwin.mak',
+      \     'mac'     : 'make -f make_mac.mak',
+      \     'unix'    : 'make -f make_unix.mak',
+      \   },
+      \ }
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
+    NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/vimshell'
+    NeoBundle 'Shougo/vimfiler'
 
-NeoBundle 'thinca/vim-qfreplace'
+    NeoBundle 'thinca/vim-qfreplace'
 
-" 補完候補の自動表示
-NeoBundle 'Shougo/neocomplcache'
-" スニペット補完
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+    " 補完候補の自動表示
+    NeoBundle 'Shougo/neocomplcache'
+    " スニペット補完
+    NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
-" コマンドモードをEmacsキーバインドにする
-" https://github.com/houtsnip/vim-emacscommandline
-NeoBundle 'houtsnip/vim-emacscommandline'
+    " コマンドモードをEmacsキーバインドにする
+    NeoBundle 'https://github.com/houtsnip/vim-emacscommandline.git'
 
-" ファイルを保存時にシンタックスのチェック
-" https://github.com/scrooloose/syntastic
-NeoBundle 'scrooloose/syntastic'
+    " ファイルを保存時にシンタックスのチェック
+    " https://github.com/scrooloose/syntastic
+    NeoBundle 'scrooloose/syntastic'
 
-" ミニバッファにバッファ一覧を表示
-" https://github.com/fholgado/minibufexpl.vim
-NeoBundle 'fholgado/minibufexpl.vim'
+    " ミニバッファにバッファ一覧を表示
+    " https://github.com/fholgado/minibufexpl.vim
+    NeoBundle 'fholgado/minibufexpl.vim'
 
-" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-" https://github.com/rgarver/Kwbd.vim
-NeoBundle 'rgarver/Kwbd.vim'
+    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+    " https://github.com/rgarver/Kwbd.vim
+    NeoBundle 'rgarver/Kwbd.vim'
 
-" ステータスラインをカスタマイズ
-" https://github.com/Lokaltog/vim-powerline
-NeoBundle 'Lokaltog/vim-powerline'
+    " ステータスラインをカスタマイズ
+    " https://github.com/Lokaltog/vim-powerline
+    NeoBundle 'Lokaltog/vim-powerline'
 
-" https://github.com/thinca/vim-quickrun
-NeoBundle 'thinca/vim-quickrun'
+    " https://github.com/thinca/vim-quickrun
+    NeoBundle 'thinca/vim-quickrun'
 
-" 自分で修正したプラグイン
-" https://github.com/tmsanrinsha/vim
-NeoBundle 'tmsanrinsha/vim'
+    " 自分で修正したプラグイン
+    " https://github.com/tmsanrinsha/vim
+    NeoBundle 'tmsanrinsha/vim'
 
-" sudo権限でファイルを開く・保存
-" http://www.vim.org/scripts/script.php?script_id=729
-NeoBundle 'sudo.vim'
+    " sudo権限でファイルを開く・保存
+    " http://www.vim.org/scripts/script.php?script_id=729
+    NeoBundle 'sudo.vim'
 
-" ヤンクの履歴を選択してペースト
-" http://www.vim.org/scripts/script.php?script_id=1234
-NeoBundle 'YankRing.vim'
+    " ヤンクの履歴を選択してペースト
+    " http://www.vim.org/scripts/script.php?script_id=1234
+    NeoBundle 'YankRing.vim'
 
-NeoBundle 'Align'
+    NeoBundle 'Align'
 
-NeoBundle 'confluencewiki.vim'
+    NeoBundle 'confluencewiki.vim'
 
-" colorscheme
-NeoBundle 'altercation/vim-colors-solarized'
-" http://www.vim.org/scripts/script.php?script_id=1732
-"NeoBundle 'rdark'
+    " colorscheme
+    NeoBundle 'altercation/vim-colors-solarized'
+    " http://www.vim.org/scripts/script.php?script_id=1732
+    "NeoBundle 'rdark'
 
-"NeoBundle 'L9'
-"NeoBundle 'FuzzyFinder'
-"NeoBundle 'rails.vim'
+    " tmuxのシンタックス
+    NeoBundle 'https://github.com/zaiste/tmux.vim.git'
 
-"" non github repos ----------------------------------------------------------
-"NeoBundle 'git://git.wincent.com/command-t.git'
-"" non git repos
-"NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+    "NeoBundle 'L9'
+    "NeoBundle 'FuzzyFinder'
+    "NeoBundle 'rails.vim'
 
-
-filetype plugin indent on     " required!
-"
-" Brief help
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install(update) bundles
-" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-" :Unite neobundle/install:!
-" :Unite neobundle/install:neocomplcache
-" :Unite neobundle/install:neocomplcache:unite.vim
+    "" non github repos ----------------------------------------------------------
+    "NeoBundle 'git://git.wincent.com/command-t.git'
+    "" non git repos
+    "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
+    "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 
 
-" Installation check.
-if neobundle#exists_not_installed_bundles()
-  echomsg 'Not installed bundles : ' .
-        \ string(neobundle#get_not_installed_bundle_names())
-  echomsg 'Please execute ":NeoBundleInstall" command.'
-  "finish
+    filetype plugin indent on     " required!
+
+    " Brief help
+    " :NeoBundleList          - list configured bundles
+    " :NeoBundleInstall(!)    - install(update) bundles
+    " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+    " :Unite neobundle/install:!
+    " :Unite neobundle/install:neocomplcache
+    " :Unite neobundle/install:neocomplcache:unite.vim
+
+
+    " Installation check.
+    if neobundle#exists_not_installed_bundles()
+      echomsg 'Not installed bundles : ' .
+            \ string(neobundle#get_not_installed_bundle_names())
+      echomsg 'Please execute ":NeoBundleInstall" command.'
+      "finish
+    endif
+else
+    set nocompatible "vi互換にしない
+    filetype plugin indent on
 endif
 "}}}
 
+" Pluginの有無をチェックする関数 {{{
+" ==============================================================================
+" http://yomi322.hateblo.jp/entry/2012/06/20/225559
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'  . a:plugin . '.vim'))
+endfunction
+"}}}
 
-"-------------------------------------------------------------------------------
 " 表示 {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set number
 set ruler
 set cursorline
 
-" 不可視文字の可視化（Vimテクニックバイブル1-11）
+" 不可視文字の可視化（Vimテクニックバイブル1-11） {{{
 set list listchars=tab:>-,trail:_
+
 " 全角スペースをハイライト
 scriptencoding utf-8
-
 augroup highlightIdeograpicSpace
     autocmd!
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 "}}}
+"}}}
 
-
-"-------------------------------------------------------------------------------
 " タブ・インデント {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 "ファイル内の <Tab> が対応する空白の数
 set tabstop=4
 "<Tab> の挿入や <BS> の使用等の編集操作をするときに、<Tab> が対応する空白の数
@@ -144,10 +163,8 @@ set autoindent
 set smartindent
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " ステータスライン {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
 "               0: 全く表示しない
@@ -159,26 +176,26 @@ set laststatus=2
 "set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " カラースキーム {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 " 256色
 set t_Co=256
 
 "http://www.vim.org/scripts/script.php?script_id=2340
-colorscheme molokai
-set background=dark
-let g:molokai_original = 1
+if s:has_plugin('molokai')
+    colorscheme molokai
+    set background=dark
+    let g:molokai_original = 1
+else
+    colorscheme default
+endif
 "colorscheme solarized
 "set background=dark
 "let g:solarized_termcolors=256
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " Mapping {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 if !has('gui_running')
@@ -221,10 +238,8 @@ endif
 inoremap jj <ESC>
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " バッファ {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 nnoremap <M-n> :bn<CR>
 nnoremap <M-p> :bp<CR>
 nnoremap <M-1> :b1<CR>
@@ -250,14 +265,11 @@ if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
 endif
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " ウィンドウ {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 nnoremap <C-w>; <C-w>+
 "  常にカーソル行を真ん中に
 "set scrolloff=999
-
 
 "縦分割されたウィンドウのスクロールを同期させる
 "同期させたいウィンドウ上で<F12>を押せばおｋ
@@ -267,9 +279,8 @@ nnoremap <C-w>; <C-w>+
 nnoremap <F12> :set scrollbind!<CR>
 "}}}
 
-
 " タブ {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 "  いつタブページのラベルを表示するかを指定する。
 "  0: 表示しない
 "  1: 2個以上のタブページがあるときのみ表示
@@ -296,15 +307,13 @@ nnoremap [TAB]9  :9tabn<CR>
 nnoremap [TAB]0  :10tabn<CR>
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " コマンドモード {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 "set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
 
 "コマンドモードの補完をシェルコマンドの補完のようにする
 "http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
-set wildmode=list:longest
+set wildmode=list:longest,full
 
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
@@ -316,12 +325,12 @@ set history=100000 "保存する履歴の数
 " CD {{{
 augroup CD
     autocmd!
-    au BufEnter * execute ":lcd " . expand("%:p:h")
+    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 augroup END
 "}}}
 
 " paste {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 "pasteモードのトグル。autoindentをonにしてペーストすると
 "インデントが入った文章が階段状になってしまう。
 "pasteモードではautoindentが解除されそのままペーストできる
@@ -352,10 +361,8 @@ set pastetoggle=<F11>
 "endif
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " 検索 {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 set incsearch
 set ignorecase "検索パターンの大文字小文字を区別しない
 set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
@@ -369,10 +376,8 @@ vnoremap <Leader>/ <ESC>/\%V
 vnoremap <Leader>? <ESC>?\%V
 "}}}
  
- 
-"-------------------------------------------------------------------------------
 " カーソル {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 "カーソルを表示行で移動する。
 noremap j gj
 noremap k gk
@@ -416,18 +421,79 @@ inoremap <C-w>  <C-g>u<C-w>
 
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " カッコ・タグの対応 {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 set showmatch matchtime=1 "括弧の対応
 source $VIMRUNTIME/macros/matchit.vim "HTML tag match
 "}}}
 
+" vimdiff {{{
+" ==============================================================================
+nnoremap [VIMDIFF] <Nop>
+nmap <Leader>d [VIMDIFF]
+nnoremap <silent> [VIMDIFF]t :diffthis<CR>
+nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
+nnoremap <silent> [VIMDIFF]o :diffoff<CR>
+nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+"}}}
 
-"-------------------------------------------------------------------------------
+" Manual {{{
+" ==============================================================================
+":Man <man>でマニュアルを開く
+runtime ftplugin/man.vim
+nmap K <Leader>K
+"コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
+"http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+".zshrc .bashrc等にも記述が必要
+let $PAGER=''
+
+autocmd FileType help nmap <buffer><silent> q :q<CR>
+"}}}
+
+"vimrc auto update {{{
+augroup MyAutoCmd
+  autocmd!
+  " nested: autocmdの実行中に更に別のautocmdを実行する
+  autocmd BufWritePost .vimrc nested source $MYVIMRC
+  " autocmd BufWritePost .vimrc RcbVimrc
+augroup END
+"}}}
+
+" gf(goto file)の設定 {{{
+" ==============================================================================
+" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
+" ファイルの検索の範囲の変更
+augroup htmlInclude
+    autocmd!
+    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
+augroup END
+set path+=./;/
+"}}}
+
+" 文字コード {{{
+" ==============================================================================
+set encoding=utf-8
+set fileencoding=utf-8
+
+" ファイルのエンコードの判定を前から順番にする
+" ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
+" BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
+" http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
+" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
+" ただし2つあるeuc-jpの2番目を消した
+if has("win32") || has("win64")
+    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
+else
+    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
+    set fileencodings=ucs-boms,utf-8,euc-jp
+endif
+
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
+"}}}
+
 " マウス {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 " Enable mouse support.
 " Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
 set mouse=a 
@@ -456,55 +522,20 @@ if has('gui_running')
 endif
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" gf(goto file)の設定 {{{
-"-------------------------------------------------------------------------------
-" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
-" ファイルの検索の範囲の変更
-augroup htmlInclude
-    autocmd!
-    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
-augroup END
-set path+=./;/
+" printing {{{
+set printoptions=wrap:y,number:y,header:0
+set printfont=Andale\ Mono:h12:cUTF8
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" 文字コード {{{
-"-------------------------------------------------------------------------------
-set encoding=utf-8
-set fileencoding=utf-8
-
-" ファイルのエンコードの判定を前から順番にする
-" ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
-" BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
-" http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
-" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
-" ただし2つあるeuc-jpの2番目を消した
-if has("win32") || has("win64")
-    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
-else
-    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
-    set fileencodings=ucs-boms,utf-8,euc-jp
-endif
-
-"□や○の文字があってもカーソル位置がずれないようにする
-set ambiwidth=double
-"}}}
-
-" vimdiff {{{
-"-------------------------------------------------------------------------------
-nnoremap [VIMDIFF] <Nop>
-nmap <Leader>d [VIMDIFF]
-nnoremap <silent> [VIMDIFF]t :diffthis<CR>
-nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
-nnoremap <silent> [VIMDIFF]o :diffoff<CR>
-nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+" gVim {{{
+" ==============================================================================
+"Windowsのgvimのメニューの文字化け対応
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 "}}}
 
 " Syntax {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 syntax enable
 set foldmethod=marker
 
@@ -518,99 +549,137 @@ set foldmethod=marker
 "    autocmd BufWrite *.php w | make
 "augroup END
 "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+"}}}
 
+" >>>> Language >>>> {{{
+
+" HTML {{{
+" ==============================================================================
+" HTML Key Mappings for Typing Character Codes: {{{
+" ------------------------------------------------------------------------------
+" * http://www.stripey.com/vim/html.html
+" * https://github.com/sigwyg/dotfiles/blob/8c70c4032ebad90a8d92b76b1c5d732f28559e40/.vimrc
+"
+" |--------------------------------------------------------------------
+" |Keys     |Insert   |For  |Comment
+" |---------|---------|-----|-------------------------------------------
+" |\&       |&amp;    |&    |ampersand
+" |\<       |&lt;     |<    |less-than sign
+" |\>       |&gt;     |>    |greater-than sign
+" |\.       |&middot; |・   |middle dot (decimal point)
+" |\?       |&#8212;  |?    |em-dash
+" |\2       |&#8220;  |“   |open curved double quote
+" |\"       |&#8221;  |”   |close curved double quote
+" |\`       |&#8216;  |‘   |open curved single quote
+" |\'       |&#8217;  |’   |close curved single quote (apostrophe)
+" |\`       |`        |`    |OS-dependent open single quote
+" |\'       |'        |'    |OS-dependent close or vertical single quote
+" |\<Space> |&nbsp;   |     |non-breaking space
+" |---------------------------------------------------------------------
+"
+augroup MapHTMLKeys
+    autocmd!
+    autocmd FileType html call MapHTMLKeys()
+    function! MapHTMLKeys()
+        inoremap <buffer> \\ \
+        inoremap <buffer> \& &amp;
+        inoremap <buffer> \< &lt;
+        inoremap <buffer> \> &gt;
+        inoremap <buffer> \. ・
+        inoremap <buffer> \- &#8212;
+        inoremap <buffer> \<Space> &nbsp;
+        inoremap <buffer> \` &#8216;
+        inoremap <buffer> \' &#8217;
+        inoremap <buffer> \2 &#8220;
+        inoremap <buffer> \" &#8221;
+    endfunction " MapHTMLKeys()
+augroup END
+"}}}
+
+" input </ to auto close tag on XML {{{
+" ------------------------------------------------------------------------------
+" https://github.com/sorah/config/blob/master/vim/dot.vimrc
+augroup MyXML
+  autocmd!
+  autocmd Filetype xml  inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+augroup END
+"}}}
+"}}}
+
+" PHP {{{
+" ==============================================================================
 let php_sql_query=1 " 文字列中のSQLをハイライトする
 let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
-let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする 
-augroup php
-    autocmd!
-    au Syntax php set foldmethod=syntax
-augroup END
-
-"augroup vim
-"    autocmd!
-"    au Syntax vim set foldmethod=marker
-"augroup END
-
+"let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする (重い)
+" augroup php
+"     autocmd!
+"     au Syntax php set foldmethod=syntax
+" augroup END
 "}}}
 
-
-"-------------------------------------------------------------------------------
 " MySQL {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 " Editorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 augroup mysqlEditor
     autocmd!
-    au BufRead /var/tmp/sql* set ft=mysql
+    au BufRead /var/tmp/sql* setlocal ft=mysql
 augroup END
 "}}}
-  
 
-"-------------------------------------------------------------------------------
-" Manual {{{
-"-------------------------------------------------------------------------------
-":Man <man>でマニュアルを開く
-runtime ftplugin/man.vim
-nmap K <Leader>K
-"コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
-"http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
-".zshrc .bashrc等にも記述が必要
-let $PAGER=''
+" <<<< Language <<<< }}}
 
-autocmd FileType help nmap <buffer><silent> q :q<CR>
+" >>>> Plugin >>>> {{{
+
+" vim-emacscommandline {{{
+" ==============================================================================
+" これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
+" has_pluginの中に入れるとなぜか設定できない
+cmap <Esc><C-H> <Esc><BS>
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" gVim {{{
-"-------------------------------------------------------------------------------
-"Windowsのgvimのメニューの文字化け対応
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-"}}}
-
-
-"-------------------------------------------------------------------------------
 " vimfiler {{{
-"-------------------------------------------------------------------------------
-let g:vimfiler_as_default_explorer = 1
-nnoremap [VIMFILER] <Nop>
-nmap <Leader>f [VIMFILER]
-nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
-nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+" ==============================================================================
+if s:has_plugin('vimfiler')
+    let g:vimfiler_as_default_explorer = 1
+    nnoremap [VIMFILER] <Nop>
+    nmap <Leader>f [VIMFILER]
+    nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+endif
 "}}}
 
-"-------------------------------------------------------------------------------
 " sudo.vim {{{
-"-------------------------------------------------------------------------------
+" ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 "nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
 "nmap <Leader>w :w sudo:%<CR>
-if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
-    nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
-else
-   nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+if s:has_plugin('sudo')
+    "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
+    if s:has_plugin('bclose')
+        nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
+    else
+        nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+    endif
+    nnoremap <Leader>w :w sudo:%<CR>
 endif
-nnoremap <Leader>w :w sudo:%<CR>
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" yankring.vim {{{
-"-------------------------------------------------------------------------------
-let g:yankring_manual_clipboard_check = 0
+" YankRing.vim {{{
+" ==============================================================================
+if s:has_plugin('yankring.vim')
+    let g:yankring_manual_clipboard_check = 0
+endif
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" Mini Buf Explorer {{{
-"-------------------------------------------------------------------------------
-let g:miniBufExplSplitBelow=1  " Put new window below
-                               " current or on the
-                               " right for vertical split
+" minibufexpl.vim {{{
+" ==============================================================================
+if s:has_plugin('minibufexpl')
+    " Put new window below current or on the right for vertical split
+    let g:miniBufExplSplitBelow=1
 "function! Md()
 "    return expand("%:p")
 "    "echo "a"
@@ -618,46 +687,48 @@ let g:miniBufExplSplitBelow=1  " Put new window below
 "endfunction
 ""let g:statusLineText = "-MiniBufExplorer-" . Md()
 "let g:statusLineText = Md()
+endif
 "}}}
 
-
-"-------------------------------------------------------------------------------
-" Powerline for vim {{{
-"-------------------------------------------------------------------------------
-let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-"let g:Powerline_theme = 'skwp'
-"let g:Powerline_colorscheme = 'skwp'
-"let g:Powerline_colorscheme = 'default_customized'
-"let g:Powerline_stl_path_style = 'short'
-"let g:Powerline_symbols = 'fancy'
-call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
-"call Pl#Hi#Segments(['SPLIT'], {
-"		\ 'n': ['white', 'gray2'],
-"		\ 'N': ['white', 'gray0'],
-"		\ 'i': ['white', 'gray0'],
-"		\ }),
+" vim-powerline{{{
+" ==============================================================================
+if s:has_plugin('Powerline')
+    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+    "let g:Powerline_theme = 'skwp'
+    "let g:Powerline_colorscheme = 'skwp'
+    "let g:Powerline_colorscheme = 'default_customized'
+    "let g:Powerline_stl_path_style = 'short'
+    "let g:Powerline_symbols = 'fancy'
+    call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Hi#Segments(['SPLIT'], {
+    "		\ 'n': ['white', 'gray2'],
+    "		\ 'N': ['white', 'gray0'],
+    "		\ 'i': ['white', 'gray0'],
+    "		\ }),
+endif
 "}}}
-
 
 " vimshell {{{
-nnoremap [VIMSHELL] <Nop>
-nmap <leader>H [VIMSHELL]
-nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
-nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
-nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
-nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
-nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
-nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
-" <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
-"vmap <silent> <Leader>ss :VimShellSendString<CR>
-"" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
-"nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+" ==============================================================================
+if s:has_plugin('vimshell')
+    nnoremap [VIMSHELL] <Nop>
+    nmap <leader>H [VIMSHELL]
+    nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
+    nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
+    nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
+    nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
+    nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
+    nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+    " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+    "vmap <silent> <Leader>ss :VimShellSendString<CR>
+    "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+    "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+endif
 " }}}
 
 " neocomplcache {{{
-"-------------------------------------------------------------------------------
-" setsudo.vimting examples:
-if v:version >= 702
+" ==============================================================================
+if s:has_plugin('vimshell') && v:version >= 702
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -743,6 +814,7 @@ if v:version >= 702
 endif
 "}}}
 
+" <<<< Plugin <<<< }}}
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
