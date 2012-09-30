@@ -309,11 +309,17 @@ nnoremap [TAB]0  :10tabn<CR>
 
 " コマンドモード {{{
 " ==============================================================================
-"set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
-
-"コマンドモードの補完をシェルコマンドの補完のようにする
-"http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
+" 補完 {{{
+" ------------------------------------------------------------------------------
+" set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する（リスト表示の方が好みなのでコメントアウト）
+"
+" コマンドモードの補完をシェルコマンドの補完のようにする
+" http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
+" <TAB>で共通する最長の文字列まで補完して一覧表示
+" 再度<Tab>を打つと候補を選択。<S-Tab>で逆
 set wildmode=list:longest,full
+"}}}
+
 
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
@@ -322,6 +328,23 @@ cnoremap <C-N> <DOWN>
 set history=100000 "保存する履歴の数
 "}}}
 
+" 検索 {{{
+" ==============================================================================
+set incsearch
+set ignorecase "検索パターンの大文字小文字を区別しない
+set nosmartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
+set nohlsearch "検索結果をハイライトしない
+
+nnoremap / :set smartcase<CR>/
+
+" ESCキー2度押しでハイライトのトグル
+nnoremap <Esc><Esc> :set hlsearch!<CR>
+
+"ヴィビュアルモードで選択した範囲だけ検索
+vnoremap <Leader>/ <ESC>/\%V
+vnoremap <Leader>? <ESC>?\%V
+"}}}
+ 
 " CD {{{
 augroup CD
     autocmd!
@@ -361,21 +384,6 @@ set pastetoggle=<F11>
 "endif
 "}}}
 
-" 検索 {{{
-" ==============================================================================
-set incsearch
-set ignorecase "検索パターンの大文字小文字を区別しない
-set smartcase "検索パターンに大文字を含んでいたら大文字小文字を区別する
-set nohlsearch "検索結果をハイライトしない
-
-" ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :set hlsearch!<CR>
-
-"ヴィビュアルモードで選択した範囲だけ検索
-vnoremap <Leader>/ <ESC>/\%V
-vnoremap <Leader>? <ESC>?\%V
-"}}}
- 
 " カーソル {{{
 " ==============================================================================
 "カーソルを表示行で移動する。
