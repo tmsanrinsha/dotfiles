@@ -38,7 +38,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/neocomplcache-snippets-complete'
 
     " コマンドモードをEmacsキーバインドにする
-    NeoBundle 'https://github.com/houtsnip/vim-emacscommandline.git'
+    NeoBundle 'houtsnip/vim-emacscommandline'
 
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
@@ -69,7 +69,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    NeoBundle 'YankRing.vim'
+    "NeoBundle 'YankRing.vim'
 
     NeoBundle 'Align'
 
@@ -81,7 +81,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'rdark'
 
     " tmuxのシンタックス
-    NeoBundle 'https://github.com/zaiste/tmux.vim.git'
+    NeoBundle 'zaiste/tmux.vim'
 
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
@@ -458,7 +458,18 @@ let $PAGER=''
 autocmd FileType help nmap <buffer><silent> q :q<CR>
 "}}}
 
-"vimrc auto update {{{
+" vimrcの編集 {{{
+" ==============================================================================
+" http://vim-users.jp/2009/09/hack74/
+" .vimrcと.gvimrcの編集
+nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
+
+" Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
+
+"vimrc auto update
 augroup MyAutoCmd
   autocmd!
   " nested: autocmdの実行中に更に別のautocmdを実行する
