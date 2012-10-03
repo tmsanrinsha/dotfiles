@@ -335,8 +335,6 @@ set ignorecase "検索パターンの大文字小文字を区別しない
 set nosmartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
 set nohlsearch "検索結果をハイライトしない
 
-nnoremap / :set smartcase<CR>/
-
 " ESCキー2度押しでハイライトのトグル
 nnoremap <Esc><Esc> :set hlsearch!<CR>
 
@@ -345,11 +343,16 @@ vnoremap <Leader>/ <ESC>/\%V
 vnoremap <Leader>? <ESC>?\%V
 "}}}
  
-" CD {{{
-augroup CD
-    autocmd!
-    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
-augroup END
+" ディレクトリ・ファイル {{{
+" ==============================================================================
+"augroup CD
+"    autocmd!
+"    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
+"augroup END
+" 現在編集中のファイルのディレクトリをカレントディレクトリにする
+nnoremap <silent><Leader>cd :cd %:h<CR>
+" 現在編集中のファイルのフルパスを表示する
+nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "}}}
 
 " paste {{{
@@ -462,20 +465,20 @@ autocmd FileType help nmap <buffer><silent> q :q<CR>
 " ==============================================================================
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
-nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent> <Leader>ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> <Leader>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> <Leader>rg :<C-u>source $MYGVIMRC<CR>
 
-"vimrc auto update
-augroup MyAutoCmd
-  autocmd!
-  " nested: autocmdの実行中に更に別のautocmdを実行する
-  autocmd BufWritePost .vimrc nested source $MYVIMRC
-  " autocmd BufWritePost .vimrc RcbVimrc
-augroup END
+""vimrc auto update
+"augroup MyAutoCmd
+"  autocmd!
+"  " nested: autocmdの実行中に更に別のautocmdを実行する
+"  autocmd BufWritePost .vimrc nested source $MYVIMRC
+"  " autocmd BufWritePost .vimrc RcbVimrc
+"augroup END
 "}}}
 
 " gf(goto file)の設定 {{{
