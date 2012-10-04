@@ -79,6 +79,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'altercation/vim-colors-solarized'
     " http://www.vim.org/scripts/script.php?script_id=1732
     "NeoBundle 'rdark'
+    " http://www.vim.org/scripts/script.php?script_id=2536
+    NeoBundle 'jonathanfilip/vim-lucius'
+    let g:lucius_contrast_bg = 'high'
+    NeoBundle 'vim-scripts/wombat256.vim'
+
 
     " tmuxのシンタックス
     NeoBundle 'zaiste/tmux.vim'
