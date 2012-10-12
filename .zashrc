@@ -27,7 +27,7 @@ addPath() {
                 export PATH="$newPath:$PATH"
                 ;;
             'post' )
-                export PATH="$newPath:$PATH"
+                export PATH="$PATH:$newPath"
                 ;;
             * )
                 echo 'unknown position'; exit 1
