@@ -1,3 +1,7 @@
 # vim:filetype=sh
-export PATH="$HOME/bin/cygwin:$PATH"
 alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/ -c /package'
+
+# ssh-pageant
+if which ssh-pageant 1>/dev/null 2>&1; then
+    eval $(/usr/bin/ssh-pageant -q)
+fi
