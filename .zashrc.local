@@ -1,5 +1,7 @@
 # vim:filetype=sh
-#export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
+if [[ `hostname` == *.sakura.ne.jp ]]; then
+    export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
+fi
 
 # ssh-agent
 # http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
