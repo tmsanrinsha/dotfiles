@@ -1,25 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ `uname` = CYGWIN* ]]; then
-    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
-    if [ ! -x ~/bin/cygwin/ln ]; then
-        curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
-        chmod a+x ~/bin/cygwin/ln
-        ln=~/bin/cygwin/ln
-    fi
-else
-    ln=`which ln`
-fi
+# dotfilesにリンクを貼る
+find `pwd` -type f -regex ".*/\..*" ! -regex ".*/\.git.*" | xargs -I{} ln -v {} $HOME
 
 [ ! -d ~/bin ] && mkdir ~/bin
-# 実行ファイル系はハードリンクにする。
-# $HOME/binにパスが通っているとする
-find `pwd`/bin -maxdepth 1 -type f | xargs -I{} $ln -v {} $HOME/bin
-#$ln -v $PWD/bin/* $HOME/bin
-
-# dotfilesにシンボリックリンクを貼る
-find `pwd` -type f -regex ".*/\..*" ! -regex ".*/\.git.*" | xargs -I{} $ln -sv {} $HOME
-
+# 実行ファイルにリンクを貼る
+find `pwd`/bin -maxdepth 1 -type f | xargs -I{} ln -v {} $HOME/bin
 
 # http://betterthangrep.com/
 if [ ! -x ~/bin/ack ];then
@@ -39,6 +25,14 @@ fi
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+fi
+
+if [[ `uname` = CYGWIN* ]]; then
+    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+    if [ ! -x ~/bin/cygwin/ln ]; then
+        curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
+        chmod a+x ~/bin/cygwin/ln
+    fi
 fi
 
 . ~/.bash_profile
