@@ -241,6 +241,8 @@ if !has('gui_running')
 endif
 
 inoremap jj <ESC>
+nnoremap Y y$
+
 "}}}
 
 " バッファ {{{
@@ -347,7 +349,7 @@ nnoremap <Esc><Esc> :set hlsearch!<CR>
 vnoremap <Leader>/ <ESC>/\%V
 vnoremap <Leader>? <ESC>?\%V
 "}}}
- 
+
 " ディレクトリ・ファイル {{{
 " ==============================================================================
 "augroup CD
@@ -365,31 +367,30 @@ nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "pasteモードのトグル。autoindentをonにしてペーストすると
 "インデントが入った文章が階段状になってしまう。
 "pasteモードではautoindentが解除されそのままペーストできる
-set pastetoggle=<F11>  
+set pastetoggle=<F11>
 
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
-"if &term =~ "xterm" && v:version > 603
-"    "for screen
-"    " .screenrcでterm xterm-256colorとしている場合 
-"    if &term == "xterm-256color"
-"        let &t_SI = &t_SI . "\eP\e[?2004h\e\\"
-"        let &t_EI = "\eP\e[?2004l\e\\" . &t_EI
-"        let &pastetoggle = "\e[201~"
-"    elseif &term == "xterm" 
-"        let &t_SI .= &t_SI . "\e[?2004h"  
-"        let &t_EI .= "\e[?2004l" . &t_EI
-"        let &pastetoggle = "\e[201~" 
-"    endif
-"
-"    function XTermPasteBegin(ret) 
-"        set paste 
-"        return a:ret 
-"    endfunction 
-"
-"    imap <special> <expr> <Esc>[200~ XTermPasteBegin("") 
-"endif
+if &term =~ "xterm" && v:version > 603
+    "for screen
+    if executable('screen') && $WINDOW != ''
+        let &t_SI = &t_SI . "\eP\e[?2004h\e\\"
+        let &t_EI = "\eP\e[?2004l\e\\" . &t_EI
+        let &pastetoggle = "\e[201~"
+    else
+        let &t_SI .= &t_SI . "\e[?2004h"
+        let &t_EI .= "\e[?2004l" . &t_EI
+        let &pastetoggle = "\e[201~"
+    endif
+
+    function! XTermPasteBegin(ret)
+        set paste
+        return a:ret
+    endfunction
+
+    imap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
 "}}}
 
 " カーソル {{{
@@ -523,20 +524,19 @@ set ambiwidth=double
 " ==============================================================================
 " Enable mouse support.
 " Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
-set mouse=a 
+set mouse=a
  
-" For screen. 
-" .screenrcでterm xterm-256colorとしている場合 
-if &term == "xterm-256color" 
-    augroup MyAutoCmd 
-        autocmd VimLeave * :set mouse= 
-    augroup END 
- 
-    " screenでマウスを使用するとフリーズするのでその対策 
+" For screen
+if executable('screen') && $WINDOW != ''
+    augroup MyAutoCmd
+        autocmd VimLeave * :set mouse=
+    augroup END
+
+    " screenでマウスを使用するとフリーズするのでその対策
     " Tere Termだと自動で認識されているかも
     " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
-    set ttymouse=xterm2 
-endif 
+    set ttymouse=xterm2
+endif
 
 if has('gui_running')
     " Show popup menu if right click.
