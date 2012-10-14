@@ -74,8 +74,22 @@ alias -g E='| egrep'
 alias -g GI='| egrep -i'
 alias -g X='-print0 | xargs -0'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
-alias -g TGZ='| gzip -dc | tar xvf -'
+alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
+
+# 改行でls {{{
+# http://d.hatena.ne.jp/kei_q/20110406/1302091565
+alls() {
+  if [[ -z "$BUFFER" ]]; then
+      echo ''
+      ls
+  fi
+  zle accept-line
+}
+zle -N alls
+bindkey "\C-m" alls
+bindkey "\C-j" alls
+#}}}
 
 # zmv
 # http://ref.layer8.sh/ja/entry/show/id/2694
@@ -142,9 +156,8 @@ setopt inc_append_history
 setopt share_history
 # }}}
 
-#==============================================================================
 # precmd系 {{{
-#==============================================================================
+# =============================================================================
 # http://d.hatena.ne.jp/kiririmode/20120327/p1
 # add-zsh-hook precmd functionするための設定
 autoload -Uz add-zsh-hook
@@ -163,7 +176,7 @@ colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 # hostnameをmd5でハッシュに変更し、1-217の数値を生成する
 # hostnameが長いとエラーが出るので最初の8文字を使う
 if [ `uname` = FreeBSD ];then
-    num=$((0x`hostname | md5 | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
+    num=$((0x`hostname | md5    | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
 else
     num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
 fi
@@ -191,12 +204,14 @@ function prompt_precmd() {
     #tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
     #PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
 
-    pct="%0(?||%18(?||%{$fg[red]%}))%#%{${reset_color}%}"
-    PROMPT="${color}[%m:%~]${pct} "
+    #pct="%0(?||%18(?||%{$fg[red]%}))%#%{${reset_color}%}"
+    #PROMPT="${color}[%m:%~]${pct} "
 }
 #add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
+PROMPT="%0(?|${color}|%18(?|${color}|%{$bg[red]%}))[%m:%~]%#%{${reset_color}%} "
+#PROMPT="${color}[%m:%~]%#%{${reset_color}%} "
 PROMPT2="${color}%_>%{${reset_color}%} "
 # command correct edition before each completion attempt
 setopt correct
