@@ -118,10 +118,10 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #fi
 
 # tmuxがインストールされていて、tmuxを起動していないときは自動起動
-#if which tmux 1>/dev/null 2>&1 && [ -x /usr/local/bin/tmux -a -z "$TMUX" ];then 
-#    # すでに tmux セッションがある場合そこに接続し、なければ作成する
-#    tmux -2 a || tmux -2
-#fi
+if which tmux 1>/dev/null 2>&1 && [ -z "$TMUX" ];then 
+    # すでに tmux セッションがある場合そこに接続し、なければ作成する
+    tmux -2 a || tmux -2
+fi
 
 # svn {{{
 alias svnvd='svn diff --diff-cmd ~/bin/svnvimdiff'
