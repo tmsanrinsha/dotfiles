@@ -123,6 +123,10 @@ if which tmux 1>/dev/null 2>&1 && [ -z "$TMUX" ];then
     tmux -2 a || tmux -2
 fi
 
+# VVM {{{
+test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
+# }}}
+
 # svn {{{
 alias svnvd='svn diff --diff-cmd ~/bin/svnvimdiff'
 # }}}
