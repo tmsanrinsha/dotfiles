@@ -77,19 +77,19 @@ alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
 
-# 改行でls {{{
-# http://d.hatena.ne.jp/kei_q/20110406/1302091565
-alls() {
-  if [[ -z "$BUFFER" ]]; then
-      echo ''
-      ls
-  fi
-  zle accept-line
-}
-zle -N alls
-bindkey "\C-m" alls
-bindkey "\C-j" alls
-#}}}
+## 改行でls {{{
+## http://d.hatena.ne.jp/kei_q/20110406/1302091565
+#alls() {
+#  if [[ -z "$BUFFER" ]]; then
+#      echo ''
+#      ls
+#  fi
+#  zle accept-line
+#}
+#zle -N alls
+#bindkey "\C-m" alls
+#bindkey "\C-j" alls
+##}}}
 
 # zmv
 # http://ref.layer8.sh/ja/entry/show/id/2694
