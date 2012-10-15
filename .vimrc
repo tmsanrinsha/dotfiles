@@ -27,15 +27,15 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       \ }
 
     NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'Shougo/vimshell'
     NeoBundle 'Shougo/vimfiler'
-
-    NeoBundle 'thinca/vim-qfreplace'
+    NeoBundle 'Shougo/vimshell'
 
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
     " スニペット補完
     NeoBundle 'Shougo/neocomplcache-snippets-complete'
+
+    NeoBundle 'thinca/vim-qfreplace'
 
     " コマンドモードをEmacsキーバインドにする
     NeoBundle 'houtsnip/vim-emacscommandline'
@@ -679,79 +679,28 @@ augroup END
 " <<<< Language <<<< }}}
 
 " >>>> Plugin >>>> {{{
-
-" vim-emacscommandline {{{
+" unite {{{
 " ==============================================================================
-" これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
-" has_pluginの中に入れるとなぜか設定できない
-cmap <Esc><C-H> <Esc><BS>
+if s:has_plugin('unite')
+    nnoremap [unite] <Nop>
+    nmap <Leader>u [unite]
+    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+    " ブックマーク一覧
+    nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
+endif
 "}}}
 
 " vimfiler {{{
 " ==============================================================================
 if s:has_plugin('vimfiler')
     let g:vimfiler_as_default_explorer = 1
+    "セーフモードを無効にした状態で起動する
+    let g:vimfiler_safe_mode_by_default = 0
+
     nnoremap [VIMFILER] <Nop>
     nmap <Leader>f [VIMFILER]
     nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
     nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
-endif
-"}}}
-
-" sudo.vim {{{
-" ==============================================================================
-" sudo権限で保存する
-" http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-"nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
-"nmap <Leader>w :w sudo:%<CR>
-if s:has_plugin('sudo')
-    "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
-    if s:has_plugin('bclose')
-        nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
-    else
-        nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
-    endif
-    nnoremap <Leader>w :w sudo:%<CR>
-endif
-"}}}
-
-" YankRing.vim {{{
-" ==============================================================================
-if s:has_plugin('yankring.vim')
-    let g:yankring_manual_clipboard_check = 0
-endif
-"}}}
-
-" minibufexpl.vim {{{
-" ==============================================================================
-if s:has_plugin('minibufexpl')
-    " Put new window below current or on the right for vertical split
-    let g:miniBufExplSplitBelow=1
-"function! Md()
-"    return expand("%:p")
-"    "echo "a"
-"    "set paste
-"endfunction
-""let g:statusLineText = "-MiniBufExplorer-" . Md()
-"let g:statusLineText = Md()
-endif
-"}}}
-
-" vim-powerline{{{
-" ==============================================================================
-if s:has_plugin('Powerline')
-    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-    "let g:Powerline_theme = 'skwp'
-    "let g:Powerline_colorscheme = 'skwp'
-    "let g:Powerline_colorscheme = 'default_customized'
-    "let g:Powerline_stl_path_style = 'short'
-    "let g:Powerline_symbols = 'fancy'
-    call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
-    "call Pl#Hi#Segments(['SPLIT'], {
-    "		\ 'n': ['white', 'gray2'],
-    "		\ 'N': ['white', 'gray0'],
-    "		\ 'i': ['white', 'gray0'],
-    "		\ }),
 endif
 "}}}
 
@@ -858,6 +807,70 @@ if s:has_plugin('vimshell') && v:version >= 702
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+endif
+"}}}
+
+" vim-emacscommandline {{{
+" ==============================================================================
+" これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
+" has_pluginの中に入れるとなぜか設定できない
+cmap <Esc><C-H> <Esc><BS>
+"}}}
+
+" sudo.vim {{{
+" ==============================================================================
+" sudo権限で保存する
+" http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
+"nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+"nmap <Leader>w :w sudo:%<CR>
+if s:has_plugin('sudo')
+    "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
+    if s:has_plugin('bclose')
+        nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
+    else
+        nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+    endif
+    nnoremap <Leader>w :w sudo:%<CR>
+endif
+"}}}
+
+" YankRing.vim {{{
+" ==============================================================================
+if s:has_plugin('yankring.vim')
+    let g:yankring_manual_clipboard_check = 0
+endif
+"}}}
+
+" minibufexpl.vim {{{
+" ==============================================================================
+if s:has_plugin('minibufexpl')
+    " Put new window below current or on the right for vertical split
+    let g:miniBufExplSplitBelow=1
+"function! Md()
+"    return expand("%:p")
+"    "echo "a"
+"    "set paste
+"endfunction
+""let g:statusLineText = "-MiniBufExplorer-" . Md()
+"let g:statusLineText = Md()
+endif
+"}}}
+
+" vim-powerline{{{
+" ==============================================================================
+if s:has_plugin('Powerline')
+    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+    "let g:Powerline_theme = 'skwp'
+    "let g:Powerline_colorscheme = 'skwp'
+    "let g:Powerline_colorscheme = 'default_customized'
+    "let g:Powerline_stl_path_style = 'short'
+    "let g:Powerline_symbols = 'fancy'
+    call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Hi#Segments(['SPLIT'], {
+    "		\ 'n': ['white', 'gray2'],
+    "		\ 'N': ['white', 'gray0'],
+    "		\ 'i': ['white', 'gray0'],
+    "		\ }),
 endif
 "}}}
 
