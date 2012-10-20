@@ -340,7 +340,7 @@ set history=100000 "保存する履歴の数
 " ==============================================================================
 set incsearch
 set ignorecase "検索パターンの大文字小文字を区別しない
-set nosmartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
+set smartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
 set nohlsearch "検索結果をハイライトしない
 
 " ESCキー2度押しでハイライトのトグル
@@ -573,13 +573,6 @@ endif
 " printing {{{
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
-"}}}
-
-" gVim {{{
-" ==============================================================================
-"Windowsのgvimのメニューの文字化け対応
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 "}}}
 
 " Syntax {{{
