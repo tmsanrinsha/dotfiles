@@ -181,7 +181,7 @@ else
     num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
 fi
 
-color="%{"$'\e'"[38;5;${colArr[$num]}m%}"
+color="%{"$'\e'"[38;5;$colArr[$num]m%}"
 
 #C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
 #local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
