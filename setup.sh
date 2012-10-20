@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # dotfilesにリンクを貼る
-find `pwd` -type f -regex ".*/\..*" ! -regex ".*/\.git.*" | xargs -I{} ln -v {} $HOME
+find `pwd` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print | xargs -I{} ln -v {} $HOME
 
 [ ! -d ~/bin ] && mkdir ~/bin
 # 実行ファイルにリンクを貼る
