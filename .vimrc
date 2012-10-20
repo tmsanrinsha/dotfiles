@@ -33,7 +33,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
     " スニペット補完
-    NeoBundle 'Shougo/neocomplcache-snippets-complete'
+    "NeoBundle 'Shougo/neocomplcache-snippets-complete'
+    NeoBundle 'Shougo/neosnippet'
 
     NeoBundle 'thinca/vim-qfreplace'
 
@@ -69,7 +70,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    "NeoBundle 'YankRing.vim'
+    NeoBundle 'YankRing.vim'
 
     NeoBundle 'Align'
 
