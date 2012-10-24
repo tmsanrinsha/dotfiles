@@ -36,7 +36,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'Shougo/neocomplcache-snippets-complete'
     NeoBundle 'Shougo/neosnippet'
 
+    " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
+
+    NeoBundle 'thinca/vim-quickrun'
 
     " コマンドモードをEmacsキーバインドにする
     NeoBundle 'houtsnip/vim-emacscommandline'
@@ -56,9 +59,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " ステータスラインをカスタマイズ
     " https://github.com/Lokaltog/vim-powerline
     NeoBundle 'Lokaltog/vim-powerline'
-
-    " https://github.com/thinca/vim-quickrun
-    NeoBundle 'thinca/vim-quickrun'
 
     " 自分で修正したプラグイン
     " https://github.com/tmsanrinsha/vim
@@ -130,7 +130,7 @@ endif
 function! s:has_plugin(plugin)
   return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
   \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colors/'  . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
 endfunction
 "}}}
 
@@ -802,6 +802,30 @@ if s:has_plugin('vimshell') && v:version >= 702
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
+"}}}
+
+" vim-quickrun {{{
+" ==============================================================================
+" phpunit {{{
+" -----------------------------------------------------------------------------
+" http://www.karakaram.com/quickrun-phpunit
+" http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
+augroup QuickRunPHPUnit
+  autocmd!
+  autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+augroup END
+
+let g:quickrun_config = {}
+let g:quickrun_config['_'] = {}
+let g:quickrun_config['_']['runner'] = 'vimproc'
+let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
+
+let g:quickrun_config['php.phpunit'] = {}
+let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'vertical 35'
+let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
+let g:quickrun_config['php.phpunit']['cmdopt'] = ''
+let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
+"}}}
 "}}}
 
 " vim-emacscommandline {{{
