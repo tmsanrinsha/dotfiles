@@ -62,7 +62,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " 自分で修正したプラグイン
     " https://github.com/tmsanrinsha/vim
-    NeoBundle 'tmsanrinsha/vim'
+    "NeoBundle 'tmsanrinsha/vim'
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
@@ -77,9 +77,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'confluencewiki.vim'
 
     " colorscheme
+    NeoBundle 'tomasr/molokai'
     NeoBundle 'altercation/vim-colors-solarized'
     " http://www.vim.org/scripts/script.php?script_id=1732
-    "NeoBundle 'rdark'
+    NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
@@ -186,12 +187,12 @@ set laststatus=2
 " ==============================================================================
 " 256色
 set t_Co=256
-
 "http://www.vim.org/scripts/script.php?script_id=2340
 if s:has_plugin('molokai')
     colorscheme molokai
     set background=dark
     let g:molokai_original = 1
+    "hi Normal                   ctermbg=0
 else
     colorscheme default
 endif
@@ -378,7 +379,7 @@ endfunction
 "    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
-nnoremap <silent><Leader>cd :cd %:h<CR>
+nnoremap <silent><Leader>gc :cd %:h<CR>
 " 現在編集中のファイルのフルパスを表示する
 nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "}}}
@@ -417,12 +418,18 @@ set pastetoggle=<F11>
 " カーソル {{{
 " ==============================================================================
 "カーソルを表示行で移動する。
-noremap j gj
-noremap k gk
-noremap <down> gj
-noremap <up> gk
-noremap 0 g0
-noremap $ g$
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
+nnoremap <down> gj
+vnoremap <down> gj
+nnoremap <up> gk
+vnoremap <up> gk
+nnoremap 0 g0
+vnoremap 0 g0
+nnoremap $ g$
+vnoremap $ g$
  
 " backspaceキーの挙動を設定する
 " " indent        : 行頭の空白の削除を許す
@@ -462,7 +469,7 @@ inoremap <C-w>  <C-g>u<C-w>
 " カッコ・タグの対応 {{{
 " ==============================================================================
 set showmatch matchtime=1 "括弧の対応
-source $VIMRUNTIME/macros/matchit.vim "HTML tag match
+runtime macros/matchit.vim "HTML tag match
 "}}}
 
 " vimdiff {{{
@@ -666,7 +673,7 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 augroup mysqlEditor
     autocmd!
-    au BufRead /var/tmp/sql* setlocal ft=mysql
+    au BufRead /var/tmp/sql* setlocal filetype=mysql
 augroup END
 "}}}
 
@@ -678,9 +685,15 @@ augroup END
 if s:has_plugin('unite')
     nnoremap [unite] <Nop>
     nmap <Leader>u [unite]
+
     call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
     " ブックマーク一覧
     nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
+
+    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+
+    let g:unite_source_history_yank_enable =1  "history/yankの有効化
+    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 endif
 "}}}
 
@@ -704,16 +717,22 @@ if s:has_plugin('vimshell')
     nnoremap [VIMSHELL] <Nop>
     nmap <leader>H [VIMSHELL]
     nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
-    nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
-    nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
-    nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
-    nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
-    nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+    nnoremap          [VIMSHELL]i      :VimShellInteractive<Space>
+    nnoremap <silent> [VIMSHELL]py     :VimShellInteractive python<CR>
+    nnoremap <silent> [VIMSHELL]ph     :VimShellInteractive php<CR>
+    nnoremap <silent> [VIMSHELL]rb     :VimShellInteractive irb<CR>
+    nnoremap <silent> [VIMSHELL]s      :VimShellSendString<CR>
     " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
     "vmap <silent> <Leader>ss :VimShellSendString<CR>
     "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
     "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 endif
+
+augroup vimshell
+  autocmd!
+  autocmd Filetype vimshell setlocal nonumber
+augroup END
+
 " }}}
 
 " neocomplcache {{{
@@ -748,7 +767,9 @@ if s:has_plugin('vimshell') && v:version >= 702
 
     " Plugin key-mappings.
     imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    "imap <C-k>     <Plug>(neocomplcache_snippets_expand_or_jump)
     smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    "smap <C-k>     <Plug>(neocomplcache_snippets_expand_or_jump)
     inoremap <expr><C-g>     neocomplcache#undo_completion()
     inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
@@ -785,47 +806,51 @@ if s:has_plugin('vimshell') && v:version >= 702
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
     " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
     " Enable heavy omni completion.
     if !exists('g:neocomplcache_omni_patterns')
         let g:neocomplcache_omni_patterns = {}
     endif
     let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
+    let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 endif
 "}}}
 
 " vim-quickrun {{{
 " ==============================================================================
-" phpunit {{{
-" -----------------------------------------------------------------------------
-" http://www.karakaram.com/quickrun-phpunit
-" http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
-augroup QuickRunPHPUnit
-  autocmd!
-  autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
-augroup END
+if s:has_plugin('vim-quickrun')
+    let g:quickrun_config = {}
+    let g:quickrun_config.['_'] = {
+                \   'runner'                    : 'vimproc',
+                \   'runner/vimproc/updatetime' : 100
+                \}
 
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {}
-let g:quickrun_config['_']['runner'] = 'vimproc'
-let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
+    " phpunit {{{
+    " --------------------------------------------------------------------------
+    " http://www.karakaram.com/quickrun-phpunit
+    " http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
+    augroup QuickRunPHPUnit
+        autocmd!
+        autocmd BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
+    augroup END
 
-let g:quickrun_config['php.phpunit'] = {}
-let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'vertical 35'
-let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
-let g:quickrun_config['php.phpunit']['cmdopt'] = ''
-let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
-"}}}
+    let g:quickrun_config['php.phpunit'] = {
+                \   'outputter/buffer/split' : '',
+                \   'command'                : 'phpunit',
+                \   'cmdopt'                 : '',
+                \   'exec'                   : '%c %o %s'
+                \}
+    "}}}
+endif
 "}}}
 
 " vim-emacscommandline {{{
@@ -844,11 +869,11 @@ cmap <Esc><C-H> <Esc><BS>
 if s:has_plugin('sudo')
     "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     if s:has_plugin('bclose')
-        nmap <Leader>e :e sudo:%<CR><C-^><Plug>Kwbd
+        nmap <Leader>se :e sudo:%<CR><C-^><Plug>Kwbd
     else
-        nnoremap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
+        nnoremap <Leader>se :e sudo:%<CR><C-^>:bd<CR>
     endif
-    nnoremap <Leader>w :w sudo:%<CR>
+    nnoremap <Leader>sw :w sudo:%<CR>
 endif
 "}}}
 
@@ -883,7 +908,8 @@ if s:has_plugin('Powerline')
     "let g:Powerline_colorscheme = 'default_customized'
     "let g:Powerline_stl_path_style = 'short'
     "let g:Powerline_symbols = 'fancy'
-    call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Theme#InsertSegment('', 'after', 'filetype')
     "call Pl#Hi#Segments(['SPLIT'], {
     "		\ 'n': ['white', 'gray2'],
     "		\ 'N': ['white', 'gray0'],
