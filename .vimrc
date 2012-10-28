@@ -692,7 +692,7 @@ if s:has_plugin('unite')
     nmap <Space> [unite]
 
     call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>i
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR> a
     " ブックマーク一覧
     nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
 
