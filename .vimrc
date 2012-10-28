@@ -80,6 +80,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'tomasr/molokai'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
     NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
@@ -162,9 +163,13 @@ endif
 
 augroup colerscheme
     autocmd!
-    autocmd ColorScheme * highlight Normal              ctermbg=none
-    autocmd ColorScheme * highlight Folded  ctermfg=67  ctermbg=16
-    autocmd ColorScheme * highlight Comment ctermfg=246 cterm=none guifg=#9c998e gui=italic
+    " 修正
+    autocmd ColorScheme *
+                \   highlight Normal              ctermbg=none
+                \|  highlight Visual              ctermbg=27
+                \|  highlight Folded  ctermfg=67  ctermbg=16
+                \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
+                \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
 
     " 全角スペースをハイライト （Vimテクニックバイブル1-11）
     " scriptencoding utf-8が必要
@@ -689,17 +694,28 @@ augroup END
 if s:has_plugin('unite')
     nnoremap [unite] <Nop>
     "nmap <Leader>u [unite]
-    nmap <Space> [unite]
+    nmap , [unite]
 
     call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR> a
-    " ブックマーク一覧
+    " カレントディレクトリ以下のファイル
+    nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
+    " バッファ
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+    "レジスタ一覧
+    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+    "最近使用したファイル一覧
+    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>j
+    " ブックマーク
     nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-
+    " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
-
+    " ヤンク履歴
     let g:unite_source_history_yank_enable =1  "history/yankの有効化
     nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+
+    "augroup unite
+    "    autocmd!
+    "    autocmd Filetype unite nnoremap 
 endif
 "}}}
 
@@ -750,11 +766,17 @@ if s:has_plugin('vimshell')
 
     augroup vimshell
         autocmd!
-        autocmd Filetype vimshell setlocal nonumber
+        "autocmd Filetype vimshell setlocal nonumber
+        "autocmd FileType vimshell
+        "        \   call vimshell#altercmd#define('g', 'git')
+        "        \|  call vimshell#altercmd#define('l', 'll')
+        "        \|  call vimshell#altercmd#define('ll', 'ls -l')
+        "        "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
         autocmd FileType vimshell
-                \   call vimshell#altercmd#define('g', 'git')
-                \|  call vimshell#altercmd#define('l', 'll')
-                \|  call vimshell#altercmd#define('ll', 'ls -l')
+                    \   setlocal nonumber
+                    \|  call vimshell#altercmd#define('g', 'git')
+                    \|  call vimshell#altercmd#define('l', 'll')
+                    \|  call vimshell#altercmd#define('ll', 'ls -l')
                 "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
     augroup END
 
