@@ -50,7 +50,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ミニバッファにバッファ一覧を表示
     " https://github.com/fholgado/minibufexpl.vim
-    NeoBundle 'fholgado/minibufexpl.vim'
+    "NeoBundle 'fholgado/minibufexpl.vim'
 
     " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
     " https://github.com/rgarver/Kwbd.vim
@@ -142,13 +142,12 @@ set number
 set ruler
 set cursorline
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
+set t_Co=256 " 256色
 
 scriptencoding utf-8
+
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
-" 256色
-set t_Co=256
-
 if s:has_plugin('wombat256mod')
     colorscheme wombat256mod
 else
@@ -160,7 +159,7 @@ endif
 "colorscheme solarized
 "set background=dark
 "let g:solarized_termcolors=256
-"}}}
+
 augroup colerscheme
     autocmd!
     autocmd ColorScheme * highlight Normal              ctermbg=none
@@ -689,11 +688,13 @@ augroup END
 " ==============================================================================
 if s:has_plugin('unite')
     nnoremap [unite] <Nop>
-    nmap <Leader>u [unite]
+    "nmap <Leader>u [unite]
+    nmap <Space> [unite]
 
     call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>i
     " ブックマーク一覧
-    nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
+    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
 
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
