@@ -78,14 +78,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " colorscheme
     NeoBundle 'tomasr/molokai'
+    NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
     " http://www.vim.org/scripts/script.php?script_id=1732
     NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
-    NeoBundle 'vim-scripts/wombat256.vim'
-
 
     " tmuxのシンタックス
     NeoBundle 'zaiste/tmux.vim'
@@ -142,14 +141,34 @@ set showcmd "コマンドを表示
 set number
 set ruler
 set cursorline
+set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 
-" 不可視文字の可視化（Vimテクニックバイブル1-11） {{{
-set list listchars=tab:>-,trail:_
-
-" 全角スペースをハイライト
 scriptencoding utf-8
-augroup highlightIdeograpicSpace
+" カラースキーム {{{
+" ------------------------------------------------------------------------------
+" 256色
+set t_Co=256
+
+if s:has_plugin('wombat256mod')
+    colorscheme wombat256mod
+else
+    colorscheme default
+endif
+"colorscheme molokai
+"set background=dark
+"let g:molokai_original = 1
+"colorscheme solarized
+"set background=dark
+"let g:solarized_termcolors=256
+"}}}
+augroup colerscheme
     autocmd!
+    autocmd ColorScheme * highlight Normal              ctermbg=none
+    autocmd ColorScheme * highlight Folded  ctermfg=67  ctermbg=16
+    autocmd ColorScheme * highlight Comment ctermfg=246 cterm=none guifg=#9c998e gui=italic
+
+    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
+    " scriptencoding utf-8が必要
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
@@ -181,24 +200,6 @@ set laststatus=2
 
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 "set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
-"}}}
-
-" カラースキーム {{{
-" ==============================================================================
-" 256色
-set t_Co=256
-"http://www.vim.org/scripts/script.php?script_id=2340
-if s:has_plugin('molokai')
-    colorscheme molokai
-    set background=dark
-    let g:molokai_original = 1
-    "hi Normal                   ctermbg=0
-else
-    colorscheme default
-endif
-"colorscheme solarized
-"set background=dark
-"let g:solarized_termcolors=256
 "}}}
 
 " Mapping {{{
@@ -417,6 +418,8 @@ set pastetoggle=<F11>
 
 " カーソル {{{
 " ==============================================================================
+set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
+
 "カーソルを表示行で移動する。
 nnoremap j gj
 vnoremap j gj
@@ -499,12 +502,14 @@ autocmd FileType help nmap <buffer><silent> q :q<CR>
 " ==============================================================================
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
-nnoremap <silent> <Leader>ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
+nnoremap [VIMRC] <Nop>
+nmap <Leader>v [VIMRC]
+nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> <Leader>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
-nnoremap <silent> <Leader>rg :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
 
 ""vimrc auto update
 "augroup MyAutoCmd
@@ -726,18 +731,44 @@ if s:has_plugin('vimshell')
     "vmap <silent> <Leader>ss :VimShellSendString<CR>
     "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
     "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+
+    if has('win32') || has('win64')
+        " Display user name on Windows.
+        let g:vimshell_prompt = $USERNAME."% "
+    else
+        "let g:vimshell_prompt = $USER . "@" . hostname() . "% "
+        let g:vimshell_prompt = hostname() . "% "
+        let g:vimshell_user_prompt = 'getcwd()'
+        if has('mac')
+            call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
+            call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
+        endif
+    endif
+    "let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
+    let g:vimshell_max_command_history = 3000
+
+    augroup vimshell
+        autocmd!
+        autocmd Filetype vimshell setlocal nonumber
+        autocmd FileType vimshell
+                \   call vimshell#altercmd#define('g', 'git')
+                \|  call vimshell#altercmd#define('l', 'll')
+                \|  call vimshell#altercmd#define('ll', 'ls -l')
+                "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+    augroup END
+
+    "function! g:my_chpwd(args, context)
+    "    call vimshell#execute('ls')
+    "endfunction
 endif
 
-augroup vimshell
-  autocmd!
-  autocmd Filetype vimshell setlocal nonumber
-augroup END
-
+" 参考
+" http://d.hatena.ne.jp/joker1007/20111018/1318950377
 " }}}
 
 " neocomplcache {{{
 " ==============================================================================
-if s:has_plugin('vimshell') && v:version >= 702
+if s:has_plugin('neocomplcache') && v:version >= 702
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -754,9 +785,9 @@ if s:has_plugin('vimshell') && v:version >= 702
 
     " Define dictionary.
     let g:neocomplcache_dictionary_filetype_lists = {
-                \ 'default' : '',
+                \ 'default'  : '',
                 \ 'vimshell' : $HOME.'/.vimshell_hist',
-                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ 'scheme'   : $HOME.'/.gosh_completions'
                 \ }
 
     " Define keyword.
