@@ -40,6 +40,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'thinca/vim-qfreplace'
 
     NeoBundle 'thinca/vim-quickrun'
+    " 部分的に別バッファで編集
+    NeoBundle 'thinca/vim-partedit'
 
     " コマンドモードをEmacsキーバインドにする
     NeoBundle 'houtsnip/vim-emacscommandline'
@@ -50,7 +52,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ミニバッファにバッファ一覧を表示
     " https://github.com/fholgado/minibufexpl.vim
-    "NeoBundle 'fholgado/minibufexpl.vim'
+    NeoBundle 'fholgado/minibufexpl.vim'
 
     " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
     " https://github.com/rgarver/Kwbd.vim
@@ -62,7 +64,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " 自分で修正したプラグイン
     " https://github.com/tmsanrinsha/vim
-    "NeoBundle 'tmsanrinsha/vim'
+    NeoBundle 'tmsanrinsha/vim'
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
@@ -74,7 +76,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'Align'
 
-    NeoBundle 'confluencewiki.vim'
 
     " colorscheme
     NeoBundle 'tomasr/molokai'
@@ -87,7 +88,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
 
-    " tmuxのシンタックス
+    " confluenceのシンタックスファイル
+    NeoBundle 'confluencewiki.vim'
+    " tmuxのシンタックスファイル
     NeoBundle 'zaiste/tmux.vim'
 
     "NeoBundle 'L9'
@@ -149,8 +152,8 @@ scriptencoding utf-8
 
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
-if s:has_plugin('wombat256mod')
-    colorscheme wombat256mod
+if s:has_plugin('moloX')
+    colorscheme moloX
 else
     colorscheme default
 endif
@@ -164,12 +167,12 @@ endif
 augroup colerscheme
     autocmd!
     " 修正
-    autocmd ColorScheme *
-                \   highlight Normal              ctermbg=none
-                \|  highlight Visual              ctermbg=27
-                \|  highlight Folded  ctermfg=67  ctermbg=16
-                \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
-                \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
+    "autocmd ColorScheme *
+    "            \   highlight Normal              ctermbg=none
+    "            \|  highlight Visual              ctermbg=27
+    "            \|  highlight Folded  ctermfg=67  ctermbg=16
+    "            \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
+    "            \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
 
     " 全角スペースをハイライト （Vimテクニックバイブル1-11）
     " scriptencoding utf-8が必要
@@ -904,6 +907,13 @@ if s:has_plugin('vim-quickrun')
                 \   'exec'                   : '%c %o %s'
                 \}
     "}}}
+endif
+"}}}
+
+" vim-partedit {{{
+" =============================================================================
+if s:has_plugin('vim-partedit')
+    let g:partedit#auto_prefix = 0
 endif
 "}}}
 
