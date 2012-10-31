@@ -78,7 +78,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
 
     " colorscheme
-    NeoBundle 'tomasr/molokai'
+    "NeoBundle 'tomasr/molokai'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -152,8 +152,8 @@ scriptencoding utf-8
 
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
-if s:has_plugin('moloX')
-    colorscheme moloX
+if s:has_plugin('molokai')
+    colorscheme molokai
 else
     colorscheme default
 endif
