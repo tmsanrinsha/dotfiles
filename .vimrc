@@ -46,9 +46,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " コマンドモードをEmacsキーバインドにする
     NeoBundle 'houtsnip/vim-emacscommandline'
 
+    " Vimperatorのクイックヒント風にカーソル移動
+    NeoBundle 'Lokaltog/vim-easymotion'
+
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
+
+    NeoBundle 'Align'
 
     " ミニバッファにバッファ一覧を表示
     " https://github.com/fholgado/minibufexpl.vim
@@ -62,10 +67,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/Lokaltog/vim-powerline
     NeoBundle 'Lokaltog/vim-powerline'
 
-    " 自分で修正したプラグイン
-    " https://github.com/tmsanrinsha/vim
-    NeoBundle 'tmsanrinsha/vim'
-
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
     NeoBundle 'sudo.vim'
@@ -73,9 +74,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
     NeoBundle 'YankRing.vim'
-
-    NeoBundle 'Align'
-
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
@@ -92,6 +90,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'confluencewiki.vim'
     " tmuxのシンタックスファイル
     NeoBundle 'zaiste/tmux.vim'
+
+    " 自分で修正したプラグイン
+    " https://github.com/tmsanrinsha/vim
+    NeoBundle 'tmsanrinsha/vim'
 
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
@@ -922,6 +924,13 @@ endif
 " これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
 " has_pluginの中に入れるとなぜか設定できない
 cmap <Esc><C-H> <Esc><BS>
+"}}}
+
+" vim-easymotion {{{
+" ==============================================================================
+" https://github.com/Lokaltog/vim-easymotion
+let g:EasyMotion_mapping_f = 'f'
+let g:EasyMotion_mapping_F = 'F'
 "}}}
 
 " sudo.vim {{{
