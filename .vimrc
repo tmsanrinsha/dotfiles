@@ -687,7 +687,15 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 augroup mysqlEditor
     autocmd!
-    au BufRead /var/tmp/sql* setlocal filetype=mysql
+    autocmd BufRead /var/tmp/sql* setlocal filetype=mysql
+augroup END
+"}}}
+
+" apache {{{
+" ==============================================================================
+augroup apache
+    autocmd!
+    autocmd BufRead,BufNewFile *.conf setlocal filetype=apache
 augroup END
 "}}}
 
@@ -923,14 +931,17 @@ endif
 " ==============================================================================
 " これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
 " has_pluginの中に入れるとなぜか設定できない
-cmap <Esc><C-H> <Esc><BS>
+if s:has_plugin('emacscommandline')
+    cmap <Esc><C-H> <Esc><BS>
+endif
 "}}}
 
 " vim-easymotion {{{
 " ==============================================================================
-" https://github.com/Lokaltog/vim-easymotion
-let g:EasyMotion_mapping_f = 'f'
-let g:EasyMotion_mapping_F = 'F'
+if s:has_plugin('EasyMotion')
+    let g:EasyMotion_mapping_f = 'f'
+    let g:EasyMotion_mapping_F = 'F'
+endif
 "}}}
 
 " sudo.vim {{{
