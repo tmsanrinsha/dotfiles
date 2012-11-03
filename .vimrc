@@ -216,19 +216,12 @@ set laststatus=2
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 if !has('gui_running')
-    " ターミナル上でのメタキーの設定
-    set <M-0>=0
-    set <M-1>=1
-    set <M-2>=2
-    set <M-3>=3
-    set <M-4>=4
-    set <M-5>=5
-    set <M-6>=6
-    set <M-7>=7
-    set <M-8>=8
-    set <M-9>=9
-    set <M-n>=n
-    set <M-p>=p
+    " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
+    " setup for alt and meta key mappings
+    for i in range(48,57) + range(97,122)
+        let c = nr2char(i)
+        exec "set <M-".c.">=\<Esc>".c
+    endfor
 
     " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
     " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
@@ -253,6 +246,8 @@ if !has('gui_running')
 endif
 
 inoremap jj <ESC>
+nnoremap ; :
+nnoremap : ;
 nnoremap Y y$
 
 "}}}
