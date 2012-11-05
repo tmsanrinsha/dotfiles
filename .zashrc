@@ -110,7 +110,7 @@ alias phpunit='phpunit --colors'
 #.vimrcにも設定が必要
 #http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+    vim -R -c 'setlocal ft=man nomod nolist' -c 'noremap q :q<CR>' \
     -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 
@@ -153,6 +153,13 @@ if [ -f ~/.nvm/nvm.sh ]; then
 
     . ~/.nvm/nvm.sh
     nvm alias default v0.6.11 > /dev/null
+fi
+# }}}
+
+# cpanm {{{
+if [ -d ~/perl5 ]; then
+    export PERL_CPANM_OPT="--local-lib=~/perl5"
+    export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB"
 fi
 # }}}
 
