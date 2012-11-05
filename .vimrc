@@ -95,6 +95,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/tmsanrinsha/vim
     NeoBundle 'tmsanrinsha/vim'
 
+    NeoBundle 'thinca/vim-showtime', { 'rev' : '1adc44e' }
+    NeoBundle 'pocket7878/presen-vim'
+    NeoBundle 'pocket7878/curses-vim'
+
+    NeoBundle 'mattn/multi-vim'
+    " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
     "NeoBundle 'rails.vim'
@@ -162,9 +168,9 @@ endif
 "colorscheme molokai
 "set background=dark
 "let g:molokai_original = 1
-"colorscheme solarized
-"set background=dark
+"set background=light
 "let g:solarized_termcolors=256
+"colorscheme solarized
 
 augroup colerscheme
     autocmd!
@@ -246,8 +252,6 @@ if !has('gui_running')
 endif
 
 inoremap jj <ESC>
-nnoremap ; :
-nnoremap : ;
 nnoremap Y y$
 
 "}}}
@@ -499,7 +503,6 @@ nmap K <Leader>K
 ".zshrc .bashrc等にも記述が必要
 let $PAGER=''
 
-autocmd FileType help nmap <buffer><silent> q :q<CR>
 "}}}
 
 " vimrcの編集 {{{
@@ -691,6 +694,14 @@ augroup END
 augroup apache
     autocmd!
     autocmd BufRead,BufNewFile *.conf setlocal filetype=apache
+augroup END
+"}}}
+
+" help {{{
+" ==============================================================================
+augroup help
+    autocmd!
+    autocmd FileType help nnoremap <buffer><silent> q :q<CR>
 augroup END
 "}}}
 
