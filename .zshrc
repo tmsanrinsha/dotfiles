@@ -210,8 +210,9 @@ function prompt_precmd() {
 #add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
 
-PROMPT="%0(?|${color}|%18(?|${color}|%{$bg[red]%}))[%m:%~]%#%{${reset_color}%} "
-#PROMPT="${color}[%m:%~]%#%{${reset_color}%} "
+PROMPT="%0(?|%{$fg[yellow]%}|%18(?|%{$fg[yellow]%}|%{$bg[red]%}))%~%{${reset_color}%}
+${color}[%n@%M]%#%{${reset_color}%} "
+
 PROMPT2="${color}%_>%{${reset_color}%} "
 # command correct edition before each completion attempt
 setopt correct
