@@ -95,7 +95,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/tmsanrinsha/vim
     NeoBundle 'tmsanrinsha/vim'
 
-    NeoBundle 'thinca/vim-showtime', { 'rev' : '1adc44e' }
+    NeoBundle 'thinca/vim-showtime'
     NeoBundle 'pocket7878/presen-vim'
     NeoBundle 'pocket7878/curses-vim'
 
