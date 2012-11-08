@@ -209,30 +209,6 @@ function prompt_precmd() {
 }
 #add-zsh-hook preexec prompt_preexec
 add-zsh-hook precmd prompt_precmd
-
-PROMPT="%0(?|%{$fg[yellow]%}|%18(?|%{$fg[yellow]%}|%{$bg[red]%}))%~%{${reset_color}%}
-${color}[%n@%M]%#%{${reset_color}%} "
-
-PROMPT2="${color}%_>%{${reset_color}%} "
-# command correct edition before each completion attempt
-setopt correct
-SPROMPT="%{$fg[yellow]%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-
-# 参考にしたサイト
-# ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
-#  - http://gihyo.jp/dev/serial/01/zsh-book/0003
-#  - C-zでサスペンドしたとき(18)以外のエラー終了時の設定を参考にした
-#  - エスケープシーケンスの記述、プロンプトで使える特殊文字の表がある
-# ■【コラム】漢のzsh (2) 取りあえず、プロンプトを整えておく。カッコつけたいからね | エンタープライズ | マイナビニュース
-#  - http://news.mynavi.jp/column/zsh/002/index.html
-#  - SPROMPTの設定
-# ■zshでログイン先によってプロンプトに表示されるホスト名の色を自動で変える - absolute-area
-#  - http://absolute-area.com/post/6664864690/zsh
-# ■The 256 color mode of xterm
-#  - http://frexx.de/xterm-256-notes/
-# ■可愛いzshの作り方 - プログラムモグモグ
-#  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
-#  - 顔文字を参考にした
 # }}}
 
 # set terminal title including current directory {{{
