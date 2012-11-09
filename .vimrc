@@ -1,3 +1,4 @@
+" ddddddddddddd
 " neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
@@ -158,6 +159,14 @@ set t_Co=256 " 256色
 
 scriptencoding utf-8
 
+" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
+if has('persistent_undo')
+    set undofile
+    if !isdirectory(expand('~/.vimundo'))
+        call mkdir(expand('~/.vimundo'))
+    endif
+    set undodir=~/.vimundo
+endif
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
 if s:has_plugin('molokai')
@@ -399,6 +408,8 @@ nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "インデントが入った文章が階段状になってしまう。
 "pasteモードではautoindentが解除されそのままペーストできる
 set pastetoggle=<F11>
+
+inoremap <C-r>* <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
 
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
@@ -945,8 +956,9 @@ endif
 " vim-easymotion {{{
 " ==============================================================================
 if s:has_plugin('EasyMotion')
-    let g:EasyMotion_mapping_f = 'f'
-    let g:EasyMotion_mapping_F = 'F'
+    "let g:EasyMotion_leader_key = '<Leader>'
+    "let g:EasyMotion_mapping_f = 'f'
+    "let g:EasyMotion_mapping_F = 'F'
 endif
 "}}}
 
