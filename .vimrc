@@ -1,4 +1,3 @@
-" ddddddddddddd
 " neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
@@ -159,14 +158,14 @@ set t_Co=256 " 256色
 
 scriptencoding utf-8
 
-" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
-if has('persistent_undo')
-    set undofile
-    if !isdirectory(expand('~/.vimundo'))
-        call mkdir(expand('~/.vimundo'))
-    endif
-    set undodir=~/.vimundo
-endif
+"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
+"if has('persistent_undo')
+"    set undofile
+"    if !isdirectory(expand('~/.vimundo'))
+"        call mkdir(expand('~/.vimundo'))
+"    endif
+"    set undodir=~/.vimundo
+"endif
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
 if s:has_plugin('molokai')
@@ -233,9 +232,17 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 if !has('gui_running')
     " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
     " setup for alt and meta key mappings
-    for i in range(48,57) + range(97,122)
+    for i in range(32,126)
         let c = nr2char(i)
-        exec "set <M-".c.">=\<Esc>".c
+        if c==' '
+            set <M-Space>=<Esc><Space>
+        elseif c=='|' || c=='"'
+            exec "set <M-\\".c.">=\<Esc>\\".c
+        elseif c=='>'
+            "set <M-\>>=\<Esc>> Meta->に対してsetできない
+        else
+            exec "set <M-".c.">=\<Esc>".c
+        endif
     endfor
 
     " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
@@ -292,9 +299,19 @@ if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
 endif
 "}}}
 
-" ウィンドウ {{{
+" window {{{
 " ==============================================================================
-nnoremap <C-w>; <C-w>+
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+nnoremap <A--> <C-w>-
+nnoremap <A-;> <C-w>+
+nnoremap <A-,> <C-w>>
+nnoremap <A-.> <C-w><
+nnoremap <A-0> <C-w>=
+
+
 "  常にカーソル行を真ん中に
 "set scrolloff=999
 
