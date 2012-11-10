@@ -301,15 +301,15 @@ endif
 
 " window {{{
 " ==============================================================================
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-nnoremap <A--> <C-w>-
-nnoremap <A-;> <C-w>+
-nnoremap <A-,> <C-w>>
-nnoremap <A-.> <C-w><
-nnoremap <A-0> <C-w>=
+"nnoremap <A-h> <C-w>h
+"nnoremap <A-j> <C-w>j
+"nnoremap <A-k> <C-w>k
+"nnoremap <A-l> <C-w>l
+"nnoremap <A--> <C-w>-
+"nnoremap <A-;> <C-w>+
+"nnoremap <A-,> <C-w>>
+"nnoremap <A-.> <C-w><
+"nnoremap <A-0> <C-w>=
 
 
 "  常にカーソル行を真ん中に
@@ -974,8 +974,8 @@ endif
 " ==============================================================================
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
-    "let g:EasyMotion_mapping_f = 'f'
-    "let g:EasyMotion_mapping_F = 'F'
+    let g:EasyMotion_mapping_f = 'f'
+    let g:EasyMotion_mapping_F = 'F'
 endif
 "}}}
 
