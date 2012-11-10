@@ -167,21 +167,7 @@ autoload -Uz add-zsh-hook
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
 #setopt print_exit_value
-autoload -Uz colors; colors
-
-# 現在のホストによってプロンプトの色を変える。
-# 256色の内、カラーで背景黒の時見やすい色はこの216色かな
-colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
-
-# hostnameをmd5でハッシュに変更し、1-217の数値を生成する
-# hostnameが長いとエラーが出るので最初の8文字を使う
-if [ `uname` = FreeBSD ];then
-    num=$((0x`hostname | md5    | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
-else
-    num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
-fi
-
-color="%{"$'\e'"[38;5;$colArr[$num]m%}"
+#autoload -Uz colors; colors
 
 #C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
 #local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
