@@ -721,7 +721,7 @@ augroup END
 " ==============================================================================
 augroup apache
     autocmd!
-    autocmd BufRead,BufNewFile *.conf setlocal filetype=apache
+    autocmd BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 augroup END
 "}}}
 
