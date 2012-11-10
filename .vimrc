@@ -232,14 +232,16 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 if !has('gui_running')
     " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
     " setup for alt and meta key mappings
-    for i in range(32,126)
+    "for i in range(32,126)
+    for i in range(32,90)
         let c = nr2char(i)
         if c==' '
             set <M-Space>=<Esc><Space>
         elseif c=='|' || c=='"'
             exec "set <M-\\".c.">=\<Esc>\\".c
-        elseif c=='>'
+        elseif c=='>' || c==']'
             "set <M-\>>=\<Esc>> Meta->に対してsetできない
+            "set <M-]>=\<Esc>] これがあるとvim起動した後、2cが打たれる
         else
             exec "set <M-".c.">=\<Esc>".c
         endif
