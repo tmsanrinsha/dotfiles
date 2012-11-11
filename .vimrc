@@ -232,8 +232,7 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 if !has('gui_running')
     " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
     " setup for alt and meta key mappings
-    "for i in range(32,126)
-    for i in range(32,90)
+    for i in range(32,126)
         let c = nr2char(i)
         if c==' '
             set <M-Space>=<Esc><Space>
@@ -976,6 +975,7 @@ endif
 " ==============================================================================
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
+    let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
     let g:EasyMotion_mapping_f = 'f'
     let g:EasyMotion_mapping_F = 'F'
 endif
