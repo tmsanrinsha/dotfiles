@@ -97,9 +97,6 @@ alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 alias dc='decomp.sh'
 # find $1 type f -print0 | xargs -0 egrep --color=auto $2
 alias fxg='fxg.sh'
-# -2は256色のためのオプション
-alias tmux='tmux -2'
-alias tm='tmux a || tmux -2'
 # Linuxのバージョンを表示するコマンド
 # http://blog.layer8.sh/ja/2011/12/23/linux%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%84os%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89linux/
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
@@ -123,11 +120,19 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
 #    screen -RU 2>/dev/null
 #fi
 
-# tmuxがインストールされていて、tmuxを起動していないときは自動起動
-if which tmux 1>/dev/null 2>&1 && [ -z "$TMUX" ];then 
+# tmux {{{
+if which tmux 1>/dev/null 2>&1; then
+    # -2は256色のためのオプション
+    alias tmux='tmux -2'
     # すでに tmux セッションがある場合そこに接続し、なければ作成する
-    tmux -2 a || tmux -2
+    alias tm='tmux a || tmux'
+
+    # tmuxを起動していないときは自動起動
+    if [ -z "$TMUX" ];then
+        tmux a || tmux -2
+    fi
 fi
+#}}}
 
 # VVM {{{
 test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
