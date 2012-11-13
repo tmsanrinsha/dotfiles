@@ -102,6 +102,8 @@ alias fxg='fxg.sh'
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias phpunit='phpunit --colors'
+
+alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
 #}}}
 
 #manのpagerとしてvimの:Manを使う。
