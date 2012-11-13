@@ -131,7 +131,7 @@ if which tmux 1>/dev/null 2>&1; then
 
     # tmuxを起動していないときは自動起動
     if [ -z "$TMUX" ];then
-        tmux a || tmux -2
+        tmux -2 a || tmux -2
     fi
 fi
 #}}}
