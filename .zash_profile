@@ -1,4 +1,4 @@
-if [ -d ~/.profile ]; then
+if [ -d ~/.profile.d ]; then
     for i in ~/.profile.d/*.sh ; do
         if [ -r "$i" ]; then
             if [ "${-#*i}" != "$-" ]; then
