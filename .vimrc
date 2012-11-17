@@ -306,11 +306,11 @@ endif
 "nnoremap <A-j> <C-w>j
 "nnoremap <A-k> <C-w>k
 "nnoremap <A-l> <C-w>l
-"nnoremap <A--> <C-w>-
-"nnoremap <A-;> <C-w>+
-"nnoremap <A-,> <C-w>>
-"nnoremap <A-.> <C-w><
-"nnoremap <A-0> <C-w>=
+nnoremap <A--> <C-w>-
+nnoremap <A-;> <C-w>+
+nnoremap <A-,> <C-w>>
+nnoremap <A-.> <C-w><
+nnoremap <A-0> <C-w>=
 
 
 "  常にカーソル行を真ん中に
