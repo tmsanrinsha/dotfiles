@@ -1,5 +1,4 @@
 if [ -d ~/.profile ]; then
-do
     for i in ~/.profile.d/*.sh ; do
         if [ -r "$i" ]; then
             if [ "${-#*i}" != "$-" ]; then
@@ -9,6 +8,6 @@ do
             fi
         fi
     done
-done
+fi
 
 # vim:filetype=sh
