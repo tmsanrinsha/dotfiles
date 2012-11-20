@@ -302,15 +302,15 @@ endif
 
 " window {{{
 " ==============================================================================
-"nnoremap <A-h> <C-w>h
-"nnoremap <A-j> <C-w>j
-"nnoremap <A-k> <C-w>k
-"nnoremap <A-l> <C-w>l
-nnoremap <A--> <C-w>-
-nnoremap <A-;> <C-w>+
-nnoremap <A-,> <C-w>>
-nnoremap <A-.> <C-w><
-nnoremap <A-0> <C-w>=
+"nnoremap <M-h> <C-w>h
+"nnoremap <M-j> <C-w>j
+"nnoremap <M-k> <C-w>k
+"nnoremap <M-l> <C-w>l
+nnoremap <M--> <C-w>-
+nnoremap <M-;> <C-w>+
+nnoremap <M-,> <C-w>>
+nnoremap <M-.> <C-w><
+nnoremap <M-0> <C-w>=
 
 
 "  常にカーソル行を真ん中に
