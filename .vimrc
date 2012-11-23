@@ -311,6 +311,7 @@ nnoremap <M-;> <C-w>+
 nnoremap <M-,> <C-w>>
 nnoremap <M-.> <C-w><
 nnoremap <M-0> <C-w>=
+nnoremap <C-w><C-w> <C-w>p
 
 
 "  常にカーソル行を真ん中に
@@ -520,6 +521,8 @@ nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
 nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
 nnoremap <silent> [VIMDIFF]o :diffoff<CR>
+nnoremap <silent> [VIMDIFF]T :windo diffthis<CR> <C-w><C-w>
+nnoremap <silent> [VIMDIFF]O :windo diffthis<CR> <C-w><C-w>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
 
@@ -977,8 +980,8 @@ endif
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_mapping_f = 'f'
-    let g:EasyMotion_mapping_F = 'F'
+    let g:EasyMotion_mapping_f = 'm'
+    let g:EasyMotion_mapping_F = 'M'
 endif
 "}}}
 
