@@ -65,6 +65,12 @@ alias lla='ls -la'
 alias cp='cp -ip'
 alias mv='mv -i'
 
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+
 # sudo
 # http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
 alias sudo='sudo '
