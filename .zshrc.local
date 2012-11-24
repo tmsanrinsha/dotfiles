@@ -21,7 +21,7 @@ fg_yellow=$'\e'"[33m"
 fg_red=$'\e'"[31m"
 bg_red=$'\e'"[41m"
 
-#if ! hostname | grep dev; then
+#if ! hostname | grep dev 1>/dev/null 2>&1; then
 #    PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%B%S%M%b%s%{${reset_color}%}"
 #    RPROMPT="%{${fg_red}%}production%{${reset_color}%}"
 #else
