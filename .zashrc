@@ -73,7 +73,11 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias pg='ps aux | grep'
 alias pe='ps aux | egrep'
-alias tree='tree -FC'
+# tree
+# -F:ディレクトリなら/をつけるなど
+# -C:color
+# -l:ディレクトリのシンボリックリンクを追う
+alias tree='tree -FCl'
 alias diff='diff -u'
 alias smw='sudo chmod a+w'
 
