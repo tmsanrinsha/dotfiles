@@ -311,7 +311,7 @@ nnoremap <M-;> <C-w>+
 nnoremap <M-,> <C-w>>
 nnoremap <M-.> <C-w><
 nnoremap <M-0> <C-w>=
-nnoremap <C-w><C-w> <C-w>p
+nnoremap <C-w>; <C-w>p
 
 
 "  常にカーソル行を真ん中に
@@ -642,6 +642,16 @@ set foldmethod=marker
 "    autocmd BufWrite *.php w | make
 "augroup END
 "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+"}}}
+
+" Quickfix {{{
+" ==============================================================================
+" show quickfix automatically
+augroup quickfix
+    autocmd!
+    "autocmd QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
+    autocmd QuickfixCmdPost * cwindow | lwindow
+augroup END
 "}}}
 
 " >>>> Language >>>> {{{
