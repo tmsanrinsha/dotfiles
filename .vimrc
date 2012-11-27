@@ -27,6 +27,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       \ }
 
     NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/unite-ssh'
     NeoBundle 'Shougo/vimfiler'
     NeoBundle 'Shougo/vimshell'
 
