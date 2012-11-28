@@ -36,6 +36,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'Shougo/neocomplcache-snippets-complete'
     NeoBundle 'Shougo/neosnippet'
 
+    NeoBundle 'honza/snipmate-snippets'
+
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
 
@@ -882,11 +884,6 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    " Plugin key-mappings.
-    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    "imap <C-k>     <Plug>(neocomplcache_snippets_expand_or_jump)
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    "smap <C-k>     <Plug>(neocomplcache_snippets_expand_or_jump)
     inoremap <expr><C-g>     neocomplcache#undo_completion()
     inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
@@ -939,6 +936,26 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+    " Plugin key-mappings.
+    "imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    "smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 concealcursor=i
+    endif
+
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets' 
 endif
 "}}}
 
