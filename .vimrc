@@ -523,6 +523,7 @@ nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
 nnoremap <silent> [VIMDIFF]o :diffoff<CR>
 nnoremap <silent> [VIMDIFF]T :windo diffthis<CR> <C-w><C-w>
 nnoremap <silent> [VIMDIFF]O :windo diffthis<CR> <C-w><C-w>
+nnoremap <silent> [VIMDIFF]U :windo diffupdate<CR> <C-w><C-w>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
 
