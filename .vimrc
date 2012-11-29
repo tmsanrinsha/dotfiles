@@ -795,7 +795,9 @@ if s:has_plugin('vimfiler')
     nmap <Leader>f [VIMFILER]
     nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
     nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+    nnoremap <silent> [VIMFILER]gc :cd %:h<CR> :VimFilerCurrentDir<CR>
 endif
+nnoremap <silent><Leader>gc :cd %:h<CR>
 "}}}
 
 " vimshell {{{
