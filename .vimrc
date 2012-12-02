@@ -46,7 +46,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'thinca/vim-partedit'
 
     " コマンドモードをEmacsキーバインドにする
-    NeoBundle 'houtsnip/vim-emacscommandline'
+    "NeoBundle 'houtsnip/vim-emacscommandline'
+    NeoBundle 'tmsanrinsha/vim-emacscommandline', { 'type__protocol' : 'ssh' }
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
@@ -97,11 +98,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/tmsanrinsha/vim
     NeoBundle 'tmsanrinsha/vim'
 
-    NeoBundle 'thinca/vim-showtime'
-    NeoBundle 'pocket7878/presen-vim'
-    NeoBundle 'pocket7878/curses-vim'
+    "NeoBundle 'thinca/vim-showtime'
+    "NeoBundle 'pocket7878/presen-vim'
+    "NeoBundle 'mattn/multi-vim'
 
-    NeoBundle 'mattn/multi-vim'
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
     "NeoBundle 'L9'
     "NeoBundle 'FuzzyFinder'
@@ -995,9 +995,9 @@ endif
 " ==============================================================================
 " これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
 " has_pluginの中に入れるとなぜか設定できない
-if s:has_plugin('emacscommandline')
-    cmap <Esc><C-H> <Esc><BS>
-endif
+"if s:has_plugin('emacscommandline')
+"    cmap <Esc><C-H> <Esc><BS>
+"endif
 "}}}
 
 " vim-easymotion {{{
