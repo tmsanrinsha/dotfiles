@@ -657,7 +657,7 @@ augroup quickfix
 augroup END
 "}}}
 
-" >>>> Language >>>> {{{
+" >>>> filetype >>>> {{{
 
 " HTML {{{
 " ==============================================================================
@@ -745,13 +745,14 @@ augroup END
 
 " help {{{
 " ==============================================================================
+set helplang=en,ja
 augroup help
     autocmd!
     autocmd FileType help nnoremap <buffer><silent> q :q<CR>
 augroup END
 "}}}
 
-" <<<< Language <<<< }}}
+" <<<< filetype <<<< }}}
 
 " >>>> Plugin >>>> {{{
 " unite {{{
@@ -833,12 +834,6 @@ if s:has_plugin('vimshell')
 
     augroup vimshell
         autocmd!
-        "autocmd Filetype vimshell setlocal nonumber
-        "autocmd FileType vimshell
-        "        \   call vimshell#altercmd#define('g', 'git')
-        "        \|  call vimshell#altercmd#define('l', 'll')
-        "        \|  call vimshell#altercmd#define('ll', 'ls -l')
-        "        "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
         autocmd FileType vimshell
                     \   setlocal nonumber
                     \|  call vimshell#altercmd#define('g', 'git')
