@@ -4,3 +4,15 @@ colorscheme molokai
 "Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
+" ツールバーを削除
+set guioptions-=T
+"メニューを削除
+set guioptions-=m
+"Alt+でメニューをフォーカスしない
+set winaltkeys=no
+" Alt+Spaceでウィンドウのシステムメニュー
+nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
+
+inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+vnoremap <C-c> "*y
