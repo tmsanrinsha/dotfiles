@@ -15,4 +15,5 @@ set winaltkeys=no
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
 inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+cnoremap <A-v> <C-r>*
 vnoremap <C-c> "*y
