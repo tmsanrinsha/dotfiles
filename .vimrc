@@ -653,7 +653,7 @@ set foldmethod=marker
 augroup quickfix
     autocmd!
     "autocmd QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
-    autocmd QuickfixCmdPost * cwindow | lwindow
+    "autocmd QuickfixCmdPost * cwindow | lwindow
 augroup END
 "}}}
 
@@ -989,15 +989,6 @@ endif
 if s:has_plugin('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif
-"}}}
-
-" vim-emacscommandline {{{
-" ==============================================================================
-" これを設定しないとTera Termで<A-BS>, <A-C-H>が使えなかった
-" has_pluginの中に入れるとなぜか設定できない
-"if s:has_plugin('emacscommandline')
-"    cmap <Esc><C-H> <Esc><BS>
-"endif
 "}}}
 
 " vim-easymotion {{{
