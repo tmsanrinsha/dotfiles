@@ -229,7 +229,9 @@ set laststatus=2
 
 " Mapping {{{
 " ==============================================================================
-set timeout timeoutlen=3000 ttimeoutlen=100
+"ttimeout: 端末のキーコードについてタイムアウトする
+set timeout timeoutlen=1000 ttimeoutlen=10
+"set notimeout      " マッピングについてタイムアウトしない
 
 if !has('gui_running')
     " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
@@ -304,10 +306,10 @@ endif
 
 " window {{{
 " ==============================================================================
-"nnoremap <M-h> <C-w>h
-"nnoremap <M-j> <C-w>j
-"nnoremap <M-k> <C-w>k
-"nnoremap <M-l> <C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 nnoremap <M--> <C-w>-
 nnoremap <M-;> <C-w>+
 nnoremap <M-,> <C-w>>
@@ -505,8 +507,6 @@ inoremap <C-w>  <C-g>u<C-w>
 
 "set notimeout      " マッピングについてタイムアウトしない
 "set ttimeout       " 端末のキーコードについてタイムアウトする
-"set timeoutlen=0 " ミリ秒後にタイムアウトする
-"set timeout timeoutlen=3000 ttimeoutlen=100
 
 "}}}
 
@@ -776,9 +776,10 @@ if s:has_plugin('unite')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
     " ヤンク履歴
-    let g:unite_source_history_yank_enable =1  "history/yankの有効化
+    let g:unite_source_history_yank_enable = 1  "history/yankの有効化
     nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
+    let g:unite_source_grep_max_candidates = 1000
     "augroup unite
     "    autocmd!
     "    autocmd Filetype unite nnoremap 
@@ -996,8 +997,8 @@ endif
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_mapping_f = 'm'
-    let g:EasyMotion_mapping_F = 'M'
+    let g:EasyMotion_mapping_f = 'f'
+    let g:EasyMotion_mapping_F = 'F'
 endif
 "}}}
 
