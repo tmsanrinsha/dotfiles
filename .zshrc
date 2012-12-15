@@ -97,16 +97,24 @@ alias -g TGZ='| gzip -dc | tar xf -'
 autoload -Uz zmv
 alias zmv='zmv -W'
 
-
-
 # 単語境界にならない記号の設定
 # /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# http://d.hatena.ne.jp/kiririmode/20120327/p1
+# add-zsh-hook precmd functionするための設定
+autoload -Uz add-zsh-hook
+
+# ディレクトリ関連 {{{
+# ==============================================================================
 # auto change directory
 setopt auto_cd
+# 今いるディレクトリを補完候補から外す
+# http://qiita.com/items/7916037b1384d253b457
+zstyle ':completion:*' ignore-parents parent pwd ..
 
 # auto_pushd {{{
+# ------------------------------------------------------------------------------
 # auto directory pushd that you can get dirs list by cd -(+)[tab]
 # -:古いのが上、+:新しいのが上
 setopt auto_pushd
@@ -114,6 +122,38 @@ setopt auto_pushd
 setopt pushd_minus
 # pushdで同じディレクトリを重複してpushしない
 setopt pushd_ignore_dups
+# 保存するディレクトリスタックの数
+DIRSTACKSIZE=10
+
+# ディレクトリスタックをファイルに保存することで端末間で共有したり、ログアウトしても残るようにする {{{
+# http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
+# cdする前に現在のディレクトリを保存
+function share_dirs_preexec {
+    pwd >> ~/.dirs
+}
+# プロンプトが表示される前にディレクトリスタックを更新する
+function share_dirs_precmd {
+    if which tac 1>/dev/null 2>&1;then
+        TAC=`which tac`
+    else
+        TAC='tail -r'
+    fi
+
+    # 現在のディレクトリに戻ってこれるように書き込む
+    pwd >> ~/.dirs
+    # ファイルの書き込まれたディレクトリを移動することでディレクトリスタックを更新
+    while read line
+    do
+        # ディレクトリが削除されていることもあるので調べる
+        [ -d $line ] && cd $line
+    done <~/.dirs
+    # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} > ~/.dirs
+}
+# autoload -Uz add-zsh-hookが必要
+add-zsh-hook preexec share_dirs_preexec
+add-zsh-hook precmd  share_dirs_precmd
+# }}}
 # }}}
 
 # compacked complete list display
@@ -225,35 +265,6 @@ if [ $TERM = xterm-256color ];then
 fi
 # }}}
 
-# pushdを端末間で共有したり、ログアウトしても残るようにする {{{
-#==============================================================================
-# http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
-function share_pushd_preexec {
-    pwd >> ~/.pushd_history
-}
-function share_pushd_precmd {
-    if which tac 1>/dev/null 2>&1;then
-        TAC=`which tac`
-    else
-        TAC='tail -r'
-    fi
-
-    # 現在のディレクトリに戻ってこれるように書き込み
-    pwd >> ~/.pushd_history
-    # 上の書き込みで重複が生じた場合かもしれないので重複を削除
-    cat ~/.pushd_history | uniq >> ~/.pushd_history
-    while read line
-    do
-        # ディレクトリが削除されていることもあるので調べる
-        [ -d $line ] && cd $line
-    done <~/.pushd_history
-    # 削除されたディレクトリが取り除かれた新しいdirsを書き込む
-    # 最新のを10だけ保存することにする
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} | tail -n 10 > ~/.pushd_history
-}
-add-zsh-hook preexec share_pushd_preexec
-add-zsh-hook precmd share_pushd_precmd
-# }}}
 # }}}
 
 if [ -f ~/.zshrc.local ]; then
