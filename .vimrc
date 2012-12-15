@@ -33,9 +33,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
     " スニペット補完
-    "NeoBundle 'Shougo/neocomplcache-snippets-complete'
     NeoBundle 'Shougo/neosnippet'
-
     NeoBundle 'honza/snipmate-snippets'
 
     " http://archiva.jp/web/tool/vim_grep2.html
@@ -306,10 +304,10 @@ endif
 
 " window {{{
 " ==============================================================================
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
+"nnoremap <M-h> <C-w>h
+"nnoremap <M-j> <C-w>j
+"nnoremap <M-k> <C-w>k
+"nnoremap <M-l> <C-w>l
 nnoremap <M--> <C-w>-
 nnoremap <M-;> <C-w>+
 nnoremap <M-,> <C-w>>
@@ -705,11 +703,11 @@ augroup END
 " input </ to auto close tag on XML {{{
 " ------------------------------------------------------------------------------
 " https://github.com/sorah/config/blob/master/vim/dot.vimrc
-augroup MyXML
-  autocmd!
-  autocmd Filetype xml  inoremap <buffer> </ </<C-x><C-o>
-  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
-augroup END
+"augroup MyXML
+"  autocmd!
+"  autocmd Filetype xml  inoremap <buffer> </ </<C-x><C-o>
+"  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+"augroup END
 "}}}
 "}}}
 
