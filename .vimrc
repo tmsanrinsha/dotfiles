@@ -54,7 +54,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
 
+    NeoBundle 'kana/vim-textobj-user'
+    NeoBundle 'kana/vim-textobj-indent'
+
     NeoBundle 'Align'
+    NeoBundle "tyru/caw.vim"
 
     " ミニバッファにバッファ一覧を表示
     " https://github.com/fholgado/minibufexpl.vim
@@ -228,7 +232,7 @@ set laststatus=2
 " Mapping {{{
 " ==============================================================================
 "ttimeout: 端末のキーコードについてタイムアウトする
-set timeout timeoutlen=1000 ttimeoutlen=10
+set timeout timeoutlen=3000 ttimeoutlen=10
 "set notimeout      " マッピングについてタイムアウトしない
 
 if !has('gui_running')
@@ -502,10 +506,6 @@ inoremap <C-w>  <C-g>u<C-w>
 "    let &t_SI .= "\e[?25h\e[5 q"
 "    let &t_EI .= "\e[1 q"
 "endif
-
-"set notimeout      " マッピングについてタイムアウトしない
-"set ttimeout       " 端末のキーコードについてタイムアウトする
-
 "}}}
 
 " カッコ・タグの対応 {{{
@@ -793,9 +793,9 @@ if s:has_plugin('vimfiler')
 
     nnoremap [VIMFILER] <Nop>
     nmap <Leader>f [VIMFILER]
-    nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]f :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]b :VimFilerBufferDir<CR>
     nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
-    nnoremap <silent> [VIMFILER]gc :cd %:h<CR> :VimFilerCurrentDir<CR>
 endif
 nnoremap <silent><Leader>gc :cd %:h<CR>
 "}}}
@@ -805,12 +805,13 @@ nnoremap <silent><Leader>gc :cd %:h<CR>
 if s:has_plugin('vimshell')
     nnoremap [VIMSHELL] <Nop>
     nmap <leader>H [VIMSHELL]
-    nnoremap <silent> [VIMSHELL]<CR>   :VimShell<CR>
-    nnoremap          [VIMSHELL]i      :VimShellInteractive<Space>
-    nnoremap <silent> [VIMSHELL]py     :VimShellInteractive python<CR>
-    nnoremap <silent> [VIMSHELL]ph     :VimShellInteractive php<CR>
-    nnoremap <silent> [VIMSHELL]rb     :VimShellInteractive irb<CR>
-    nnoremap <silent> [VIMSHELL]s      :VimShellSendString<CR>
+    nnoremap <silent> [VIMSHELL]H  :VimShell<CR>
+    nnoremap <silent> [VIMSHELL]b  :VimShellBufferDir<CR>
+    nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
+    nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
+    nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
+    nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
+    nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
     " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
     "vmap <silent> <Leader>ss :VimShellSendString<CR>
     "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
@@ -822,7 +823,7 @@ if s:has_plugin('vimshell')
     else
         "let g:vimshell_prompt = $USER . "@" . hostname() . "% "
         let g:vimshell_prompt = hostname() . "% "
-        let g:vimshell_user_prompt = 'getcwd()'
+        let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
         if has('mac')
             call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
             call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
@@ -1000,6 +1001,18 @@ if s:has_plugin('EasyMotion')
 endif
 "}}}
 
+" caw {{{
+" ==============================================================================
+" http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
+" コメントアウトのトグル
+nmap <Leader>cc <Plug>(caw:i:toggle)
+vmap <Leader>cc <Plug>(caw:i:toggle)
+" http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
+" 現在の行をコメントアウトして下にコピー
+nmap <Leader>cy yyPgcij
+vmap <Leader>cy ygvgcigv<C-c>p
+"}}}
+"
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
