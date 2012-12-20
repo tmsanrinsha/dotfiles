@@ -793,9 +793,9 @@ if s:has_plugin('vimfiler')
 
     nnoremap [VIMFILER] <Nop>
     nmap <Leader>f [VIMFILER]
-    nnoremap <silent> [VIMFILER]f :VimFiler<CR>
-    nnoremap <silent> [VIMFILER]b :VimFilerBufferDir<CR>
-    nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+    nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
+    nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 endif
 nnoremap <silent><Leader>gc :cd %:h<CR>
 "}}}
@@ -884,9 +884,6 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     inoremap <expr><C-g>     neocomplcache#undo_completion()
     inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-    " SuperTab like snippets behavior.
-    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
@@ -939,8 +936,8 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     "smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
     " Plugin key-mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
     " SuperTab like snippets behavior.
     imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -1005,8 +1002,8 @@ endif
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
 " コメントアウトのトグル
-nmap <Leader>cc <Plug>(caw:i:toggle)
-vmap <Leader>cc <Plug>(caw:i:toggle)
+nmap <Leader>c<CR> <Plug>(caw:i:toggle)
+vmap <Leader>c<CR> <Plug>(caw:i:toggle)
 " http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
 " 現在の行をコメントアウトして下にコピー
 nmap <Leader>cy yyPgcij
