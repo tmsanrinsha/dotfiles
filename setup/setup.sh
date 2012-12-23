@@ -2,23 +2,8 @@
 
 set -ex
 
-## dotfilesにリンクを貼る
-##find `pwd` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print | xargs -I{} ln -v {} $HOME
-#for file in `find \`pwd\` -type d -name '.git' -prune -o -type f -regex ".*/\..*" -print`;
-#do
-#    [ ! -f ~/`basename $file` ] && ln -v $file ~
-#done
-#
-#[ ! -d ~/bin ] && mkdir ~/bin
-## 実行ファイルにリンクを貼る
-##find `pwd`/bin -maxdepth 1 -type f | xargs -I{} ln -v {} $HOME/bin
-#for file in `find \`pwd\`/bin -type f`;
-#do
-#    [ ! -f ~/`basename $file` ] && ln -v $file ~
-#done
-
 # 必要なディレクトリの作成
-for dir in .profile.d bin/cygwin
+for dir in bin/cygwin
 do
     [ ! -d ~/$dir ] && mkdir -p ~/$dir
 done
@@ -51,10 +36,10 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
-if [[ `uname` = CYGWIN* ]]; then
-    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
-    if [ ! -x ~/bin/cygwin/ln ]; then
-        curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
-        chmod a+x ~/bin/cygwin/ln
-    fi
-fi
+# if [[ `uname` = CYGWIN* ]]; then
+#     [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+#     if [ ! -x ~/bin/cygwin/ln ]; then
+#         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
+#         chmod a+x ~/bin/cygwin/ln
+#     fi
+# fi
