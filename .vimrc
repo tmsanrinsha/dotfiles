@@ -43,9 +43,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " 部分的に別バッファで編集
     NeoBundle 'thinca/vim-partedit'
 
-    " コマンドモードをEmacsキーバインドにする
-    "NeoBundle 'houtsnip/vim-emacscommandline'
-    NeoBundle 'tmsanrinsha/vim-emacscommandline', { 'type__protocol' : 'ssh' }
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
@@ -57,7 +54,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
 
-    NeoBundle 'Align'
+    "NeoBundle 'Align'
+    NeoBundle 'h1mesuke/vim-alignta'
     NeoBundle "tyru/caw.vim"
 
     " ミニバッファにバッファ一覧を表示
@@ -96,10 +94,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " tmuxのシンタックスファイル
     NeoBundle 'zaiste/tmux.vim'
 
-    " 自分で修正したプラグイン
-    " https://github.com/tmsanrinsha/vim
-    NeoBundle 'tmsanrinsha/vim'
-
+    "
     "NeoBundle 'thinca/vim-showtime'
     "NeoBundle 'pocket7878/presen-vim'
     "NeoBundle 'mattn/multi-vim'
@@ -109,12 +104,22 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'FuzzyFinder'
     "NeoBundle 'rails.vim'
 
+    " 自分で修正したプラグイン
+    " https://github.com/tmsanrinsha/vim
+    NeoBundle 'tmsanrinsha/vim'
+
+    " コマンドモードをEmacsキーバインドにする
+    if hostname() =~ 'sakura'
+        NeoBundle 'tmsanrinsha/vim-emacscommandline', { 'type__protocol' : 'ssh' }
+    else
+        NeoBundle 'tmsanrinsha/vim-emacscommandline'
+    endif
+
     "" non github repos ----------------------------------------------------------
     "NeoBundle 'git://git.wincent.com/command-t.git'
     "" non git repos
     "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
     "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
-
 
     filetype plugin indent on     " required!
 
@@ -276,7 +281,9 @@ endif
 
 inoremap jj <ESC>
 nnoremap Y y$
-
+nnoremap <Leader>fp :<C-u>set ft=php<CR>
+nnoremap <Leader>fs :<C-u>set ft=javascript<CR>
+nnoremap <Leader>fh :<C-u>set ft=html<CR>
 "}}}
 
 " バッファ {{{
@@ -424,8 +431,6 @@ endfunction
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
-" 現在編集中のファイルのフルパスを表示する
-nnoremap <silent><Leader>fp :echo expand("%:p")<CR>
 "}}}
 
 " paste {{{
@@ -793,7 +798,7 @@ if s:has_plugin('vimfiler')
 
     nnoremap [VIMFILER] <Nop>
     nmap <Leader>f [VIMFILER]
-    nnoremap <silent> [VIMFILER]<CR> :VimFiler<CR>
+    nnoremap <silent> [VIMFILER]f :VimFiler<CR>
     nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
     nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 endif
@@ -998,18 +1003,31 @@ if s:has_plugin('EasyMotion')
 endif
 "}}}
 
+" vim-alignta {{{
+" ==============================================================================
+if s:has_plugin('alignta')
+    xnoremap [ALINGTA] <Nop>
+    xmap <Leader>a [ALINGTA]
+    xnoremap [ALINGTA]= :Alignta =<CR>
+    xnoremap [ALINGTA]> :Alignta =><CR>
+    xnoremap [ALINGTA]: :Alignta :<CR>
+endif
+" }}}
+
 " caw {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
-" コメントアウトのトグル
-nmap <Leader>c<CR> <Plug>(caw:i:toggle)
-vmap <Leader>c<CR> <Plug>(caw:i:toggle)
-" http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
-" 現在の行をコメントアウトして下にコピー
-nmap <Leader>cy yyPgcij
-vmap <Leader>cy ygvgcigv<C-c>p
+if s:has_plugin('caw')
+    " コメントアウトのトグル
+    nmap <Leader>cc <Plug>(caw:i:toggle)
+    xmap <Leader>cc <Plug>(caw:i:toggle)
+    " http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
+    " 現在の行をコメントアウトして下にコピー
+    nmap <Leader>cy yyPgcij
+    xmap <Leader>cy ygvgcigv<C-c>p
+endif
 "}}}
-"
+
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
