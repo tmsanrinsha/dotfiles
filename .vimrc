@@ -845,12 +845,14 @@ if s:has_plugin('vimshell')
                     \|  call vimshell#altercmd#define('g', 'git')
                     \|  call vimshell#altercmd#define('l', 'll')
                     \|  call vimshell#altercmd#define('ll', 'ls -l')
+                    \|  call vimshell#altercmd#define('la', 'ls -a')
+                    \|  call vimshell#altercmd#define('lla', 'ls -la')
                 "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+        "function! g:my_chpwd(args, context)
+        "    call vimshell#execute('ls')
+        "endfunction
     augroup END
 
-    "function! g:my_chpwd(args, context)
-    "    call vimshell#execute('ls')
-    "endfunction
 endif
 
 " 参考
