@@ -161,7 +161,7 @@ function! s:has_plugin(plugin)
 endfunction
 "}}}
 
-" 表示 {{{
+" 基本設定 {{{
 " ==============================================================================
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
@@ -170,6 +170,8 @@ set ruler
 set cursorline
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 set t_Co=256 " 256色
+" デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
+set directory=.,/var/tmp,/tmp
 
 scriptencoding utf-8
 
