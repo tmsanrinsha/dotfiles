@@ -161,6 +161,16 @@ function! s:has_plugin(plugin)
 endfunction
 "}}}
 
+" vimrc全体で使うaugroup {{{
+" ==============================================================================
+" http://rhysd.hatenablog.com/entry/2012/12/19/001145
+" autocmd!の回数を減らすことでVimの起動を早くする
+" ネームスペースを別にしたい場合は別途augroupを作る
+augroup MyVimrc
+    autocmd!
+augroup END
+" }}}
+
 " 基本設定 {{{
 " ==============================================================================
 set showmode "現在のモードを表示
@@ -289,9 +299,6 @@ endif
 
 inoremap jj <ESC>
 nnoremap Y y$
-nnoremap <Leader>fp :<C-u>set ft=php<CR>
-nnoremap <Leader>fj :<C-u>set ft=jquery.javascript-jquery.javascript<CR>
-nnoremap <Leader>fh :<C-u>set ft=html<CR>
 "}}}
 
 " バッファ {{{
@@ -670,6 +677,10 @@ augroup END
 
 " >>>> filetype >>>> {{{
 
+nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
+nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
+nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
+
 " HTML {{{
 " ==============================================================================
 " HTML Key Mappings for Typing Character Codes: {{{
@@ -724,6 +735,12 @@ augroup END
 "}}}
 "}}}
 
+" JavaScript {{{
+" ==============================================================================
+" nono/jqueryとhonza/snipmate-snippetsのjavaScript-jqueryを有効にするための設定
+autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
+" }}}
+
 " PHP {{{
 " ==============================================================================
 let php_sql_query=1 " 文字列中のSQLをハイライトする
@@ -740,27 +757,18 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 " ==============================================================================
 " Editorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-augroup mysqlEditor
-    autocmd!
-    autocmd BufRead /var/tmp/sql* setlocal filetype=mysql
-augroup END
+autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
 "}}}
 
 " apache {{{
 " ==============================================================================
-augroup apache
-    autocmd!
-    autocmd BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
-augroup END
+autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 "}}}
 
 " help {{{
 " ==============================================================================
 set helplang=en,ja
-augroup help
-    autocmd!
-    autocmd FileType help nnoremap <buffer><silent> q :q<CR>
-augroup END
+autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 "}}}
 
 " <<<< filetype <<<< }}}
@@ -791,9 +799,6 @@ if s:has_plugin('unite')
     nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
     let g:unite_source_grep_max_candidates = 1000
-    "augroup unite
-    "    autocmd!
-    "    autocmd Filetype unite nnoremap 
 endif
 "}}}
 
@@ -845,21 +850,17 @@ if s:has_plugin('vimshell')
     "let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
     let g:vimshell_max_command_history = 3000
 
-    augroup vimshell
-        autocmd!
-        autocmd FileType vimshell
-                    \   setlocal nonumber
-                    \|  call vimshell#altercmd#define('g', 'git')
-                    \|  call vimshell#altercmd#define('l', 'll')
-                    \|  call vimshell#altercmd#define('ll', 'ls -l')
-                    \|  call vimshell#altercmd#define('la', 'ls -a')
-                    \|  call vimshell#altercmd#define('lla', 'ls -la')
-                "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
-        "function! g:my_chpwd(args, context)
-        "    call vimshell#execute('ls')
-        "endfunction
-    augroup END
-
+    autocmd MyVimrc FileType vimshell
+                \   setlocal nonumber
+                \|  call vimshell#altercmd#define('g', 'git')
+                \|  call vimshell#altercmd#define('l', 'll')
+                \|  call vimshell#altercmd#define('ll', 'ls -l')
+                \|  call vimshell#altercmd#define('la', 'ls -a')
+                \|  call vimshell#altercmd#define('lla', 'ls -la')
+    "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+    "function! g:my_chpwd(args, context)
+    "    call vimshell#execute('ls')
+    "endfunction
 endif
 
 " 参考
@@ -929,13 +930,16 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
     " Enable omni completion.
-    autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup neocomplcache
+        autocmd!
+        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
+        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup END
 
     " Enable heavy omni completion.
     if !exists('g:neocomplcache_omni_patterns')
@@ -982,10 +986,7 @@ if s:has_plugin('quickrun')
     " --------------------------------------------------------------------------
     " http://www.karakaram.com/quickrun-phpunit
     " http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
-    augroup QuickRunPHPUnit
-        autocmd!
-        autocmd BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
-    augroup END
+    autocmd MyVimrc BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
 
     let g:quickrun_config['php.phpunit'] = {
                 \   'command'                : 'phpunit',
