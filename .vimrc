@@ -30,6 +30,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/unite-ssh'
     NeoBundle 'Shougo/vimfiler'
     NeoBundle 'Shougo/vimshell'
+    NeoBundle 'h1mesuke/unite-outline'
 
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
@@ -85,11 +86,15 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
-    NeoBundle 'rdark'
+    "NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
-    NeoBundle 'jonathanfilip/vim-lucius'
-    let g:lucius_contrast_bg = 'high'
+    "NeoBundle 'jonathanfilip/vim-lucius'
+    "let g:lucius_contrast_bg = 'high'
 
+    " JavaScript
+    NeoBundle 'jelera/vim-javascript-syntax'
+    "NeoBundle 'pangloss/vim-javascript'
+    NeoBundle 'nono/jquery.vim'
     " confluenceのシンタックスファイル
     NeoBundle 'confluencewiki.vim'
     " tmuxのシンタックスファイル
@@ -283,7 +288,7 @@ endif
 inoremap jj <ESC>
 nnoremap Y y$
 nnoremap <Leader>fp :<C-u>set ft=php<CR>
-nnoremap <Leader>fs :<C-u>set ft=javascript<CR>
+nnoremap <Leader>fj :<C-u>set ft=jquery.javascript-jquery.javascript<CR>
 nnoremap <Leader>fh :<C-u>set ft=html<CR>
 "}}}
 
@@ -405,7 +410,7 @@ vnoremap <Leader>? <ESC>?\%V
 
 " ビジュアルモード {{{
 " =============================================================================
-vnoremap <C-a> vggVG
+nnoremap <A-a> vggVG
 " vipで選択後、IやAで挿入できるようにする {{{
 " -----------------------------------------------------------------------------
 " http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
@@ -940,16 +945,16 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
     " Plugin key-mappings.
-    "imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    "smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
     " Plugin key-mappings.
     " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
     " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
     " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    "imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    "smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     " For snippet_complete marker.
     if has('conceal')
@@ -957,7 +962,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     endif
 
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets' 
+    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 endif
 "}}}
 
