@@ -180,10 +180,20 @@ set ruler
 set cursorline
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 set t_Co=256 " 256色
+" pasteモードのトグル。autoindentをonにしてペーストすると
+" インデントが入った文章が階段状になってしまう。
+" pasteモードではautoindentが解除されそのままペーストできる
+set pastetoggle=<F11>
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory=.,/var/tmp,/tmp
+" key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
+set timeout timeoutlen=3000 ttimeoutlen=10
+set mouse=a
 
 scriptencoding utf-8
+
+inoremap jj <ESC>
+nnoremap Y y$
 
 "" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 "if has('persistent_undo')
@@ -250,55 +260,6 @@ set laststatus=2
 
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 "set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
-"}}}
-
-" Mapping {{{
-" ==============================================================================
-"ttimeout: 端末のキーコードについてタイムアウトする
-set timeout timeoutlen=3000 ttimeoutlen=10
-"set notimeout      " マッピングについてタイムアウトしない
-
-if !has('gui_running')
-    " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
-    " setup for alt and meta key mappings
-    for i in range(32,126)
-        let c = nr2char(i)
-        if c==' '
-            set <M-Space>=<Esc><Space>
-        elseif c=='|' || c=='"'
-            exec "set <M-\\".c.">=\<Esc>\\".c
-        elseif c=='>' || c=='['
-            "set <M-\>>=\<Esc>> Meta->に対してsetできない
-            "set <M-[>=\<Esc>[ これがあるとvim起動した後、2cが打たれる
-        else
-            exec "set <M-".c.">=\<Esc>".c
-        endif
-    endfor
-
-    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
-    " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
-    " MapFastKeycode: helper for fast keycode mappings
-    " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
-    function! <SID>MapFastKeycode(key, keycode)
-        if s:fast_i == 46
-            echohl WarningMsg
-            echomsg "Unable to map ".a:key.": out of spare keycodes"
-            echohl None
-            return
-        endif
-        let vkeycode = '<'.(s:fast_i/23==0 ? '' : 'S-').'F'.(15+s:fast_i%23).'>'
-        exec 'set '.vkeycode.'='.a:keycode
-        exec 'map '.vkeycode.' '.a:key
-        let s:fast_i += 1
-    endfunction
-    let s:fast_i = 0
-
-    call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
-    call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
-endif
-
-inoremap jj <ESC>
-nnoremap Y y$
 "}}}
 
 " バッファ {{{
@@ -419,7 +380,7 @@ vnoremap <Leader>? <ESC>?\%V
 
 " ビジュアルモード {{{
 " =============================================================================
-nnoremap <A-a> vggVG
+nnoremap <A-a> ggVG
 " vipで選択後、IやAで挿入できるようにする {{{
 " -----------------------------------------------------------------------------
 " http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
@@ -446,39 +407,6 @@ endfunction
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
-"}}}
-
-" paste {{{
-" ==============================================================================
-"pasteモードのトグル。autoindentをonにしてペーストすると
-"インデントが入った文章が階段状になってしまう。
-"pasteモードではautoindentが解除されそのままペーストできる
-set pastetoggle=<F11>
-
-inoremap <C-r>* <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-
-"Tera TermなどのBracketed Paste Modeをサポートした端末では
-"以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
-"http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
-"if &term =~ "xterm" && v:version > 603
-"    "for screen
-"    if &term == "xterm-256color"
-"        let &t_SI = &t_SI . "\eP\e[?2004h\e\\"
-"        let &t_EI = "\eP\e[?2004l\e\\" . &t_EI
-"        let &pastetoggle = "\e[201~"
-"    else
-"        let &t_SI .= &t_SI . "\e[?2004h"
-"        let &t_EI .= "\e[?2004l" . &t_EI
-"        let &pastetoggle = "\e[201~"
-"    endif
-"
-"    function! XTermPasteBegin(ret)
-"        set paste
-"        return a:ret
-"    endfunction
-"
-"    imap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-"endif
 "}}}
 
 " カーソル {{{
@@ -612,35 +540,6 @@ endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
-"}}}
-
-" マウス {{{
-" ==============================================================================
-" Enable mouse support.
-" Ctrlを押しながらマウスをを使うとmouse=aをセットしてないときの挙動になる
-set mouse=a
- 
-" For screen, tmux
-if &term == "xterm-256color"
-    augroup MyAutoCmd
-        autocmd VimLeave * :set mouse=
-    augroup END
-
-    " screenでマウスを使用するとフリーズするのでその対策
-    " Tere Termだと自動で認識されているかも
-    " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
-    set ttymouse=xterm2
-endif
-
-if has('gui_running')
-    " Show popup menu if right click.
-    set mousemodel=popup
-
-    " Don't focus the window when the mouse pointer is moved.
-    set nomousefocus
-    " Hide mouse pointer on insert mode.
-    set mousehide
-endif
 "}}}
 
 " printing {{{
@@ -1098,6 +997,10 @@ endif
 "}}}
 
 " <<<< Plugin <<<< }}}
+
+if !has('gui_running') && filereadable(expand('~/.cvimrc'))
+    source ~/.cvimrc
+endif
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
