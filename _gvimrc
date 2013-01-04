@@ -7,13 +7,27 @@ source $VIMRUNTIME/menu.vim
 
 " ツールバーを削除
 set guioptions-=T
-"メニューを削除
+" メニューを削除
 set guioptions-=m
-"Alt+でメニューをフォーカスしない
+" Alt+でメニューをフォーカスしない
 set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
+" paste {{{
+" ==============================================================================
 inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
 cnoremap <A-v> <C-r>*
-vnoremap <C-c> "*y
+vnoremap <A-c> "*y
+" }}}
+
+" mouse {{{
+" ==============================================================================
+" Show popup menu if right click.
+set mousemodel=popup
+
+" Don't focus the window when the mouse pointer is moved.
+set nomousefocus
+" Hide mouse pointer on insert mode.
+set mousehide
+" }}}
