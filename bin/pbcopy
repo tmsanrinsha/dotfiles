@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 use strict;
 use warnings;
 use MIME::Base64;

@@ -64,6 +64,7 @@ endif
 
 " clipboard {{{
 " ==============================================================================
+" http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 function! s:Paste64Copy() range
     let l:tmp = @"
     silent normal gvy
