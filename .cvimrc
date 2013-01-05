@@ -65,9 +65,10 @@ endif
 " clipboard {{{
 " ==============================================================================
 function! s:Paste64Copy() range
-    let l:tmp = @@
+    let l:tmp = @"
     silent normal gvy
-    let l:selected = @@
+    let l:selected = @"
+    let @" = l:tmp
     let l:i = 0
     let l:len = strlen(l:selected)
     let l:escaped = ''
@@ -82,7 +83,6 @@ function! s:Paste64Copy() range
     endwhile
     call system('echo -en "' . l:escaped . '" | pbcopy > /dev/tty')
     redraw!
-    let @@ = l:tmp
 endfunction
 
 command! -range Paste64Copy :call s:Paste64Copy()
