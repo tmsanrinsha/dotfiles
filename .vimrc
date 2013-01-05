@@ -28,9 +28,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/unite-ssh'
+    NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/vimfiler'
     NeoBundle 'Shougo/vimshell'
-    NeoBundle 'h1mesuke/unite-outline'
+    NeoBundleLazy 'Shougo/vimshell', {
+                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive" ] }
+                \}
 
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
@@ -41,10 +44,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
 
-    NeoBundle 'thinca/vim-quickrun'
-    " 部分的に別バッファで編集
-    NeoBundle 'thinca/vim-partedit'
+    NeoBundleLazy 'thinca/vim-quickrun', {
+                \   'autoload' : { 'commands' : [ 'QuickRun' ] }
+                \}
 
+    " 部分的に別バッファで編集
+    NeoBundleLazy 'thinca/vim-partedit', {
+                \   'autoload' : { 'commands' : [ 'Partedit' ] }
+                \}
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
@@ -82,9 +89,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
-    NeoBundle 'vim-scripts/wombat256.vim'
+    "NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
-    NeoBundle 'chriskempson/vim-tomorrow-theme'
+    "NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
     "NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
@@ -92,13 +99,22 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "let g:lucius_contrast_bg = 'high'
 
     " JavaScript
-    NeoBundle 'jelera/vim-javascript-syntax'
+    NeoBundleLazy 'jelera/vim-javascript-syntax', {
+                \     'autoload' : { 'filetypes' : 'javascript' }
+                \ }
+    NeoBundleLazy 'nono/jquery.vim', {
+                \     'autolaad' : { 'filetypes' : 'jquery' }
+                \ }
     "NeoBundle 'pangloss/vim-javascript'
-    NeoBundle 'nono/jquery.vim'
+
     " confluenceのシンタックスファイル
-    NeoBundle 'confluencewiki.vim'
+    NeoBundleLazy 'confluencewiki.vim', {
+                \   'autoload' : { 'filetypes' : 'confluence' }
+                \ }
     " tmuxのシンタックスファイル
-    NeoBundle 'zaiste/tmux.vim'
+    NeoBundle 'zaiste/tmux.vim', {
+                \   'autoload' : { 'filetypes' : 'tmux' }
+                \ }
 
     "
     "NeoBundle 'thinca/vim-showtime'
@@ -675,92 +691,85 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " >>>> Plugin >>>> {{{
 " unite {{{
 " ==============================================================================
-if s:has_plugin('unite')
-    nnoremap [unite] <Nop>
-    "nmap <Leader>u [unite]
-    nmap , [unite]
+nnoremap [unite] <Nop>
+"nmap <Leader>u [unite]
+nmap , [unite]
 
-    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    " カレントディレクトリ以下のファイル
-    nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
-    " バッファ
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-    "レジスタ一覧
-    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-    "最近使用したファイル一覧
-    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>j
-    " ブックマーク
-    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-    " ファイル内検索結果
-    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
-    " ヤンク履歴
-    let g:unite_source_history_yank_enable = 1  "history/yankの有効化
-    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+" カレントディレクトリ以下のファイル
+nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
+" バッファ
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+"レジスタ一覧
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+"最近使用したファイル一覧
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>j
+" ブックマーク
+nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+" ファイル内検索結果
+nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+" ヤンク履歴
+let g:unite_source_history_yank_enable = 1  "history/yankの有効化
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
-    let g:unite_source_grep_max_candidates = 1000
-endif
+let g:unite_source_grep_max_candidates = 1000
 "}}}
 
 " vimfiler {{{
 " ==============================================================================
-if s:has_plugin('vimfiler')
-    let g:vimfiler_as_default_explorer = 1
-    "セーフモードを無効にした状態で起動する
-    let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_as_default_explorer = 1
+"セーフモードを無効にした状態で起動する
+let g:vimfiler_safe_mode_by_default = 0
 
-    nnoremap [VIMFILER] <Nop>
-    nmap <Leader>f [VIMFILER]
-    nnoremap <silent> [VIMFILER]f :VimFiler<CR>
-    nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
-    nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
-endif
-nnoremap <silent><Leader>gc :cd %:h<CR>
+nnoremap [VIMFILER] <Nop>
+nmap <Leader>f [VIMFILER]
+nnoremap <silent> [VIMFILER]f :VimFiler<CR>
+nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
+nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 "}}}
 
 " vimshell {{{
 " ==============================================================================
-if s:has_plugin('vimshell')
-    nnoremap [VIMSHELL] <Nop>
-    nmap <leader>H [VIMSHELL]
-    nnoremap <silent> [VIMSHELL]H  :VimShell<CR>
-    nnoremap <silent> [VIMSHELL]b  :VimShellBufferDir<CR>
-    nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
-    nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
-    nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
-    nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
-    nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
-    " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
-    "vmap <silent> <Leader>ss :VimShellSendString<CR>
-    "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
-    "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+nnoremap [VIMSHELL] <Nop>
+nmap <leader>H [VIMSHELL]
+nnoremap <silent> [VIMSHELL]H  :VimShell<CR>
+nnoremap <silent> [VIMSHELL]b  :VimShellBufferDir<CR>
+nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
+nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
+nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
+nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
+nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+" <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+"vmap <silent> <Leader>ss :VimShellSendString<CR>
+"" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+"nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
-    if has('win32') || has('win64')
-        " Display user name on Windows.
-        let g:vimshell_prompt = $USERNAME."% "
-    else
-        "let g:vimshell_prompt = $USER . "@" . hostname() . "% "
-        let g:vimshell_prompt = hostname() . "% "
-        let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-        if has('mac')
-            call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
-            call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
-        endif
+if has('win32') || has('win64')
+    " Display user name on Windows.
+    let g:vimshell_prompt = $USERNAME."% "
+else
+    "let g:vimshell_prompt = $USER . "@" . hostname() . "% "
+    let g:vimshell_prompt = hostname() . "% "
+    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+    if has('mac')
+        call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
+        call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
     endif
-    "let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
-    let g:vimshell_max_command_history = 3000
-
-    autocmd MyVimrc FileType vimshell
-                \   setlocal nonumber
-                \|  call vimshell#altercmd#define('g', 'git')
-                \|  call vimshell#altercmd#define('l', 'll')
-                \|  call vimshell#altercmd#define('ll', 'ls -l')
-                \|  call vimshell#altercmd#define('la', 'ls -a')
-                \|  call vimshell#altercmd#define('lla', 'ls -la')
-    "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
-    "function! g:my_chpwd(args, context)
-    "    call vimshell#execute('ls')
-    "endfunction
 endif
+"let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
+let g:vimshell_max_command_history = 3000
+
+autocmd MyVimrc FileType vimshell
+            \   setlocal nonumber
+            \|  call vimshell#altercmd#define('g', 'git')
+            \|  call vimshell#altercmd#define('l', 'll')
+            \|  call vimshell#altercmd#define('ll', 'ls -l')
+            \|  call vimshell#altercmd#define('la', 'ls -a')
+            \|  call vimshell#altercmd#define('lla', 'ls -la')
+"\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+"function! g:my_chpwd(args, context)
+"    call vimshell#execute('ls')
+"endfunction
 
 " 参考
 " http://d.hatena.ne.jp/joker1007/20111018/1318950377
@@ -873,27 +882,28 @@ endif
 
 " vim-quickrun {{{
 " ==============================================================================
-if s:has_plugin('quickrun')
-    let g:quickrun_config = {}
-    let g:quickrun_config['_'] = {
-                \   'runner'                    : 'vimproc',
-                \   'runner/vimproc/updatetime' : 100,
-                \   'outputter/buffer/split'    : ''
-                \}
+nnoremap <Leader>r :QuickRun<CR>
+vnoremap <Leader>r :QuickRun<CR>
 
-    " phpunit {{{
-    " --------------------------------------------------------------------------
-    " http://www.karakaram.com/quickrun-phpunit
-    " http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
-    autocmd MyVimrc BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
+let g:quickrun_config = {}
+let g:quickrun_config['_'] = {
+            \   'runner'                    : 'vimproc',
+            \   'runner/vimproc/updatetime' : 100,
+            \   'outputter/buffer/split'    : ''
+            \}
 
-    let g:quickrun_config['php.phpunit'] = {
-                \   'command'                : 'phpunit',
-                \   'cmdopt'                 : '',
-                \   'exec'                   : '%c %o %s'
-                \}
-    "}}}
-endif
+" phpunit {{{
+" --------------------------------------------------------------------------
+" http://www.karakaram.com/quickrun-phpunit
+" http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
+autocmd MyVimrc BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
+
+let g:quickrun_config['php.phpunit'] = {
+            \   'command'                : 'phpunit',
+            \   'cmdopt'                 : '',
+            \   'exec'                   : '%c %o %s'
+            \}
+"}}}
 "}}}
 
 " vim-partedit {{{
