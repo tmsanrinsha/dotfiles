@@ -99,13 +99,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "let g:lucius_contrast_bg = 'high'
 
     " JavaScript
+    NeoBundle 'pangloss/vim-javascript'
     NeoBundleLazy 'jelera/vim-javascript-syntax', {
                 \     'autoload' : { 'filetypes' : 'javascript' }
                 \ }
     NeoBundleLazy 'nono/jquery.vim', {
                 \     'autolaad' : { 'filetypes' : 'jquery' }
                 \ }
-    "NeoBundle 'pangloss/vim-javascript'
 
     " confluenceのシンタックスファイル
     NeoBundleLazy 'confluencewiki.vim', {
@@ -691,9 +691,9 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " >>>> Plugin >>>> {{{
 " unite {{{
 " ==============================================================================
+nnoremap , ;
 nnoremap [unite] <Nop>
-"nmap <Leader>u [unite]
-nmap , [unite]
+nmap ; [unite]
 
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 " カレントディレクトリ以下のファイル
