@@ -691,9 +691,8 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " >>>> Plugin >>>> {{{
 " unite {{{
 " ==============================================================================
-nnoremap , ;
 nnoremap [unite] <Nop>
-nmap ; [unite]
+nmap , [unite]
 
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 " カレントディレクトリ以下のファイル
