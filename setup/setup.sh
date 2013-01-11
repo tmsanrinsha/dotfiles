@@ -2,17 +2,19 @@
 
 set -ex
 
-# 必要なディレクトリの作成
-for dir in bin/cygwin
-do
-    [ ! -d ~/$dir ] && mkdir -p ~/$dir
-done
+if [[ `uname` = CYGWIN* ]]; then
+    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+    if [ ! -x ~/bin/cygwin/ln ]; then
+        curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
+        chmod a+x ~/bin/cygwin/ln
+    fi
+fi
 
 # リンクの作成
 gitdir=`pwd | sed 's|/setup$||'`
 for file in `find .. -type f ! -regex '.*.\.git.*' ! -regex '.*setup.*' ! -regex '.*README.*' | sed 's|../||'`
 do
-    [ ! -f ~/$file ] && ln -v $gitdir/$file ~/$file
+    [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
 done
 
 
@@ -36,10 +38,3 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
-# if [[ `uname` = CYGWIN* ]]; then
-#     [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
-#     if [ ! -x ~/bin/cygwin/ln ]; then
-#         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
-#         chmod a+x ~/bin/cygwin/ln
-#     fi
-# fi
