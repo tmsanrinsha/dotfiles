@@ -17,9 +17,9 @@ nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
 " paste {{{
 " ==============================================================================
-inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <A-v> <C-r>*
-vnoremap <A-c> "*y
+inoremap <C-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+cnoremap <C-v> <C-r>*
+vnoremap <C-c> "*y
 " }}}
 
 " mouse {{{
