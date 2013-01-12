@@ -15,13 +15,6 @@ set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
-" paste {{{
-" ==============================================================================
-inoremap <C-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <C-v> <C-r>*
-vnoremap <C-c> "*y
-" }}}
-
 " mouse {{{
 " ==============================================================================
 " Show popup menu if right click.

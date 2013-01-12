@@ -20,6 +20,7 @@ typeset -U path cdpath fpath manpath ld_library_path include
 bindkey -e
 bindkey "^/" undo
 bindkey "^[/" redo
+bindkey "^[v" quoted-insert
 #DELで一文字削除
 bindkey "^[[3~" delete-char
 #HOMEは行頭へ
