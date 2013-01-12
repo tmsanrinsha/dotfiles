@@ -35,7 +35,7 @@ exec_mklink() {
         target_file="${2}"
     fi
 
-    cmd /c mklink $D $H `cygpath -w $target_file` `cygpath -w $1`
+    cmd /c mklink $D $H "`cygpath -w \"$target_file\"`" "`cygpath -w \"$1\"`"
 }
 
 [ "$1" = '-h' -o "$1" = '--help' ] && usage && exit 1
@@ -57,10 +57,10 @@ if [ $# -eq 0 ]; then
     usage
     exit 1
 elif [ $# -eq 1 ]; then # 引数が1つの時はカレントディレクトリに同名のリンクを作る
-    target=`basename $1`
-    exec_mklink $1 $target
+    target=`basename "$1"`
+    exec_mklink "$1" "$target"
 elif [ $# -eq 2 ]; then
-    exec_mklink $1 $2
+    exec_mklink "$1" "$2"
 else
     eval target=\${$#}
     if [ ! -d "$target" ]; then # 引数が3つ以上のときは最後の引数はディレクトリ
@@ -69,7 +69,7 @@ else
     fi
     while [ "$1" != "$target" ]
     do
-        exec_mklink $1 $target
+        exec_mklink "$1" "$target"
         shift
     done
 fi
