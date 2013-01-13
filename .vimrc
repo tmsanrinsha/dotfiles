@@ -28,6 +28,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/unite-ssh'
+    "NeoBundle 'Shougo/unite-sudo'
     NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/vimfiler'
     NeoBundle 'Shougo/vimshell'
@@ -923,8 +924,8 @@ endif
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_mapping_f = 'f'
-    let g:EasyMotion_mapping_F = 'F'
+    let g:EasyMotion_mapping_f = '+'
+    let g:EasyMotion_mapping_F = '-'
 endif
 "}}}
 
