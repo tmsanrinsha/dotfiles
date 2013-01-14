@@ -8,6 +8,9 @@ if [[ `uname` = CYGWIN* ]]; then
         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
         chmod a+x ~/bin/cygwin/ln
     fi
+    # cmdのコマンドを打った時の文字コードをcp932からutf-8に変更
+    # なぜか英語になっちゃう
+    cmd /c chcp 65001
 fi
 
 # リンクの作成

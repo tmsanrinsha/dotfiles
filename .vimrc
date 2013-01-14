@@ -557,7 +557,7 @@ if has("win32") || has("win64")
     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
 else
     " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
-    set fileencodings=ucs-boms,utf-8,euc-jp
+    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
