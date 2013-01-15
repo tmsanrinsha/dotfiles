@@ -694,17 +694,23 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 nnoremap [unite] <Nop>
 nmap , [unite]
 
-call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 " カレントディレクトリ以下のファイル
 nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
+" カレントディレクトリ以下のディレクトリ
+nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
+call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 " バッファ
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 "レジスタ一覧
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 "最近使用したファイル一覧
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>j
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+"最近使用したディレクトリ一覧
+nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
+call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 " ブックマーク
 nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 " ファイル内検索結果
 nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 " ヤンク履歴
