@@ -2,3 +2,4 @@
 --type-set=inc=.inc
 --type-set=ini=.ini
 --type-set=conf=.conf
+--type-set=tpl=.tpl
