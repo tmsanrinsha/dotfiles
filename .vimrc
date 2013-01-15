@@ -212,13 +212,6 @@ scriptencoding utf-8
 inoremap jj <ESC>
 nnoremap Y y$
 
-inoremap <C-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <C-v> <C-r>*
-inoremap <A-v> <C-v>
-cnoremap <A-v> <C-v>
-xnoremap <C-c> "*y
-nnoremap <A-a> ggVG
-
 "" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 "if has('persistent_undo')
 "    set undofile
