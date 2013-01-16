@@ -484,8 +484,8 @@ nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
 nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
 nnoremap <silent> [VIMDIFF]o :diffoff<CR>
-nnoremap <silent> [VIMDIFF]T :windo diffthis<CR> <C-w><C-w>
-nnoremap <silent> [VIMDIFF]O :windo diffthis<CR> <C-w><C-w>
+nnoremap <silent> [VIMDIFF]T :windo diffthis<CR> :diffo<CR> <C-w><C-w>
+nnoremap <silent> [VIMDIFF]O :windo diffoff<CR> <C-w><C-w>
 nnoremap <silent> [VIMDIFF]U :windo diffupdate<CR> <C-w><C-w>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
