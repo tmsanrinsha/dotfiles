@@ -562,6 +562,10 @@ endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
+nnoremap [enc] <Nop>
+nmap <Leader>e [enc]
+nnoremap [enc]e :set encoding=euc-jp<CR> :e ++encoding=euc-jp<CR>
+nnoremap [enc]u :set encoding=utf-8<CR>  :e ++encoding=utf-8<CR>
 "}}}
 
 " printing {{{
