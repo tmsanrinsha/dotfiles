@@ -211,6 +211,12 @@ scriptencoding utf-8
 
 inoremap jj <ESC>
 nnoremap Y y$
+" expand path
+inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
+cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
+" expand file (not ext)
+inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
+cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 
 "" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 "if has('persistent_undo')
