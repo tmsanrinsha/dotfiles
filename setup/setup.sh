@@ -36,8 +36,14 @@ if [ ! -x ~/bin/pseudo/git ];then
     chmod a+x $HOME/bin/pseudo/git
 fi
 
+# vim
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
+# cpanm
+if ! which cpanm 1>/dev/null 2>&1;then
+    source cpanm.sh
+fi
+cpanm --skip-installed MIME::Base64
