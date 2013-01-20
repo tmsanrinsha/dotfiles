@@ -15,11 +15,11 @@ fi
 
 # リンクの作成
 gitdir=`pwd | sed 's|/setup$||'`
-for file in `find .. -type f ! -regex '.*.\.git.*' ! -regex '.*setup.*' ! -regex '.*README.*' | sed 's|../||'`
+for file in `find .. -type f ! -regex '.*README.*' ! -regex '.*.gitignore.*' -maxdepth 1 | sed 's|../||'`
 do
     [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
 done
-
+[ ! -d ~/bin ] && ln -sv $gitdir/bin ~/bin
 
 # http://betterthangrep.com/
 if [ ! -x ~/bin/ack ];then
