@@ -85,7 +85,7 @@ alias pe='ps aux | egrep'
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
 alias diff='diff -u'
-alias smw='sudo chmod a+w'
+alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 
 # vim
 alias vi='vim'
