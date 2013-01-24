@@ -268,6 +268,12 @@ fi
 
 # }}}
 
+# }}}
+
 if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
+fi
+
+if [[ `uname` = CYGWIN* && -f ~/.zshrc.cygwin ]]; then
+    . ~/.zshrc.cygwin
 fi
