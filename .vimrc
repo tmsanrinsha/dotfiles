@@ -486,6 +486,7 @@ runtime macros/matchit.vim "HTML tag match
 
 " vimdiff {{{
 " ==============================================================================
+set diffopt=filler,iwhite
 nnoremap [VIMDIFF] <Nop>
 nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>

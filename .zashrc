@@ -85,7 +85,7 @@ alias pe='ps aux | egrep'
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
 alias diff='diff -u'
-alias smw='sudo chmod a+w'
+alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 
 # vim
 alias vi='vim'
@@ -159,6 +159,12 @@ test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
 alias svnvd='svn diff --diff-cmd ~/bin/svnvimdiff'
 # }}}
 
+# perl {{{
+# ==============================================================================
+# perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
+alias pl="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
+#}}}
+
 # gisty {{{
 export GISTY_DIR="$HOME/gists"
 export GISTY_SSL_VERIFY="NONE"
@@ -178,12 +184,6 @@ if [ -f ~/.nvm/nvm.sh ]; then
     nvm alias default v0.6.11 > /dev/null
 fi
 # }}}
-
-# perl {{{
-# ==============================================================================
-# perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
-alias perlls="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
-#}}}
 
 # .zashrc.cygwin {{{
 if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
