@@ -90,14 +90,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
-    "NeoBundle 'vim-scripts/wombat256.vim'
+    NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
-    "NeoBundle 'chriskempson/vim-tomorrow-theme'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
-    "NeoBundle 'rdark'
+    NeoBundle 'rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
-    "NeoBundle 'jonathanfilip/vim-lucius'
-    "let g:lucius_contrast_bg = 'high'
+    NeoBundle 'jonathanfilip/vim-lucius'
+    let g:lucius_contrast_bg = 'high'
 
     " JavaScript
     NeoBundle 'pangloss/vim-javascript'
@@ -128,8 +128,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'rails.vim'
 
     " 自分で修正したプラグイン
-    " https://github.com/tmsanrinsha/vim
-    NeoBundle 'tmsanrinsha/vim'
+    if hostname() =~ 'sakura'
+        NeoBundle 'tmsanrinsha/vim', { 'type__protocol' : 'ssh' }
+    else
+        NeoBundle 'tmsanrinsha/vim'
+    endif
 
     " コマンドモードをEmacsキーバインドにする
     if hostname() =~ 'sakura'
@@ -777,6 +780,7 @@ let g:vimshell_max_command_history = 3000
 
 autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
+            \|  setlocal nocursorline
             \|  call vimshell#altercmd#define('g', 'git')
             \|  call vimshell#altercmd#define('l', 'll')
             \|  call vimshell#altercmd#define('ll', 'ls -l')
