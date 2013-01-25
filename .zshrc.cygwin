@@ -1,0 +1,5 @@
+alias -s ppt=cygstart
+alias -s xls=cygstart
+alias -s xlsx=cygstart
+alias -s doc=cygstart
+alias -s pdf=cygstart
