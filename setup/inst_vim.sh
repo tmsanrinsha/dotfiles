@@ -4,6 +4,9 @@
 # http://www.glidenote.com/archives/422
 # patchesが途中で止まってしまうので最新版にはならない
 
+# CentOSの場合はこちらを参照
+# http://d.hatena.ne.jp/deris/20120804/1344080402
+
 # http://www.vim.org/download.phpで最新バージョンを確かめる
 VERSION=7.3
 # ftp://ftp.vim.org/pub/vim/patchesで最新のパッチを調べる
