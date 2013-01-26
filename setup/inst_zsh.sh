@@ -1,12 +1,12 @@
 #!/usr/local/bin/bash -x
 # zshを$HOME/local/bin以下にインストールする
 # http://sourceforge.net/projects/zsh/files/zsh-dev/で最新バージョンを確かめる
-VERSION=4.3.15
+VERSION=5.0.2
 
 mkdir -p $HOME/local/{bin,src}
 cd $HOME/local/src/ || exit 1
 # $HOME/loca/srcにDownload
-URL=http://sourceforge.net/projects/zsh/files/zsh-dev/${VERSION}/zsh-${VERSION}.tar.bz2
+URL=http://jaist.dl.sourceforge.net/project/zsh/zsh/${VERSION}/zsh-${VERSION}.tar.bz2
 if which curl;then
     # curlを使ってsourceforgeでダウンロードするにはリダイレクトを追うために
     # -Lオプションを付ける必要がある
