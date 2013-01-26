@@ -119,10 +119,13 @@ alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUO
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
 #http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
-export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-    vim -R -c 'setlocal ft=man nomod nolist' -c 'noremap q :q<CR>' \
-    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+# cygwinだとcolがなかったので使わない
+if [[ `uname` != CYGWIN* ]]; then
+    export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+        vim -R -c 'setlocal ft=man nomod nolist' -c 'noremap q :q<CR>' \
+        -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+        -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+fi
 
 #screenがインストールされていて、Screenを起動していないときは自動起動
 #ただし、.screenrcでterm xterm-256colorと設定しているとする

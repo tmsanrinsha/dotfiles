@@ -2,10 +2,10 @@
 set -ex
 
 test -d ~/bin || mkdir ~/bin
-curl -LO http://xrl.us/cpanm > ~/bin/cpanm
+curl -L http://xrl.us/cpanm > ~/bin/cpanm
 chmod +x ~/bin/cpanm
 export PERL5LIB="${HOME}/perl5/lib/perl5:$PERL5LIB"
-mkdir ~/.cpanm
+test -d ~/.cpanm || mkdir ~/.cpanm
 cpanm --local-lib=~/perl5 local::lib
 test -d ~/.profile.d || mkdir ~/.profile.d
 echo 'export PERL5LIB="${HOME}/perl5/lib/perl5:$PERL5LIB"' > ~/.profile.d/cpanm.sh
