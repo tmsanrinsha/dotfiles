@@ -114,7 +114,7 @@ setopt auto_cd
 # http://qiita.com/items/7916037b1384d253b457
 zstyle ':completion:*' ignore-parents parent pwd ..
 # シンボリックリンクのディレクトリにcdしたら実際のディレクトリに移る
-setopt chase_links
+# setopt chase_links
 
 # auto_pushd {{{
 # ------------------------------------------------------------------------------
