@@ -8,6 +8,10 @@ if [[ `uname` = CYGWIN* ]]; then
         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
         chmod a+x ~/bin/cygwin/ln
     fi
+    if [ ! -x ~/bin/cygwin/apt-cyg ]; then
+        curl -L http://apt-cyg.googlecode.com/svn/trunk/apt-cyg > ~/bin/cygwin/apt-cyg
+        chmod a+x ~/bin/cygwin/apt-cyg
+    fi
     # cmdのコマンドを打った時の文字コードをcp932からutf-8に変更
     # なぜか英語になっちゃう
     cmd /c chcp 65001
