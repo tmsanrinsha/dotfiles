@@ -32,6 +32,8 @@ cd zsh-$VERSION || exit 1
 make || exit 1
 make install || exit 1
 
+# ncursesがない場合は
+# yum install ncurses-devel
 # ログインシェルの変更
 # chsh -s $HOME/loca/bin/zsh  
 # で変更しようとすると
