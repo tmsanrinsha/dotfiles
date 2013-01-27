@@ -1,5 +1,5 @@
 # vim:filetype=sh
-if [[ `hostname` == *.sakura.ne.jp ]]; then
+if [[ `hostname` == *ua.sakura.ne.jp ]]; then
     export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
 fi
 

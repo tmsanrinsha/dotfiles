@@ -7,6 +7,7 @@ if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x ~/bin/cygwin/ln ]; then
         curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
         chmod a+x ~/bin/cygwin/ln
+        alias ln="~/bin/cygwin/ln"
     fi
     if [ ! -x ~/bin/cygwin/apt-cyg ]; then
         curl -L http://apt-cyg.googlecode.com/svn/trunk/apt-cyg > ~/bin/cygwin/apt-cyg
@@ -19,10 +20,11 @@ fi
 
 # リンクの作成
 gitdir=`pwd | sed 's|/setup$||'`
-for file in `find .. -type f ! -regex '.*README.*' ! -regex '.*.gitignore.*' -maxdepth 1 | sed 's|../||'`
+for file in `find .. -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*.git.*' | sed 's|../||'`
 do
     [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
 done
+[ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 [ ! -d ~/bin ] && ln -sv $gitdir/bin ~/bin
 
 # http://betterthangrep.com/
