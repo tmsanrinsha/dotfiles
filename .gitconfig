@@ -5,11 +5,11 @@
     br = branch
     hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
 [user]
-    name = ****
-    email = ****
+    name = Takashi Miwa
+    email = sanrinsha.tm@gmail.com
 [github]
-    user = ****
-    token = ****
+    user = tmsanrinsha
+    token = 349d1d34f64defccf06d48e36e39cb99
 [color]
     ui = auto
 [core]
