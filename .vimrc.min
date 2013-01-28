@@ -1,0 +1,88 @@
+" neobundle.vim {{{
+" ==============================================================================
+" https://github.com/Shougo/neobundle.vim
+" http://vim-users.jp/2011/10/hack238/
+if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
+    set nocompatible "vi互換にしない
+    filetype off     " required!
+
+    if has('vim_starting')
+      set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
+
+    call neobundle#rc(expand('~/.vim/bundle/'))
+
+    " ステータスラインをカスタマイズ
+    NeoBundle 'Lokaltog/vim-powerline'
+
+    " 自分で修正したプラグイン
+    if hostname() =~ 'sakura'
+        NeoBundle 'tmsanrinsha/vim', { 'type__protocol' : 'ssh' }
+    else
+        NeoBundle 'tmsanrinsha/vim'
+    endif
+
+    filetype plugin indent on     " required!
+else
+    set nocompatible "vi互換にしない
+    filetype plugin indent on
+endif
+"}}}
+
+" Pluginの有無をチェックする関数 {{{
+" ==============================================================================
+" http://yomi322.hateblo.jp/entry/2012/06/20/225559
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+endfunction
+"}}}
+
+" 基本設定 {{{
+" ==============================================================================
+set showmode "現在のモードを表示
+set showcmd "コマンドを表示
+set number
+set ruler
+set cursorline
+set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
+set t_Co=256 " 256色
+set laststatus=2
+syntax on
+
+scriptencoding utf-8
+
+" カラースキーム {{{
+" ------------------------------------------------------------------------------
+if s:has_plugin('molokai')
+    colorscheme molokai
+else
+    colorscheme default
+endif
+"}}}
+"}}}
+
+"カーソルを表示行で移動する。
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
+nnoremap <down> gj
+vnoremap <down> gj
+nnoremap <up> gk
+vnoremap <up> gk
+nnoremap 0 g0
+vnoremap 0 g0
+nnoremap $ g$
+vnoremap $ g$
+
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
+
+" vim-powerline{{{
+" ==============================================================================
+if s:has_plugin('Powerline')
+    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+endif
+"}}}
