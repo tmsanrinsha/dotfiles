@@ -53,6 +53,9 @@ cat patches/${VERSION}.* | patch -p0
 --disable-gui \
 --without-x \
 --prefix=$HOME/local || exit 1
- 
+# --with-local-dir=$HOME/local \
+# LDFLAGS="-L$HOME/local/lib" \
+# CFLAGS="-I$HOME/local/include"
+
 make || exit 1
 make install || exit 1
