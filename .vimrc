@@ -210,10 +210,13 @@ set directory=.,/var/tmp,/tmp
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
 
-scriptencoding utf-8
-
 inoremap jj <ESC>
 nnoremap Y y$
+nnoremap p ]p
+nnoremap P ]P
+nnoremap ]p p
+nnoremap ]P P
+
 " expand path
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
@@ -550,6 +553,7 @@ set path+=./;/
 " ==============================================================================
 set encoding=utf-8
 set fileencoding=utf-8
+scriptencoding utf-8
 
 " ファイルのエンコードの判定を前から順番にする
 " ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
@@ -1030,6 +1034,7 @@ endif
 
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
+    nnoremap P [P
 endif
 
 if filereadable(expand('~/.vimrc.local'))
