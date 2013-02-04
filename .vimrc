@@ -200,6 +200,9 @@ set ruler
 set cursorline
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 set t_Co=256 " 256色
+" CTRL-A,CTRL-Xを使った時、アルファベットと16進数を増減させる。
+" 0で始まる数字列を8進数とみなさず、10進数として増減させる。
+set nrformats=hex,alpha
 " pasteモードのトグル。autoindentをonにしてペーストすると
 " インデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentが解除されそのままペーストできる
@@ -570,10 +573,13 @@ endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
-nnoremap [enc] <Nop>
-nmap <Leader>e [enc]
-nnoremap [enc]e :set encoding=euc-jp<CR> :e ++encoding=euc-jp<CR>
-nnoremap [enc]u :set encoding=utf-8<CR>  :e ++encoding=utf-8<CR>
+command! Cp932     edit ++enc=cp932
+command! Eucjp     edit ++enc=euc-jp
+command! Iso2022jp edit ++enc=iso-20220-jp
+command! Utf8      edit ++enc=iso-20220-jp
+" alias
+command! Jis  Iso2022jp
+command! Sjis Cp932
 "}}}
 
 " printing {{{
@@ -952,6 +958,7 @@ endif
 if s:has_plugin('alignta')
     xnoremap [ALINGTA] <Nop>
     xmap <Leader>a [ALINGTA]
+    xnoremap [ALINGTA]s :Alignta \S\+<CR>
     xnoremap [ALINGTA]= :Alignta =<CR>
     xnoremap [ALINGTA]> :Alignta =><CR>
     xnoremap [ALINGTA]: :Alignta :<CR>
