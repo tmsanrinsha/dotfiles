@@ -1,3 +1,3 @@
 #!/bin/sh
 
-vimdiff "$2" "$5"
+vimdiff -u ~/.vimrc.min "$2" "$5"
