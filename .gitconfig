@@ -1,0 +1,24 @@
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
+    di = diff --no-ext-diff
+[include]
+    path = .gitconfig.local
+[user]
+    name  = ************
+    email = ************
+[github]
+    user  = ************
+    token = ************
+[color]
+    ui = auto
+[core]
+    pager=cat
+    editor=vim
+[diff]
+    external = git_diff_wrapper
+[pager]
+    diff =
