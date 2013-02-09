@@ -142,10 +142,10 @@ if which tmux 1>/dev/null 2>&1; then
     # すでに tmux セッションがある場合そこに接続し、なければ作成する
     alias tm='tmux a || tmux'
 
-    # tmuxを起動していないときは自動起動
-    if [ -z "$TMUX" ];then
-        tmux -2 a || tmux -2
-    fi
+    # # tmuxを起動していないときは自動起動
+    # if [ -z "$TMUX" ];then
+    #     tmux -2 a || tmux -2
+    # fi
 fi
 #}}}
 
