@@ -4,14 +4,21 @@
     st = status
     br = branch
     hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
+    di = diff --no-ext-diff
+[include]
+    path = .gitconfig.local
 [user]
-    name = Takashi Miwa
-    email = sanrinsha.tm@gmail.com
+    name  = ************
+    email = ************
 [github]
-    user = tmsanrinsha
-    token = 349d1d34f64defccf06d48e36e39cb99
+    user  = ************
+    token = ************
 [color]
     ui = auto
 [core]
     pager=cat
     editor=vim
+[diff]
+    external = git_diff_wrapper
+[pager]
+    diff =

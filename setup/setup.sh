@@ -37,9 +37,8 @@ if [[ `uname` = CYGWIN* ]]; then
     fi
 fi
 
-cd $gitdir
 # リンクの作成
-for file in `find . -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*.git.*' | sed 's|./||'`
+for file in `find .. -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*.git.*' | sed 's|../||'`
 do
     [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
 done
