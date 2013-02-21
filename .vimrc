@@ -99,20 +99,27 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " JavaScript
     NeoBundle 'pangloss/vim-javascript'
-    NeoBundleLazy 'jelera/vim-javascript-syntax', {
-                \     'autoload' : { 'filetypes' : 'javascript' }
-                \ }
-    NeoBundleLazy 'nono/jquery.vim', {
-                \     'autolaad' : { 'filetypes' : 'jquery' }
+    NeoBundle 'jelera/vim-javascript-syntax'
+    " NeoBundleLazy 'jelera/vim-javascript-syntax', {
+    "             \     'autoload' : { 'filetypes' : 'javascript' }
+    "             \ }
+    NeoBundle 'nono/jquery.vim'
+    " NeoBundleLazy 'nono/jquery.vim', {
+    "             \     'autolaad' : { 'filetypes' : 'jquery.javascript-jquery.javascript' }
+    "             \ }
+
+    " Markdown
+    NeoBundle 'tpope/vim-markdown'
+    NeoBundleLazy 'teramako/instant-markdown-vim'
+
+    " tmuxのシンタックスファイル
+    NeoBundle 'zaiste/tmux.vim', {
+                \   'autoload' : { 'filetypes' : 'tmux' }
                 \ }
 
     " confluenceのシンタックスファイル
     NeoBundleLazy 'confluencewiki.vim', {
                 \   'autoload' : { 'filetypes' : 'confluence' }
-                \ }
-    " tmuxのシンタックスファイル
-    NeoBundle 'zaiste/tmux.vim', {
-                \   'autoload' : { 'filetypes' : 'tmux' }
                 \ }
 
     "
@@ -444,17 +451,17 @@ set virtualedit=block       " 矩形選択でカーソル位置の制限を解�
 
 "カーソルを表示行で移動する。
 nnoremap j gj
-vnoremap j gj
+xnoremap j gj
 nnoremap k gk
-vnoremap k gk
+xnoremap k gk
 nnoremap <down> gj
-vnoremap <down> gj
+xnoremap <down> gj
 nnoremap <up> gk
-vnoremap <up> gk
+xnoremap <up> gk
 nnoremap 0 g0
-vnoremap 0 g0
+xnoremap 0 g0
 nnoremap $ g$
-vnoremap $ g$
+xnoremap $ g$
  
 " backspaceキーの挙動を設定する
 " " indent        : 行頭の空白の削除を許す
