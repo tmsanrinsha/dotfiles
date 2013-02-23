@@ -283,3 +283,8 @@ fi
 if [[ `uname` = CYGWIN* && -f ~/.zshrc.cygwin ]]; then
     . ~/.zshrc.cygwin
 fi
+
+if [ -f ~/.zsh/plugin/z.sh ]; then
+    _Z_CMD=j
+    source ~/.zsh/plugin/z.sh
+fi

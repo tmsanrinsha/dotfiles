@@ -69,6 +69,16 @@ if [[ `uname` = CYGWIN* ]]; then
     fi
 fi
 
+# zsh
+if [ ! -d ~/git/z ]; then
+    test -d ~/git || mkdir ~/git
+    git clone git://github.com/rupa/z.git ~/git/z
+    test -d ~/.zsh/plugin || mkdir -p ~/.zsh/plugin
+    ln -s ~/git/z/z.sh ~/.zsh/plugin
+    test -d ~/local/man/man1 || mkdir -p ~/local/man/man1
+    ln -s ~/git/z/z.1 ~/local/man/man1
+fi
+
 # vim
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
