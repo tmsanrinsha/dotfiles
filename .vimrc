@@ -31,7 +31,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'Shougo/unite-sudo'
     NeoBundle 'h1mesuke/unite-outline'
     NeoBundle 'Shougo/vimfiler'
-    NeoBundle 'Shougo/vimshell'
     NeoBundleLazy 'Shougo/vimshell', {
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive" ] }
                 \}
