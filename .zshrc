@@ -276,15 +276,12 @@ if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
 fi
 
-if [ -f ~/.zshrc.vcs ]; then
-    . ~/.zshrc.vcs
-fi
-
-if [[ `uname` = CYGWIN* && -f ~/.zshrc.cygwin ]]; then
-    . ~/.zshrc.cygwin
-fi
-
-if [ -f ~/.zsh/plugin/z.sh ]; then
-    _Z_CMD=j
-    source ~/.zsh/plugin/z.sh
+if [[ `uname` = CYGWIN* ]]; then
+    test -f ~/.zshrc.cygwin && . ~/.zshrc.cygwin
+else
+    test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
+    if [ -f ~/.zsh/plugin/z.sh ]; then
+        _Z_CMD=j
+        source ~/.zsh/plugin/z.sh
+    fi
 fi

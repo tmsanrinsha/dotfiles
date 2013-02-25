@@ -49,7 +49,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \}
 
     " 部分的に別バッファで編集
-    NeoBundleLazy 'thinca/vim-partedit'
+    NeoBundle 'thinca/vim-partedit'
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'

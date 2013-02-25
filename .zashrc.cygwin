@@ -7,5 +7,4 @@ if which ssh-pageant 1>/dev/null 2>&1; then
     eval $(/usr/bin/ssh-pageant -q)
 fi
 
-# 
 cmd /c chcp 65001
