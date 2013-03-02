@@ -91,7 +91,7 @@ endfunction
 
 command! -range Paste64Copy :call s:Paste64Copy()
 
-vnoremap <C-c> :Paste64Copy<CR>
+vnoremap <A-c> :Paste64Copy<CR>
 " }}}
 
 " mouse {{{
