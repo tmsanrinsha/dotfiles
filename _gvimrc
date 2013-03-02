@@ -15,11 +15,9 @@ set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
-inoremap <C-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <C-v> <C-r>*
-inoremap <A-v> <C-v>
-cnoremap <A-v> <C-v>
-xnoremap <C-c> "*y
+inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+cnoremap <A-v> <C-r>*
+xnoremap <A-c> "*y
 nnoremap <A-a> ggVG
 
 " mouse {{{
