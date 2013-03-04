@@ -85,6 +85,8 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
+[ ! -d ~/.vim/bak ] && mkdir -p ~/.vim/bak
+
 # cpanm
 if ! which cpanm 1>/dev/null 2>&1;then
     source cpanm.sh

@@ -204,15 +204,17 @@ set ruler
 set cursorline
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 set t_Co=256 " 256色
-" CTRL-A,CTRL-Xを使った時、アルファベットと16進数を増減させる。
+
+" CTRL-AやCTRL-Xを使った時の文字の増減の設定
+" 10進法と16進数を増減させる。
 " 0で始まる数字列を8進数とみなさず、10進数として増減させる。
-set nrformats=hex,alpha
+" アルファベットは増減させない
+set nrformats=hex
+
 " pasteモードのトグル。autoindentをonにしてペーストすると
 " インデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentが解除されそのままペーストできる
 set pastetoggle=<F11>
-" デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
-set directory=.,/var/tmp,/tmp
 " key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
@@ -231,14 +233,6 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 
-"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
-"if has('persistent_undo')
-"    set undofile
-"    if !isdirectory(expand('~/.vimundo'))
-"        call mkdir(expand('~/.vimundo'))
-"    endif
-"    set undodir=~/.vimundo
-"endif
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
 if s:has_plugin('molokai')
@@ -269,6 +263,44 @@ augroup colerscheme
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 "}}}
+"}}}
+
+" swap, backup {{{
+" ==============================================================================
+" デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
+set directory=.,/var/tmp,/tmp
+
+" 富豪的バックアップ
+" http://d.hatena.ne.jp/viver/20090723/p1
+" http://synpey.net/?p=127
+"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
+set backup
+set backupdir=~/.vim/bak
+
+augroup backup
+    autocmd!
+    autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
+    function! UpdateBackupFile()
+        let basedir = "~/.vim/bak"
+        let dir = strftime(basedir."/%Y%m/%d", localtime())
+        if !isdirectory(dir)
+            let retval = system("mkdir -p ".dir)
+        endif
+
+        exe "set backupdir=".dir
+        let time = strftime("%H-%M", localtime())
+
+        exe "set backupext=.".time
+    endfunction
+augroup END
+
+"if has('persistent_undo')
+"    set undofile
+"    if !isdirectory(expand('~/.vimundo'))
+"        call mkdir(expand('~/.vimundo'))
+"    endif
+"    set undodir=~/.vimundo
+"endif
 "}}}
 
 " タブ・インデント {{{
