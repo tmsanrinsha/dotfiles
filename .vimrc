@@ -219,6 +219,7 @@ set pastetoggle=<F11>
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
 
+let mapleader = "\<space>"
 inoremap jj <ESC>
 nnoremap Y y$
 nnoremap p ]p
@@ -281,7 +282,7 @@ augroup backup
     autocmd!
     autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
     function! UpdateBackupFile()
-        let basedir = "~/.vim/.bak"
+        let basedir = expand("~/.vim/.bak")
         let dir = strftime(basedir."/%Y%m/%d", localtime())
         if !isdirectory(dir)
             call mkdir(dir, "p")

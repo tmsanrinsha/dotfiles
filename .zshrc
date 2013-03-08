@@ -63,6 +63,7 @@ rsf() {
 ## }}}
 # }}}
 
+alias r='exec zsh -l'
 # グローバルエイリアス {{{
 alias -g A='| awk'
 alias -g L='| less -R'
