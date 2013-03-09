@@ -30,6 +30,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/unite-ssh'
     "NeoBundle 'Shougo/unite-sudo'
     NeoBundle 'h1mesuke/unite-outline'
+    " http://archiva.jp/web/tool/vim_grep2.html
+    NeoBundle 'thinca/vim-qfreplace'
+
     NeoBundle 'Shougo/vimfiler'
     NeoBundleLazy 'Shougo/vimshell', {
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive" ] }
@@ -40,9 +43,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/snipmate-snippets'
-
-    " http://archiva.jp/web/tool/vim_grep2.html
-    NeoBundle 'thinca/vim-qfreplace'
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -121,7 +121,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \   'autoload' : { 'filetypes' : 'confluence' }
                 \ }
 
-    "
+    NeoBundleLazy 'mattn/gist-vim', {
+                \   'autoload' : { 'commands' : [ 'Gist' ] },
+                \   'depends'  : 'mattn/webapi-vim'
+                \}
+
     "NeoBundle 'thinca/vim-showtime'
     "NeoBundle 'pocket7878/presen-vim'
     "NeoBundle 'mattn/multi-vim'
