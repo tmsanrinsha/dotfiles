@@ -284,7 +284,7 @@ augroup backup
     autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
     function! UpdateBackupFile()
         let basedir = expand("~/.vim.d/.bak")
-        let dir = strftime(basedir."/%Y%m/%d", localtime()).expand("%:p:h")
+        let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
         if !isdirectory(dir)
             call mkdir(dir, "p")
         endif
