@@ -219,11 +219,13 @@ set pastetoggle=<F11>
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
 
-let mapleader = "\<space>"
+" let mapleader = "\<space>"
 inoremap jj <ESC>
 nnoremap Y y$
 nnoremap p ]p
 nnoremap P ]P
+xnoremap p ]p
+xnoremap P ]P
 nnoremap ]p p
 nnoremap ]P P
 
@@ -274,16 +276,15 @@ set directory=.,/var/tmp,/tmp
 " 富豪的バックアップ
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
-"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 set backup
-set backupdir=~/.vim/bak
+set backupdir=~/.vim.d/.bak
 
 augroup backup
     autocmd!
     autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
     function! UpdateBackupFile()
-        let basedir = expand("~/.vim/.bak")
-        let dir = strftime(basedir."/%Y%m/%d", localtime())
+        let basedir = expand("~/.vim.d/.bak")
+        let dir = strftime(basedir."/%Y%m/%d", localtime()).expand("%:p:h")
         if !isdirectory(dir)
             call mkdir(dir, "p")
         endif
@@ -295,6 +296,7 @@ augroup backup
     endfunction
 augroup END
 
+"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 "if has('persistent_undo')
 "    set undofile
 "    if !isdirectory(expand('~/.vimundo'))
