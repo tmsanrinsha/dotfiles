@@ -35,7 +35,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'Shougo/vimfiler'
     NeoBundleLazy 'Shougo/vimshell', {
-                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive" ] }
+                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] }
                 \}
 
     " 補完候補の自動表示
@@ -83,7 +83,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    NeoBundle 'YankRing.vim'
+    "NeoBundle 'YankRing.vim'
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
@@ -816,6 +816,7 @@ nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
 "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
 "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
+imap <C-;> <Plug>(vimshell_zsh_complete)
 if has('win32') || has('win64')
     " Display user name on Windows.
     let g:vimshell_prompt = $USERNAME."% "
@@ -830,6 +831,7 @@ else
 endif
 "let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
 let g:vimshell_max_command_history = 3000
+let g:vimshell_temporary_directory = expand('~/.vim.d/.vimshell')
 
 autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
