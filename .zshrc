@@ -273,6 +273,12 @@ fi
 
 # }}}
 
+# tmux {{{
+# tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
+# http://qiita.com/items/c166700393481cb15e0c
+DISABLE_AUTO_TITLE=true
+# }}}
+
 if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
 fi
