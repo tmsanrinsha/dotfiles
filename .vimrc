@@ -762,29 +762,49 @@ nnoremap [unite] <Nop>
 nmap , [unite]
 
 " カレントディレクトリ以下のファイル
-nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
+nnoremap [unite]fc :<C-u>Unite file_rec<CR>
+" プロジェクトディレクトリ以下のファイル
+nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
 " カレントディレクトリ以下のディレクトリ
 nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
 call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 " バッファ
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-"レジスタ一覧
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 "最近使用したファイル一覧
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 "最近使用したディレクトリ一覧
 nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
 call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-" ブックマーク
-nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
 " ファイル内検索結果
 nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+
+" Unite grep {{{
+let g:unite_source_grep_max_candidates = 1000
+
+" カレントディレクトリに対してgrep
+nnoremap [unite]gc :<C-u>Unite grep:.<CR>
+" 全バッファに対してgrep
+nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
+" プロジェクト内のファイルに対してgrep
+nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
+function! s:unite_grep_project(...)
+  let opts = (a:0 ? join(a:000, ' ') : '')
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' opts 'grep:' . dir
+endfunction
+" }}}
+
+"レジスタ一覧
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 " ヤンク履歴
 let g:unite_source_history_yank_enable = 1  "history/yankの有効化
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+" ブックマーク
+nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
-let g:unite_source_grep_max_candidates = 1000
+let g:unite_source_find_max_candidates = 1000
 "}}}
 
 " vimfiler {{{
