@@ -239,6 +239,16 @@ xnoremap P ]P
 nnoremap ]p p
 nnoremap ]P P
 
+"挿入モードのキーバインドをemacs風に
+inoremap <C-a> <Home>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-h> <BS>
+inoremap <C-d> <Del>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+"inoremap <C-e> <End>  neocomplcacheにて設定
+"inoremap <C-k> <C-o>D neosnippetにて設定
 " expand path
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
@@ -512,11 +522,6 @@ xnoremap $ g$
 " " eol           : 改行の削除を許す
 " " start         : 挿入モードの開始位置での削除を許す
 set backspace=indent,eol,start
-
-" <C-u>, <C-w>した文字列をアンドゥできるようにする
-" http://vim-users.jp/2009/10/hack81/
-inoremap <C-u>  <C-g>u<C-u>
-inoremap <C-w>  <C-g>u<C-w>
 
 " カーソルを行頭、行末で止まらないようにする。
 " http://vimwiki.net/?'whichwrap'
@@ -912,8 +917,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
     inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
+    inoremap <expr><C-l>     neocomplcache#complete_common_string() . neocomplcache#start_manual_complete()
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
@@ -921,9 +925,15 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
+    " <C-u>, <C-w>した文字列をアンドゥできるようにする
+    " http://vim-users.jp/2009/10/hack81/
+    " C-uでポップアップを消したいがうまくいかない
+    inoremap <expr><C-u>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"
+    inoremap <expr><C-w>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"
     inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    inoremap <expr><CR>   pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
 
     " AutoComplPop like behavior.
     "let g:neocomplcache_enable_auto_select = 1
@@ -965,12 +975,8 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
     " Plugin key-mappings.
-    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-
-    " Plugin key-mappings.
-    " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    imap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
+    smap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
 
     " SuperTab like snippets behavior.
     "imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
