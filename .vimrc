@@ -27,9 +27,15 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       \ }
 
     NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'Shougo/unite-ssh'
+    "NeoBundle 'Shougo/unite-ssh'
     "NeoBundle 'Shougo/unite-sudo'
-    NeoBundle 'h1mesuke/unite-outline'
+    NeoBundleLazy 'h1mesuke/unite-outline', {
+                \   'autoload' : { 'unite_sources' : ['outline'] }
+                \ }
+    NeoBundleLazy 'tacroe/unite-mark', {
+                \   'autoload' : { 'unite_sources' : ['mark'] }
+                \ }
+
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
 
@@ -793,9 +799,9 @@ nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
 " プロジェクト内のファイルに対してgrep
 nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
 function! s:unite_grep_project(...)
-  let opts = (a:0 ? join(a:000, ' ') : '')
-  let dir = unite#util#path2project_directory(expand('%'))
-  execute 'Unite' opts 'grep:' . dir
+    let opts = (a:0 ? join(a:000, ' ') : '')
+    let dir = unite#util#path2project_directory(expand('%'))
+    execute 'Unite' opts 'grep:' . dir
 endfunction
 " }}}
 
@@ -807,6 +813,10 @@ nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 " ブックマーク
 nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+" unite-outline
+nnoremap [unite]o :<C-u>Unite outline<CR>
+" unite-mark
+nnoremap [unite]` :<C-u>Unite mark<CR>
 
 let g:unite_source_find_max_candidates = 1000
 "}}}
