@@ -932,12 +932,10 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     inoremap <expr><C-u>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"
     inoremap <expr><C-w>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"
     inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><CR>   pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    "inoremap <expr><CR>   pumvisible() ? neocomplcache#close_popup() : "\<CR>"
     inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
-
     " AutoComplPop like behavior.
     "let g:neocomplcache_enable_auto_select = 1
-
     " Shell like behavior(not recommended).
     "set completeopt+=longest
     "let g:neocomplcache_enable_auto_select = 1
