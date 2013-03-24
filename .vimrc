@@ -762,6 +762,10 @@ autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " ==============================================================================
 set helplang=en,ja
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
+
+" crontab {{{
+" ==============================================================================
+autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
 
 " <<<< filetype <<<< }}}
