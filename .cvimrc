@@ -38,7 +38,6 @@ let s:fast_i = 0
 call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
 call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
 
-nnoremap <A-a> ggVG
 "}}}
 
 " paste {{{

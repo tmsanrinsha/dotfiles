@@ -231,13 +231,15 @@ set mouse=a
 
 " let mapleader = "\<space>"
 inoremap jj <ESC>
+cnoremap jj <ESC>
 nnoremap Y y$
-nnoremap p ]p
-nnoremap P ]P
-xnoremap p ]p
-xnoremap P ]P
-nnoremap ]p p
-nnoremap ]P P
+nnoremap <M-a> ggVG
+" nnoremap p ]p
+" nnoremap P ]P
+" xnoremap p ]p
+" xnoremap P ]P
+" nnoremap ]p p
+" nnoremap ]P P
 
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
@@ -913,6 +915,10 @@ if s:has_plugin('neocomplcache') && v:version >= 702
                 \ 'vimshell' : $HOME.'/.vimshell_hist',
                 \ 'scheme'   : $HOME.'/.gosh_completions'
                 \ }
+
+    let g:neocomplcache_ignore_composite_filetype_lists = {
+                \ 'php.phpunit': 'php',
+                \}
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
