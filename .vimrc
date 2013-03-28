@@ -784,7 +784,7 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " ==============================================================================
 if s:has_plugin('unite')
     let g:unite_enable_start_insert = 1
-    let g:unite_split_rule = "botright"
+    " let g:unite_split_rule = "botright"
     let g:unite_winheight = "15"
     nnoremap [unite] <Nop>
     nmap , [unite]
