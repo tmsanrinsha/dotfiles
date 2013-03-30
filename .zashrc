@@ -14,37 +14,29 @@ export EDITOR='vim'
 
 # PATHの設定 {{{
 # ------------------------------------------------------------------------------
-# PATHを追加する関数。すでにある場合は追加しない
-addPath() {
-    newPath=$1
-    position=$2
-
-    # newPathがPATHに含まれない場合は追加
-    echo $PATH | grep "\(^\|:\)$newPath\($\|:\)" 1>/dev/null 2>&1
-    if [ $? -ne 0 ]; then
-        case $position in
-            'pre' )
-                export PATH="$newPath:$PATH"
-                ;;
-            'post' )
-                export PATH="$PATH:$newPath"
-                ;;
-            * )
-                echo 'unknown position'; exit 1
-                ;;
-        esac
-    fi
+# CentOS 6.3の/etc/profileにあるPATHを追加する関数
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
 }
 
 # シェルスクリプトなどを置くディレクトリ
-addPath ${HOME}/bin pre
+pathmunge ${HOME}/bin
 # makeで作った実行ファイルなどを置くディレクトリ
-addPath ${HOME}/local/bin pre
+pathmunge ${HOME}/local/bin
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
-addPath $HOME/bin/pseudo post
+pathmunge $HOME/bin/pseudo after
 # Cygwin用のコマンドを置くディレクトリ
 if [[ `uname` = CYGWIN* ]]; then
-    addPath $HOME/bin/cygwin pre
+    pathmunge $HOME/bin/cygwin
 fi
 # }}}
 
