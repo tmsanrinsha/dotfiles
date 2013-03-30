@@ -195,7 +195,9 @@ setopt hist_ignore_dups
 ## スペースで始まるコマンドラインはヒストリに追加しない。
 setopt hist_ignore_space
 ## すぐにヒストリファイルに追記する。
-setopt inc_append_history
+#setopt inc_append_history
+# share_historyをしていれば必要ない
+# http://www.ayu.ics.keio.ac.jp/~mukai/translate/zshoptions.html#SHARE_HISTORY
 ## zshプロセス間でヒストリを共有する。
 setopt share_history
 # }}}

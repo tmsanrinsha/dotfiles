@@ -24,9 +24,14 @@ fi
 # リンクの作成とダウンロード
 for file in `find ..  -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' ! -regex '.*setup.*' ! -regex '.*\.ssh.*' | sed 's|../||'`
 do
-    [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
+    if [ ! -L ~/$file ];then
+        if [ -f ~/$file ]; then
+            mv ~/$file ~/${file}.bak
+        fi
+        ln -sv $gitdir/$file ~/$file
+    fi
 done
-[ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
+# [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
 # http://betterthangrep.com/
 # if [ ! -x ~/bin/ack ];then
@@ -77,6 +82,7 @@ if [ ! -d ~/git/z ]; then
     ln -s ~/git/z/z.sh ~/.zsh/plugin
     test -d ~/local/man/man1 || mkdir -p ~/local/man/man1
     ln -s ~/git/z/z.1 ~/local/man/man1
+    test -d ~/.z || mkdir -p ~/.z
 fi
 
 # vim
