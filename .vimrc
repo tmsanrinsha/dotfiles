@@ -1029,10 +1029,12 @@ let g:quickrun_config = {}
 let g:quickrun_config['_'] = {
             \   'runner'                    : 'vimproc',
             \   'runner/vimproc/updatetime' : 100,
-            \   'outputter' : 'my_outputter',
+            \   'outputter'                 : 'multi:buffer:quickfix',
             \   'outputter/buffer/split'    : ''
             \}
 
+            " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
+            " \   'outputter' : 'my_outputter',
 " \   'outputter'                 : 'unite_quickfix',
 
 " :QuickRun -outputter my_outputter {{{
