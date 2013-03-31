@@ -655,16 +655,16 @@ set printfont=Andale\ Mono:h12:cUTF8
 syntax enable
 set foldmethod=marker
 
-" Vimテクニックバイブル1-13
-" PHPプログラムの構文チェック
-" http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-"augroup phpsyntaxcheck
-"    autocmd!
-"    autocmd FileType php set makeprg=php\ -l\ % | set errorformat=%m\ in\ %f\ on\ line\ %l
-"    "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
-"    autocmd BufWrite *.php w | make
-"augroup END
-"http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+" " Vimテクニックバイブル1-13
+" " PHPプログラムの構文チェック
+" " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
+augroup phpsyntaxcheck
+   autocmd!
+   autocmd FileType php set makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+   "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
+   " autocmd BufWrite *.php w | make
+augroup END
+" "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
 
 " Quickfix {{{
@@ -677,11 +677,19 @@ augroup quickfix
 augroup END
 "}}}
 
-" >>>> filetype >>>> {{{
+" ==== filetype ==== {{{
 
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
+
+" shell {{{
+" ==============================================================================
+augroup sh
+    autocmd!
+    autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
+augroup END
+" shell }}}
 
 " HTML {{{
 " ==============================================================================
@@ -777,9 +785,9 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
 
-" <<<< filetype <<<< }}}
+" ==== filetype ==== }}}
 
-" >>>> Plugin >>>> {{{
+" ==== Plugin ==== {{{
 " unite {{{
 " ==============================================================================
 if s:has_plugin('unite')
@@ -1021,9 +1029,38 @@ let g:quickrun_config = {}
 let g:quickrun_config['_'] = {
             \   'runner'                    : 'vimproc',
             \   'runner/vimproc/updatetime' : 100,
-            \   'outputter'                 : 'unite_quickfix',
+            \   'outputter' : 'my_outputter',
             \   'outputter/buffer/split'    : ''
             \}
+
+" \   'outputter'                 : 'unite_quickfix',
+
+" :QuickRun -outputter my_outputter {{{
+" プロセスの実行中は、buffer に出力し、
+" プロセスが終了したら、quickfix へ出力を行う
+
+" 既存の outputter をコピーして拡張
+let my_outputter = quickrun#outputter#multi#new()
+let my_outputter.config.targets = ["buffer", "quickfix"]
+
+function! my_outputter.init(session)
+    " quickfix を閉じる
+    :cclose
+    " 元の処理を呼び出す
+    call call(quickrun#outputter#multi#new().init, [a:session], self)
+endfunction
+
+function! my_outputter.finish(session)
+    call call(quickrun#outputter#multi#new().finish, [a:session], self)
+    " 出力バッファの削除
+    bwipeout [quickrun
+    " vim-hier を使用している場合は、ハイライトを更新したりとか
+    " :HierUpdate
+endfunction
+
+" quickrun に outputter を登録
+call quickrun#register_outputter("my_outputter", my_outputter)
+" }}}
 
 " phpunit {{{
 " --------------------------------------------------------------------------
@@ -1140,7 +1177,7 @@ if s:has_plugin('Powerline')
 endif
 "}}}
 
-" <<<< Plugin <<<< }}}
+" ==== Plugin ==== }}}
 
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
