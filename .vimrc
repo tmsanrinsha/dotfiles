@@ -96,7 +96,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    "NeoBundle 'YankRing.vim'
+    NeoBundle 'YankRing.vim'
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
@@ -236,6 +236,8 @@ set pastetoggle=<F11>
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
 
+set foldmethod=marker
+
 " let mapleader = "\<space>"
 inoremap jj <ESC>
 cnoremap jj <ESC>
@@ -295,6 +297,8 @@ augroup colerscheme
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 "}}}
+
+syntax enable
 "}}}
 
 " swap, backup {{{
@@ -650,23 +654,6 @@ set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
 "}}}
 
-" Syntax {{{
-" ==============================================================================
-syntax enable
-set foldmethod=marker
-
-" " Vimテクニックバイブル1-13
-" " PHPプログラムの構文チェック
-" " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-augroup phpsyntaxcheck
-   autocmd!
-   autocmd FileType php set makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-   "autocmd BufWrite *.php w !php -l 2>&1 | sed -e 's/\(.*Errors.*\)/[31m\1[0m/g'
-   " autocmd BufWrite *.php w | make
-augroup END
-" "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
-"}}}
-
 " Quickfix {{{
 " ==============================================================================
 " show quickfix automatically
@@ -761,6 +748,16 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 "     autocmd!
 "     au Syntax php set foldmethod=syntax
 " augroup END
+" " Vimテクニックバイブル1-13
+" " PHPプログラムの構文チェック
+" " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
+augroup phpsyntaxcheck
+   autocmd!
+   " autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+   setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+   " autocmd BufWrite *.php w | make
+augroup END
+" "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
 
 " MySQL {{{
