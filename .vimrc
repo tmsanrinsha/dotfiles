@@ -250,6 +250,14 @@ nnoremap <M-a> ggVG
 " nnoremap ]p p
 " nnoremap ]P P
 
+function! s:RegistSearchWord()
+    silent normal yiw
+    let @/ = '\<'.@".'\>'
+endfunction
+
+command! -range RegistSearchWord :call s:RegistSearchWord()
+nnoremap <silent> * :RegistSearchWord<CR>
+
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
