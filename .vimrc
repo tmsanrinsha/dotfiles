@@ -98,6 +98,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " http://www.vim.org/scripts/script.php?script_id=1234
     NeoBundle 'YankRing.vim'
 
+    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
+    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
+    NeoBundleLazy 'mattn/httpstatus-vim', {
+                \   'autoload' : { 'commands' : 'QuickRun' }
+                \ }
+
     " colorscheme
     "NeoBundle 'tomasr/molokai'
     NeoBundle 'vim-scripts/wombat256.vim'
@@ -250,13 +256,13 @@ nnoremap <M-a> ggVG
 " nnoremap ]p p
 " nnoremap ]P P
 
-function! s:RegistSearchWord()
-    silent normal yiw
-    let @/ = '\<'.@".'\>'
-endfunction
-
-command! -range RegistSearchWord :call s:RegistSearchWord()
-nnoremap <silent> * :RegistSearchWord<CR>
+" function! s:RegistSearchWord()
+"     silent normal yiw
+"     let @/ = '\<'.@".'\>'
+" endfunction
+"
+" command! -range RegistSearchWord :call s:RegistSearchWord()
+" nnoremap <silent> * :RegistSearchWord<CR>
 
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
