@@ -67,9 +67,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
 
-    " ファイルを保存時にシンタックスのチェック
-    " https://github.com/scrooloose/syntastic
-    NeoBundle 'scrooloose/syntastic'
+    NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
+                \ 'mappings' : [
+                \   '<Plug>(smartword-w)', '<Plug>(smartword-b)',
+                \   '<Plug>(smartword-e)', '<Plug>(smartword-ge)'
+                \ ]
+                \ }}
 
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
@@ -114,6 +117,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " http://www.vim.org/scripts/script.php?script_id=2536
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
+
+    " ファイルを保存時にシンタックスのチェック
+    " https://github.com/scrooloose/syntastic
+    NeoBundle 'scrooloose/syntastic'
 
     " JavaScript
     NeoBundle 'pangloss/vim-javascript'
@@ -797,6 +804,7 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
 
 " ==== filetype ==== }}}
+" }}}
 
 " ==== Plugin ==== {{{
 " unite {{{
@@ -1087,6 +1095,15 @@ let g:quickrun_config['php.phpunit'] = {
             \   'exec'                   : '%c %o %s'
             \}
 "}}}
+" let g:quickrun_config['node'] = {
+"             \   'runner/vimproc/updatetime' : 1000,
+"             \   'command'                : 'tail',
+"             \   'cmdopt'                 : '',
+"             \   'exec'                   : '%c %o ~/git/jidaraku_schedular/log',
+"             \   'outputter/multi'   : [ 'buffer', 'quickfix' , 'message'],
+"             \}
+" "
+" set errorformat=debug:\%s
 "}}}
 
 " vim-partedit {{{
@@ -1104,6 +1121,14 @@ if s:has_plugin('EasyMotion')
     let g:EasyMotion_mapping_f = ')'
     let g:EasyMotion_mapping_F = '('
 endif
+"}}}
+
+" vim-smartword {{{
+" ==============================================================================
+map w <Plug>(smartword-w)
+map b <Plug>(smartword-b)
+map e <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
 "}}}
 
 " vim-alignta {{{
