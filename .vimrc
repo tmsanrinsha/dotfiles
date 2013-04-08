@@ -775,7 +775,7 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 augroup phpsyntaxcheck
    autocmd!
    " autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-   setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+   autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
    " autocmd BufWrite *.php w | make
 augroup END
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
@@ -1185,7 +1185,7 @@ endif
 " ==============================================================================
 if s:has_plugin('minibufexpl')
     " Put new window below current or on the right for vertical split
-    let g:miniBufExplSplitBelow=1
+    let g:miniBufExplSplitBelow=0
 "function! Md()
 "    return expand("%:p")
 "    "echo "a"
