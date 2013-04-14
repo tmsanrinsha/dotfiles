@@ -13,6 +13,12 @@ fi
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
 
+# 基本設定 {{{
+# ファイルがある場合のリダイレクト(>)の防止
+# したい場合は>!を使う
+setopt noclobber
+# }}}
+
 # Keybind configuration {{{
 #
 # emacs like keybind -e
@@ -27,6 +33,24 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 #Endで行末へ
 bindkey "^[[4~" end-of-line
+# }}}
+
+# エイリアス {{{
+alias rr='exec zsh -l'
+# グローバルエイリアス {{{
+alias -g A='| awk'
+alias -g L='| less -R'
+alias -g H='| head'
+alias -g T='| tail -f'
+alias -g R='| tail -r'
+alias -g V='| vim -R -'
+alias -g G='| grep'
+alias -g E='| egrep'
+alias -g GI='| egrep -i'
+alias -g X='-print0 | xargs -0'
+alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
+alias -g TGZ='| gzip -dc | tar xf -'
+# }}}
 # }}}
 
 # 補完 {{{
@@ -61,22 +85,6 @@ rsf() {
   autoload -U $f:t
 }
 ## }}}
-# }}}
-
-alias r='exec zsh -l'
-# グローバルエイリアス {{{
-alias -g A='| awk'
-alias -g L='| less -R'
-alias -g H='| head'
-alias -g T='| tail -f'
-alias -g R='| tail -r'
-alias -g V='| vim -R -'
-alias -g G='| grep'
-alias -g E='| egrep'
-alias -g GI='| egrep -i'
-alias -g X='-print0 | xargs -0'
-alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
-alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
 
 ## 改行でls {{{
@@ -152,7 +160,7 @@ function share_dirs_precmd {
         [ -d $line ] && cd $line
     done <~/.dirs
     # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} > ~/.dirs
+    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} >! ~/.dirs
 }
 # autoload -Uz add-zsh-hookが必要
 add-zsh-hook preexec share_dirs_preexec
