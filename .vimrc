@@ -64,15 +64,22 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'thinca/vim-partedit'
 
-    " Vimperatorのクイックヒント風にカーソル移動
-    NeoBundle 'Lokaltog/vim-easymotion'
-
     NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
                 \ 'mappings' : [
                 \   '<Plug>(smartword-w)', '<Plug>(smartword-b)',
                 \   '<Plug>(smartword-e)', '<Plug>(smartword-ge)'
                 \ ]
                 \ }}
+
+    " Vimperatorのクイックヒント風にカーソル移動
+    NeoBundle 'Lokaltog/vim-easymotion'
+
+    NeoBundle 'terryma/vim-multiple-cursors'
+    let g:multi_cursor_use_default_mapping=0
+    let g:multi_cursor_next_key='"'
+    let g:multi_cursor_prev_key="'"
+    let g:multi_cursor_skip_key='&'
+    let g:multi_cursor_quit_key='<Esc>'
 
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
