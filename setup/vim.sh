@@ -1,4 +1,5 @@
-#!/usr/local/bin/bash -x
+#!/usr/bin/env bash
+set -ex
 # 自分のホームディレクトリにVimをインストールする
 # 参考にしたサイト
 # http://www.glidenote.com/archives/422
@@ -8,27 +9,26 @@
 # http://d.hatena.ne.jp/deris/20120804/1344080402
 
 # http://www.vim.org/download.phpで最新バージョンを確かめる
-VERSION=7.3
-# ftp://ftp.vim.org/pub/vim/patchesで最新のパッチを調べる
-PATCHES=382
+ver=7.3
+patches=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
 
 mkdir -p $HOME/local/{bin,src}
-cd $HOME/local/src/ || exit 1
+cd $HOME/local/src
 # $HOME/loca/srcにDownload
 if which curl;then
-    curl -O ftp://ftp.vim.org/pub/vim/unix/vim-${VERSION}.tar.bz2 || exit 1
+    curl='curl -L'
 elif which wget;then
-    # -Nは上書きのオプション
-    wget -N ftp://ftp.vim.org/pub/vim/unix/vim-${VERSION}.tar.bz2 || exit 1
+    curl='wget -O -'
 else
     echo 'curlまたはwgetをインストールしてください'
     exit 1
 fi
-bzip2 -dc vim-${VERSION}.tar.bz2 | tar xvf - || exit 1
-cd vim$(echo $VERSION | tr -d .) || exit 1
+
+$curl ftp://ftp.vim.org/pub/vim/unix/vim-${ver}.tar.bz2 | bzip2 -dc | tar xvf -
+cd vim$(echo $ver | tr -d .)
 
 # patch
-mkdir patches
+mkdir -p patches
 cd patches
 if which curl;then
     curl -O ftp://ftp.vim.org/pub/vim/patches/${VERSION}/${VERSION}.[001-${PATCHES}] || exit 1
@@ -52,10 +52,9 @@ cat patches/${VERSION}.* | patch -p0
 --enable-pythoninterp \
 --disable-gui \
 --without-x \
---prefix=$HOME/local || exit 1
+--prefix=$HOME/local
 # --with-local-dir=$HOME/local \
 # LDFLAGS="-L$HOME/local/lib" \
 # CFLAGS="-I$HOME/local/include"
 
-make || exit 1
-make install || exit 1
+make && make install
