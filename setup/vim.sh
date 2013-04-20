@@ -36,6 +36,9 @@ else
     # -Nは上書きのオプション
     wget -N ftp://ftp.vim.org/pub/vim/patches/${VERSION}/${VERSION}.[001-${PATCHES}] || exit 1
 fi
+# 非同期にするとよい?
+# http://magicant.txt-nifty.com/main/2008/05/post_256f.html
+#  for i in {001..905}; do; curl -sm 30 -O "ftp://ftp.vim.org/pub/vim/patches/7.3/7.3.$i" > /dev/null & ; done
 
 cd $HOME/local/src/vim$(echo $VERSION | tr -d .) || exit 1
 # patchの-p0はディレクトリ構造を無視しないオプション
