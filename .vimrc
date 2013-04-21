@@ -154,6 +154,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \   'autoload' : { 'filetypes' : 'confluence' }
                 \ }
 
+    NeoBundleLazy 'thinca/vim-ft-help_fold', {
+                \   'autoload' : { 'filetypes' : 'help' }
+                \ }
+
     NeoBundleLazy 'mattn/gist-vim', {
                 \   'autoload' : { 'commands' : [ 'Gist' ] },
                 \   'depends'  : 'mattn/webapi-vim'
