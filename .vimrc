@@ -4,12 +4,9 @@
 " http://vim-users.jp/2011/10/hack238/
 if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     set nocompatible "vi互換にしない
-    filetype off     " required!
-
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
-
     call neobundle#rc(expand('~/.vim/bundle/'))
 
     " let NeoBundle manage NeoBundle
@@ -34,6 +31,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \ }
     NeoBundleLazy 'tacroe/unite-mark', {
                 \   'autoload' : { 'unite_sources' : ['mark'] }
+                \ }
+    NeoBundleLazy 'tsukkee/unite-tag', {
+                \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
 
     " http://archiva.jp/web/tool/vim_grep2.html
@@ -74,12 +74,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
 
-    NeoBundle 'terryma/vim-multiple-cursors'
+    NeoBundle 'terryma/vim-multiple-cursors' "{{{
     let g:multi_cursor_use_default_mapping=0
     let g:multi_cursor_next_key='"'
     let g:multi_cursor_prev_key="'"
     let g:multi_cursor_skip_key='&'
     let g:multi_cursor_quit_key='<Esc>'
+    " }}}
 
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
@@ -116,6 +117,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
+    NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -182,11 +184,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
         NeoBundle 'tmsanrinsha/vim-emacscommandline'
     endif
 
-    "" non github repos ----------------------------------------------------------
-    "NeoBundle 'git://git.wincent.com/command-t.git'
-    "" non git repos
-    "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-    "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 
     filetype plugin indent on     " required!
 
@@ -258,6 +255,11 @@ set mouse=a
 
 set foldmethod=marker
 
+if has('path_extra')
+    set tags=./tags;~/**2/tags
+endif
+nnoremap <C-[> g<C-[>
+
 " let mapleader = "\<space>"
 inoremap jj <ESC>
 cnoremap jj <ESC>
@@ -270,6 +272,8 @@ nnoremap <M-a> ggVG
 " nnoremap ]p p
 " nnoremap ]P P
 
+nnoremap * *N
+nnoremap # #N
 " function! s:RegistSearchWord()
 "     silent normal yiw
 "     let @/ = '\<'.@".'\>'
