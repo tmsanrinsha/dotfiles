@@ -32,9 +32,16 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundleLazy 'tacroe/unite-mark', {
                 \   'autoload' : { 'unite_sources' : ['mark'] }
                 \ }
-    NeoBundleLazy 'tsukkee/unite-tag', {
+
+    NeoBundleLazy 'tsukkee/unite-tag', " {{{
+                \ {
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
+    autocmd BufEnter *
+                \ if empty(&buftype)
+                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+                \| endif
+    " }}}
 
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
