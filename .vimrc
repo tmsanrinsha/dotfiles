@@ -37,10 +37,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \ {
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
-    autocmd BufEnter *
-                \ if empty(&buftype)
-                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-                \| endif
+    augroup unite-tag
+        autocmd!
+        autocmd BufEnter *
+                    \ if empty(&buftype)
+                    \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+                    \| endif
+    augroup END
     " }}}
 
     " http://archiva.jp/web/tool/vim_grep2.html
@@ -272,6 +275,10 @@ endif
 nnoremap <C-[> g<C-[>
 
 " let mapleader = "\<space>"
+" :h map-modes
+nnoremap ; :
+nnoremap : ;
+
 inoremap jj <ESC>
 cnoremap jj <ESC>
 nnoremap Y y$
@@ -449,6 +456,8 @@ nnoremap <M-.> <C-w><
 nnoremap <M-0> <C-w>=
 nnoremap <C-w>; <C-w>p
 
+set splitbelow
+set splitright
 
 "  常にカーソル行を真ん中に
 "set scrolloff=999
@@ -572,7 +581,15 @@ nnoremap 0 g0
 xnoremap 0 g0
 nnoremap $ g$
 xnoremap $ g$
- 
+nnoremap gj j
+xnoremap gj j
+nnoremap gk k
+xnoremap gk k
+nnoremap g0 0
+xnoremap g0 0
+nnoremap g$ $
+xnoremap g$ $
+
 " backspaceキーの挙動を設定する
 " " indent        : 行頭の空白の削除を許す
 " " eol           : 改行の削除を許す
@@ -595,6 +612,15 @@ set backspace=indent,eol,start
 "    let &t_SI .= "\e[?25h\e[5 q"
 "    let &t_EI .= "\e[1 q"
 "endif
+
+" Always Jump to the Last Known Cursor Position
+augroup cursor
+    autocmd!
+    autocmd BufReadPost *
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \   execute "normal! g`\"" |
+                \ endif
+augroup END
 "}}}
 
 " カッコ・タグの対応 {{{
@@ -659,6 +685,7 @@ augroup htmlInclude
     autocmd!
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
 augroup END
+set path&
 set path+=./;/
 "}}}
 
@@ -683,13 +710,13 @@ endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
-command! Cp932     edit ++enc=cp932
-command! Eucjp     edit ++enc=euc-jp
-command! Iso2022jp edit ++enc=iso-20220-jp
-command! Utf8      edit ++enc=iso-20220-jp
+command! EncCp932     edit ++enc=cp932
+command! EncEucjp     edit ++enc=euc-jp
+command! EncIso2022jp edit ++enc=iso-20220-jp
+command! EncUtf8      edit ++enc=uff-8
 " alias
-command! Jis  Iso2022jp
-command! Sjis Cp932
+command! EncJis  Iso2022jp
+command! EncSjis Cp932
 "}}}
 
 " printing {{{
