@@ -213,4 +213,3 @@ if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
 # }}}
-fuga
