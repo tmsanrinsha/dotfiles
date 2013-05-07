@@ -5,7 +5,7 @@
 #export PAGER=less
 # lessで色つきの表示に対応させる
 #export LESS='-R'
-#export LESS='-M' 
+#export LESS='-M'
 #export LESSOPEN="| /usr/bin/lesspipe.sh %s"
 #export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 
@@ -41,8 +41,9 @@ fi
 # }}}
 
 # alias {{{
+# ==============================================================================
+# ls {{{
 # ------------------------------------------------------------------------------
-# ls
 if [ `uname` = FreeBSD ];then
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -G'
@@ -53,6 +54,7 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+# }}}
 
 alias cp='cp -ip'
 alias mv='mv -i'
@@ -63,7 +65,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-# sudo
 # http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
 alias sudo='sudo '
 
@@ -82,7 +83,8 @@ alias tree='tree -FCl'
 alias diff='diff -u'
 alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 
-# vim
+# vim {{{
+# ------------------------------------------------------------------------------
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
 if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
@@ -90,6 +92,9 @@ if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
 fi
 alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
+# }}}
+
+alias phpunit='phpunit --colors'
 
 # svnとtreeの文字化け対策
 alias lcc="export LC_CTYPE='C'"
@@ -106,10 +111,8 @@ alias fxg='fxg.sh'
 # http://blog.layer8.sh/ja/2011/12/23/linux%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%84os%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89linux/
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
-alias phpunit='phpunit --colors'
-
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
-#}}}
+# }}}
 
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
