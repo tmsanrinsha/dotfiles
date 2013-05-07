@@ -36,7 +36,6 @@ bindkey "^[[4~" end-of-line
 # }}}
 
 # エイリアス {{{
-alias rr='exec zsh -l'
 # グローバルエイリアス {{{
 alias -g A='| awk'
 alias -g L='| less -R'
