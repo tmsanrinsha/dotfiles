@@ -94,6 +94,22 @@ alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
 # }}}
 
+# git {{{
+# ------------------------------------------------------------------------------
+alias ga='git add'
+alias gb='git branch'
+alias gci='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias gdn='git diff --no-ext-diff'
+alias gi='git init'
+alias gl='git log | vim -R -'
+alias gm='git merge'
+alias gmt='git mergetool'
+alias ge='git rebase'
+alias gs='git status'
+# }}}
+
 alias phpunit='phpunit --colors'
 
 # svnとtreeの文字化け対策
