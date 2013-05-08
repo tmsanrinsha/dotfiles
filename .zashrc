@@ -73,13 +73,19 @@ alias egrep='egrep --color=auto'
 if [ `uname` = FreeBSD ];then
     alias find='find -E'
 fi
-alias pg='ps aux | grep'
+
+alias pg='ps aux | grep -v grep | grep'
 alias pe='ps aux | egrep'
-# tree
+alias pk='pkill -f'
+
+# tree {{{
+# ------------------------------------------------------------------------------
 # -F:ディレクトリなら/をつけるなど
 # -C:color
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
+# }}}
+
 alias diff='diff -u'
 alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 
