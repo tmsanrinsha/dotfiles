@@ -23,20 +23,86 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       \   },
       \ }
 
+    " Shougo/unite {{{
+    " ==========================================================================
     NeoBundle 'Shougo/unite.vim'
-    "NeoBundle 'Shougo/unite-ssh'
-    "NeoBundle 'Shougo/unite-sudo'
+
+    let g:unite_enable_start_insert = 1
+    " let g:unite_split_rule = "botright"
+    let g:unite_winheight = "15"
+    nnoremap [unite] <Nop>
+    nmap , [unite]
+
+    " カレントディレクトリ以下のファイル
+    nnoremap [unite]fc :<C-u>Unite file_rec<CR>
+    " プロジェクトディレクトリ以下のファイル
+    nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+    " カレントディレクトリ以下のディレクトリ
+    nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
+    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+    " バッファ
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+    "最近使用したファイル一覧
+    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
+    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+
+    " ファイル内検索結果
+    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+
+    " Unite grep {{{
+    " -------------------------------------------------------------------------
+    let g:unite_source_grep_max_candidates = 1000
+
+    " カレントディレクトリに対してgrep
+    nnoremap [unite]gc :<C-u>Unite grep:.<CR>
+    " 全バッファに対してgrep
+    nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
+    " プロジェクト内のファイルに対してgrep
+    nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
+    function! s:unite_grep_project(...)
+        let opts = (a:0 ? join(a:000, ' ') : '')
+        let dir = unite#util#path2project_directory(expand('%'))
+        execute 'Unite' opts 'grep:' . dir
+    endfunction
+    "}}}
+
+    "レジスタ一覧
+    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+    " ヤンク履歴
+    let g:unite_source_history_yank_enable = 1  "history/yankの有効化
+    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+    " ブックマーク
+    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+    let g:unite_source_find_max_candidates = 1000
+    "}}}
+
+    " h1mesuke/unite-outline {{{
+    " =========================================================================
     NeoBundleLazy 'h1mesuke/unite-outline', {
                 \   'autoload' : { 'unite_sources' : ['outline'] }
                 \ }
+    nnoremap [unite]o :<C-u>Unite outline<CR>
+    " }}}
+
+    " tacroe/unite-mark {{{
+    " =========================================================================
     NeoBundleLazy 'tacroe/unite-mark', {
                 \   'autoload' : { 'unite_sources' : ['mark'] }
                 \ }
+    nnoremap [unite]` :<C-u>Unite mark<CR>
+    " }}}
 
-    NeoBundleLazy 'tsukkee/unite-tag', " {{{
-                \ {
+    " tsukkee/unite-tag {{{
+    " =========================================================================
+    NeoBundleLazy 'tsukkee/unite-tag', {
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
+    nnoremap [unite]t :<C-u>Unite tag<CR>
+
     augroup unite-tag
         autocmd!
         autocmd BufEnter *
@@ -46,6 +112,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     augroup END
     " }}}
 
+    "NeoBundle 'Shougo/unite-ssh'
+    "NeoBundle 'Shougo/unite-sudo'
+    "
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
 
@@ -74,17 +143,21 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     NeoBundle 'thinca/vim-partedit'
 
-    NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
-                \ 'mappings' : [
-                \   '<Plug>(smartword-w)', '<Plug>(smartword-b)',
-                \   '<Plug>(smartword-e)', '<Plug>(smartword-ge)'
-                \ ]
-                \ }}
+    NeoBundleLazy 'kana/vim-smartword', {
+                \   'autoload' : {
+                \       'mappings' : [
+                \           '<Plug>(smartword-w)', '<Plug>(smartword-b)',
+                \           '<Plug>(smartword-e)', '<Plug>(smartword-ge)'
+                \       ]
+                \   }
+                \}
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundle 'Lokaltog/vim-easymotion'
 
-    NeoBundle 'terryma/vim-multiple-cursors' "{{{
+    " terryma/vim-multiple-cursors {{{
+    " ==========================================================================
+    NeoBundle 'terryma/vim-multiple-cursors'
     let g:multi_cursor_use_default_mapping=0
     let g:multi_cursor_next_key='"'
     let g:multi_cursor_prev_key="'"
@@ -198,7 +271,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
         NeoBundle 'tmsanrinsha/vim-emacscommandline'
     endif
 
-
     filetype plugin indent on     " required!
 
     " Brief help
@@ -270,9 +342,8 @@ set mouse=a
 set foldmethod=marker
 
 if has('path_extra')
-    set tags=./tags;~/**2/tags
+    set tags=./tags;~,~/**2/tags
 endif
-nnoremap <C-[> g<C-[>
 
 " let mapleader = "\<space>"
 " :h map-modes
@@ -317,38 +388,7 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 
-" カラースキーム {{{
-" ------------------------------------------------------------------------------
-if s:has_plugin('molokai')
-    colorscheme molokai
-else
-    colorscheme default
-endif
-"colorscheme molokai
-"set background=dark
-"let g:molokai_original = 1
-"set background=light
-"let g:solarized_termcolors=256
-"colorscheme solarized
 
-augroup colerscheme
-    autocmd!
-    " 修正
-    "autocmd ColorScheme *
-    "            \   highlight Normal              ctermbg=none
-    "            \|  highlight Visual              ctermbg=27
-    "            \|  highlight Folded  ctermfg=67  ctermbg=16
-    "            \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
-    "            \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
-
-    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
-    " scriptencoding utf-8が必要
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
-"}}}
-
-syntax enable
 "}}}
 
 " swap, backup {{{
@@ -856,65 +896,6 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " }}}
 
 " ==== Plugin ==== {{{
-" unite {{{
-" ==============================================================================
-if s:has_plugin('unite')
-    let g:unite_enable_start_insert = 1
-    " let g:unite_split_rule = "botright"
-    let g:unite_winheight = "15"
-    nnoremap [unite] <Nop>
-    nmap , [unite]
-
-    " カレントディレクトリ以下のファイル
-    nnoremap [unite]fc :<C-u>Unite file_rec<CR>
-    " プロジェクトディレクトリ以下のファイル
-    nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
-    " カレントディレクトリ以下のディレクトリ
-    nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-    " バッファ
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-    "最近使用したファイル一覧
-    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
-    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-
-    " ファイル内検索結果
-    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
-
-    " Unite grep {{{
-    let g:unite_source_grep_max_candidates = 1000
-
-    " カレントディレクトリに対してgrep
-    nnoremap [unite]gc :<C-u>Unite grep:.<CR>
-    " 全バッファに対してgrep
-    nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
-    " プロジェクト内のファイルに対してgrep
-    nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
-    function! s:unite_grep_project(...)
-        let opts = (a:0 ? join(a:000, ' ') : '')
-        let dir = unite#util#path2project_directory(expand('%'))
-        execute 'Unite' opts 'grep:' . dir
-    endfunction
-    " }}}
-
-    "レジスタ一覧
-    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-    " ヤンク履歴
-    let g:unite_source_history_yank_enable = 1  "history/yankの有効化
-    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
-    " ブックマーク
-    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-    " unite-outline
-    nnoremap [unite]o :<C-u>Unite outline<CR>
-    " unite-mark
-    nnoremap [unite]` :<C-u>Unite mark<CR>
-
-    let g:unite_source_find_max_candidates = 1000
-endif
-"}}}
 
 " vimfiler {{{
 " ==============================================================================
@@ -1266,10 +1247,43 @@ endif
 
 " ==== Plugin ==== }}}
 
+" カラースキーム {{{
+" ------------------------------------------------------------------------------
+if s:has_plugin('molokai')
+    colorscheme molokai
+else
+    colorscheme default
+endif
+"colorscheme molokai
+"set background=dark
+"let g:molokai_original = 1
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme solarized
+
+augroup colerscheme
+    autocmd!
+    " 修正
+    "autocmd ColorScheme *
+    "            \   highlight Normal              ctermbg=none
+    "            \|  highlight Visual              ctermbg=27
+    "            \|  highlight Folded  ctermfg=67  ctermbg=16
+    "            \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
+    "            \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
+
+    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
+    " scriptencoding utf-8が必要
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+"}}}
+
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
     nnoremap P [P
 endif
+
+syntax enable
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
