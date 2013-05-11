@@ -102,18 +102,26 @@ alias vf="vim -c 'VimFiler'"
 
 # git {{{
 # ------------------------------------------------------------------------------
+alias gal='alias | grep git'
 alias ga='git add'
 alias gb='git branch'
 alias gci='git commit'
 alias gco='git checkout'
 alias gd='git diff'
 alias gdn='git diff --no-ext-diff'
+alias gdr='git diff remotes/origin/master'
 alias gi='git init'
 alias gl='git log | vim -R -'
 alias gm='git merge'
+alias gpl='git pull --rebase origin master'
+alias gps='git push'
 alias gmt='git mergetool'
-alias ge='git rebase'
+alias gri='git rebase -i'
+alias gre='git remote -v'
 alias gs='git status'
+
+# gitのルートディレクトリに移動
+alias cdt='cd `git rev-parse --show-toplevel`'
 # }}}
 
 alias phpunit='phpunit --colors'
