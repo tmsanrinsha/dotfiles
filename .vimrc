@@ -889,6 +889,10 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
 
+" tsv {{{
+" ==============================================================================
+autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
+" }}}
 " ==== filetype ==== }}}
 " }}}
 
