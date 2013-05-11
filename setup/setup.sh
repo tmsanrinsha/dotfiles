@@ -12,20 +12,15 @@ if [[ `uname` = CYGWIN* ]]; then
     # なぜか英語になっちゃう
     cmd /c chcp 65001
 
-    # cygwinのlnをmklinkで実行する
-    if [ ! -x ~/bin/cygwin/ln ]; then
-        # curl -L https://raw.github.com/tmsanrinsha/dotfiles/master/bin/cygwin/ln > ~/bin/cygwin/ln
-        # chmod a+x ~/bin/cygwin/ln
-        cp $gitdir/bin/cygwin/ln ~/bin/cygwin/ln
-        alias ln="~/bin/cygwin/ln"
-    fi
+    # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
+    export PATH=$gitdir/bin/cygwin:$PATH
 fi
 
 # リンクの作成とダウンロード
 for file in `find ..  -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' ! -regex '.*setup.*' ! -regex '.*\.ssh.*' | sed 's|../||'`
 do
     if [ ! -L ~/$file ];then
-        if [ -f ~/$file ]; then
+        if [ -f ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
             mv ~/$file ~/${file}.bak
         fi
         ln -sv $gitdir/$file ~/$file
@@ -59,7 +54,7 @@ if [[ `uname` = CYGWIN* ]]; then
         chmod a+x ~/bin/cygwin/apt-cyg
     fi
 
-    if which ssh 1>/dev/null 2>&1; then
+    if ! which ssh 1>/dev/null 2>&1; then
         apt-cyg install openssh
     fi
 
