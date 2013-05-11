@@ -1,5 +1,5 @@
 set formatoptions=q
-colorscheme solarized
+colorscheme molokai
 set background=light
 
 "Windowsのgvimのメニューの文字化け対応
