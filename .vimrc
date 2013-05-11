@@ -347,22 +347,19 @@ endif
 
 " let mapleader = "\<space>"
 " :h map-modes
-nnoremap ; :
-nnoremap : ;
+noremap ; :
+noremap : ;
 
 inoremap jj <ESC>
 cnoremap jj <ESC>
 nnoremap Y y$
 nnoremap <M-a> ggVG
-" nnoremap p ]p
-" nnoremap P ]P
-" xnoremap p ]p
-" xnoremap P ]P
-" nnoremap ]p p
-" nnoremap ]P P
+noremap p ]p
+noremap P ]P
+noremap ]p p
+noremap ]P P
 
 nnoremap * *N
-nnoremap # #N
 " function! s:RegistSearchWord()
 "     silent normal yiw
 "     let @/ = '\<'.@".'\>'
@@ -1260,27 +1257,10 @@ endif
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
-
-augroup colerscheme
-    autocmd!
-    " 修正
-    "autocmd ColorScheme *
-    "            \   highlight Normal              ctermbg=none
-    "            \|  highlight Visual              ctermbg=27
-    "            \|  highlight Folded  ctermfg=67  ctermbg=16
-    "            \|  highlight Comment ctermfg=246 cterm=none               guifg=#9c998e gui=italic
-    "            \|  highlight Todo    ctermfg=231 ctermbg=232   cterm=bold
-
-    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
-    " scriptencoding utf-8が必要
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
 "}}}
 
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
-    nnoremap P [P
 endif
 
 syntax enable

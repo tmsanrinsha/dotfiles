@@ -5,6 +5,22 @@
     br = branch
     hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
     di = diff --no-ext-diff
+[color]
+    ui = auto
+[core]
+    pager =
+    editor = vim
+[pager]
+    diff =
+[diff]
+    external = git_diff_vim
+[merge]
+    tool = git_mergetool_vim
+[mergetool "git_mergetool_vim"]
+    cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
+    trustExitCode = true
+    keepBackup = false
+
 [include]
     path = .gitconfig.local
 [user]
@@ -13,12 +29,5 @@
 [github]
     user  = ************
     token = ************
-[color]
-    ui = auto
-[core]
-    pager=cat
-    editor=vim
-[diff]
-    external = git_diff_wrapper
-[pager]
-    diff =
+
+# vim:ft=gitconfig

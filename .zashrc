@@ -189,7 +189,7 @@ test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
 # }}}
 
 # svn {{{
-alias svnvd='svn diff --diff-cmd ~/bin/svnvimdiff'
+alias svnvd='svn diff --diff-cmd ~/bin/svn_diff_vim'
 # }}}
 
 # perl {{{
