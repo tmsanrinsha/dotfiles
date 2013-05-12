@@ -195,7 +195,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm
     NeoBundleLazy 'mattn/httpstatus-vim', {
-                \   'autoload' : { 'commands' : 'QuickRun' }
+                \   'autoload' : { 'commands' : 'HttpStatus' }
                 \ }
 
     " colorscheme
@@ -258,18 +258,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     "NeoBundle 'rails.vim'
 
     " 自分で修正したプラグイン
-    if hostname() =~ 'sakura'
-        NeoBundle 'tmsanrinsha/vim', { 'type__protocol' : 'ssh' }
-    else
-        NeoBundle 'tmsanrinsha/vim'
-    endif
-
-    " コマンドモードをEmacsキーバインドにする
-    if hostname() =~ 'sakura'
-        NeoBundle 'tmsanrinsha/vim-emacscommandline', { 'type__protocol' : 'ssh' }
-    else
-        NeoBundle 'tmsanrinsha/vim-emacscommandline'
-    endif
+    let s:protocol = (hostname() =~ 'sakura' || hostname() =~ 'VAIO') ?  ", { 'type__protocol' : 'ssh' }" : ""
+    execute "NeoBundle 'tmsanrinsha/vim'".s:protocol
+    execute "NeoBundle 'tmsanrinsha/vim-emacscommandline'".s:protocol
 
     filetype plugin indent on     " required!
 
@@ -356,11 +347,10 @@ inoremap jj <ESC>
 cnoremap jj <ESC>
 nnoremap Y y$
 nnoremap <M-a> ggVG
-noremap p ]p
+" noremap p ]p 設定するとdpが使えなくなる
 noremap P ]P
 noremap ]p p
 noremap ]P P
-noremap dp dp
 
 nnoremap * *N
 " function! s:RegistSearchWord()
