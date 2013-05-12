@@ -1,6 +1,5 @@
 set formatoptions=q
 colorscheme molokai
-set background=light
 
 "Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim

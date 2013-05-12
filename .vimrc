@@ -345,6 +345,8 @@ if has('path_extra')
     set tags=./tags;~,~/**2/tags
 endif
 
+" mapping {{{
+" ------------------------------------------------------------------------------
 " let mapleader = "\<space>"
 " :h map-modes
 noremap ; :
@@ -358,6 +360,7 @@ noremap p ]p
 noremap P ]P
 noremap ]p p
 noremap ]P P
+noremap dp dp
 
 nnoremap * *N
 " function! s:RegistSearchWord()
@@ -384,8 +387,7 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 " expand file (not ext)
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
-
-
+" }}}
 "}}}
 
 " swap, backup {{{
