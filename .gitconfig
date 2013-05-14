@@ -22,12 +22,7 @@
     keepBackup = false
 
 [include]
+# includeが使えるかはgit config --global --includes -lで確かめる
     path = .gitconfig.local
-[user]
-    name  = ************
-    email = ************
-[github]
-    user  = ************
-    token = ************
 
 # vim:ft=gitconfig
