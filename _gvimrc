@@ -1,5 +1,6 @@
 set formatoptions=q
-colorscheme molokai
+" colorscheme molokai
+colorscheme solarized
 
 "Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim
