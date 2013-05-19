@@ -1,5 +1,11 @@
 " neobundle.vim {{{
 " ==============================================================================
+if has('win32') || has('win64')
+    set runtimepath&
+    set runtimepath^=$HOME/.vim
+    set runtimepath+=$HOME/.vim/after
+endif
+
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
 if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
