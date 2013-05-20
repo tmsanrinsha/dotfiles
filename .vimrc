@@ -131,9 +131,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
-    " スニペット補完
+    " " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/snipmate-snippets'
+
+    " NeoBundle 'AutoComplPop'
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -988,6 +990,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
                 \ 'php.phpunit': 'php',
                 \}
 
+    let g:neocomplcache_force_overwrite_completefunc = 1
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
         let g:neocomplcache_keyword_patterns = {}
@@ -1067,6 +1070,19 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 endif
 "}}}
+
+let g:acp_behaviorJavaEclimLength = 3
+function MeetsForJavaEclim(context)
+  return g:acp_behaviorJavaEclimLength >= 0 &&
+        \ a:context =~ '\k\.\k\{' . g:acp_behaviorJavaEclimLength . ',}$'
+endfunction
+let g:acp_behavior = {
+    \ 'java': [{
+      \ 'command': "\<c-x>\<c-u>",
+      \ 'completefunc' : 'eclim#java#complete#CodeComplete',
+      \ 'meets'        : 'MeetsForJavaEclim',
+    \ }]
+  \ }
 
 " vim-quickrun {{{
 " ==============================================================================
