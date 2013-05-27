@@ -1042,6 +1042,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
         autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
         autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+        " autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
     augroup END
 
     " Enable heavy omni completion.
@@ -1286,3 +1287,4 @@ syntax enable
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
+let g:EclimCompletionMethod = 'omnifunc'
