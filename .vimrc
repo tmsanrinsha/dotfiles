@@ -997,8 +997,9 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string() . neocomplcache#start_manual_complete()
+    inoremap <expr><C-g>  neocomplcache#undo_completion()
+    inoremap <expr><C-l>  neocomplcache#complete_common_string()
+    inoremap <expr><C-j>  neocomplcache#start_manual_complete()
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
@@ -1071,19 +1072,6 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 endif
 "}}}
-
-let g:acp_behaviorJavaEclimLength = 3
-function MeetsForJavaEclim(context)
-  return g:acp_behaviorJavaEclimLength >= 0 &&
-        \ a:context =~ '\k\.\k\{' . g:acp_behaviorJavaEclimLength . ',}$'
-endfunction
-let g:acp_behavior = {
-    \ 'java': [{
-      \ 'command': "\<c-x>\<c-u>",
-      \ 'completefunc' : 'eclim#java#complete#CodeComplete',
-      \ 'meets'        : 'MeetsForJavaEclim',
-    \ }]
-  \ }
 
 " vim-quickrun {{{
 " ==============================================================================
