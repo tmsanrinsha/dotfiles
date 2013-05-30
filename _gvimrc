@@ -1,5 +1,6 @@
 set formatoptions=q
-set guifont=consolas:h11:cSHIFTJIS
+set guifont=Consolas:h11:cSHIFTJIS
+set guifontwide=MS_Gothic
 colorscheme molokai
 " colorscheme solarized
 
