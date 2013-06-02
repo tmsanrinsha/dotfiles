@@ -998,8 +998,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
     inoremap <expr><C-g>  neocomplcache#undo_completion()
-    inoremap <expr><C-l>  neocomplcache#complete_common_string()
-    inoremap <expr><C-j>  neocomplcache#start_manual_complete()
+    inoremap <expr><C-l>  pumvisible() ? neocomplcache#complete_common_string() : neocomplcache#start_manual_complete()
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
