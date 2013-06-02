@@ -340,8 +340,8 @@ endif
 " ------------------------------------------------------------------------------
 " let mapleader = "\<space>"
 " :h map-modes
-noremap ; :
-noremap : ;
+" noremap ; :
+" noremap : ;
 
 inoremap jj <ESC>
 cnoremap jj <ESC>
