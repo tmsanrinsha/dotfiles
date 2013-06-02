@@ -186,11 +186,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
-    NeoBundle 'sudo.vim'
+    NeoBundle 'vim-scripts/sudo.vim'
 
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
-    NeoBundle 'YankRing.vim'
+    NeoBundle 'vim-scripts/YankRing.vim'
 
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm
@@ -205,7 +205,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
-    NeoBundle 'rdark'
+    NeoBundle 'vim-scripts/rdark'
     " http://www.vim.org/scripts/script.php?script_id=2536
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
