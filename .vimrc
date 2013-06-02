@@ -1,5 +1,11 @@
 " neobundle.vim {{{
 " ==============================================================================
+if has('win32') || has('win64')
+    set runtimepath&
+    set runtimepath^=$HOME/.vim
+    set runtimepath+=$HOME/.vim/after
+endif
+
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
 if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
@@ -125,9 +131,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " 補完候補の自動表示
     NeoBundle 'Shougo/neocomplcache'
-    " スニペット補完
+    " " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/snipmate-snippets'
+
+    " NeoBundle 'AutoComplPop'
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -982,14 +990,16 @@ if s:has_plugin('neocomplcache') && v:version >= 702
                 \ 'php.phpunit': 'php',
                 \}
 
+    let g:neocomplcache_force_overwrite_completefunc = 1
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
         let g:neocomplcache_keyword_patterns = {}
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string() . neocomplcache#start_manual_complete()
+    inoremap <expr><C-g>  neocomplcache#undo_completion()
+    inoremap <expr><C-l>  neocomplcache#complete_common_string()
+    inoremap <expr><C-j>  neocomplcache#start_manual_complete()
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
@@ -1033,6 +1043,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
         autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
         autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+        " autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
     augroup END
 
     " Enable heavy omni completion.
@@ -1264,3 +1275,4 @@ syntax enable
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
+let g:EclimCompletionMethod = 'omnifunc'

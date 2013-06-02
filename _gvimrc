@@ -1,18 +1,29 @@
 set formatoptions=q
+set guifont=Consolas:h11:cSHIFTJIS
+set guifontwide=MS_Gothic
 colorscheme molokai
+" colorscheme solarized
 
-"Windowsのgvimのメニューの文字化け対応
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
+set guioptions&
 " ツールバーを削除
 set guioptions-=T
 " メニューを削除
 set guioptions-=m
+" 右スクロールバーを非表示
+set guioptions-=r
+" 左スクロールバーを非表示
+set guioptions-=L
+"Windowsのgvimのメニューの文字化け対応
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 " Alt+でメニューをフォーカスしない
 set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
+
+" insert modeとsearchでIME OFF
+set iminsert=0
+set imsearch=0
 
 inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
 cnoremap <A-v> <C-r>*
