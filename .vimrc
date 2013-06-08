@@ -221,6 +221,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
 
+    " CSS ====================================================================
+    " #000000とかの色付け
+    NeoBundle 'gist:hail2u/228147', {
+                \ 'name': 'css.vim',
+                \ 'script_type': 'plugin'}
+
     " JavaScript
     NeoBundle 'pangloss/vim-javascript'
     NeoBundle 'jelera/vim-javascript-syntax'
@@ -1251,15 +1257,8 @@ endif
 
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
-" if s:has_plugin('molokai')
-"     colorscheme molokai
-" else
-"     colorscheme default
-" endif
-colorscheme hybrid-customized
-"colorscheme molokai
-"set background=dark
-"let g:molokai_original = 1
+"let g:rehash256 = 1
+colorscheme molokai-customized
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
