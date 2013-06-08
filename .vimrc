@@ -140,7 +140,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
                 \}
-
     " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
     "             \   'autoload' : { 'commands' : 'QuickRun' },
     "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
@@ -207,7 +206,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \ }
 
     " colorscheme
-    "NeoBundle 'tomasr/molokai'
+    NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
@@ -1253,11 +1252,12 @@ endif
 
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
-if s:has_plugin('molokai')
-    colorscheme molokai
-else
-    colorscheme default
-endif
+" if s:has_plugin('molokai')
+"     colorscheme molokai
+" else
+"     colorscheme default
+" endif
+colorscheme hybrid-customized
 "colorscheme molokai
 "set background=dark
 "let g:molokai_original = 1
