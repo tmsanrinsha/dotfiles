@@ -207,13 +207,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \ }
 
     " colorscheme
-    "NeoBundle 'tomasr/molokai'
+    NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     " http://www.vim.org/scripts/script.php?script_id=1732
     NeoBundle 'vim-scripts/rdark'
+    NeoBundle 'vim-scripts/rdark-terminal'
     " http://www.vim.org/scripts/script.php?script_id=2536
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
@@ -1253,6 +1254,7 @@ endif
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
 if s:has_plugin('molokai')
+    let g:rehash256 = 1
     colorscheme molokai
 else
     colorscheme default
