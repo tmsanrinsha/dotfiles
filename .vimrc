@@ -211,9 +211,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
-    " http://www.vim.org/scripts/script.php?script_id=1732
     NeoBundle 'vim-scripts/rdark'
-    " http://www.vim.org/scripts/script.php?script_id=2536
+    NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
 
@@ -1262,6 +1261,14 @@ colorscheme molokai-customized
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
+
+augroup colerscheme
+    autocmd!
+    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
+    scriptencoding utf-8
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
 "}}}
 
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
