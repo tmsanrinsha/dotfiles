@@ -1,6 +1,6 @@
 set formatoptions=q
 set guifont=Consolas:h11
-colorscheme hybrid-customized
+colorscheme molokai-customized
 
 set guioptions&
 " ツールバーを削除

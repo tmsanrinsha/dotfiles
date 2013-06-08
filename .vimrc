@@ -222,6 +222,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     " CSS ====================================================================
     " #000000とかの色付け
+    " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
     NeoBundle 'gist:hail2u/228147', {
                 \ 'name': 'css.vim',
                 \ 'script_type': 'plugin'}
@@ -1252,8 +1253,6 @@ if s:has_plugin('Powerline')
 endif
 "}}}
 
-" ==== Plugin ==== }}}
-
 " カラースキーム {{{
 " ------------------------------------------------------------------------------
 "let g:rehash256 = 1
@@ -1271,6 +1270,10 @@ augroup colerscheme
 augroup END
 "}}}
 
+let g:EclimCompletionMethod = 'omnifunc'
+
+" ==== Plugin ==== }}}
+
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
@@ -1280,4 +1283,3 @@ syntax enable
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
 endif
-let g:EclimCompletionMethod = 'omnifunc'
