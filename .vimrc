@@ -223,9 +223,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     " CSS ====================================================================
     " #000000とかの色付け
     " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
-    NeoBundle 'gist:hail2u/228147', {
-                \ 'name': 'css.vim',
-                \ 'script_type': 'plugin'}
+    " NeoBundle 'gist:hail2u/228147', {
+    "             \ 'name': 'css.vim',
+    "             \ 'script_type': 'plugin'}
 
     " JavaScript
     NeoBundle 'pangloss/vim-javascript'
