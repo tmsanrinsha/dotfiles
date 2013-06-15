@@ -15,6 +15,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     endif
     call neobundle#rc(expand('~/.vim/bundle/'))
 
+    " すでにvimが起動しているときは、そちらで開く
+    if has('clientserver')
+        NeoBundle 'thinca/vim-singleton'
+        call singleton#enable()
+    endif
+
     " let NeoBundle manage NeoBundle
     " required!
     NeoBundle 'Shougo/neobundle.vim'
