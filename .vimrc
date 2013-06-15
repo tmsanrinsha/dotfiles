@@ -724,6 +724,8 @@ augroup END
 
 " HTML {{{
 " ==============================================================================
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
+
 " HTML Key Mappings for Typing Character Codes: {{{
 " ------------------------------------------------------------------------------
 " * http://www.stripey.com/vim/html.html
