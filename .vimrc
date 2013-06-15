@@ -254,6 +254,7 @@ augroup END
 " ==============================================================================
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
+set cmdheight=2 "コマンドラインの高さを2行にする
 set number
 set ruler
 set cursorline
