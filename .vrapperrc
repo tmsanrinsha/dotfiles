@@ -4,7 +4,7 @@ set smartindent
 set autoindent
 set ignorecase
 set smartcase
-
+set gvimpath=/Users/tmiwa/vim73-kaoriya-win64/gvim.exe
 " 英字キーボード用
 " --------------------------------------------------------------------------------
 " nnoremap ; :
