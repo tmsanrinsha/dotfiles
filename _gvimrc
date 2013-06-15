@@ -1,5 +1,6 @@
 set formatoptions=q
 set guifont=Consolas:h11
+set guifontwide=MS_Gothic
 colorscheme molokai-customized
 
 set guioptions&
