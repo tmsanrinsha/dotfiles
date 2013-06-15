@@ -995,7 +995,6 @@ if s:has_plugin('neocomplcache') && v:version >= 702
                 \ 'php.phpunit': 'php',
                 \}
 
-    let g:neocomplcache_force_overwrite_completefunc = 1
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
         let g:neocomplcache_keyword_patterns = {}
@@ -1270,7 +1269,11 @@ augroup colerscheme
 augroup END
 "}}}
 
+" Eclim {{{
+" -----------------------------------------------------------------------------
+" neocomplcacheで補完するため
 let g:EclimCompletionMethod = 'omnifunc'
+" }}}
 
 " ==== Plugin ==== }}}
 
