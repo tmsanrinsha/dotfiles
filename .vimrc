@@ -64,7 +64,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Shougo/neocomplcache'
     " " スニペット補完
     NeoBundle 'Shougo/neosnippet'
-    NeoBundle 'honza/snipmate-snippets'
+    NeoBundle 'honza/vim-snippets'
 
     " NeoBundle 'AutoComplPop'
 
@@ -780,7 +780,7 @@ augroup END
 
 " JavaScript {{{
 " ==============================================================================
-" nono/jqueryとhonza/snipmate-snippetsのjavaScript-jqueryを有効にするための設定
+" nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
 " }}}
 
@@ -1084,7 +1084,9 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     endif
 
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+    if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
+        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+    endif
 endif
 "}}}
 
