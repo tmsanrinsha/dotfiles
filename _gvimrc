@@ -1,7 +1,6 @@
 set formatoptions=q
 set guifont=Consolas:h11
 set guifontwide=MS_Gothic
-colorscheme molokai-customized
 
 set guioptions&
 " ツールバーを削除
@@ -12,9 +11,11 @@ set guioptions-=m
 set guioptions-=r
 " 左スクロールバーを非表示
 set guioptions-=L
-"Windowsのgvimのメニューの文字化け対応
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+
+" Windowsのgvimのメニューの文字化け対応
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
+
 " Alt+でメニューをフォーカスしない
 set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー

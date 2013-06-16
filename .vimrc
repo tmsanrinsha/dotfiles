@@ -1,23 +1,33 @@
-" neobundle.vim {{{
-" ==============================================================================
+set nocompatible "vi互換にしない
+
 if has('win32') || has('win64')
     set runtimepath&
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
 endif
 
+" Pluginの有無をチェックする関数 {{{
+" http://yomi322.hateblo.jp/entry/2012/06/20/225559
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+endfunction
+" }}}
+
+" neobundle.vim {{{
+" ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
 if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
-    set nocompatible "vi互換にしない
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
     call neobundle#rc(expand('~/.vim/bundle/'))
 
     " すでにvimが起動しているときは、そちらで開く
-    if has('clientserver')
-        NeoBundle 'thinca/vim-singleton'
+    NeoBundle 'thinca/vim-singleton'
+    if has('clientserver') && s:has_plugin('singleton')
         call singleton#enable()
     endif
 
@@ -206,7 +216,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
     execute "NeoBundle 'tmsanrinsha/vim'".s:protocol
     execute "NeoBundle 'tmsanrinsha/vim-emacscommandline'".s:protocol
 
-    filetype plugin indent on     " required!
 
     " Brief help
     " :NeoBundleList          - list configured bundles
@@ -224,20 +233,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       echomsg 'Please execute ":NeoBundleInstall" command.'
       "finish
     endif
-else
-    set nocompatible "vi互換にしない
-    filetype plugin indent on
 endif
-"}}}
 
-" Pluginの有無をチェックする関数 {{{
-" ==============================================================================
-" http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! s:has_plugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-endfunction
+filetype plugin indent on     " required for neobundle
 "}}}
 
 " vimrc全体で使うaugroup {{{
@@ -280,11 +278,46 @@ set foldmethod=marker
 if has('path_extra')
     set tags=./tags;~,~/**2/tags
 endif
+"}}}
+
+" 文字コード {{{
+" ==============================================================================
+set encoding=utf-8
+set fileencoding=utf-8
+scriptencoding utf-8
+
+" ファイルのエンコードの判定を前から順番にする
+" ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
+" BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
+" http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
+" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
+" ただし2つあるeuc-jpの2番目を消した
+if has("win32") || has("win64")
+    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
+else
+    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
+    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+endif
+
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
+
+" エンコーディングを指定して開き直す
+command! EncCp932     edit ++enc=cp932
+command! EncEucjp     edit ++enc=euc-jp
+command! EncIso2022jp edit ++enc=iso-20220-jp
+command! EncUtf8      edit ++enc=uff-8
+" alias
+command! EncJis  Iso2022jp
+command! EncSjis Cp932
+"}}}
 
 " mapping {{{
 " ------------------------------------------------------------------------------
 " let mapleader = "\<space>"
 " :h map-modes
+" gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
+
 " noremap ; :
 " noremap : ;
 
@@ -323,7 +356,6 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
-"}}}
 
 " swap, backup {{{
 " ==============================================================================
@@ -476,8 +508,8 @@ nnoremap [TAB]0  :10tabn<CR>
 " ==============================================================================
 " 補完 {{{
 " ------------------------------------------------------------------------------
-" set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する（リスト表示の方が好みなのでコメントアウト）
-"
+set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
+
 " コマンドモードの補完をシェルコマンドの補完のようにする
 " http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
 " <TAB>で共通する最長の文字列まで補完して一覧表示
@@ -661,36 +693,6 @@ augroup htmlInclude
 augroup END
 set path&
 set path+=./;/
-"}}}
-
-" 文字コード {{{
-" ==============================================================================
-set encoding=utf-8
-set fileencoding=utf-8
-scriptencoding utf-8
-
-" ファイルのエンコードの判定を前から順番にする
-" ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
-" BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
-" http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
-" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
-" ただし2つあるeuc-jpの2番目を消した
-if has("win32") || has("win64")
-    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
-else
-    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
-    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-endif
-
-"□や○の文字があってもカーソル位置がずれないようにする
-set ambiwidth=double
-command! EncCp932     edit ++enc=cp932
-command! EncEucjp     edit ++enc=euc-jp
-command! EncIso2022jp edit ++enc=iso-20220-jp
-command! EncUtf8      edit ++enc=uff-8
-" alias
-command! EncJis  Iso2022jp
-command! EncSjis Cp932
 "}}}
 
 " printing {{{
@@ -1281,6 +1283,8 @@ augroup colerscheme
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
+
+syntax enable
 "}}}
 
 " Eclim {{{
@@ -1294,8 +1298,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
-
-syntax enable
 
 if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
