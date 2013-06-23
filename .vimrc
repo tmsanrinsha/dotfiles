@@ -281,8 +281,9 @@ if has('path_extra')
 endif
 "}}}
 
-" 文字コード {{{
+" 文字コード・改行コード {{{
 " ==============================================================================
+" 文字コード
 set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
@@ -300,9 +301,6 @@ scriptencoding utf-8
     set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 " endif
 
-"□や○の文字があってもカーソル位置がずれないようにする
-set ambiwidth=double
-
 " エンコーディングを指定して開き直す
 command! EncCp932     edit ++enc=cp932
 command! EncEucjp     edit ++enc=euc-jp
@@ -311,6 +309,15 @@ command! EncUtf8      edit ++enc=uff-8
 " alias
 command! EncJis  Iso2022jp
 command! EncSjis Cp932
+
+" 改行
+set fileformats=unix,dos,mac
+" 改行コードを指定して開き直すには
+"  :e ++ff=dos
+" などとする
+
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
 "}}}
 
 " mapping {{{
