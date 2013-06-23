@@ -59,7 +59,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
 
-    "NeoBundle 'Shougo/unite-ssh'
+    NeoBundle 'Shougo/unite-ssh'
+    NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
 
     " http://archiva.jp/web/tool/vim_grep2.html
@@ -292,12 +293,12 @@ scriptencoding utf-8
 " http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
 " 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
 " ただし2つあるeuc-jpの2番目を消した
-if has("win32") || has("win64")
-    set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
-else
+" if has("win32") || has("win64")
+"     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
+" else
     " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
     set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-endif
+" endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
@@ -990,9 +991,9 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     " Use smartcase.
     let g:neocomplcache_enable_smart_case = 1
     " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 0
+    let g:neocomplcache_enable_camel_case_completion = 1
     " Use underbar completion.
-    let g:neocomplcache_enable_underbar_completion = 0
+    let g:neocomplcache_enable_underbar_completion = 1
     " Set minimum syntax keyword length.
     let g:neocomplcache_min_syntax_length = 3
     let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
