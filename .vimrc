@@ -710,6 +710,10 @@ set printfont=Andale\ Mono:h12:cUTF8
 
 " Quickfix {{{
 " ==============================================================================
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
 " show quickfix automatically
 augroup quickfix
     autocmd!
@@ -1005,6 +1009,12 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_min_syntax_length = 3
     let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
+    " 補完候補取得に時間がかかっても補完をskipしない
+    let g:neocomplcache_skip_auto_completion_time = ''
+    " 候補の数を増やす
+    let g:neocomplcache_max_list = 3000
+
+
     let g:neocomplcache_enable_auto_delimiter = 0
     " Define dictionary.
     let g:neocomplcache_dictionary_filetype_lists = {
@@ -1079,6 +1089,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+    "let g:neocomplcache_omni_patterns.java  = '.*'
 
     " Plugin key-mappings.
     imap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
