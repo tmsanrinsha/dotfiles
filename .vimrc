@@ -19,7 +19,7 @@ endfunction
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
+if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vimv')) && v:version >= 702
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
@@ -234,6 +234,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
       echomsg 'Please execute ":NeoBundleInstall" command.'
       "finish
     endif
+else
+    " bundle下のディレクトリをruntimepathへ追加する。
+    for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
+        if isdirectory(path) | let &runtimepath = &runtimepath.','.path | end
+    endfor
 endif
 
 filetype plugin indent on     " required for neobundle
