@@ -19,7 +19,7 @@ endfunction
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vimv')) && v:version >= 702
+if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) && v:version >= 702
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
