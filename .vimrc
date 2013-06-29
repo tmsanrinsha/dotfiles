@@ -6,6 +6,19 @@ if has('win32') || has('win64')
     set runtimepath+=$HOME/.vim/after
 endif
 
+function! s:Ip2host(line1, line2)
+    for linenum in range(a:line1, a:line2)
+        let oldline = getline(linenum)
+        let newline = substitute(oldline,
+                    \   '\v<(%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5]))>',
+                    \   '\=substitute(system("nslookup ".submatch(1)), "\\v\\c.*name[:= ]*([0-9a-z-.]+).*", "\\1","")',
+                    \   '')
+        call setline(linenum, newline)
+    endfor
+endfunction
+
+command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
+
 " Pluginの有無をチェックする関数 {{{
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
 function! s:has_plugin(plugin)
@@ -271,6 +284,11 @@ set t_Co=256 " 256色
 " アルファベットは増減させない
 set nrformats=hex
 
+set foldmethod=marker
+
+set formatoptions&
+set formatoptions-=t "自動的に折り返さない
+
 " pasteモードのトグル。autoindentをonにしてペーストすると
 " インデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentが解除されそのままペーストできる
@@ -278,8 +296,6 @@ set pastetoggle=<F11>
 " key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
 set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
-
-set foldmethod=marker
 
 if has('path_extra')
     set tags=./tags;~,~/**2/tags
