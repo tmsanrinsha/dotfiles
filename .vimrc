@@ -6,19 +6,6 @@ if has('win32') || has('win64')
     set runtimepath+=$HOME/.vim/after
 endif
 
-function! s:Ip2host(line1, line2)
-    for linenum in range(a:line1, a:line2)
-        let oldline = getline(linenum)
-        let newline = substitute(oldline,
-                    \   '\v<(%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5])\.%(\d|[01]?\d\d|2[0-4]\d|25[0-5]))>',
-                    \   '\=substitute(system("nslookup ".submatch(1)), "\\v\\c.*name[:= ]*([0-9a-z-.]+).*", "\\1","")',
-                    \   '')
-        call setline(linenum, newline)
-    endfor
-endfunction
-
-command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
-
 " Pluginの有無をチェックする関数 {{{
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
 function! s:has_plugin(plugin)
@@ -742,6 +729,22 @@ augroup quickfix
     "autocmd QuickfixCmdPost * cwindow | lwindow
 augroup END
 "}}}
+
+" Ip2host {{{
+" ==============================================================================
+function! s:Ip2host(line1, line2)
+    for linenum in range(a:line1, a:line2)
+        let oldline = getline(linenum)
+        let newline = substitute(oldline,
+                    \   '\v((%(2%([0-4]\d|5[0-5])|1\d\d|[1-9]?\d)\.){3}%(2%([0-4]\d|5[0-5])|1\d\d|[1-9]?\d))',
+                    \   '\=substitute(system("nslookup ".submatch(1)), "\\v.*%(name = |:    )([0-9a-z-.]+).*", "\\1","")',
+                    \   '')
+        call setline(linenum, newline)
+    endfor
+endfunction
+
+command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
+" }}}
 
 " ==== filetype ==== {{{
 
