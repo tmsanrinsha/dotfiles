@@ -72,7 +72,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " 補完候補の自動表示
-    NeoBundle 'Shougo/neocomplcache'
+    NeoBundleLazy 'Shougo/neocomplcache', {
+                \ "autoload" : {"insert": 1}
+                \}
+
     " " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/vim-snippets'
@@ -1024,7 +1027,8 @@ autocmd MyVimrc FileType vimshell
 
 " neocomplcache {{{
 " ==============================================================================
-if s:has_plugin('neocomplcache') && v:version >= 702
+let s:hooks = neobundle#get_hooks("neocomplcache")
+function! s:hooks.on_source(bundle)
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -1138,7 +1142,7 @@ if s:has_plugin('neocomplcache') && v:version >= 702
     if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
     endif
-endif
+endfunction
 "}}}
 
 " vim-quickrun {{{
