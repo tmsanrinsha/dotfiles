@@ -371,9 +371,11 @@ inoremap <C-p> <Up>
 
 nnoremap <Space>h 0
 nnoremap <Space>j ^
-nnoremap <Space>k %
+" matchit
+nmap <Space>k %
 nnoremap <Space>l $
-nnoremap <Tab>    %
+" matchit
+nmap <Tab> %
 " expand path
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
