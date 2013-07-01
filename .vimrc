@@ -365,6 +365,12 @@ inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
+
+nnoremap <Space>h 0
+nnoremap <Space>j ^
+nnoremap <Space>k %
+nnoremap <Space>l $
+nnoremap <Tab>    %
 " expand path
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
