@@ -74,7 +74,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " 補完候補の自動表示
-    if has('lua') && v:version > 703 && has('patch825')
+    if has('lua') && v:version >= 703 && has('patch825')
         NeoBundleLazy "Shougo/neocomplete.vim", {
             \ "autoload": {
             \   "insert": 1,
@@ -1043,28 +1043,42 @@ autocmd MyVimrc FileType vimshell
 " http://d.hatena.ne.jp/joker1007/20111018/1318950377
 " }}}
 
-" neocomplcache {{{
+" neocomplcache & neocomplete {{
 " ==============================================================================
-let s:hooks = neobundle#get_hooks("neocomplcache")
+if has('lua') && v:version >= 703 && has('patch825')
+    let s:hooks = neobundle#get_hooks("neocomplete.vim")
+    let s:neocom = 'neocomplete'
+    let s:neocom_ = 'neocomplete#'
+else
+    let s:hooks = neobundle#get_hooks("neocomplcache")
+    let s:neocom = 'neocomplcache'
+    let s:neocom_ = 'neocomplcache_'
+endif
+
 function! s:hooks.on_source(bundle)
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
-    let g:neocomplcache_enable_at_startup = 1
+    execute 'let g:'.s:neocom_.'enable_at_startup = 1'
     " Use smartcase.
-    let g:neocomplcache_enable_smart_case = 1
+    execute 'let g:'.s:neocom_.'enable_smart_case = 1'
     " Use camel case completion.
     let g:neocomplcache_enable_camel_case_completion = 1
     " Use underbar completion.
-    let g:neocomplcache_enable_underbar_completion = 1
+    let g:neocomplcache_enable_underbar_completion = 1 " Deleted
     " Set minimum syntax keyword length.
-    let g:neocomplcache_min_syntax_length = 3
-    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    if s:has_plugin('neocomplete.vim')
+        let g:neocomplete#sources#syntax#min_syntax_length = 3
+    else
+        let g:neocomplcache_min_syntax_length = 3
+    endif
+    execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\\*ku\\\*"'
 
     " 補完候補取得に時間がかかっても補完をskipしない
-    let g:neocomplcache_skip_auto_completion_time = ''
+    execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
     " 候補の数を増やす
-    let g:neocomplcache_max_list = 3000
+    execute 'let g:'.s:neocom_.'max_list = 3000'
 
 
     let g:neocomplcache_enable_auto_delimiter = 0
@@ -1085,24 +1099,23 @@ function! s:hooks.on_source(bundle)
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    inoremap <expr><C-g>  neocomplcache#undo_completion()
-    inoremap <expr><C-l>  pumvisible() ? neocomplcache#complete_common_string() : neocomplcache#start_manual_complete()
+    execute 'inoremap <expr><C-g>  '.s:neocom.'#undo_completion()'
+    execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
-    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>  neocomplcache#smart_close_popup()."\<C-h>"
+    execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
+    execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
+    execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
+    execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
     " <C-u>, <C-w>した文字列をアンドゥできるようにする
     " http://vim-users.jp/2009/10/hack81/
     " C-uでポップアップを消したいがうまくいかない
-    inoremap <expr><C-u>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"
-    inoremap <expr><C-w>  pumvisible() ? neocomplcache#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    "inoremap <expr><CR>   pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    inoremap <expr><C-e>  pumvisible() ? neocomplcache#cancel_popup() : "\<End>"
+    execute 'inoremap <expr><C-u>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
+    execute 'inoremap <expr><C-w>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
     " AutoComplPop like behavior.
     "let g:neocomplcache_enable_auto_select = 1
     " Shell like behavior(not recommended).
