@@ -1068,12 +1068,12 @@ function! s:hooks.on_source(bundle)
     let g:neocomplcache_enable_underbar_completion = 1 " Deleted
     " Set minimum syntax keyword length.
 
-    if s:has_plugin('neocomplete.vim')
+    if s:has_plugin('neocomplete')
         let g:neocomplete#sources#syntax#min_syntax_length = 3
     else
         let g:neocomplcache_min_syntax_length = 3
     endif
-    execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\\*ku\\\*"'
+    execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
     " 補完候補取得に時間がかかっても補完をskipしない
     execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
