@@ -26,9 +26,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     call neobundle#rc(expand('~/.vim/bundle/'))
 
     " すでにvimが起動しているときは、そちらで開く
-    NeoBundle 'thinca/vim-singleton'
-    if has('clientserver') && s:has_plugin('singleton')
-        call singleton#enable()
+    if has('clientserver')
+        NeoBundle 'thinca/vim-singleton'
+        if neobundle#is_installed('vim-singleton')
+            call singleton#enable()
+        endif
     endif
 
     " let NeoBundle manage NeoBundle
@@ -72,11 +74,19 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " 補完候補の自動表示
-    NeoBundleLazy 'Shougo/neocomplcache', {
-                \ "autoload" : {"insert": 1}
-                \}
+    if has('lua') && v:version > 703 && has('patch825')
+        NeoBundleLazy "Shougo/neocomplete.vim", {
+            \ "autoload": {
+            \   "insert": 1,
+            \ }}
+    else
+        NeoBundleLazy "Shougo/neocomplcache", {
+            \ "autoload": {
+            \   "insert": 1,
+            \ }}
+    endif
 
-    " " スニペット補完
+    " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/vim-snippets'
 
