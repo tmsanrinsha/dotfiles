@@ -907,7 +907,7 @@ nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 "最近使用したディレクトリ一覧
 nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
-call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+"call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
 " ファイル内検索結果
 nnoremap <silent> [unite]l :<C-u>Unite line<CR>
@@ -936,7 +936,13 @@ let g:unite_source_history_yank_enable = 1  "history/yankの有効化
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 " ブックマーク
 nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+"call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+" vimfilerがどんどん増えちゃう
+call unite#custom_default_action('directory' , 'vimfiler')
+" vimfiler上ではvimfilerを増やさず、移動するだけ
+autocmd MyVimrc FileType vimfiler
+            \   call unite#custom_default_action('directory', 'lcd')
 
 let g:unite_source_find_max_candidates = 1000
 "}}}
