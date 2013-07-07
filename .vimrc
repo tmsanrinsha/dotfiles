@@ -1,3 +1,4 @@
+"set path=~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,
 set nocompatible "vi互換にしない
 
 if has('win32') || has('win64')
@@ -80,10 +81,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
             \   "insert": 1,
             \ }}
     else
-        NeoBundleLazy "Shougo/neocomplcache", {
-            \ "autoload": {
-            \   "insert": 1,
-            \ }}
+        " NeoBundleLazy "Shougo/neocomplcache", {
+        "     \ "autoload": {
+        "     \   "insert": 1,
+        "     \ }}
+        NeoBundle "Shougo/neocomplcache"
     endif
 
     " スニペット補完
@@ -726,10 +728,10 @@ nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
 " ファイルの検索の範囲の変更
 augroup htmlInclude
     autocmd!
-    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','')
+    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
+                \   setlocal path& |
+                \   setlocal path+=./;/
 augroup END
-set path&
-set path+=./;/
 "}}}
 
 " printing {{{
@@ -1043,8 +1045,11 @@ autocmd MyVimrc FileType vimshell
 " http://d.hatena.ne.jp/joker1007/20111018/1318950377
 " }}}
 
-" neocomplcache & neocomplete {{
+" neocomplcache & neocomplete {{{
 " ==============================================================================
+"set path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
+"android.view.View
+"set includeexpr=substitute(v:fname,'\\.','/','g')
 if has('lua') && v:version >= 703 && has('patch825')
     let s:hooks = neobundle#get_hooks("neocomplete.vim")
     let s:neocom = 'neocomplete'
@@ -1055,7 +1060,7 @@ else
     let s:neocom_ = 'neocomplcache_'
 endif
 
-function! s:hooks.on_source(bundle)
+"function! s:hooks.on_source(bundle)
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -1079,7 +1084,7 @@ function! s:hooks.on_source(bundle)
     execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
     " 候補の数を増やす
     execute 'let g:'.s:neocom_.'max_list = 3000'
-
+    let g:neocomplcache_force_overwrite_completefunc = 1
 
     let g:neocomplcache_enable_auto_delimiter = 0
     " Define dictionary.
@@ -1156,6 +1161,36 @@ function! s:hooks.on_source(bundle)
     let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
     "let g:neocomplcache_omni_patterns.java  = '.*'
 
+    "include補完
+    "インクルードパスの指定
+    " let g:neocomplcache_include_paths = {
+    "             \ 'cpp' : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
+    "             \ 'c' : '.,/usr/include',
+    "             \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+    "             \ 'java' : '.,$HOME/AppData/Local/Android/android-sdk/sources/',
+    "             \ }
+                "\ 'perl' : '$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,',
+    "インクルード文のパターンを指定
+    " let g:neocomplcache_include_patterns = {
+    "             \ 'cpp' : '^\s*#\s*include',
+    "             \ 'ruby' : '^\s*require',
+    "             \ }
+    "             "\ 'perl' : '^\s*use',
+    " "インクルード先のファイル名の解析パターン
+    " let g:neocomplcache_include_exprs = {
+    "             \ 'ruby' : substitute(v:fname,'::','/','g'),
+    "             \ }
+    "             "\ 'perl' : substitute(substitute(v:fname,'::','/','g'),'$','.pm','')
+    " " ファイルを探す際に、この値を末尾に追加したファイルも探す。
+    " let g:neocomplcache_include_suffixes = {
+    "             \ 'ruby' : '.rb',
+    "             \ 'haskell' : '.hs'
+    "             \ }
+    let g:neocomplcache_include_max_processes = 1000
+"}}}
+
+" neosnippet {{{
+" ==============================================================================
     " Plugin key-mappings.
     imap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
     smap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
@@ -1173,8 +1208,8 @@ function! s:hooks.on_source(bundle)
     if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
     endif
-endfunction
-"}}}
+"endfunction
+" }}}
 
 " vim-quickrun {{{
 " ==============================================================================
@@ -1374,7 +1409,7 @@ syntax enable
 " Eclim {{{
 " -----------------------------------------------------------------------------
 " neocomplcacheで補完するため
-let g:EclimCompletionMethod = 'omnifunc'
+"let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 
 " ==== Plugin ==== }}}
