@@ -1,4 +1,3 @@
-"set path=~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,
 set nocompatible "vi互換にしない
 
 if has('win32') || has('win64')

@@ -12,6 +12,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim'))
 
     call neobundle#rc(expand('~/.vim/bundle/'))
 
+    NeoBundle "Shougo/neocomplcache"
     " ステータスラインをカスタマイズ
     NeoBundle 'Lokaltog/vim-powerline'
 
@@ -86,3 +87,113 @@ if s:has_plugin('Powerline')
     let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
 endif
 "}}}
+
+autocmd! FileType java setlocal path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
+if has('lua') && v:version >= 703 && has('patch825')
+    let s:hooks = neobundle#get_hooks("neocomplete.vim")
+    let s:neocom = 'neocomplete'
+    let s:neocom_ = 'neocomplete#'
+else
+    let s:hooks = neobundle#get_hooks("neocomplcache")
+    let s:neocom = 'neocomplcache'
+    let s:neocom_ = 'neocomplcache_'
+endif
+
+    let g:acp_enableAtStartup = 0
+    " Use neocomplcache.
+    execute 'let g:'.s:neocom_.'enable_at_startup = 1'
+    " Use smartcase.
+    execute 'let g:'.s:neocom_.'enable_smart_case = 1'
+    " Use camel case completion.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    " Use underbar completion.
+    let g:neocomplcache_enable_underbar_completion = 1 " Deleted
+    " Set minimum syntax keyword length.
+
+    if s:has_plugin('neocomplete')
+        let g:neocomplete#sources#syntax#min_syntax_length = 3
+    else
+        let g:neocomplcache_min_syntax_length = 3
+    endif
+    execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
+
+    " 補完候補取得に時間がかかっても補完をskipしない
+    execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
+    " 候補の数を増やす
+    execute 'let g:'.s:neocom_.'max_list = 3000'
+    let g:neocomplcache_force_overwrite_completefunc = 1
+
+    let g:neocomplcache_enable_auto_delimiter = 0
+    " Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+                \ 'default'  : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme'   : $HOME.'/.gosh_completions'
+                \ }
+
+    let g:neocomplcache_ignore_composite_filetype_lists = {
+                \ 'php.phpunit': 'php',
+                \}
+
+    " Define keyword.
+    if !exists('g:neocomplcache_keyword_patterns')
+        let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+    execute 'inoremap <expr><C-g>  '.s:neocom.'#undo_completion()'
+    execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
+    execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
+    execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
+    execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
+    " <C-u>, <C-w>した文字列をアンドゥできるようにする
+    " http://vim-users.jp/2009/10/hack81/
+    " C-uでポップアップを消したいがうまくいかない
+    execute 'inoremap <expr><C-u>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
+    execute 'inoremap <expr><C-w>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
+    " AutoComplPop like behavior.
+    "let g:neocomplcache_enable_auto_select = 1
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplcache_enable_auto_select = 1
+    "let g:neocomplcache_disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+    " Shell like behavior(my setting)
+    " complet_common_stringではsmartcaseが効かない
+    " 余計な候補を出して欲しくないので
+    " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
+    " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
+    "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
+    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+    " Enable omni completion.
+    augroup neocomplcache
+        autocmd!
+        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
+        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+        " autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
+    augroup END
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
+    let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
