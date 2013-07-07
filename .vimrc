@@ -874,6 +874,11 @@ augroup END
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
 "}}}
 
+" Java {{{
+" ==============================================================================
+autocmd MyVimrc FileType java setlocal path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
+"}}}
+
 " apache {{{
 " ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
@@ -1047,9 +1052,6 @@ autocmd MyVimrc FileType vimshell
 
 " neocomplcache & neocomplete {{{
 " ==============================================================================
-"set path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
-"android.view.View
-"set includeexpr=substitute(v:fname,'\\.','/','g')
 if has('lua') && v:version >= 703 && has('patch825')
     let s:hooks = neobundle#get_hooks("neocomplete.vim")
     let s:neocom = 'neocomplete'
@@ -1186,7 +1188,7 @@ endif
     "             \ 'ruby' : '.rb',
     "             \ 'haskell' : '.hs'
     "             \ }
-    let g:neocomplcache_include_max_processes = 1000
+    "let g:neocomplcache_include_max_processes = 1000
 "}}}
 
 " neosnippet {{{
