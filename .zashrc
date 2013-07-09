@@ -38,6 +38,14 @@ pathmunge $HOME/bin/pseudo after
 if [[ `uname` = CYGWIN* ]]; then
     pathmunge $HOME/bin/cygwin
 fi
+
+# fetchbundle以下の実行ファイルのあるディレクトリにPATHを通す
+if [ -d ~/.vim/fetchBundle ]; then
+    for i in `find ~/.vim/fetchBundle -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
+    do
+        pathmunge $i
+    done
+fi
 # }}}
 
 # alias {{{
