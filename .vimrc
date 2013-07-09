@@ -1,4 +1,3 @@
-"set path=~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,~/perl5/lib/perl5/cygwin-thread-multi-64int,~/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,
 set nocompatible "vi互換にしない
 
 if has('win32') || has('win64')
@@ -876,6 +875,11 @@ augroup END
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
 "}}}
 
+" Java {{{
+" ==============================================================================
+autocmd MyVimrc FileType java setlocal path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
+"}}}
+
 " apache {{{
 " ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
@@ -1049,9 +1053,6 @@ autocmd MyVimrc FileType vimshell
 
 " neocomplcache & neocomplete {{{
 " ==============================================================================
-"set path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
-"android.view.View
-"set includeexpr=substitute(v:fname,'\\.','/','g')
 if has('lua') && v:version >= 703 && has('patch825')
     let s:hooks = neobundle#get_hooks("neocomplete.vim")
     let s:neocom = 'neocomplete'
@@ -1188,7 +1189,7 @@ endif
     "             \ 'ruby' : '.rb',
     "             \ 'haskell' : '.hs'
     "             \ }
-    let g:neocomplcache_include_max_processes = 1000
+    "let g:neocomplcache_include_max_processes = 1000
 "}}}
 
 " neosnippet {{{
