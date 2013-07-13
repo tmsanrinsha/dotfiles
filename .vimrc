@@ -240,6 +240,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " :Unite neobundle/install:neocomplcache
     " :Unite neobundle/install:neocomplcache:unite.vim
 
+    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
+
 
     " Installation check.
     if neobundle#exists_not_installed_bundles()
