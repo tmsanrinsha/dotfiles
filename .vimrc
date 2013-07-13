@@ -1061,7 +1061,7 @@ else
     let s:neocom_ = 'neocomplcache_'
 endif
 
-"function! s:hooks.on_source(bundle)
+function! s:hooks.on_source(bundle)
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -1085,7 +1085,7 @@ endif
     execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
     " 候補の数を増やす
     execute 'let g:'.s:neocom_.'max_list = 3000'
-    let g:neocomplcache_force_overwrite_completefunc = 1
+    execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
     let g:neocomplcache_enable_auto_delimiter = 0
     " Define dictionary.
@@ -1209,7 +1209,7 @@ endif
     if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
     endif
-"endfunction
+endfunction
 " }}}
 
 " vim-quickrun {{{
@@ -1410,7 +1410,7 @@ syntax enable
 " Eclim {{{
 " -----------------------------------------------------------------------------
 " neocomplcacheで補完するため
-"let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 
 " ==== Plugin ==== }}}
