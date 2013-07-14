@@ -1069,7 +1069,8 @@ function! s:hooks.on_source(bundle)
     " Use neocomplcache.
     execute 'let g:'.s:neocom_.'enable_at_startup = 1'
     " Use smartcase.
-    execute 'let g:'.s:neocom_.'enable_smart_case = 1'
+    "execute 'let g:'.s:neocom_.'enable_smart_case = 1'
+    execute 'let g:'.s:neocom_.'enable_ignore_case = 0'
     " Use camel case completion.
     let g:neocomplcache_enable_camel_case_completion = 1
     " Use underbar completion.
@@ -1142,8 +1143,7 @@ function! s:hooks.on_source(bundle)
     "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
     " Enable omni completion.
-    augroup neocomplcache
-        autocmd!
+    augroup MyVimrc
         autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
         autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
         autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -1151,7 +1151,7 @@ function! s:hooks.on_source(bundle)
         autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
         autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
         autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-        " autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
+        autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
     augroup END
 
     " Enable heavy omni completion.
