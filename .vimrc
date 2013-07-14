@@ -331,8 +331,8 @@ command! EncEucjp     edit ++enc=euc-jp
 command! EncIso2022jp edit ++enc=iso-20220-jp
 command! EncUtf8      edit ++enc=uff-8
 " alias
-command! EncJis  Iso2022jp
-command! EncSjis Cp932
+command! EncJis  EncIso2022jp
+command! EncSjis EncCp932
 
 " 改行
 set fileformats=unix,dos,mac
