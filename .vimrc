@@ -1270,6 +1270,46 @@ let g:quickrun_config['php.phpunit'] = {
             \   'exec'                   : '%c %o %s'
             \}
 "}}}
+
+" Android Dev {{{
+" --------------------------------------------------------------------------
+function! s:QuickRunAndroidProject()
+    let s:project_dir = unite#util#path2project_directory(expand('%'))
+    for s:line in readfile(s:project_dir.'/AndroidManifest.xml')
+        " ex) com.android.helloworld.HelloWorldActivity
+        let s:android_name = matchstr(s:line, 'android:name="\zs.*\ze"')
+        if !empty(s:android_name)
+            break
+        endif
+    endfor
+
+    if empty(s:android_name)
+        echo 'android:nameが見つかりません'
+        return -1
+    endif
+
+    let s:apk_file = s:project_dir.'/bin/'.matchstr(s:android_name, '[^.]\+$').'-debug.apk'
+    " ex) com.android.helloworld/.HelloWorldActivity
+    let s:component = substitute(s:android_name, '\zs\.\ze[^.]*$', '/.', '')
+
+    let g:quickrun_config['androidProject'] = {
+                \   'hook/cd/directory'           : s:project_dir,
+                \   'hook/output_encode/encoding' : 'cp932',
+                \   'exec'                        : [
+                \       'android update project --path .',
+                \       'ant debug',
+                \       'adb -d install -r '.s:apk_file,
+                \       'adb shell am start -a android.intent.action.MAIN -n '.s:component
+                \   ]
+                \}
+
+    QuickRun androidProject
+endfunction
+
+command! QuickRunAndroidProject :call s:QuickRunAndroidProject()
+autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
+"}}}
+
 " let g:quickrun_config['node'] = {
 "             \   'runner/vimproc/updatetime' : 1000,
 "             \   'command'                : 'tail',
