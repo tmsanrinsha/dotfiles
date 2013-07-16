@@ -937,7 +937,7 @@ nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 " -------------------------------------------------------------------------
 if executable('grep')
   let g:unite_source_grep_command = 'grep'
-  let g:unite_source_grep_default_opts = '-n $* /dev/null'
+  let g:unite_source_grep_default_opts = '-n'
   let g:unite_source_grep_recursive_opt = '-r'
 endif
 
