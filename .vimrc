@@ -1278,31 +1278,43 @@ let g:quickrun_config['php.phpunit'] = {
 " --------------------------------------------------------------------------
 function! s:QuickRunAndroidProject()
     let s:project_dir = unite#util#path2project_directory(expand('%'))
+
     for s:line in readfile(s:project_dir.'/AndroidManifest.xml')
-        " ex) com.android.helloworld.HelloWorldActivity
-        let s:android_name = matchstr(s:line, 'android:name="\zs.*\ze"')
-        if !empty(s:android_name)
+        " package名の取得
+        " ex) com.sample.helloworld
+        if !empty(matchstr(s:line, 'package="\zs.*\ze"'))
+            let s:package = matchstr(s:line, 'package="\zs.*\ze"')
+            continue
+        endif
+
+        " android:nameの取得
+        " ex) com.sample.helloworld.HelloWorldActivity
+        if !empty(matchstr(s:line, 'android:name="\zs.*\ze"'))
+            let s:android_name = matchstr(s:line, 'android:name="\zs.*\ze"')
             break
         endif
     endfor
 
-    if empty(s:android_name)
+    if empty(s:package)
+        echo 'package名が見つかりません'
+        return -1
+    elseif empty(s:android_name)
         echo 'android:nameが見つかりません'
         return -1
     endif
 
     let s:apk_file = s:project_dir.'/bin/'.matchstr(s:android_name, '[^.]\+$').'-debug.apk'
-    " ex) com.android.helloworld/.HelloWorldActivity
+    " ex) com.sample.helloworld/.HelloWorldActivity
     let s:component = substitute(s:android_name, '\zs\.\ze[^.]*$', '/.', '')
 
     let g:quickrun_config['androidProject'] = {
                 \   'hook/cd/directory'           : s:project_dir,
-                \   'hook/output_encode/encoding' : 'cp932',
+                \   'hook/output_encode/encoding' : 'sjis',
                 \   'exec'                        : [
                 \       'android update project --path .',
                 \       'ant debug',
                 \       'adb -d install -r '.s:apk_file,
-                \       'adb shell am start -a android.intent.action.MAIN -n '.s:component
+                \       'adb shell am start -a android.intent.action.MAIN -n '.s:package.'/'.s:android_name
                 \   ]
                 \}
 
