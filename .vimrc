@@ -532,6 +532,9 @@ nnoremap [TAB]q :tabc<CR>
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <S-C-Tab> :tabp<CR>
 
+nnoremap [TAB]n :tabn<CR>
+nnoremap [TAB]p :tabp<CR>
+
 nnoremap [TAB]1  :1tabn<CR>
 nnoremap [TAB]2  :2tabn<CR>
 nnoremap [TAB]3  :3tabn<CR>
