@@ -1,5 +1,5 @@
 set formatoptions=q
-set guifont=Consolas:h11
+set guifont=Consolas:h10
 set guifontwide=MS_Gothic
 
 set guioptions&
@@ -11,6 +11,13 @@ set guioptions-=m
 set guioptions-=r
 " 左スクロールバーを非表示
 set guioptions-=L
+" guitablabelを使わない
+set guioptions-=e
+" 'a'に似ているが、コマンドラインで選択したときか、CTRL+SHIFTを押しながらマウスで選択したときに共有のクリップボードを使用する。
+" Ctrl+Shiftでステータスラインの文字列もクリップボードに保存できる
+set guioptions+=A
+" ポップアップダイアログではなく、コンソールダイアログを使う
+set guioptions+=c
 
 " Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim

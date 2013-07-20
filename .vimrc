@@ -1,4 +1,7 @@
 set nocompatible "vi互換にしない
+set encoding=utf-8
+set fileencoding=utf-8
+scriptencoding utf-8
 
 if has('win32') || has('win64')
     set runtimepath&
@@ -38,14 +41,19 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'Shougo/neobundle.vim'
 
     " recommended to install
-    NeoBundle 'Shougo/vimproc', {
-      \   'build' : {
-      \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-      \     'cygwin'  : 'make -f make_cygwin.mak',
-      \     'mac'     : 'make -f make_mac.mak',
-      \     'unix'    : 'make -f make_unix.mak',
-      \   },
-      \ }
+    if has('win32') || has('win64')
+        " kaoriya版Vim同梱のvimprocを使う
+        set runtimepath+=$VIM/plugins/vimproc
+    else
+        NeoBundle 'Shougo/vimproc', {
+                    \   'build' : {
+                    \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+                    \     'cygwin'  : 'make -f make_cygwin.mak',
+                    \     'mac'     : 'make -f make_mac.mak',
+                    \     'unix'    : 'make -f make_unix.mak',
+                    \   },
+                    \ }
+    endif
 
     NeoBundle 'Shougo/unite.vim'
 
@@ -161,22 +169,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'commands' : 'HttpStatus' }
                 \ }
 
-    " colorscheme
-    NeoBundle 'tomasr/molokai'
-    NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'vim-scripts/wombat256.vim'
-    NeoBundle 'altercation/vim-colors-solarized'
-    NeoBundle 'chriskempson/vim-tomorrow-theme'
-    NeoBundle 'vim-scripts/rdark'
-    NeoBundle 'vim-scripts/rdark-terminal'
-    NeoBundle 'jonathanfilip/vim-lucius'
-    let g:lucius_contrast_bg = 'high'
 
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
 
-    " CSS ====================================================================
+    " CSS
     " #000000とかの色付け
     " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
     " NeoBundle 'gist:hail2u/228147', {
@@ -216,6 +214,26 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'commands' : [ 'Gist' ] },
                 \   'depends'  : 'mattn/webapi-vim'
                 \}
+
+    if isdirectory(expand('~/pleiades/eclipse'))
+        NeoBundle 'ervandew/eclim', {
+                    \   'build' : {
+                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/pleiades/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \   }
+                    \}
+    endif
+
+    " colorscheme
+    NeoBundle 'tomasr/molokai'
+    NeoBundle 'w0ng/vim-hybrid'
+    NeoBundle 'vim-scripts/wombat256.vim'
+    NeoBundle 'altercation/vim-colors-solarized'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
+    NeoBundle 'vim-scripts/rdark'
+    NeoBundle 'vim-scripts/rdark-terminal'
+    NeoBundle 'jonathanfilip/vim-lucius'
+    let g:lucius_contrast_bg = 'high'
 
     "NeoBundle 'thinca/vim-showtime'
     "NeoBundle 'pocket7878/presen-vim'
@@ -854,6 +872,7 @@ autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jque
 let php_sql_query=1 " 文字列中のSQLをハイライトする
 let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
+let g:PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントする
 "let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする (重い)
 " augroup php
 "     autocmd!
@@ -862,7 +881,7 @@ let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイラ�
 " " Vimテクニックバイブル1-13
 " " PHPプログラムの構文チェック
 " " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-augroup phpsyntaxcheck
+augroup MyVimrc
    autocmd!
    " autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
    autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
@@ -880,7 +899,11 @@ autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
 
 " Java {{{
 " ==============================================================================
-autocmd MyVimrc FileType java setlocal path=$HOME/AppData/Local/Android/android-sdk/sources/android-17/
+if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
+    autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
+elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
+    autocmd MyVimrc FileType java setlocal path+=/Program\ Files\ (x86)/Android/android-sdk/sources/android-17
+endif
 "}}}
 
 " apache {{{
