@@ -324,6 +324,7 @@ set mouse=a
 if has('path_extra')
     set tags=./tags;~,~/**2/tags
 endif
+set helplang=en,ja
 "}}}
 " 文字コード・改行コード {{{
 " ==============================================================================
@@ -772,8 +773,17 @@ endfunction
 
 command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
 " }}}
+" ftdetect {{{
+" ==============================================================================
+autocmd MyVimrc BufRead sanrinsha* setfiletype html
+" nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
+autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
+" MySQLのEditorの設定
+" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
+autocmd MyVimrc BufRead /var/tmp/sql* setfiletype mysql
+autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setfiletype apache
+" }}}
 " ==== filetype ==== {{{
-
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
@@ -784,12 +794,9 @@ augroup sh
     autocmd!
     autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 augroup END
-" shell }}}
-
+"}}}
 " HTML {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
-
 " HTML Key Mappings for Typing Character Codes: {{{
 " ------------------------------------------------------------------------------
 " * http://www.stripey.com/vim/html.html
@@ -830,7 +837,6 @@ augroup MapHTMLKeys
     endfunction " MapHTMLKeys()
 augroup END
 "}}}
-
 " input </ to auto close tag on XML {{{
 " ------------------------------------------------------------------------------
 " https://github.com/sorah/config/blob/master/vim/dot.vimrc
@@ -841,13 +847,6 @@ augroup END
 "augroup END
 "}}}
 "}}}
-
-" JavaScript {{{
-" ==============================================================================
-" nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
-autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
-" }}}
-
 " PHP {{{
 " ==============================================================================
 let php_sql_query=1 " 文字列中のSQLをハイライトする
@@ -870,14 +869,6 @@ augroup MyVimrc
 augroup END
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
-
-" MySQL {{{
-" ==============================================================================
-" Editorの設定
-" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
-"}}}
-
 " Java {{{
 " ==============================================================================
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
@@ -886,23 +877,14 @@ elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/andr
     autocmd MyVimrc FileType java setlocal path+=/Program\ Files\ (x86)/Android/android-sdk/sources/android-17
 endif
 "}}}
-
-" apache {{{
-" ==============================================================================
-autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
-"}}}
-
 " help {{{
 " ==============================================================================
-set helplang=en,ja
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}
-
 " crontab {{{
 " ==============================================================================
 autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
-
 " tsv {{{
 " ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
