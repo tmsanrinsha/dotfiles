@@ -17,7 +17,6 @@ function! s:has_plugin(plugin)
   \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
 endfunction
 " }}}
-
 " neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
@@ -84,22 +83,21 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " 補完候補の自動表示
     if has('lua') && v:version >= 703 && has('patch825')
         NeoBundleLazy "Shougo/neocomplete.vim", {
-            \ "autoload": {
-            \   "insert": 1,
-            \ }}
+            \    "autoload": {
+            \        "insert": 1,
+            \   }
+            \}
     else
-        " NeoBundleLazy "Shougo/neocomplcache", {
-        "     \ "autoload": {
-        "     \   "insert": 1,
-        "     \ }}
-        NeoBundle "Shougo/neocomplcache"
+        NeoBundleLazy "Shougo/neocomplcache", {
+            \   "autoload": {
+            \        "insert": 1,
+            \   }
+            \}
     endif
 
     " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/vim-snippets'
-
-    " NeoBundle 'AutoComplPop'
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -112,7 +110,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
                 \}
 
-    NeoBundle 'thinca/vim-partedit'
+    " textobj
+    NeoBundle 'kana/vim-textobj-user'
+    NeoBundle 'kana/vim-textobj-indent'
 
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : {
@@ -136,24 +136,18 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     let g:multi_cursor_quit_key='<Esc>'
     " }}}
 
-    NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-indent'
+    " 部分的に編集
+    NeoBundle 'thinca/vim-partedit'
+
+    NeoBundleLazy 'vim-scripts/DirDiff.vim', {
+                \   'autoload' : {
+                \       'commands' : [ 'DirDiff' ]
+                \   }
+                \}
 
     "NeoBundle 'Align'
     NeoBundle 'h1mesuke/vim-alignta'
     NeoBundle "tyru/caw.vim"
-
-    " ミニバッファにバッファ一覧を表示
-    " https://github.com/fholgado/minibufexpl.vim
-    NeoBundle 'fholgado/minibufexpl.vim'
-
-    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-    " https://github.com/rgarver/Kwbd.vim
-    NeoBundle 'rgarver/Kwbd.vim'
-
-    " ステータスラインをカスタマイズ
-    " https://github.com/Lokaltog/vim-powerline
-    NeoBundle 'Lokaltog/vim-powerline'
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
@@ -162,13 +156,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " ヤンクの履歴を選択してペースト
     " http://www.vim.org/scripts/script.php?script_id=1234
     NeoBundle 'vim-scripts/YankRing.vim'
-
-    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
-    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
-    NeoBundleLazy 'mattn/httpstatus-vim', {
-                \   'autoload' : { 'commands' : 'HttpStatus' }
-                \ }
-
 
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
@@ -224,6 +211,18 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                     \}
     endif
 
+    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+    " https://github.com/rgarver/Kwbd.vim
+    NeoBundle 'rgarver/Kwbd.vim'
+
+    " ミニバッファにバッファ一覧を表示
+    " https://github.com/fholgado/minibufexpl.vim
+    NeoBundle 'fholgado/minibufexpl.vim'
+
+    " ステータスラインをカスタマイズ
+    " https://github.com/Lokaltog/vim-powerline
+    NeoBundle 'Lokaltog/vim-powerline'
+
     " colorscheme
     NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
@@ -234,6 +233,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
+
+    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
+    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
+    NeoBundleLazy 'mattn/httpstatus-vim', {
+                \   'autoload' : { 'commands' : 'HttpStatus' }
+                \ }
 
     "NeoBundle 'thinca/vim-showtime'
     "NeoBundle 'pocket7878/presen-vim'
@@ -277,7 +282,6 @@ endif
 
 filetype plugin indent on     " required for neobundle
 "}}}
-
 " vimrc全体で使うaugroup {{{
 " ==============================================================================
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
@@ -287,7 +291,6 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
-
 " 基本設定 {{{
 " ==============================================================================
 set showmode "現在のモードを表示
@@ -322,7 +325,6 @@ if has('path_extra')
     set tags=./tags;~,~/**2/tags
 endif
 "}}}
-
 " 文字コード・改行コード {{{
 " ==============================================================================
 " 文字コード
@@ -361,7 +363,6 @@ set fileformats=unix,dos,mac
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
 "}}}
-
 " mapping {{{
 " ------------------------------------------------------------------------------
 " let mapleader = "\<space>"
@@ -414,7 +415,6 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
-
 " swap, backup {{{
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
@@ -452,7 +452,6 @@ augroup END
 "    set undodir=~/.vimundo
 "endif
 "}}}
-
 " タブ・インデント {{{
 " ==============================================================================
 "ファイル内の <Tab> が対応する空白の数
@@ -466,7 +465,6 @@ set expandtab
 set autoindent
 set smartindent
 "}}}
-
 " ステータスライン {{{
 " ==============================================================================
 
@@ -479,7 +477,6 @@ set laststatus=2
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 "set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 "}}}
-
 " バッファ {{{
 " ==============================================================================
 nnoremap <M-n> :bn<CR>
@@ -506,7 +503,6 @@ if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     nmap <Leader>bd <Plug>Kwbd
 endif
 "}}}
-
 " window {{{
 " ==============================================================================
 "nnoremap <M-h> <C-w>h
@@ -533,7 +529,6 @@ set splitright
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
 nnoremap <F12> :set scrollbind!<CR>
 "}}}
-
 " タブ {{{
 " ==============================================================================
 "  いつタブページのラベルを表示するかを指定する。
@@ -564,7 +559,6 @@ nnoremap [TAB]8  :8tabn<CR>
 nnoremap [TAB]9  :9tabn<CR>
 nnoremap [TAB]0  :10tabn<CR>
 "}}}
-
 " コマンドモード {{{
 " ==============================================================================
 " 補完 {{{
@@ -585,7 +579,6 @@ cnoremap <C-N> <DOWN>
 
 set history=100000 "保存する履歴の数
 "}}}
-
 " 検索 {{{
 " ==============================================================================
 set incsearch
@@ -600,7 +593,6 @@ nnoremap <Esc><Esc> :set hlsearch!<CR>
 vnoremap <Leader>/ <ESC>/\%V
 vnoremap <Leader>? <ESC>?\%V
 "}}}
-
 " ビジュアルモード {{{
 " =============================================================================
 " vipで選択後、IやAで挿入できるようにする {{{
@@ -620,7 +612,6 @@ function! s:force_blockwise_visual(next_key)
 endfunction
 "}}}
 "}}}
-
 " ディレクトリ・ファイル {{{
 " ==============================================================================
 "augroup CD
@@ -630,7 +621,6 @@ endfunction
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
 "}}}
-
 " カーソル {{{
 " ==============================================================================
 set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
@@ -689,13 +679,11 @@ augroup cursor
                 \ endif
 augroup END
 "}}}
-
 " カッコ・タグの対応 {{{
 " ==============================================================================
 set showmatch matchtime=1 "括弧の対応
 runtime macros/matchit.vim "HTML tag match
 "}}}
-
 " vimdiff {{{
 " ==============================================================================
 set diffopt=filler,iwhite
@@ -709,7 +697,6 @@ nnoremap <silent> [VIMDIFF]O :windo diffoff<CR> <C-w><C-w>
 nnoremap <silent> [VIMDIFF]U :windo diffupdate<CR> <C-w><C-w>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
-
 " Manual {{{
 " ==============================================================================
 ":Man <man>でマニュアルを開く
@@ -721,7 +708,6 @@ nmap K <Leader>K
 let $PAGER=''
 
 "}}}
-
 " vimrcの編集 {{{
 " ==============================================================================
 " http://vim-users.jp/2009/09/hack74/
@@ -743,7 +729,6 @@ nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
 "  " autocmd BufWritePost .vimrc RcbVimrc
 "augroup END
 "}}}
-
 " gf(goto file)の設定 {{{
 " ==============================================================================
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
@@ -755,12 +740,10 @@ augroup htmlInclude
                 \   setlocal path+=./;/
 augroup END
 "}}}
-
 " printing {{{
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
 "}}}
-
 " Quickfix {{{
 " ==============================================================================
 nnoremap [q :cprevious<CR>   " 前へ
@@ -774,7 +757,6 @@ augroup quickfix
     "autocmd QuickfixCmdPost * cwindow | lwindow
 augroup END
 "}}}
-
 " Ip2host {{{
 " ==============================================================================
 function! s:Ip2host(line1, line2)
@@ -790,7 +772,6 @@ endfunction
 
 command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
 " }}}
-
 " ==== filetype ==== {{{
 
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
@@ -927,7 +908,6 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " ==== filetype ==== }}}
-
 " ==== Plugin ==== {{{
 
 " Shougo/unite {{{
@@ -1500,7 +1480,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 " }}}
 
 " ==== Plugin ==== }}}
-
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
