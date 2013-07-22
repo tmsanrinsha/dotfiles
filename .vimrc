@@ -139,12 +139,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " 部分的に編集
     NeoBundle 'thinca/vim-partedit'
 
-    NeoBundleLazy 'vim-scripts/DirDiff.vim', {
-                \   'autoload' : {
-                \       'commands' : [ 'DirDiff' ]
-                \   }
-                \}
-
     "NeoBundle 'Align'
     NeoBundle 'h1mesuke/vim-alignta'
     NeoBundle "tyru/caw.vim"
@@ -157,9 +151,35 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " http://www.vim.org/scripts/script.php?script_id=1234
     NeoBundle 'vim-scripts/YankRing.vim'
 
+
+    NeoBundleLazy 'thinca/vim-ft-help_fold', {
+                \   'autoload' : { 'filetypes' : 'help' }
+                \ }
+
+    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+    " https://github.com/rgarver/Kwbd.vim
+    NeoBundle 'rgarver/Kwbd.vim'
+
+    " ミニバッファにバッファ一覧を表示
+    " https://github.com/fholgado/minibufexpl.vim
+    NeoBundle 'fholgado/minibufexpl.vim'
+
+    " ステータスラインをカスタマイズ
+    " https://github.com/Lokaltog/vim-powerline
+    NeoBundle 'Lokaltog/vim-powerline'
+
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
+
+    if isdirectory(expand('~/pleiades/eclipse'))
+        NeoBundle 'ervandew/eclim', {
+                    \   'build' : {
+                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/pleiades/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \   }
+                    \}
+    endif
 
     " CSS
     " #000000とかの色付け
@@ -192,36 +212,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundleLazy 'confluencewiki.vim', {
                 \   'autoload' : { 'filetypes' : 'confluence' }
                 \ }
-
-    NeoBundleLazy 'thinca/vim-ft-help_fold', {
-                \   'autoload' : { 'filetypes' : 'help' }
-                \ }
-
-    NeoBundleLazy 'mattn/gist-vim', {
-                \   'autoload' : { 'commands' : [ 'Gist' ] },
-                \   'depends'  : 'mattn/webapi-vim'
+    " vimperatorのシンタックスファイル
+    NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
+                \   'type'        : 'raw',
+                \   'autoload'    : { 'filetypes' : 'vimperator' },
+                \   'script_type' : 'syntax'
                 \}
-
-    if isdirectory(expand('~/pleiades/eclipse'))
-        NeoBundle 'ervandew/eclim', {
-                    \   'build' : {
-                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/pleiades/eclipse'), '\')
-                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                    \   }
-                    \}
-    endif
-
-    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-    " https://github.com/rgarver/Kwbd.vim
-    NeoBundle 'rgarver/Kwbd.vim'
-
-    " ミニバッファにバッファ一覧を表示
-    " https://github.com/fholgado/minibufexpl.vim
-    NeoBundle 'fholgado/minibufexpl.vim'
-
-    " ステータスラインをカスタマイズ
-    " https://github.com/Lokaltog/vim-powerline
-    NeoBundle 'Lokaltog/vim-powerline'
 
     " colorscheme
     NeoBundle 'tomasr/molokai'
@@ -233,6 +229,19 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
+
+    NeoBundle 'tpope/vim-fugitive'
+
+    NeoBundleLazy 'mattn/gist-vim', {
+                \   'autoload' : { 'commands' : [ 'Gist' ] },
+                \   'depends'  : 'mattn/webapi-vim'
+                \}
+
+    NeoBundleLazy 'vim-scripts/DirDiff.vim', {
+                \   'autoload' : {
+                \       'commands' : [ 'DirDiff' ]
+                \   }
+                \}
 
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm
