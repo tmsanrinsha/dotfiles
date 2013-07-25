@@ -1,17 +1,21 @@
 "3.7.1 (created: 2013/05/22 20:32:57)
 
-set complete=slfhb
+set complete=slhbf
+
+" hintchars
+set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
+hi Hint font-family: Consolas; font-size:14px; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
+
 set "editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"
+
 " コマンドモード開始時に自動的にIMEをOFFにする
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
-" hintchars
-set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
 
 " google.co.jpではVimperatorを無効にする
 "autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
- 
+
 " デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
 " こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
 "set defsearch=g
