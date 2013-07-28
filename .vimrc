@@ -879,7 +879,7 @@ augroup MyVimrc
 augroup END
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
-" Java {{
+" Java {{{
 " ==============================================================================
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
