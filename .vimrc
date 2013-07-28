@@ -919,7 +919,8 @@ nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
 function! s:unite_file_project(...)
     let opts = (a:0 ? join(a:000, ' ') : '')
     let dir = unite#util#path2project_directory(expand('%'))
-    execute 'Unite' opts 'file:' . dir
+    " windowsでドライブのC:をC\:に変更する必要がある
+    execute 'Unite' opts 'file_rec:' . escape(dir, ':')
 endfunction
 " カレントディレクトリ以下のディレクトリ
 nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
@@ -954,7 +955,8 @@ nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
 function! s:unite_grep_project(...)
     let opts = (a:0 ? join(a:000, ' ') : '')
     let dir = unite#util#path2project_directory(expand('%'))
-    execute 'Unite' opts 'grep:' . dir
+    " windowsでドライブのC:をC\:に変更する必要がある
+    execute 'Unite' opts 'grep:' . escape(dir, ':')
 endfunction
 "}}}
 
