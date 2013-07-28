@@ -526,8 +526,8 @@ nnoremap <M-.> <C-w><
 nnoremap <M-0> <C-w>=
 nnoremap <C-w>; <C-w>p
 
-set splitbelow
-set splitright
+" set splitbelow
+" set splitright
 
 "  常にカーソル行を真ん中に
 "set scrolloff=999
@@ -796,6 +796,7 @@ autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setfiletype apache
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
+nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
 
 " shell {{{
 " ==============================================================================
@@ -878,13 +879,14 @@ augroup MyVimrc
 augroup END
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
-" Java {{{
+" Java {{
 " ==============================================================================
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
 elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=/Program\ Files\ (x86)/Android/android-sdk/sources/android-17
 endif
+autocmd MyVimrc FileType java setlocal foldmethod=syntax
 "}}}
 " help {{{
 " ==============================================================================
@@ -912,7 +914,13 @@ nmap , [unite]
 " カレントディレクトリ以下のファイル
 nnoremap [unite]fc :<C-u>Unite file_rec<CR>
 " プロジェクトディレクトリ以下のファイル
-nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+" nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
+function! s:unite_file_project(...)
+    let opts = (a:0 ? join(a:000, ' ') : '')
+    let dir = unite#util#path2project_directory(expand('%'))
+    execute 'Unite' opts 'file:' . dir
+endfunction
 " カレントディレクトリ以下のディレクトリ
 nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
 call unite#custom_default_action('source/directory/directory' , 'vimfiler')
