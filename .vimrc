@@ -172,10 +172,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
 
-    if isdirectory(expand('~/pleiades/eclipse'))
+    if isdirectory(expand('~/eclipse'))
         NeoBundle 'ervandew/eclim', {
                     \   'build' : {
-                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/pleiades/eclipse'), '\')
+                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
                     \   }
                     \}
