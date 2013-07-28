@@ -1099,7 +1099,11 @@ function! s:hooks.on_source(bundle)
     execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
     " 候補の数を増やす
     execute 'let g:'.s:neocom_.'max_list = 3000'
+
     execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
+
+    execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
+    autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
 
     let g:neocomplcache_enable_auto_delimiter = 0
     " Define dictionary.
