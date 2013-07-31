@@ -411,11 +411,11 @@ inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
-nnoremap <Space>h 0
-nnoremap <Space>j ^
+" nnoremap <Space>h 0
+" nnoremap <Space>j ^
 " matchit
-nmap <Space>k %
-nnoremap <Space>l $
+"nmap <Space>k %
+"nnoremap <Space>l $
 " matchit
 nmap <Tab> %
 " expand path
@@ -526,8 +526,8 @@ nnoremap <M-.> <C-w><
 nnoremap <M-0> <C-w>=
 nnoremap <C-w>; <C-w>p
 
-" set splitbelow
-" set splitright
+set splitbelow
+set splitright
 
 "  常にカーソル行を真ん中に
 "set scrolloff=999
@@ -886,7 +886,10 @@ if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
 elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=/Program\ Files\ (x86)/Android/android-sdk/sources/android-17
 endif
-autocmd MyVimrc FileType java setlocal foldmethod=syntax
+autocmd MyVimrc FileType java
+            \   setlocal foldmethod=syntax
+            \|  nnoremap <buffer>  [[ [m
+            \|  nnoremap <buffer>  ]] ]m
 "}}}
 " help {{{
 " ==============================================================================

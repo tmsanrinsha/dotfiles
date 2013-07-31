@@ -17,7 +17,7 @@ set guioptions-=e
 " Ctrl+Shiftでステータスラインの文字列もクリップボードに保存できる
 set guioptions+=A
 " ポップアップダイアログではなく、コンソールダイアログを使う
-set guioptions+=c
+" set guioptions+=c
 
 " Windowsのgvimのメニューの文字化け対応
 source $VIMRUNTIME/delmenu.vim
