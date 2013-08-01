@@ -25,6 +25,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
+    let g:neobundle#types#git#default_protocol = "git"
     call neobundle#rc(expand('~/.vim/bundle/'))
 
     " すでにvimが起動しているときは、そちらで開く
