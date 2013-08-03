@@ -906,92 +906,90 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " ==== filetype ==== }}}
 " ==== Plugin ==== {{{
-
 " Shougo/unite {{{
 " ==========================================================================
-let g:unite_enable_start_insert = 1
-" let g:unite_split_rule = "botright"
-let g:unite_winheight = "15"
-nnoremap [unite] <Nop>
-nmap , [unite]
+if s:has_plugin('unite')
+    let g:unite_enable_start_insert = 1
+    " let g:unite_split_rule = "botright"
+    let g:unite_winheight = "15"
+    nnoremap [unite] <Nop>
+    nmap , [unite]
 
-" カレントディレクトリ以下のファイル
-nnoremap [unite]fc :<C-u>Unite file_rec<CR>
-" プロジェクトディレクトリ以下のファイル
-" nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
-nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
-function! s:unite_file_project(...)
-    let opts = (a:0 ? join(a:000, ' ') : '')
-    let dir = unite#util#path2project_directory(expand('%'))
-    " windowsでドライブのC:をC\:に変更する必要がある
-    execute 'Unite' opts 'file_rec:' . escape(dir, ':')
-endfunction
-" カレントディレクトリ以下のディレクトリ
-nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
-call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-" バッファ
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-"最近使用したファイル一覧
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-"最近使用したディレクトリ一覧
-nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
-"call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+    " カレントディレクトリ以下のファイル
+    nnoremap [unite]fc :<C-u>Unite file_rec<CR>
+    " プロジェクトディレクトリ以下のファイル
+    " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+    nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
+    function! s:unite_file_project(...)
+        let opts = (a:0 ? join(a:000, ' ') : '')
+        let dir = unite#util#path2project_directory(expand('%'))
+        " windowsでドライブのC:をC\:に変更する必要がある
+        execute 'Unite' opts 'file_rec:' . escape(dir, ':')
+    endfunction
+    " カレントディレクトリ以下のディレクトリ
+    nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
+    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+    " バッファ
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+    "最近使用したファイル一覧
+    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
+    "call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
-" ファイル内検索結果
-nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+    " ファイル内検索結果
+    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
-" Unite grep {{{
-" -------------------------------------------------------------------------
-if executable('grep')
-  let g:unite_source_grep_command = 'grep'
-  let g:unite_source_grep_default_opts = '-n'
-  let g:unite_source_grep_recursive_opt = '-r'
+    " Unite grep {{{
+    " -------------------------------------------------------------------------
+    if executable('grep')
+        let g:unite_source_grep_command = 'grep'
+        let g:unite_source_grep_default_opts = '-n'
+        let g:unite_source_grep_recursive_opt = '-r'
+    endif
+
+    let g:unite_source_grep_max_candidates = 1000
+
+    " カレントディレクトリに対してgrep
+    nnoremap [unite]gc :<C-u>Unite grep:.<CR>
+    " 全バッファに対してgrep
+    nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
+    " プロジェクト内のファイルに対してgrep
+    nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
+    function! s:unite_grep_project(...)
+        let opts = (a:0 ? join(a:000, ' ') : '')
+        let dir = unite#util#path2project_directory(expand('%'))
+        " windowsでドライブのC:をC\:に変更する必要がある
+        execute 'Unite' opts 'grep:' . escape(dir, ':')
+    endfunction
+    "}}}
+
+    "レジスタ一覧
+    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+    " ヤンク履歴
+    let g:unite_source_history_yank_enable = 1  "history/yankの有効化
+    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+    " ブックマーク
+    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+    "call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+    " vimfilerがどんどん増えちゃう
+    call unite#custom_default_action('directory' , 'vimfiler')
+    " vimfiler上ではvimfilerを増やさず、移動するだけ
+    autocmd MyVimrc FileType vimfiler
+                \   call unite#custom_default_action('directory', 'lcd')
+
+    let g:unite_source_find_max_candidates = 1000
 endif
-
-let g:unite_source_grep_max_candidates = 1000
-
-" カレントディレクトリに対してgrep
-nnoremap [unite]gc :<C-u>Unite grep:.<CR>
-" 全バッファに対してgrep
-nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
-" プロジェクト内のファイルに対してgrep
-nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
-function! s:unite_grep_project(...)
-    let opts = (a:0 ? join(a:000, ' ') : '')
-    let dir = unite#util#path2project_directory(expand('%'))
-    " windowsでドライブのC:をC\:に変更する必要がある
-    execute 'Unite' opts 'grep:' . escape(dir, ':')
-endfunction
 "}}}
-
-"レジスタ一覧
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-" ヤンク履歴
-let g:unite_source_history_yank_enable = 1  "history/yankの有効化
-nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
-" ブックマーク
-nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-"call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-
-" vimfilerがどんどん増えちゃう
-call unite#custom_default_action('directory' , 'vimfiler')
-" vimfiler上ではvimfilerを増やさず、移動するだけ
-autocmd MyVimrc FileType vimfiler
-            \   call unite#custom_default_action('directory', 'lcd')
-
-let g:unite_source_find_max_candidates = 1000
-"}}}
-
 " h1mesuke/unite-outline {{{
 " =========================================================================
 nnoremap [unite]o :<C-u>Unite outline<CR>
 " }}}
-
 " tacroe/unite-mark {{{
 " =========================================================================
 nnoremap [unite]` :<C-u>Unite mark<CR>
 " }}}
-
 " tsukkee/unite-tag {{{
 " =========================================================================
 nnoremap [unite]t :<C-u>Unite tag<CR>
@@ -1004,7 +1002,6 @@ augroup unite-tag
                 \| endif
 augroup END
 " }}}
-
 " vimfiler {{{
 " ==============================================================================
 let g:vimfiler_as_default_explorer = 1
@@ -1017,7 +1014,6 @@ nnoremap <silent> [VIMFILER]f :VimFiler<CR>
 nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
 nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 "}}}
-
 " vimshell {{{
 " ==============================================================================
 nnoremap [VIMSHELL] <Nop>
@@ -1067,152 +1063,152 @@ autocmd MyVimrc FileType vimshell
 " 参考
 " http://d.hatena.ne.jp/joker1007/20111018/1318950377
 " }}}
-
 " neocomplcache & neocomplete {{{
 " ==============================================================================
-if has('lua') && v:version >= 703 && has('patch825')
-    let s:hooks = neobundle#get_hooks("neocomplete.vim")
-    let s:neocom = 'neocomplete'
-    let s:neocom_ = 'neocomplete#'
-else
-    let s:hooks = neobundle#get_hooks("neocomplcache")
-    let s:neocom = 'neocomplcache'
-    let s:neocom_ = 'neocomplcache_'
-endif
-
-function! s:hooks.on_source(bundle)
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplcache.
-    execute 'let g:'.s:neocom_.'enable_at_startup = 1'
-    " Use smartcase.
-    "execute 'let g:'.s:neocom_.'enable_smart_case = 1'
-    execute 'let g:'.s:neocom_.'enable_ignore_case = 0'
-    " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 1
-    " Use underbar completion.
-    let g:neocomplcache_enable_underbar_completion = 1 " Deleted
-    " Set minimum syntax keyword length.
-
-    if s:has_plugin('neocomplete')
-        let g:neocomplete#sources#syntax#min_syntax_length = 3
+if s:has_plugin('neobundle')
+    if has('lua') && v:version >= 703 && has('patch825')
+        let s:hooks = neobundle#get_hooks("neocomplete.vim")
+        let s:neocom = 'neocomplete'
+        let s:neocom_ = 'neocomplete#'
     else
-        let g:neocomplcache_min_syntax_length = 3
+        let s:hooks = neobundle#get_hooks("neocomplcache")
+        let s:neocom = 'neocomplcache'
+        let s:neocom_ = 'neocomplcache_'
     endif
-    execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
-    " 補完候補取得に時間がかかっても補完をskipしない
-    execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
-    " 候補の数を増やす
-    execute 'let g:'.s:neocom_.'max_list = 3000'
+    function! s:hooks.on_source(bundle)
+        " Disable AutoComplPop.
+        let g:acp_enableAtStartup = 0
+        " Use neocomplcache.
+        execute 'let g:'.s:neocom_.'enable_at_startup = 1'
+        " Use smartcase.
+        "execute 'let g:'.s:neocom_.'enable_smart_case = 1'
+        execute 'let g:'.s:neocom_.'enable_ignore_case = 0'
+        " Use camel case completion.
+        let g:neocomplcache_enable_camel_case_completion = 1
+        " Use underbar completion.
+        let g:neocomplcache_enable_underbar_completion = 1 " Deleted
+        " Set minimum syntax keyword length.
 
-    execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
+        if s:has_plugin('neocomplete')
+            let g:neocomplete#sources#syntax#min_syntax_length = 3
+        else
+            let g:neocomplcache_min_syntax_length = 3
+        endif
+        execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
-    execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
-    autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
+        " 補完候補取得に時間がかかっても補完をskipしない
+        execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
+        " 候補の数を増やす
+        execute 'let g:'.s:neocom_.'max_list = 3000'
 
-    let g:neocomplcache_enable_auto_delimiter = 0
-    " Define dictionary.
-    let g:neocomplcache_dictionary_filetype_lists = {
-                \ 'default'  : '',
-                \ 'vimshell' : $HOME.'/.vimshell_hist',
-                \ 'scheme'   : $HOME.'/.gosh_completions'
-                \ }
+        execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
-    let g:neocomplcache_ignore_composite_filetype_lists = {
-                \ 'php.phpunit': 'php',
-                \}
+        execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
+        autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
 
-    " Define keyword.
-    if !exists('g:neocomplcache_keyword_patterns')
-        let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+        let g:neocomplcache_enable_auto_delimiter = 0
+        " Define dictionary.
+        let g:neocomplcache_dictionary_filetype_lists = {
+                    \ 'default'  : '',
+                    \ 'vimshell' : $HOME.'/.vimshell_hist',
+                    \ 'scheme'   : $HOME.'/.gosh_completions'
+                    \ }
 
-    execute 'inoremap <expr><C-g>  '.s:neocom.'#undo_completion()'
-    execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
-    execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
-    execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
-    execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
-    " <C-u>, <C-w>した文字列をアンドゥできるようにする
-    " http://vim-users.jp/2009/10/hack81/
-    " C-uでポップアップを消したいがうまくいかない
-    execute 'inoremap <expr><C-u>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
-    execute 'inoremap <expr><C-w>  pumvisible() ? 's:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
-    " AutoComplPop like behavior.
-    "let g:neocomplcache_enable_auto_select = 1
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplcache_enable_auto_select = 1
-    "let g:neocomplcache_disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        let g:neocomplcache_ignore_composite_filetype_lists = {
+                    \ 'php.phpunit': 'php',
+                    \}
 
-    " Shell like behavior(my setting)
-    " complet_common_stringではsmartcaseが効かない
-    " 余計な候補を出して欲しくないので
-    " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
-    " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
-    "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
-    "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        " Define keyword.
+        if !exists('g:neocomplcache_keyword_patterns')
+            let g:neocomplcache_keyword_patterns = {}
+        endif
+        let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    " Enable omni completion.
-    augroup MyVimrc
-        autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-        autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-        autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-        autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
-    augroup END
+        execute 'inoremap <expr><C-g>  '.s:neocom.'#undo_completion()'
+        execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        " Recommended key-mappings.
+        " <CR>: close popup and save indent.
+        execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
+        " <TAB>: completion.
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " <C-h>, <BS>: close popup and delete backword char.
+        execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
+        execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
+        execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
+        execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
+        " <C-u>, <C-w>した文字列をアンドゥできるようにする
+        " http://vim-users.jp/2009/10/hack81/
+        " C-uでポップアップを消したいがうまくいかない
+        execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
+        execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
+        " AutoComplPop like behavior.
+        "let g:neocomplcache_enable_auto_select = 1
+        " Shell like behavior(not recommended).
+        "set completeopt+=longest
+        "let g:neocomplcache_enable_auto_select = 1
+        "let g:neocomplcache_disable_auto_complete = 1
+        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-        let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
-    let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-    "let g:neocomplcache_omni_patterns.java  = '.*'
+        " Shell like behavior(my setting)
+        " complet_common_stringではsmartcaseが効かない
+        " 余計な候補を出して欲しくないので
+        " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
+        " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
+        "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
+        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-    "include補完
-    "インクルードパスの指定
-    " let g:neocomplcache_include_paths = {
-    "             \ 'cpp' : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
-    "             \ 'c' : '.,/usr/include',
-    "             \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
-    "             \ 'java' : '.,$HOME/AppData/Local/Android/android-sdk/sources/',
-    "             \ }
-                "\ 'perl' : '$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,',
-    "インクルード文のパターンを指定
-    " let g:neocomplcache_include_patterns = {
-    "             \ 'cpp' : '^\s*#\s*include',
-    "             \ 'ruby' : '^\s*require',
-    "             \ }
-    "             "\ 'perl' : '^\s*use',
-    " "インクルード先のファイル名の解析パターン
-    " let g:neocomplcache_include_exprs = {
-    "             \ 'ruby' : substitute(v:fname,'::','/','g'),
-    "             \ }
-    "             "\ 'perl' : substitute(substitute(v:fname,'::','/','g'),'$','.pm','')
-    " " ファイルを探す際に、この値を末尾に追加したファイルも探す。
-    " let g:neocomplcache_include_suffixes = {
-    "             \ 'ruby' : '.rb',
-    "             \ 'haskell' : '.hs'
-    "             \ }
-    "let g:neocomplcache_include_max_processes = 1000
+        " Enable omni completion.
+        augroup MyVimrc
+            autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
+            autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
+        augroup END
+
+        " Enable heavy omni completion.
+        if !exists('g:neocomplcache_omni_patterns')
+            let g:neocomplcache_omni_patterns = {}
+        endif
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
+        let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+        "let g:neocomplcache_omni_patterns.java  = '.*'
+
+        "include補完
+        "インクルードパスの指定
+        " let g:neocomplcache_include_paths = {
+        "             \ 'cpp' : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
+        "             \ 'c' : '.,/usr/include',
+        "             \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+        "             \ 'java' : '.,$HOME/AppData/Local/Android/android-sdk/sources/',
+        "             \ }
+        "\ 'perl' : '$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,',
+        "インクルード文のパターンを指定
+        " let g:neocomplcache_include_patterns = {
+        "             \ 'cpp' : '^\s*#\s*include',
+        "             \ 'ruby' : '^\s*require',
+        "             \ }
+        "             "\ 'perl' : '^\s*use',
+        " "インクルード先のファイル名の解析パターン
+        " let g:neocomplcache_include_exprs = {
+        "             \ 'ruby' : substitute(v:fname,'::','/','g'),
+        "             \ }
+        "             "\ 'perl' : substitute(substitute(v:fname,'::','/','g'),'$','.pm','')
+        " " ファイルを探す際に、この値を末尾に追加したファイルも探す。
+        " let g:neocomplcache_include_suffixes = {
+        "             \ 'ruby' : '.rb',
+        "             \ 'haskell' : '.hs'
+        "             \ }
+        "let g:neocomplcache_include_max_processes = 1000
+endif
 "}}}
-
 " neosnippet {{{
 " ==============================================================================
     " Plugin key-mappings.
@@ -1234,49 +1230,49 @@ function! s:hooks.on_source(bundle)
     endif
 endfunction
 " }}}
-
 " vim-quickrun {{{
 " ==============================================================================
-nnoremap <Leader>r :QuickRun<CR>
-vnoremap <Leader>r :QuickRun<CR>
+if s:has_plugin('quickrun')
+    nnoremap <Leader>r :QuickRun<CR>
+    vnoremap <Leader>r :QuickRun<CR>
 
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {
-            \   'runner'                    : 'vimproc',
-            \   'runner/vimproc/updatetime' : 100,
-            \   'outputter'                 : 'multi:buffer:quickfix',
-            \   'outputter/buffer/split'    : ''
-            \}
+    let g:quickrun_config = {}
+    let g:quickrun_config['_'] = {
+                \   'runner'                    : 'vimproc',
+                \   'runner/vimproc/updatetime' : 100,
+                \   'outputter'                 : 'multi:buffer:quickfix',
+                \   'outputter/buffer/split'    : ''
+                \}
 
-            " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
-            " \   'outputter' : 'my_outputter',
-" \   'outputter'                 : 'unite_quickfix',
+    " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
+    " \   'outputter' : 'my_outputter',
+    " \   'outputter'                 : 'unite_quickfix',
 
-" :QuickRun -outputter my_outputter {{{
-" プロセスの実行中は、buffer に出力し、
-" プロセスが終了したら、quickfix へ出力を行う
+    " :QuickRun -outputter my_outputter {{{
+    " プロセスの実行中は、buffer に出力し、
+    " プロセスが終了したら、quickfix へ出力を行う
 
-" 既存の outputter をコピーして拡張
-let my_outputter = quickrun#outputter#multi#new()
-let my_outputter.config.targets = ["buffer", "quickfix"]
+    " 既存の outputter をコピーして拡張
+    let my_outputter = quickrun#outputter#multi#new()
+    let my_outputter.config.targets = ["buffer", "quickfix"]
 
-function! my_outputter.init(session)
-    " quickfix を閉じる
-    :cclose
-    " 元の処理を呼び出す
-    call call(quickrun#outputter#multi#new().init, [a:session], self)
-endfunction
+    function! my_outputter.init(session)
+        " quickfix を閉じる
+        :cclose
+        " 元の処理を呼び出す
+        call call(quickrun#outputter#multi#new().init, [a:session], self)
+    endfunction
 
-function! my_outputter.finish(session)
-    call call(quickrun#outputter#multi#new().finish, [a:session], self)
-    " 出力バッファの削除
-    bwipeout [quickrun
-    " vim-hier を使用している場合は、ハイライトを更新したりとか
-    " :HierUpdate
-endfunction
+    function! my_outputter.finish(session)
+        call call(quickrun#outputter#multi#new().finish, [a:session], self)
+        " 出力バッファの削除
+        bwipeout [quickrun
+        " vim-hier を使用している場合は、ハイライトを更新したりとか
+        " :HierUpdate
+    endfunction
 
-" quickrun に outputter を登録
-call quickrun#register_outputter("my_outputter", my_outputter)
+    " quickrun に outputter を登録
+    call quickrun#register_outputter("my_outputter", my_outputter)
 " }}}
 
 " phpunit {{{
@@ -1352,15 +1348,14 @@ autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :Qu
 "             \}
 " "
 " set errorformat=debug:\%s
+endif
 "}}}
-
 " vim-partedit {{{
 " =============================================================================
 if s:has_plugin('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif
 "}}}
-
 " vim-easymotion {{{
 " ==============================================================================
 if s:has_plugin('EasyMotion')
@@ -1370,7 +1365,6 @@ if s:has_plugin('EasyMotion')
     let g:EasyMotion_mapping_F = '('
 endif
 "}}}
-
 " vim-smartword {{{
 " ==============================================================================
 map w <Plug>(smartword-w)
@@ -1378,7 +1372,6 @@ map b <Plug>(smartword-b)
 map e <Plug>(smartword-e)
 map ge <Plug>(smartword-ge)
 "}}}
-
 " vim-alignta {{{
 " ==============================================================================
 if s:has_plugin('alignta')
@@ -1390,7 +1383,6 @@ if s:has_plugin('alignta')
     xnoremap [ALINGTA]: :Alignta :<CR>
 endif
 " }}}
-
 " caw {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
@@ -1404,15 +1396,11 @@ if s:has_plugin('caw')
     xmap <Leader>cy ygvgcigv<C-c>p
 endif
 "}}}
-
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-"nmap <Leader>e :e sudo:%<CR><C-^>:bd<CR>
-"nmap <Leader>w :w sudo:%<CR>
 if s:has_plugin('sudo')
-    "if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
     if s:has_plugin('bclose')
         nmap <Leader>se :e sudo:%<CR><C-^><Plug>Kwbd
     else
@@ -1421,14 +1409,12 @@ if s:has_plugin('sudo')
     nnoremap <Leader>sw :w sudo:%<CR>
 endif
 "}}}
-
 " YankRing.vim {{{
 " ==============================================================================
 if s:has_plugin('yankring.vim')
     let g:yankring_manual_clipboard_check = 0
 endif
 "}}}
-
 " minibufexpl.vim {{{
 " ==============================================================================
 if s:has_plugin('minibufexpl')
@@ -1443,7 +1429,6 @@ if s:has_plugin('minibufexpl')
 "let g:statusLineText = Md()
 endif
 "}}}
-
 " vim-powerline{{{
 " ==============================================================================
 if s:has_plugin('Powerline')
@@ -1462,11 +1447,14 @@ if s:has_plugin('Powerline')
     "		\ }),
 endif
 "}}}
-
-" カラースキーム {{{
+" colorscheme {{{
 " ------------------------------------------------------------------------------
 "let g:rehash256 = 1
-colorscheme molokai-customized
+if s:has_plugin('molokai-customized')
+    colorscheme molokai-customized
+else
+    colorscheme default
+endif
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
@@ -1481,13 +1469,11 @@ augroup END
 
 syntax enable
 "}}}
-
 " Eclim {{{
 " -----------------------------------------------------------------------------
 " neocomplcacheで補完するため
 let g:EclimCompletionMethod = 'omnifunc'
 " }}}
-
 " ==== Plugin ==== }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
