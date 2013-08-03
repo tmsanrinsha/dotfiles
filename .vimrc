@@ -1450,7 +1450,7 @@ if s:has_plugin('Powerline')
     "let g:Powerline_theme = 'skwp'
     "let g:Powerline_colorscheme = 'skwp'
     "let g:Powerline_colorscheme = 'default_customized'
-    "let g:Powerline_stl_path_style = 'short'
+    let g:Powerline_stl_path_style = 'short'
     "let g:Powerline_symbols = 'fancy'
     "call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
     "call Pl#Theme#InsertSegment('', 'after', 'filetype')
