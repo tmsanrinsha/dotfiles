@@ -83,7 +83,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " 補完候補の自動表示
     if has('lua') && v:version >= 703 && has('patch825')
-        NeoBundleLazy "Shougo/neocomplete.vim", {
+        NeoBundleLazy "Shougo/neocomplete", {
             \    "autoload": {
             \        "insert": 1,
             \   }
@@ -284,10 +284,20 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
       "finish
     endif
 else
-    " bundle下のディレクトリをruntimepathへ追加する。
+    " neobundleが使えない場合
+    " bundle下のディレクトリをruntimepathへ追加する
+    " vimのバージョンが低いと使えないプラグインは除外する
+    let s:exclusion_plugin = [
+                \   'neobundle.vim', 'neocomplcache', 'neocomplete', 'neosnippet', 'unite-mark',
+                \   'unite-outline', 'unite-quickfix', 'unite-ssh', 'unite-tag', 'unite.vim', 'vimfiler',
+                \   'vimshell'
+                \]
     for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
-        if isdirectory(path) | let &runtimepath = &runtimepath.','.path | end
-    endfor
+        let s:plugin_name = matchstr(path, '[^/]\+$')
+        if isdirectory(path) && index(s:exclusion_plugin, s:plugin_name) == -1
+            let &runtimepath = &runtimepath.','.path
+        end
+endfor
 endif
 
 filetype plugin indent on     " required for neobundle
@@ -606,7 +616,7 @@ vnoremap <Leader>? <ESC>?\%V
 "}}}
 " ビジュアルモード {{{
 " =============================================================================
-" vipで選択後、IやAで挿入できるようにする {{{
+" ビジュアル矩形モードでなくても、IやAで挿入できるようにする {{{
 " -----------------------------------------------------------------------------
 " http://labs.timedia.co.jp/2012/10/vim-more-useful-blockwise-insertion.html
 vnoremap <expr> I  <SID>force_blockwise_visual('I')
@@ -1067,7 +1077,7 @@ autocmd MyVimrc FileType vimshell
 " ==============================================================================
 if s:has_plugin('neobundle')
     if has('lua') && v:version >= 703 && has('patch825')
-        let s:hooks = neobundle#get_hooks("neocomplete.vim")
+        let s:hooks = neobundle#get_hooks("neocomplete")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
     else
@@ -1207,10 +1217,12 @@ if s:has_plugin('neobundle')
         "             \ 'haskell' : '.hs'
         "             \ }
         "let g:neocomplcache_include_max_processes = 1000
+    endfunction
 endif
 "}}}
 " neosnippet {{{
 " ==============================================================================
+if s:has_plugin('neosnippet')
     " Plugin key-mappings.
     imap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
     smap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
@@ -1228,7 +1240,7 @@ endif
     if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
         let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
     endif
-endfunction
+endif
 " }}}
 " vim-quickrun {{{
 " ==============================================================================
@@ -1367,10 +1379,12 @@ endif
 "}}}
 " vim-smartword {{{
 " ==============================================================================
-map w <Plug>(smartword-w)
-map b <Plug>(smartword-b)
-map e <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
+if s:has_plugin('neobundle') || s:has_plugin('vim-smartword')
+    map w <Plug>(smartword-w)
+    map b <Plug>(smartword-b)
+    map e <Plug>(smartword-e)
+    map ge <Plug>(smartword-ge)
+endif
 "}}}
 " vim-alignta {{{
 " ==============================================================================
