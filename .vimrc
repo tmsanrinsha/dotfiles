@@ -204,6 +204,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'tpope/vim-markdown'
     NeoBundleLazy 'teramako/instant-markdown-vim'
 
+    " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
+    NeoBundleLazy 'rbtnn/vimconsole.vim', {
+                \   'autoload' : {
+                \       'commands' : 'VimConsoleToggle'
+                \   }
+                \}
+
     " tmuxのシンタックスファイル
     NeoBundle 'zaiste/tmux.vim', {
                 \   'autoload' : { 'filetypes' : 'tmux' }
@@ -250,20 +257,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'commands' : 'HttpStatus' }
                 \ }
 
-    "NeoBundle 'thinca/vim-showtime'
-    "NeoBundle 'pocket7878/presen-vim'
-    "NeoBundle 'mattn/multi-vim'
-
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
-    "NeoBundle 'L9'
-    "NeoBundle 'FuzzyFinder'
-    "NeoBundle 'rails.vim'
 
     " 自分で修正したプラグイン
     let s:protocol = (hostname() =~ 'sakura' || hostname() =~ 'VAIO') ?  ", { 'type__protocol' : 'ssh' }" : ""
     execute "NeoBundle 'tmsanrinsha/vim'".s:protocol
     execute "NeoBundle 'tmsanrinsha/vim-emacscommandline'".s:protocol
-
 
     " Brief help
     " :NeoBundleList          - list configured bundles
@@ -440,6 +439,9 @@ cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory=.,/var/tmp,/tmp
+if has('win32') || has('win64')
+    set noswapfile
+endif
 
 " 富豪的バックアップ
 " http://d.hatena.ne.jp/viver/20090723/p1
@@ -532,8 +534,8 @@ endif
 "nnoremap <M-l> <C-w>l
 nnoremap <M--> <C-w>-
 nnoremap <M-;> <C-w>+
-nnoremap <M-,> <C-w>>
-nnoremap <M-.> <C-w><
+nnoremap <M-,> <C-w><
+nnoremap <M-.> <C-w>>
 nnoremap <M-0> <C-w>=
 nnoremap <C-w>; <C-w>p
 
@@ -548,7 +550,7 @@ set splitright
 "解除はもう一度<F12>を押す
 "横スクロールも同期させたい場合はこちら
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
-nnoremap <F12> :set scrollbind!<CR>
+"nnoremap <F12> :set scrollbind!<CR>
 "}}}
 " タブ {{{
 " ==============================================================================
@@ -882,12 +884,9 @@ let g:PHP_vintage_case_default_indent = 1 " switch文でcaseをインデント�
 " " Vimテクニックバイブル1-13
 " " PHPプログラムの構文チェック
 " " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-augroup MyVimrc
-   autocmd!
-   " autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-   autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-   " autocmd BufWrite *.php w | make
-augroup END
+" autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+autocmd MyVimrc FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+" autocmd BufWrite *.php w | make
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
 " Java {{{
@@ -1488,6 +1487,14 @@ syntax enable
 " neocomplcacheで補完するため
 let g:EclimCompletionMethod = 'omnifunc'
 " }}}
+" console.vim {{{
+" ==============================================================================
+if s:has_plugin('neobundle') || s:has_plugin('console')
+    let g:vimconsole#auto_redraw = 1
+    nnoremap <F12> :VimConsoleToggle<CR>
+    nnoremap <F5>  :VimConsoleRedraw<CR>
+    autocmd MyVimrc FileType vimconsole nnoremap <buffer> <C-l> :VimConsoleClear<CR>
+endif
 " ==== Plugin ==== }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
