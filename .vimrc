@@ -84,8 +84,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " 補完候補の自動表示
     if has('lua') && v:version >= 703 && has('patch825')
         NeoBundleLazy "Shougo/neocomplete", {
-            \    "autoload": {
-            \        "insert": 1,
+            \   "autoload": {
+            \       "insert": 1,
             \   }
             \}
     else
@@ -140,8 +140,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " 部分的に編集
     NeoBundle 'thinca/vim-partedit'
 
-    "NeoBundle 'Align'
-    NeoBundle 'h1mesuke/vim-alignta'
+    " 整形
+    if v:version >= 701
+       NeoBundle 'h1mesuke/vim-alignta'
+    else
+        NeoBundle 'Align'
+    endif
+
     NeoBundle "tyru/caw.vim"
 
     " sudo権限でファイルを開く・保存
@@ -1388,12 +1393,12 @@ endif
 " vim-alignta {{{
 " ==============================================================================
 if s:has_plugin('alignta')
-    xnoremap [ALINGTA] <Nop>
-    xmap <Leader>a [ALINGTA]
-    xnoremap [ALINGTA]s :Alignta \S\+<CR>
-    xnoremap [ALINGTA]= :Alignta =<CR>
-    xnoremap [ALINGTA]> :Alignta =><CR>
-    xnoremap [ALINGTA]: :Alignta :<CR>
+    xnoremap [ALIGNTA] <Nop>
+    xmap <Leader>a [ALIGNTA]
+    xnoremap [ALIGNTA]s :Alignta \S\+<CR>
+    xnoremap [ALIGNTA]= :Alignta =<CR>
+    xnoremap [ALIGNTA]> :Alignta =><CR>
+    xnoremap [ALIGNTA]: :Alignta :<CR>
 endif
 " }}}
 " caw {{{
