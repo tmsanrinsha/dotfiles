@@ -471,23 +471,6 @@ augroup backup
     endfunction
 augroup END
 
-" あるディレクトリ以下でファイルの保存したら、それをあるディレクトリにコピーする
-autocmd MyVimrc BufWrite * call AutoCopy()
-function! AutoCopy()
-    " g:autocopy_from以下のファイルなら
-    if stridx(expand("%:p"), g:autocopy_from) == 0
-        " ファイル名を除いたフルパスからg:autocopy_from部分を削除して、g:autocopy_toにつなげる。
-        " バックスラッシュをエスケープする必要あり
-        let target_dir = g:autocopy_to . substitute(expand("%:p:h"), escape(g:autocopy_from,'\'), '' , '')
-
-        if !isdirectory(target_dir)
-            call mkdir(target_dir, "p")
-        endif
-
-        let target_file = g:autocopy_to . substitute(expand("%:p"), escape(g:autocopy_from,'\'), '' , '')
-        call writefile(readfile(expand('%:p'), 'b'), target_file, 'b')
-    endif
-endfunction
 
 "" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 "if has('persistent_undo')
