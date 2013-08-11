@@ -1515,6 +1515,14 @@ endif
 "}}}
 " colorscheme {{{
 " ------------------------------------------------------------------------------
+augroup colerscheme
+    autocmd!
+    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
+    scriptencoding utf-8
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+
 "let g:rehash256 = 1
 if s:has_plugin('molokai-customized')
     colorscheme molokai-customized
@@ -1524,14 +1532,6 @@ endif
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
-
-augroup colerscheme
-    autocmd!
-    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
-    scriptencoding utf-8
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
 
 syntax enable
 "}}}
