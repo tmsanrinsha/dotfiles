@@ -948,6 +948,12 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
+" Git {{{
+" ==============================================================================
+" コミットメッセージは72文字で折り返す
+" http://keijinsonyaban.blogspot.jp/2011/01/git.html
+autocmd MyVimrc FileType gitcommit setlocal textwidth=72 | set colorcolumn=+1
+" }}}
 " help {{{
 " ==============================================================================
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
