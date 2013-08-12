@@ -801,6 +801,47 @@ endfunction
 
 command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
 " }}}
+" カーソル以下のカラースキームの情報の取得 {{{
+" ==============================================================================
+" http://cohama.hateblo.jp/entry/2013/08/11/020849
+function! s:get_syn_id(transparent)
+  let synid = synID(line("."), col("."), 1)
+  if a:transparent
+    return synIDtrans(synid)
+  else
+    return synid
+  endif
+endfunction
+function! s:get_syn_attr(synid)
+  let name = synIDattr(a:synid, "name")
+  let ctermfg = synIDattr(a:synid, "fg", "cterm")
+  let ctermbg = synIDattr(a:synid, "bg", "cterm")
+  let guifg = synIDattr(a:synid, "fg", "gui")
+  let guibg = synIDattr(a:synid, "bg", "gui")
+  return {
+        \ "name": name,
+        \ "ctermfg": ctermfg,
+        \ "ctermbg": ctermbg,
+        \ "guifg": guifg,
+        \ "guibg": guibg}
+endfunction
+function! s:get_syn_info()
+  let baseSyn = s:get_syn_attr(s:get_syn_id(0))
+  echo "name: " . baseSyn.name .
+        \ " ctermfg: " . baseSyn.ctermfg .
+        \ " ctermbg: " . baseSyn.ctermbg .
+        \ " guifg: " . baseSyn.guifg .
+        \ " guibg: " . baseSyn.guibg
+  let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
+  echo "link to"
+  echo "name: " . linkedSyn.name .
+        \ " ctermfg: " . linkedSyn.ctermfg .
+        \ " ctermbg: " . linkedSyn.ctermbg .
+        \ " guifg: " . linkedSyn.guifg .
+        \ " guibg: " . linkedSyn.guibg
+endfunction
+command! SyntaxInfo call s:get_syn_info()
+" }}}
 " ftdetect {{{
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha* setfiletype html
@@ -907,6 +948,12 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
+" Git {{{
+" ==============================================================================
+" コミットメッセージは72文字で折り返す
+" http://keijinsonyaban.blogspot.jp/2011/01/git.html
+autocmd MyVimrc FileType gitcommit setlocal textwidth=72 | set colorcolumn=+1
+" }}}
 " help {{{
 " ==============================================================================
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
@@ -1468,6 +1515,14 @@ endif
 "}}}
 " colorscheme {{{
 " ------------------------------------------------------------------------------
+augroup colerscheme
+    autocmd!
+    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
+    scriptencoding utf-8
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+
 "let g:rehash256 = 1
 if s:has_plugin('molokai-customized')
     colorscheme molokai-customized
@@ -1477,14 +1532,6 @@ endif
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
-
-augroup colerscheme
-    autocmd!
-    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
-    scriptencoding utf-8
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
 
 syntax enable
 "}}}
