@@ -5,6 +5,7 @@ set autoindent
 set ignorecase
 set smartcase
 set hlsearch
+set incsearch
 set gvimpath=/Users/tmiwa/vim73-kaoriya-win64/gvim.exe
 " 英字キーボード用
 " --------------------------------------------------------------------------------
