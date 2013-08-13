@@ -1006,7 +1006,7 @@ if s:has_plugin('unite')
     " -------------------------------------------------------------------------
     if executable('grep')
         let g:unite_source_grep_command = 'grep'
-        let g:unite_source_grep_default_opts = '-n'
+        let g:unite_source_grep_default_opts = '-inH'
         let g:unite_source_grep_recursive_opt = '-r'
     endif
 
