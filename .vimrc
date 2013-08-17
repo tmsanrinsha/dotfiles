@@ -398,7 +398,7 @@ set ambiwidth=double
 " noremap : ;
 
 inoremap jj <ESC>
-cnoremap jj <ESC>
+"cnoremap jj <ESC>
 nnoremap Y y$
 nnoremap <M-a> ggVG
 " noremap p ]p 設定するとdpが使えなくなる
@@ -617,6 +617,10 @@ set nohlsearch "検索結果をハイライトしない
 
 " ESCキー2度押しでハイライトのトグル
 nnoremap <Esc><Esc> :set hlsearch!<CR>
+
+" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
 vnoremap <Leader>/ <ESC>/\%V
