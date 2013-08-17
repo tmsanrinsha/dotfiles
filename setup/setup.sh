@@ -14,16 +14,18 @@ if [[ `uname` = CYGWIN* ]]; then
     export PATH=$gitdir/bin/cygwin:$PATH
 fi
 
-# リンクの作成とダウンロード
-for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*\.local' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+# リンクの作成
+if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+    exclude=''
+else
+    exclude='.*\.local'
+fi
+for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
-    echo $file
-    if [ ! -L ~/$file ];then
-        if [ -f ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
-            mv ~/$file ~/${file}.bak
-        fi
-        ln -svf $gitdir/$file ~/$file
+    if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
+        mv ~/$file ~/${file}.bak
     fi
+    ln -svf $git_dir/$file ~/$file
 done
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
