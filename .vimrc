@@ -96,6 +96,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
             \}
     endif
 
+    " NeoBundle "Valloric/YouCompleteMe"
+
     " スニペット補完
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'honza/vim-snippets'
