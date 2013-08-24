@@ -2,10 +2,8 @@
 
 set -ex
 
-gitdir=`pwd | sed 's|/setup$||'`
-
-[ ! -d ~/bin/pseudo ] && mkdir -p ~/bin/pseudo
-[ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+# http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
+git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ..; pwd)"
 
 if [[ `uname` = CYGWIN* ]]; then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
@@ -16,15 +14,18 @@ if [[ `uname` = CYGWIN* ]]; then
     export PATH=$gitdir/bin/cygwin:$PATH
 fi
 
-# リンクの作成とダウンロード
-for file in `find ..  -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' ! -regex '.*setup.*' ! -regex '.*\.ssh.*' | sed 's|../||'`
+# リンクの作成
+if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+    exclude=''
+else
+    exclude='.*\.local'
+fi
+for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
-    if [ ! -L ~/$file ];then
-        if [ -f ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
-            mv ~/$file ~/${file}.bak
-        fi
-        ln -sv $gitdir/$file ~/$file
+    if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
+        mv ~/$file ~/${file}.bak
     fi
+    ln -svf $git_dir/$file ~/$file
 done
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
@@ -34,6 +35,8 @@ done
 #     chmod a+x ~/bin/ack
 # fi
 
+[ ! -d ~/bin/pseudo ] && mkdir -p ~/bin/pseudo
+
 if [ ! -x ~/bin/pseudo/git ];then
     # http://d.hatena.ne.jp/hnw/20120602
     # https://github.com/hnw/fakegit
@@ -41,14 +44,9 @@ if [ ! -x ~/bin/pseudo/git ];then
     chmod a+x $HOME/bin/pseudo/git
 fi
 
-# bin
-# [ ! -d ~/bin ] && mkdir ~/bin
-# for file in `find ../bin -maxdepth 1 -type f ! -regex '.*swp.*' | sed 's|../||'`
-# do
-#     [ ! -f ~/$file ] && ln -sv $gitdir/$file ~/$file
-# done
-
 if [[ `uname` = CYGWIN* ]]; then
+    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+
     if [ ! -x ~/bin/cygwin/apt-cyg ]; then
         curl -kL http://apt-cyg.googlecode.com/svn/trunk/apt-cyg > ~/bin/cygwin/apt-cyg
         chmod a+x ~/bin/cygwin/apt-cyg

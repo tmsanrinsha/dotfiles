@@ -28,24 +28,32 @@ pathmunge () {
     esac
 }
 
+# 実行ファイルがあるディレクトリに再帰的にPATHを通す
+pathmungeR () {
+    if [ -d $1 ]; then
+        for i in `find $1 -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
+        do
+            pathmunge $i $2
+        done
+    fi
+}
+
 # シェルスクリプトなどを置くディレクトリ
 pathmunge ${HOME}/bin
 # makeで作った実行ファイルなどを置くディレクトリ
 pathmunge ${HOME}/local/bin
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmunge $HOME/bin/pseudo after
+
+pathmunge ~/git/tmsanrinsha/dotfiles/bin
+pathmunge ~/git/tmsanrinsha/dotfiles/setup
 # Cygwin用のコマンドを置くディレクトリ
 if [[ `uname` = CYGWIN* ]]; then
     pathmunge $HOME/bin/cygwin
+    pathmunge ~/git/tmsanrinsha/dotfiles/bin/cygwin
 fi
 
-# fetchbundle以下の実行ファイルのあるディレクトリにPATHを通す
-if [ -d ~/.vim/fetchBundle ]; then
-    for i in `find ~/.vim/fetchBundle -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
-    do
-        pathmunge $i
-    done
-fi
+pathmungeR ~/.vim/fetchBundle
 # }}}
 
 # alias {{{
