@@ -7,6 +7,7 @@ if has('win32') || has('win64')
     set runtimepath&
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
+    cd ~
 endif
 
 " Pluginの有無をチェックする関数 {{{
@@ -69,7 +70,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
 
-   NeoBundle 'Shougo/unite-ssh'
+    NeoBundle 'Shougo/unite-ssh'
     NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
 
@@ -99,8 +100,16 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " NeoBundle "Valloric/YouCompleteMe"
 
     " スニペット補完
-    NeoBundle 'Shougo/neosnippet'
-    NeoBundle 'honza/vim-snippets'
+    NeoBundleLazy 'Shougo/neosnippet', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
+    NeoBundleLazy 'honza/vim-snippets', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -159,18 +168,20 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " http://www.vim.org/scripts/script.php?script_id=1234
     NeoBundle 'vim-scripts/YankRing.vim'
 
-
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
                 \ }
 
+    " ミニバッファにバッファ一覧を表示
+    NeoBundle 'fholgado/minibufexpl.vim'
+
     " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-    " https://github.com/rgarver/Kwbd.vim
     NeoBundle 'rgarver/Kwbd.vim'
 
-    " ミニバッファにバッファ一覧を表示
-    " https://github.com/fholgado/minibufexpl.vim
-    NeoBundle 'fholgado/minibufexpl.vim'
+    " 一時バッファの制御
+    NeoBundle 'osyo-manga/vim-automatic', {
+                \   'depends': 'osyo-manga/vim-gift',
+                \}
 
     " ステータスラインをカスタマイズ
     " https://github.com/Lokaltog/vim-powerline
@@ -204,7 +215,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     "             \ }
     NeoBundle 'nono/jquery.vim'
     " NeoBundleLazy 'nono/jquery.vim', {
-    "             \     'autolaad' : { 'filetypes' : 'jquery.javascript-jquery.javascript' }
+    "             \     'autoload' : { 'filetypes' : 'jquery.javascript-jquery.javascript' }
     "             \ }
 
     " Markdown
@@ -234,17 +245,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'script_type' : 'syntax'
                 \}
 
-    " colorscheme
-    "NeoBundle 'tomasr/molokai'
-    NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'vim-scripts/wombat256.vim'
-    NeoBundle 'altercation/vim-colors-solarized'
-    NeoBundle 'chriskempson/vim-tomorrow-theme'
-    NeoBundle 'vim-scripts/rdark'
-    NeoBundle 'vim-scripts/rdark-terminal'
-    NeoBundle 'jonathanfilip/vim-lucius'
-    let g:lucius_contrast_bg = 'high'
-
     NeoBundle 'tpope/vim-fugitive'
 
     NeoBundleLazy 'mattn/gist-vim', {
@@ -257,6 +257,17 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \       'commands' : [ 'DirDiff' ]
                 \   }
                 \}
+
+    " colorscheme
+    "NeoBundle 'tomasr/molokai'
+    NeoBundle 'w0ng/vim-hybrid'
+    NeoBundle 'vim-scripts/wombat256.vim'
+    NeoBundle 'altercation/vim-colors-solarized'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
+    NeoBundle 'vim-scripts/rdark'
+    NeoBundle 'vim-scripts/rdark-terminal'
+    NeoBundle 'jonathanfilip/vim-lucius'
+    let g:lucius_contrast_bg = 'high'
 
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm
@@ -1100,13 +1111,14 @@ nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 " ==============================================================================
 nnoremap [VIMSHELL] <Nop>
 nmap <leader>H [VIMSHELL]
-nnoremap <silent> [VIMSHELL]H  :VimShell<CR>
-nnoremap <silent> [VIMSHELL]b  :VimShellBufferDir<CR>
-nnoremap          [VIMSHELL]i  :VimShellInteractive<Space>
-nnoremap <silent> [VIMSHELL]py :VimShellInteractive python<CR>
-nnoremap <silent> [VIMSHELL]ph :VimShellInteractive php<CR>
-nnoremap <silent> [VIMSHELL]rb :VimShellInteractive irb<CR>
-nnoremap <silent> [VIMSHELL]s  :VimShellSendString<CR>
+nnoremap [VIMSHELL]H  :VimShellPop<CR>
+nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
+nnoremap [VIMSHELL]c  :VimShellCurrentDir -popup<CR>
+nnoremap [VIMSHELL]i  :VimShellInteractive<Space>
+nnoremap [VIMSHELL]py :VimShellInteractive python<CR>
+nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
+nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
+nnoremap [VIMSHELL]s  :VimShellSendString<CR>
 " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
 "vmap <silent> <Leader>ss :VimShellSendString<CR>
 "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
@@ -1132,6 +1144,7 @@ let g:vimshell_temporary_directory = expand('~/.vim.d/.vimshell')
 autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
             \|  setlocal nocursorline
+            \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
             \|  call vimshell#altercmd#define('g', 'git')
             \|  call vimshell#altercmd#define('l', 'll')
             \|  call vimshell#altercmd#define('ll', 'ls -l')
@@ -1526,8 +1539,21 @@ if s:has_plugin('minibufexpl')
     "let g:statusLineText = Md()
 endif
 "}}}
-" vim-powerline{{{
+" automatic {{{
 " ==============================================================================
+" http://d.hatena.ne.jp/osyo-manga/20130812/1376314945
+" http://blog.supermomonga.com/articles/vim/automatic.html
+let g:automatic_default_set_config = {
+            \   'height' : '20%',
+            \   'move' : 'bottom',
+            \ }
+let g:automatic_config = [
+            \   {
+            \       'match' : {'bufname' : 'vimshell'}
+            \   }
+            \]
+" }}}
+" vim-powerline{{{
 if s:has_plugin('Powerline')
     let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
     "let g:Powerline_theme = 'skwp'
