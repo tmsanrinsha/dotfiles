@@ -9,12 +9,13 @@ set -ex
 # http://d.hatena.ne.jp/deris/20120804/1344080402
 
 # http://www.vim.org/download.phpで最新バージョンを確かめる
-ver=7.3
-patches=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
+ver=7.4
+patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
+vimdir=$HOME/vim/${ver}.${patch}
 
-mkdir -p $HOME/local/{bin,src}
-cd $HOME/local/src
-# $HOME/loca/srcにDownload
+mkdir -p $vimdir/{bin,src}
+cd $vimdir/src
+
 if which curl;then
     curl='curl -L'
 elif which wget;then
@@ -31,20 +32,20 @@ cd vim$(echo $ver | tr -d .)
 mkdir -p patches
 cd patches
 if which curl;then
-    curl -O ftp://ftp.vim.org/pub/vim/patches/${VERSION}/${VERSION}.[001-${PATCHES}] || exit 1
+    curl -O ftp://ftp.vim.org/pub/vim/patches/${ver}/${ver}.[001-${patch}] || exit 1
 else
     # -Nは上書きのオプション
-    wget -N ftp://ftp.vim.org/pub/vim/patches/${VERSION}/${VERSION}.[001-${PATCHES}] || exit 1
+    wget -N ftp://ftp.vim.org/pub/vim/patches/${ver}/${ver}.[001-${patch}] || exit 1
 fi
 # 非同期にするとよい?
 # http://magicant.txt-nifty.com/main/2008/05/post_256f.html
 #  for i in {001..905}; do; curl -sm 30 -O "ftp://ftp.vim.org/pub/vim/patches/7.3/7.3.$i" > /dev/null & ; done
 
-cd $HOME/local/src/vim$(echo $VERSION | tr -d .) || exit 1
+cd $vimdir/src/vim$(echo $ver | tr -d .) || exit 1
 # patchの-p0はディレクトリ構造を無視しないオプション
 # http://www.koikikukan.com/archives/2006/02/17-235135.php
 # patchが途中で止まってしまう
-cat patches/${VERSION}.* | patch -p0
+cat patches/${ver}.* | patch -p0
 
 # ./configure --helpでオプションの詳細が見れる
 # --with-featuresで何が入るかはこちら
@@ -55,7 +56,8 @@ cat patches/${VERSION}.* | patch -p0
 --enable-pythoninterp \
 --disable-gui \
 --without-x \
---prefix=$HOME/local
++clientserver \
+--prefix=$vimdir
 # --with-local-dir=$HOME/local \
 # LDFLAGS="-L$HOME/local/lib" \
 # CFLAGS="-I$HOME/local/include"

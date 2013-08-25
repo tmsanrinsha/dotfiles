@@ -54,6 +54,10 @@ if [[ `uname` = CYGWIN* ]]; then
 fi
 
 pathmungeR ~/.vim/fetchBundle
+
+if [ -d ~/vim ];then
+    pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
+fi
 # }}}
 
 # alias {{{

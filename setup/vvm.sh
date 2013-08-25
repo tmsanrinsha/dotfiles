@@ -9,7 +9,7 @@ fi
 
 source ~/.vvm/etc/login
 
-vimorg_ver=`curl ftp://ftp.vim.org/pub/vim/patches/7.3/README | tail -1 | awk '{print $2}' | sed 's/\./-/g'`
+vimorg_ver=`curl ftp://ftp.vim.org/pub/vim/patches/7.4/README | tail -1 | awk '{print $2}' | sed 's/\./-/g'`
 
 cd ~
 vvm install vimorg--v${vimorg_ver} --with-features=big --enable-multibyte --enable-pythoninterp --disable-gui --without-x
