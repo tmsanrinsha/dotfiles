@@ -277,10 +277,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
-    " vim以外のレポジトリ
+    " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
-    " 自分のレポジトリ
+    " 自分のリポジトリ
     if (hostname() =~ 'sakura' || hostname() =~ 'VAIO')
         let g:neobundle#types#git#default_protocol = "ssh"
     endif

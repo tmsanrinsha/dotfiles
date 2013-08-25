@@ -25,7 +25,9 @@ do
     if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
         mv ~/$file ~/${file}.bak
     fi
-    ln -svf $git_dir/$file ~/$file
+    if [ ! -f ~/$file ]; then
+        ln -sv $git_dir/$file ~/$file
+    fi
 done
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
@@ -48,12 +50,17 @@ if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
 
     if [ ! -x ~/bin/cygwin/apt-cyg ]; then
-        curl -kL http://apt-cyg.googlecode.com/svn/trunk/apt-cyg > ~/bin/cygwin/apt-cyg
+        curl -LO https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg
         chmod a+x ~/bin/cygwin/apt-cyg
     fi
 
+    alias apt-cyg='~/bin/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
+
     if ! which ssh 1>/dev/null 2>&1; then
         apt-cyg install openssh
+    fi
+    if ! which mercurial 1>/dev/null 2>&1; then
+        apt-cyg install mercurial
     fi
 
     # cygwinでpageantを使う
