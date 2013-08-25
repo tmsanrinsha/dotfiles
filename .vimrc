@@ -69,7 +69,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'unite_sources' : ['tag'] }
                 \ }
 
-    NeoBundle 'Shougo/unite-ssh'
+   NeoBundle 'Shougo/unite-ssh'
     NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
 
@@ -233,7 +233,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " colorscheme
-    NeoBundle 'tomasr/molokai'
+    "NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
@@ -264,10 +264,16 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
-    " 自分で修正したプラグイン
-    let s:protocol = (hostname() =~ 'sakura' || hostname() =~ 'VAIO') ?  ", { 'type__protocol' : 'ssh' }" : ""
-    execute "NeoBundle 'tmsanrinsha/vim'".s:protocol
-    execute "NeoBundle 'tmsanrinsha/vim-emacscommandline'".s:protocol
+    " vim以外のレポジトリ
+    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
+
+    " 自分のレポジトリ
+    if (hostname() =~ 'sakura' || hostname() =~ 'VAIO')
+        let g:neobundle#types#git#default_protocol = "ssh"
+    endif
+    NeoBundle 'tmsanrinsha/molokai'
+    NeoBundle 'tmsanrinsha/vim'
+    NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
     " Brief help
     " :NeoBundleList          - list configured bundles
@@ -277,7 +283,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " :Unite neobundle/install:neocomplcache
     " :Unite neobundle/install:neocomplcache:unite.vim
 
-    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
 
     " Installation check.
@@ -323,8 +328,18 @@ set cmdheight=2 "コマンドラインの高さを2行にする
 set number
 set ruler
 set cursorline
-set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
 set t_Co=256 " 256色
+
+set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
+
+" 全角スペースをハイライト （Vimテクニックバイブル1-11）
+syntax enable
+scriptencoding utf-8
+augroup colerscheme
+    autocmd!
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+augroup END
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進法と16進数を増減させる。
@@ -407,6 +422,7 @@ noremap ]p p
 noremap ]P P
 
 nnoremap * *N
+nnoremap # g*N
 " function! s:RegistSearchWord()
 "     silent normal yiw
 "     let @/ = '\<'.@".'\>'
@@ -426,14 +442,8 @@ inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
-" nnoremap <Space>h 0
-" nnoremap <Space>j ^
-" matchit
-"nmap <Space>k %
-"nnoremap <Space>l $
-" matchit
-" nmap <Tab> %
-" expand path
+inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 " expand file (not ext)
@@ -1494,13 +1504,24 @@ endif
 if s:has_plugin('minibufexpl')
     " Put new window below current or on the right for vertical split
     let g:miniBufExplSplitBelow=0
-"function! Md()
-"    return expand("%:p")
-"    "echo "a"
-"    "set paste
-"endfunction
-""let g:statusLineText = "-MiniBufExplorer-" . Md()
-"let g:statusLineText = Md()
+    "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
+    "hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
+    " hi MBEVisibleActive ctermfg=252 ctermbg=125
+    " hi MBEVisibleChangedActive ctermfg=16 ctermbg=125
+    "hi MBEVisibleChanged guifg=#F1266F guibg=fg
+    "hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
+    "hi MBEChanged guifg=#CD5907 guibg=fg
+    "hi MBENormal guifg=#808080 guibg=fg
+    "hi MBENormal guifg=#CD5907 guibg=fg
+    hi MBENormal ctermfg=252
+
+    "function! Md()
+    "    return expand("%:p")
+    "    "echo "a"
+    "    "set paste
+    "endfunction
+    ""let g:statusLineText = "-MiniBufExplorer-" . Md()
+    "let g:statusLineText = Md()
 endif
 "}}}
 " vim-powerline{{{
@@ -1523,17 +1544,10 @@ endif
 "}}}
 " colorscheme {{{
 " ------------------------------------------------------------------------------
-augroup colerscheme
-    autocmd!
-    " 全角スペースをハイライト （Vimテクニックバイブル1-11）
-    scriptencoding utf-8
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
 
 "let g:rehash256 = 1
-if s:has_plugin('molokai-customized')
-    colorscheme molokai-customized
+if s:has_plugin('molokai')
+    colorscheme molokai
 else
     colorscheme default
 endif
@@ -1541,7 +1555,6 @@ endif
 "let g:solarized_termcolors=256
 "colorscheme solarized
 
-syntax enable
 "}}}
 " Eclim {{{
 " -----------------------------------------------------------------------------
