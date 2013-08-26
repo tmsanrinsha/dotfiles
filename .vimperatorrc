@@ -25,5 +25,20 @@ style! -name=commandline-ime chrome://* #liberator-commandline-command input {im
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 set complete+=H
 
-source! "C:\\Users\\tmiwa\\.vimperatorrc.local"
+cnoremap <C-p> <UP>
+cnoremap <C-n> <DOWN>
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+inoremap <C-p> <Esc><C-p>
+inoremap <C-n> <Esc><C-n>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+
+nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
+
+"source! "C:\\Users\\tmiwa\\.vimperatorrc.local"
+
+
+
+
 " vim: set ft=vimperator:
