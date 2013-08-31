@@ -997,6 +997,10 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
+" vim {{{
+" ==============================================================================
+autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+" }}}
 " ==== filetype ==== }}}
 " ==== Plugin ==== {{{
 " Shougo/unite {{{
@@ -1090,7 +1094,7 @@ nnoremap [unite]t :<C-u>Unite tag<CR>
 augroup unite-tag
     autocmd!
     autocmd BufEnter *
-                \ if empty(&buftype)
+                \ if empty(&buftype) && &filetype != 'vim'
                 \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
                 \| endif
 augroup END
