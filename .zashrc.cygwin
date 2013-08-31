@@ -1,5 +1,5 @@
 # vim:filetype=sh
-alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/ -c /package'
+alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
 alias gvim='~/vim73-kaoriya-win64/gvim'
 
 # ssh-pageant
