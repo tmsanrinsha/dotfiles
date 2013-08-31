@@ -455,7 +455,7 @@ inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
-inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+inoremap <Leader><CR> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
