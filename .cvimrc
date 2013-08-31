@@ -45,15 +45,16 @@ call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
-if &term =~ "xterm" && v:version > 603
-    "for screen
-    if &term == "xterm-256color"
+if v:version > 603
+    if &term == "screen"
+        " for tmux
         let &t_SI = "\ePtmux;\e\e[?2004h\e\\"
         let &t_EI = "\ePtmux;\e\e[?2004l\e\\"
-    " elseif $TERM =~ 'xterm-256color'
-    "     let &t_SI = "\eP\e[?2004h\e\\"
-    "     let &t_EI = "\eP\e[?2004l\e\\"
-    else
+        "for screen
+        " let &t_SI = "\eP\e[?2004h\e\\"
+        " let &t_EI = "\eP\e[?2004l\e\\"
+    elseif &term == "xterm"
+        " for xterm
         let &t_SI = "\e[?2004h"
         let &t_EI = "\e[?2004l"
     endif
