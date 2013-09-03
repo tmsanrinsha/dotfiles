@@ -455,7 +455,7 @@ inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
-inoremap <Leader><CR> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
@@ -1224,7 +1224,7 @@ if s:has_plugin('neobundle')
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-        execute 'inoremap <expr><C-g>  '.s:neocom.'#undo_completion()'
+        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : \<C-g>'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         " Recommended key-mappings.
         " <CR>: close popup and save indent.
