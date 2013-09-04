@@ -18,7 +18,7 @@ function! s:has_plugin(plugin)
   \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
 endfunction
 " }}}
-" neobundle.vim {{{
+" neobundle.vim {{計算の変更{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
@@ -979,15 +979,23 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
+" yaml {{{
+" ==============================================================================
+autocmd FileType yaml setlocal foldmethod=indent
+" }}}
+" vim {{{
+" ==============================================================================
+autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+" }}}
+" help {{{
+" ==============================================================================
+autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
+" }}}
 " Git {{{
 " ==============================================================================
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
 autocmd MyVimrc FileType gitcommit setlocal textwidth=72 | set colorcolumn=+1
-" }}}
-" help {{{
-" ==============================================================================
-autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}
 " crontab {{{
 " ==============================================================================
@@ -996,10 +1004,6 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " tsv {{{
 " ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
-" }}}
-" vim {{{
-" ==============================================================================
-autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
 " }}}
 " ==== filetype ==== }}}
 " ==== Plugin ==== {{{
