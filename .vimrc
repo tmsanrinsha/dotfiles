@@ -179,9 +179,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'rgarver/Kwbd.vim'
 
     " 一時バッファの制御
-    NeoBundle 'osyo-manga/vim-automatic', {
-                \   'depends': 'osyo-manga/vim-gift',
-                \}
+    if v:version > 462
+        NeoBundle 'osyo-manga/vim-automatic', {
+                    \   'depends': 'osyo-manga/vim-gift',
+                    \}
+    endif
 
     " ステータスラインをカスタマイズ
     " https://github.com/Lokaltog/vim-powerline
