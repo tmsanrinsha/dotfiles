@@ -309,26 +309,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     endif
 else
     " neobundleが使えない場合
-    " bundle下のディレクトリをruntimepathへ追加する
-    " vimのバージョンが低いと使えないプラグインは除外する
-    " let s:exclusion_plugin = [
-    "             \   'neobundle.vim', 'neocomplcache', 'neocomplete', 'neosnippet', 'unite-mark',
-    "             \   'unite-outline', 'unite-quickfix', 'unite-ssh', 'unite-tag', 'unite.vim', 'vimfiler',
-    "             \   'vimshell'
-    "             \]
-    " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
-    "     let s:plugin_name = matchstr(path, '[^/]\+$')
-    "     if isdirectory(path) && index(s:exclusion_plugin, s:plugin_name) == -1
-    "         let &runtimepath = &runtimepath.','.path
-    "     end
-    " endfor
-    let s:plugins = [
-                \   'vim-scripts/sudo.vim', 'vim-scripts/YankRing.vim', 'fholgado/minibufexpl.vim', 'rgarver/Kwbd.vim',
-                \   'Lokaltog/vim-powerline', 'scrooloose/syntastic', 'tmsanrinsha/molokai', 'kana/vim-smartword'
+    " bundle以下にあるpluginをいくつかruntimepathへ追加する
+    let s:load_plugin_list = [
+                \   'sudo.vim', 'YankRing.vim', 'minibufexpl.vim', 'Kwbd.vim',
+                \   'vim-powerline', 'syntastic', 'molokai', 'vim-smartword'
                 \]
     for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
         let s:plugin_name = matchstr(path, '[^/]\+$')
-        if isdirectory(path) && index(s:plugins, s:plugin_name) >= 0
+        if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
             let &runtimepath = &runtimepath.','.path
         end
     endfor
