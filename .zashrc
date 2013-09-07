@@ -88,7 +88,9 @@ alias .......='cd ../../../../../..'
 # http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
 alias sudo='sudo '
 
-alias grep='grep --color=auto'
+if grep --help | grep color; then
+    alias grep='grep --color=auto'
+fi
 alias egrep='egrep --color=auto'
 if [ `uname` = FreeBSD ];then
     alias find='find -E'
