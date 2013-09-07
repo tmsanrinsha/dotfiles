@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 set -ex
-# 自分のホームディレクトリにVimをインストールする
-# 参考にしたサイト
-# http://www.glidenote.com/archives/422
-# patchesが途中で止まってしまうので最新版にはならない
+# 自分のホームディレクトリ以下にVimをインストールする
+http://sanrinsha.lolipop.jp/blog/2012/03/vim%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html
 
-# CentOSの場合はこちらを参照
+# CentOSの場合でコンパイルしない場合はこちらを参照
 # http://d.hatena.ne.jp/deris/20120804/1344080402
-dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; pwd)"
 
 # http://www.vim.org/download.phpで最新バージョンを確かめる
 ver=7.4
@@ -57,16 +54,20 @@ else
     cat patches/${ver}.* | patch -p0
 fi
 
+if which python; then
+    option=--enable-pythoninterp
+fi
+
 # ./configure --helpでオプションの詳細が見れる
 # --with-featuresで何が入るかはこちら
-# https://sites.google.com/site/vimdocja/various-html#:version
+# http://vim-jp.org/vimdoc-ja/various.html#:ve
 ./configure \
 --with-features=big \
 --enable-multibyte \
---enable-pythoninterp \
 --disable-gui \
 --without-x \
---prefix=$vimdir
+--prefix=$vimdir \
+$option
 # --with-local-dir=$HOME/local \
 # LDFLAGS="-L$HOME/local/lib" \
 # CFLAGS="-I$HOME/local/include"
