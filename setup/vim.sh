@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 # 自分のホームディレクトリ以下にVimをインストールする
-http://sanrinsha.lolipop.jp/blog/2012/03/vim%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html
+# http://sanrinsha.lolipop.jp/blog/2012/03/vim%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html
 
 # CentOSの場合でコンパイルしない場合はこちらを参照
 # http://d.hatena.ne.jp/deris/20120804/1344080402
