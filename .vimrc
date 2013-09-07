@@ -743,7 +743,7 @@ runtime macros/matchit.vim "HTML tag match
 "}}}
 " vimdiff {{{
 " ==============================================================================
-set diffopt=filler,iwhite
+set diffopt=filler
 nnoremap [VIMDIFF] <Nop>
 nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
@@ -1186,8 +1186,8 @@ if s:has_plugin('neobundle')
         " Use neocomplcache.
         execute 'let g:'.s:neocom_.'enable_at_startup = 1'
         " Use smartcase.
-        "execute 'let g:'.s:neocom_.'enable_smart_case = 1'
-        execute 'let g:'.s:neocom_.'enable_ignore_case = 0'
+        execute 'let g:'.s:neocom_.'enable_smart_case = 1'
+        execute 'let g:'.s:neocom_.'enable_ignore_case = 1'
         " Use camel case completion.
         let g:neocomplcache_enable_camel_case_completion = 1
         " Use underbar completion.
