@@ -1602,9 +1602,11 @@ let g:EclimCompletionMethod = 'omnifunc'
 " ==============================================================================
 if s:has_plugin('neobundle') || s:has_plugin('console')
     let g:vimconsole#auto_redraw = 1
-    nnoremap <F12> :VimConsoleToggle<CR>
-    nnoremap <F5>  :VimConsoleRedraw<CR>
-    autocmd MyVimrc FileType vimconsole nnoremap <buffer> <C-l> :VimConsoleClear<CR>
+    augroup MyVimrc
+        autocmd FileType vim,vimconsole
+                    \    nnoremap <buffer> <F12> :VimConsoleToggle<CR>
+                    \ |  nnoremap <buffer> <C-l> :VimConsoleClear<CR>
+    augroup END
 endif
 " ==== Plugin ==== }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
