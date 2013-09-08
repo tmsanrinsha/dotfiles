@@ -1607,6 +1607,7 @@ if s:has_plugin('neobundle') || s:has_plugin('console')
                     \ |  nnoremap <buffer> <C-l> :VimConsoleClear<CR>
     augroup END
 endif
+" }}}
 " ==== Plugin ==== }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
