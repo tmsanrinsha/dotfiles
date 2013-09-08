@@ -1134,19 +1134,16 @@ nnoremap [VIMSHELL]s  :VimShellSendString<CR>
 "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
 imap <C-;> <Plug>(vimshell_zsh_complete)
-if has('win32') || has('win64')
-    " Display user name on Windows.
-    let g:vimshell_prompt = $USERNAME."% "
-else
-    "let g:vimshell_prompt = $USER . "@" . hostname() . "% "
-    let g:vimshell_prompt = hostname() . "% "
-    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-    if has('mac')
-        call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
-        call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
-    endif
+
+if has('mac')
+    call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
+    call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
 endif
-"let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
+
+let g:vimshell_prompt = hostname() . "% "
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+
+let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
 let g:vimshell_max_command_history = 3000
 let g:vimshell_temporary_directory = expand('~/.vim.d/.vimshell')
 
