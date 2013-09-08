@@ -158,7 +158,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
         NeoBundle 'Align'
     endif
 
+    " コメント操作
     NeoBundle "tyru/caw.vim"
+    NeoBundle "tpope/vim-commentary"
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
