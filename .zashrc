@@ -88,7 +88,7 @@ alias .......='cd ../../../../../..'
 # http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
 alias sudo='sudo '
 
-if grep --help | grep color; then
+if grep --help | grep color 1>/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
 alias egrep='egrep --color=auto'

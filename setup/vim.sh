@@ -50,7 +50,6 @@ else
     cd $vimdir/src/vim$(echo $ver | tr -d .) || exit 1
     # patchの-p0はディレクトリ構造を無視しないオプション
     # http://www.koikikukan.com/archives/2006/02/17-235135.php
-    # patchが途中で止まってしまう
     cat patches/${ver}.* | patch -p0
 fi
 
