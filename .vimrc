@@ -129,8 +129,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : {
                 \       'mappings' : [
-                \           '<Plug>(smartword-w)', '<Plug>(smartword-b)',
-                \           '<Plug>(smartword-e)', '<Plug>(smartword-ge)'
+                \           '<Plug>(smartword-'
                 \       ]
                 \   }
                 \}
@@ -251,6 +250,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     NeoBundle 'tpope/vim-fugitive'
 
+
     NeoBundleLazy 'mattn/gist-vim', {
                 \   'autoload' : { 'commands' : [ 'Gist' ] },
                 \   'depends'  : 'mattn/webapi-vim'
@@ -259,6 +259,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundleLazy 'vim-scripts/DirDiff.vim', {
                 \   'autoload' : {
                 \       'commands' : [ 'DirDiff' ]
+                \   }
+                \}
+
+    NeoBundleLazy 'tyru/open-browser.vim', {
+                \   'autoload':{
+                \       'mappings':[
+                \            '<Plug>(openbrowser-'
+                \        ]
                 \   }
                 \}
 
@@ -760,7 +768,7 @@ nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 " ==============================================================================
 ":Man <man>でマニュアルを開く
 runtime ftplugin/man.vim
-nmap K <Leader>K
+"nmap K <Leader>K
 "コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
 "http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 ".zshrc .bashrc等にも記述が必要
@@ -988,7 +996,7 @@ autocmd FileType yaml setlocal foldmethod=indent
 " }}}
 " vim {{{
 " ==============================================================================
-autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+"autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
 " }}}
 " help {{{
 " ==============================================================================
@@ -1014,7 +1022,7 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " ==========================================================================
 if s:has_plugin('unite')
     let g:unite_enable_start_insert = 1
-    " let g:unite_split_rule = "botright"
+    let g:unite_split_rule = "botright"
     let g:unite_winheight = "15"
     nnoremap [unite] <Nop>
     nmap , [unite]
@@ -1039,7 +1047,7 @@ if s:has_plugin('unite')
     nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
     "最近使用したディレクトリ一覧
     nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
-    "call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
@@ -1606,6 +1614,16 @@ if s:has_plugin('neobundle') || s:has_plugin('console')
                     \    nnoremap <buffer> <F12> :VimConsoleToggle<CR>
                     \ |  nnoremap <buffer> <C-l> :VimConsoleClear<CR>
     augroup END
+endif
+" }}}
+" open-browser.vim {{{
+" ==============================================================================
+if s:has_plugin('neobundle') || s:has_plugin('openbrowser')
+    let g:netrw_nogx = 1 " disable netrw's gx mapping.
+    nmap gx <Plug>(openbrowser-open)
+    vmap gx <Plug>(openbrowser-open)
+    nmap <2-LeftMouse> <Plug>(openbrowser-open)
+    vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 " }}}
 " ==== Plugin ==== }}}
