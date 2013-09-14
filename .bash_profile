@@ -6,10 +6,10 @@ elif which zsh 1>/dev/null 2>&1; then
     exec zsh -l
 fi
 
-if [ -f ~/.zash_profile ]; then
-        . ~/.zash_profile
+if [ -f ~/.rc/.zash_profile ]; then
+        . ~/.rc/.zash_profile
 fi
 
-if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
+if [ -f ~/.rc/.bashrc ]; then
+        . ~/.rc/.bashrc
 fi

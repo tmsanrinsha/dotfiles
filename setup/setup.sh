@@ -20,15 +20,24 @@ if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
 else
     exclude='.*\.local'
 fi
-for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+
+# ディレクトリの作成
+for dir in `find $git_dir -type d -name .git -prune -o -mindepth 1 -type d | sed -e "s|$git_dir/||"`
+do
+    test -d ~/$dir || mkdir ~/$dir
+done
+
+# シンボリックリンクを貼る
+for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
     if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
         mv ~/$file ~/${file}.bak
     fi
     if [ ! -f ~/$file ]; then
-        ln -sv $git_dir/$file ~/$file
+        ln -fsv $git_dir/$file ~/$file
     fi
 done
+
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
 # http://betterthangrep.com/

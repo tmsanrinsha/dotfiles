@@ -1,6 +1,6 @@
 # bash, zsh共通設定の読み込み
-if [ -f ~/.zashrc ]; then
-    . ~/.zashrc
+if [ -f ~/.rc/.zashrc ]; then
+    . ~/.rc/.zashrc
 fi
 
 #前方一致でヒストリ検索
@@ -84,6 +84,6 @@ if [ $TERM = xterm-256color ];then
     PROMPT_COMMAND="$PROMPT_COMMAND; screen_title" 
 fi
 
-if [ -f ~/.bashrc.local ]; then
-    . ~/.bashrc.local
+if [ -f ~/.rc/.bashrc.local ]; then
+    . ~/.rc/.bashrc.local
 fi
