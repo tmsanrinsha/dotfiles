@@ -15,7 +15,6 @@
 !/.my.cnf
 !/.rc
 !/.screenrc
-!/.ssh
 !/.tmux.conf
 !/.vimperatorrc
 !/.vimrc
@@ -27,5 +26,6 @@
 !/README
 !/_gvimrc
 !/bin
+!/template
 !/vimfiles
 !/setup

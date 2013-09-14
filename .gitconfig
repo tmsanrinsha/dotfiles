@@ -25,4 +25,7 @@
 # includeが使えるかはgit config --global --includes -lで確かめる
     path = .gitconfig.local
 
+[user]
+    name = Takashi Miwa
+    email = sanrinsha.tm@gmail.com
 # vim:ft=gitconfig
