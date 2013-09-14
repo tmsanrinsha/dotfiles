@@ -1,6 +1,8 @@
 # 全てのファイルを一度、無視する。
 /*
 
+*.swp
+
 ##### Gitで管理するファイルリスト #####
 !/.ackrc
 !/.bash_logout
@@ -26,6 +28,8 @@
 !/README
 !/_gvimrc
 !/bin
+!/script
+/script/pseudo
 !/template
 !/vimfiles/.rc
 !/setup

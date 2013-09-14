@@ -486,7 +486,7 @@ endif
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 set backup
-set backupdir=~/.vim.d/.bak
+set backupdir=~/.vim/.bak
 
 augroup backup
     autocmd!
@@ -1120,6 +1120,8 @@ let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効にした状態で起動する
 let g:vimfiler_safe_mode_by_default = 0
 
+let g:vimfiler_data_directory = expand('~/.vim/.vimfiler')
+
 nnoremap [VIMFILER] <Nop>
 nmap <Leader>f [VIMFILER]
 nnoremap <silent> [VIMFILER]f :VimFiler<CR>
@@ -1155,7 +1157,7 @@ let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
 let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
 let g:vimshell_max_command_history = 3000
-let g:vimshell_temporary_directory = expand('~/.vim.d/.vimshell')
+let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
 
 autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
@@ -1627,10 +1629,10 @@ if s:has_plugin('neobundle') || s:has_plugin('openbrowser')
 endif
 " }}}
 " ==== Plugin ==== }}}
-if !has('gui_running') && filereadable(expand('~/.vim/.cvimrc'))
-    source ~/.vim/.cvimrc
+if !has('gui_running') && filereadable(expand('~/.vim/.rc/.cvimrc'))
+    source ~/.vim/.rc/.cvimrc
 endif
 
-if filereadable(expand('~/.vim/.vimrc.local'))
-    source ~/.vim/.vimrc.local
+if filereadable(expand('~/.dotfiles.local/.vimrc.local'))
+    source ~/.vim/.rc/.vimrc.local
 endif

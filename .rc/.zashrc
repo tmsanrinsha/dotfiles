@@ -39,134 +39,23 @@ pathmungeR () {
 }
 
 # シェルスクリプトなどを置くディレクトリ
-pathmunge ${HOME}/bin
-# makeで作った実行ファイルなどを置くディレクトリ
-pathmunge ${HOME}/local/bin
+pathmungeR ${HOME}/script/common
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
-pathmunge $HOME/bin/pseudo after
-
-pathmunge ~/git/tmsanrinsha/dotfiles/bin
-pathmunge ~/git/tmsanrinsha/dotfiles/setup
+pathmungeR $HOME/script/pseudo after
 # Cygwin用のコマンドを置くディレクトリ
 if [[ `uname` = CYGWIN* ]]; then
-    pathmunge $HOME/bin/cygwin
-    pathmunge ~/git/tmsanrinsha/dotfiles/bin/cygwin
+    pathmungeR $HOME/script/cygwin
 fi
 
+# makeで作った実行ファイルなどを置くディレクトリ
+pathmunge ${HOME}/local/bin
+
+# neobundleで管理するスクリプト
 pathmungeR ~/.vim/fetchBundle
 
 if [ -d ~/vim ];then
     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
 fi
-# }}}
-
-# alias {{{
-# ==============================================================================
-# ls {{{
-# ------------------------------------------------------------------------------
-if [ `uname` = FreeBSD ];then
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    alias ls='ls -G'
-else
-    alias ls='ls --color'
-fi
-alias l='ls'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-# }}}
-
-alias cp='cp -ip'
-alias mv='mv -i'
-
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
-
-# http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
-alias sudo='sudo '
-
-if grep --help | grep color 1>/dev/null 2>&1; then
-    alias grep='grep --color=auto'
-fi
-alias egrep='egrep --color=auto'
-if [ `uname` = FreeBSD ];then
-    alias find='find -E'
-fi
-
-alias pg='ps aux | grep -v grep | grep'
-alias pe='ps aux | egrep'
-alias pk='pkill -f'
-
-# tree {{{
-# ------------------------------------------------------------------------------
-# -F:ディレクトリなら/をつけるなど
-# -C:color
-# -l:ディレクトリのシンボリックリンクを追う
-alias tree='tree -FCl'
-# }}}
-
-alias diff='diff -u'
-alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
-
-# vim {{{
-# ------------------------------------------------------------------------------
-alias vi='vim'
-alias vie='vim -R' #readonlyで開く。view
-if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
-    alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
-fi
-alias vsh="vim -c 'VimShell'"
-alias vf="vim -c 'VimFiler'"
-# }}}
-
-# git {{{
-# ------------------------------------------------------------------------------
-alias gal='alias | grep git'
-alias ga='git add'
-alias gb='git branch'
-alias gci='git commit'
-alias gco='git checkout'
-alias gd='git diff'
-alias gdn='git diff --no-ext-diff'
-alias gdr='git diff remotes/origin/master'
-alias gi='git init'
-alias gl='git log | vim -R -'
-alias gm='git merge'
-alias gpl='git pull'
-alias gplr='git pull --rebase origin master'
-alias gps='git push'
-alias gmt='git mergetool'
-alias grei='git rebase -i'
-alias gre='git remote -v'
-alias gs='git status'
-
-# gitのルートディレクトリに移動
-alias cdt='cd `git rev-parse --show-toplevel`'
-# }}}
-
-alias phpunit='phpunit --colors'
-
-# svnとtreeの文字化け対策
-alias lcc="export LC_CTYPE='C'"
-# 日本語入力用
-alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
-
-alias sr="exec $SHELL -l"
-
-# カレントディレクトリのファイル名をFull Pathで表示
-alias fp='find `pwd` -maxdepth 1 -mindepth 1'
-# ファイルを解凍するシェルスクリプト
-alias dc='decomp.sh'
-# find $1 type f -print0 | xargs -0 egrep --color=auto $2
-alias fxg='fxg.sh'
-# Linuxのバージョンを表示するコマンド
-# http://blog.layer8.sh/ja/2011/12/23/linux%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%84os%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89linux/
-alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
-
-alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
 # }}}
 
 #manのpagerとしてvimの:Manを使う。
