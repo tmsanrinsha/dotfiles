@@ -1,1 +1,31 @@
-.zashrc.secret
+# 全てのファイルを一度、無視する。
+/*
+
+##### Gitで管理するファイルリスト #####
+!/.ackrc
+!/.bash_logout
+!/.bash_profile
+!/.bashrc
+!/.ctags
+!/.exrc
+!/.gitconfig
+!/.gitignore
+!/.gvimrc_first.vim
+!/.inputrc
+!/.my.cnf
+!/.rc
+!/.screenrc
+!/.ssh
+!/.tmux.conf
+!/.vimperatorrc
+!/.vimrc
+!/.vimrc.min
+!/.vrapperrc
+!/.zlogout
+!/.zprofile
+!/.zshrc
+!/README
+!/_gvimrc
+!/bin
+!/vimfiles
+!/setup
