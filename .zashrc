@@ -58,6 +58,13 @@ if [ -d ~/vim ];then
 fi
 # }}}
 
+# エイリアスの読み込み
+if [ -f ~/.alias ];then
+    . ~/.alias
+fi
+
+
+
 #manのpagerとしてvimの:Manを使う。
 #.vimrcにも設定が必要
 #http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
