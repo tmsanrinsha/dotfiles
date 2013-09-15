@@ -52,6 +52,8 @@ fi
 #     chmod a+x ~/bin/ack
 # fi
 
+ln -sv ~/vimfiles ~/.vim
+
 [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
 
 if [ ! -x ~/script/pseudo/git ];then
