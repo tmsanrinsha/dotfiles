@@ -1635,10 +1635,10 @@ if s:has_plugin('neobundle') || s:has_plugin('openbrowser')
 endif
 " }}}
 " ==== Plugin ==== }}}
-if !has('gui_running') && filereadable(expand('~/.vim/.rc/.cvimrc'))
-    source ~/.vim/.rc/.cvimrc
+if !has('gui_running') && filereadable(expand('~/.cvimrc'))
+    source ~/.cvimrc
 endif
 
 if filereadable(expand('~/.dotfiles.local/.vimrc.local'))
-    source ~/.vim/.rc/.vimrc.local
+    source ~/.dotfiles.local/.vimrc.local
 endif
