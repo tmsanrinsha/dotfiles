@@ -62,7 +62,7 @@ if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/script/cygwin ] && mkdir -p ~/script/cygwin
 
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
-        curl -LO https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg
+        curl -O https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
     fi
 
