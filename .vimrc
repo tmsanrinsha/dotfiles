@@ -18,7 +18,7 @@ function! s:has_plugin(plugin)
   \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
 endfunction
 " }}}
-" neobundle.vim {{計算の変更{
+" neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
@@ -280,6 +280,12 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
     let g:lucius_contrast_bg = 'high'
+
+    " カラースキームの色見本
+    " http://cocopon.me/blog/?p=3522
+    NeoBundleLazy 'cocopon/colorswatch.vim', {
+                \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
+                \}
 
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm

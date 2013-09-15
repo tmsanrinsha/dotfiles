@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-ssh -T git@github.com
+echo $1
 #git clone git@github.com:tmsanrinsha/dotfiles.git

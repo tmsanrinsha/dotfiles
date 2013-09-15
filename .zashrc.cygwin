@@ -1,4 +1,3 @@
-# vim:filetype=sh
 alias apt-cyg='apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
 alias gvim='~/vim73-kaoriya-win64/gvim'
 
@@ -8,3 +7,5 @@ if which ssh-pageant 1>/dev/null 2>&1; then
 fi
 
 cmd /c chcp 65001
+
+# vim:filetype=sh

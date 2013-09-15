@@ -1,6 +1,6 @@
 #bash, zsh共通設定の読み込み
-if [ -f ~/.rc/.zashrc ]; then
-    . ~/.rc/.zashrc
+if [ -f ~/.zashrc ]; then
+    . ~/.zashrc
 fi
 
 
@@ -288,12 +288,12 @@ fi
 DISABLE_AUTO_TITLE=true
 # }}}
 
-if [ -f ~/.rc/.zshrc.local ]; then
-    . ~/.rc/.zshrc.local
+if [ -f ~/.dotfiles.local/.zshrc.local ]; then
+    . ~/.dotfiles.local/.zshrc.local
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    test -f ~/.rc/.zshrc.cygwin && . ~/.rc/.zshrc.cygwin
+    test -f ~/.dotfiles.local/.zshrc.cygwin && . ~/.dotfiles.local/.zshrc.cygwin
 else
     test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
     if [ -f ~/.zsh/plugin/z.sh ]; then

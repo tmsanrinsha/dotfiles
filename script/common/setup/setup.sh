@@ -15,28 +15,34 @@ if [[ `uname` = CYGWIN* ]]; then
 fi
 
 # リンクの作成
+# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+#     exclude=''
+# else
+#     exclude='.*\.local'
+# fi
+
+# # ディレクトリの作成
+# for dir in `find $git_dir -type d -name .git -prune -o -mindepth 1 -type d | sed -e "s|$git_dir/||"`
+# do
+#     test -d ~/$dir || mkdir ~/$dir
+# done
+#
+# # シンボリックリンクを貼る
+# for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+# do
+#     if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
+#         mv ~/$file ~/${file}.bak
+#     fi
+#     if [ ! -f ~/$file ]; then
+#         ln -fsv $git_dir/$file ~/$file
+#     fi
+# done
+
 if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
     exclude=''
 else
     exclude='.*\.local'
 fi
-
-# ディレクトリの作成
-for dir in `find $git_dir -type d -name .git -prune -o -mindepth 1 -type d | sed -e "s|$git_dir/||"`
-do
-    test -d ~/$dir || mkdir ~/$dir
-done
-
-# シンボリックリンクを貼る
-for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
-do
-    if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
-        mv ~/$file ~/${file}.bak
-    fi
-    if [ ! -f ~/$file ]; then
-        ln -fsv $git_dir/$file ~/$file
-    fi
-done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
@@ -46,24 +52,24 @@ done
 #     chmod a+x ~/bin/ack
 # fi
 
-[ ! -d ~/bin/pseudo ] && mkdir -p ~/bin/pseudo
+[ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
 
-if [ ! -x ~/bin/pseudo/git ];then
+if [ ! -x ~/script/pseudo/git ];then
     # http://d.hatena.ne.jp/hnw/20120602
     # https://github.com/hnw/fakegit
-    curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/bin/pseudo/git
-    chmod a+x $HOME/bin/pseudo/git
+    curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/script/pseudo/git
+    chmod a+x $HOME/script/pseudo/git
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    [ ! -d ~/bin/cygwin ] && mkdir -p ~/bin/cygwin
+    [ ! -d ~/script/cygwin ] && mkdir -p ~/script/cygwin
 
-    if [ ! -x ~/bin/cygwin/apt-cyg ]; then
+    if [ ! -x ~/script/cygwin/apt-cyg ]; then
         curl -LO https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg
-        chmod a+x ~/bin/cygwin/apt-cyg
+        chmod a+x ~/script/cygwin/apt-cyg
     fi
 
-    alias apt-cyg='~/bin/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
+    alias apt-cyg='~/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
 
     if ! which ssh 1>/dev/null 2>&1; then
         apt-cyg install openssh
@@ -84,15 +90,15 @@ if [[ `uname` = CYGWIN* ]]; then
 fi
 
 # zsh
-if [ ! -d ~/git/z ]; then
-    test -d ~/git || mkdir ~/git
-    git clone git://github.com/rupa/z.git ~/git/z
-    test -d ~/.zsh/plugin || mkdir -p ~/.zsh/plugin
-    ln -s ~/git/z/z.sh ~/.zsh/plugin
-    test -d ~/local/man/man1 || mkdir -p ~/local/man/man1
-    ln -s ~/git/z/z.1 ~/local/man/man1
-    test -d ~/.z || mkdir -p ~/.z
-fi
+# if [ ! -d ~/git/z ]; then
+#     test -d ~/git || mkdir ~/git
+#     git clone git://github.com/rupa/z.git ~/git/z
+#     test -d ~/.zsh/plugin || mkdir -p ~/.zsh/plugin
+#     ln -s ~/git/z/z.sh ~/.zsh/plugin
+#     test -d ~/local/man/man1 || mkdir -p ~/local/man/man1
+#     ln -s ~/git/z/z.1 ~/local/man/man1
+#     test -d ~/.z || mkdir -p ~/.z
+# fi
 
 # vim
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
