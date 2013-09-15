@@ -3,7 +3,7 @@
 set -ex
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
-git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ..; pwd)"
+git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../../..; pwd)"
 
 if [[ `uname` = CYGWIN* ]]; then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
@@ -15,34 +15,28 @@ if [[ `uname` = CYGWIN* ]]; then
 fi
 
 # リンクの作成
-# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
-#     exclude=''
-# else
-#     exclude='.*\.local'
-# fi
-
-# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
-#     exclude=''
-# else
-#     exclude='.*\.local'
-# fi
+if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+    exclude=''
+else
+    exclude='.*\.local'
+fi
 
 # # ディレクトリの作成
-# for dir in `find $git_dir -type d -name .git -prune -o -mindepth 1 -type d | sed -e "s|$git_dir/||"`
-# do
-#     test -d ~/$dir || mkdir ~/$dir
-# done
-#
-# # シンボリックリンクを貼る
-# for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
-# do
-#     if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
-#         mv ~/$file ~/${file}.bak
-#     fi
-#     if [ ! -f ~/$file ]; then
-#         ln -fsv $git_dir/$file ~/$file
-#     fi
-# done
+for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
+do
+    test -d ~/$dir || mkdir ~/$dir
+done
+
+# シンボリックリンクを貼る
+for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+do
+    if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
+        mv ~/$file ~/${file}.bak
+    fi
+    if [ ! -f ~/$file ]; then
+        ln -fsv $git_dir/$file ~/$file
+    fi
+done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
