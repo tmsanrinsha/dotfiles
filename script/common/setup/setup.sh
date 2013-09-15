@@ -30,12 +30,15 @@ done
 # シンボリックリンクを貼る
 for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
-    if [ -f ~/$file -a ! -L ~/$file ]; then # 実体ファイルがある場合はバックアップをとる
+    # 実体ファイルがある場合はバックアップをとる
+    if [ -f ~/$file -a ! -L ~/$file ]; then 
         mv ~/$file ~/${file}.bak
     fi
-    if [ ! -f ~/$file ]; then
-        ln -fsv $git_dir/$file ~/$file
+    # シンボリックリンクは削除
+    if [ -f ~/$file ]; then
+        rm ~/$file
     fi
+    ln -sv $git_dir/$file ~/$file
 done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
@@ -45,8 +48,6 @@ done
 #     curl http://betterthangrep.com/ack-standalone > ~/bin/ack
 #     chmod a+x ~/bin/ack
 # fi
-
-ln -sv ~/vimfiles ~/.vim
 
 [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
 
