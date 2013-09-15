@@ -21,6 +21,12 @@ fi
 #     exclude='.*\.local'
 # fi
 
+# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+#     exclude=''
+# else
+#     exclude='.*\.local'
+# fi
+
 # # ディレクトリの作成
 # for dir in `find $git_dir -type d -name .git -prune -o -mindepth 1 -type d | sed -e "s|$git_dir/||"`
 # do
@@ -37,12 +43,6 @@ fi
 #         ln -fsv $git_dir/$file ~/$file
 #     fi
 # done
-
-if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
-    exclude=''
-else
-    exclude='.*\.local'
-fi
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 

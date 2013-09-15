@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-git clone git@github.com:tmsanrinsha/dotfiles.git /tmp/git.tmsanrinsha
-cp -R /tmp/git.tmsanrinsha/ ~/fuga
+set -xe
+# 一旦、tmp以下にcloneした後、ホームディレクトリにコピーする
+tmp=/tmp/git.$$
+git clone git@github.com:tmsanrinsha/dotfiles.git $tmp
+cp -R $tmp/ ~/
+~/script/common/setup/setup.sh
