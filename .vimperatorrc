@@ -34,6 +34,10 @@ inoremap <C-p> <Esc><C-p>
 inoremap <C-n> <Esc><C-n>
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
+inoremap <C-u> <S-Home><BS>
+
+noremap <A-p> :tabmove -1<CR>
+noremap <A-n> :tabmove +1<CR>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
 
