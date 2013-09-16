@@ -56,6 +56,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                     \ }
     endif
 
+    " unite {{{
+    " ==========================================================================
     NeoBundle 'Shougo/unite.vim'
 
     NeoBundleLazy 'Shougo/unite-outline', {
@@ -73,6 +75,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'Shougo/unite-ssh'
     NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
+    " }}}
 
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
@@ -82,8 +85,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] }
                 \}
 
+    " 補完 {{{
+    " ==========================================================================
     " 補完候補の自動表示
-    if has('lua') && (v:version > 703 || v:version >= 703 && has('patch825'))
+    if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
         NeoBundleLazy "Shougo/neocomplete", {
             \   "autoload": {
             \       "insert": 1,
@@ -110,6 +115,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \       "insert" : 1,
                 \   }
                 \}
+    " }}}
 
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -180,7 +186,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'rgarver/Kwbd.vim'
 
     " 一時バッファの制御
-    if v:version > 703 && has('patch462')
+    if v:version >= 704 || (v:version == 703 && has('patch462'))
         NeoBundle 'osyo-manga/vim-automatic', {
                     \   'depends': 'osyo-manga/vim-gift',
                     \}
@@ -194,6 +200,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
 
+    " eclipseと連携
     if isdirectory(expand('~/eclipse'))
         NeoBundle 'ervandew/eclim', {
                     \   'build' : {
@@ -202,6 +209,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                     \   }
                     \}
     endif
+
+    NeoBundle 'mattn/emmet-vim'
 
     " CSS
     " #000000とかの色付け
@@ -647,6 +656,10 @@ cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>
 
 set history=100000 "保存する履歴の数
+
+" shellで
+let $BASH_ENV='~/.vim/.env'
+let $BASH_ENV='~/.vim/.env'
 "}}}
 " 検索 {{{
 " ==============================================================================
@@ -888,13 +901,14 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setfiletype html
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
 " nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-autocmd MyVimrc BufRead /var/tmp/sql* setfiletype mysql
-autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setfiletype apache
+autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
+autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
 " ==== filetype ==== {{{
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
@@ -1639,6 +1653,6 @@ if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
 
-if filereadable(expand('~/.dotfiles.local/.vimrc.local'))
-    source ~/.dotfiles.local/.vimrc.local
+if filereadable(expand('~/.vimrc.local'))
+    source ~/.vimrc.local
 endif
