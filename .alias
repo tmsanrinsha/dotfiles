@@ -103,3 +103,7 @@ alias fxg='fxg.sh'
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
+
+if [ -f ~/.alias.local ]; then
+    . ~/.alias.local
+fi
