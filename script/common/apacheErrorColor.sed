@@ -1,4 +1,5 @@
 #!/usr/bin/sed -f
+
 ## Apacheのエラーログのカラー化
 # http://d.hatena.ne.jp/y-kawaz/20110713/1310532417
 # を元に作った
