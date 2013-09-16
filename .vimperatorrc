@@ -26,15 +26,24 @@ style! -name=commandline-ime chrome://* #liberator-commandline-command input {im
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 set complete+=H
 
+" Emacs like key bindings
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
-inoremap <C-p> <Esc><C-p>
-inoremap <C-n> <Esc><C-n>
+cnoremap <A-f> <C-Right>
+cnoremap <A-b> <C-Left>
+cnoremap <A-d> <C-Del>
+
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
+inoremap <A-f> <C-Right>
+inoremap <A-b> <C-Left>
+inoremap <A-d> <C-Del>
 inoremap <C-u> <S-Home><BS>
+
+inoremap <C-p> <Esc><C-p>
+inoremap <C-n> <Esc><C-n>
 
 noremap <A-p> :tabmove -1<CR>
 noremap <A-n> :tabmove +1<CR>
