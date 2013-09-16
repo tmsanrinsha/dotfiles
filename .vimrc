@@ -83,7 +83,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " 補完候補の自動表示
-    if has('lua') && v:version >= 703 && has('patch825')
+    if has('lua') && (v:version > 703 || v:version >= 703 && has('patch825'))
         NeoBundleLazy "Shougo/neocomplete", {
             \   "autoload": {
             \       "insert": 1,
@@ -774,7 +774,7 @@ nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 " ==============================================================================
 ":Man <man>でマニュアルを開く
 runtime ftplugin/man.vim
-"nmap K <Leader>K
+nmap K <Leader>K
 "コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
 "http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 ".zshrc .bashrc等にも記述が必要
@@ -1002,7 +1002,7 @@ autocmd FileType yaml setlocal foldmethod=indent
 " }}}
 " vim {{{
 " ==============================================================================
-"autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
 " }}}
 " help {{{
 " ==============================================================================

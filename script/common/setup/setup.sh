@@ -21,7 +21,7 @@ else
     exclude='.*\.local'
 fi
 
-# # ディレクトリの作成
+# ディレクトリの作成
 for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
 do
     test -d ~/$dir || mkdir ~/$dir
@@ -31,11 +31,11 @@ done
 for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
     # 実体ファイルがある場合はバックアップをとる
-    if [ -f ~/$file -a ! -L ~/$file ]; then 
+    if [ -f ~/$file -a ! -L ~/$file ]; then
         mv ~/$file ~/${file}.bak
     fi
     # シンボリックリンクは削除
-    if [ -f ~/$file ]; then
+    if [ -L ~/$file ]; then
         rm ~/$file
     fi
     ln -sv $git_dir/$file ~/$file

@@ -41,7 +41,6 @@ if v:version > 701
 endif
 
 "}}}
-
 " paste {{{
 " ==============================================================================
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
@@ -66,7 +65,6 @@ if v:version > 603
     inoremap <F13> <C-o>:set paste<CR>
 endif
 "}}}
-
 " clipboard {{{
 " ==============================================================================
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
@@ -95,18 +93,28 @@ command! -range Paste64Copy :call s:Paste64Copy()
 
 vnoremap <A-c> :Paste64Copy<CR>
 " }}}
-
 " mouse {{{
 " ==============================================================================
 " For screen, tmux
-if &term == "xterm-256color"
-    augroup MyAutoCmd
-        autocmd VimLeave * :set mouse=
-    augroup END
-
-    " screenでマウスを使用するとフリーズするのでその対策
-    " Tere Termだと自動で認識されているかも
-    " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
-    set ttymouse=xterm2
+" if &term == "xterm-256color"
+"     augroup MyAutoCmd
+"         autocmd VimLeave * :set mouse=
+"     augroup END
+" 
+"     " screenでマウスを使用するとフリーズするのでその対策
+"     " Tere Termだと自動で認識されているかも
+"     " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
+"     set ttymouse=xterm2
+" endif
+" Using the mouse on a terminal.
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
 endif
 "}}}
