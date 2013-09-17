@@ -167,7 +167,7 @@ fi
 # }}}
 
 # .zashrc.local {{{
-if [ -f ~/.dotfiles.local/.zashrc.local ]; then
-    . ~/.dotfiles.local/.zashrc.local
+if [ -f ~/.zashrc.local ]; then
+    . ~/.zashrc.local
 fi
 # }}}

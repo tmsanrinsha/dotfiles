@@ -348,12 +348,12 @@ fi
 DISABLE_AUTO_TITLE=true
 # }}}
 
-if [ -f ~/.dotfiles.local/.zshrc.local ]; then
-    . ~/.dotfiles.local/.zshrc.local
+if [ -f ~/.zshrc.local ]; then
+    . ~/.zshrc.local
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    test -f ~/.dotfiles.local/.zshrc.cygwin && . ~/.dotfiles.local/.zshrc.cygwin
+    test -f ~/.zshrc.cygwin && . ~/.dotfiles.local/.zshrc.cygwin
 else
     test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
     if [ -f ~/.zsh/plugin/z.sh ]; then
