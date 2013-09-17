@@ -698,7 +698,7 @@ function! s:force_blockwise_visual(next_key)
 endfunction
 "}}}
 "}}}
-" ディレクトリ・ファイル {{{
+" ディレクトリ・パス {{{
 " ==============================================================================
 "augroup CD
 "    autocmd!
@@ -706,7 +706,20 @@ endfunction
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
-"}}}
+
+" %%でアクティブなバッファのパスを展開
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" gf(goto file)の設定 {{{
+" ------------------------------------------------------------------------------
+" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
+augroup htmlInclude
+    autocmd!
+    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
+                \   setlocal path& |
+                \   setlocal path+=./;/
+augroup END
+" }}}
+" }}}
 " カーソル {{{
 " ==============================================================================
 set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
@@ -814,17 +827,6 @@ nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
 "  autocmd BufWritePost .vimrc nested source $MYVIMRC
 "  " autocmd BufWritePost .vimrc RcbVimrc
 "augroup END
-"}}}
-" gf(goto file)の設定 {{{
-" ==============================================================================
-" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
-" ファイルの検索の範囲の変更
-augroup htmlInclude
-    autocmd!
-    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-                \   setlocal path& |
-                \   setlocal path+=./;/
-augroup END
 "}}}
 " printing {{{
 set printoptions=wrap:y,number:y,header:0
