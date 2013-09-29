@@ -1,0 +1,4 @@
+shopt -s expand_aliases
+if [ -f ~/.zashenv ]; then
+    . ~/.zashenv
+fi

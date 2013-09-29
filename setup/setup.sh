@@ -3,7 +3,7 @@
 set -ex
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
-git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../../..; pwd)"
+git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 
 if [[ `uname` = CYGWIN* ]]; then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
@@ -28,7 +28,7 @@ do
 done
 
 # シンボリックリンクを貼る
-for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
     # 実体ファイルがある場合はバックアップをとる
     if [ -f ~/$file -a ! -L ~/$file ]; then

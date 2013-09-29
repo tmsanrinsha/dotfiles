@@ -658,8 +658,8 @@ set history=100000 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
-let $BASH_ENV=expand('~/.vim/.bashenv')
-let $ZDOTDIR=expand('~/.vim/')
+let $BASH_ENV=expand('~/.bashenv')
+" let $ZDOTDIR=expand('~/.vim/')
 " 検索 {{{
 " ------------------------------------------------------------------------------
 set incsearch
@@ -1152,51 +1152,54 @@ nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 "}}}
 " vimshell {{{
 " ==============================================================================
-nnoremap [VIMSHELL] <Nop>
-nmap <leader>H [VIMSHELL]
-nnoremap [VIMSHELL]H  :VimShellPop<CR>
-nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
-nnoremap [VIMSHELL]c  :VimShellCurrentDir -popup<CR>
-nnoremap [VIMSHELL]i  :VimShellInteractive<Space>
-nnoremap [VIMSHELL]py :VimShellInteractive python<CR>
-nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
-nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
-nnoremap [VIMSHELL]s  :VimShellSendString<CR>
-" <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
-"vmap <silent> <Leader>ss :VimShellSendString<CR>
-"" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
-"nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+let s:hooks = neobundle#get_hooks("neocomplete")
+function! s:hooks.on_source(bundle)
+    nnoremap [VIMSHELL] <Nop>
+    nmap <leader>H [VIMSHELL]
+    nnoremap [VIMSHELL]H  :VimShellPop<CR>
+    nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
+    nnoremap [VIMSHELL]c  :VimShellCurrentDir -popup<CR>
+    nnoremap [VIMSHELL]i  :VimShellInteractive<Space>
+    nnoremap [VIMSHELL]py :VimShellInteractive python<CR>
+    nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
+    nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
+    nnoremap [VIMSHELL]s  :VimShellSendString<CR>
+    " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+    "vmap <silent> <Leader>ss :VimShellSendString<CR>
+    "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+    "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
-imap <C-;> <Plug>(vimshell_zsh_complete)
+    imap <C-;> <Plug>(vimshell_zsh_complete)
 
-if has('mac')
-    call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
-    call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
-endif
+    if has('mac')
+        call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
+        call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
+    endif
 
-let g:vimshell_prompt = hostname() . "% "
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+    let g:vimshell_prompt = hostname() . "% "
+    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
-let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
-let g:vimshell_max_command_history = 3000
-let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
+    let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
+    let g:vimshell_max_command_history = 3000
+    let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
 
-autocmd MyVimrc FileType vimshell
-            \   setlocal nonumber
-            \|  setlocal nocursorline
-            \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
-            \|  call vimshell#altercmd#define('g', 'git')
-            \|  call vimshell#altercmd#define('l', 'll')
-            \|  call vimshell#altercmd#define('ll', 'ls -l')
-            \|  call vimshell#altercmd#define('la', 'ls -a')
-            \|  call vimshell#altercmd#define('lla', 'ls -la')
-"\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
-"function! g:my_chpwd(args, context)
-"    call vimshell#execute('ls')
-"endfunction
+    autocmd MyVimrc FileType vimshell
+                \   setlocal nonumber
+                \|  setlocal nocursorline
+                \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
+                \|  call vimshell#altercmd#define('g', 'git')
+                \|  call vimshell#altercmd#define('l', 'll')
+                \|  call vimshell#altercmd#define('ll', 'ls -l')
+                \|  call vimshell#altercmd#define('la', 'ls -a')
+                \|  call vimshell#altercmd#define('lla', 'ls -la')
+    "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+    "function! g:my_chpwd(args, context)
+    "    call vimshell#execute('ls')
+    "endfunction
 
-" 参考
-" http://d.hatena.ne.jp/joker1007/20111018/1318950377
+    " 参考
+    " http://d.hatena.ne.jp/joker1007/20111018/1318950377
+endfunction
 " }}}
 " neocomplcache & neocomplete {{{
 " ==============================================================================
@@ -1615,6 +1618,7 @@ endif
 
 "let g:rehash256 = 1
 if s:has_plugin('molokai')
+    set background=dark
     colorscheme molokai
 else
     colorscheme default
@@ -1651,6 +1655,7 @@ if s:has_plugin('neobundle') || s:has_plugin('openbrowser')
 endif
 " }}}
 " ==== Plugin ==== }}}
+let macvim_skip_colorscheme=1
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif

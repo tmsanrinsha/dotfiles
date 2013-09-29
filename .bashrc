@@ -1,4 +1,7 @@
 # bash, zsh共通設定の読み込み
+if [ -f ~/.zashenv ]; then
+    . ~/.zashenv
+fi
 if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi

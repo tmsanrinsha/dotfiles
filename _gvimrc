@@ -1,6 +1,8 @@
 set formatoptions=q
-set guifont=Consolas:h10
-set guifontwide=MS_Gothic
+if has('win32') && has('win64')
+    set guifont=Consolas:h10
+    set guifontwide=MS_Gothic
+endif
 
 set guioptions&
 " ツールバーを削除

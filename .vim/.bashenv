@@ -1,6 +1,0 @@
-shopt -s expand_aliases
-if [ -f ~/.alias ]; then
-    . ~/.alias
-fi
-
-# vim:ft=sh
