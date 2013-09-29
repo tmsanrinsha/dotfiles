@@ -22,7 +22,7 @@ else
 fi
 
 # ディレクトリの作成
-for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
+for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
 do
     test -d ~/$dir || mkdir ~/$dir
 done
@@ -49,14 +49,14 @@ done
 #     chmod a+x ~/bin/ack
 # fi
 
-[ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
-
-if [ ! -x ~/script/pseudo/git ];then
-    # http://d.hatena.ne.jp/hnw/20120602
-    # https://github.com/hnw/fakegit
-    curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/script/pseudo/git
-    chmod a+x $HOME/script/pseudo/git
-fi
+# [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
+#
+# if [ ! -x ~/script/pseudo/git ];then
+#     # http://d.hatena.ne.jp/hnw/20120602
+#     # https://github.com/hnw/fakegit
+#     curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/script/pseudo/git
+#     chmod a+x $HOME/script/pseudo/git
+# fi
 
 if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/script/cygwin ] && mkdir -p ~/script/cygwin
