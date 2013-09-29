@@ -31,7 +31,7 @@ pathmunge () {
 # 実行ファイルがあるディレクトリに再帰的にPATHを通す
 pathmungeR () {
     if [ -d $1 ]; then
-        for i in `find $1 -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
+        for i in `find -L $1 -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
         do
             pathmunge $i $2
         done
