@@ -10,4 +10,11 @@ if [ -d ~/.profile.d ]; then
     done
 fi
 
+git --git-dir=$HOME/git/tmsanrinsha/dotfiles/.git --no-pager pull 1>/dev/null &
+vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall! 1>/dev/null 2>&1 &
+
+if [ -f ~/.zash_profile.local ];then
+    . ~/.zash_profile.local
+fi
+
 # vim:filetype=sh
