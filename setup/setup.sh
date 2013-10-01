@@ -11,7 +11,7 @@ if [[ `uname` = CYGWIN* ]]; then
     cmd /c chcp 65001
 
     # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
-    export PATH=$gitdir/bin/cygwin:$PATH
+    export PATH=$gitdir/script/cygwin:$PATH
 fi
 
 # リンクの作成
@@ -84,6 +84,12 @@ if [[ `uname` = CYGWIN* ]]; then
         cp ssh-pageant.exe /usr/bin/
         cp ssh-pageant.1 /usr/share/man/man1/
     fi
+elif [[ `uname` = Darwin ]]; then
+    if which brew >/dev/null 2>&1; then
+        if ! which zsh >/dev/null 2>&1; then
+            brew install zsh
+        fi
+    fi
 fi
 
 # zsh
@@ -101,6 +107,9 @@ fi
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+    if which git >/dev/null 2>&1; then
+        vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
+    fi
 fi
 
 # cpanm
