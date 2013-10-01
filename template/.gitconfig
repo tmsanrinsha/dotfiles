@@ -21,6 +21,9 @@
     trustExitCode = true
     keepBackup = false
 
+[push]
+	default = matching
+
 [include]
 # includeが使えるかはgit config --global --includes -lで確かめる
     path = .gitconfig.local
