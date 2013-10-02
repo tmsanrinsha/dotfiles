@@ -1350,24 +1350,28 @@ endif
 "}}}
 " neosnippet {{{
 " ==============================================================================
-if s:has_plugin('neosnippet')
-    " Plugin key-mappings.
-    imap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
-    smap <expr><C-k>     neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-o>D"
+if s:has_plugin('neobundle')
+    let s:hooks = neobundle#get_hooks("neosnippet")
 
-    " SuperTab like snippets behavior.
-    "imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    "smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    function! s:hooks.on_source(bundle)
+        " Plugin key-mappings.
+        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-    " For snippet_complete marker.
-    if has('conceal')
-        set conceallevel=2 concealcursor=i
-    endif
+        " For snippet_complete marker.
+        if has('conceal')
+            set conceallevel=2 concealcursor=i
+        endif
 
-    " Tell Neosnippet about the other snippets
-    if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-    endif
+        " Enable snipMate compatibility feature.
+        let g:neosnippet#enable_snipmate_compatibility = 1
+
+        " Tell Neosnippet about the other snippets
+        if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
+            let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+        endif
+    endfunction
 endif
 " }}}
 " vim-quickrun {{{
