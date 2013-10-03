@@ -242,13 +242,13 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     " tmuxのシンタックスファイル
-    NeoBundle 'zaiste/tmux.vim', {
+    NeoBundleLazy 'zaiste/tmux.vim', {
                 \   'autoload' : { 'filetypes' : 'tmux' }
                 \ }
 
     " confluenceのシンタックスファイル
     NeoBundleLazy 'confluencewiki.vim', {
-                \   'autoload' : { 'filetypes' : 'confluence' }
+                \   'autoload' : { 'filetypes' : 'confluencewiki' }
                 \ }
     " vimperatorのシンタックスファイル
     NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
