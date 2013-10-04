@@ -1152,9 +1152,7 @@ nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 "}}}
 " vimshell {{{
 " ==============================================================================
-let s:hooks = neobundle#get_hooks("neocomplete")
-function! s:hooks.on_source(bundle)
-    nnoremap [VIMSHELL] <Nop>
+if s:has_plugin('neobundle')
     nmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H  :VimShellPop<CR>
     nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
@@ -1164,42 +1162,47 @@ function! s:hooks.on_source(bundle)
     nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
     nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
     nnoremap [VIMSHELL]s  :VimShellSendString<CR>
-    " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
-    "vmap <silent> <Leader>ss :VimShellSendString<CR>
-    "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
-    "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
-    imap <C-;> <Plug>(vimshell_zsh_complete)
+    let s:hooks = neobundle#get_hooks("vimshell")
+    function! s:hooks.on_source(bundle)
+        nnoremap [VIMSHELL] <Nop>
+        " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
+        "vmap <silent> <Leader>ss :VimShellSendString<CR>
+        "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
+        "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
-    if has('mac')
-        call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
-        call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
-    endif
+        imap <C-;> <Plug>(vimshell_zsh_complete)
 
-    let g:vimshell_prompt = hostname() . "% "
-    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+        if has('mac')
+            call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
+            call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
+        endif
 
-    let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
-    let g:vimshell_max_command_history = 3000
-    let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
+        let g:vimshell_prompt = hostname() . "> "
+        let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
-    autocmd MyVimrc FileType vimshell
-                \   setlocal nonumber
-                \|  setlocal nocursorline
-                \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
-                \|  call vimshell#altercmd#define('g', 'git')
-                \|  call vimshell#altercmd#define('l', 'll')
-                \|  call vimshell#altercmd#define('ll', 'ls -l')
-                \|  call vimshell#altercmd#define('la', 'ls -a')
-                \|  call vimshell#altercmd#define('lla', 'ls -la')
-    "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
-    "function! g:my_chpwd(args, context)
-    "    call vimshell#execute('ls')
-    "endfunction
+        let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
+        let g:vimshell_max_command_history = 3000
+        let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
 
-    " 参考
-    " http://d.hatena.ne.jp/joker1007/20111018/1318950377
-endfunction
+        autocmd MyVimrc FileType vimshell
+                    \   setlocal nonumber
+                    \|  setlocal nocursorline
+                    \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
+                    \|  call vimshell#altercmd#define('g', 'git')
+                    \|  call vimshell#altercmd#define('l', 'll')
+                    \|  call vimshell#altercmd#define('ll', 'ls -l')
+                    \|  call vimshell#altercmd#define('la', 'ls -a')
+                    \|  call vimshell#altercmd#define('lla', 'ls -la')
+        "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+        "function! g:my_chpwd(args, context)
+        "    call vimshell#execute('ls')
+        "endfunction
+
+        " 参考
+        " http://d.hatena.ne.jp/joker1007/20111018/1318950377
+    endfunction
+endif
 " }}}
 " neocomplcache & neocomplete {{{
 " ==============================================================================
