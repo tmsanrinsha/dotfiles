@@ -1320,7 +1320,9 @@ if s:has_plugin('neobundle')
             let g:neocomplcache_omni_patterns = {}
         endif
         let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+        if executable('uname') && system('uname') != 'FreeBSD'
+            let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+        endif
         let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
         let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
         "let g:neocomplcache_omni_patterns.java  = '.*'
