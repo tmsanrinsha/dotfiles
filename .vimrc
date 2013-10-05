@@ -82,7 +82,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     NeoBundle 'Shougo/vimfiler'
     NeoBundleLazy 'Shougo/vimshell', {
-                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] }
+                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
+                \   'depends' : 'Shougo/vim-vcs'
                 \}
 
     " 補完 {{{
@@ -1171,8 +1172,6 @@ if s:has_plugin('neobundle')
         "" 選択中に<Leader>ss: 非同期で開いたインタプリタに選択行を評価させる
         "nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
 
-        imap <C-;> <Plug>(vimshell_zsh_complete)
-
         if has('mac')
             call vimshell#set_execute_file('html', 'gexe open -a /Applications/Firefox.app/Contents/MacOS/firefox')
             call vimshell#set_execute_file('avi,mp4,mpg,ogm,mkv,wmv,mov', 'gexe open -a /Applications/MPlayerX.app/Contents/MacOS/MPlayerX')
@@ -1180,15 +1179,19 @@ if s:has_plugin('neobundle')
 
         let g:vimshell_prompt = hostname() . "> "
         let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+        let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ")' " Shougo/vim-vcs is required
 
-        let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ") . "[" . getcwd() . "]"'
-        let g:vimshell_max_command_history = 3000
         let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
+
+        let g:vimshell_max_command_history = 3000
+
 
         autocmd MyVimrc FileType vimshell
                     \   setlocal nonumber
                     \|  setlocal nocursorline
                     \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
+                    \|  imap <buffer><C-k> <Plug>(vimshell_history_neocomplete)
+                    \|  imap <buffer><C-g> <Plug>(vimshell_zsh_complete)
                     \|  call vimshell#altercmd#define('g', 'git')
                     \|  call vimshell#altercmd#define('l', 'll')
                     \|  call vimshell#altercmd#define('ll', 'ls -l')
@@ -1207,7 +1210,7 @@ endif
 " neocomplcache & neocomplete {{{
 " ==============================================================================
 if s:has_plugin('neobundle')
-    if has('lua') && v:version >= 703 && has('patch825')
+    if ! empty(neobundle#get("neocomplete"))
         let s:hooks = neobundle#get_hooks("neocomplete")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
