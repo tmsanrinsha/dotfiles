@@ -353,7 +353,7 @@ if [ -f ~/.zshrc.local ]; then
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    test -f ~/.zshrc.cygwin && . ~/.dotfiles.local/.zshrc.cygwin
+    test -f ~/.zshrc.cygwin && . ~/.zshrc.cygwin
 else
     test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
     if [ -f ~/.zsh/plugin/z.sh ]; then
