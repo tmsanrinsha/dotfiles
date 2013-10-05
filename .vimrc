@@ -510,6 +510,7 @@ augroup backup
     function! UpdateBackupFile()
         let basedir = expand("~/.vim.d/.bak")
         let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
+        let dir = escape(dir, ' ')
         if !isdirectory(dir)
             call mkdir(dir, "p")
         endif
