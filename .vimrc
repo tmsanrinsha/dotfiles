@@ -1316,17 +1316,20 @@ if s:has_plugin('neobundle')
             autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
         augroup END
 
-        " Enable heavy omni completion.
-        if !exists('g:neocomplcache_omni_patterns')
-            let g:neocomplcache_omni_patterns = {}
-        endif
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-        if executable('uname') && system('uname') != 'FreeBSD'
+        if executable('uname') && (system('uname -a') =~ 'FreeBSD 4' || system('uname -a') =~ 'FreeBSD 6')
+            " スペックが低いマシーンでは有効にしない
+        else
+            " Enable heavy omni completion.
+            if !exists('g:neocomplcache_omni_patterns')
+                let g:neocomplcache_omni_patterns = {}
+            endif
+
+            let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
             let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
+            let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+            "let g:neocomplcache_omni_patterns.java  = '.*'
         endif
-        let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
-        let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-        "let g:neocomplcache_omni_patterns.java  = '.*'
 
         "include補完
         "インクルードパスの指定
