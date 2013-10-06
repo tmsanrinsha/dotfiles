@@ -34,10 +34,10 @@ nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 set iminsert=0
 set imsearch=0
 
-inoremap <A-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <A-v> <C-r>*
-xnoremap <A-c> "*y
-nnoremap <A-a> ggVG
+inoremap <M-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+cnoremap <M-v> <C-r>*
+xnoremap <M-c> "*y
+nnoremap <M-a> ggVG
 
 " mouse {{{
 " ==============================================================================

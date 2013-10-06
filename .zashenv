@@ -1,3 +1,12 @@
+# vim:filetype=sh
+# 環境変数の設定
+# ==============
+if [[ `uname` = Darwin ]]; then
+    # homebrewでインストールしたものを優先
+    export PATH=/usr/loca/bin:$PATH
+    # export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+fi
+
 # ls {{{
 # ------------------------------------------------------------------------------
 if [ `uname` = FreeBSD -o `uname` = Darwin ];then
@@ -103,6 +112,7 @@ alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
 
-if [ -f ~/.alias.local ]; then
-    . ~/.alias.local
+if [ -f ~/.zashenv.local ]; then
+    . ~/.zashenv.local
 fi
+

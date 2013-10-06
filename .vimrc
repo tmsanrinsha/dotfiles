@@ -1,3 +1,10 @@
+" let $PERL_DLL = "/usr/local/lib/perl5/5.12.0/darwin-2level/CORE/libperl.dylib"
+" " let $PYTHON_DLL = "/usr/local/lib/libpython2.7.dylib"
+" let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib"
+" let $PYTHON3_DLL="/usr/local/Cellar/python3/3.3.0/Frameworks/Python.framework/Versions/3.3/Python"
+" let $RUBY_DLL = "/usr/local/lib/libruby.1.8.dylib"
+" let $LUA_DLL="/usr/local/Cellar/lua52/5.2.1/lib/liblua.dylib"
+
 set nocompatible "vi互換にしない
 set encoding=utf-8
 set fileencoding=utf-8
@@ -232,7 +239,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     "             \ }
 
     " Markdown
-    NeoBundle 'tpope/vim-markdown'
+    " --------
+    NeoBundleLazy 'tpope/vim-markdown', {
+                \   'autoload' : { 'filetypes' : 'markdown' }
+                \}
+
     NeoBundleLazy 'teramako/instant-markdown-vim'
 
     " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
@@ -305,11 +316,19 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
+    if executable('hg')
+        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
+                    \   'autoload' : { 'commands' : [
+                    \       'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+                    \   ]}
+                    \}
+    endif
+
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
     " 自分のリポジトリ
-    if (hostname() =~ 'sakura' || hostname() =~ 'VAIO')
+    if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
         let g:neobundle#types#git#default_protocol = "ssh"
     endif
     NeoBundle 'tmsanrinsha/molokai'
@@ -482,7 +501,7 @@ inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
-inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
+" inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
@@ -510,11 +529,11 @@ augroup backup
     function! UpdateBackupFile()
         let basedir = expand("~/.vim.d/.bak")
         let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
-        let dir = escape(dir, ' ')
         if !isdirectory(dir)
             call mkdir(dir, "p")
         endif
 
+        let dir = escape(dir, ' ')
         exe "set backupdir=".dir
         let time = strftime("%H-%M", localtime())
 
@@ -905,10 +924,10 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=markdown
 " nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
+autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql

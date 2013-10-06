@@ -85,9 +85,16 @@ if [[ `uname` = CYGWIN* ]]; then
         cp ssh-pageant.1 /usr/share/man/man1/
     fi
 elif [[ `uname` = Darwin ]]; then
+    ln -s ~/_gvimrc ~/.gvimrc
     if which brew >/dev/null 2>&1; then
         if ! which zsh >/dev/null 2>&1; then
             brew install zsh
+        fi
+        if ! which python >/dev/null 2>&1; then
+            brew install python
+        fi
+        if ! which mercurial >/dev/null 2>&1; then
+            brew install mercurial
         fi
     fi
 fi
