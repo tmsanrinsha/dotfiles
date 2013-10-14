@@ -422,7 +422,7 @@ scriptencoding utf-8
 augroup colerscheme
     autocmd!
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#465457
+    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
