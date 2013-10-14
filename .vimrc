@@ -1,22 +1,14 @@
-" let $PERL_DLL = "/usr/local/lib/perl5/5.12.0/darwin-2level/CORE/libperl.dylib"
-" " let $PYTHON_DLL = "/usr/local/lib/libpython2.7.dylib"
-" let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib"
-" let $PYTHON3_DLL="/usr/local/Cellar/python3/3.3.0/Frameworks/Python.framework/Versions/3.3/Python"
-" let $RUBY_DLL = "/usr/local/lib/libruby.1.8.dylib"
-" let $LUA_DLL="/usr/local/Cellar/lua52/5.2.1/lib/liblua.dylib"
-
 set nocompatible "vi互換にしない
 set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
 
-if has('win32') || has('win64')
+if has('win32')
     set runtimepath&
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
     cd ~
 endif
-
 " Pluginの有無をチェックする関数 {{{
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
 function! s:has_plugin(plugin)
@@ -49,7 +41,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'Shougo/neobundle.vim'
 
     " recommended to install
-    if has('win32') || has('win64')
+    if has('win32') && has('kaoriya')
         " kaoriya版Vim同梱のvimprocを使う
         set runtimepath+=$VIM/plugins/vimproc
     else
@@ -139,13 +131,18 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " textobj
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
+    if (v:version == 703 && !has('patch610')) || v:version == 702
+        NeoBundleLazy 'kana/vim-textobj-lastpat', {
+                    \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
+                    \}
+    endif
 
     NeoBundleLazy 'kana/vim-smartword', {
-                \   'autoload' : {
-                \       'mappings' : [
-                \           '<Plug>(smartword-'
-                \       ]
-                \   }
+                \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
+                \}
+
+    NeoBundleLazy 'thinca/vim-visualstar', {
+                \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
                 \}
 
     " Vimperatorのクイックヒント風にカーソル移動
@@ -173,7 +170,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " コメント操作
     NeoBundle "tyru/caw.vim"
-    NeoBundle "tpope/vim-commentary"
+    " NeoBundle "tpope/vim-commentary"
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
@@ -437,7 +434,7 @@ scriptencoding utf-8
 " http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
 " 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
 " ただし2つあるeuc-jpの2番目を消した
-" if has("win32") || has("win64")
+" if has("win32")
 "     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
 " else
     " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
@@ -513,7 +510,7 @@ cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory=.,/var/tmp,/tmp
-if has('win32') || has('win64')
+if has('win32')
     set noswapfile
 endif
 
@@ -1542,13 +1539,19 @@ endif
 "}}}
 " vim-smartword {{{
 " ==============================================================================
-if s:has_plugin('neobundle') || s:has_plugin('vim-smartword')
+if s:has_plugin('neobundle') && !empty(neobundle#get('vim-smartword'))
     map w <Plug>(smartword-w)
     map b <Plug>(smartword-b)
     map e <Plug>(smartword-e)
     map ge <Plug>(smartword-ge)
 endif
 "}}}
+" vim-visualstar {{{
+" ==============================================================================
+if s:has_plugin('neobundle') && !empty(neobundle#get('vim-visualstar'))
+    map * <Plug>(visualstar-*)N
+    map # <Plug>(visualstar-g*)N
+endif "}}}
 " vim-alignta {{{
 " ==============================================================================
 if s:has_plugin('alignta')
@@ -1681,12 +1684,17 @@ endif
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
-if s:has_plugin('neobundle') || s:has_plugin('openbrowser')
+if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
-    nmap gx <Plug>(openbrowser-open)
-    vmap gx <Plug>(openbrowser-open)
-    nmap <2-LeftMouse> <Plug>(openbrowser-open)
-    vmap <2-LeftMouse> <Plug>(openbrowser-open)
+    let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
+    nmap gx <Plug>(openbrowser-smart-search)
+    vmap gx <Plug>(openbrowser-smart-search)
+    nmap <2-LeftMouse> <Plug>(openbrowser-smart-search)
+    vmap <2-LeftMouse> <Plug>(openbrowser-smart-search)
+    " nmap gx <Plug>(openbrowser-open)
+    " vmap gx <Plug>(openbrowser-open)
+    " nmap <2-LeftMouse> <Plug>(openbrowser-open)
+    " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 " }}}
 " ==== Plugin ==== }}}
