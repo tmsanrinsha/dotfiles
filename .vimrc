@@ -102,7 +102,15 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
             \}
     endif
 
-    " NeoBundle "Valloric/YouCompleteMe"
+    " Valloric/Youcompleteme {{{
+    if has('gui_running')
+        NeoBundleLazy "Valloric/YouCompleteMe", {
+                    \   "autoload": {
+                    \       "insert": 1,
+                    \   }
+                    \}
+    endif
+    " }}}
 
     " スニペット補完
     NeoBundleLazy 'Shougo/neosnippet', {
@@ -921,7 +929,7 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=markdown
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
 " nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
 autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
@@ -1376,6 +1384,10 @@ if s:has_plugin('neobundle')
     endfunction
 endif
 "}}}
+" Valloric/Youcompleteme {{{{
+" ==============================================================================
+let g:ycm_filetype_whitelist = { 'java': 1 }
+" }}}
 " neosnippet {{{
 " ==============================================================================
 if s:has_plugin('neobundle')

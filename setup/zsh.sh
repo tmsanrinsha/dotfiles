@@ -35,7 +35,7 @@ make install || exit 1
 # ncursesがない場合は
 # yum install ncurses-devel
 # ログインシェルの変更
-# chsh -s $HOME/loca/bin/zsh  
+# chsh -s $HOME/loca/bin/zsh
 # で変更しようとすると
 # chsh: <$HOME>/loca/bin/zsh: non-standard shell
 # というエラーが出て変更できない
