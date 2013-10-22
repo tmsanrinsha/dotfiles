@@ -1,12 +1,6 @@
 # vim:filetype=sh
 # 環境変数の設定
 # ==============
-if [[ `uname` = Darwin ]]; then
-    # homebrewでインストールしたものを優先
-    export PATH=/usr/loca/bin:$PATH
-    # export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-fi
-
 # ls {{{
 # ------------------------------------------------------------------------------
 if [ `uname` = FreeBSD -o `uname` = Darwin ];then

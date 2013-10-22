@@ -58,6 +58,11 @@ pathmungeR ~/.vim/fetchBundle
 if [ -d ~/vim ];then
     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
 fi
+
+if [[ `uname` = Darwin ]]; then
+    # homebrewでインストールしたものを優先
+    export PATH=/usr/loca/bin:$PATH
+fi
 # }}}
 
 #manのpagerとしてvimの:Manを使う。

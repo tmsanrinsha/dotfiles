@@ -25,8 +25,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
-    let g:neobundle#types#git#default_protocol = "git"
     call neobundle#rc(expand('~/.vim/bundle/'))
+    let g:neobundle#types#git#default_protocol = "git"
+    let g:neobundle#install_process_timeout = 2000
 
     " すでにvimが起動しているときは、そちらで開く
     if has('clientserver')
@@ -103,8 +104,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     endif
 
     " Valloric/Youcompleteme {{{
-    if has('gui_running')
+    if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         NeoBundleLazy "Valloric/YouCompleteMe", {
+                    \   "build" : {
+                    \       "mac" : './install.sh'
+                    \   },
                     \   "autoload": {
                     \       "insert": 1,
                     \   }
@@ -125,6 +129,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
     " }}}
 
+    " quickrun {{{
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
                 \}
@@ -135,15 +140,27 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
                 \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
                 \}
-
-    " textobj
+    " }}}
+    " operator {{{
+    NeoBundle "kana/vim-operator-user"
+    NeoBundle "osyo-manga/vim-operator-search", {
+                \   'depends' : 'kana/vim-operator-user',
+                \}
+    " }}}
+    " textobj {{{
     NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-indent'
+    NeoBundle 'kana/vim-textobj-indent', {
+                \   'depends' : 'kana/vim-textobj-user',
+                \}
+    NeoBundle 'kana/vim-textobj-function', {
+                \   'depends' : 'kana/vim-textobj-user',
+                \}
     if (v:version == 703 && !has('patch610')) || v:version == 702
-        NeoBundleLazy 'kana/vim-textobj-lastpat', {
-                    \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
+        NeoBundle 'kana/vim-textobj-lastpat', {
+                    \   'depends' : 'kana/vim-textobj-user',
                     \}
     endif
+    " }}}
 
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
@@ -218,6 +235,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
         NeoBundle 'ervandew/eclim', {
                     \   'build' : {
                     \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
                     \   }
                     \}
@@ -333,9 +352,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
     " 自分のリポジトリ
-    if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
-        let g:neobundle#types#git#default_protocol = "ssh"
-    endif
+    " if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
+    "     let g:neobundle#types#git#default_protocol = "ssh"
+    " endif
     NeoBundle 'tmsanrinsha/molokai'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
@@ -375,8 +394,10 @@ endif
 
 filetype plugin indent on     " required for neobundle
 "}}}
-" vimrc全体で使うaugroup {{{
+" 基本設定 {{{
 " ==============================================================================
+" vimrc全体で使うaugroup {{{
+" ------------------------------------------------------------------------------
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
 " autocmd!の回数を減らすことでVimの起動を早くする
 " ネームスペースを別にしたい場合は別途augroupを作る
@@ -384,8 +405,7 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
-" 基本設定 {{{
-" ==============================================================================
+let $VIMFILES = expand('~/.vim')
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set cmdheight=2 "コマンドラインの高さを2行にする
@@ -514,7 +534,7 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
-" swap, backup {{{
+" swap, backup {{
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory=.,/var/tmp,/tmp
@@ -1066,9 +1086,10 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " ==== filetype ==== }}}
 " ==== Plugin ==== {{{
-" Shougo/unite {{{
+" Shougo/unite.vim {{{
 " ==========================================================================
 if s:has_plugin('unite')
+    let g:unite_data_directory = $VIMFILES.'/.unite'
     let g:unite_enable_start_insert = 1
     let g:unite_split_rule = "botright"
     let g:unite_winheight = "15"
@@ -1168,7 +1189,7 @@ let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効にした状態で起動する
 let g:vimfiler_safe_mode_by_default = 0
 
-let g:vimfiler_data_directory = expand('~/.vim/.vimfiler')
+let g:vimfiler_data_directory = $VIMFILES.'/.vimfiler'
 
 nnoremap [VIMFILER] <Nop>
 nmap <Leader>f [VIMFILER]
@@ -1206,7 +1227,7 @@ if s:has_plugin('neobundle')
         let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
         let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ")' " Shougo/vim-vcs is required
 
-        let g:vimshell_temporary_directory = expand('~/.vim/.vimshell')
+        let g:vimshell_temporary_directory = $VIMFILES.'/.vimshell'
 
         let g:vimshell_max_command_history = 3000
 
@@ -1534,10 +1555,17 @@ autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :Qu
 " set errorformat=debug:\%s
 endif
 "}}}
-" vim-partedit {{{
-" =============================================================================
-if s:has_plugin('vim-partedit')
-    let g:partedit#auto_prefix = 0
+" operator {{{
+" ==============================================================================
+nmap <Leader>/ <Plug>(operator-search)
+" }}}
+" vim-smartword {{{
+" ==============================================================================
+if s:has_plugin('neobundle') && !empty(neobundle#get('vim-smartword'))
+    map w <Plug>(smartword-w)
+    map b <Plug>(smartword-b)
+    map e <Plug>(smartword-e)
+    map ge <Plug>(smartword-ge)
 endif
 "}}}
 " vim-easymotion {{{
@@ -1549,13 +1577,10 @@ if s:has_plugin('EasyMotion')
     let g:EasyMotion_mapping_F = '('
 endif
 "}}}
-" vim-smartword {{{
-" ==============================================================================
-if s:has_plugin('neobundle') && !empty(neobundle#get('vim-smartword'))
-    map w <Plug>(smartword-w)
-    map b <Plug>(smartword-b)
-    map e <Plug>(smartword-e)
-    map ge <Plug>(smartword-ge)
+" vim-partedit {{{
+" =============================================================================
+if s:has_plugin('vim-partedit')
+    let g:partedit#auto_prefix = 0
 endif
 "}}}
 " vim-visualstar {{{
