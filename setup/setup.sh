@@ -2,6 +2,12 @@
 
 set -ex
 
+function command_exists {
+  # コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
+  # http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
+  hash "$1" 2>/dev/null ;
+}
+
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 
@@ -11,7 +17,11 @@ if [[ `uname` = CYGWIN* ]]; then
     cmd /c chcp 65001
 
     # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
-    export PATH=$gitdir/script/cygwin:$PATH
+    ln=$git_dir/script/cygwin/ln
+    # export PATH=$git_dir/script/cygwin:$PATH
+    # echo  $PATH
+else
+    ln=ln
 fi
 
 # リンクの作成
@@ -38,7 +48,7 @@ do
     if [ -L ~/$file ]; then
         rm ~/$file
     fi
-    ln -sv $git_dir/$file ~/$file
+    $ln -sv $git_dir/$file ~/$file
 done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
@@ -62,27 +72,29 @@ if [[ `uname` = CYGWIN* ]]; then
     [ ! -d ~/script/cygwin ] && mkdir -p ~/script/cygwin
 
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
-        curl -O https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
+        curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
     fi
 
-    alias apt-cyg='~/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package'
+    apt_cyg="$HOME/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package"
 
-    if ! which ssh 1>/dev/null 2>&1; then
-        apt-cyg install openssh
+    if ! command_exists ssh; then
+        $apt_cyg install openssh
     fi
-    if ! which mercurial 1>/dev/null 2>&1; then
-        apt-cyg install mercurial
+    if ! command_exists mercurial; then
+        $apt_cyg install mercurial
     fi
 
     # cygwinでpageantを使う
     # http://sanrinsha.lolipop.jp/blog/2012/08/cygwin%E3%81%A7pageant%E3%82%92%E4%BD%BF%E3%81%86.html
     if [ ! -x /usr/bin/ssh-pageant ]; then
+        pushd .
         cd /usr/src
         curl -L https://github.com/downloads/cuviper/ssh-pageant/ssh-pageant-1.1-release.tar.gz | tar  zxvf -
         cd ssh-pageant-1.1
         cp ssh-pageant.exe /usr/bin/
         cp ssh-pageant.1 /usr/share/man/man1/
+        popd
     fi
 elif [[ `uname` = Darwin ]]; then
     ln -s ~/_gvimrc ~/.gvimrc
@@ -114,9 +126,9 @@ fi
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    if which git >/dev/null 2>&1; then
-        vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
-    fi
+    # if which git >/dev/null 2>&1; then
+    #     vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
+    # fi
 fi
 
 # cpanm
