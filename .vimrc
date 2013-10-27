@@ -269,6 +269,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     NeoBundleLazy 'teramako/instant-markdown-vim'
+    NeoBundle 'suan/vim-instant-markdown'
 
     " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
     NeoBundleLazy 'rbtnn/vimconsole.vim', {
