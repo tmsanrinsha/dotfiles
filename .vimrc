@@ -1,3 +1,4 @@
+set textwidth=0
 set nocompatible "vi互換にしない
 set encoding=utf-8
 set fileencoding=utf-8
@@ -106,9 +107,6 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " Valloric/Youcompleteme {{{
     if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         NeoBundleLazy "Valloric/YouCompleteMe", {
-                    \   "build" : {
-                    \       "mac" : './install.sh'
-                    \   },
                     \   "autoload": {
                     \       "insert": 1,
                     \   }
@@ -348,6 +346,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                     \   ]}
                     \}
     endif
+    NeoBundleLazy 'glidenote/memolist.vim', {
+                \   'autoload' : { 'commands' : [
+                \       'MemoNew', 'MemoList', 'MemoGrep'
+                \   ]}
+                \}
 
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
@@ -950,7 +953,7 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=html
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=markdown
 " nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
 autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
@@ -960,10 +963,12 @@ autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
 " ==== filetype ==== {{{
-nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
-nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
+nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
+nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
+nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
+nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
 
 " shell {{{
 " ==============================================================================
@@ -1733,6 +1738,18 @@ if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
     " vmap gx <Plug>(openbrowser-open)
     " nmap <2-LeftMouse> <Plug>(openbrowser-open)
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
+endif
+" }}}
+" memoliset {{{
+" ==============================================================================
+if s:has_plugin('neobundle') && neobundle#is_installed('vim-singleton')
+    nnoremap <Leader>mn  :MemoNew<CR>
+    nnoremap <Leader>ml  :MemoList<CR>
+    nnoremap <Leader>mg  :MemoGrep<CR>
+
+    let g:memolist_path = expand('~/Dropbox/memo')
+    let g:memolist_memo_suffix = "md"
+    let g:memolist_unite = 1
 endif
 " }}}
 " ==== Plugin ==== }}}
