@@ -1,6 +1,54 @@
 # vim:filetype=sh
-# 環境変数の設定
-# ==============
+# PATHの設定 {{{
+# ------------------------------------------------------------------------------
+# CentOS 6.3の/etc/profileにあるPATHを追加する関数
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}
+
+# 実行ファイルがあるディレクトリに再帰的にPATHを通す
+pathmungeR () {
+    if [ -d $1 ]; then
+        for i in `find -L $1 -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
+        do
+            pathmunge $i $2
+        done
+    fi
+}
+
+# シェルスクリプトなどを置くディレクトリ
+pathmungeR ${HOME}/script/common
+# 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
+pathmungeR $HOME/script/pseudo after
+# Cygwin用のコマンドを置くディレクトリ
+if [[ `uname` = CYGWIN* ]]; then
+    pathmungeR $HOME/script/cygwin
+fi
+
+# makeで作った実行ファイルなどを置くディレクトリ
+pathmunge ${HOME}/local/bin
+
+# neobundleで管理するスクリプト
+pathmungeR ~/.vim/fetchBundle
+
+if [ -d ~/vim ];then
+    pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
+fi
+
+if [[ `uname` = Darwin ]]; then
+    # ruby
+    export PATH=/usr/local/opt/ruby/bin:$PATH
+fi
+# }}}
 # ls {{{
 # ------------------------------------------------------------------------------
 if [ `uname` = FreeBSD -o `uname` = Darwin ];then

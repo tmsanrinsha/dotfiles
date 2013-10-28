@@ -99,15 +99,11 @@ if [[ `uname` = CYGWIN* ]]; then
 elif [[ `uname` = Darwin ]]; then
     ln -s ~/_gvimrc ~/.gvimrc
     if which brew >/dev/null 2>&1; then
-        if ! which zsh >/dev/null 2>&1; then
-            brew install zsh
-        fi
-        if ! which python >/dev/null 2>&1; then
-            brew install python
-        fi
-        if ! which mercurial >/dev/null 2>&1; then
-            brew install mercurial
-        fi
+        command_exists zsh || brew install zsh
+        command_exists python || brew install python
+        command_exists ruby || brew install ruby
+        command_exists node || brew install node
+        command_exists mercurial || brew install mercurial
     fi
 fi
 
