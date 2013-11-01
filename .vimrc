@@ -890,6 +890,14 @@ nnoremap [q :cprevious<CR>   " 前へ
 nnoremap ]q :cnext<CR>       " 次へ
 nnoremap [Q :<C-u>cfirst<CR> " 最初へ
 nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+noremap [quickfix] <Nop>
+nmap <Leader>q [quickfix]
+noremap [quickfix]o :copen<CR>
+noremap [quickfix]c :cclose<CR>
+nmap <Leader>l [location]
+noremap [location]o :lopen<CR>
+noremap [location]c :lclose<CR>
+
 " show quickfix automatically
 augroup quickfix
     autocmd!
@@ -1725,6 +1733,17 @@ if s:has_plugin('neobundle') || s:has_plugin('console')
                     \    nnoremap <buffer> <F12> :VimConsoleToggle<CR>
                     \ |  nnoremap <buffer> <C-l> :VimConsoleClear<CR>
     augroup END
+endif
+" }}}
+" open-browser.vim {{{
+" ==============================================================================
+if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
+    nnoremap [fugitive] <Nop>
+    nmap <Leader>g [fugitive]
+    noremap [fugitive]s :Gstatus<CR>
+    noremap [fugitive]l :Glog<CR>
+    noremap [fugitive]p :Git pull --rebase origin master<CR>
+    noremap [fugitive]P :Git push
 endif
 " }}}
 " open-browser.vim {{{
