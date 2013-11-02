@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+$stdin = file_get_contents('php://stdin');
+date_default_timezone_set("Asia/Tokyo");
+// http://us3.php.net/manual/ja/function.date.php
+// MySQLの DATETIME フォーマット
+echo preg_replace_callback('/\b\d{10}\b/', unixtime2date, $stdin);
+function unixtime2date($matches) {
+    return date("Y-m-d H:i:s", $matches[0]);
+}

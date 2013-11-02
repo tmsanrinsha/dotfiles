@@ -1,0 +1,22 @@
+#!/usr/bin/env php -F
+<?php
+echo htmlspecialchars_decode($argn, $options), PHP_EOL;
+
+// memo
+# $option = getopt("f:");
+// http://us3.php.net/manual/ja/function.getopt.php
+// <?php
+// $shortopts  = "";
+// $shortopts .= "f:";  // 値が必須
+// $shortopts .= "v::"; // 値がオプション
+// $shortopts .= "abc"; // これらのオプションは値を受け取りません
+//
+// $longopts  = array(
+//     "required:",     // 値が必須
+//     "optional::",    // 値がオプション
+//     "option",        // 値なし
+//     "opt",           // 値なし
+// );
+// $options = getopt($shortopts, $longopts);
+// var_dump($options);
+// ?>

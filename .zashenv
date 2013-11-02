@@ -40,6 +40,16 @@ pathmunge ${HOME}/local/bin
 # neobundleで管理するスクリプト
 pathmungeR ~/.vim/fetchBundle
 
+script_dir=$HOME/git/tmsanrinsha/dotfiles/script
+# シェルスクリプトなどを置くディレクトリ
+pathmungeR ${script_dir}/common
+# 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
+pathmungeR ${script_dir}/pseudo after
+# Cygwin用のコマンドを置くディレクトリ
+if [[ `uname` = CYGWIN* ]]; then
+    pathmungeR ${script_dir}/cygwin
+fi
+
 if [ -d ~/vim ];then
     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
 fi
