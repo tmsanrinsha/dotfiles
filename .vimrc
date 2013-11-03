@@ -1,15 +1,18 @@
-set textwidth=0
+" {{{
 set nocompatible "vi互換にしない
+scriptencoding utf-8 "vimrcでマルチバイト文字を使うときに必要
 set encoding=utf-8
 set fileencoding=utf-8
-scriptencoding utf-8
 
 if has('win32')
     set runtimepath&
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
     cd ~
+elseif has('mac')
+    let macvim_skip_colorscheme=1
 endif
+" }}}
 " Pluginの有無をチェックする関数 {{{
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
 function! s:has_plugin(plugin)
@@ -266,7 +269,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'autoload' : { 'filetypes' : 'markdown' }
                 \}
 
-    NeoBundleLazy 'teramako/instant-markdown-vim'
+    " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
         NeoBundle 'suan/vim-instant-markdown'
     endif
@@ -418,6 +421,7 @@ set cmdheight=2 "コマンドラインの高さを2行にする
 set number
 set ruler
 set cursorline
+set textwidth=0
 set t_Co=256 " 256色
 
 set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
@@ -625,13 +629,6 @@ nnoremap <M-0> :b10<CR>
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
 
-" bclose.vim
-" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-" https://github.com/rgarver/Kwbd.vim
-" set hiddenを設定しておく必要あり
-if filereadable(expand('~/.vim/bundle/Kwbd.vim/plugin/bclose.vim'))
-    nmap <Leader>bd <Plug>Kwbd
-endif
 "}}}
 " window {{{
 " ==============================================================================
@@ -1102,6 +1099,86 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " ==== filetype ==== }}}
 " ==== Plugin ==== {{{
+" sudo.vim {{{
+" ==============================================================================
+" sudo権限で保存する
+" http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
+if s:has_plugin('sudo')
+    if s:has_plugin('bclose')
+        nmap <Leader>se :e sudo:%<CR><C-^><Plug>Kwbd
+    else
+        nnoremap <Leader>se :e sudo:%<CR><C-^>:bd<CR>
+    endif
+    nnoremap <Leader>sw :w sudo:%<CR>
+endif
+"}}}
+" YankRing.vim {{{
+" ==============================================================================
+if s:has_plugin('yankring.vim')
+    let g:yankring_manual_clipboard_check = 0
+endif
+"}}}
+" minibufexpl.vim {{{
+" ==============================================================================
+if s:has_plugin('minibufexpl')
+    " Put new window below current or on the right for vertical split
+    let g:miniBufExplSplitBelow=0
+    "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
+    "hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
+    " hi MBEVisibleActive ctermfg=252 ctermbg=125
+    " hi MBEVisibleChangedActive ctermfg=16 ctermbg=125
+    "hi MBEVisibleChanged guifg=#F1266F guibg=fg
+    "hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
+    "hi MBEChanged guifg=#CD5907 guibg=fg
+    "hi MBENormal guifg=#808080 guibg=fg
+    "hi MBENormal guifg=#CD5907 guibg=fg
+    hi MBENormal ctermfg=252
+
+    "function! Md()
+    "    return expand("%:p")
+    "    "echo "a"
+    "    "set paste
+    "endfunction
+    ""let g:statusLineText = "-MiniBufExplorer-" . Md()
+    "let g:statusLineText = Md()
+endif
+"}}}
+" bclose.vim {{{
+" ==============================================================================
+" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+" https://github.com/rgarver/Kwbd.vim
+if s:has_plugin('bclose')
+    nmap <Leader>bd <Plug>Kwbd
+endif
+" }}}
+" vim-powerline{{{
+if s:has_plugin('Powerline')
+    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+    "let g:Powerline_theme = 'skwp'
+    "let g:Powerline_colorscheme = 'skwp'
+    "let g:Powerline_colorscheme = 'default_customized'
+    let g:Powerline_stl_path_style = 'short'
+    "let g:Powerline_symbols = 'fancy'
+    "call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
+    "call Pl#Theme#InsertSegment('', 'after', 'filetype')
+    "call Pl#Hi#Segments(['SPLIT'], {
+    "		\ 'n': ['white', 'gray2'],
+    "		\ 'N': ['white', 'gray0'],
+    "		\ 'i': ['white', 'gray0'],
+    "		\ }),
+endif
+"}}}
+" vim-smartword {{{
+" ==============================================================================
+if s:has_plugin('smartword')
+    map w <Plug>(smartword-w)
+    map b <Plug>(smartword-b)
+    map e <Plug>(smartword-e)
+    map ge <Plug>(smartword-ge)
+endif
+"}}}
+" neobundleでインストールするPluginの設定 {{{
+if s:has_plugin('neobundle')
 " Shougo/unite.vim {{{
 " ==========================================================================
 if s:has_plugin('unite')
@@ -1575,15 +1652,6 @@ endif
 " ==============================================================================
 nmap <Leader>/ <Plug>(operator-search)
 " }}}
-" vim-smartword {{{
-" ==============================================================================
-if s:has_plugin('neobundle') && !empty(neobundle#get('vim-smartword'))
-    map w <Plug>(smartword-w)
-    map b <Plug>(smartword-b)
-    map e <Plug>(smartword-e)
-    map ge <Plug>(smartword-ge)
-endif
-"}}}
 " vim-easymotion {{{
 " ==============================================================================
 if s:has_plugin('EasyMotion')
@@ -1629,50 +1697,6 @@ if s:has_plugin('caw')
     xmap <Leader>cy ygvgcigv<C-c>p
 endif
 "}}}
-" sudo.vim {{{
-" ==============================================================================
-" sudo権限で保存する
-" http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-if s:has_plugin('sudo')
-    if s:has_plugin('bclose')
-        nmap <Leader>se :e sudo:%<CR><C-^><Plug>Kwbd
-    else
-        nnoremap <Leader>se :e sudo:%<CR><C-^>:bd<CR>
-    endif
-    nnoremap <Leader>sw :w sudo:%<CR>
-endif
-"}}}
-" YankRing.vim {{{
-" ==============================================================================
-if s:has_plugin('yankring.vim')
-    let g:yankring_manual_clipboard_check = 0
-endif
-"}}}
-" minibufexpl.vim {{{
-" ==============================================================================
-if s:has_plugin('minibufexpl')
-    " Put new window below current or on the right for vertical split
-    let g:miniBufExplSplitBelow=0
-    "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
-    "hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
-    " hi MBEVisibleActive ctermfg=252 ctermbg=125
-    " hi MBEVisibleChangedActive ctermfg=16 ctermbg=125
-    "hi MBEVisibleChanged guifg=#F1266F guibg=fg
-    "hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
-    "hi MBEChanged guifg=#CD5907 guibg=fg
-    "hi MBENormal guifg=#808080 guibg=fg
-    "hi MBENormal guifg=#CD5907 guibg=fg
-    hi MBENormal ctermfg=252
-
-    "function! Md()
-    "    return expand("%:p")
-    "    "echo "a"
-    "    "set paste
-    "endfunction
-    ""let g:statusLineText = "-MiniBufExplorer-" . Md()
-    "let g:statusLineText = Md()
-endif
-"}}}
 " automatic {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20130812/1376314945
@@ -1687,23 +1711,6 @@ let g:automatic_config = [
             \   }
             \]
 " }}}
-" vim-powerline{{{
-if s:has_plugin('Powerline')
-    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-    "let g:Powerline_theme = 'skwp'
-    "let g:Powerline_colorscheme = 'skwp'
-    "let g:Powerline_colorscheme = 'default_customized'
-    let g:Powerline_stl_path_style = 'short'
-    "let g:Powerline_symbols = 'fancy'
-    "call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
-    "call Pl#Theme#InsertSegment('', 'after', 'filetype')
-    "call Pl#Hi#Segments(['SPLIT'], {
-    "		\ 'n': ['white', 'gray2'],
-    "		\ 'N': ['white', 'gray0'],
-    "		\ 'i': ['white', 'gray0'],
-    "		\ }),
-endif
-"}}}
 " colorscheme {{{
 " ------------------------------------------------------------------------------
 
@@ -1735,16 +1742,20 @@ if s:has_plugin('neobundle') || s:has_plugin('console')
     augroup END
 endif
 " }}}
-" open-browser.vim {{{
+" instant-markdown-vim {{{
 " ==============================================================================
-if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
-    nnoremap [fugitive] <Nop>
-    nmap <Leader>g [fugitive]
-    noremap [fugitive]s :Gstatus<CR>
-    noremap [fugitive]l :Glog<CR>
-    noremap [fugitive]p :Git pull --rebase origin master<CR>
-    noremap [fugitive]P :Git push
-endif
+let g:instant_markdown_slow = 1
+let g:instant_markdown_autostart = 0
+autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
+" }}}
+" fugitive {{{
+" ==============================================================================
+nnoremap [fugitive] <Nop>
+nmap <Leader>g [fugitive]
+noremap [fugitive]s :Gstatus<CR>
+noremap [fugitive]l :Glog<CR>
+noremap [fugitive]p :Git pull --rebase origin master<CR>
+noremap [fugitive]P :Git push
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
@@ -1773,8 +1784,9 @@ if s:has_plugin('neobundle') && neobundle#is_installed('vim-singleton')
     let g:memolist_unite = 1
 endif
 " }}}
+endif
+" }}}
 " ==== Plugin ==== }}}
-let macvim_skip_colorscheme=1
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
