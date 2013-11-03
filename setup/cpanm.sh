@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
-test -d ~/bin || mkdir ~/bin
-curl -L http://xrl.us/cpanm > ~/bin/cpanm
-chmod +x ~/bin/cpanm
+test -d ~/script/common || mkdir -p ~/script/common
+curl -L http://xrl.us/cpanm > ~/script/common/cpanm
+chmod +x ~/script/common/cpanm
 export PERL5LIB="${HOME}/perl5/lib/perl5:$PERL5LIB"
 test -d ~/.cpanm || mkdir ~/.cpanm
 cpanm --local-lib=~/perl5 local::lib

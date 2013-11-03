@@ -10,6 +10,8 @@ function command_exists {
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
+script_dir=$git_dir/script
+setup_dir=$git_dir/setup
 
 if [[ `uname` = CYGWIN* ]]; then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
@@ -25,20 +27,21 @@ else
 fi
 
 # リンクの作成
-if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
-    exclude=''
-else
-    exclude='.*\.local'
-fi
+# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
+#     exclude=''
+# else
+#     exclude='.*\.local'
+# fi
 
-# ディレクトリの作成
-for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
-do
-    test -d ~/$dir || mkdir ~/$dir
-done
+# # ディレクトリの作成
+# for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
+# do
+#     test -d ~/$dir || mkdir ~/$dir
+# done
 
 # シンボリックリンクを貼る
-for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+# for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
 do
     # 実体ファイルがある場合はバックアップをとる
     if [ -f ~/$file -a ! -L ~/$file ]; then
@@ -53,11 +56,11 @@ done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
-# http://betterthangrep.com/
-# if [ ! -x ~/bin/ack ];then
-#     curl http://betterthangrep.com/ack-standalone > ~/bin/ack
-#     chmod a+x ~/bin/ack
-# fi
+# http://beyondgrep.com
+if ! command_exists ack; then
+    curl http://beyondgrep.com/ack-2.10-single-file > $HOME/script/common/ack
+    chmod a+x $HOME/script/common/ack
+fi
 
 # [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
 #
@@ -78,12 +81,8 @@ if [[ `uname` = CYGWIN* ]]; then
 
     apt_cyg="$HOME/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package"
 
-    if ! command_exists ssh; then
-        $apt_cyg install openssh
-    fi
-    if ! command_exists mercurial; then
-        $apt_cyg install mercurial
-    fi
+    command_exists ssh || $apt_cyg install openssh
+    command_exists mercurial || $apt_cyg install mercurial
 
     # cygwinでpageantを使う
     # http://sanrinsha.lolipop.jp/blog/2012/08/cygwin%E3%81%A7pageant%E3%82%92%E4%BD%BF%E3%81%86.html
@@ -97,13 +96,18 @@ if [[ `uname` = CYGWIN* ]]; then
         popd
     fi
 elif [[ `uname` = Darwin ]]; then
-    ln -s ~/_gvimrc ~/.gvimrc
-    if which brew >/dev/null 2>&1; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+    if command_exists brew; then
         command_exists zsh || brew install zsh
         command_exists python || brew install python
         command_exists ruby || brew install ruby
         command_exists node || brew install node
-        command_exists mercurial || brew install mercurial
+        command_exists hg || brew install mercurial
+    fi
+    # ウィンドウの整列
+    if [ ! -d ~/git/ShiftIt ];then
+        git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
+        cd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
     fi
 fi
 
@@ -128,8 +132,6 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
 fi
 
 # cpanm
-if ! which cpanm 1>/dev/null 2>&1;then
-    source cpanm.sh
-fi
+command_exists cpanm || source $setup_dir/cpanm.sh
 cpanm --skip-installed MIME::Base64
 # cpanm --skip-installed App::Ack
