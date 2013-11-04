@@ -202,9 +202,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " http://www.vim.org/scripts/script.php?script_id=729
     NeoBundle 'vim-scripts/sudo.vim'
 
-    " ヤンクの履歴を選択してペースト
-    " http://www.vim.org/scripts/script.php?script_id=1234
-    NeoBundle 'vim-scripts/YankRing.vim'
+    NeoBundle 'LeafCage/yankround.vim'
 
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
@@ -232,7 +230,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     NeoBundle 'scrooloose/syntastic'
 
     " eclipseと連携
-    if isdirectory(expand('~/eclipse'))
+    if executable('ant')
         NeoBundle 'ervandew/eclim', {
                     \   'build' : {
                     \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
@@ -297,7 +295,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   'script_type' : 'syntax'
                 \}
 
-    NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
 
 
     NeoBundleLazy 'mattn/gist-vim', {
@@ -389,7 +387,7 @@ else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
-                \   'sudo.vim', 'YankRing.vim', 'minibufexpl.vim', 'Kwbd.vim',
+                \   'sudo.vim', 'yankround.vim', 'minibufexpl.vim', 'Kwbd.vim',
                 \   'vim-powerline', 'syntastic', 'molokai', 'vim-smartword'
                 \]
     for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
@@ -1117,6 +1115,18 @@ endif
 if s:has_plugin('yankring.vim')
     let g:yankring_manual_clipboard_check = 0
 endif
+"}}}
+" LeafCage/yankround.vim {{{
+" ==============================================================================
+let g:yankround_dir = $VIMFILES.'/.yankround'
+
+nmap gp <Plug>(yankround-p)
+nmap gP <Plug>(yankround-P)
+nmap p <Plug>(yankround-gp)
+nmap P <Plug>(yankround-gP)
+nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
+nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
+
 "}}}
 " minibufexpl.vim {{{
 " ==============================================================================
