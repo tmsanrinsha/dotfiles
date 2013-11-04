@@ -1751,7 +1751,7 @@ endif
 " instant-markdown-vim {{{
 " ==============================================================================
 let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
+" let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
 " fugitive {{{
