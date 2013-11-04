@@ -22,6 +22,8 @@ else
     colorscheme desert
 endif
 
+set textwidth=0
+
 set guioptions&
 " ツールバーを削除
 set guioptions-=T
