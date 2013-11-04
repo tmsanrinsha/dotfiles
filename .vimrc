@@ -1758,6 +1758,7 @@ autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPr
 " ==============================================================================
 nnoremap [fugitive] <Nop>
 nmap <Leader>g [fugitive]
+noremap [fugitive]d :Gdiff<CR>
 noremap [fugitive]s :Gstatus<CR>
 noremap [fugitive]l :Glog<CR>
 noremap [fugitive]p :Git pull --rebase origin master<CR>
