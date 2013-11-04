@@ -109,11 +109,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " Valloric/Youcompleteme {{{
     if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
-        NeoBundleLazy "Valloric/YouCompleteMe", {
-                    \   "autoload": {
-                    \       "insert": 1,
-                    \   }
-                    \}
+        NeoBundle "Valloric/YouCompleteMe"
     endif
     " }}}
 
@@ -1395,7 +1391,7 @@ if s:has_plugin('neobundle')
         " 候補の数を増やす
         execute 'let g:'.s:neocom_.'max_list = 3000'
 
-        execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
+        " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
         autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
