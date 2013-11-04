@@ -12,6 +12,7 @@ fi
 [ -z "$ld_library_path" ] && typeset -T LD_LIBRARY_PATH ld_library_path
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
+fpath=(~/.zsh/functions/ $fpath)
 
 # 基本設定 {{{
 # ファイルがある場合のリダイレクト(>)の防止
@@ -348,6 +349,11 @@ fi
 DISABLE_AUTO_TITLE=true
 # }}}
 
+if [ -f ~/.zsh/plugin/z.sh ]; then
+    _Z_CMD=j
+    source ~/.zsh/plugin/z.sh
+fi
+
 if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
 fi
@@ -356,8 +362,4 @@ if [[ `uname` = CYGWIN* ]]; then
     test -f ~/.zshrc.cygwin && . ~/.zshrc.cygwin
 else
     test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
-    if [ -f ~/.zsh/plugin/z.sh ]; then
-        _Z_CMD=j
-        source ~/.zsh/plugin/z.sh
-    fi
 fi

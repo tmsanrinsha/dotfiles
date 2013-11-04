@@ -20,8 +20,6 @@ if [[ `uname` = CYGWIN* ]]; then
 
     # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
     ln=$git_dir/script/cygwin/ln
-    # export PATH=$git_dir/script/cygwin:$PATH
-    # echo  $PATH
 else
     ln=ln
 fi
@@ -38,6 +36,12 @@ fi
 # do
 #     test -d ~/$dir || mkdir ~/$dir
 # done
+
+test -d ~/.zsh/functions || mkdir -p ~/.zsh/functions
+test -d ~/script/common || mkdir -p ~/script/common
+if [[ `uname` = CYGWIN* ]]; then
+    test -d ~/script/cygwin || mkdir -p ~/script/cygwin
+fi
 
 # シンボリックリンクを貼る
 # for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
@@ -72,8 +76,6 @@ fi
 # fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    [ ! -d ~/script/cygwin ] && mkdir -p ~/script/cygwin
-
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
@@ -98,11 +100,13 @@ if [[ `uname` = CYGWIN* ]]; then
 elif [[ `uname` = Darwin ]]; then
     ln -fs ~/_gvimrc ~/.gvimrc
     if command_exists brew; then
-        command_exists zsh || brew install zsh
+        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
+        command_exists ant || brew install ant
+        command_exists hg || brew install mercurial
+        command_exists node || brew install node
         command_exists python || brew install python
         command_exists ruby || brew install ruby
-        command_exists node || brew install node
-        command_exists hg || brew install mercurial
+        command_exists zsh || brew install zsh
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then
