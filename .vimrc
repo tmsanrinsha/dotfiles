@@ -1106,22 +1106,21 @@ if s:has_plugin('sudo')
     nnoremap <Leader>sw :w sudo:%<CR>
 endif
 "}}}
-" YankRing.vim {{{
-" ==============================================================================
-if s:has_plugin('yankring.vim')
-    let g:yankring_manual_clipboard_check = 0
-endif
-"}}}
 " LeafCage/yankround.vim {{{
 " ==============================================================================
-let g:yankround_dir = $VIMFILES.'/.yankround'
+if s:has_plugin('yankround')
+    let g:yankround_dir = $VIMFILES.'/.yankround'
 
-nmap gp <Plug>(yankround-p)
-nmap gP <Plug>(yankround-P)
-nmap p <Plug>(yankround-gp)
-nmap P <Plug>(yankround-gP)
-nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
-nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
+    nmap p <Plug>(yankround-p)
+    nmap p <Plug>(yankround-P)
+    nmap gp <Plug>(yankround-gp)
+    nmap gP <Plug>(yankround-gP)
+    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
+    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
+else
+    nnoremap <C-p> gT
+    nnoremap <C-n> gt
+endif
 
 "}}}
 " minibufexpl.vim {{{
@@ -1176,7 +1175,7 @@ endif
 "}}}
 " vim-smartword {{{
 " ==============================================================================
-if s:has_plugin('smartword')
+if (s:has_plugin("neobundle") && neobundle#is_installed("vim-smartword")) || s:has_plugin('smartword')
     map w <Plug>(smartword-w)
     map b <Plug>(smartword-b)
     map e <Plug>(smartword-e)
@@ -1762,7 +1761,6 @@ noremap [fugitive]d :Gdiff<CR>
 noremap [fugitive]s :Gstatus<CR>
 noremap [fugitive]l :Glog<CR>
 noremap [fugitive]p :Git pull --rebase origin master<CR>
-noremap [fugitive]P :Git push
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
