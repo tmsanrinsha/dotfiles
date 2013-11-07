@@ -504,10 +504,6 @@ inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
 nnoremap <M-a> ggVG
-" noremap p ]p 設定するとdpが使えなくなる
-noremap P ]P
-noremap ]p p
-noremap ]P P
 
 nnoremap * *N
 nnoremap # g*N
@@ -1112,7 +1108,7 @@ if s:has_plugin('yankround')
     let g:yankround_dir = $VIMFILES.'/.yankround'
 
     nmap p <Plug>(yankround-p)
-    nmap p <Plug>(yankround-P)
+    nmap P <Plug>(yankround-P)
     nmap gp <Plug>(yankround-gp)
     nmap gP <Plug>(yankround-gP)
     nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
