@@ -9,8 +9,6 @@ if has('win32')
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
     cd ~
-elseif has('mac')
-    let macvim_skip_colorscheme=1
 endif
 " }}}
 " Pluginの有無をチェックする関数 {{{
@@ -146,23 +144,17 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " }}}
     " textobj {{{
     NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-indent', {
-                \   'depends' : 'kana/vim-textobj-user',
-                \}
-    NeoBundle 'kana/vim-textobj-function', {
-                \   'depends' : 'kana/vim-textobj-user',
-                \}
+    NeoBundle 'kana/vim-textobj-indent'
+    NeoBundle 'kana/vim-textobj-function'
     if (v:version == 703 && !has('patch610')) || v:version == 702
-        NeoBundle 'kana/vim-textobj-lastpat', {
-                    \   'depends' : 'kana/vim-textobj-user',
+        NeoBundleLazy 'kana/vim-textobj-lastpat', {
+                    \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
                     \}
     endif
     " }}}
-
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
                 \}
-
     NeoBundleLazy 'thinca/vim-visualstar', {
                 \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
                 \}
@@ -185,7 +177,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
 
     " 整形
     if v:version >= 701
-       NeoBundle 'h1mesuke/vim-alignta'
+        NeoBundle 'h1mesuke/vim-alignta'
     else
         NeoBundle 'Align'
     endif
@@ -220,6 +212,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " ステータスラインをカスタマイズ
     " https://github.com/Lokaltog/vim-powerline
     NeoBundle 'Lokaltog/vim-powerline'
+
+    NeoBundle 'LeafCage/foldCC'
 
     " ファイルを保存時にシンタックスのチェック
     " https://github.com/scrooloose/syntastic
@@ -268,13 +262,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
         NeoBundle 'suan/vim-instant-markdown'
     endif
 
-    " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
-    NeoBundleLazy 'rbtnn/vimconsole.vim', {
-                \   'autoload' : {
-                \       'commands' : 'VimConsoleToggle'
-                \   }
+    " yaml
+    NeoBundleLazy 'tmsanrinsha/yaml.vim', {
+                \   'autoload' : { 'filetypes' : 'yaml' }
                 \}
-
     " tmuxのシンタックスファイル
     NeoBundleLazy 'zaiste/tmux.vim', {
                 \   'autoload' : { 'filetypes' : 'tmux' }
@@ -312,6 +303,14 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \        ]
                 \   }
                 \}
+
+    " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
+    NeoBundleLazy 'rbtnn/vimconsole.vim', {
+                \   'autoload' : {
+                \       'commands' : 'VimConsoleToggle'
+                \   }
+                \}
+
 
     " colorscheme
     "NeoBundle 'tomasr/molokai'
@@ -445,7 +444,6 @@ set formatoptions-=t "自動的に折り返さない
 " pasteモードではautoindentが解除されそのままペーストできる
 set pastetoggle=<F11>
 " key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
-set timeout timeoutlen=3000 ttimeoutlen=10
 set mouse=a
 
 if has('path_extra')
@@ -493,9 +491,15 @@ set ambiwidth=double
 "}}}
 " mapping {{{
 " ------------------------------------------------------------------------------
-" let mapleader = "\<space>"
 " :h map-modes
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
+
+set timeout timeoutlen=3000 ttimeoutlen=10
+if exists('+macmeta')
+   " MacVimでMETAキーを使えるようにする
+   set macmeta
+endif
+" let mapleader = "\<space>"
 
 " noremap ; :
 " noremap : ;
@@ -534,7 +538,7 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
-" swap, backup {{
+" swap, backup {{{
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory=.,/var/tmp,/tmp
@@ -699,7 +703,7 @@ set history=100000 "保存する履歴の数
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
 let $BASH_ENV=expand('~/.bashenv')
 " let $ZDOTDIR=expand('~/.vim/')
-" 検索 {{{
+" 検索・置換 {{{
 " ------------------------------------------------------------------------------
 set incsearch
 set ignorecase "検索パターンの大文字小文字を区別しない
@@ -716,6 +720,9 @@ cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 "ヴィビュアルモードで選択した範囲だけ検索
 vnoremap <Leader>/ <ESC>/\%V
 vnoremap <Leader>? <ESC>?\%V
+
+nnoremap <Leader>ss :%s///
+xnoremap <Leader>ss :s///
 " }}}
 " }}}
 " ビジュアルモード {{{
@@ -1063,11 +1070,11 @@ autocmd MyVimrc FileType java
 "}}}
 " yaml {{{
 " ==============================================================================
-autocmd FileType yaml setlocal foldmethod=indent
+autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 " }}}
 " vim {{{
 " ==============================================================================
-autocmd FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+autocmd MyVimrc FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
 " }}}
 " help {{{
 " ==============================================================================
@@ -1168,6 +1175,22 @@ if s:has_plugin('Powerline')
     "		\ 'i': ['white', 'gray0'],
     "		\ }),
 endif
+"}}}
+" colorscheme {{{
+" ------------------------------------------------------------------------------
+if has('gui_macvim')
+    let macvim_skip_colorscheme=1
+endif
+if s:has_plugin('molokai')
+    "let g:rehash256 = 1
+    set background=dark
+    colorscheme molokai
+else
+    colorscheme default
+endif
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme solarized
 "}}}
 " vim-smartword {{{
 " ==============================================================================
@@ -1499,7 +1522,7 @@ if s:has_plugin('neobundle')
     endfunction
 endif
 "}}}
-" Valloric/Youcompleteme {{{{
+" Valloric/Youcompleteme {{{
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 " }}}
@@ -1653,6 +1676,12 @@ endif
 " ==============================================================================
 nmap <Leader>/ <Plug>(operator-search)
 " }}}
+" textobj {{{
+if neobundle#is_installed("vim-textobj-lastpat")
+    nmap gn <Plug>(textobj-lastpat-n)
+    nmap gN <Plug>(textobj-lastpat-N)
+endif
+" }}}
 " vim-easymotion {{{
 " ==============================================================================
 if s:has_plugin('EasyMotion')
@@ -1712,21 +1741,17 @@ let g:automatic_config = [
             \   }
             \]
 " }}}
-" colorscheme {{{
+" foldCC {{{
 " ------------------------------------------------------------------------------
-
-"let g:rehash256 = 1
-if s:has_plugin('molokai')
-    set background=dark
-    colorscheme molokai
-else
-    colorscheme default
+if neobundle#is_sourced('foldCC')
+    set foldtext=foldCC#foldtext()
+    "set foldcolumn=5
+    set fillchars=vert:\|
+    let g:foldCCtext_head = ''
+    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
+    nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
 endif
-"set background=light
-"let g:solarized_termcolors=256
-"colorscheme solarized
-
-"}}}
+" }}}
 " Eclim {{{
 " -----------------------------------------------------------------------------
 " neocomplcacheで補完するため

@@ -106,6 +106,7 @@ elif [[ `uname` = Darwin ]]; then
         command_exists node || brew install node
         command_exists python || brew install python
         command_exists ruby || brew install ruby
+        command_exists tree || brew install tree
         command_exists zsh || brew install zsh
     fi
     # ウィンドウの整列
