@@ -1071,7 +1071,8 @@ autocmd MyVimrc FileType java
 "}}}
 " yaml {{{
 " ==============================================================================
-autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
+" autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
+autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " }}}
 " vim {{{
 " ==============================================================================
