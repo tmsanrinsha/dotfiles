@@ -190,7 +190,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " http://www.vim.org/scripts/script.php?script_id=729
     NeoBundle 'vim-scripts/sudo.vim'
 
-    NeoBundle 'LeafCage/yankround.vim'
+    NeoBundle 'vim-scripts/YankRing.vim'
+    " NeoBundle 'LeafCage/yankround.vim'
 
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
