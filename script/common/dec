@@ -1,0 +1,62 @@
+#!/usr/bin/env php
+<?php
+// ファイル名とオプションを抜いて、引数を取得
+unset($argv[0]);
+$argument = array_pop(preg_grep('/^[^-]/', $argv));
+
+if (isset($argument)) {
+    $content = $argument;
+} else {
+    // 引数がない場合は標準入力から取得
+    $content = file_get_contents('php://stdin');
+}
+
+// オプションの取得
+$opt = getopt('nu');
+if (empty($opt)) {
+    $opt = guessOpt($content);
+}
+
+if (isset($opt['n'])) { // 数値文字参照のデコード
+    echo mb_convert_encoding($content, 'UTF-8', 'HTML-ENTITIES') . PHP_EOL;
+} elseif (isset($opt['u'])) { // unixtimeをY-m-d H:i:s形式で出力
+    echo preg_replace_callback('/\b\d{10}\b/', unixtime2date, $content) . PHP_EOL;
+
+}
+
+function guessOpt($content) {
+    if (preg_match('/&[^;]+;/', $content)) {
+        return array('n' => false);
+    } else if (preg_match('/\b\d{10}\b/', $content)) {
+        return array('u' => false);
+    } else {
+        echo "Can't guess a option!" . PHP_EOL;
+        exit(1);
+    }
+}
+
+function unixtime2date($matches) {
+    date_default_timezone_set("Asia/Tokyo");
+    // http://us3.php.net/manual/ja/function.date.php
+    // MySQLの DATETIME フォーマット
+    return date("Y-m-d H:i:s", $matches[0]);
+}
+
+// memo
+# $option = getopt("f:");
+// http://us3.php.net/manual/ja/function.getopt.php
+// <?php
+// $shortopts  = "";
+// $shortopts .= "f:";  // 値が必須
+// $shortopts .= "v::"; // 値がオプション
+// $shortopts .= "abc"; // これらのオプションは値を受け取りません
+//
+// $longopts  = array(
+//     "required:",     // 値が必須
+//     "optional::",    // 値がオプション
+//     "option",        // 値なし
+//     "opt",           // 値なし
+// );
+// $options = getopt($shortopts, $longopts);
+// var_dump($options);
+// ?>
