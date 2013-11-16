@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 // ファイル名とオプションを抜いて、引数を取得
-unset($argv[0]);
+array_shift($argv);
 $argument = array_pop(preg_grep('/^[^-]/', $argv));
 
 if (isset($argument)) {
@@ -19,8 +19,23 @@ if (empty($opt)) {
 
 if (isset($opt['n'])) { // 数値文字参照のデコード
     echo mb_convert_encoding($content, 'UTF-8', 'HTML-ENTITIES') . PHP_EOL;
-} elseif (isset($opt['u'])) { // unixtimeをY-m-d H:i:s形式で出力
+} else if (isset($opt['u'])) { // unixtimeをY-m-d H:i:s形式で出力
     echo preg_replace_callback('/\b\d{10}\b/', unixtime2date, $content) . PHP_EOL;
+} else if (isset($opt['x'])) { // 16進数を10進数に変換
+    if (preg_match('/x([[:xdigit:]]+)/', $content, $matches)) {
+        echo hexdec($matches[1]) . PHP_EOL;
+    } else if (preg_match('/#(?:([[:xdigit:]]{2})([[:xdigit:]]{2})([[:xdigit:]]{2})|([[:xdigit:]])([[:xdigit:]])([[:xdigit:]]))\b/', $content, $matches)) {
+    // } else if (preg_match('/#(?:([[:digit:]]{1})|([[:xdigit:]])([[:xdigit:]])([[:xdigit:]]))\b/', $content, $matches)) {
+        // cssの#FFF, #FFFFFFの要な場合
+        // 全体のマッチを取り除く
+        array_shift($matches);
+
+        // 空要素を取り除く
+        $colors = array_filter($matches, 'strlen');
+
+        echo 'rgb(' . implode(', ', array_map("hexdec", $colors)) . ')' . PHP_EOL;
+    }
+
 
 }
 
@@ -29,6 +44,9 @@ function guessOpt($content) {
         return array('n' => false);
     } else if (preg_match('/\b\d{10}\b/', $content)) {
         return array('u' => false);
+    } else if (preg_match('/(x[[:xdigit:]]+|#([[:xdigit:]]{6}|[[:xdigit:]]{3}))/', $content)) {
+        // xFF, #FFF, #FFFFFFのようなパターンにマッチした時
+        return array('x' => false);
     } else {
         echo "Can't guess a option!" . PHP_EOL;
         exit(1);
