@@ -284,6 +284,9 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \}
 
     NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
+    NeoBundleLazy 'gregsexton/gitv', {
+                \   'autoload': {'commands' : ['Gitv']}
+                \}
 
 
     NeoBundleLazy 'mattn/gist-vim', {
@@ -297,7 +300,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \   }
                 \}
 
-    NeoBundleLazy 'tyru/open-browser.vim', {
+    NeoBundleLazy 'tmsanrinsha/open-browser.vim', {
                 \   'autoload':{
                 \       'mappings':[
                 \            '<Plug>(openbrowser-'
