@@ -106,9 +106,10 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     endif
 
     " Valloric/Youcompleteme {{{
-    if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
-        NeoBundle "Valloric/YouCompleteMe"
-    endif
+    " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
+    " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
+    "     NeoBundle "Valloric/YouCompleteMe"
+    " endif
     " }}}
 
     " スニペット補完
@@ -228,7 +229,8 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
                     \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                    \   }
+                    \   },
+                    \   'autoload': {'filetypes': ['java', 'xml']}
                     \}
     endif
 
@@ -701,6 +703,10 @@ set wildmode=list:longest,full
 cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>
 
+" vim-emacscommandlineで<C-F>は右に進むになっているので、
+" コマンドラインウィンドウを開きたいときは<Leader><C-F>にする
+cnoremap <Leader><C-F> <C-F>
+
 set history=100000 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
@@ -728,6 +734,30 @@ vnoremap <Leader>? <ESC>?\%V
 nnoremap <Leader>ss :%s///
 xnoremap <Leader>ss :s///
 " }}}
+" }}}
+" コマンドラインウィンドウ {{{
+" ==============================================================================
+" http://vim-users.jp/2010/07/hack161/
+" nnoremap <sid>(command-line-enter) q:
+" xnoremap <sid>(command-line-enter) q:
+" nnoremap <sid>(command-line-norange) q:<C-u>
+"
+" nmap :  <sid>(command-line-enter)
+" xmap :  <sid>(command-line-enter)
+
+autocmd MyVimrc CmdwinEnter * call s:init_cmdwin()
+function! s:init_cmdwin()
+  nnoremap <buffer> q :<C-u>quit<CR>
+  nnoremap <buffer> <TAB> :<C-u>quit<CR>
+  inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+  inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+  inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+
+  " Completion.
+  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+  startinsert!
+endfunction
 " }}}
 " ビジュアルモード {{{
 " =============================================================================
@@ -961,9 +991,11 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha* setlocal filetype=markdown
 " nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
 autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
+autocmd MyVimrc BufRead sanrinsha*
+            \   setlocal filetype=markdown
+            \|  setlocal textwidth=0
 autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
@@ -1080,6 +1112,7 @@ autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " vim {{{
 " ==============================================================================
 autocmd MyVimrc FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+let g:vim_indent_cont = &sw
 " }}}
 " help {{{
 " ==============================================================================
@@ -1089,7 +1122,13 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " ==============================================================================
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
-autocmd MyVimrc FileType gitcommit setlocal textwidth=72 | set colorcolumn=+1
+" autocmd MyVimrc FileType gitcommit
+"     \   setlocal textwidth=72
+"     \|  setlocal colorcolumn=+1
+autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
+    \   setlocal textwidth=72
+    \|  setlocal colorcolumn=+1
+    \|  startinsert
 " }}}
 " crontab {{{
 " ==============================================================================
@@ -1280,7 +1319,7 @@ if s:has_plugin('unite')
     call unite#custom_default_action('directory' , 'vimfiler')
     " vimfiler上ではvimfilerを増やさず、移動するだけ
     autocmd MyVimrc FileType vimfiler
-                \   call unite#custom_default_action('directory', 'lcd')
+        \   call unite#custom_default_action('directory', 'lcd')
 
     let g:unite_source_find_max_candidates = 1000
 endif
@@ -1480,7 +1519,6 @@ if s:has_plugin('neobundle')
             autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType java          setlocal omnifunc=eclim#java#complete#CodeComplete
         augroup END
 
         if executable('uname') && (system('uname -a') =~ 'FreeBSD 4' || system('uname -a') =~ 'FreeBSD 6')
@@ -1748,19 +1786,34 @@ let g:automatic_config = [
 " }}}
 " foldCC {{{
 " ------------------------------------------------------------------------------
-if neobundle#is_sourced('foldCC')
+" http://leafcage.hateblo.jp/entry/2013/04/24/053113
+if neobundle#is_installed('foldCC')
     set foldtext=foldCC#foldtext()
     "set foldcolumn=5
     set fillchars=vert:\|
-    let g:foldCCtext_head = ''
-    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
+    let g:foldCCtext_head = '"+ " . v:folddashes . " "'
+    " let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
+    nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
 " }}}
-" Eclim {{{
-" -----------------------------------------------------------------------------
-" neocomplcacheで補完するため
-let g:EclimCompletionMethod = 'omnifunc'
+if neobundle#is_installed('eclim') " {{{
+    let s:hooks = neobundle#get_hooks("eclim")
+
+    function! s:hooks.on_source(bundle)
+        " neocomplcacheで補完するため
+        let g:EclimCompletionMethod = 'omnifunc'
+        autocmd MyVimrc FileType java
+                    \   setlocal omnifunc=eclim#java#complete#CodeComplete
+                    \|  setlocal completeopt-=preview " neocomplete使用時にpreviewが重いので
+        nnoremap [eclim] <Nop>
+        nmap <Leader>e [eclim]
+        nnoremap [eclim]i :ProjectInfo<CR>
+        nnoremap [eclim]c :OpenUrl http://eclim.org/cheatsheet.html<CR>
+        nnoremap [eclim]ji :JavaImportOrganize<CR>
+
+    endfunction
+endif
 " }}}
 " console.vim {{{
 " ==============================================================================
@@ -1779,14 +1832,18 @@ let g:instant_markdown_slow = 1
 " let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
-" fugitive {{{
-" ==============================================================================
-nnoremap [fugitive] <Nop>
-nmap <Leader>g [fugitive]
-noremap [fugitive]d :Gdiff<CR>
-noremap [fugitive]s :Gstatus<CR>
-noremap [fugitive]l :Glog<CR>
-noremap [fugitive]p :Git pull --rebase origin master<CR>
+if neobundle#is_installed('vim-fugitive') " {{{
+    let s:hooks = neobundle#get_hooks("vim-fugitive")
+
+    function! s:hooks.on_source(bundle)
+        nnoremap [fugitive] <Nop>
+        nmap <Leader>g [fugitive]
+        noremap [fugitive]d :Gdiff<CR>
+        noremap [fugitive]s :Gstatus<CR>
+        noremap [fugitive]l :Glog<CR>
+        noremap [fugitive]p :Git pull --rebase origin master<CR>
+    endfunction
+endif
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
