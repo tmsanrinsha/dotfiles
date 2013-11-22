@@ -10,17 +10,17 @@
 [core]
     pager =
     editor = vim
-[pager]
-    diff =
 [diff]
     external = git_diff_vim
+    algorithm = patience
 [merge]
-    tool = git_mergetool_vim
+    # tool = git_mergetool_vim
 [mergetool "git_mergetool_vim"]
-    cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
-    trustExitCode = true
-    keepBackup = false
-
+    # cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
+    # trustExitCode = true
+    # keepBackup = false
+[pager]
+    diff =
 [push]
 	default = matching
 
