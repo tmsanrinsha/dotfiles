@@ -424,7 +424,19 @@ set cursorline
 set textwidth=0
 set t_Co=256 " 256色
 
-set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
+" macに最初から入っているvimはセキュリティの問題からシステムのvimrcでmodelinesを0にしている。
+" http://unix.stackexchange.com/questions/19875/setting-vim-filetype-with-modeline-not-working-as-expected
+" この問題は7.0.234と7.0.235のパッチで修正されたので、デフォルトの値に設定して問題ない
+" https://bugzilla.redhat.com/show_bug.cgi?id=cve-2007-2438
+if v:version >= 701 || v:version == 700 && has('patch234') && has('patch235')
+    set modelines&
+else
+    set modelines=0
+endif
+
+
+
+set list listchars=tab:>-,trail:. "タブと行末の空白の表示
 
 " 全角スペースをハイライト （Vimテクニックバイブル1-11）
 syntax enable
