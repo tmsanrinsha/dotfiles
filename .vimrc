@@ -198,6 +198,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
                 \ }
+    NeoBundleLazy 'kannokanno/vim-helpnew', {
+                \   'autoload' : { 'commands' : 'HelpNew' }
+                \ }
 
     " ミニバッファにバッファ一覧を表示
     NeoBundle 'fholgado/minibufexpl.vim'
@@ -1267,8 +1270,11 @@ if s:has_plugin('unite')
         " windowsでドライブのC:をC\:に変更する必要がある
         execute 'Unite' opts 'file_rec:' . escape(dir, ':')
     endfunction
+    " bundle以下のファイル
+    " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
     " カレントディレクトリ以下のディレクトリ
-    nnoremap <silent> [unite]d :<C-u>Unite directory<CR>
+    nnoremap <silent> [unite]d<CR> :<C-u>Unite directory<CR>
+    execute 'nnoremap <silent> [unite]dv :<C-u>Unite directory:' . $VIMFILES . '/bundle<CR>'
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
@@ -1788,10 +1794,10 @@ let g:automatic_config = [
 " http://leafcage.hateblo.jp/entry/2013/04/24/053113
 if neobundle#is_installed('foldCC')
     set foldtext=foldCC#foldtext()
-    "set foldcolumn=5
+    set foldcolumn=1
     set fillchars=vert:\|
     let g:foldCCtext_head = '"+ " . v:folddashes . " "'
-    " let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
+    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
     nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
