@@ -3,6 +3,7 @@ set nocompatible "vi互換にしない
 scriptencoding utf-8 "vimrcでマルチバイト文字を使うときに必要
 set encoding=utf-8
 set fileencoding=utf-8
+let $VIMFILES = expand('~/.vim')
 
 if has('win32')
     set runtimepath&
@@ -23,9 +24,9 @@ endfunction
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
 " http://vim-users.jp/2011/10/hack238/
-if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) && v:version >= 702
+if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')) && v:version >= 702
     if has('vim_starting')
-      set runtimepath+=~/.vim/bundle/neobundle.vim/
+      set runtimepath+=$VIMFILES/bundle/neobundle.vim/
     endif
     call neobundle#rc(expand('~/.vim/bundle/'))
     let g:neobundle#types#git#default_protocol = "git"
@@ -355,6 +356,7 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
                 \       'MemoNew', 'MemoList', 'MemoGrep'
                 \   ]}
                 \}
+    NeoBundle 'jceb/vim-orgmode'
 
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
@@ -375,15 +377,11 @@ if filereadable(expand('~/.vim/bundle/neobundle.vim/autoload/neobundle.vim')) &&
     " :Unite neobundle/install:neocomplcache
     " :Unite neobundle/install:neocomplcache:unite.vim
 
+    filetype plugin indent on     " Required!
 
+     " Installation check.
+     NeoBundleCheck
 
-    " Installation check.
-    if neobundle#exists_not_installed_bundles()
-      echomsg 'Not installed bundles : ' .
-            \ string(neobundle#get_not_installed_bundle_names())
-      echomsg 'Please execute ":NeoBundleInstall" command.'
-      "finish
-    endif
 else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
@@ -398,9 +396,10 @@ else
         end
     endfor
 
+    filetype plugin indent on
+
 endif
 
-filetype plugin indent on     " required for neobundle
 "}}}
 " 基本設定 {{{
 " ==============================================================================
@@ -413,7 +412,6 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
-let $VIMFILES = expand('~/.vim')
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set cmdheight=2 "コマンドラインの高さを2行にする
@@ -529,7 +527,7 @@ nnoremap # g*N
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-inoremap <C-h> <BS>
+"inoremap <C-h> <BS>
 inoremap <C-d> <Del>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
@@ -789,16 +787,6 @@ nnoremap <silent><Leader>gc :cd %:h<CR>
 
 " %%でアクティブなバッファのパスを展開
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-" gf(goto file)の設定 {{{
-" ------------------------------------------------------------------------------
-" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
-augroup htmlInclude
-    autocmd!
-    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') |
-                \   setlocal path& |
-                \   setlocal path+=./;/
-augroup END
-" }}}
 " }}}
 " カーソル {{{
 " ==============================================================================
@@ -1068,7 +1056,15 @@ augroup END
 "  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
 "augroup END
 "}}}
-"}}}
+" gf(goto file)の設定 {{{
+" ------------------------------------------------------------------------------
+" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
+autocmd MyVimrc FileType html
+    \   setlocal includeexpr=substitute(v:fname,'^\\/','','')
+    \|  setlocal path
+    \|  setlocal path+=./;/
+" }}}
+" }}}
 " XML {{{
 " ==============================================================================
 nnoremap <Leader>= :%s/></>\r</g<CR>:setlocal ft=xml<CR>gg=G
@@ -1111,7 +1107,10 @@ autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " }}}
 " vim {{{
 " ==============================================================================
-autocmd MyVimrc FileType vim nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+autocmd MyVimrc FileType vim
+    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+    \|  setlocal path&
+    \|  setlocal path+=$VIMFILES/bundle
 let g:vim_indent_cont = &sw
 " }}}
 " help {{{
