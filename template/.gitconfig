@@ -1,10 +1,14 @@
 [alias]
+    br = branch
     co = checkout
     ci = commit
+    # 外部エディタを起動せず、diffを単語単位で
+    di = diff --no-ext-diff --word-diff
+    hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
     st = status
-    br = branch
-    hist = 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'
-    di = diff --no-ext-diff
+    rmt = remote -v
+    # Githubのpushのurlをsshに変更
+    rmtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
 [color]
     ui = auto
 [core]
@@ -12,6 +16,8 @@
     editor = vim
 [diff]
     external = git_diff_vim
+    # 賢いdiff algorithm
+    # http://www.justinleegrant.com/?p=339
     algorithm = patience
 [merge]
     # tool = git_mergetool_vim
@@ -22,7 +28,7 @@
 [pager]
     diff =
 [push]
-	default = matching
+    default = matching
 
 [include]
 # includeが使えるかはgit config --global --includes -lで確かめる
