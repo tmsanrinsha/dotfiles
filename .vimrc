@@ -944,11 +944,7 @@ noremap [location]o :lopen<CR>
 noremap [location]c :lclose<CR>
 
 " show quickfix automatically
-augroup quickfix
-    autocmd!
-    "autocmd QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
-    "autocmd QuickfixCmdPost * cwindow | lwindow
-augroup END
+autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
 "}}}
 " Ip2host {{{
 " ==============================================================================
@@ -1839,8 +1835,10 @@ if neobundle#is_installed('eclim') " {{{
                     \|  setlocal completeopt-=preview " neocomplete使用時にpreviewが重いので
         nnoremap [eclim] <Nop>
         nmap <Leader>e [eclim]
-        nnoremap [eclim]i :ProjectInfo<CR>
+        nnoremap [eclim]pi :ProjectInfo<CR>
+        nnoremap [eclim]pp :ProjectProblems!<CR>
         nnoremap [eclim]c :OpenUrl http://eclim.org/cheatsheet.html<CR>
+        nnoremap [eclim]jc :JavaCorrect<CR>
         nnoremap [eclim]ji :JavaImportOrganize<CR>
 
     endfunction
