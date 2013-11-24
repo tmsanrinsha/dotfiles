@@ -446,6 +446,18 @@ augroup colerscheme
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
+set formatoptions&
+" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
+" M : マルチバイト文字の連結(J)でスペースを挿入しない
+set formatoptions+=rM
+if v:version >= 704 || v:version == 703 && has('patch541') && has('patch550')
+    " j : コメント行の連結でcomment leaderを取り除く
+    set formatoptions+=j
+endif
+" t : textwidthを使って自動的に折り返す
+" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
+" o : Normal modeでoまたOを押したら、comment leaderを挿入する
+set formatoptions-=tco
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進法と16進数を増減させる。
@@ -455,8 +467,6 @@ set nrformats=hex
 
 set foldmethod=marker
 
-set formatoptions&
-set formatoptions-=t "自動的に折り返さない
 
 " pasteモードのトグル。autoindentをonにしてペーストすると
 " インデントが入った文章が階段状になってしまう。

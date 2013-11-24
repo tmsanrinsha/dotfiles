@@ -9,7 +9,6 @@ function! s:has_plugin(plugin)
 endfunction
 " }}}
 
-set formatoptions=q
 if has('win32')
     set guifont=Consolas:h10
     set guifontwide=MS_Gothic
@@ -22,7 +21,16 @@ else
     colorscheme desert
 endif
 
-set textwidth=0
+" set textwidth=0
+set formatoptions&
+" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
+" M : マルチバイト文字の連結(J)でスペースを挿入しない
+" j : コメント行の連結でcomment leaderを取り除く
+set formatoptions+=rMj
+" t : textwidthを使って自動的に折り返す
+" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
+" o : Normal modeでoまたOを押したら、comment leaderを挿入する
+set formatoptions-=tco
 
 set guioptions&
 " ツールバーを削除
