@@ -737,8 +737,10 @@ set nohlsearch "検索結果をハイライトしない
 nnoremap <Esc><Esc> :set hlsearch!<CR>
 
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
+cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
 vnoremap <Leader>/ <ESC>/\%V
