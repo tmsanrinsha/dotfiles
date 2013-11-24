@@ -1,4 +1,4 @@
-# vim:filetype=sh
+# vim:ft=sh
 # bash, zsh共通設定
 
 #export PAGER=/usr/local/share/vim/vim73/macros/less.sh
@@ -46,7 +46,7 @@ fi
 
 if [[ `uname` = Darwin ]]; then
     # homebrewでインストールしたものを優先
-    export PATH=/usr/loca/bin:$PATH
+    export PATH=/usr/local/bin:$PATH
 fi
 # }}}
 
