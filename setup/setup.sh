@@ -2,10 +2,11 @@
 
 set -ex
 
+# コマンドの存在チェック
+# @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
+#      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
 function command_exists {
-  # コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
-  # http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
-  hash "$1" 2>/dev/null ;
+  hash "$1" 2>/dev/null;
 }
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
