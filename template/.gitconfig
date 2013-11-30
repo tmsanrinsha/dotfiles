@@ -3,12 +3,12 @@
     co = checkout
     ci = commit
     # 外部エディタを起動せず、diffを単語単位で
-    di = diff --no-ext-diff --word-diff
+    di = diff --no-ext-diff
     hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
     st = status
-    rmt = remote -v
+    rt = remote -v
     # Githubのpushのurlをsshに変更
-    rmtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
+    rtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
 [color]
     ui = auto
 [core]
