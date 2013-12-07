@@ -306,7 +306,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   }
                 \}
 
-    NeoBundleLazy 'tmsanrinsha/open-browser.vim', {
+    NeoBundleLazy 'tyru/open-browser.vim', {
                 \   'autoload':{
                 \       'mappings':[
                 \            '<Plug>(openbrowser-'
@@ -323,10 +323,10 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
 
     " colorscheme
-    "NeoBundle 'tomasr/molokai'
+    " NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
-    NeoBundle 'altercation/vim-colors-solarized'
+    " NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     NeoBundle 'vim-scripts/rdark'
     NeoBundle 'vim-scripts/rdark-terminal'
@@ -338,6 +338,10 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundleLazy 'cocopon/colorswatch.vim', {
                 \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
                 \}
+    NeoBundleLazy 'LeafCage/unite-gvimrgb', {
+        \ 'autoload' : {
+        \   'unite_sources' : 'gvimrgb'
+        \ }}
 
     " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
     " http://mattn.kaoriya.net/software/vim/20130221123856.htm
@@ -369,6 +373,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "     let g:neobundle#types#git#default_protocol = "ssh"
     " endif
     NeoBundle 'tmsanrinsha/molokai'
+    NeoBundle 'tmsanrinsha/vim-colors-solarized'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
@@ -1249,10 +1254,15 @@ endif
 if has('gui_macvim')
     let macvim_skip_colorscheme=1
 endif
-if s:has_plugin('molokai')
-    "let g:rehash256 = 1
+" if s:has_plugin('molokai')
+"     "let g:rehash256 = 1
+"     set background=dark
+"     colorscheme molokai
+if s:has_plugin('solarized')
     set background=dark
-    colorscheme molokai
+    let g:solarized_termcolors=256
+    let g:solarized_contrast = "high"
+    colorscheme solarized
 else
     colorscheme default
 endif
@@ -1881,8 +1891,8 @@ if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
     let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
-    nmap <2-LeftMouse> <Plug>(openbrowser-smart-search)
-    vmap <2-LeftMouse> <Plug>(openbrowser-smart-search)
+    nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
+    vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     " nmap gx <Plug>(openbrowser-open)
     " vmap gx <Plug>(openbrowser-open)
     " nmap <2-LeftMouse> <Plug>(openbrowser-open)
