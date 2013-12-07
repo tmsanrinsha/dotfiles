@@ -1,0 +1,13 @@
+url_effective\t\t\t: %{url_effective}\n
+http_code\t\t\t: %{http_code}\n
+http_connect\t\t\t: %{http_connect}\n
+time_redirect\t\t\t: %{time_redirect}\n
+time_namelookup\t\t\t: %{time_namelookup}\n
+time_connect\t\t\t: %{time_connect}\n
+time_pretransfer\t\t: %{time_pretransfer}\n
+time_starttransfer\t\t: %{time_starttransfer}\n
+time_total\t\t\t: %{time_total}\n
+size_request\t\t\t: %{size_request}\n
+size_header\t\t\t: %{size_header}\n
+size_download\t\t\t: %{size_download}\n
+speed_download\t\t\t: %{speed_download}\n
