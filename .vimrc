@@ -567,6 +567,7 @@ inoremap <C-p> <Up>
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
+inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 
 inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
@@ -1254,15 +1255,15 @@ endif
 if has('gui_macvim')
     let macvim_skip_colorscheme=1
 endif
-" if s:has_plugin('molokai')
-"     "let g:rehash256 = 1
-"     set background=dark
-"     colorscheme molokai
-if s:has_plugin('solarized')
+if s:has_plugin('molokai')
+    "let g:rehash256 = 1
     set background=dark
-    let g:solarized_termcolors=256
-    let g:solarized_contrast = "high"
-    colorscheme solarized
+    colorscheme molokai
+" if s:has_plugin('solarized')
+"     set background=dark
+"     let g:solarized_termcolors=256
+"     let g:solarized_contrast = "high"
+"     colorscheme solarized
 else
     colorscheme default
 endif

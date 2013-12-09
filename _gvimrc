@@ -9,16 +9,21 @@ function! s:has_plugin(plugin)
 endfunction
 " }}}
 
-" if s:has_plugin('molokai')
-"     "let g:rehash256 = 1
-"     set background=dark
-"     colorscheme molokai
-if s:has_plugin('solarized')
+if has('win32')
+    set guifont=Consolas:h10
+    set guifontwide=MS_Gothic
+endif
+
+if s:has_plugin('molokai')
+    "let g:rehash256 = 1
     set background=dark
-    let g:solarized_degrade = 1
-    let g:solarized_contrast = "high"
-    let g:solarized_visibility = "high"
-    colorscheme solarized
+    colorscheme molokai
+" if s:has_plugin('solarized')
+"     set background=dark
+"     let g:solarized_degrade = 1
+"     let g:solarized_contrast = "high"
+"     let g:solarized_visibility = "high"
+"     colorscheme solarized
 else
     colorscheme default
 endif
