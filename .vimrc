@@ -1514,6 +1514,10 @@ if s:has_plugin('neobundle')
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
+        if neobundle#is_installed("neocomplete")
+            call neocomplete#custom#source('member', 'rank', 110)
+        endif
+
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : \<C-g>'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         " Recommended key-mappings.
