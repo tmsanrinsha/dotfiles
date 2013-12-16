@@ -135,23 +135,39 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
     "             \}
     NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-                \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+                \   'depends'  : [ 'thinca/vim-quickrun', 'osya-manga/unite-quickfix' ]
                 \}
     " }}}
     " operator {{{
     NeoBundle "kana/vim-operator-user"
-    NeoBundle "osyo-manga/vim-operator-search", {
-                \   'depends' : 'kana/vim-operator-user',
-                \}
+    NeoBundleLazy 'kana/vim-operator-replace', {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }
+        \}
+    NeoBundleLazy "osyo-manga/vim-operator-search", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
+        \}
+    NeoBundleLazy "rhysd/vim-operator-surround", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-surround-' }
+        \}
+    NeoBundleLazy "tyru/operator-camelize.vim", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
+        \}
     " }}}
     " textobj {{{
     NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-indent'
+    NeoBundle 'kana/vim-textobj-entire'
     NeoBundle 'kana/vim-textobj-function'
+    NeoBundle 'kana/vim-textobj-indent'
+    NeoBundle 'thinca/vim-textobj-comment'
     if (v:version == 703 && !has('patch610')) || v:version == 702
         NeoBundleLazy 'kana/vim-textobj-lastpat', {
-                    \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
-                    \}
+            \   'depends': 'kana/vim-textobj-user',
+            \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
+            \}
     endif
     " }}}
     NeoBundleLazy 'kana/vim-smartword', {
@@ -166,7 +182,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     " terryma/vim-multiple-cursors {{{
     " ==========================================================================
-    NeoBundle 'terryma/vim-multiple-cursors'
+    " NeoBundle 'terryma/vim-multiple-cursors'
     let g:multi_cursor_use_default_mapping=0
     let g:multi_cursor_next_key='"'
     let g:multi_cursor_prev_key="'"
@@ -543,7 +559,6 @@ endif
 inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
-nnoremap <M-a> ggVG
 
 nnoremap * *N
 nnoremap # g*N
@@ -1759,7 +1774,35 @@ endif
 "}}}
 " operator {{{
 " ==============================================================================
-nmap <Leader>/ <Plug>(operator-search)
+if neobundle#is_installed("vim-operator-user")
+    " clipboard copyのoperator
+    " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
+    function! OperatorYankClipboard(motion_wiseness)
+        let visual_commnad =
+            \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
+        execute 'normal!' '`['.visual_commnad.'`]"+y'
+    endfunction
+
+    call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
+    map <Space>y <Plug>(operator-yank-clipboard)
+
+    if neobundle#is_installed("operator-camelize.vim")
+        map <Space>c <Plug>(operator-camelize-toggle)
+    endif
+    if neobundle#is_installed("vim-operator-replace")
+        map <Space>p <Plug>(operator-replace)
+        map <Space>P "+<Plug>(operator-replace)
+    endif
+    if neobundle#is_installed("vim-operator-search")
+        nmap <Space>/ <Plug>(operator-search)
+        xmap <Space>/ <Plug>(operator-search)
+    endif
+    if neobundle#is_installed("vim-operator-surround")
+        map <Space>sa <Plug>(operator-surround-append)
+        map <Space>sd <Plug>(operator-surround-delete)
+        map <Space>sr <Plug>(operator-surround-replace)
+    endif
+endif
 " }}}
 " textobj {{{
 if neobundle#is_installed("vim-textobj-lastpat")
@@ -1772,8 +1815,8 @@ endif
 if s:has_plugin('EasyMotion')
     "let g:EasyMotion_leader_key = '<Leader>'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_mapping_f = ')'
-    let g:EasyMotion_mapping_F = '('
+    let g:EasyMotion_mapping_f = '+'
+    let g:EasyMotion_mapping_F = '-'
 endif
 "}}}
 " vim-partedit {{{
