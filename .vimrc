@@ -135,7 +135,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
     "             \}
     NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-                \   'depends'  : [ 'thinca/vim-quickrun', 'osya-manga/unite-quickfix' ]
+                \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
                 \}
     " }}}
     " operator {{{
