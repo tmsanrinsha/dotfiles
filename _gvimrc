@@ -28,7 +28,7 @@ else
     colorscheme default
 endif
 
-" set textwidth=0
+set textwidth=0
 set formatoptions&
 " r : Insert modeで<Enter>を押したら、comment leaderを挿入する
 " M : マルチバイト文字の連結(J)でスペースを挿入しない
