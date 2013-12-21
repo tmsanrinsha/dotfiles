@@ -12,14 +12,6 @@ if has('win32')
     cd ~
 endif
 " }}}
-" Pluginの有無をチェックする関数 {{{
-" http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! s:has_plugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-endfunction
-" }}}
 " neobundle.vim {{{
 " ==============================================================================
 " https://github.com/Shougo/neobundle.vim
@@ -347,7 +339,6 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'vim-scripts/rdark'
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
-    let g:lucius_contrast_bg = 'high'
 
     " カラースキームの色見本
     " http://cocopon.me/blog/?p=3522
@@ -425,6 +416,26 @@ else
 endif
 
 "}}}
+" Pluginの有無をチェック {{{
+" runtimepathにあるか
+" http://yomi322.hateblo.jp/entry/2012/06/20/225559
+function! s:has_plugin(plugin)
+  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+endfunction
+" NeoBundleLazyを使うと最初はruntimepathに含まれないため、
+" neobundle#is_installedを使う
+" neobundleをインストールしてない場合はhas_pluginでチェック
+function! s:is_installed(plugin)
+    if s:has_plugin('neobundle')
+        return neobundle#is_installed(a:plugin)
+    else
+        " FIXME
+        return s:has_plugin(a:plugin)
+    endif
+endfunction
+" }}}
 " 基本設定 {{{
 " ==============================================================================
 " vimrc全体で使うaugroup {{{
@@ -1270,11 +1281,11 @@ endif
 if has('gui_macvim')
     let macvim_skip_colorscheme=1
 endif
-if s:has_plugin('molokai')
+if s:is_installed('molokai')
     "let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-" if s:has_plugin('solarized')
+" if s:is_installed('solarized')
 "     set background=dark
 "     let g:solarized_termcolors=256
 "     let g:solarized_contrast = "high"
@@ -1285,21 +1296,20 @@ endif
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
+let g:lucius_contrast_bg = 'high'
 "}}}
 " vim-smartword {{{
 " ==============================================================================
-if (s:has_plugin("neobundle") && neobundle#is_installed("vim-smartword")) || s:has_plugin('smartword')
+if s:is_installed("vim-smartword")
     map w <Plug>(smartword-w)
     map b <Plug>(smartword-b)
     map e <Plug>(smartword-e)
     map ge <Plug>(smartword-ge)
 endif
 "}}}
-" neobundleでインストールするPluginの設定 {{{
-if s:has_plugin('neobundle')
 " Shougo/unite.vim {{{
 " ==========================================================================
-if s:has_plugin('unite')
+if s:is_installed('unite.vim')
     let g:unite_data_directory = $VIMFILES.'/.unite'
     let g:unite_enable_start_insert = 1
     let g:unite_split_rule = "botright"
@@ -1413,7 +1423,7 @@ nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 "}}}
 " vimshell {{{
 " ==============================================================================
-if s:has_plugin('neobundle')
+if s:is_installed('vimshell')
     nmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H  :VimShellPop<CR>
     nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
@@ -1469,8 +1479,8 @@ endif
 " }}}
 " neocomplcache & neocomplete {{{
 " ==============================================================================
-if s:has_plugin('neobundle')
-    if ! empty(neobundle#get("neocomplete"))
+if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
+    if s:is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
@@ -1494,7 +1504,7 @@ if s:has_plugin('neobundle')
         let g:neocomplcache_enable_underbar_completion = 1 " Deleted
         " Set minimum syntax keyword length.
 
-        if s:has_plugin('neocomplete')
+        if s:is_installed('neocomplete')
             let g:neocomplete#sources#syntax#min_syntax_length = 3
         else
             let g:neocomplcache_min_syntax_length = 3
@@ -1628,7 +1638,7 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 " }}}
 " neosnippet {{{
 " ==============================================================================
-if s:has_plugin('neobundle')
+if s:is_installed('neosnippet')
     let s:hooks = neobundle#get_hooks("neosnippet")
 
     function! s:hooks.on_source(bundle)
@@ -1654,7 +1664,7 @@ endif
 " }}}
 " vim-quickrun {{{
 " ==============================================================================
-if s:has_plugin('quickrun')
+if s:is_installed('vim-quickrun')
     nnoremap <Leader>r :QuickRun<CR>
     xnoremap <Leader>r :QuickRun<CR>
     " <C-c> で実行を強制終了させる
@@ -1777,7 +1787,7 @@ endif
 "}}}
 " operator {{{
 " ==============================================================================
-if neobundle#is_installed("vim-operator-user")
+if s:is_installed("vim-operator-user")
     " clipboard copyのoperator
     " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
     function! OperatorYankClipboard(motion_wiseness)
@@ -1815,7 +1825,7 @@ endif
 " }}}
 " vim-easymotion {{{
 " ==============================================================================
-if s:has_plugin('EasyMotion')
+if s:is_installed('vim-easymotion')
     "let g:EasyMotion_leader_key = '<Leader>'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
     let g:EasyMotion_mapping_f = '+'
@@ -1824,19 +1834,19 @@ endif
 "}}}
 " vim-partedit {{{
 " =============================================================================
-if s:has_plugin('vim-partedit')
+if s:is_installed('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif
 "}}}
 " vim-visualstar {{{
 " ==============================================================================
-if s:has_plugin('neobundle') && !empty(neobundle#get('vim-visualstar'))
+if s:is_installed('vim-visualstar')
     map * <Plug>(visualstar-*)N
     map # <Plug>(visualstar-g*)N
 endif "}}}
 " vim-alignta {{{
 " ==============================================================================
-if s:has_plugin('alignta')
+if s:is_installed('vim-alignta')
     xnoremap [ALIGNTA] <Nop>
     xmap <Leader>a [ALIGNTA]
     xnoremap [ALIGNTA]s :Alignta \S\+<CR>
@@ -1848,7 +1858,7 @@ endif
 " caw {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
-if s:has_plugin('caw')
+if s:is_installed('caw.vim')
     " コメントアウトのトグル
     nmap <Leader>cc <Plug>(caw:i:toggle)
     xmap <Leader>cc <Plug>(caw:i:toggle)
@@ -1885,7 +1895,7 @@ if neobundle#is_installed('foldCC')
     nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
 " }}}
-if neobundle#is_installed('eclim') " {{{
+if s:is_installed('eclim') " {{{
     let s:hooks = neobundle#get_hooks("eclim")
 
     function! s:hooks.on_source(bundle)
@@ -1907,7 +1917,7 @@ endif
 " }}}
 " console.vim {{{
 " ==============================================================================
-if s:has_plugin('neobundle') || s:has_plugin('console')
+if s:is_installed('vimconsole.vim')
     let g:vimconsole#auto_redraw = 1
     augroup MyVimrc
         autocmd FileType vim,vimconsole
@@ -1922,7 +1932,7 @@ let g:instant_markdown_slow = 1
 " let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
-if neobundle#is_installed('vim-fugitive') " {{{
+if s:is_installed('vim-fugitive') " {{{
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
     function! s:hooks.on_source(bundle)
@@ -1937,7 +1947,7 @@ endif
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
-if s:has_plugin('neobundle') && !empty(neobundle#get("open-browser.vim"))
+if s:is_installed("open-browser.vim")
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
     let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
     nmap gx <Plug>(openbrowser-smart-search)
@@ -1952,7 +1962,7 @@ endif
 " }}}
 " memoliset {{{
 " ==============================================================================
-if s:has_plugin('neobundle') && neobundle#is_installed('vim-singleton')
+if s:is_installed('memolist.vim')
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :MemoList<CR>
     nnoremap <Leader>mg  :MemoGrep<CR>
@@ -1960,8 +1970,6 @@ if s:has_plugin('neobundle') && neobundle#is_installed('vim-singleton')
     let g:memolist_path = expand('~/Dropbox/memo')
     let g:memolist_memo_suffix = "md"
     let g:memolist_unite = 1
-endif
-" }}}
 endif
 " }}}
 " ==== Plugin ==== }}}
