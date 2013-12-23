@@ -18,7 +18,8 @@ if s:has_plugin('molokai')
     "let g:rehash256 = 1
     set background=dark
     colorscheme molokai
- if s:has_plugin('solarized')
+endif
+if s:has_plugin('solarized')
      set background=dark
      let g:solarized_degrade = 1
      let g:solarized_contrast = "high"

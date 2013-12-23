@@ -192,16 +192,13 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         NeoBundle 'Align'
     endif
 
-    " コメント操作
-    NeoBundle "tyru/caw.vim"
-    " NeoBundle "tpope/vim-commentary"
 
     " sudo権限でファイルを開く・保存
     " http://www.vim.org/scripts/script.php?script_id=729
     NeoBundle 'vim-scripts/sudo.vim'
 
-    NeoBundle 'vim-scripts/YankRing.vim'
-    " NeoBundle 'LeafCage/yankround.vim'
+    " NeoBundle 'vim-scripts/YankRing.vim'
+    NeoBundle 'LeafCage/yankround.vim'
 
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
@@ -229,9 +226,26 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     NeoBundle 'LeafCage/foldCC'
 
+    " syntastic {{{
+    " ---------
     " ファイルを保存時にシンタックスのチェック
-    " https://github.com/scrooloose/syntastic
     NeoBundle 'scrooloose/syntastic'
+    " }}}
+    " vim-jsbeautify {{{
+    " --------------
+    " JavaScript, CSS, HTMLの整形
+    NeoBundleLazy 'maksimr/vim-jsbeautify', {
+        \   'autoload' : {
+        \       'filetypes': ['javascript', 'css', 'html']
+        \   }
+        \}
+    " }}}
+    " caw.vim {{{
+    " -------
+    " コメント操作
+    NeoBundle "tyru/caw.vim"
+    " NeoBundle "tpope/vim-commentary"
+    " }}}
 
     " eclipseと連携
     if executable('ant')
@@ -255,22 +269,18 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "             \ 'name': 'css.vim',
     "             \ 'script_type': 'plugin'}
 
-    " JavaScript
+    " JavaScript {{{
+    " --------------
     NeoBundle 'pangloss/vim-javascript'
     NeoBundle 'jelera/vim-javascript-syntax'
-    " NeoBundleLazy 'jelera/vim-javascript-syntax', {
-    "             \     'autoload' : { 'filetypes' : 'javascript' }
-    "             \ }
     NeoBundle 'nono/jquery.vim'
-    " NeoBundleLazy 'nono/jquery.vim', {
-    "             \     'autoload' : { 'filetypes' : 'jquery.javascript-jquery.javascript' }
-    "             \ }
-
-    " Markdown
-    " --------
+    " }}}
+    " Markdown {{{
+    " ------------
     NeoBundleLazy 'tpope/vim-markdown', {
                 \   'autoload' : { 'filetypes' : 'markdown' }
                 \}
+    " }}}
 
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
@@ -426,13 +436,12 @@ function! s:has_plugin(plugin)
 endfunction
 " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
 " neobundle#is_installedを使う
-" neobundleをインストールしてない場合はhas_pluginでチェック
+" 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
     if s:has_plugin('neobundle')
         return neobundle#is_installed(a:plugin)
     else
-        " FIXME
-        return s:has_plugin(a:plugin)
+        return 0
     endif
 endfunction
 " }}}
@@ -1036,8 +1045,6 @@ command! SyntaxInfo call s:get_syn_info()
 " }}}
 " ftdetect {{{
 " ==============================================================================
-" nono/jqueryとhonza/vim-snippetsのjavaScript-jqueryを有効にするための設定
-autocmd MyVimrc BufRead,BufNewFile *.js setlocal filetype=jquery.javascript-jquery.javascript
 autocmd MyVimrc BufRead sanrinsha*
             \   setlocal filetype=markdown
             \|  setlocal textwidth=0
@@ -1049,7 +1056,7 @@ autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
 " ==== filetype ==== {{{
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
-nnoremap <Leader>fj :<C-u>setlocal filetype=jquery.javascript-jquery.javascript<CR>
+nnoremap <Leader>fj :<C-u>setlocal filetype=javascript<CR>
 nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
@@ -1118,13 +1125,17 @@ augroup END
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
 autocmd MyVimrc FileType html
     \   setlocal includeexpr=substitute(v:fname,'^\\/','','')
-    \|  setlocal path
+    \|  setlocal path&
     \|  setlocal path+=./;/
 " }}}
 " }}}
 " XML {{{
 " ==============================================================================
 nnoremap <Leader>= :%s/></>\r</g<CR>:setlocal ft=xml<CR>gg=G
+" }}}
+" JavaScript {{{
+" ==============
+autocmd MyVimrc FileType javascript setlocal syntax=jquery
 " }}}
 " PHP {{{
 " ==============================================================================
@@ -1868,6 +1879,17 @@ if s:is_installed('caw.vim')
     xmap <Leader>cy ygvgcigv<C-c>p
 endif
 "}}}
+" vim-jsbeautify {{{
+" ==============================================================================
+if s:is_installed('vim-jsbeautify')
+    autocmd MyVimrc FileType javascript
+        \   setlocal formatexpr=JsBeautify()
+    autocmd MyVimrc FileType css
+        \   setlocal formatexpr=JsBeautify()
+    autocmd MyVimrc FileType html
+        \   setlocal formatexpr=JsBeautify()
+endif
+"}}}
 " automatic {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20130812/1376314945
@@ -1894,8 +1916,12 @@ if neobundle#is_installed('foldCC')
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
     nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
+" 現在のカーソルの位置以外の折りたたみを閉じる
+nnoremap z- zMzv
 " }}}
-if s:is_installed('eclim') " {{{
+" eclim {{{
+" -----
+if s:is_installed('eclim')
     let s:hooks = neobundle#get_hooks("eclim")
 
     function! s:hooks.on_source(bundle)
@@ -1932,6 +1958,8 @@ let g:instant_markdown_slow = 1
 " let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
+" vim-fugitive {{{
+" ------------
 if s:is_installed('vim-fugitive') " {{{
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
