@@ -986,7 +986,8 @@ noremap [location]o :lopen<CR>
 noremap [location]c :lclose<CR>
 
 " show quickfix automatically
-autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
+" これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
+" autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
 "}}}
 " Ip2host {{{
 " ==============================================================================
