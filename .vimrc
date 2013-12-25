@@ -198,8 +198,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " http://www.vim.org/scripts/script.php?script_id=729
     NeoBundle 'vim-scripts/sudo.vim'
 
-    " NeoBundle 'vim-scripts/YankRing.vim'
-    NeoBundle 'LeafCage/yankround.vim'
+    NeoBundle 'vim-scripts/YankRing.vim'
+    " NeoBundle 'LeafCage/yankround.vim'
 
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
@@ -582,6 +582,8 @@ if exists('+macmeta')
    set macmeta
 endif
 " let mapleader = "\<space>"
+noremap [Space]   <Nop>
+
 
 " noremap ; :
 " noremap : ;
@@ -1230,11 +1232,11 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 if s:has_plugin('sudo')
     if s:has_plugin('bclose')
-        nmap <Leader>se :e sudo:%<CR><C-^><Plug>Kwbd
+        nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
     else
-        nnoremap <Leader>se :e sudo:%<CR><C-^>:bd<CR>
+        nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
     endif
-    nnoremap <Leader>sw :w sudo:%<CR>
+    nnoremap <Leader>W :w sudo:%<CR>
 endif
 "}}}
 " LeafCage/yankround.vim {{{
@@ -1825,23 +1827,22 @@ if s:is_installed("vim-operator-user")
     endfunction
 
     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
-    map <Space>y <Plug>(operator-yank-clipboard)
+    map [Space]y <Plug>(operator-yank-clipboard)
 
     if neobundle#is_installed("operator-camelize.vim")
-        map <Space>c <Plug>(operator-camelize-toggle)
+        map [Space]c <Plug>(operator-camelize-toggle)
     endif
     if neobundle#is_installed("vim-operator-replace")
-        map <Space>p <Plug>(operator-replace)
-        map <Space>P "+<Plug>(operator-replace)
+        map [Space]p <Plug>(operator-replace)
+        map [Space]P "+<Plug>(operator-replace)
     endif
     if neobundle#is_installed("vim-operator-search")
-        nmap <Space>/ <Plug>(operator-search)
-        xmap <Space>/ <Plug>(operator-search)
+        map [Space]/ <Plug>(operator-search)
     endif
     if neobundle#is_installed("vim-operator-surround")
-        map <Space>sa <Plug>(operator-surround-append)
-        map <Space>sd <Plug>(operator-surround-delete)
-        map <Space>sr <Plug>(operator-surround-replace)
+        map [Space]sa <Plug>(operator-surround-append)
+        map [Space]sd <Plug>(operator-surround-delete)
+        map [Space]sr <Plug>(operator-surround-replace)
     endif
 endif
 " }}}
