@@ -276,37 +276,46 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'jelera/vim-javascript-syntax'
     NeoBundle 'nono/jquery.vim'
     " }}}
+    " SQL {{{
+    NeoBundleLazy 'vim-scripts/dbext.vim', {
+        \   'autoload': {'filetypes': 'mysql'}
+        \}
+    " }}}
     " Markdown {{{
     " ------------
     NeoBundleLazy 'tpope/vim-markdown', {
                 \   'autoload' : { 'filetypes' : 'markdown' }
                 \}
-    " }}}
-
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
         NeoBundle 'suan/vim-instant-markdown'
     endif
-
-    " yaml
+    " }}}
+    " yaml {{{
     NeoBundleLazy 'tmsanrinsha/yaml.vim', {
                 \   'autoload' : { 'filetypes' : 'yaml' }
                 \}
+    " }}}
+    " tmux {{{
     " tmuxのシンタックスファイル
     NeoBundleLazy 'zaiste/tmux.vim', {
                 \   'autoload' : { 'filetypes' : 'tmux' }
                 \ }
-
-    " confluenceのシンタックスファイル
-    NeoBundleLazy 'confluencewiki.vim', {
-                \   'autoload' : { 'filetypes' : 'confluencewiki' }
-                \ }
+    " }}}
+    " vimperator {{{
     " vimperatorのシンタックスファイル
     NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
                 \   'type'        : 'raw',
                 \   'autoload'    : { 'filetypes' : 'vimperator' },
                 \   'script_type' : 'syntax'
                 \}
+    " }}}
+    " confluence {{{
+    " confluenceのシンタックスファイル
+    NeoBundleLazy 'confluencewiki.vim', {
+                \   'autoload' : { 'filetypes' : 'confluencewiki' }
+                \ }
+    " }}}
 
     NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
     NeoBundleLazy 'gregsexton/gitv', {
@@ -1053,7 +1062,7 @@ autocmd MyVimrc BufRead sanrinsha*
 autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=mysql
+autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
 " ==== filetype ==== {{{
@@ -1061,6 +1070,7 @@ nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=javascript<CR>
 nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
 nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
+nnoremap <Leader>fs :<C-u>setlocal filetype=sql<CR>
 nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
 nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
 
@@ -1170,6 +1180,11 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
+" MySQL {{{
+" ]}, [{ の移動先
+let g:sql_type_default = 'mysql'
+let g:ftplugin_sql_statements = 'create,alter'
+" }}}
 " yaml {{{
 " ==============================================================================
 " autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
