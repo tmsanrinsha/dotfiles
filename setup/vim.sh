@@ -11,16 +11,17 @@ ver=7.4
 patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
 vimdir=$HOME/vim/${ver}.${patch}
 
-mkdir -p $vimdir/{bin,src}
-cd $vimdir/src
 
 if which hg &>/dev/null; then
     # hgを使う
     cd $vimdir
-    hg clone https://vim.googlecode.com/hg/ vim
-    cd vim
+    hg clone https://vim.googlecode.com/hg/ src
+    cd src
 else
     # patchを使う方法
+    mkdir -p $vimdir/{bin,src}
+    cd $vimdir/src
+
     if which curl;then
         downloader='curl -L'
     elif which wget;then
