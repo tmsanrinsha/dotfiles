@@ -586,6 +586,7 @@ endif
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
 noremap [Space]   <Nop>
+map <Space> [Space]
 
 " noremap ; :
 " noremap : ;
