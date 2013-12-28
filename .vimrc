@@ -292,9 +292,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
     " }}}
     " yaml {{{
-    NeoBundleLazy 'tmsanrinsha/yaml.vim', {
-                \   'autoload' : { 'filetypes' : 'yaml' }
-                \}
+    " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
+    "             \   'autoload' : { 'filetypes' : 'yaml' }
+    "             \}
     " }}}
     " tmux {{{
     " tmuxのシンタックスファイル
