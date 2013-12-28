@@ -278,7 +278,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
     " SQL {{{
     NeoBundleLazy 'vim-scripts/dbext.vim', {
-        \   'autoload': {'filetypes': 'mysql'}
+        \   'autoload': {'filetypes': 'sql'}
         \}
     " }}}
     " Markdown {{{
