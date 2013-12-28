@@ -14,9 +14,10 @@ vimdir=$HOME/vim/${ver}.${patch}
 
 if which hg &>/dev/null; then
     # hgを使う
-    cd $vimdir
-    hg clone https://vim.googlecode.com/hg/ src
-    cd src
+    mkdir ~/hg
+    cd ~/hg
+    hg clone https://vim.googlecode.com/hg/ vim
+    cd vim
 else
     # patchを使う方法
     mkdir -p $vimdir/{bin,src}
