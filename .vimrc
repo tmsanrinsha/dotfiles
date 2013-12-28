@@ -582,8 +582,10 @@ if exists('+macmeta')
    set macmeta
 endif
 " let mapleader = "\<space>"
-noremap [Space]   <Nop>
 
+" prefix
+" http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
+noremap [Space]   <Nop>
 
 " noremap ; :
 " noremap : ;

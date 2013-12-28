@@ -61,7 +61,7 @@ fi
 # --with-featuresで何が入るかはこちら
 # http://vim-jp.org/vimdoc-ja/various.html#:ve
 ./configure \
---with-features=big \
+--with-features=huge \
 --enable-multibyte \
 --disable-gui \
 --without-x \
