@@ -14,9 +14,8 @@ endif
 " }}}
 " neobundle.vim {{{
 " ==============================================================================
-" https://github.com/Shougo/neobundle.vim
-" http://vim-users.jp/2011/10/hack238/
-if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')) && v:version >= 702
+if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
+    \   && (v:version >= 703 || v:version == 702 && has('patch051'))
     if has('vim_starting')
       set runtimepath+=$VIMFILES/bundle/neobundle.vim/
     endif
@@ -32,9 +31,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         endif
     endif
 
-    " let NeoBundle manage NeoBundle
-    " required!
-    NeoBundle 'Shougo/neobundle.vim'
+    " Let neobundle manage neobundle
+    NeoBundleFetch 'Shougo/neobundle.vim'
 
     " recommended to install
     if has('win32') && has('kaoriya')
@@ -432,7 +430,6 @@ else
     endfor
 
     filetype plugin indent on
-
 endif
 
 "}}}
@@ -585,6 +582,7 @@ endif
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
+" [Space]でmapするようにするとVimFilerのスペースキーでキー待ちが発生しなくなる
 noremap [Space]   <Nop>
 map <Space> [Space]
 
@@ -1453,6 +1451,9 @@ nmap <Leader>f [VIMFILER]
 nnoremap <silent> [VIMFILER]f :VimFiler<CR>
 nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
 nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
+
+autocmd MyVimrc FileType vimfiler
+    \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
 "}}}
 " vimshell {{{
 " ==============================================================================
@@ -1536,7 +1537,6 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         " Use underbar completion.
         let g:neocomplcache_enable_underbar_completion = 1 " Deleted
         " Set minimum syntax keyword length.
-
         if s:is_installed('neocomplete')
             let g:neocomplete#sources#syntax#min_syntax_length = 3
         else
@@ -1555,6 +1555,17 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
 
         let g:neocomplcache_enable_auto_delimiter = 0
+
+        " 使用する補完の種類を減らす
+        " http://alpaca-tc.github.io/blog/vim/neocomplete-vs-youcompleteme.html
+        " 現在のSourceの取得は `:echo
+        " keys(neocomplete#variables#get_sources())`
+        " " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
+        " 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']
+        " let g:neocomplete#sources = {
+        "   \ '_' : ['vim', 'omni', 'include', 'buffer', 'file/include']
+        "     \ }
+
         " Define dictionary.
         let g:neocomplcache_dictionary_filetype_lists = {
                     \ 'default'  : '',
@@ -1575,40 +1586,6 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         if neobundle#is_installed("neocomplete")
             call neocomplete#custom#source('member', 'rank', 110)
         endif
-
-        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : \<C-g>'
-        execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-        " Recommended key-mappings.
-        " <CR>: close popup and save indent.
-        execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
-        execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
-        execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
-        execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
-        " <C-u>, <C-w>した文字列をアンドゥできるようにする
-        " http://vim-users.jp/2009/10/hack81/
-        " C-uでポップアップを消したいがうまくいかない
-        execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
-        execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
-        " AutoComplPop like behavior.
-        "let g:neocomplcache_enable_auto_select = 1
-        " Shell like behavior(not recommended).
-        "set completeopt+=longest
-        "let g:neocomplcache_enable_auto_select = 1
-        "let g:neocomplcache_disable_auto_complete = 1
-        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-        " Shell like behavior(my setting)
-        " complet_common_stringではsmartcaseが効かない
-        " 余計な候補を出して欲しくないので
-        " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
-        " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
-        "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
-        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
         " Enable omni completion.
         augroup MyVimrc
@@ -1636,7 +1613,7 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
             "let g:neocomplcache_omni_patterns.java  = '.*'
         endif
 
-        "include補完
+        " include補完
         "インクルードパスの指定
         " let g:neocomplcache_include_paths = {
         "             \ 'cpp' : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
@@ -1662,6 +1639,43 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         "             \ 'haskell' : '.hs'
         "             \ }
         "let g:neocomplcache_include_max_processes = 1000
+
+        " key mappings
+        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : \<C-g>'
+        execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        " Recommended key-mappings.
+        " <CR>: close popup and save indent.
+        execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
+        " <TAB>: completion.
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " <C-h>, <BS>: close popup and delete backword char.
+        execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
+        execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
+        " execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
+        " 補完候補が表示されている場合は確定。そうでない場合は改行
+        " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom.'#close_popup() : "<CR>"'
+        execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
+        " <C-u>, <C-w>した文字列をアンドゥできるようにする
+        " http://vim-users.jp/2009/10/hack81/
+        " C-uでポップアップを消したいがうまくいかない
+        execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
+        execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
+        " AutoComplPop like behavior.
+        "let g:neocomplcache_enable_auto_select = 1
+        " Shell like behavior(not recommended).
+        "set completeopt+=longest
+        "let g:neocomplcache_enable_auto_select = 1
+        "let g:neocomplcache_disable_auto_complete = 1
+        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+        " Shell like behavior(my setting)
+        " complet_common_stringではsmartcaseが効かない
+        " 余計な候補を出して欲しくないので
+        " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
+        " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
+        "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
+        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
     endfunction
 endif
 "}}}
@@ -1858,7 +1872,7 @@ endif
 " vim-easymotion {{{
 " ==============================================================================
 if s:is_installed('vim-easymotion')
-    "let g:EasyMotion_leader_key = '<Leader>'
+    let g:EasyMotion_leader_key = '<Leader>/'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
     let g:EasyMotion_mapping_f = '+'
     let g:EasyMotion_mapping_F = '-'
