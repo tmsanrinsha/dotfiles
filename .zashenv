@@ -50,9 +50,9 @@ if [[ `uname` = CYGWIN* ]]; then
     pathmungeR ${script_dir}/cygwin
 fi
 
-if [ -d ~/vim ];then
-    pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
-fi
+# if [ -d ~/vim ];then
+#     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
+# fi
 
 if [[ `uname` = Darwin ]]; then
     # ruby
