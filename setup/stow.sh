@@ -13,7 +13,7 @@ include,\
 share/{doc,info,man}\
 }
 
-tmpdir=`mktemp -d  tmp.XXXXXX`
+tmpdir=`mktemp -d /tmp/XXXXXX`
 cd $tmpdir
 if which curl;then
     curl='curl -L'
