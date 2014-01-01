@@ -9,8 +9,8 @@ set -ex
 # http://www.vim.org/download.phpで最新バージョンを確かめる
 ver=7.4
 patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
-vimdir=$HOME/vim/${ver}.${patch}
-
+# vimdir=$HOME/vim/${ver}.${patch}
+vimdir=$HOME/local/stow/vim${ver}.${patch}
 
 if which hg &>/dev/null; then
     # hgを使う
@@ -73,4 +73,9 @@ $option
 # LDFLAGS="-L$HOME/local/lib" \
 # CFLAGS="-I$HOME/local/include"
 
-make && make install
+make
+make install
+
+# http://gateman-on.blogspot.jp/2013/02/stow.html
+# 以下のオプションを付けないと、dirファイルが他パッケージとかぶってエラーが出る
+stow $pkg_ver --ignore=share/info/dir

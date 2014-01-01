@@ -28,6 +28,7 @@ $curl http://ftp.gnu.org/gnu/stow/stow-latest.tar.gz | gzip -dc | tar xf -
 pkg_ver=$(ls)
 cd $pkg_ver
 ./configure --prefix=$HOME/local/stow/$pkg_ver
+# GNU makeじゃないとしくじる
 make
 make install
 cd ~/local/stow
