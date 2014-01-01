@@ -33,4 +33,4 @@ cd ~/local/stow
 
 # http://gateman-on.blogspot.jp/2013/02/stow.html
 # 以下のオプションを付けないと、dirファイルが他パッケージとかぶってエラーが出る
-./$stow_ver/bin/stow $stow_ver --ignore=share/info/dir
+./$pkg_ver/bin/stow $pkg_ver --ignore=share/info/dir
