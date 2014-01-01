@@ -160,7 +160,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
             \}
     endif
     " }}}
-    NeoBundle 'tpope/vim-surround'
+    " dでキー待ちが発生してしまう
+    " NeoBundle 'tpope/vim-surround'
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
                 \}
@@ -415,6 +416,10 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
      " Installation check.
      NeoBundleCheck
 
+    if !has('vim_starting')
+      " Call on_source hook when reloading .vimrc.
+      call neobundle#call_hook('on_source')
+    endif
 else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
@@ -1714,8 +1719,10 @@ endif
 " vim-quickrun {{{
 " ==============================================================================
 if s:is_installed('vim-quickrun')
-    nnoremap <Leader>r :QuickRun<CR>
-    xnoremap <Leader>r :QuickRun<CR>
+    noremap <Leader>r :QuickRun<CR>
+    noremap <Leader>r :QuickRun<CR>
+    " let g:quickrun_no_default_key_mappings = 1
+    " map <Leader>r <Plug>(quickrun)
     " <C-c> で実行を強制終了させる
     " quickrun.vim が実行していない場合には <C-c> を呼び出す
     nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
