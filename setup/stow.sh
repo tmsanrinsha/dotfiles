@@ -2,6 +2,7 @@
 set -eux
 # stowについて
 # http://rcmdnk.github.io/blog/2013/08/11/computer-linux-windows-cygwin/
+# http://blog.glidenote.com/blog/2012/08/10/stow/
 
 # 予めディレクトリを作成しておかないと、stowコマンド打った時、
 # ディレクトリのシンボリックリンクができてしまう

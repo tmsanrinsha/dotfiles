@@ -10,7 +10,7 @@ set -ex
 ver=7.4
 patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
 # vimdir=$HOME/vim/${ver}.${patch}
-vimdir=$HOME/local/stow/vim${ver}.${patch}
+pkg_ver=${ver}.${patch}
 
 if which hg &>/dev/null; then
     # hgを使う
@@ -20,8 +20,10 @@ if which hg &>/dev/null; then
     cd vim
 else
     # patchを使う方法
-    mkdir -p $vimdir/{bin,src}
-    cd $vimdir/src
+    tmpdir=`mktemp -d /tmp/XXXXXX`
+    cd $tmpdir
+    # mkdir -p $vimdir/{bin,src}
+    # cd $vimdir/src
 
     if which curl;then
         downloader='curl -L'
@@ -49,7 +51,7 @@ else
     # http://magicant.txt-nifty.com/main/2008/05/post_256f.html
     #  for i in {001..905}; do; curl -sm 30 -O "ftp://ftp.vim.org/pub/vim/patches/7.3/7.3.$i" > /dev/null & ; done
 
-    cd $vimdir/src/vim$(echo $ver | tr -d .) || exit 1
+    cd ..
     # patchの-p0はディレクトリ構造を無視しないオプション
     # http://www.koikikukan.com/archives/2006/02/17-235135.php
     cat patches/${ver}.* | patch -p0
@@ -67,7 +69,7 @@ fi
 --enable-multibyte \
 --disable-gui \
 --without-x \
---prefix=$vimdir \
+./configure --prefix=$HOME/local/stow/$pkg_ver \
 $option
 # --with-local-dir=$HOME/local \
 # LDFLAGS="-L$HOME/local/lib" \
