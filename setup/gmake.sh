@@ -24,7 +24,7 @@ else
     exit 1
 fi
 
-$curl http://ftp.gnu.org/gnu/stow/stow-latest.tar.gz | gzip -dc | tar xf -
+$curl http://ftp.gnu.org/gnu/make/make-4.0.tar.gz | gzip -dc | tar xf -
 pkg_ver=$(ls)
 cd $pkg_ver
 ./configure --prefix=$HOME/local/stow/$pkg_ver
@@ -33,4 +33,4 @@ cd ~/local/stow
 
 # http://gateman-on.blogspot.jp/2013/02/stow.html
 # 以下のオプションを付けないと、dirファイルが他パッケージとかぶってエラーが出る
-./$stow_ver/bin/stow $stow_ver --ignore=share/info/dir
+stow $pkg_ver --ignore=share/info/dir
