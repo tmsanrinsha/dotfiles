@@ -1992,12 +1992,12 @@ endif
 " instant-markdown-vim {{{
 " ==============================================================================
 let g:instant_markdown_slow = 1
-" let g:instant_markdown_autostart = 0
+let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
 " vim-fugitive {{{
 " ------------
-if s:is_installed('vim-fugitive') " {{{
+if s:is_installed('vim-fugitive')
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
     function! s:hooks.on_source(bundle)
