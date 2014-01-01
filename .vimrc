@@ -790,7 +790,9 @@ set history=100000 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
-let $BASH_ENV=expand('~/.bashenv')
+" bashスクリプトをquickrunで実行した時にエイリアス展開されてしまうのでコメント
+" アウト
+" let $BASH_ENV=expand('~/.bashenv')
 " let $ZDOTDIR=expand('~/.vim/')
 " 検索・置換 {{{
 " ------------------------------------------------------------------------------
