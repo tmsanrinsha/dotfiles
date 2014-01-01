@@ -40,9 +40,9 @@ pathmungeR () {
     fi
 }
 
-if [ -d ~/vim ];then
-    pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
-fi
+# if [ -d ~/vim ];then
+#     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
+# fi
 
 if [[ `uname` = Darwin ]]; then
     # homebrewでインストールしたものを優先

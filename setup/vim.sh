@@ -10,7 +10,7 @@ set -ex
 ver=7.4
 patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
 # vimdir=$HOME/vim/${ver}.${patch}
-pkg_ver=${ver}.${patch}
+pkg_ver=vim-${ver}.${patch}
 
 if which hg &>/dev/null; then
     # hgを使う
@@ -77,6 +77,7 @@ $option
 
 make
 make install
+cd ~/local/stow
 
 # http://gateman-on.blogspot.jp/2013/02/stow.html
 # 以下のオプションを付けないと、dirファイルが他パッケージとかぶってエラーが出る
