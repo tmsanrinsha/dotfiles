@@ -389,7 +389,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \       'MemoNew', 'MemoList', 'MemoGrep'
                 \   ]}
                 \}
+    NeoBundle 'fuenor/qfixhowm'
     NeoBundle 'jceb/vim-orgmode'
+    " QFixHowm互換を切る
+    let QFixHowm_Convert = 0
+    " デフォルトの保存先
+    let qfixmemo_dir = $HOME . '/Dropbox/qfixmemo'
 
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
@@ -631,8 +636,10 @@ cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " swap, backup {{{
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
-set directory=.,/var/tmp,/tmp
-if has('win32')
+set directory&
+set directory-=~/tmp
+" 他の人が編集する可能性がない場合はswapファイルを作成しない
+if has('win32') && has('mac')
     set noswapfile
 endif
 
