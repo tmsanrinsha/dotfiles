@@ -1,8 +1,7 @@
 " {{{
 set nocompatible "vi互換にしない
-scriptencoding utf-8 "vimrcでマルチバイト文字を使うときに必要
-set encoding=utf-8
-set fileencoding=utf-8
+scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
+set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 let $VIMFILES = expand('~/.vim')
 
 if has('win32')
@@ -517,6 +516,7 @@ set nrformats=hex
 
 set foldmethod=marker
 
+set shellslash
 
 " macに最初から入っているvimはセキュリティの問題からシステムのvimrcでmodelinesを0にしている。
 " http://unix.stackexchange.com/questions/19875/setting-vim-filetype-with-modeline-not-working-as-expected
@@ -545,7 +545,6 @@ set helplang=en,ja
 " 文字コード
 set encoding=utf-8
 set fileencoding=utf-8
-scriptencoding utf-8
 
 " ファイルのエンコードの判定を前から順番にする
 " ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
@@ -603,16 +602,6 @@ inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
 
-nnoremap * *N
-nnoremap # g*N
-" function! s:RegistSearchWord()
-"     silent normal yiw
-"     let @/ = '\<'.@".'\>'
-" endfunction
-"
-" command! -range RegistSearchWord :call s:RegistSearchWord()
-" nnoremap <silent> * :RegistSearchWord<CR>
-
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
@@ -639,7 +628,7 @@ cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 set directory&
 set directory-=~/tmp
 " 他の人が編集する可能性がない場合はswapファイルを作成しない
-if has('win32') && has('mac')
+if has('win32') || has('mac')
     set noswapfile
 endif
 
@@ -815,6 +804,16 @@ set nohlsearch "検索結果をハイライトしない
 
 " ESCキー2度押しでハイライトのトグル
 nnoremap <Esc><Esc> :set hlsearch!<CR>
+
+nnoremap * *N
+nnoremap # g*N
+" function! s:RegistSearchWord()
+"     silent normal yiw
+"     let @/ = '\<'.@".'\>'
+" endfunction
+"
+" command! -range RegistSearchWord :call s:RegistSearchWord()
+" nnoremap <silent> * :RegistSearchWord<CR>
 
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
@@ -1223,9 +1222,6 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " ==============================================================================
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
-" autocmd MyVimrc FileType gitcommit
-"     \   setlocal textwidth=72
-"     \|  setlocal colorcolumn=+1
 autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
     \   setlocal textwidth=72
     \|  setlocal colorcolumn=+1
