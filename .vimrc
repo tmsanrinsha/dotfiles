@@ -782,6 +782,8 @@ set wildmode=list:longest,full
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>
+cnoremap <UP> <C-P>
+cnoremap <DOWN> <C-N>
 
 " vim-emacscommandlineで<C-F>は右に進むになっているので、
 " コマンドラインウィンドウを開きたいときは<Leader><C-F>にする
@@ -1576,6 +1578,11 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         "   \ '_' : ['vim', 'omni', 'include', 'buffer', 'file/include']
         "     \ }
 
+        if s:is_installed('neocomplete')
+            let g:neocomplete#data_directory = $VIMFILES . '/.neocomplete'
+        else
+            let g:neocomplcache_temporary_dir = $VIMFILES . '/.neocomplcache'
+        endif
         " Define dictionary.
         let g:neocomplcache_dictionary_filetype_lists = {
                     \ 'default'  : '',
