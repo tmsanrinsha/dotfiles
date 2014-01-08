@@ -1876,9 +1876,9 @@ if s:is_installed("vim-operator-user")
         map [Space]/ <Plug>(operator-search)
     endif
     if neobundle#is_installed("vim-operator-surround")
-        map [Space]sa <Plug>(operator-surround-append)
-        map [Space]sd <Plug>(operator-surround-delete)
-        map [Space]sr <Plug>(operator-surround-replace)
+        map sa <Plug>(operator-surround-append)
+        map sd <Plug>(operator-surround-delete)
+        map sr <Plug>(operator-surround-replace)
     endif
 endif
 " }}}

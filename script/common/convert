@@ -20,7 +20,7 @@ if (empty($opt)) {
 if (isset($opt['n'])) { // 数値文字参照のデコード
     echo mb_convert_encoding($content, 'UTF-8', 'HTML-ENTITIES') . PHP_EOL;
 } else if (isset($opt['u'])) { // unixtimeをY-m-d H:i:s形式で出力
-    echo preg_replace_callback('/\b\d{10}\b/', unixtime2date, $content) . PHP_EOL;
+    echo preg_replace_callback('/\b\d{10}\b/', 'unixtime2date', $content) . PHP_EOL;
 } else if (isset($opt['x'])) { // 16進数を10進数に変換
     if (preg_match('/x([[:xdigit:]]+)/', $content, $matches)) {
         echo hexdec($matches[1]) . PHP_EOL;
