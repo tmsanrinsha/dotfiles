@@ -388,12 +388,19 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \       'MemoNew', 'MemoList', 'MemoGrep'
                 \   ]}
                 \}
-    NeoBundle 'fuenor/qfixhowm'
+    " NeoBundle 'fuenor/qfixhowm'
     NeoBundle 'jceb/vim-orgmode'
     " QFixHowm互換を切る
     let QFixHowm_Convert = 0
     " デフォルトの保存先
     let qfixmemo_dir = $HOME . '/Dropbox/qfixmemo'
+
+    " http://d.hatena.ne.jp/itchyny/20140108/1389164688
+    NeoBundleLazy 'itchyny/calendar.vim', {
+                \   'autoload' : { 'commands' : [
+                \       'Calendar'
+                \   ]}
+                \}
 
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
