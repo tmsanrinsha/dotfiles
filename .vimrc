@@ -328,7 +328,10 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     NeoBundleLazy 'vim-scripts/DirDiff.vim', {
                 \   'autoload' : {
-                \       'commands' : [ 'DirDiff' ]
+                \       'commands' : {
+                \           'name' : 'DirDiff',
+                \           'complete' : 'dir'
+                \       }
                 \   }
                 \}
 
