@@ -11,19 +11,18 @@ function command_exists {
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
-script_dir=$git_dir/script
 setup_dir=$git_dir/setup
 
-if [[ `uname` = CYGWIN* ]]; then
-    # Windowsのメッセージの文字コードをcp932からutf-8に変更
-    # なぜか英語になっちゃう
-    cmd /c chcp 65001
-
-    # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
-    ln=$git_dir/script/cygwin/ln
-else
-    ln=ln
-fi
+# if [[ `uname` = CYGWIN* ]]; then
+#     # Windowsのメッセージの文字コードをcp932からutf-8に変更
+#     # なぜか英語になっちゃう
+#     cmd /c chcp 65001
+#
+#     # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
+#     ln=$git_dir/script/cygwin/ln
+# else
+#     ln=ln
+# fi
 
 # リンクの作成
 # if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
@@ -46,20 +45,18 @@ fi
 
 # シンボリックリンクを貼る
 # for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
-for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
-do
-    # 実体ファイルがある場合はバックアップをとる
-    if [ -f ~/$file -a ! -L ~/$file ]; then
-        mv ~/$file ~/${file}.bak
-    fi
-    # シンボリックリンクは削除
-    if [ -L ~/$file ]; then
-        rm ~/$file
-    fi
-    $ln -sv $git_dir/$file ~/$file
-done
-
-# [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
+# for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+# do
+#     # 実体ファイルがある場合はバックアップをとる
+#     if [ -f ~/$file -a ! -L ~/$file ]; then
+#         mv ~/$file ~/${file}.bak
+#     fi
+#     # シンボリックリンクは削除
+#     if [ -L ~/$file ]; then
+#         rm ~/$file
+#     fi
+#     $ln -sv $git_dir/$file ~/$file
+# done
 
 # http://beyondgrep.com
 if ! command_exists ack; then
