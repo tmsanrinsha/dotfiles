@@ -1,18 +1,33 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-tmux start-server
-tmux new-session -d -n tmux-ssh-window -s tmux-ssh
+# http://tech.naviplus.co.jp/2014/01/09/tmux%E3%81%A7%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E5%90%8C%E6%99%82%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/
+if [ -n "$SESSION_NAME" ];then
+  session=$SESSION_NAME
+else
+  session=multi-ssh-`date +%s`
+fi
+window=multi-ssh
 
-for i in $*
-do
-    tmux split-window -v -t tmux-ssh-window
-    tmux send-keys "ssh $i" C-m
-    tmux select-layout -t tmux-ssh-window tile
+### tmuxのセッションを作成
+tmux new-session -d -n $window -s $session
+
+### 各ホストにsshログイン
+# 最初の1台はsshするだけ
+tmux send-keys "ssh $1" C-m
+shift
+
+# 残りはpaneを作成してからssh
+for i in $*;do
+  tmux split-window
+  tmux select-layout tiled
+  tmux send-keys "ssh $i" C-m
 done
-tmux kill-pane -t 0
 
-tmux select-window -t tmux-ssh-window
+### 最初のpaneを選択状態にする
 tmux select-pane -t 0
-tmux select-layout -t tmux-ssh-window main-horizontal
+
+### paneの同期モードを設定
 tmux set-window-option synchronize-panes on
-tmux -2 attach-session -t tmux-ssh
+
+### セッションにアタッチ
+tmux attach-session -t $session
