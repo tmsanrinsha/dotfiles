@@ -11,6 +11,7 @@ function command_exists {
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
+home=$git_dit/home
 script_dir=$git_dir/script
 setup_dir=$git_dir/setup
 
@@ -32,21 +33,21 @@ fi
 #     exclude='.*\.local'
 # fi
 
-# # ディレクトリの作成
-# for dir in `find $git_dir -mindepth 1 -type d ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' | sed -e "s|$git_dir/||"`
-# do
-#     test -d ~/$dir || mkdir ~/$dir
-# done
+# ディレクトリの作成
+for dir in `find $home -type d | sed -e "s|$home/||"`
+do
+    test -d ~/$dir || mkdir ~/$dir
+done
 
 test -d ~/.zsh/functions || mkdir -p ~/.zsh/functions
 test -d ~/script/common || mkdir -p ~/script/common
+
 if [[ `uname` = CYGWIN* ]]; then
     test -d ~/script/cygwin || mkdir -p ~/script/cygwin
 fi
 
 # シンボリックリンクを貼る
-# for file in `find $git_dir -type f ! -regex '.*README.*' ! -regex \'$exclude\' ! -regex '.*\.git.*' ! -regex '.*setup.*' ! -regex '.*template.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
-for file in `find $git_dir -maxdepth 1 -type f ! -regex '.*README.*' ! -regex '.*\.git.*' ! -regex '.*swp.*' | sed "s|$git_dir/||"`
+for file in `find $home -type f ! -regex '.*swp.*' | sed "s|$home/||"`
 do
     # 実体ファイルがある場合はバックアップをとる
     if [ -f ~/$file -a ! -L ~/$file ]; then
