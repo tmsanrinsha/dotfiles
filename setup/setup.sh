@@ -11,8 +11,10 @@ function command_exists {
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
-home=$git_dit/home
+home=$git_dir/home
 script_dir=$git_dir/script
+echo $home
+exit 1
 setup_dir=$git_dir/setup
 
 if [[ `uname` = CYGWIN* ]]; then
@@ -21,7 +23,7 @@ if [[ `uname` = CYGWIN* ]]; then
     cmd /c chcp 65001
 
     # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
-    ln=$git_dir/script/cygwin/ln
+    ln=$home/script/cygwin/ln
 else
     ln=ln
 fi
