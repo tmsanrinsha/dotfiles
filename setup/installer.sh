@@ -28,4 +28,5 @@ fi
 
 homeshick link
 
-bash $git_dir/setup/setup.sh
+$git_dir/setup/setup.sh
+
