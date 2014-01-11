@@ -130,15 +130,6 @@ if [ -f ~/.nvm/nvm.sh ]; then
 fi
 # }}}
 
-# andsens/homeshick {{{
-source $HOME/.homesick/repos/homeshick/homeshick.sh
-if test -n "$BASH"; then
-    source $HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash
-else
-    fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
-fi
-# }}}
-
 # if [[ `hostname` == *ua.sakura.ne.jp ]]; then
 #     export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
 #
