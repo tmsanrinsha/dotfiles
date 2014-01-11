@@ -100,6 +100,9 @@ if [[ `uname` = CYGWIN* ]]; then
     fi
 elif [[ `uname` = Darwin ]]; then
     ln -fs ~/_gvimrc ~/.gvimrc
+    mkdir -p ~/setting
+    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
+    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if command_exists brew; then
         ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
         command_exists ant || brew install ant
@@ -107,6 +110,7 @@ elif [[ `uname` = Darwin ]]; then
         command_exists node || brew install node
         command_exists python || brew install python
         command_exists ruby || brew install ruby
+        command_exists tmux || brew install tmux
         command_exists tree || brew install tree
         command_exists zsh || brew install zsh
     fi
