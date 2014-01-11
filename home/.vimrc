@@ -464,7 +464,7 @@ endfunction
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
-    if s:has_plugin('neobundle')
+    if s:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
         return neobundle#is_installed(a:plugin)
     else
         return 0
@@ -1360,6 +1360,7 @@ if s:is_installed("vim-smartword")
     map ge <Plug>(smartword-ge)
 endif
 "}}}
+if s:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
 " Shougo/unite.vim {{{
 " ==========================================================================
 if s:is_installed('unite.vim')
@@ -2037,6 +2038,24 @@ if s:is_installed('vim-fugitive')
     endfunction
 endif
 " }}}
+" gitv {{{
+" --------
+let s:hooks = neobundle#get_hooks('gitv')
+
+function! s:hooks.on_source(bundle)
+    function! GitvGetCurrentHash()
+        return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+    endfunction
+
+    autocmd MyVimrc FileType gitv
+        \   setlocal iskeyword+=/,-,.
+        \|  nnoremap <buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+        \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+        \|  nnoremap <buffer> <Space>rv :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+endfunction
+" }}}
 " open-browser.vim {{{
 " ==============================================================================
 if s:is_installed("open-browser.vim")
@@ -2064,6 +2083,7 @@ if s:is_installed('memolist.vim')
     let g:memolist_unite = 1
 endif
 " }}}
+endif
 " ==== Plugin ==== }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
