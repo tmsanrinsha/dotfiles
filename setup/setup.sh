@@ -13,8 +13,6 @@ function command_exists {
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 home=$git_dir/home
 script_dir=$git_dir/script
-echo $home
-exit 1
 setup_dir=$git_dir/setup
 
 if [[ `uname` = CYGWIN* ]]; then
