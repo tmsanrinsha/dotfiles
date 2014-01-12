@@ -20,31 +20,17 @@ if [[ `uname` = CYGWIN* ]]; then
     # なぜか英語になっちゃう
     cmd /c chcp 65001
 
-    # cygwinのlnをmklinkで実行するスクリプトを実行できるようにPATHを通す
+    # lnコマンドをmklinkに変換するスクリプトを使う
     ln=$home/script/cygwin/ln
 else
     ln=ln
 fi
 
-# リンクの作成
-# if [[ "`hostname`" = *ua.sakura.ne.jp ]]; then
-#     exclude=''
-# else
-#     exclude='.*\.local'
-# fi
-
 # ディレクトリの作成
-for dir in `find $home -type d | sed -e "s|$home/||"`
+for dir in `find $home -mindepth 1 -type d | sed -e "s|$home/||"`
 do
     test -d ~/$dir || mkdir ~/$dir
 done
-
-test -d ~/.zsh/functions || mkdir -p ~/.zsh/functions
-test -d ~/script/common || mkdir -p ~/script/common
-
-if [[ `uname` = CYGWIN* ]]; then
-    test -d ~/script/cygwin || mkdir -p ~/script/cygwin
-fi
 
 # シンボリックリンクを貼る
 for file in `find $home -type f ! -regex '.*swp.*' | sed "s|$home/||"`
@@ -57,10 +43,17 @@ do
     if [ -L ~/$file ]; then
         rm ~/$file
     fi
-    $ln -sv $git_dir/$file ~/$file
+    $ln -sv $home/$file ~/$file
 done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
+
+test -d ~/.zsh/functions || mkdir -p ~/.zsh/functions
+test -d ~/script/common || mkdir -p ~/script/common
+
+if [[ `uname` = CYGWIN* ]]; then
+    test -d ~/script/cygwin || mkdir -p ~/script/cygwin
+fi
 
 # http://beyondgrep.com
 if ! command_exists ack; then
