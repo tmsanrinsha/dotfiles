@@ -14,10 +14,15 @@ pkg_ver=vim-${ver}.${patch}
 
 if which hg &>/dev/null; then
     # hgを使う
-    mkdir ~/hg
-    cd ~/hg
-    hg clone https://vim.googlecode.com/hg/ vim
-    cd vim
+    if [ ! -d ~/hg ]; then
+        mkdir ~/hg
+        cd ~/hg
+        hg clone https://vim.googlecode.com/hg/ vim
+        cd vim
+    else
+        cd ~/hg/vim
+        hg pull && hg update
+    fi
 else
     # patchを使う方法
     tmpdir=`mktemp -d /tmp/XXXXXX`
@@ -69,7 +74,7 @@ fi
 --enable-multibyte \
 --disable-gui \
 --without-x \
-./configure --prefix=$HOME/local/stow/$pkg_ver \
+--prefix=$HOME/local/stow/$pkg_ver \
 $option
 # --with-local-dir=$HOME/local \
 # LDFLAGS="-L$HOME/local/lib" \
