@@ -1,0 +1,113 @@
+#!/url/bin/env bash
+# original: https://github.com/rcmdnk/stow_reset
+#The MIT License (MIT) {{{
+#
+#Copyright (c) 2013 rcmdnk
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy of
+#this software and associated documentation files (the "Software"), to deal in
+#the Software without restriction, including without limitation the rights to
+#use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+#the Software, and to permit persons to whom the Software is furnished to do so,
+#subject to the following conditions:
+#
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+#
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+#FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+#COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+#IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+#CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#}}}
+
+# Variables
+package=""
+stowdir="."
+targetdir=".."
+simulation=0
+curdir=`pwd`
+
+# Help
+HELP="Usage: $0 [-nh] [-d <stow dir>] [-t <target dir>] package
+
+Arguments:
+      -d <stow dir>    Set stow dir to DIR (default is current dir)
+      -t <target dir>  Set target to DIR (default is parent of stow dir)
+      -n               Do not actually make any filesystem changes
+      -h               Print Help (this message) and exit
+"
+# Get Options
+OPTNUM=0
+while getopts d:t:nh OPT;do
+  OPTNUM=`expr $OPTNUM + 1`
+  case $OPT in
+    "d" ) stowdir="$OPTARG" ;;
+    "t" ) targetdir="$OPTARG" ;;
+    "n" ) simulation=1 ;;
+    "h" ) echo "$HELP" >&2 ; exit ;;
+    * ) echo "$HELP" >&2 ; exit ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+# Get package name
+package=${1%/}
+if [ "$package" = "" ];then
+  echo "$HELP" >&2
+  exit
+fi
+flist="${curdir}"/.${package}.list
+echo "########################"
+echo "# Check $package"
+echo "########################"
+echo
+
+# Check first directories
+fdirs=`ls "$stowdir"/"$package"/`
+
+if type tac >/dev/null 2>&1;then
+  revlines="tac"
+elif ! tail --version 2>/dev/null |grep -q GNU;then
+  revlines="tail -r"
+else
+  echo Neither tac nor BSD tail was found.
+  echo You may need to run $0 again to remove directories.
+  revlines="cat"
+fi
+
+# Make file/directory list
+rm -f "$flist"
+cd "$stowdir"/"$package"
+for d in ${fdirs[@]};do
+  find "$d" >> "$flist"
+done
+cd "$curdir"
+
+# Show files/directories
+if [ $simulation -eq 1 ];then
+  echo "############################################"
+  echo "# Following files/directories were found."
+  echo "############################################"
+  echo
+  cat "$flist"
+  rm -f "$flist"
+  exit
+fi
+
+# Remove files/directories
+while read f;do
+  if [ -f "$targetdir"/"$f" ];then
+    echo rm -f "$targetdir"/"$f"
+    rm -f "$targetdir"/"$f"
+  elif [ -d "$f" ];then
+    if [ "$(ls "$targetdir"/"$f")" = "" ];then
+      echo rm -rf "$targetdir"/"$f"
+      rm -rf "$targetdir"/"$f"
+    fi
+  else
+    echo "$targetdir"/"$f" doesn\'t exist
+  fi
+done <"$flist"
+rm -f "$flist"

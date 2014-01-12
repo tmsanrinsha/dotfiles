@@ -57,8 +57,8 @@ fi
 
 # http://beyondgrep.com
 if ! command_exists ack; then
-    curl http://beyondgrep.com/ack-2.10-single-file > $HOME/script/common/ack
-    chmod a+x $HOME/script/common/ack
+    curl http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
+    chmod a+x $HOME/bin/ack
 fi
 
 # [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
