@@ -111,6 +111,7 @@ elif [[ `uname` = Darwin ]]; then
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then
         git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
+        # x11のサポートなしだとbuildできる
         cd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
     fi
 fi

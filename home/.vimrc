@@ -109,6 +109,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \       "insert" : 1,
                 \   }
                 \}
+    NeoBundleLazy 'Shougo/neosnippet-snippets', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
     NeoBundleLazy 'honza/vim-snippets', {
                 \   "autoload" : {
                 \       "insert" : 1,
@@ -377,14 +382,16 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
-    NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
-                \   'autoload' : {
-                \       'commands' : [
-                \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
-                \       ]
-                \   },
-                \   'external_commands' : 'hg'
-                \}
+    if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
+        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
+                    \   'autoload' : {
+                    \       'commands' : [
+                    \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+                    \       ]
+                    \   },
+                    \   'external_commands' : 'hg'
+                    \}
+    endif
 
     NeoBundleLazy 'glidenote/memolist.vim', {
                 \   'autoload' : { 'commands' : [
@@ -898,7 +905,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " }}}
 " カーソル {{{
 " ==============================================================================
-set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
+" set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
 
 "カーソルを表示行で移動する。
 nnoremap j gj
@@ -912,7 +919,8 @@ xnoremap <up> gk
 nnoremap 0 g0
 xnoremap 0 g0
 nnoremap $ g$
-xnoremap $ g$
+" これをやると<C-V>$Aできなくなる
+" xnoremap $ g$
 nnoremap gj j
 xnoremap gj j
 nnoremap gk k
