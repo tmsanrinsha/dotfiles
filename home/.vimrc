@@ -228,7 +228,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'Lokaltog/vim-powerline'
 
     NeoBundle 'LeafCage/foldCC'
-
+    NeoBundleLazy 'sjl/gundo.vim', {
+        \   'autoload' : {
+        \       'commands' : 'GundoToggle'
+        \   }
+        \}
     " syntastic {{{
     " ---------
     " ファイルを保存時にシンタックスのチェック
@@ -653,13 +657,13 @@ endif
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 set backup
-set backupdir=~/.vim/.bak
+set backupdir=$VIMFILES/.bak
 
 augroup backup
     autocmd!
     autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
     function! UpdateBackupFile()
-        let basedir = expand("~/.vim.d/.bak")
+        let basedir = expand("$VIMFILES/.bak")
         let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
         if !isdirectory(dir)
             call mkdir(dir, "p")
@@ -674,14 +678,22 @@ augroup backup
 augroup END
 
 
-"" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
-"if has('persistent_undo')
-"    set undofile
-"    if !isdirectory(expand('~/.vimundo'))
-"        call mkdir(expand('~/.vimundo'))
-"    endif
-"    set undodir=~/.vimundo
-"endif
+" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
+" 開いた時に前回保存時と内容が違う場合はリセットされる
+if has('persistent_undo')
+    set undofile
+    if !isdirectory($VIMFILES.'/.vimundo')
+        call mkdir($VIMFILES.'/.vimundo')
+    endif
+    set undodir=$VIMFILES/.vimundo
+endif
+
+" Always Jump to the Last Known Cursor Position
+autocmd MyVimrc BufReadPost *
+            \ if line("`\"") > 1 && line("`\"") <= line("$") |
+            \   execute "normal! g`\"" |
+            \ endif
+
 "}}}
 " タブ・インデント {{{
 " ==============================================================================
@@ -952,15 +964,6 @@ set backspace=indent,eol,start
 "    let &t_SI .= "\e[?25h\e[5 q"
 "    let &t_EI .= "\e[1 q"
 "endif
-
-" Always Jump to the Last Known Cursor Position
-augroup cursor
-    autocmd!
-    autocmd BufReadPost *
-                \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                \   execute "normal! g`\"" |
-                \ endif
-augroup END
 "}}}
 " カッコ・タグの対応 {{{
 " ==============================================================================
