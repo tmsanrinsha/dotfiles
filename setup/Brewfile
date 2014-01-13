@@ -1,0 +1,32 @@
+# brew bundle
+
+# Make sure using latest Homebrew
+update
+
+# Update already-installed formula (takes too much time, I will do it manually later)
+# upgrade
+
+# Add Repository
+# tap homebrew/versions || true
+# tap homebrew/binary || true
+
+# Packages
+install ant || true
+install node || true
+install python || true
+install reattach-to-user-namespace || true
+install ruby || true
+install tmux || true
+install tree || true
+install zsh || true
+
+# .dmg
+tap phinze/homebrew-cask || true
+install brew-cask
+cask install google-chrome
+cask install firefox
+
+# Remove outdated versions
+cleanup
+
+# vim:ft=conf
