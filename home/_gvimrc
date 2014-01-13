@@ -14,17 +14,20 @@ if has('win32')
     set guifontwide=MS_Gothic
 endif
 
+if has('gui_macvim')
+    let macvim_skip_colorscheme=1
+endif
 if s:has_plugin('molokai')
     "let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-endif
-if s:has_plugin('solarized')
-     set background=dark
-     let g:solarized_degrade = 1
-     let g:solarized_contrast = "high"
-     let g:solarized_visibility = "high"
-"     colorscheme solarized
+" if s:has_plugin('solarized')
+"      " set background=dark
+"      set background=light
+"      " let g:solarized_degrade = 1
+"      " let g:solarized_contrast = "high"
+"      " let g:solarized_visibility = "high"
+"      colorscheme solarized
 else
     colorscheme default
 endif
