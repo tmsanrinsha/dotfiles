@@ -120,7 +120,6 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   }
                 \}
     " }}}
-
     " quickrun {{{
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -228,11 +227,18 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'Lokaltog/vim-powerline'
 
     NeoBundle 'LeafCage/foldCC'
+    " gundo.vim {{{
+    " グラフィカルにundo履歴を見れる
     NeoBundleLazy 'sjl/gundo.vim', {
         \   'autoload' : {
         \       'commands' : 'GundoToggle'
         \   }
         \}
+    " }}}
+    " savevers.vim {{{
+    " バックアップ
+    NeoBundle 'savevers.vim'
+    " }}}
     " syntastic {{{
     " ---------
     " ファイルを保存時にシンタックスのチェック
@@ -643,7 +649,7 @@ cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
 inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
-" swap, backup {{{
+" swap, backup, undo {{{
 " ==============================================================================
 " デフォルトの設定にある~/tmpを入れておくと、swpファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 set directory&
@@ -656,27 +662,29 @@ endif
 " 富豪的バックアップ
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
-set backup
-set backupdir=$VIMFILES/.bak
+" savevers.vimが場合はそちらを使う
+if has_plugin('savevers')
+    set backup
+    set backupdir=$VIMFILES/.bak
 
-augroup backup
-    autocmd!
-    autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
-    function! UpdateBackupFile()
-        let basedir = expand("$VIMFILES/.bak")
-        let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
-        if !isdirectory(dir)
-            call mkdir(dir, "p")
-        endif
+    augroup backup
+        autocmd!
+        autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
+        function! UpdateBackupFile()
+            let basedir = expand("$VIMFILES/.bak")
+            let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
+            if !isdirectory(dir)
+                call mkdir(dir, "p")
+            endif
 
-        let dir = escape(dir, ' ')
-        exe "set backupdir=".dir
-        let time = strftime("%H-%M", localtime())
+            let dir = escape(dir, ' ')
+            exe "set backupdir=".dir
+            let time = strftime("%H-%M", localtime())
 
-        exe "set backupext=.".time
-    endfunction
-augroup END
-
+            exe "set backupext=.".time
+        endfunction
+    augroup END
+endif
 
 " アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
 " 開いた時に前回保存時と内容が違う場合はリセットされる
@@ -1913,8 +1921,8 @@ endif
 if s:is_installed('vim-easymotion')
     let g:EasyMotion_leader_key = '<Leader>/'
     let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_mapping_f = '+'
-    let g:EasyMotion_mapping_F = '-'
+    " let g:EasyMotion_mapping_f = '+'
+    " let g:EasyMotion_mapping_F = '-'
 endif
 "}}}
 " vim-partedit {{{
@@ -1992,6 +2000,25 @@ if neobundle#is_installed('foldCC')
 endif
 " 現在のカーソルの位置以外の折りたたみを閉じる
 nnoremap z- zMzv
+" }}}
+" savevers.vim {{{
+" ---------------
+set backup
+set patchmode=.clean
+
+let g:versdiff_no_resize = 0
+
+autocmd MyVimrc BufEnter * call UpdateSaveversDir()
+function! UpdateSaveversDir()
+    let s:basedir = $VIMFILES . "/.savevers"
+    let s:dir = s:basedir . substitute(expand("%:p:h"), '^C:', '' , '')
+    if !isdirectory(s:dir)
+        call mkdir(s:dir, "p")
+    endif
+
+    let g:savevers_dirs = s:dir
+endfunction
+
 " }}}
 " eclim {{{
 " -----
