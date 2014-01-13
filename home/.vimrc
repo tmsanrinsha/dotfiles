@@ -211,7 +211,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \ }
 
     " ミニバッファにバッファ一覧を表示
-    NeoBundle 'fholgado/minibufexpl.vim'
+    " NeoBundle 'fholgado/minibufexpl.vim'
 
     " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
     NeoBundle 'rgarver/Kwbd.vim'
