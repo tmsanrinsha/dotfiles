@@ -23,11 +23,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     let g:neobundle#install_process_timeout = 2000
 
     " すでにvimが起動しているときは、そちらで開く
-    NeoBundle 'thinca/vim-singleton', {
-        \   'disabled' : !has('clientserver')
-        \}
-    if neobundle#is_sourced('vim-singleton')
-        call singleton#enable()
+    if has('clientserver')
+        NeoBundle 'thinca/vim-singleton'
+        if neobundle#is_installed('vim-singleton')
+            call singleton#enable()
+        endif
     endif
 
     " Let neobundle manage neobundle
@@ -81,20 +81,19 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " 補完 {{{
     " ==========================================================================
     " 補完候補の自動表示
-    NeoBundleLazy "Shougo/neocomplete", {
-        \   'depends' : 'Shougo/context_filetype.vim',
-        \   'disabled' : !has('lua'),
-        \   'vim_version' : '7.3.885',
-        \   "autoload": {
-        \       "insert": 1,
-        \   }
-        \}
-    NeoBundleLazy "Shougo/neocomplcache", {
-        \   "autoload": {
-        \        "insert": 1,
-        \   },
-        \   'disabled' : has('lua')
-        \}
+    if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
+        NeoBundleLazy "Shougo/neocomplete", {
+            \   "autoload": {
+            \       "insert": 1,
+            \   }
+            \}
+    else
+        NeoBundleLazy "Shougo/neocomplcache", {
+            \   "autoload": {
+            \        "insert": 1,
+            \   }
+            \}
+    endif
 
     " Valloric/Youcompleteme {{{
     " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
@@ -157,11 +156,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'kana/vim-textobj-function'
     NeoBundle 'kana/vim-textobj-indent'
     NeoBundle 'thinca/vim-textobj-comment'
-    NeoBundleLazy 'kana/vim-textobj-lastpat', {
-        \   'depends' : 'kana/vim-textobj-user',
-        \   'disabled' : v:version == 704 || v:version == 703 && has('patch610'),
-        \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
-        \}
+    if (v:version == 703 && !has('patch610')) || v:version == 702
+        NeoBundleLazy 'kana/vim-textobj-lastpat', {
+            \   'depends': 'kana/vim-textobj-user',
+            \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
+            \}
+    endif
     " }}}
     " dでキー待ちが発生してしまう
     " NeoBundle 'tpope/vim-surround'
@@ -217,10 +217,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'rgarver/Kwbd.vim'
 
     " 一時バッファの制御
-    NeoBundle 'osyo-manga/vim-automatic', {
-                \   'depends': 'osyo-manga/vim-gift',
-                \   'vim_version' : '7.3.462'
-                \}
+    if v:version >= 704 || (v:version == 703 && has('patch462'))
+        NeoBundle 'osyo-manga/vim-automatic', {
+                    \   'depends': 'osyo-manga/vim-gift',
+                    \}
+    endif
 
     " ステータスラインをカスタマイズ
     " https://github.com/Lokaltog/vim-powerline
@@ -261,16 +262,17 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
 
     " eclipseと連携
-    NeoBundle 'ervandew/eclim', {
-                \   'build' : {
-                \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
-                \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
-                \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                \   },
-                \   'external_commands' : 'ant',
-                \   'autoload': {'filetypes': ['java', 'xml']}
-                \}
+    if executable('ant')
+        NeoBundle 'ervandew/eclim', {
+                    \   'build' : {
+                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \   },
+                    \   'autoload': {'filetypes': ['java', 'xml']}
+                    \}
+    endif
 
     NeoBundle 'mattn/emmet-vim'
 
@@ -298,9 +300,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   'autoload' : { 'filetypes' : 'markdown' }
                 \}
     " NeoBundleLazy 'teramako/instant-markdown-vim'
-    NeoBundle 'suan/vim-instant-markdown', {
-        \   'external_commands': ['node', 'ruby']
-        \}
+    if executable('node') && executable('ruby')
+        NeoBundle 'suan/vim-instant-markdown'
+    endif
     " }}}
     " yaml {{{
     " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
