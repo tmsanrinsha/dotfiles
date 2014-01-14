@@ -79,8 +79,8 @@ function tm {
         if type tmuxx >/dev/null 2>&1; then
             tmuxx
         elif type tmux >/dev/null 2>&1; then
-            if tmux -2 has-session && tmux list-sessions | grep -qE '.*]$'; then
-                tmux attach && echo "tmux attached session "
+            if tmux has-session && tmux list-sessions | grep -qE '.*]$'; then
+                tmux -2 attach && echo "tmux attached session "
             else
                 tmux -2 new-session && echo "tmux created new session"
             fi
