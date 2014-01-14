@@ -1,3 +1,5 @@
+# http://d.hatena.ne.jp/akuwano/20120503/1335994486 \n
+# usage: curl -o /dev/null -w @curl_write_out_format \n
 url_effective\t\t\t: %{url_effective}\n
 http_code\t\t\t: %{http_code}\n
 http_connect\t\t\t: %{http_connect}\n
