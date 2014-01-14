@@ -474,7 +474,7 @@ endif
 " Pluginの有無をチェック {{{
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! s:has_plugin(plugin)
+function! g:has_plugin(plugin)
   return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
   \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
   \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
@@ -483,7 +483,7 @@ endfunction
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
-    if s:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
+    if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
         return neobundle#is_installed(a:plugin)
     else
         return 0
@@ -665,7 +665,7 @@ endif
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
-if has_plugin('savevers')
+if g:has_plugin('savevers')
     set backup
     set backupdir=$VIMFILES/.bak
 
@@ -1274,8 +1274,8 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-if s:has_plugin('sudo')
-    if s:has_plugin('bclose')
+if g:has_plugin('sudo')
+    if g:has_plugin('bclose')
         nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
     else
         nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
@@ -1285,7 +1285,7 @@ endif
 "}}}
 " LeafCage/yankround.vim {{{
 " ==============================================================================
-if s:has_plugin('yankround')
+if g:has_plugin('yankround')
     let g:yankround_dir = $VIMFILES.'/.yankround'
 
     nmap p <Plug>(yankround-p)
@@ -1302,7 +1302,7 @@ endif
 "}}}
 " minibufexpl.vim {{{
 " ==============================================================================
-if s:has_plugin('minibufexpl')
+if g:has_plugin('minibufexpl')
     " Put new window below current or on the right for vertical split
     let g:miniBufExplSplitBelow=0
     "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
@@ -1329,12 +1329,12 @@ endif
 " ==============================================================================
 " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
 " https://github.com/rgarver/Kwbd.vim
-if s:has_plugin('bclose')
+if g:has_plugin('bclose')
     nmap <Leader>bd <Plug>Kwbd
 endif
 " }}}
 " vim-powerline{{{
-if s:has_plugin('Powerline')
+if g:has_plugin('Powerline')
     let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
     "let g:Powerline_theme = 'skwp'
     "let g:Powerline_colorscheme = 'skwp'
@@ -1356,7 +1356,7 @@ if s:is_installed('molokai')
     "let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-" if s:has_plugin('solarized')
+" if g:has_plugin('solarized')
 "     set background=dark
 "     colorscheme solarized
 "     let g:solarized_termcolors=256
@@ -1379,7 +1379,7 @@ if s:is_installed("vim-smartword")
     map ge <Plug>(smartword-ge)
 endif
 "}}}
-if s:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
+if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
 " Shougo/unite.vim {{{
 " ==========================================================================
 if s:is_installed('unite.vim')

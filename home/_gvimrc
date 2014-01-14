@@ -1,14 +1,3 @@
-scriptencoding utf-8
-
-" Pluginの有無をチェックする関数 {{{
-" http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! s:has_plugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-endfunction
-" }}}
-
 if has('win32')
     set guifont=Consolas:h10
     set guifontwide=MS_Gothic
@@ -17,11 +6,11 @@ endif
 if has('gui_macvim')
     let macvim_skip_colorscheme=1
 endif
-if s:has_plugin('molokai')
+if g:has_plugin('molokai')
     "let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-" if s:has_plugin('solarized')
+" if g:has_plugin('solarized')
 "      " set background=dark
 "      set background=light
 "      " let g:solarized_degrade = 1
