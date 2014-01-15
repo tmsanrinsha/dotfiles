@@ -2011,15 +2011,16 @@ let g:versdiff_no_resize = 0
 
 autocmd MyVimrc BufEnter * call UpdateSaveversDir()
 function! UpdateSaveversDir()
-    let s:basedir = $VIMFILES . "/.savevers"
-    let s:dir = s:basedir . substitute(expand("%:p:h"), '^C:', '' , '')
-    if !isdirectory(s:dir)
-        call mkdir(s:dir, "p")
+    if filereadable(expand('%'))
+        let s:basedir = $VIMFILES . "/.savevers"
+        let s:dir = s:basedir . substitute(expand("%:p:h"), '^C:', '/c/' , '')
+        if !isdirectory(s:dir)
+            call mkdir(s:dir, "p")
+        endif
+
+        let g:savevers_dirs = s:dir
     endif
-
-    let g:savevers_dirs = s:dir
 endfunction
-
 " }}}
 " eclim {{{
 " -----
