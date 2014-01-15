@@ -673,7 +673,7 @@ if g:has_plugin('savevers')
         autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
         function! UpdateBackupFile()
             let basedir = expand("$VIMFILES/.bak")
-            let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '^C:', '' , '')
+            let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
             if !isdirectory(dir)
                 call mkdir(dir, "p")
             endif
@@ -2013,7 +2013,8 @@ autocmd MyVimrc BufEnter * call UpdateSaveversDir()
 function! UpdateSaveversDir()
     if filereadable(expand('%'))
         let s:basedir = $VIMFILES . "/.savevers"
-        let s:dir = s:basedir . substitute(expand("%:p:h"), '^C:', '/c/' , '')
+        " ドライブ名を変更して、連結する (e.g. C: -> /C/)
+        let s:dir = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
         if !isdirectory(s:dir)
             call mkdir(s:dir, "p")
         endif
