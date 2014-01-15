@@ -1,5 +1,4 @@
 " {{{
-set nocompatible "vi互換にしない
 scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
 set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 let $VIMFILES = expand('~/.vim')
