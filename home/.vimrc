@@ -295,9 +295,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
     " Markdown {{{
     " ------------
-    NeoBundleLazy 'tpope/vim-markdown', {
-                \   'autoload' : { 'filetypes' : 'markdown' }
-                \}
+    " NeoBundleLazy 'tpope/vim-markdown', {
+    "             \   'autoload' : { 'filetypes' : 'markdown' }
+    "             \}
+    " NeoBundle 'tpope/vim-markdown'
+    NeoBundle 'plasticboy/vim-markdown'
+    " NeoBundle 'nelstrom/vim-markdown-folding'
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
         NeoBundle 'suan/vim-instant-markdown'
@@ -1107,7 +1110,7 @@ command! SyntaxInfo call s:get_syn_info()
 autocmd MyVimrc BufRead sanrinsha*
             \   setlocal filetype=markdown
             \|  setlocal textwidth=0
-autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
+" autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
