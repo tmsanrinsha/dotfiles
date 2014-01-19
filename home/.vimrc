@@ -153,6 +153,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-entire'
     NeoBundle 'kana/vim-textobj-function'
+    NeoBundle 'kentaro/vim-textobj-function-php'
     NeoBundle 'kana/vim-textobj-indent'
     NeoBundle 'thinca/vim-textobj-comment'
     if (v:version == 703 && !has('patch610')) || v:version == 702
