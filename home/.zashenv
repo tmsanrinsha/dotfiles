@@ -1,4 +1,7 @@
 # vim:filetype=sh
+function command_exists {
+  hash "$1" 2>/dev/null;
+}
 # PATHの設定 {{{
 # ------------------------------------------------------------------------------
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数
@@ -76,6 +79,10 @@ alias lla='ls -la'
 alias cp='cp -ip'
 alias mv='mv -i'
 
+if command_exists rmtrash; then
+    alias rm=rmtrash
+fi
+
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
@@ -104,8 +111,6 @@ alias pk='pkill -f'
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
 # }}}
-
-alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 
 # vim {{{
 # ------------------------------------------------------------------------------
@@ -152,6 +157,8 @@ alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
 
 alias sr="exec $SHELL -l"
 
+# カレントディレクトリ以下のファイルに書き込み権限を与える
+alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
 # カレントディレクトリのファイル名をFull Pathで表示
 alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 # ファイルを解凍するシェルスクリプト
