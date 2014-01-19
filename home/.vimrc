@@ -407,17 +407,20 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                     \}
     endif
 
+    " glidenote/memolist.vim {{{
     NeoBundleLazy 'glidenote/memolist.vim', {
                 \   'autoload' : { 'commands' : [
                 \       'MemoNew', 'MemoList', 'MemoGrep'
                 \   ]}
                 \}
-    " NeoBundle 'fuenor/qfixhowm'
-    NeoBundle 'jceb/vim-orgmode'
-    " QFixHowm互換を切る
-    let QFixHowm_Convert = 0
-    " デフォルトの保存先
-    let qfixmemo_dir = $HOME . '/Dropbox/qfixmemo'
+    " }}}
+    " fuenor/qfixhowm {{{
+    NeoBundle 'fuenor/qfixhowm'
+    " }}}
+    " osyo-manga/unite-qfixhowm {{{
+    NeoBundle "osyo-manga/unite-qfixhowm"
+    " }}}
+    " NeoBundle 'jceb/vim-orgmode'
 
     " http://d.hatena.ne.jp/itchyny/20140108/1389164688
     NeoBundleLazy 'itchyny/calendar.vim', {
@@ -2113,7 +2116,7 @@ if s:is_installed("open-browser.vim")
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 " }}}
-" memoliset {{{
+" glidenote/memoliset.vim {{{
 " ==============================================================================
 if s:is_installed('memolist.vim')
     nnoremap <Leader>mn  :MemoNew<CR>
@@ -2124,6 +2127,17 @@ if s:is_installed('memolist.vim')
     let g:memolist_memo_suffix = "md"
     let g:memolist_unite = 1
 endif
+" }}}
+" fuenor/qfixhowm {{{
+" ==============================================================================
+" QFixHowm互換を切る
+let QFixHowm_Convert = 0
+" デフォルトの保存先
+let qfixmemo_dir = $HOME . '/Dropbox/qfixmemo'
+" ファイルタイプをmarkdownにする
+let QFixHowm_FileType = 'markdown'
+" タイトル記号を # に変更する
+let QFixHowm_Title = '#'
 " }}}
 endif
 " ==== Plugin ==== }}}
