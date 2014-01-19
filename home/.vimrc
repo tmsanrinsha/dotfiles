@@ -1540,16 +1540,16 @@ if s:is_installed('vimshell')
 
 
         autocmd MyVimrc FileType vimshell
-                    \   setlocal nonumber
-                    \|  setlocal nocursorline
-                    \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
-                    \|  imap <buffer><C-k> <Plug>(vimshell_history_neocomplete)
-                    \|  imap <buffer><C-g> <Plug>(vimshell_zsh_complete)
-                    \|  call vimshell#altercmd#define('g', 'git')
-                    \|  call vimshell#altercmd#define('l', 'll')
-                    \|  call vimshell#altercmd#define('ll', 'ls -l')
-                    \|  call vimshell#altercmd#define('la', 'ls -a')
-                    \|  call vimshell#altercmd#define('lla', 'ls -la')
+            \   setlocal nonumber
+            \|  setlocal nocursorline
+            \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
+            \|  imap <expr> <buffer> <C-n> pumvisible() ? "\<C-n>" : "\<Plug>(vimshell_history_neocomplete)"
+            \|  imap <buffer><C-k> <Plug>(vimshell_zsh_complete)
+            \|  call vimshell#altercmd#define('g', 'git')
+            \|  call vimshell#altercmd#define('l', 'll')
+            \|  call vimshell#altercmd#define('ll', 'ls -l')
+            \|  call vimshell#altercmd#define('la', 'ls -a')
+            \|  call vimshell#altercmd#define('lla', 'ls -la')
         "\|  call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
         "function! g:my_chpwd(args, context)
         "    call vimshell#execute('ls')
