@@ -301,7 +301,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "             \   'autoload' : { 'filetypes' : 'markdown' }
     "             \}
     " NeoBundle 'tpope/vim-markdown'
-    NeoBundle 'plasticboy/vim-markdown'
+    " NeoBundle 'plasticboy/vim-markdown'
+    NeoBundle 'tmsanrinsha/vim-markdown'
     " NeoBundle 'nelstrom/vim-markdown-folding'
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
