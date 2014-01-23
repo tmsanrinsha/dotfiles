@@ -599,7 +599,7 @@ set fileencoding=utf-8
 " エンコーディングを指定して開き直す
 command! EncCp932     edit ++enc=cp932
 command! EncEucjp     edit ++enc=euc-jp
-command! EncIso2022jp edit ++enc=iso-20220-jp
+command! EncIso2022jp edit ++enc=iso-2022-jp
 command! EncUtf8      edit ++enc=uff-8
 " alias
 command! EncJis  EncIso2022jp
