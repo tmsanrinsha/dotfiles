@@ -632,8 +632,8 @@ endif
 noremap [Space]   <Nop>
 map <Space> [Space]
 
-" noremap ; :
-" noremap : ;
+noremap ; :
+noremap : ;
 
 inoremap jj <ESC>
 "cnoremap jj <ESC>

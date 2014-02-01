@@ -15,7 +15,7 @@
     pager =
     editor = vim
 [diff]
-    external = git_diff_vim
+    # external = git_diff_vim
     # 賢いdiff algorithm
     # http://www.justinleegrant.com/?p=339
     algorithm = patience

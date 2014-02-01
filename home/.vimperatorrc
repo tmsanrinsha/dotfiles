@@ -43,8 +43,8 @@ inoremap <A-d> <C-Del>
 inoremap <C-u> <S-Home><BS>
 
 nnoremap <Esc><Esc> :set hlsearch<CR>
-" inoremap <C-p> <Esc><C-p>
-" inoremap <C-n> <Esc><C-n>
+inoremap <C-p> <Up>
+inoremap <C-n> <down>
 
 noremap <A-p> :tabmove -1<CR>
 noremap <A-n> :tabmove +1<CR>
