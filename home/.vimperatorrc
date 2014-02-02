@@ -34,6 +34,7 @@ cnoremap <C-b> <Left>
 cnoremap <A-f> <C-Right>
 cnoremap <A-b> <C-Left>
 cnoremap <A-d> <C-Del>
+cnoremap <C-i> <Tab>
 
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
@@ -42,16 +43,24 @@ inoremap <A-b> <C-Left>
 inoremap <A-d> <C-Del>
 inoremap <C-u> <S-Home><BS>
 
-nnoremap <Esc><Esc> :set hlsearch<CR>
 inoremap <C-p> <Up>
 inoremap <C-n> <down>
 
+noremap ; :
+noremap : ;
+nnoremap <Esc><Esc> :set hlsearch<CR>
 noremap <A-p> :tabmove -1<CR>
 noremap <A-n> :tabmove +1<CR>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
 
-"source! "C:\\Users\\tmiwa\\.vimperatorrc.local"
+" qmark
+qmark g https://mail.google.com/
+qmark c https://www.google.com/calendar/
+qmark l http://reader.livedoor.com/reader/
+qmark b hatenabookmark
+
+source! "~/.vimperatorrc.local"
 
 
 
