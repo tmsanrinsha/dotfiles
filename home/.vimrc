@@ -606,6 +606,7 @@ command! EncJis  EncIso2022jp
 command! EncSjis EncCp932
 
 " 改行
+set fileformat=unix
 set fileformats=unix,dos,mac
 " 改行コードを指定して開き直すには
 "  :e ++ff=dos
@@ -2136,9 +2137,14 @@ endif
 " QFixHowm互換を切る
 let QFixHowm_Convert = 0
 " デフォルトの保存先
-let qfixmemo_dir = $HOME . '/Dropbox/qfixmemo'
+let qfixmemo_dir = $HOME . '/Dropbox/memo'
+let qfixmemo_mapleader = '\M'
+" 外部grep使用
+let mygrepprg='grep'
+" メモファイルの拡張子
+let qfixmemo_ext = 'txt'
 " ファイルタイプをmarkdownにする
-let QFixHowm_FileType = 'markdown'
+let qfixmemo_filetype = 'mkd'
 " タイトル記号を # に変更する
 let QFixHowm_Title = '#'
 " }}}
