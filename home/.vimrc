@@ -2020,7 +2020,7 @@ set patchmode=.clean
 let g:versdiff_no_resize = 0
 
 autocmd MyVimrc BufEnter * call UpdateSaveversDirs()
-function! UpdateSaveversDir()
+function! UpdateSaveversDirs()
     let s:basedir = $VIMFILES . "/.savevers"
     " ドライブ名を変更して、連結する (e.g. C: -> /C/)
     let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
