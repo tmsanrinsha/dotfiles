@@ -674,7 +674,7 @@ endif
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
-if g:has_plugin('savevers')
+if ! g:has_plugin('savevers')
     set backup
     set backupdir=$VIMFILES/.bak
 
@@ -2019,17 +2019,17 @@ set patchmode=.clean
 
 let g:versdiff_no_resize = 0
 
-autocmd MyVimrc BufEnter * call UpdateSaveversDir()
+autocmd MyVimrc BufEnter * call UpdateSaveversDirs()
 function! UpdateSaveversDir()
-    if filereadable(expand('%'))
-        let s:basedir = $VIMFILES . "/.savevers"
-        " ドライブ名を変更して、連結する (e.g. C: -> /C/)
-        let s:dir = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
-        if !isdirectory(s:dir)
-            call mkdir(s:dir, "p")
-        endif
+    let s:basedir = $VIMFILES . "/.savevers"
+    " ドライブ名を変更して、連結する (e.g. C: -> /C/)
+    let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
+endfunction
 
-        let g:savevers_dirs = s:dir
+autocmd MyVimrc BufWrite * call ExistOrMakeSaveversDirs()
+function! ExistOrMakeSaveversDirs()
+    if !isdirectory(g:savevers_dirs)
+        call mkdir(s:dir, "p")
     endif
 endfunction
 " }}}
