@@ -2029,7 +2029,7 @@ endfunction
 autocmd MyVimrc BufWrite * call ExistOrMakeSaveversDirs()
 function! ExistOrMakeSaveversDirs()
     if !isdirectory(g:savevers_dirs)
-        call mkdir(s:dir, "p")
+        call mkdir(g:savevers_dirs, "p")
     endif
 endfunction
 " }}}
