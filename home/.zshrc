@@ -223,8 +223,11 @@ function share_dirs_precmd {
     dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} >! ~/.dirs
 }
 # autoload -Uz add-zsh-hookが必要
-add-zsh-hook preexec share_dirs_preexec
-add-zsh-hook precmd  share_dirs_precmd
+# ファイルサーバーに接続している環境だと遅くなるので設定しない
+if [[`uname` != Darwin ]]; then
+    add-zsh-hook preexec share_dirs_preexec
+    add-zsh-hook precmd  share_dirs_precmd
+fi
 # }}}
 # }}}
 
