@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -eux
 
 # コマンドの存在チェック
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
@@ -70,53 +70,6 @@ fi
 #     chmod a+x $HOME/script/pseudo/git
 # fi
 
-if [[ `uname` = CYGWIN* ]]; then
-    if [ ! -x ~/script/cygwin/apt-cyg ]; then
-        curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
-        chmod a+x ~/script/cygwin/apt-cyg
-    fi
-
-    apt_cyg="$HOME/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package"
-
-    command_exists ssh || $apt_cyg install openssh
-    command_exists mercurial || $apt_cyg install mercurial
-
-    # cygwinでpageantを使う
-    # http://sanrinsha.lolipop.jp/blog/2012/08/cygwin%E3%81%A7pageant%E3%82%92%E4%BD%BF%E3%81%86.html
-    if [ ! -x /usr/bin/ssh-pageant ]; then
-        pushd .
-        cd /usr/src
-        curl -L https://github.com/downloads/cuviper/ssh-pageant/ssh-pageant-1.1-release.tar.gz | tar  zxvf -
-        cd ssh-pageant-1.1
-        cp ssh-pageant.exe /usr/bin/
-        cp ssh-pageant.1 /usr/share/man/man1/
-        popd
-    fi
-elif [[ `uname` = Darwin ]]; then
-    ln -fs ~/_gvimrc ~/.gvimrc
-    mkdir -p ~/setting
-    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
-    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
-    if command_exists brew; then
-        command_exists ant     || brew install ant
-        command_exists hg      || brew install mercurial
-        command_exists node    || brew install node
-        command_exists python  || brew install python
-        command_exists rmtrash || brew install rmtrash
-        command_exists ruby    || brew install ruby
-        command_exists tmux    || brew install tmux
-        command_exists tree    || brew install tree
-        command_exists zsh     || brew install zsh
-        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
-    fi
-    # ウィンドウの整列
-    if [ ! -d ~/git/ShiftIt ];then
-        git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
-        # x11のサポートなしだとbuildできる
-        cd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
-    fi
-fi
-
 # zsh
 # if [ ! -d ~/git/z ]; then
 #     test -d ~/git || mkdir ~/git
@@ -138,6 +91,87 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
 fi
 
 # cpanm
-command_exists cpanm || source $setup_dir/cpanm.sh
-cpanm --skip-installed MIME::Base64
+# command_exists cpanm || source $setup_dir/cpanm.sh
+# cpanm --skip-installed MIME::Base64
 # cpanm --skip-installed App::Ack
+
+uname=`uname`
+if [[ "$uname" = CYGWIN* ]]; then
+    if [ ! -x ~/script/cygwin/apt-cyg ]; then
+        curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
+        chmod a+x ~/script/cygwin/apt-cyg
+    fi
+
+    apt_cyg="$HOME/script/cygwin/apt-cyg -m ftp://ftp.jaist.ac.jp/pub/cygwin/x86_64 -c /package"
+
+    command_exists ssh || $apt_cyg install openssh
+    command_exists mercurial || $apt_cyg install mercurial
+
+    # cygwinでpageantを使う
+    # http://sanrinsha.lolipop.jp/blog/2012/08/cygwin%E3%81%A7pageant%E3%82%92%E4%BD%BF%E3%81%86.html
+    if [ ! -x /usr/bin/ssh-pageant ]; then
+        pushd .
+        cd /usr/src
+        curl -L https://github.com/downloads/cuviper/ssh-pageant/ssh-pageant-1.1-release.tar.gz | tar  zxvf -
+        cd ssh-pageant-1.1
+        cp ssh-pageant.exe /usr/bin/
+        cp ssh-pageant.1 /usr/share/man/man1/
+        popd
+    fi
+elif [[ "$uname" = Darwin ]]; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+    mkdir -p ~/setting
+    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
+    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
+    if command_exists brew; then
+        command_exists ant     || brew install ant
+        command_exists hg      || brew install mercurial
+        command_exists node    || brew install node
+        command_exists python  || brew install python
+        command_exists rmtrash || brew install rmtrash
+        command_exists ruby    || brew install ruby
+        command_exists tmux    || brew install tmux
+        command_exists tree    || brew install tree
+        command_exists zsh     || brew install zsh
+        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
+    fi
+    # ウィンドウの整列
+    if [ ! -d ~/git/ShiftIt ];then
+        git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
+        # x11のサポートなしだとbuildできる
+        pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
+        popd
+    fi
+fi
+
+# vimperator
+if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
+    if [[ "$uname" = CYGWIN* ]]; then
+        vimperatordir="$HOME/vimperator"
+    else
+        vimperatordir="$HOME/.vimperator"
+    fi
+
+    # if [ ! -d "$vimperatordir/vimppm/vimppm" ]; then
+    #     mkdir -p "$vimperatordir/vimppm"
+    #     pushd "$vimperatordir/vimppm"
+    #     git clone git://github.com/cd01/vimppm
+    # else
+    #     pushd "$vimperatordir/vimppm/vimppm"
+    #     git pull
+    # fi
+    # popd
+
+    if [ ! -d ~/git/vimperator-plugins ]; then
+        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
+        if [ ! -d "$vimperatordir/plugin" ]; then
+            mkdir -p "$vimperatordir/plugin"
+            $ln ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
+            $ln ~/git/vimperator-plugins/_libly.js $vimperatordir/plugin
+        fi
+    else
+        pushd ~/git/vimperator-plugins
+        git pull
+        popd
+    fi
+fi
