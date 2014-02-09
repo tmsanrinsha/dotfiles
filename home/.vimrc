@@ -165,7 +165,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
     " }}}
     " dでキー待ちが発生してしまう
-    " NeoBundle 'tpope/vim-surround'
+    NeoBundle 'tpope/vim-surround'
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
                 \}
