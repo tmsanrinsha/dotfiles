@@ -77,7 +77,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   'depends' : 'Shougo/vim-vcs'
                 \}
 
-    " 補完 {{{
+    " 補完・入力補助 {{{
     " ==========================================================================
     " 補完候補の自動表示
     if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
@@ -93,12 +93,15 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
             \   }
             \}
     endif
-
     " Valloric/Youcompleteme {{{
     " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     "     NeoBundle "Valloric/YouCompleteMe"
     " endif
+    NeoBundleLazy "kana/vim-smartinput", { \   "autoload": {
+        \       "insert": 1,
+        \   }
+        \}
     " }}}
 
     " スニペット補完
