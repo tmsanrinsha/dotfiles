@@ -165,7 +165,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
     " }}}
     " dでキー待ちが発生してしまう
-    NeoBundle 'tpope/vim-surround'
+    " NeoBundle 'tpope/vim-surround'
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
                 \}
@@ -1564,8 +1564,8 @@ endif
 " }}}
 " neocomplcache & neocomplete {{{
 " ==============================================================================
-if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
-    if s:is_installed("neocomplete")
+if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
+    if neobundle#is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
@@ -1580,6 +1580,7 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         let g:acp_enableAtStartup = 0
         " Use neocomplcache.
         execute 'let g:'.s:neocom_.'enable_at_startup = 1'
+        execute 'let g:'.s:neocom_.'enable_auto_select = 0'
         " Use smartcase.
         execute 'let g:'.s:neocom_.'enable_smart_case = 1'
         execute 'let g:'.s:neocom_.'enable_ignore_case = 1'
@@ -1701,15 +1702,15 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         " Recommended key-mappings.
         " <CR>: close popup and save indent.
-        execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
+        " execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
+        " 補完候補が表示されている場合は確定。そうでない場合は改行
+        " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom.'#close_popup() : "<CR>"'
         " <TAB>: completion.
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
         " <C-h>, <BS>: close popup and delete backword char.
         execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
         execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
         " execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
-        " 補完候補が表示されている場合は確定。そうでない場合は改行
-        " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom.'#close_popup() : "<CR>"'
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
         " http://vim-users.jp/2009/10/hack81/
