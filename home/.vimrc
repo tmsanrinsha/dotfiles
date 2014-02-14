@@ -98,7 +98,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     "     NeoBundle "Valloric/YouCompleteMe"
     " endif
-    NeoBundleLazy "kana/vim-smartinput", { \   "autoload": {
+    NeoBundleLazy "kana/vim-smartinput", {
+        \   "autoload": {
         \       "insert": 1,
         \   }
         \}
