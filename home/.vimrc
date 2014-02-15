@@ -534,20 +534,23 @@ augroup colerscheme
 augroup END
 " }}}
 
-" set textwidth=0
+set textwidth=0
 
 set formatoptions&
 " r : Insert modeで<Enter>を押したら、comment leaderを挿入する
+set formatoptions+=r
 " M : マルチバイト文字の連結(J)でスペースを挿入しない
-set formatoptions+=rM
+set formatoptions+=M
 if v:version >= 704 || v:version == 703 && has('patch541') && has('patch550')
     " j : コメント行の連結でcomment leaderを取り除く
     set formatoptions+=j
 endif
 " t : textwidthを使って自動的に折り返す
+set formatoptions-=t
 " c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
+set formatoptions-=c
 " o : Normal modeでoまたOを押したら、comment leaderを挿入する
-set formatoptions-=tco
+set formatoptions-=o
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進法と16進数を増減させる。
@@ -1119,8 +1122,7 @@ command! SyntaxInfo call s:get_syn_info()
 " ftdetect {{{
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha*
-            \   setlocal filetype=markdown
-            \|  setlocal textwidth=0
+            \   setlocal filetype=mkd
 " autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
@@ -1135,6 +1137,14 @@ nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
 nnoremap <Leader>fs :<C-u>setlocal filetype=sql<CR>
 nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
 nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
+
+" ftpluginで変更された設定をグローバルな値に戻す
+autocmd MyVimrc FileType vim,text,mkd call s:override_ftplugin_setting()
+
+function! s:override_ftplugin_setting()
+    setlocal textwidth<
+    setlocal formatoptions<
+endfunction
 
 " shell {{{
 " ==============================================================================
