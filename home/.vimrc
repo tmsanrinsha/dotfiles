@@ -1142,10 +1142,12 @@ nnoremap <Leader>fs :<C-u>setlocal filetype=sql<CR>
 nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
 nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
 
-" ftpluginで変更された設定をグローバルな値に戻す
-autocmd MyVimrc FileType vim,text,mkd call s:override_ftplugin_setting()
+" プラグインなどで変更された設定をグローバルな値に戻す
+" *.txtでtextwidth=78されちゃう
+" [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
+autocmd MyVimrc FileType vim,text,mkd call s:override_plugin_setting()
 
-function! s:override_ftplugin_setting()
+function! s:override_plugin_setting()
     setlocal textwidth<
     setlocal formatoptions<
 endfunction
