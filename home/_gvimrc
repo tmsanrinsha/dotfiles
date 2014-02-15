@@ -114,3 +114,9 @@ autocmd MyVimrc VimEnter *
     \|      execute 'source' g:save_window_file
     \|  endif
 " }}}
+
+" GUIのMacVimで起動時のエラーメッセージがでないため、autocmdで出す
+" ※ mvimを使ってコンソール上から起動した時は、コンソール上にエラーメッセージがでる
+if has('gui_macvim')
+    autocmd MyVimrc VimEnter * messages
+endif
