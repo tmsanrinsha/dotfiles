@@ -4,13 +4,6 @@
 --langmap=PHP:+.inc.tpl
 --php-kinds=cidfvj
 --regex-php=/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i
---regex-php='/abstract class ([^ ]*)/\1/c/' \
---regex-php='/interface ([^ ]*)/\1/c/' \
---regex-php='/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/'
---langmap=js:.js
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
---regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
---regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*([^)])/\1/,function/
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
---regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
---regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
+--regex-php=/abstract class ([^ ]*)/\1/c/
+--regex-php=/interface ([^ ]*)/\1/c/
+--regex-php=/(public |static |ract |protected |private )+function ([^ (]*)/\2/f/
