@@ -600,8 +600,12 @@ set fileencoding=utf-8
     " set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
 " else
     " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
-    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+    " set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 " endif
+
+if ! has('guess_encode')
+    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+endif
 
 " エンコーディングを指定して開き直す
 command! EncCp932     edit ++enc=cp932
