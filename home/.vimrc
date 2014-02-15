@@ -144,7 +144,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         \   'depends': 'kana/vim-operator-user',
         \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
         \}
-    NeoBundleLazy "rhysd/vim-operator-surround", {
+    NeoBundle "rhysd/vim-operator-surround"
+    " NeoBundleLazy "rhysd/vim-operator-surround", {
+    "     \   'depends': 'kana/vim-operator-user',
+    "     \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+    "     \}
+    NeoBundleLazy "tyru/operator-camelize.vim", {
         \   'depends': 'kana/vim-operator-user',
         \   'autoload' : { 'mappings' : '<Plug>(operator-surround-' }
         \}
@@ -167,9 +172,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
             \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
             \}
     endif
+    NeoBundle 'osyo-manga/vim-textobj-multiblock'
     " }}}
     " dでキー待ちが発生してしまう
     " NeoBundle 'tpope/vim-surround'
+    NeoBundle 'tpope/vim-repeat'
     NeoBundleLazy 'kana/vim-smartword', {
                 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
                 \}
@@ -1925,21 +1932,15 @@ if s:is_installed("vim-operator-user")
     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
     map [Space]y <Plug>(operator-yank-clipboard)
 
-    if neobundle#is_installed("operator-camelize.vim")
-        map [Space]c <Plug>(operator-camelize-toggle)
-    endif
-    if neobundle#is_installed("vim-operator-replace")
-        map [Space]p <Plug>(operator-replace)
-        map [Space]P "+<Plug>(operator-replace)
-    endif
-    if neobundle#is_installed("vim-operator-search")
-        map [Space]/ <Plug>(operator-search)
-    endif
-    if neobundle#is_installed("vim-operator-surround")
-        map sa <Plug>(operator-surround-append)
-        map sd <Plug>(operator-surround-delete)
-        map sr <Plug>(operator-surround-replace)
-    endif
+    map [Space]c <Plug>(operator-camelize-toggle)
+    map [Space]p <Plug>(operator-replace)
+    map [Space]p "+<Plug>(operator-replace)
+    map [Space]/ <Plug>(operator-search)
+    map sa <Plug>(operator-surround-append)
+    map sd <Plug>(operator-surround-delete)
+    map sr <Plug>(operator-surround-replace)
+    nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 endif
 " }}}
 " textobj {{{
@@ -1947,6 +1948,8 @@ if neobundle#is_installed("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
 endif
+map ab <Plug>(textobj-multiblock-a)
+map ib <Plug>(textobj-multiblock-i)
 " }}}
 " vim-easymotion {{{
 " ==============================================================================
