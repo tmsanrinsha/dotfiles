@@ -664,8 +664,8 @@ inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 "inoremap <C-h> <BS>
 inoremap <C-d> <Del>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
+" inoremap <C-n> <Down>
+" inoremap <C-p> <Up>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
@@ -855,7 +855,7 @@ cnoremap <DOWN> <C-N>
 " コマンドラインウィンドウを開きたいときは<Leader><C-F>にする
 cnoremap <Leader><C-F> <C-F>
 
-set history=100000 "保存する履歴の数
+set history=100 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
@@ -1572,7 +1572,7 @@ if s:is_installed('vimshell')
             \   setlocal nonumber
             \|  setlocal nocursorline
             \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
-            \|  imap <expr> <buffer> <C-n> pumvisible() ? "\<C-n>" : "\<Plug>(vimshell_history_neocomplete)"
+            \|  imap <expr> <buffer> <C-n> pumvisible() ? "\<C-n>" : "\<Plug>(vimshell_history_neocomplete)\<C-n>"
             \|  imap <buffer><C-k> <Plug>(vimshell_zsh_complete)
             \|  call vimshell#altercmd#define('g', 'git')
             \|  call vimshell#altercmd#define('l', 'll')
