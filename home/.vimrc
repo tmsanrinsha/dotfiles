@@ -1725,41 +1725,49 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         "let g:neocomplcache_include_max_processes = 1000
 
         " key mappings
-        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : \<C-g>'
+        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-        " Recommended key-mappings.
-        " <CR>: close popup and save indent.
-        " execute 'inoremap <expr><CR>  '.s:neocom.'#smart_close_popup() . "\<CR>"'
-        " 補完候補が表示されている場合は確定。そうでない場合は改行
-        " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom.'#close_popup() : "<CR>"'
         " <TAB>: completion.
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        execute 'inoremap <expr><C-h>  '.s:neocom.'#smart_close_popup()."\<C-h>"'
-        execute 'inoremap <expr><BS>   '.s:neocom.'#smart_close_popup()."\<C-h>"'
-        " execute 'inoremap <expr><C-y>  '.s:neocom.'#close_popup()'
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
         " http://vim-users.jp/2009/10/hack81/
         " C-uでポップアップを消したいがうまくいかない
         execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
-        " AutoComplPop like behavior.
-        "let g:neocomplcache_enable_auto_select = 1
-        " Shell like behavior(not recommended).
-        "set completeopt+=longest
-        "let g:neocomplcache_enable_auto_select = 1
-        "let g:neocomplcache_disable_auto_complete = 1
-        "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-        " Shell like behavior(my setting)
-        " complet_common_stringではsmartcaseが効かない
-        " 余計な候補を出して欲しくないので
-        " set g:neocomplcache_enable_smart_case = 0と上のほうで設定しておく
-        " <TAB>で上で設定したneocomplcache#complete_common_string()を呼び出す
-        "imap <expr><TAB>  pumvisible() ? "\<C-l>" : "\<TAB>"
-        "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        " [Vim - smartinput の &lt;BS&gt; や &lt;CR&gt; の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf) {{{
+        if neobundle#is_installed('vim-smartinput')
+            call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
+                  \                        '<BS>',
+                  \                        '<BS>')
+            call smartinput#map_to_trigger('i', '<Plug>(smartinput_C-h)',
+                  \                        '<BS>',
+                  \                        '<C-h>')
+            call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
+                  \                        '<Enter>',
+                  \                        '<Enter>')
+        endif
+
+        " <BS> でポップアップを閉じて文字を削除
+        execute 'imap <expr> <BS> '
+            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_BS)"'
+
+        " <C-h> でポップアップを閉じて文字を削除
+        execute 'imap <expr> <C-h> '
+            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
+
+
+        " <CR> でポップアップ中の候補を選択し改行する
+        execute 'imap <expr> <CR> '
+            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+
+        " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
+        " ポップアップがないときには改行する
+        " imap <expr> <CR> pumvisible() ?
+        "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
+        " }}}
+
     endfunction
 endif
 "}}}
