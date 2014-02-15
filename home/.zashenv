@@ -114,6 +114,10 @@ alias tree='tree -FCl'
 
 # vim {{{
 # ------------------------------------------------------------------------------
+if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+fi
+
 alias vi='vim'
 alias vie='vim -R' #readonlyで開く。view
 if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
