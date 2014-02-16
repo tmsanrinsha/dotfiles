@@ -2160,7 +2160,7 @@ if s:is_installed('memolist.vim')
     nnoremap <Leader>mg  :MemoGrep<CR>
 
     let g:memolist_path = expand('~/Dropbox/memo')
-    let g:memolist_memo_suffix = "md"
+    let g:memolist_memo_suffix = "txt"
     let g:memolist_unite = 1
 endif
 " }}}
@@ -2169,7 +2169,6 @@ endif
 " QFixHowm互換を切る
 let QFixHowm_Convert = 0
 " デフォルトの保存先
-let qfixmemo_dir = $HOME . '/Dropbox/memo'
 let qfixmemo_mapleader = '\M'
 " 外部grep使用
 let mygrepprg='grep'
@@ -2177,8 +2176,19 @@ let mygrepprg='grep'
 let qfixmemo_ext = 'txt'
 " ファイルタイプをmarkdownにする
 let qfixmemo_filetype = 'mkd'
-" タイトル記号を # に変更する
-let QFixHowm_Title = '#'
+let qfixmemo_dir = $HOME . '/Dropbox/memo'
+" let g:QFixMRU_RootDir = qfixmemo_dir
+" let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
+" let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
+" let g:qfixmemo_filename = '%Y-%m-%d-%H%M'
+" let g:qfixmemo_template =
+" \ ['%TITLE% ', '==========', '%DATE%', 'tags: []', 'categories: []', '- - -', '']
+" let g:qfixmemo_title = 'title:'
+" let g:qfixmemo_timeformat_regxp = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
+" let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
+" let g:qfixmemo_template_keycmd = "2j$a"
+" let g:QFixMRU_Title = {}
+" let g:QFixMRU_Title['mkd'] = '^title:'
 " }}}
 endif
 " ==== Plugin ==== }}}
