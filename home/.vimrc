@@ -51,6 +51,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " ==========================================================================
     NeoBundle 'Shougo/unite.vim'
 
+    NeoBundle 'Shougo/neomru.vim'
+
     NeoBundleLazy 'Shougo/unite-outline', {
                 \   'autoload' : { 'unite_sources' : ['outline'] }
                 \ }
