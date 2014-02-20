@@ -146,14 +146,13 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         \   'depends': 'kana/vim-operator-user',
         \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
         \}
-    NeoBundle "rhysd/vim-operator-surround"
-    " NeoBundleLazy "rhysd/vim-operator-surround", {
-    "     \   'depends': 'kana/vim-operator-user',
-    "     \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
-    "     \}
+    NeoBundleLazy "rhysd/vim-operator-surround", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+        \}
     NeoBundleLazy "tyru/operator-camelize.vim", {
         \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<Plug>(operator-surround-' }
+        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
         \}
     NeoBundleLazy "tyru/operator-camelize.vim", {
         \   'depends': 'kana/vim-operator-user',
@@ -211,8 +210,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
 
     " sudo権限でファイルを開く・保存
-    " http://www.vim.org/scripts/script.php?script_id=729
-    NeoBundle 'vim-scripts/sudo.vim'
+    NeoBundle 'sudo.vim'
+    NeoBundle 'gmarik/sudo-gui.vim'
 
     NeoBundle 'vim-scripts/YankRing.vim'
     " NeoBundle 'LeafCage/yankround.vim'
@@ -1017,9 +1016,8 @@ nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
 nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
 nnoremap <silent> [VIMDIFF]o :diffoff<CR>
-nnoremap <silent> [VIMDIFF]T :windo diffthis<CR> :diffo<CR> <C-w><C-w>
-nnoremap <silent> [VIMDIFF]O :windo diffoff<CR> <C-w><C-w>
-nnoremap <silent> [VIMDIFF]U :windo diffupdate<CR> <C-w><C-w>
+nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
+nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
 " Manual {{{
@@ -1318,7 +1316,6 @@ if g:has_plugin('sudo')
     else
         nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
     endif
-    nnoremap <Leader>W :w sudo:%<CR>
 endif
 "}}}
 " LeafCage/yankround.vim {{{
@@ -1958,8 +1955,10 @@ if neobundle#is_installed("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
 endif
-map ab <Plug>(textobj-multiblock-a)
-map ib <Plug>(textobj-multiblock-i)
+omap ab <Plug>(textobj-multiblock-a)
+omap ib <Plug>(textobj-multiblock-i)
+xmap ab <Plug>(textobj-multiblock-a)
+xmap ib <Plug>(textobj-multiblock-i)
 " }}}
 " vim-easymotion {{{
 " ==============================================================================
