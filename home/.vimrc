@@ -211,7 +211,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     " sudo権限でファイルを開く・保存
     NeoBundle 'sudo.vim'
-    NeoBundle 'gmarik/sudo-gui.vim'
+    " NeoBundle 'gmarik/sudo-gui.vim'
 
     NeoBundle 'vim-scripts/YankRing.vim'
     " NeoBundle 'LeafCage/yankround.vim'
@@ -1316,6 +1316,7 @@ if g:has_plugin('sudo')
     else
         nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
     endif
+    nnoremap <Leader>W :w sudo:%<CR>
 endif
 "}}}
 " LeafCage/yankround.vim {{{
