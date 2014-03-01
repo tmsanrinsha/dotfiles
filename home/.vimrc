@@ -812,7 +812,7 @@ set splitright
 set showtabline=1
 
 nnoremap [TAB] <Nop>
-nmap <C-T> [TAB]
+nmap <C-@> [TAB]
 nnoremap [TAB]c :tabnew<CR>
 nnoremap [TAB]q :tabc<CR>
 
