@@ -29,6 +29,7 @@ pathmungeR () {
 }
 
 # シェルスクリプトなどを置くディレクトリ
+pathmunge ${HOME}/bin
 pathmungeR ${HOME}/script/common
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmungeR $HOME/script/pseudo after
