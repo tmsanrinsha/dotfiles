@@ -387,7 +387,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
-    NeoBundle 'altercation/vim-colors-solarized'
+    " NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     NeoBundle 'vim-scripts/rdark'
     NeoBundle 'vim-scripts/rdark-terminal'
@@ -452,7 +452,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "     let g:neobundle#types#git#default_protocol = "ssh"
     " endif
     NeoBundle 'tmsanrinsha/molokai'
-    " NeoBundle 'tmsanrinsha/vim-colors-solarized'
+    NeoBundle 'tmsanrinsha/vim-colors-solarized'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
@@ -1389,14 +1389,14 @@ endif
 " colorscheme {{{
 " ------------------------------------------------------------------------------
 if s:is_installed('molokai')
-    "let g:rehash256 = 1
+    " let g:rehash256 = 1
     set background=dark
     colorscheme molokai
 " if g:has_plugin('solarized')
-"     set background=dark
-"     colorscheme solarized
-"     let g:solarized_termcolors=256
-"     " let g:solarized_contrast = "high"
+    " set background=dark
+    " colorscheme solarized
+    " let g:solarized_termcolors=256
+    " let g:solarized_contrast = "high"
 "     " set background=light
 else
     colorscheme default

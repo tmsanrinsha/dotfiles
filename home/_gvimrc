@@ -11,11 +11,11 @@ if g:has_plugin('molokai')
     set background=dark
     colorscheme molokai
 " if g:has_plugin('solarized')
-"      " set background=dark
-"      set background=light
-"      " let g:solarized_degrade = 1
-"      " let g:solarized_contrast = "high"
-"      " let g:solarized_visibility = "high"
+"      set background=dark
+"      " set background=light
+"      let g:solarized_degrade = 1
+"      let g:solarized_contrast = "high"
+"      let g:solarized_visibility = "high"
 "      colorscheme solarized
 else
     colorscheme default
@@ -104,8 +104,13 @@ autocmd MyVimrc VimEnter *
     \|  endif
 " }}}
 
-" GUIのMacVimで起動時のエラーメッセージがでないため、autocmdで出す
-" ※ mvimを使ってコンソール上から起動した時は、コンソール上にエラーメッセージがでる
 if has('gui_macvim')
+    " GUIのMacVimで起動時のエラーメッセージがでないため、autocmdで出す
+    " ※ mvimを使ってコンソール上から起動した時は、コンソール上にエラーメッセージがでる
     autocmd MyVimrc VimEnter * messages
+
+    " GUIのMacVimでsudoを使うための設定
+    " http://sanrinsha.lolipop.jp/blog/2014/03/gui_macvim_sudo.html
+    let $SUDO_ASKPASS="/Applications/MacVim.app/Contents/MacOS/macvim-askpass"
+    let $DISPLAY=":0"
 endif
