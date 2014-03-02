@@ -387,7 +387,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
-    " NeoBundle 'altercation/vim-colors-solarized'
+    NeoBundle 'altercation/vim-colors-solarized'
     NeoBundle 'chriskempson/vim-tomorrow-theme'
     NeoBundle 'vim-scripts/rdark'
     NeoBundle 'vim-scripts/rdark-terminal'
@@ -452,7 +452,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     "     let g:neobundle#types#git#default_protocol = "ssh"
     " endif
     NeoBundle 'tmsanrinsha/molokai'
-    NeoBundle 'tmsanrinsha/vim-colors-solarized'
+    " NeoBundle 'tmsanrinsha/vim-colors-solarized'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
@@ -1280,7 +1280,7 @@ autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " vim {{{
 " ==============================================================================
 autocmd MyVimrc FileType vim
-    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><Enter>
+    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR> |
     \|  setlocal path&
     \|  setlocal path+=$VIMFILES/bundle
 let g:vim_indent_cont = &sw
@@ -1395,18 +1395,14 @@ if s:is_installed('molokai')
     set background=dark
     colorscheme molokai
 " if g:has_plugin('solarized')
-    " set background=dark
-    " colorscheme solarized
-    " let g:solarized_termcolors=256
-    " let g:solarized_contrast = "high"
-"     " set background=light
+"     set background=dark
+"     let g:solarized_termcolors=256
+"     colorscheme solarized
+"     " let g:solarized_contrast = "high"
 else
     colorscheme default
 endif
-"set background=light
-"let g:solarized_termcolors=256
-"colorscheme solarized
-" let g:lucius_contrast_bg = 'high'
+
 "}}}
 " vim-smartword {{{
 " ==============================================================================
@@ -1632,8 +1628,8 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
-        execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
-        autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
+        execute 'let g:'.s:neocom_.'enable_auto_close_preview=1'
+        " autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
 
         let g:neocomplcache_enable_auto_delimiter = 0
 
@@ -1686,6 +1682,8 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
         augroup END
+        " let g:neocomplete#sources#omni#functions.sql =
+        " \ 'sqlcomplete#Complete'
 
         if executable('uname') && (system('uname -a') =~ 'FreeBSD 4' || system('uname -a') =~ 'FreeBSD 6')
             " スペックが低いマシーンでは有効にしない
@@ -1696,7 +1694,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             endif
 
             let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
             let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
             let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
             "let g:neocomplcache_omni_patterns.java  = '.*'
