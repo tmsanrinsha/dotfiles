@@ -2174,20 +2174,24 @@ endif
 " fuenor/qfixhowm {{{
 " ==============================================================================
 " QFixHowm互換を切る
-let QFixHowm_Convert = 0
+let g:QFixHowm_Convert = 0
+let g:qfixmemo_mapleader = '\M'
 " デフォルトの保存先
-let qfixmemo_mapleader = '\M'
-" 外部grep使用
-let mygrepprg='grep'
+let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
+let g:qfixmemo_filename = '%Y-%m-%d-%H-%M'
 " メモファイルの拡張子
-let qfixmemo_ext = 'txt'
+let g:qfixmemo_ext = 'txt'
 " ファイルタイプをmarkdownにする
-let qfixmemo_filetype = 'mkd'
-let qfixmemo_dir = $HOME . '/Dropbox/memo'
+let g:qfixmemo_filetype = 'mkd'
+let g:qfixmemo_title    = '#'
+let g:QFixMRU_Title = {}
+let g:QFixMRU_Title['mkd'] = '^# '
+let g:QFixMRU_Title['md'] = '^# '
+" 外部grep使用
+let g:mygrepprg='grep'
 " let g:QFixMRU_RootDir = qfixmemo_dir
 " let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
 " let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
-" let g:qfixmemo_filename = '%Y-%m-%d-%H%M'
 " let g:qfixmemo_template =
 " \ ['%TITLE% ', '==========', '%DATE%', 'tags: []', 'categories: []', '- - -', '']
 " let g:qfixmemo_title = 'title:'
