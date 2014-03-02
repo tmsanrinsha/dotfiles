@@ -1670,7 +1670,10 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         if neobundle#is_installed("neocomplete")
-            call neocomplete#custom#source('member', 'rank', 110)
+            " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
+            call neocomplete#custom#source('file'        , 'rank', 400)
+            call neocomplete#custom#source('file/include', 'rank', 400)
+            call neocomplete#custom#source('member'      , 'rank', 100)
         endif
 
         " Enable omni completion.
