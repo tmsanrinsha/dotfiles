@@ -1037,8 +1037,10 @@ let $PAGER=''
 " .vimrcと.gvimrcの編集
 nnoremap [VIMRC] <Nop>
 nmap <Leader>v [VIMRC]
-nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
+" nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
+" nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent> [VIMRC]e :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vimrc<CR>
+nnoremap <silent> [VIMRC]E :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/_gvimrc<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
