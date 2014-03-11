@@ -10,8 +10,8 @@ if has('win32')
     cd ~
 endif
 " }}}
+" ----------------------------------------------------------------------------
 " neobundle.vim {{{
-" ==============================================================================
 if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     \   && (v:version >= 703 || v:version == 702 && has('patch051'))
     if has('vim_starting')
@@ -639,7 +639,7 @@ set ambiwidth=double
 " :h map-modes
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
 
-set timeout timeoutlen=3000 ttimeoutlen=10
+set timeout timeoutlen=9000 ttimeoutlen=10
 if exists('+macmeta')
    " MacVimでMETAキーを使えるようにする
    set macmeta
@@ -869,7 +869,7 @@ set history=100 "保存する履歴の数
 set incsearch
 set ignorecase "検索パターンの大文字小文字を区別しない
 set smartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
-set nohlsearch "検索結果をハイライトしない
+set hlsearch   "検索結果をハイライト
 
 " ESCキー2度押しでハイライトのトグル
 nnoremap <Esc><Esc> :set hlsearch!<CR>
@@ -1142,7 +1142,8 @@ autocmd MyVimrc BufRead sanrinsha*
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
-" ==== filetype ==== {{{
+" ============================================================================
+" filetype {{{
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=javascript<CR>
 nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
@@ -1161,17 +1162,16 @@ function! s:override_plugin_setting()
     setlocal formatoptions<
 endfunction
 
+" ----------------------------------------------------------------------------
 " shell {{{
-" ==============================================================================
 augroup sh
     autocmd!
     autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 augroup END
 "}}}
+" ----------------------------------------------------------------------------
 " HTML {{{
-" ==============================================================================
 " HTML Key Mappings for Typing Character Codes: {{{
-" ------------------------------------------------------------------------------
 " * http://www.stripey.com/vim/html.html
 " * https://github.com/sigwyg/dotfiles/blob/8c70c4032ebad90a8d92b76b1c5d732f28559e40/.vimrc
 "
@@ -1211,7 +1211,6 @@ augroup MapHTMLKeys
 augroup END
 "}}}
 " input </ to auto close tag on XML {{{
-" ------------------------------------------------------------------------------
 " https://github.com/sorah/config/blob/master/vim/dot.vimrc
 "augroup MyXML
 "  autocmd!
@@ -1220,7 +1219,6 @@ augroup END
 "augroup END
 "}}}
 " gf(goto file)の設定 {{{
-" ------------------------------------------------------------------------------
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
 autocmd MyVimrc FileType html
     \   setlocal includeexpr=substitute(v:fname,'^\\/','','')
@@ -1228,16 +1226,16 @@ autocmd MyVimrc FileType html
     \|  setlocal path+=./;/
 " }}}
 " }}}
+" ----------------------------------------------------------------------------
 " XML {{{
-" ==============================================================================
 nnoremap <Leader>= :%s/></>\r</g<CR>:setlocal ft=xml<CR>gg=G
 " }}}
+" ----------------------------------------------------------------------------
 " JavaScript {{{
-" ==============
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
 " }}}
+" ----------------------------------------------------------------------------
 " PHP {{{
-" ==============================================================================
 let php_sql_query=1 " 文字列中のSQLをハイライトする
 let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
@@ -1255,8 +1253,8 @@ autocmd MyVimrc FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 " autocmd BufWrite *.php w | make
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
+" ----------------------------------------------------------------------------
 " Java {{{
-" ==============================================================================
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
 elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
@@ -1267,30 +1265,31 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
+" ----------------------------------------------------------------------------
 " MySQL {{{
 " ]}, [{ の移動先
 let g:sql_type_default = 'mysql'
 let g:ftplugin_sql_statements = 'create,alter'
 " }}}
+" ----------------------------------------------------------------------------
 " yaml {{{
-" ==============================================================================
 " autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " }}}
+" ----------------------------------------------------------------------------
 " vim {{{
-" ==============================================================================
 autocmd MyVimrc FileType vim
-    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR> |
+    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR>
     \|  setlocal path&
     \|  setlocal path+=$VIMFILES/bundle
 let g:vim_indent_cont = &sw
 " }}}
+" ----------------------------------------------------------------------------
 " help {{{
-" ==============================================================================
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}
+" ----------------------------------------------------------------------------
 " Git {{{
-" ==============================================================================
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
 autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
@@ -1298,16 +1297,17 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
     \|  setlocal colorcolumn=+1
     \|  startinsert
 " }}}
+" ----------------------------------------------------------------------------
 " crontab {{{
-" ==============================================================================
 autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
+" ----------------------------------------------------------------------------
 " tsv {{{
-" ==============================================================================
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
-" ==== filetype ==== }}}
-" ==== Plugin ==== {{{
+" }}}
+" ============================================================================
+" plugin {{{
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
@@ -1414,27 +1414,17 @@ if s:is_installed("vim-smartword")
 endif
 "}}}
 if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
+" ----------------------------------------------------------------------------
 " Shougo/unite.vim {{{
-" ==========================================================================
 if s:is_installed('unite.vim')
     let g:unite_data_directory = $VIMFILES.'/.unite'
     let g:unite_enable_start_insert = 1
     let g:unite_split_rule = "botright"
     let g:unite_winheight = "15"
+
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    " カレントディレクトリ以下のファイル
-    nnoremap [unite]fc :<C-u>Unite file_rec<CR>
-    " プロジェクトディレクトリ以下のファイル
-    " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
-    nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
-    function! s:unite_file_project(...)
-        let opts = (a:0 ? join(a:000, ' ') : '')
-        let dir = unite#util#path2project_directory(expand('%'))
-        " windowsでドライブのC:をC\:に変更する必要がある
-        execute 'Unite' opts 'file_rec:' . escape(dir, ':')
-    endfunction
     " bundle以下のファイル
     " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
     " カレントディレクトリ以下のディレクトリ
@@ -1464,8 +1454,18 @@ if s:is_installed('unite.vim')
         execute 'Unite file_rec/async:' . escape(dir, ':')
     endfunction
 
-    " Unite grep {{{
-    " -------------------------------------------------------------------------
+    " プロジェクトディレクトリ以下のファイル
+    " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+    nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
+    function! s:unite_file_project(...)
+        let opts = (a:0 ? join(a:000, ' ') : '')
+        let dir = unite#util#path2project_directory(expand('%'))
+        " windowsでドライブのC:をC\:に変更する必要がある
+        execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
+    endfunction
+    " }}}
+    " -----------
+    " grep {{{
     if executable('grep')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inH'
@@ -2212,7 +2212,7 @@ let g:mygrepprg='grep'
 " let g:QFixMRU_Title['mkd'] = '^title:'
 " }}}
 endif
-" ==== Plugin ==== }}}
+" }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
 endif
