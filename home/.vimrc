@@ -1451,6 +1451,18 @@ if s:is_installed('unite.vim')
 
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+    " -----------
+    " file_rec {{{
+    " カレントディレクトリ以下のファイル
+    nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
+
+    " カレントバッファのディレクトリ以下のファイル
+    nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
+    function! s:unite_file_buffer()
+        let dir = expand('%:p:h')
+        " windowsでドライブのC:をC\:に変更する必要がある
+        execute 'Unite file_rec/async:' . escape(dir, ':')
+    endfunction
 
     " Unite grep {{{
     " -------------------------------------------------------------------------
