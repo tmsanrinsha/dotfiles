@@ -10,8 +10,8 @@ if has('win32')
     cd ~
 endif
 " }}}
-" ----------------------------------------------------------------------------
 " neobundle.vim {{{
+" ----------------------------------------------------------------------------
 if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     \   && (v:version >= 703 || v:version == 702 && has('patch051'))
     if has('vim_starting')
@@ -430,7 +430,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \}
     " }}}
     " fuenor/qfixhowm {{{
-    NeoBundle 'fuenor/qfixhowm'
+    " NeoBundle 'fuenor/qfixhowm'
     " }}}
     " osyo-manga/unite-qfixhowm {{{
     NeoBundle "osyo-manga/unite-qfixhowm"
