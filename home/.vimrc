@@ -100,12 +100,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     "     NeoBundle "Valloric/YouCompleteMe"
     " endif
+    " }}}
     NeoBundleLazy "kana/vim-smartinput", {
         \   "autoload": {
         \       "insert": 1,
         \   }
         \}
-    " }}}
 
     " スニペット補完
     NeoBundleLazy 'Shougo/neosnippet', {
@@ -1599,8 +1599,8 @@ if s:is_installed('vimshell')
     endfunction
 endif
 " }}}
-" neocomplcache & neocomplete {{{
 " ==============================================================================
+" neocomplcache & neocomplete {{{
 if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
     if neobundle#is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
@@ -1782,6 +1782,14 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         " imap <expr> <CR> pumvisible() ?
         "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         " }}}
+
+        " execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+
+        " " <C-h> でポップアップを閉じて文字を削除
+        " execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+
+        " " <CR> でポップアップ中の候補を選択し改行する
+        " execute 'inoremap <expr><CR> ' . s:neocom . '#smart_close_popup()."\<CR>"'
 
     endfunction
 endif
