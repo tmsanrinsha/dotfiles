@@ -10,487 +10,6 @@ if has('win32')
     cd ~
 endif
 " }}}
-" neobundle.vim {{{
-" ----------------------------------------------------------------------------
-if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
-    \   && (v:version >= 703 || v:version == 702 && has('patch051'))
-    if has('vim_starting')
-      set runtimepath+=$VIMFILES/bundle/neobundle.vim/
-    endif
-    call neobundle#rc(expand('~/.vim/bundle/'))
-    let g:neobundle#types#git#default_protocol = "git"
-    let g:neobundle#install_process_timeout = 2000
-
-    " すでにvimが起動しているときは、そちらで開く
-    if has('clientserver')
-        NeoBundle 'thinca/vim-singleton'
-        if neobundle#is_installed('vim-singleton')
-            call singleton#enable()
-        endif
-    endif
-
-    " Let neobundle manage neobundle
-    NeoBundleFetch 'Shougo/neobundle.vim'
-
-    " recommended to install
-    if has('win32') && has('kaoriya')
-        " kaoriya版Vim同梱のvimprocを使う
-        set runtimepath+=$VIM/plugins/vimproc
-    else
-        NeoBundle 'Shougo/vimproc', {
-                    \   'build' : {
-                    \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-                    \     'cygwin'  : 'make -f make_cygwin.mak',
-                    \     'mac'     : 'make -f make_mac.mak',
-                    \     'unix'    : 'make -f make_unix.mak',
-                    \   },
-                    \ }
-    endif
-
-    " unite {{{
-    " ==========================================================================
-    NeoBundle 'Shougo/unite.vim'
-
-    NeoBundle 'Shougo/neomru.vim'
-
-    NeoBundleLazy 'Shougo/unite-outline', {
-                \   'autoload' : { 'unite_sources' : ['outline'] }
-                \ }
-
-    NeoBundleLazy 'tacroe/unite-mark', {
-                \   'autoload' : { 'unite_sources' : ['mark'] }
-                \ }
-
-    NeoBundleLazy 'tsukkee/unite-tag', {
-                \   'autoload' : { 'unite_sources' : ['tag'] }
-                \ }
-
-    NeoBundle 'Shougo/unite-ssh'
-    NeoBundle 'ujihisa/vimshell-ssh'
-    "NeoBundle 'Shougo/unite-sudo'
-    " }}}
-
-    " http://archiva.jp/web/tool/vim_grep2.html
-    NeoBundle 'thinca/vim-qfreplace'
-
-    NeoBundle 'Shougo/vimfiler'
-    NeoBundleLazy 'Shougo/vimshell', {
-                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
-                \   'depends' : 'Shougo/vim-vcs'
-                \}
-
-    " 補完・入力補助 {{{
-    " ==========================================================================
-    " 補完候補の自動表示
-    if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
-        NeoBundleLazy "Shougo/neocomplete", {
-            \   "autoload": {
-            \       "insert": 1,
-            \   }
-            \}
-    else
-        NeoBundleLazy "Shougo/neocomplcache", {
-            \   "autoload": {
-            \        "insert": 1,
-            \   }
-            \}
-    endif
-    " Valloric/Youcompleteme {{{
-    " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
-    " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
-    "     NeoBundle "Valloric/YouCompleteMe"
-    " endif
-    " }}}
-    NeoBundleLazy "kana/vim-smartinput", {
-        \   "autoload": {
-        \       "insert": 1,
-        \   }
-        \}
-
-    " スニペット補完
-    NeoBundleLazy 'Shougo/neosnippet', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    NeoBundleLazy 'Shougo/neosnippet-snippets', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    NeoBundleLazy 'honza/vim-snippets', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    " }}}
-    " quickrun {{{
-    NeoBundleLazy 'thinca/vim-quickrun', {
-                \   'autoload' : { 'commands' : [ 'QuickRun' ] }
-                \}
-    " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
-    "             \   'autoload' : { 'commands' : 'QuickRun' },
-    "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-    "             \}
-    NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-                \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-                \}
-    " }}}
-    " operator {{{
-    NeoBundle "kana/vim-operator-user"
-    NeoBundleLazy 'kana/vim-operator-replace', {
-        \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }
-        \}
-    NeoBundleLazy "osyo-manga/vim-operator-search", {
-        \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
-        \}
-    NeoBundleLazy "rhysd/vim-operator-surround", {
-        \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
-        \}
-    NeoBundleLazy "tyru/operator-camelize.vim", {
-        \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
-        \}
-    NeoBundleLazy "tyru/operator-camelize.vim", {
-        \   'depends': 'kana/vim-operator-user',
-        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
-        \}
-    " }}}
-    " textobj {{{
-    NeoBundle 'kana/vim-textobj-user'
-    NeoBundle 'kana/vim-textobj-entire'
-    NeoBundle 'kana/vim-textobj-function'
-    NeoBundle 'kentaro/vim-textobj-function-php'
-    NeoBundle 'kana/vim-textobj-indent'
-    NeoBundle 'sgur/vim-textobj-parameter'
-    NeoBundle 'thinca/vim-textobj-comment'
-    if (v:version == 703 && !has('patch610')) || v:version == 702
-        NeoBundleLazy 'kana/vim-textobj-lastpat', {
-            \   'depends': 'kana/vim-textobj-user',
-            \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
-            \}
-    endif
-    NeoBundle 'osyo-manga/vim-textobj-multiblock'
-    " }}}
-    " dでキー待ちが発生してしまう
-    " NeoBundle 'tpope/vim-surround'
-    NeoBundle 'tpope/vim-repeat'
-    NeoBundleLazy 'kana/vim-smartword', {
-                \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
-                \}
-    NeoBundleLazy 'thinca/vim-visualstar', {
-                \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
-                \}
-
-    " Vimperatorのクイックヒント風にカーソル移動
-    NeoBundle 'Lokaltog/vim-easymotion'
-
-    " terryma/vim-multiple-cursors {{{
-    " ==========================================================================
-    " NeoBundle 'terryma/vim-multiple-cursors'
-    let g:multi_cursor_use_default_mapping=0
-    let g:multi_cursor_next_key='"'
-    let g:multi_cursor_prev_key="'"
-    let g:multi_cursor_skip_key='&'
-    let g:multi_cursor_quit_key='<Esc>'
-    " }}}
-
-    " 部分的に編集
-    NeoBundle 'thinca/vim-partedit'
-
-    " 整形
-    if v:version >= 701
-        NeoBundle 'h1mesuke/vim-alignta'
-    else
-        NeoBundle 'Align'
-    endif
-
-
-    " sudo権限でファイルを開く・保存
-    NeoBundle 'sudo.vim'
-    " NeoBundle 'gmarik/sudo-gui.vim'
-
-    NeoBundle 'vim-scripts/YankRing.vim'
-    " NeoBundle 'LeafCage/yankround.vim'
-
-    NeoBundleLazy 'thinca/vim-ft-help_fold', {
-                \   'autoload' : { 'filetypes' : 'help' }
-                \ }
-    NeoBundleLazy 'kannokanno/vim-helpnew', {
-                \   'autoload' : { 'commands' : 'HelpNew' }
-                \ }
-
-    " ミニバッファにバッファ一覧を表示
-    " NeoBundle 'fholgado/minibufexpl.vim'
-
-    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-    NeoBundle 'rgarver/Kwbd.vim'
-
-    " 一時バッファの制御
-    if v:version >= 704 || (v:version == 703 && has('patch462'))
-        NeoBundle 'osyo-manga/vim-automatic', {
-                    \   'depends': 'osyo-manga/vim-gift',
-                    \}
-    endif
-
-    " ステータスラインをカスタマイズ
-    " https://github.com/Lokaltog/vim-powerline
-    NeoBundle 'Lokaltog/vim-powerline'
-
-    NeoBundle 'LeafCage/foldCC'
-    " gundo.vim {{{
-    " グラフィカルにundo履歴を見れる
-    NeoBundleLazy 'sjl/gundo.vim', {
-        \   'autoload' : {
-        \       'commands' : 'GundoToggle'
-        \   }
-        \}
-    " }}}
-    " savevers.vim {{{
-    " バックアップ
-    NeoBundle 'savevers.vim'
-    " }}}
-    " syntastic {{{
-    " ---------
-    " ファイルを保存時にシンタックスのチェック
-    NeoBundle 'scrooloose/syntastic'
-    " }}}
-    " vim-jsbeautify {{{
-    " --------------
-    " JavaScript, CSS, HTMLの整形
-    NeoBundleLazy 'maksimr/vim-jsbeautify', {
-        \   'autoload' : {
-        \       'filetypes': ['javascript', 'css', 'html']
-        \   }
-        \}
-    " }}}
-    " caw.vim {{{
-    " -------
-    " コメント操作
-    NeoBundle "tyru/caw.vim"
-    " NeoBundle "tpope/vim-commentary"
-    " }}}
-
-    " eclipseと連携
-    if executable('ant')
-        NeoBundle 'ervandew/eclim', {
-                    \   'build' : {
-                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
-                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                    \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
-                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                    \   },
-                    \   'autoload': {'filetypes': ['java', 'xml']}
-                    \}
-    endif
-
-    NeoBundle 'mattn/emmet-vim'
-
-    " CSS
-    " #000000とかの色付け
-    " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
-    " NeoBundle 'gist:hail2u/228147', {
-    "             \ 'name': 'css.vim',
-    "             \ 'script_type': 'plugin'}
-
-    " JavaScript {{{
-    " --------------
-    NeoBundle 'pangloss/vim-javascript'
-    NeoBundle 'jelera/vim-javascript-syntax'
-    NeoBundle 'nono/jquery.vim'
-    " }}}
-    " SQL {{{
-    NeoBundleLazy 'vim-scripts/dbext.vim', {
-        \   'autoload': {'filetypes': 'sql'}
-        \}
-    " }}}
-    " Markdown {{{
-    " ------------
-    " NeoBundleLazy 'tpope/vim-markdown', {
-    "             \   'autoload' : { 'filetypes' : 'markdown' }
-    "             \}
-    " NeoBundle 'tpope/vim-markdown'
-    " NeoBundle 'plasticboy/vim-markdown'
-    NeoBundle 'tmsanrinsha/vim-markdown'
-    " NeoBundle 'nelstrom/vim-markdown-folding'
-    " NeoBundleLazy 'teramako/instant-markdown-vim'
-    if executable('node') && executable('ruby')
-        NeoBundle 'suan/vim-instant-markdown'
-    endif
-    " }}}
-    " yaml {{{
-    " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
-    "             \   'autoload' : { 'filetypes' : 'yaml' }
-    "             \}
-    " }}}
-    " tmux {{{
-    " tmuxのシンタックスファイル
-    NeoBundleLazy 'zaiste/tmux.vim', {
-                \   'autoload' : { 'filetypes' : 'tmux' }
-                \ }
-    " }}}
-    " vimperator {{{
-    " vimperatorのシンタックスファイル
-    NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
-                \   'type'        : 'raw',
-                \   'autoload'    : { 'filetypes' : 'vimperator' },
-                \   'script_type' : 'syntax'
-                \}
-    " }}}
-    " confluence {{{
-    " confluenceのシンタックスファイル
-    NeoBundleLazy 'confluencewiki.vim', {
-                \   'autoload' : { 'filetypes' : 'confluencewiki' }
-                \ }
-    " }}}
-
-    NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
-    NeoBundleLazy 'gregsexton/gitv', {
-                \   'autoload': {'commands' : ['Gitv']}
-                \}
-
-
-    NeoBundleLazy 'mattn/gist-vim', {
-                \   'autoload' : { 'commands' : [ 'Gist' ] },
-                \   'depends'  : 'mattn/webapi-vim'
-                \}
-
-    NeoBundleLazy 'vim-scripts/DirDiff.vim', {
-                \   'autoload' : {
-                \       'commands' : {
-                \           'name' : 'DirDiff',
-                \           'complete' : 'dir'
-                \       }
-                \   }
-                \}
-
-    NeoBundleLazy 'tyru/open-browser.vim', {
-                \   'autoload':{
-                \       'mappings':[
-                \            '<Plug>(openbrowser-'
-                \        ]
-                \   }
-                \}
-
-    " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
-    NeoBundleLazy 'rbtnn/vimconsole.vim', {
-                \   'autoload' : {
-                \       'commands' : 'VimConsoleToggle'
-                \   }
-                \}
-
-
-    " colorscheme
-    " NeoBundle 'tomasr/molokai'
-    NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'vim-scripts/wombat256.vim'
-    NeoBundle 'altercation/vim-colors-solarized'
-    NeoBundle 'chriskempson/vim-tomorrow-theme'
-    NeoBundle 'vim-scripts/rdark'
-    NeoBundle 'vim-scripts/rdark-terminal'
-    NeoBundle 'jonathanfilip/vim-lucius'
-
-    " カラースキームの色見本
-    " http://cocopon.me/blog/?p=3522
-    NeoBundleLazy 'cocopon/colorswatch.vim', {
-                \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
-                \}
-    NeoBundleLazy 'LeafCage/unite-gvimrgb', {
-        \ 'autoload' : {
-        \   'unite_sources' : 'gvimrgb'
-        \ }}
-
-    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
-    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
-    NeoBundleLazy 'mattn/httpstatus-vim', {
-                \   'autoload' : { 'commands' : 'HttpStatus' }
-                \ }
-
-    " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
-
-    if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
-        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
-                    \   'autoload' : {
-                    \       'commands' : [
-                    \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
-                    \       ]
-                    \   },
-                    \   'external_commands' : 'hg'
-                    \}
-    endif
-
-    " glidenote/memolist.vim {{{
-    NeoBundleLazy 'glidenote/memolist.vim', {
-                \   'autoload' : { 'commands' : [
-                \       'MemoNew', 'MemoList', 'MemoGrep'
-                \   ]}
-                \}
-    " }}}
-    " fuenor/qfixhowm {{{
-    " NeoBundle 'fuenor/qfixhowm'
-    " }}}
-    " osyo-manga/unite-qfixhowm {{{
-    NeoBundle "osyo-manga/unite-qfixhowm"
-    " }}}
-    " NeoBundle 'jceb/vim-orgmode'
-
-    " http://d.hatena.ne.jp/itchyny/20140108/1389164688
-    NeoBundleLazy 'itchyny/calendar.vim', {
-                \   'autoload' : { 'commands' : [
-                \       'Calendar'
-                \   ]}
-                \}
-
-    " vim以外のリポジトリ
-    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
-
-    " 自分のリポジトリ
-    " if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
-    "     let g:neobundle#types#git#default_protocol = "ssh"
-    " endif
-    NeoBundle 'tmsanrinsha/molokai'
-    " NeoBundle 'tmsanrinsha/vim-colors-solarized'
-    NeoBundle 'tmsanrinsha/vim'
-    NeoBundle 'tmsanrinsha/vim-emacscommandline'
-
-    " Brief help
-    " :NeoBundleList          - list configured bundles
-    " :NeoBundleInstall(!)    - install(update) bundles
-    " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-    " :Unite neobundle/install:!
-    " :Unite neobundle/install:neocomplcache
-    " :Unite neobundle/install:neocomplcache:unite.vim
-
-    filetype plugin indent on     " Required!
-
-     " Installation check.
-     NeoBundleCheck
-
-    if !has('vim_starting')
-      " Call on_source hook when reloading .vimrc.
-      call neobundle#call_hook('on_source')
-    endif
-else
-    " neobundleが使えない場合
-    " bundle以下にあるpluginをいくつかruntimepathへ追加する
-    let s:load_plugin_list = [
-                \   'sudo.vim', 'yankround.vim', 'minibufexpl.vim', 'Kwbd.vim',
-                \   'vim-powerline', 'syntastic', 'molokai', 'vim-smartword'
-                \]
-    for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
-        let s:plugin_name = matchstr(path, '[^/]\+$')
-        if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
-            let &runtimepath = &runtimepath.','.path
-        end
-    endfor
-
-    filetype plugin indent on
-endif
-
-"}}}
 " Pluginの有無をチェック {{{
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
@@ -1308,6 +827,482 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " ============================================================================
 " plugin {{{
+" ----------------------------------------------------------------------------
+" neobundle.vim {{{
+if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
+    \   && (v:version >= 703 || v:version == 702 && has('patch051'))
+    if has('vim_starting')
+      set runtimepath+=$VIMFILES/bundle/neobundle.vim/
+    endif
+    call neobundle#rc(expand('~/.vim/bundle/'))
+    let g:neobundle#types#git#default_protocol = "git"
+    let g:neobundle#install_process_timeout = 2000
+
+    " すでにvimが起動しているときは、そちらで開く
+    if has('clientserver')
+        NeoBundle 'thinca/vim-singleton'
+        if neobundle#is_installed('vim-singleton')
+            call singleton#enable()
+        endif
+    endif
+
+    " Let neobundle manage neobundle
+    NeoBundleFetch 'Shougo/neobundle.vim'
+
+    " recommended to install
+    if has('win32') && has('kaoriya')
+        " kaoriya版Vim同梱のvimprocを使う
+        set runtimepath+=$VIM/plugins/vimproc
+    else
+        NeoBundle 'Shougo/vimproc', {
+                    \   'build' : {
+                    \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+                    \     'cygwin'  : 'make -f make_cygwin.mak',
+                    \     'mac'     : 'make -f make_mac.mak',
+                    \     'unix'    : 'make -f make_unix.mak',
+                    \   },
+                    \ }
+    endif
+
+    " unite {{{
+    " ==========================================================================
+    NeoBundle 'Shougo/unite.vim'
+
+    NeoBundle 'Shougo/neomru.vim'
+
+    NeoBundleLazy 'Shougo/unite-outline', {
+                \   'autoload' : { 'unite_sources' : ['outline'] }
+                \ }
+
+    NeoBundleLazy 'tacroe/unite-mark', {
+                \   'autoload' : { 'unite_sources' : ['mark'] }
+                \ }
+
+    NeoBundleLazy 'tsukkee/unite-tag', {
+                \   'autoload' : { 'unite_sources' : ['tag'] }
+                \ }
+
+    NeoBundle 'Shougo/unite-ssh'
+    NeoBundle 'ujihisa/vimshell-ssh'
+    "NeoBundle 'Shougo/unite-sudo'
+    " }}}
+
+    " http://archiva.jp/web/tool/vim_grep2.html
+    NeoBundle 'thinca/vim-qfreplace'
+
+    NeoBundle 'Shougo/vimfiler'
+    NeoBundleLazy 'Shougo/vimshell', {
+                \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
+                \   'depends' : 'Shougo/vim-vcs'
+                \}
+
+    " 補完・入力補助 {{{
+    " ==========================================================================
+    " 補完候補の自動表示
+    if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
+        NeoBundleLazy "Shougo/neocomplete", {
+            \   "autoload": {
+            \       "insert": 1,
+            \   }
+            \}
+    else
+        NeoBundleLazy "Shougo/neocomplcache", {
+            \   "autoload": {
+            \        "insert": 1,
+            \   }
+            \}
+    endif
+    " Valloric/Youcompleteme {{{
+    " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
+    " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
+    "     NeoBundle "Valloric/YouCompleteMe"
+    " endif
+    " }}}
+    NeoBundleLazy "kana/vim-smartinput", {
+        \   "autoload": {
+        \       "insert": 1,
+        \   }
+        \}
+
+    " スニペット補完
+    NeoBundleLazy 'Shougo/neosnippet', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
+    NeoBundleLazy 'Shougo/neosnippet-snippets', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
+    NeoBundleLazy 'honza/vim-snippets', {
+                \   "autoload" : {
+                \       "insert" : 1,
+                \   }
+                \}
+    " }}}
+    " quickrun {{{
+    NeoBundleLazy 'thinca/vim-quickrun', {
+                \   'autoload' : { 'commands' : [ 'QuickRun' ] }
+                \}
+    " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
+    "             \   'autoload' : { 'commands' : 'QuickRun' },
+    "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+    "             \}
+    NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
+                \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+                \}
+    " }}}
+    " operator {{{
+    NeoBundle "kana/vim-operator-user"
+    NeoBundleLazy 'kana/vim-operator-replace', {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }
+        \}
+    NeoBundleLazy "osyo-manga/vim-operator-search", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
+        \}
+    NeoBundleLazy "rhysd/vim-operator-surround", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+        \}
+    NeoBundleLazy "tyru/operator-camelize.vim", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
+        \}
+    NeoBundleLazy "tyru/operator-camelize.vim", {
+        \   'depends': 'kana/vim-operator-user',
+        \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
+        \}
+    " }}}
+    " textobj {{{
+    NeoBundle 'kana/vim-textobj-user'
+    NeoBundle 'kana/vim-textobj-entire'
+    NeoBundle 'kana/vim-textobj-function'
+    NeoBundle 'kentaro/vim-textobj-function-php'
+    NeoBundle 'kana/vim-textobj-indent'
+    NeoBundle 'sgur/vim-textobj-parameter'
+    NeoBundle 'thinca/vim-textobj-comment'
+    if (v:version == 703 && !has('patch610')) || v:version == 702
+        NeoBundleLazy 'kana/vim-textobj-lastpat', {
+            \   'depends': 'kana/vim-textobj-user',
+            \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
+            \}
+    endif
+    NeoBundle 'osyo-manga/vim-textobj-multiblock'
+    " }}}
+    " dでキー待ちが発生してしまう
+    " NeoBundle 'tpope/vim-surround'
+    NeoBundle 'tpope/vim-repeat'
+    NeoBundleLazy 'kana/vim-smartword', {
+                \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
+                \}
+    NeoBundleLazy 'thinca/vim-visualstar', {
+                \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
+                \}
+
+    " Vimperatorのクイックヒント風にカーソル移動
+    NeoBundle 'Lokaltog/vim-easymotion'
+
+    " terryma/vim-multiple-cursors {{{
+    " ==========================================================================
+    " NeoBundle 'terryma/vim-multiple-cursors'
+    let g:multi_cursor_use_default_mapping=0
+    let g:multi_cursor_next_key='"'
+    let g:multi_cursor_prev_key="'"
+    let g:multi_cursor_skip_key='&'
+    let g:multi_cursor_quit_key='<Esc>'
+    " }}}
+
+    " 部分的に編集
+    NeoBundle 'thinca/vim-partedit'
+
+    " 整形
+    if v:version >= 701
+        NeoBundle 'h1mesuke/vim-alignta'
+    else
+        NeoBundle 'Align'
+    endif
+
+
+    " sudo権限でファイルを開く・保存
+    NeoBundle 'sudo.vim'
+    " NeoBundle 'gmarik/sudo-gui.vim'
+
+    NeoBundle 'vim-scripts/YankRing.vim'
+    " NeoBundle 'LeafCage/yankround.vim'
+
+    NeoBundleLazy 'thinca/vim-ft-help_fold', {
+                \   'autoload' : { 'filetypes' : 'help' }
+                \ }
+    NeoBundleLazy 'kannokanno/vim-helpnew', {
+                \   'autoload' : { 'commands' : 'HelpNew' }
+                \ }
+
+    " ミニバッファにバッファ一覧を表示
+    " NeoBundle 'fholgado/minibufexpl.vim'
+
+    " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+    NeoBundle 'rgarver/Kwbd.vim'
+
+    " 一時バッファの制御
+    if v:version >= 704 || (v:version == 703 && has('patch462'))
+        NeoBundle 'osyo-manga/vim-automatic', {
+                    \   'depends': 'osyo-manga/vim-gift',
+                    \}
+    endif
+
+    " ステータスラインをカスタマイズ
+    " https://github.com/Lokaltog/vim-powerline
+    NeoBundle 'Lokaltog/vim-powerline'
+
+    NeoBundle 'LeafCage/foldCC'
+    " gundo.vim {{{
+    " グラフィカルにundo履歴を見れる
+    NeoBundleLazy 'sjl/gundo.vim', {
+        \   'autoload' : {
+        \       'commands' : 'GundoToggle'
+        \   }
+        \}
+    " }}}
+    " savevers.vim {{{
+    " バックアップ
+    NeoBundle 'savevers.vim'
+    " }}}
+    " ファイルを保存時にシンタックスのチェック
+    NeoBundle 'scrooloose/syntastic'
+    " debug
+    NeoBundle 'joonty/vdebug'
+    " vim-jsbeautify {{{
+    " --------------
+    " JavaScript, CSS, HTMLの整形
+    NeoBundleLazy 'maksimr/vim-jsbeautify', {
+        \   'autoload' : {
+        \       'filetypes': ['javascript', 'css', 'html']
+        \   }
+        \}
+    " }}}
+    " caw.vim {{{
+    " -------
+    " コメント操作
+    NeoBundle "tyru/caw.vim"
+    " NeoBundle "tpope/vim-commentary"
+    " }}}
+
+    " eclipseと連携
+    if executable('ant')
+        NeoBundle 'ervandew/eclim', {
+                    \   'build' : {
+                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
+                    \   },
+                    \   'autoload': {'filetypes': ['java', 'xml']}
+                    \}
+    endif
+
+    NeoBundle 'mattn/emmet-vim'
+
+    " CSS
+    " #000000とかの色付け
+    " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
+    " NeoBundle 'gist:hail2u/228147', {
+    "             \ 'name': 'css.vim',
+    "             \ 'script_type': 'plugin'}
+
+    " JavaScript {{{
+    " --------------
+    NeoBundle 'pangloss/vim-javascript'
+    NeoBundle 'jelera/vim-javascript-syntax'
+    NeoBundle 'nono/jquery.vim'
+    " }}}
+    " SQL {{{
+    NeoBundleLazy 'vim-scripts/dbext.vim', {
+        \   'autoload': {'filetypes': 'sql'}
+        \}
+    " }}}
+    " Markdown {{{
+    " ------------
+    " NeoBundleLazy 'tpope/vim-markdown', {
+    "             \   'autoload' : { 'filetypes' : 'markdown' }
+    "             \}
+    " NeoBundle 'tpope/vim-markdown'
+    " NeoBundle 'plasticboy/vim-markdown'
+    NeoBundle 'tmsanrinsha/vim-markdown'
+    " NeoBundle 'nelstrom/vim-markdown-folding'
+    " NeoBundleLazy 'teramako/instant-markdown-vim'
+    if executable('node') && executable('ruby')
+        NeoBundle 'suan/vim-instant-markdown'
+    endif
+    " }}}
+    " yaml {{{
+    " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
+    "             \   'autoload' : { 'filetypes' : 'yaml' }
+    "             \}
+    " }}}
+    " tmux {{{
+    " tmuxのシンタックスファイル
+    NeoBundleLazy 'zaiste/tmux.vim', {
+                \   'autoload' : { 'filetypes' : 'tmux' }
+                \ }
+    " }}}
+    " vimperator {{{
+    " vimperatorのシンタックスファイル
+    NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
+                \   'type'        : 'raw',
+                \   'autoload'    : { 'filetypes' : 'vimperator' },
+                \   'script_type' : 'syntax'
+                \}
+    " }}}
+    " confluence {{{
+    " confluenceのシンタックスファイル
+    NeoBundleLazy 'confluencewiki.vim', {
+                \   'autoload' : { 'filetypes' : 'confluencewiki' }
+                \ }
+    " }}}
+
+    NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
+    NeoBundleLazy 'gregsexton/gitv', {
+                \   'autoload': {'commands' : ['Gitv']}
+                \}
+
+
+    NeoBundleLazy 'mattn/gist-vim', {
+                \   'autoload' : { 'commands' : [ 'Gist' ] },
+                \   'depends'  : 'mattn/webapi-vim'
+                \}
+
+    NeoBundleLazy 'vim-scripts/DirDiff.vim', {
+                \   'autoload' : {
+                \       'commands' : {
+                \           'name' : 'DirDiff',
+                \           'complete' : 'dir'
+                \       }
+                \   }
+                \}
+
+    NeoBundleLazy 'tyru/open-browser.vim', {
+                \   'autoload':{
+                \       'mappings':[
+                \            '<Plug>(openbrowser-'
+                \        ]
+                \   }
+                \}
+
+    " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
+    NeoBundleLazy 'rbtnn/vimconsole.vim', {
+                \   'autoload' : {
+                \       'commands' : 'VimConsoleToggle'
+                \   }
+                \}
+
+
+    " colorscheme
+    " NeoBundle 'tomasr/molokai'
+    NeoBundle 'w0ng/vim-hybrid'
+    NeoBundle 'vim-scripts/wombat256.vim'
+    NeoBundle 'altercation/vim-colors-solarized'
+    NeoBundle 'chriskempson/vim-tomorrow-theme'
+    NeoBundle 'vim-scripts/rdark'
+    NeoBundle 'vim-scripts/rdark-terminal'
+    NeoBundle 'jonathanfilip/vim-lucius'
+
+    " カラースキームの色見本
+    " http://cocopon.me/blog/?p=3522
+    NeoBundleLazy 'cocopon/colorswatch.vim', {
+                \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
+                \}
+    NeoBundleLazy 'LeafCage/unite-gvimrgb', {
+        \ 'autoload' : {
+        \   'unite_sources' : 'gvimrgb'
+        \ }}
+
+    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
+    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
+    NeoBundleLazy 'mattn/httpstatus-vim', {
+                \   'autoload' : { 'commands' : 'HttpStatus' }
+                \ }
+
+    " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
+
+    if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
+        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
+                    \   'autoload' : {
+                    \       'commands' : [
+                    \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+                    \       ]
+                    \   },
+                    \   'external_commands' : 'hg'
+                    \}
+    endif
+
+    " glidenote/memolist.vim {{{
+    NeoBundleLazy 'glidenote/memolist.vim', {
+                \   'autoload' : { 'commands' : [
+                \       'MemoNew', 'MemoList', 'MemoGrep'
+                \   ]}
+                \}
+    " }}}
+    " fuenor/qfixhowm {{{
+    " NeoBundle 'fuenor/qfixhowm'
+    " }}}
+    " osyo-manga/unite-qfixhowm {{{
+    NeoBundle "osyo-manga/unite-qfixhowm"
+    " }}}
+    " NeoBundle 'jceb/vim-orgmode'
+
+    " http://d.hatena.ne.jp/itchyny/20140108/1389164688
+    NeoBundleLazy 'itchyny/calendar.vim', {
+                \   'autoload' : { 'commands' : [
+                \       'Calendar'
+                \   ]}
+                \}
+
+    " vim以外のリポジトリ
+    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
+
+    " 自分のリポジトリ
+    " if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
+    "     let g:neobundle#types#git#default_protocol = "ssh"
+    " endif
+    NeoBundle 'tmsanrinsha/molokai'
+    " NeoBundle 'tmsanrinsha/vim-colors-solarized'
+    NeoBundle 'tmsanrinsha/vim'
+    NeoBundle 'tmsanrinsha/vim-emacscommandline'
+
+    if filereadable(expand($VIMFILES . '/.neobundlerc.local'))
+        execute 'source ' . expand($VIMFILES . '/.neobundlerc.local')
+    endif
+
+    filetype plugin indent on     " Required!
+
+     " Installation check.
+     NeoBundleCheck
+
+    if !has('vim_starting')
+      " Call on_source hook when reloading .vimrc.
+      call neobundle#call_hook('on_source')
+    endif
+else
+    " neobundleが使えない場合
+    " bundle以下にあるpluginをいくつかruntimepathへ追加する
+    let s:load_plugin_list = [
+                \   'sudo.vim', 'yankround.vim', 'minibufexpl.vim', 'Kwbd.vim',
+                \   'vim-powerline', 'syntastic', 'molokai', 'vim-smartword'
+                \]
+    for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
+        let s:plugin_name = matchstr(path, '[^/]\+$')
+        if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
+            let &runtimepath = &runtimepath.','.path
+        end
+    endfor
+
+    filetype plugin indent on
+endif
+
+"}}}
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
