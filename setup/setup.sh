@@ -133,7 +133,7 @@ elif [[ "$uname" = Darwin ]]; then
         command_exists tmux    || brew install tmux
         command_exists tree    || brew install tree
         command_exists zsh     || brew install zsh
-        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
+        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then
