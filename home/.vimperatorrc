@@ -1,30 +1,11 @@
-"3.7.1 (created: 2013/05/22 20:32:57)
-
 set all&
-set complete=l
+set complete=lh
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
 hi Hint font-family: Consolas; font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
 set "editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"
-
-" コマンドモード開始時に自動的にIMEをOFFにする
-" http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
-style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
-
-
-" google.co.jpではVimperatorを無効にする
-"autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
-
-" デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
-" こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
-"set defsearch=g
-
-" はてなブックマーク
-" https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-%E3%81%A7%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E6%8B%A1%E5%BC%B5%E3%82%92%E4%BD%BF%E3%81%86
-javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
-set complete+=H
 
 " Emacs like key bindings
 cnoremap <C-p> <UP>
@@ -60,9 +41,22 @@ qmark c https://www.google.com/calendar/
 qmark l http://reader.livedoor.com/reader/
 qmark b hatenabookmark
 
+" コマンドモード開始時に自動的にIMEをOFFにする
+" http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
+style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+" はてなブックマーク
+" https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-%E3%81%A7%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E6%8B%A1%E5%BC%B5%E3%82%92%E4%BD%BF%E3%81%86
+javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
+set complete=lHh
+
+" google.co.jpではVimperatorを無効にする
+"autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
+
+" デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
+" こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
+"set defsearch=g
+
 source! "~/.vimperatorrc.local"
-
-
-
 
 " vim: set ft=vimperator:

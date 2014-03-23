@@ -1245,12 +1245,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   ]}
                 \}
     " }}}
-    " fuenor/qfixhowm {{{
-    " NeoBundle 'fuenor/qfixhowm'
-    " }}}
-    " osyo-manga/unite-qfixhowm {{{
+    NeoBundle 'fuenor/qfixhowm'
     NeoBundle "osyo-manga/unite-qfixhowm"
-    " }}}
     " NeoBundle 'jceb/vim-orgmode'
 
     " http://d.hatena.ne.jp/itchyny/20140108/1389164688
@@ -2191,28 +2187,36 @@ let g:QFixHowm_Convert = 0
 let g:qfixmemo_mapleader = '\M'
 " デフォルトの保存先
 let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
-let g:qfixmemo_filename = '%Y-%m-%d-%H-%M'
+let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
 " メモファイルの拡張子
 let g:qfixmemo_ext = 'txt'
 " ファイルタイプをmarkdownにする
 let g:qfixmemo_filetype = 'mkd'
-let g:qfixmemo_title    = '#'
-let g:QFixMRU_Title = {}
-let g:QFixMRU_Title['mkd'] = '^# '
-let g:QFixMRU_Title['md'] = '^# '
 " 外部grep使用
 let g:mygrepprg='grep'
 " let g:QFixMRU_RootDir = qfixmemo_dir
 " let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
 " let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
-" let g:qfixmemo_template =
-" \ ['%TITLE% ', '==========', '%DATE%', 'tags: []', 'categories: []', '- - -', '']
-" let g:qfixmemo_title = 'title:'
-" let g:qfixmemo_timeformat_regxp = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
+let g:qfixmemo_template = [
+\   '%TITLE% ',
+\   '==========',
+\   '%DATE%',
+\   'tags: []',
+\   'categories: []',
+\   '- - -',
+\   ''
+\]
+let g:qfixmemo_title = 'title:'
+" let g:qfixmemo_timeformat = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
 " let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
 " let g:qfixmemo_template_keycmd = "2j$a"
+let g:QFixMRU_Title = {}
+let g:QFixMRU_Title['mkd'] = '^title:'
+let qfixmemo_folding = 0
+" let g:qfixmemo_title    = '#'
 " let g:QFixMRU_Title = {}
-" let g:QFixMRU_Title['mkd'] = '^title:'
+" let g:QFixMRU_Title['mkd'] = '^# '
+" let g:QFixMRU_Title['md'] = '^# '
 " }}}
 endif
 " }}}
