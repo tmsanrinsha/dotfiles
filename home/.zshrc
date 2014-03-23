@@ -185,7 +185,7 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 # シンボリックリンクのディレクトリにcdしたら実際のディレクトリに移る
 # setopt chase_links
 
-# auto_pushd {{{
+# directory stack {{{
 # ------------------------------------------------------------------------------
 # auto directory pushd that you can get dirs list by cd -(+)[tab]
 # -:古いのが上、+:新しいのが上
@@ -199,28 +199,30 @@ DIRSTACKSIZE=10
 
 # ディレクトリスタックをファイルに保存することで端末間で共有したり、ログアウトしても残るようにする {{{
 # http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
+test ! -d ~/.zsh && mkdir ~/.zsh
+test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
 # cdする前に現在のディレクトリを保存
 function share_dirs_preexec {
-    pwd >> ~/.dirs
+    pwd >> ~/.zsh/.dirstack
 }
 # プロンプトが表示される前にディレクトリスタックを更新する
 function share_dirs_precmd {
     if which tac 1>/dev/null 2>&1;then
-        TAC=`which tac`
+        taccmd=`which tac`
     else
-        TAC='tail -r'
+        taccmd='tail -r'
     fi
 
-    # 現在のディレクトリに戻ってこれるように書き込む
-    pwd >> ~/.dirs
+    pwdstr=`pwd`
     # ファイルの書き込まれたディレクトリを移動することでディレクトリスタックを更新
     while read line
     do
         # ディレクトリが削除されていることもあるので調べる
-        [ -d $line ] && cd $line
-    done <~/.dirs
+        [ -d $line ] && pushd $line
+    done < ~/.zsh/.dirstack
     # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
-    dirs | tr " " "\n" | sed "s|~|${HOME}|" | eval ${TAC} >! ~/.dirs
+    dirs -v | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
+    pushd $pwdstr
 }
 # autoload -Uz add-zsh-hookが必要
 # ファイルサーバーに接続している環境だと遅くなるので設定しない
