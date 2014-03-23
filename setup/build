@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -ex
+
+COMMAND="${0##*/}"
+usage() {
+    echo "usage: ${COMMAND} package"
+    exit
+}
+
+[ "$1" = '-h' -o "$1" = '-help' -o $# -ne 1 ] && usage
+
+package=$1
+
+source $package.info
+
+if [ -z "$download" ]; then
+    tmpdir=`mktemp -d /tmp/build.XXXXXX`
+    cd $tmpdir
+
+    if which curl;then
+        downloader='curl -LRO'
+    elif which wget;then
+        downloader='wget -O'
+    else
+        echo 'curlまたはwgetをインストールしてください'
+        exit 1
+    fi
+
+    $downloader $src
+    archive=$(ls)
+    decomp.sh $archive
+    pkg_ver=$(ls | grep -v $archive)
+    cd $pkg_ver
+fi
+
+if [ -z "$configure" ]; then
+./configure --prefix=$HOME/local/stow/$pkg_ver \
+    $configure_option
+else
+    while read command
+    do
+        $command
+    done <<EOT
+$configure
+EOT
+fi
+
+if [ -z "$make" ]; then
+    make
+    make install
+else
+    while read command
+    do
+        $command
+    done <<EOT
+$make
+EOT
+fi
+
+cd ~/local/stow
+
+# http://gateman-on.blogspot.jp/2013/02/stow.html
+# 以下のオプションを付けないと、dirファイルが他パッケージとかぶってエラーが出る
+stow $pkg_ver --ignore=share/info/dir

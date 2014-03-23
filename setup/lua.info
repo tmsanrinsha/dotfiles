@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+src=http://www.lua.org/ftp/lua-5.2.3.tar.gz
+case `uname` in
+    "FreeBSD")
+        platform=freebsd;;
+    "Linux")
+        platform="linux MYLIBS=-ltermcap";;
+    *)
+        exit 1;;
+esac
+configure=:
+make=`cat <<EOT
+make $platform
+make test
+mkdir -p $HOME/local/stow/lua-5.2.3
+make install INSTALL_TOP=$HOME/local/stow/lua-5.2.3
+EOT
+`

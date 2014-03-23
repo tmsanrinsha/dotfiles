@@ -1,0 +1,2 @@
+source=http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-4.8.2/gcc-4.8.2.tar.gz
+require=("gmp" "mpfr" "mpr")
