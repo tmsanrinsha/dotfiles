@@ -681,15 +681,15 @@ function! s:override_plugin_setting()
     setlocal formatoptions<
 endfunction
 
-" ----------------------------------------------------------------------------
 " shell {{{
+" ----------------------------------------------------------------------------
 augroup sh
     autocmd!
     autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 augroup END
 "}}}
-" ----------------------------------------------------------------------------
 " HTML {{{
+" ----------------------------------------------------------------------------
 " HTML Key Mappings for Typing Character Codes: {{{
 " * http://www.stripey.com/vim/html.html
 " * https://github.com/sigwyg/dotfiles/blob/8c70c4032ebad90a8d92b76b1c5d732f28559e40/.vimrc
@@ -745,16 +745,16 @@ autocmd MyVimrc FileType html
     \|  setlocal path+=./;/
 " }}}
 " }}}
-" ----------------------------------------------------------------------------
 " XML {{{
+" ----------------------------------------------------------------------------
 nnoremap <Leader>= :%s/></>\r</g<CR>:setlocal ft=xml<CR>gg=G
 " }}}
-" ----------------------------------------------------------------------------
 " JavaScript {{{
+" ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
 " }}}
-" ----------------------------------------------------------------------------
 " PHP {{{
+" ----------------------------------------------------------------------------
 let php_sql_query=1 " 文字列中のSQLをハイライトする
 let php_htmlInStrings=1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1 " ショートタグ (<?を無効にする→ハイライト除外にする)
@@ -1256,9 +1256,6 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   ]}
                 \}
 
-    " vim以外のリポジトリ
-    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
-
     " 自分のリポジトリ
     " if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
     "     let g:neobundle#types#git#default_protocol = "ssh"
@@ -1267,6 +1264,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " NeoBundle 'tmsanrinsha/vim-colors-solarized'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
+
+    " vim以外のリポジトリ
+    NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
     if filereadable(expand($VIMFILES . '/.neobundlerc.local'))
         execute 'source ' . expand($VIMFILES . '/.neobundlerc.local')
