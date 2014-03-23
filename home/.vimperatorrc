@@ -57,6 +57,6 @@ set complete=lHh
 " こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
 "set defsearch=g
 
-source! "~/.vimperatorrc.local"
+source ~/.vimperatorrc.local
 
 " vim: set ft=vimperator:
