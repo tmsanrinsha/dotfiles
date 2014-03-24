@@ -202,9 +202,9 @@ DIRSTACKSIZE=10
 test ! -d ~/.zsh && mkdir ~/.zsh
 test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
 # cdする前に現在のディレクトリを保存
-function share_dirs_preexec {
-    pwd >> ~/.zsh/.dirstack
-}
+# function share_dirs_preexec { 
+#     pwd >> ~/.zsh/.dirstack   
+# }                             
 # プロンプトが表示される前にディレクトリスタックを更新する
 function share_dirs_precmd {
     if which tac 1>/dev/null 2>&1;then
@@ -213,16 +213,15 @@ function share_dirs_precmd {
         taccmd='tail -r'
     fi
 
-    pwdstr=`pwd`
+    pwd >> ~/.zsh/.dirstack
     # ファイルの書き込まれたディレクトリを移動することでディレクトリスタックを更新
     while read line
     do
         # ディレクトリが削除されていることもあるので調べる
-        [ -d $line ] && pushd $line
+        [ -d $line ] && cd $line
     done < ~/.zsh/.dirstack
     # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
-    dirs -v | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
-    pushd $pwdstr
+    dirs -v | awk '{print $2}' | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
 }
 # autoload -Uz add-zsh-hookが必要
 # ファイルサーバーに接続している環境だと遅くなるので設定しない
