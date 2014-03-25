@@ -191,12 +191,6 @@ inoremap <C-d> <Del>
 
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
-
-inoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
-cnoremap <C-r>[ <C-r>=expand('%:p:h')<CR>/
-" expand file (not ext)
-inoremap <C-r>] <C-r>=expand('%:p:r')<CR>
-cnoremap <C-r>] <C-r>=expand('%:p:r')<CR>
 " }}}
 " swap, backup, undo {{{
 " ==============================================================================
@@ -469,8 +463,19 @@ endfunction
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
 
-" %%でアクティブなバッファのパスを展開
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" full path of file
+inoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+cnoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+" full path of directory
+inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
+cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
+" " expand file (not ext)
+" inoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+" cnoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+
+" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する
+" http://vim-users.jp/2009/05/hack17/
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 " }}}
 " カーソル {{{
 " ==============================================================================
