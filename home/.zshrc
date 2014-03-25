@@ -226,7 +226,7 @@ function share_dirs_precmd {
 # autoload -Uz add-zsh-hookが必要
 # ファイルサーバーに接続している環境だと遅くなるので設定しない
 if [[ `uname` != Darwin ]]; then
-    add-zsh-hook preexec share_dirs_preexec
+    # add-zsh-hook preexec share_dirs_preexec
     add-zsh-hook precmd  share_dirs_precmd
 fi
 # }}}
