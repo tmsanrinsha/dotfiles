@@ -1410,8 +1410,8 @@ if s:is_installed("vim-smartword")
 endif
 "}}}
 if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
-" ----------------------------------------------------------------------------
 " Shougo/unite.vim {{{
+" ----------------------------------------------------------------------------
 if s:is_installed('unite.vim')
     let g:unite_data_directory = $VIMFILES.'/.unite'
     let g:unite_enable_start_insert = 1
@@ -1469,6 +1469,9 @@ if s:is_installed('unite.vim')
     endif
 
     let g:unite_source_grep_max_candidates = 1000
+    " Set "-no-quit" automatically in grep unite source.
+    call unite#custom#profile('source/grep', 'context',
+        \ {'no_quit' : 1})
 
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
