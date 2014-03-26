@@ -48,8 +48,9 @@ done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
-test -d ~/.zsh/functions || mkdir -p ~/.zsh/functions
-test -d ~/script/common || mkdir -p ~/script/common
+test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
+test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
+test -d ~/script/common    || mkdir -p ~/script/common
 
 if [[ `uname` = CYGWIN* ]]; then
     test -d ~/script/cygwin || mkdir -p ~/script/cygwin
