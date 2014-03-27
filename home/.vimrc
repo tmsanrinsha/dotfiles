@@ -1,4 +1,7 @@
 " {{{
+if filereadable(expand('~/.vimrc.local.pre'))
+    source ~/.vimrc.local.pre
+endif
 scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
 set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 let $VIMFILES = expand('~/.vim')
@@ -830,10 +833,10 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
-" ============================================================================
 " plugin {{{
-" ----------------------------------------------------------------------------
+" ============================================================================
 " neobundle.vim {{{
+" ----------------------------------------------------------------------------
 if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     \   && (v:version >= 703 || v:version == 702 && has('patch051'))
     if has('vim_starting')
@@ -1008,7 +1011,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \}
 
     " Vimperatorのクイックヒント風にカーソル移動
-    NeoBundle 'Lokaltog/vim-easymotion'
+    NeoBundleLazy 'Lokaltog/vim-easymotion'
 
     " terryma/vim-multiple-cursors {{{
     " ==========================================================================
@@ -1598,8 +1601,8 @@ if s:is_installed('vimshell')
     endfunction
 endif
 " }}}
-" ==============================================================================
 " neocomplcache & neocomplete {{{
+" ==============================================================================
 if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
     if neobundle#is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
@@ -1738,7 +1741,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         "             \ }
         "let g:neocomplcache_include_max_processes = 1000
 
-        " key mappings
+        " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         " <TAB>: completion.
@@ -1750,7 +1753,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
-        " [Vim - smartinput の &lt;BS&gt; や &lt;CR&gt; の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf) {{{
+        " [Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf)
         if neobundle#is_installed('vim-smartinput')
             call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
                   \                        '<BS>',
@@ -1761,35 +1764,33 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
                   \                        '<Enter>',
                   \                        '<Enter>')
+
+            " <BS> でポップアップを閉じて文字を削除
+            execute 'imap <expr> <BS> '
+                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_BS)"'
+
+            " <C-h> でポップアップを閉じて文字を削除
+            execute 'imap <expr> <C-h> '
+                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
+
+
+            " <CR> でポップアップ中の候補を選択し改行する
+            execute 'imap <expr> <CR> '
+                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+            " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
+            " ポップアップがないときには改行する
+            " imap <expr> <CR> pumvisible() ?
+            "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
+        else
+            execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+
+            " <C-h> でポップアップを閉じて文字を削除
+            execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+
+            " <CR> でポップアップ中の候補を選択し改行する
+            execute 'inoremap <expr><CR> ' . s:neocom . '#smart_close_popup()."\<CR>"'
         endif
-
-        " <BS> でポップアップを閉じて文字を削除
-        execute 'imap <expr> <BS> '
-            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_BS)"'
-
-        " <C-h> でポップアップを閉じて文字を削除
-        execute 'imap <expr> <C-h> '
-            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
-
-
-        " <CR> でポップアップ中の候補を選択し改行する
-        execute 'imap <expr> <CR> '
-            \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
-
-        " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
-        " ポップアップがないときには改行する
-        " imap <expr> <CR> pumvisible() ?
-        "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         " }}}
-
-        " execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
-
-        " " <C-h> でポップアップを閉じて文字を削除
-        " execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
-
-        " " <CR> でポップアップ中の候補を選択し改行する
-        " execute 'inoremap <expr><CR> ' . s:neocom . '#smart_close_popup()."\<CR>"'
-
     endfunction
 endif
 "}}}
@@ -1985,11 +1986,21 @@ xmap ib <Plug>(textobj-multiblock-i)
 " }}}
 " vim-easymotion {{{
 " ==============================================================================
-if s:is_installed('vim-easymotion')
-    let g:EasyMotion_leader_key = '<Leader>/'
-    let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    " let g:EasyMotion_mapping_f = '+'
-    " let g:EasyMotion_mapping_F = '-'
+call neobundle#config('vim-easymotion', {
+    \   'autoload': {
+    \       'mappings': '<Plug>(easymotion-'
+    \   }
+    \})
+
+if neobundle#is_installed('vim-easymotion')
+    map S <Plug>(easymotion-s2)
+
+    let s:bundle = neobundle#get("vim-easymotion")
+    function! s:bundle.hooks.on_source(bundle)
+        let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
+        let g:EasyMotion_do_mapping = 0
+    endfunction
+    unlet s:bundle
 endif
 "}}}
 " vim-partedit {{{
