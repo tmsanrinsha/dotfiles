@@ -57,6 +57,26 @@ set complete+=H
 " こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
 "set defsearch=g
 
+" config {{{
+" ============================================================================
+" frecency {{{
+" ----------------------------------------------------------------------------
+set! places.frecency.linkVisitBonus=98
+set! places.frecency.typedVisitBonus=15
+set! places.frecency.bookmarkVisitBonus=1
+set! places.frecency.embedVisitBonus=0
+set! places.frecency.permRedirectVisitBonus=13
+set! places.frecency.tempRedirectVisitBonus=1
+set! places.frecency.downloadVisitBonus=0
+
+set! places.frecency.firstBucketWeight=94
+set! places.frecency.secondBucketWeight=33
+set! places.frecency.thirdBucketWeight=7
+set! places.frecency.fourthBucketWeight=6
+set! places.frecency.defaultBucketWeight=3
+" }}}
+" }}}
+
 source ~/.vimperatorrc.local
 
 " vim: set ft=vimperator:
