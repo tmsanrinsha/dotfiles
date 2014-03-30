@@ -1,5 +1,5 @@
 set all&
-set complete=l
+set complete=lh
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
