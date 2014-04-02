@@ -237,10 +237,10 @@ endif
 " 開いた時に前回保存時と内容が違う場合はリセットされる
 if has('persistent_undo')
     set undofile
-    if !isdirectory($VIMFILES.'/.vimundo')
-        call mkdir($VIMFILES.'/.vimundo')
+    if !isdirectory($VIMFILES.'/.undo')
+        call mkdir($VIMFILES.'/.undo')
     endif
-    set undodir=$VIMFILES/.vimundo
+    set undodir=$VIMFILES/.undo
 endif
 
 " Always Jump to the Last Known Cursor Position
