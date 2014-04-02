@@ -904,6 +904,22 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
                 \   'depends' : 'Shougo/vim-vcs'
                 \}
+    NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', { 'autoload' : { 'commands'  : ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit'] } }
+
+    " Conque
+    let g:ConqueTerm_ReadUnfocused = 1
+    let g:ConqueTerm_CloseOnEnd = 1
+    let g:ConqueTerm_StartMessages = 0
+    let g:ConqueTerm_CWInsert = 1
+    noremap <silent> <Leader>sh :ConqueTermVSplit zsh<CR>
+    let g:ConqueTerm_EscKey = '<C-j>'
+
+    function! s:delete_ConqueTerm(buffer_name)
+        let term_obj = conque_term#get_instance(a:buffer_name)
+        call term_obj.close()
+    endfunction
+    autocmd BufWinLeave zsh\s-\s? call <SID>delete_ConqueTerm(expand('%'))
+
 
     " 補完・入力補助 {{{
     " ==========================================================================
