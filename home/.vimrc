@@ -25,6 +25,7 @@ endfunction
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
+    " has('patch-7.4.237')
     if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
         return neobundle#is_installed(a:plugin)
     else
