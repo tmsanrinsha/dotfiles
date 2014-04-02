@@ -2011,6 +2011,11 @@ call neobundle#config('vim-easymotion', {
 
 if neobundle#is_installed('vim-easymotion')
     map S <Plug>(easymotion-s2)
+    map f <Plug>(easymotion-fl)
+    map t <Plug>(easymotion-tl)
+    map F <Plug>(easymotion-Fl)
+    map T <Plug>(easymotion-Tl)
+
 
     let s:bundle = neobundle#get("vim-easymotion")
     function! s:bundle.hooks.on_source(bundle)
