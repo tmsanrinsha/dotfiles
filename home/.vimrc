@@ -918,7 +918,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         let term_obj = conque_term#get_instance(a:buffer_name)
         call term_obj.close()
     endfunction
-    autocmd BufWinLeave zsh\s-\s? call <SID>delete_ConqueTerm(expand('%'))
+    " autocmd BufWinLeave zsh\s-\s? call <SID>delete_ConqueTerm(expand('%'))
 
 
     " 補完・入力補助 {{{
