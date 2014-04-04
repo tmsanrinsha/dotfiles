@@ -281,31 +281,24 @@ kterm*|xterm)
     ;;
 esac
 # }}}
-
-# screenの設定 {{{
-#==============================================================================
-#実行中のコマンドまたはカレントディレクトリの表示
-#.screenrcでterm xterm-256colorと設定している場合
-if [ $TERM = xterm-256color ];then
-    screen_preexec() {
+# tmux & screen {{{
+# ============================================================================
+if [ $TERM = screen ];then
+    # ウィンドウ名をディレクトリ名@ホスト名(コマンド実行時はコマンド名@ホスト名)にする
+    tmux_preexec() {
+        mycmd=(${(s: :)${1}})
         echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
     }
-    screen_precmd() {
+
+    tmux_precmd() {
         echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
     }
-    add-zsh-hook preexec screen_preexec
-    add-zsh-hook precmd screen_precmd
+    add-zsh-hook preexec tmux_preexec
+    add-zsh-hook precmd tmux_precmd
+    # tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
+    # http://qiita.com/items/c166700393481cb15e0c
+    DISABLE_AUTO_TITLE=true
 fi
-# }}}
-
-# }}}
-
-# }}}
-
-# tmux {{{
-# tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
-# http://qiita.com/items/c166700393481cb15e0c
-DISABLE_AUTO_TITLE=true
 # }}}
 
 if [ -f ~/.zsh/plugin/z.sh ]; then
