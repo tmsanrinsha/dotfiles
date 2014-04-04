@@ -15,11 +15,16 @@ typeset -U path cdpath fpath manpath ld_library_path include
 fpath=(~/.zsh/functions/ $fpath)
 
 # 基本設定 {{{
-# ファイルがある場合のリダイレクト(>)の防止
-# したい場合は>!を使う
+# ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
 setopt noclobber
+# compacked complete list display
+setopt list_packed
+# 改行のない出力をプロンプトで上書きするのを防ぐ
+unsetopt promptcr
+# add-zsh-hook precmd functionするための設定
+# http://d.hatena.ne.jp/kiririmode/20120327/p1
+autoload -Uz add-zsh-hook
 # }}}
-
 # Keybind configuration {{{
 #
 # emacs like keybind -e
@@ -197,14 +202,10 @@ setopt pushd_ignore_dups
 # 保存するディレクトリスタックの数
 DIRSTACKSIZE=10
 
-# ディレクトリスタックをファイルに保存することで端末間で共有したり、ログアウトしても残るようにする {{{
+## ディレクトリスタックをファイルに保存することで端末間で共有したり、ログアウトしても残るようにする {{{
 # http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
 test ! -d ~/.zsh && mkdir ~/.zsh
 test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
-# cdする前に現在のディレクトリを保存
-# function share_dirs_preexec { 
-#     pwd >> ~/.zsh/.dirstack   
-# }                             
 # プロンプトが表示される前にディレクトリスタックを更新する
 function share_dirs_precmd {
     if which tac 1>/dev/null 2>&1;then
@@ -223,20 +224,16 @@ function share_dirs_precmd {
     # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
     dirs -v | awk '{print $2}' | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
 }
-# autoload -Uz add-zsh-hookが必要
 # ファイルサーバーに接続している環境だと遅くなるので設定しない
 if [[ `uname` != Darwin ]]; then
-    # add-zsh-hook preexec share_dirs_preexec
+    # autoload -Uz add-zsh-hookが必要
     add-zsh-hook precmd  share_dirs_precmd
 fi
 # }}}
 # }}}
-
-# compacked complete list display
-setopt list_packed
-
+# }}}
 # 履歴 {{{
-#==============================================================================
+# =============================================================================
 # historical backward/forward search with linehead string binded to ^P/^N
 #
 autoload history-search-end
@@ -273,48 +270,6 @@ setopt hist_ignore_space
 ## zshプロセス間でヒストリを共有する。
 setopt share_history
 # }}}
-
-# precmd系 {{{
-# =============================================================================
-# http://d.hatena.ne.jp/kiririmode/20120327/p1
-# add-zsh-hook precmd functionするための設定
-autoload -Uz add-zsh-hook
-
-# プロンプト {{{
-#==============================================================================
-# 改行のない出力をプロンプトで上書きするのを防ぐ
-unsetopt promptcr
-#setopt print_exit_value
-#autoload -Uz colors; colors
-
-#C-zでサスペンドしたとき(18)以外のエラー終了時に(;_;)!を表示
-#local err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
-
-
-#function prompt_preexec() {
-#    # preexecの中で
-#    #  $0はpreexec
-#    #  $1は入力されたコマンド
-#    #  $2は入力されたエイリアスが展開されたコマンド
-#    # setopt print_exit_valueと挙動を似せるために$2をとっておく
-#    prompt_cmd=$2
-#}
-function prompt_precmd() {
-    ## setopt print_exit_valueをセットしたときのようなメッセージを作る
-    ## ただし、setopt print exit_valueの場合はcommand1;command2と打った時
-    #err="%0(?||%18(?||%{$fg[red]%}(;_;%)! zsh: exit $?   $prompt_cmd%{${reset_color}%}"$'\n'"))"
-    #err="%0(?||%18(?||%{$fg[red]%}(;_;%)!%{${reset_color}%}"$'\n'"))"
-    # パスの~の部分の色を反転させる
-    #tildepwd=$(pwd | sed "s|$HOME|%S~%s|")
-    #PROMPT="${err}${color}[%m:${tildepwd}]%#%{${reset_color}%} "
-
-    #pct="%0(?||%18(?||%{$fg[red]%}))%#%{${reset_color}%}"
-    #PROMPT="${color}[%m:%~]${pct} "
-}
-#add-zsh-hook preexec prompt_preexec
-add-zsh-hook precmd prompt_precmd
-# }}}
-
 # set terminal title including current directory {{{
 #==============================================================================
 case "${TERM}" in
