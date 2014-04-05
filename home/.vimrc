@@ -835,9 +835,8 @@ autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
 " plugin {{{
-" ============================================================================
 " neobundle.vim {{{
-" ----------------------------------------------------------------------------
+" ============================================================================
 if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     \   && (v:version >= 703 || v:version == 702 && has('patch051'))
     if has('vim_starting')
@@ -900,59 +899,30 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'thinca/vim-qfreplace'
 
     NeoBundle 'Shougo/vimfiler'
-    " shell {{{
+    "" shell {{{
     NeoBundleLazy 'Shougo/vimshell', {
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
                 \   'depends' : 'Shougo/vim-vcs'
                 \}
     NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
     " }}}
-
-    " 補完・入力補助 {{{
-    " ==========================================================================
-    " 補完候補の自動表示
+    "" 補完・入力補助 {{{
+    """ 自動補完 {{{
     if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
-        NeoBundleLazy "Shougo/neocomplete", {
-            \   "autoload": {
-            \       "insert": 1,
-            \   }
-            \}
+        NeoBundleLazy "Shougo/neocomplete", {"autoload": {"insert": 1}}
     else
-        NeoBundleLazy "Shougo/neocomplcache", {
-            \   "autoload": {
-            \        "insert": 1,
-            \   }
-            \}
+        NeoBundleLazy "Shougo/neocomplcache", {"autoload": {"insert": 1}}
     endif
-    " Valloric/Youcompleteme {{{
-    " if has('gui_running') && has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     "     NeoBundle "Valloric/YouCompleteMe"
     " endif
-    " }}}
-    " NeoBundleLazy "kana/vim-smartinput", {
-    "     \   "autoload": {
-    "     \       "insert": 1,
-    "     \   }
-    "     \}
-
-    " スニペット補完
-    NeoBundleLazy 'Shougo/neosnippet', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    NeoBundleLazy 'Shougo/neosnippet-snippets', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    NeoBundleLazy 'honza/vim-snippets', {
-                \   "autoload" : {
-                \       "insert" : 1,
-                \   }
-                \}
-    " }}}
+    """ }}}
+    """ スニペット補完 {{{
+    NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
+    NeoBundleLazy 'Shougo/neosnippet-snippets', {"autoload": {"insert": 1}}
+    """ }}}
+    " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
+    "" }}}
     " quickrun {{{
     NeoBundleLazy 'thinca/vim-quickrun', {
                 \   'autoload' : { 'commands' : [ 'QuickRun' ] }
@@ -966,7 +936,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \}
     " }}}
     " operator {{{
-    NeoBundle "kana/vim-operator-user"
+    NeoBundleLazy "kana/vim-operator-user"
     NeoBundleLazy 'kana/vim-operator-replace', {
         \   'depends': 'kana/vim-operator-user',
         \   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }
@@ -1550,7 +1520,7 @@ autocmd MyVimrc FileType vimfiler
     \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
 "}}}
 " vimshell {{{
-" ==============================================================================
+" ============================================================================
 if s:is_installed('vimshell')
     nmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H  :VimShellPop<CR>
@@ -1579,7 +1549,7 @@ if s:is_installed('vimshell')
         let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
         let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ")' " Shougo/vim-vcs is required
 
-        let g:vimshell_temporary_directory = $VIMFILES.'/.vimshell'
+        let g:vimshell_data_directory = $VIMFILES.'/.vimshell'
 
         let g:vimshell_max_command_history = 3000
 
@@ -1628,7 +1598,7 @@ if neobundle#is_installed('Conque-Shell')
 endif
 "}}}
 " neocomplcache & neocomplete {{{
-" ==============================================================================
+" ============================================================================
 if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
     if neobundle#is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
@@ -1662,9 +1632,9 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
         " 補完候補取得に時間がかかっても補完をskipしない
-        execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
+        " execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
         " 候補の数を増やす
-        execute 'let g:'.s:neocom_.'max_list = 3000'
+        " execute 'let g:'.s:neocom_.'max_list = 3000'
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
@@ -1977,27 +1947,36 @@ endif
 "}}}
 " operator {{{
 " ==============================================================================
-if s:is_installed("vim-operator-user")
-    " clipboard copyのoperator
-    " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
-    function! OperatorYankClipboard(motion_wiseness)
-        let visual_commnad =
-            \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
-        execute 'normal!' '`['.visual_commnad.'`]"+y'
-    endfunction
-
-    call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
-    map [Space]y <Plug>(operator-yank-clipboard)
-
+call neobundle#config('vim-operator-user', {
+    \   'autoload': {
+    \       'mappings': '<Plug>(operator-'
+    \   }
+    \})
+if neobundle#is_installed("vim-operator-user")
     map [Space]c <Plug>(operator-camelize-toggle)
     map [Space]p <Plug>(operator-replace)
-    map [Space]p "+<Plug>(operator-replace)
+    map [Space]P "+<Plug>(operator-replace)
     map [Space]/ <Plug>(operator-search)
     map sa <Plug>(operator-surround-append)
     map sd <Plug>(operator-surround-delete)
     map sr <Plug>(operator-surround-replace)
     nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+
+    let s:hooks = neobundle#get_hooks("vim-operator-user")
+    function! s:hooks.on_source(bundle)
+        " clipboard copyのoperator
+        " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
+        function! OperatorYankClipboard(motion_wiseness)
+            let visual_commnad =
+                \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
+            execute 'normal!' '`['.visual_commnad.'`]"+y'
+        endfunction
+
+        call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
+    endfunction
+    unlet s:hooks
+    map [Space]y <Plug>(operator-yank-clipboard)
 endif
 " }}}
 " textobj {{{
