@@ -1,5 +1,5 @@
-scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
 " {{{
+scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
 if filereadable(expand('~/.vimrc.local.pre'))
     source ~/.vimrc.local.pre
 endif
@@ -33,10 +33,7 @@ function! s:is_installed(plugin)
     endif
 endfunction
 " }}}
-" 基本設定 {{{
-" ==============================================================================
 " vimrc全体で使うaugroup {{{
-" ------------------------------------------------------------------------------
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
 " autocmd!の回数を減らすことでVimの起動を早くする
 " ネームスペースを別にしたい場合は別途augroupを作る
@@ -44,6 +41,8 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
+" 基本設定 {{{
+" ============================================================================
 set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set cmdheight=2 "コマンドラインの高さを2行にする
@@ -52,14 +51,18 @@ set ruler
 set cursorline
 set t_Co=256 " 256色
 
-" 不可視文字 {{{
-set list listchars=tab:>-,trail:_ "タブと行末の空白の表示
+set showmatch matchtime=1 "括弧の対応
+set matchpairs& matchpairs+=<:>,（:）,「:」
+runtime macros/matchit.vim "HTML tag match
+
+" 不可視文字の表示 {{{
+set list
+set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:% ",eol:↲
 
 " 全角スペースをハイライト （Vimテクニックバイブル1-11）
 syntax enable
 scriptencoding utf-8
-augroup colerscheme
-    autocmd!
+augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
     autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
@@ -531,11 +534,6 @@ set backspace=indent,eol,start
 "    let &t_EI .= "\e[1 q"
 "endif
 "}}}
-" カッコ・タグの対応 {{{
-" ==============================================================================
-set showmatch matchtime=1 "括弧の対応
-runtime macros/matchit.vim "HTML tag match
-"}}}
 " vimdiff {{{
 " ==============================================================================
 set diffopt=filler
@@ -617,10 +615,12 @@ function! s:Ip2host(line1, line2)
     endfor
 endfunction
 
-command! -range=% Ip2host :call s:Ip2host(<line1>, <line2>)
+command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
+" color
+" ============================================================================
 " カーソル以下のカラースキームの情報の取得 {{{
-" ==============================================================================
+" ----------------------------------------------------------------------------
 " http://cohama.hateblo.jp/entry/2013/08/11/020849
 function! s:get_syn_id(transparent)
   let synid = synID(line("."), col("."), 1)
@@ -810,14 +810,6 @@ augroup MapHTMLKeys
     endfunction " MapHTMLKeys()
 augroup END
 "}}}
-" input </ to auto close tag on XML {{{
-" https://github.com/sorah/config/blob/master/vim/dot.vimrc
-"augroup MyXML
-"  autocmd!
-"  autocmd Filetype xml  inoremap <buffer> </ </<C-x><C-o>
-"  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
-"augroup END
-"}}}
 " gf(goto file)の設定 {{{
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
 autocmd MyVimrc FileType html
@@ -853,8 +845,8 @@ autocmd MyVimrc FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 " autocmd BufWrite *.php w | make
 " "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
 "}}}
-" ----------------------------------------------------------------------------
 " Java {{{
+" ----------------------------------------------------------------------------
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
 elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
@@ -865,31 +857,31 @@ autocmd MyVimrc FileType java
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
 "}}}
-" ----------------------------------------------------------------------------
 " MySQL {{{
+" ----------------------------------------------------------------------------
 " ]}, [{ の移動先
 let g:sql_type_default = 'mysql'
 let g:ftplugin_sql_statements = 'create,alter'
 " }}}
-" ----------------------------------------------------------------------------
 " yaml {{{
+" ----------------------------------------------------------------------------
 " autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 autocmd MyVimrc FileType yaml setlocal foldmethod=indent
 " }}}
-" ----------------------------------------------------------------------------
 " vim {{{
+" ----------------------------------------------------------------------------
 autocmd MyVimrc FileType vim
     \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR>
     \|  setlocal path&
     \|  setlocal path+=$VIMFILES/bundle
 let g:vim_indent_cont = &sw
 " }}}
-" ----------------------------------------------------------------------------
 " help {{{
+" ----------------------------------------------------------------------------
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}
-" ----------------------------------------------------------------------------
 " Git {{{
+" ----------------------------------------------------------------------------
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
 autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
@@ -897,12 +889,12 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
     \|  setlocal colorcolumn=+1
     \|  startinsert
 " }}}
-" ----------------------------------------------------------------------------
 " crontab {{{
+" ----------------------------------------------------------------------------
 autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 "}}}
-" ----------------------------------------------------------------------------
 " tsv {{{
+" ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
@@ -1128,15 +1120,6 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'scrooloose/syntastic'
     " debug
     NeoBundle 'joonty/vdebug'
-    " vim-jsbeautify {{{
-    " --------------
-    " JavaScript, CSS, HTMLの整形
-    NeoBundleLazy 'maksimr/vim-jsbeautify', {
-        \   'autoload' : {
-        \       'filetypes': ['javascript', 'css', 'html']
-        \   }
-        \}
-    " }}}
     " caw.vim {{{
     " -------
     " コメント操作
@@ -1146,7 +1129,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     " eclipseと連携
     if executable('ant')
-        NeoBundle 'ervandew/eclim', {
+        NeoBundleLazy 'ervandew/eclim', {
                     \   'build' : {
                     \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
@@ -1157,14 +1140,17 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                     \}
     endif
 
-    NeoBundle 'mattn/emmet-vim'
-
+    NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
+    " JavaScript, CSS, HTMLの整形
+    if executable('node')
+        NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload': {'filetypes': ['javascript', 'css', 'html']}}
+    endif
     " CSS
     " #000000とかの色付け
+    NeoBundle 'skammer/vim-css-color'
+    " rgb()に対応したやつ
     " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
-    " NeoBundle 'gist:hail2u/228147', {
-    "             \ 'name': 'css.vim',
-    "             \ 'script_type': 'plugin'}
+    " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
 
     " JavaScript {{{
     " --------------
@@ -1351,7 +1337,6 @@ else
 
     filetype plugin indent on
 endif
-
 "}}}
 " sudo.vim {{{
 " ==============================================================================
@@ -1439,11 +1424,11 @@ if s:is_installed('molokai')
     " let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-" if g:has_plugin('solarized')
-"     set background=dark
-"     let g:solarized_termcolors=256
-"     colorscheme solarized
-"     " let g:solarized_contrast = "high"
+elseif g:has_plugin('solarized')
+    set background=dark
+    let g:solarized_termcolors=256
+    colorscheme solarized
+    let g:solarized_contrast = "high"
 else
     colorscheme default
 endif
@@ -2002,7 +1987,7 @@ function! s:QuickRunAndroidProject()
     QuickRun androidProject
 endfunction
 
-command! QuickRunAndroidProject :call s:QuickRunAndroidProject()
+command! QuickRunAndroidProject call s:QuickRunAndroidProject()
 autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
 "}}}
 
