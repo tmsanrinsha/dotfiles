@@ -125,6 +125,13 @@ elif [[ "$uname" = Darwin ]]; then
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if command_exists brew; then
+        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
+
+        brew update  # homebrewの更新
+        brew upgrade # packageの更新
+
+        brew tap phinze/homebrew-cask
+
         command_exists ant     || brew install ant
         command_exists hg      || brew install mercurial
         command_exists node    || brew install node
@@ -134,7 +141,8 @@ elif [[ "$uname" = Darwin ]]; then
         command_exists tmux    || brew install tmux
         command_exists tree    || brew install tree
         command_exists zsh     || brew install zsh
-        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
+
+        brew cask install bettertouchtool
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then
