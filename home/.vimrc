@@ -1147,7 +1147,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
     " CSS
     " #000000とかの色付け
-    NeoBundle 'skammer/vim-css-color'
+    NeoBundleLazy 'skammer/vim-css-color'
     " rgb()に対応したやつ
     " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
     " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
@@ -1268,25 +1268,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
     if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
-        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress', {
-                    \   'autoload' : {
-                    \       'commands' : [
-                    \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
-                    \       ]
-                    \   },
-                    \   'external_commands' : 'hg'
-                    \}
+        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
     endif
-
-    " glidenote/memolist.vim {{{
-    NeoBundleLazy 'glidenote/memolist.vim', {
-                \   'autoload' : { 'commands' : [
-                \       'MemoNew', 'MemoList', 'MemoGrep'
-                \   ]}
-                \}
-    " }}}
-    NeoBundle 'fuenor/qfixhowm'
-    NeoBundle "osyo-manga/unite-qfixhowm"
+    NeoBundleLazy 'vimwiki/vimwiki'
+    NeoBundleLazy 'glidenote/memolist.vim'
+    " NeoBundle 'fuenor/qfixhowm'
+    " NeoBundle "osyo-manga/unite-qfixhowm"
     " NeoBundle 'jceb/vim-orgmode'
 
     " http://d.hatena.ne.jp/itchyny/20140108/1389164688
@@ -2254,55 +2241,103 @@ if s:is_installed("open-browser.vim")
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 " }}}
-" glidenote/memoliset.vim {{{
-" ==============================================================================
-if s:is_installed('memolist.vim')
+" vimrepress {{{
+" ============================================================================
+if neobundle#is_installed('vimrepress')
+    call neobundle#config('vimrepress', {
+        \   'autoload' : {
+        \       'commands' : [
+        \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+        \       ]
+        \   },
+        \})
+endif
+" }}}
+" vimwiki {{{
+" ============================================================================
+if neobundle#is_installed('vimwiki')
+    call neobundle#config('vimwiki', {
+        \   'autoload': {
+        \       'mappings': '<Plug>Vimwiki'
+        \   }
+        \})
+
+    nmap <Leader>ww  <Plug>VimwikiIndex
+
+    let g:vimwiki_list = [{'path': '~/Dropbox/wiki/', 'path_html': '~/Dropbox/public_html/'}]
+
+    let s:bundle = neobundle#get('vimwiki')
+    function! s:bundle.hooks.on_source(bundle)
+    endfunction
+    unlet s:bundle
+endif
+" }}}
+" memoliset.vim {{{
+" ============================================================================
+if neobundle#is_installed('memolist.vim')
+    call neobundle#config('memolist.vim', {
+        \   'autoload': {
+        \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
+        \   }
+        \})
+
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :MemoList<CR>
     nnoremap <Leader>mg  :MemoGrep<CR>
 
-    let g:memolist_path = expand('~/Dropbox/memo')
-    let g:memolist_memo_suffix = "txt"
-    let g:memolist_unite = 1
+    let s:bundle = neobundle#get('memolist.vim')
+    function! s:bundle.hooks.on_source(bundle)
+        let g:memolist_path = expand('~/Dropbox/memo')
+        let g:memolist_memo_suffix = "txt"
+        let g:memolist_unite = 1
+    endfunction
+    unlet s:bundle
 endif
 " }}}
-" fuenor/qfixhowm {{{
+" qfixhowm {{{
 " ==============================================================================
-" QFixHowm互換を切る
-let g:QFixHowm_Convert = 0
-let g:qfixmemo_mapleader = '\M'
-" デフォルトの保存先
-let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
-let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
-" メモファイルの拡張子
-let g:qfixmemo_ext = 'txt'
-" ファイルタイプをmarkdownにする
-let g:qfixmemo_filetype = 'mkd'
-" 外部grep使用
-let g:mygrepprg='grep'
-" let g:QFixMRU_RootDir = qfixmemo_dir
-" let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
-" let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
-let g:qfixmemo_template = [
-\   '%TITLE% ',
-\   '==========',
-\   '%DATE%',
-\   'tags: []',
-\   'categories: []',
-\   '- - -',
-\   ''
-\]
-let g:qfixmemo_title = 'title:'
-" let g:qfixmemo_timeformat = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
-" let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
-" let g:qfixmemo_template_keycmd = "2j$a"
-let g:QFixMRU_Title = {}
-let g:QFixMRU_Title['mkd'] = '^title:'
-let qfixmemo_folding = 0
-" let g:qfixmemo_title    = '#'
-" let g:QFixMRU_Title = {}
-" let g:QFixMRU_Title['mkd'] = '^# '
-" let g:QFixMRU_Title['md'] = '^# '
+if neobundle#is_installed('qfixhowm')
+
+    let s:bundle = neobundle#get("qfixhown")
+    function! s:bundle.hooks.on_source(bundle)
+        " QFixHowm互換を切る
+        let g:QFixHowm_Convert = 0
+        let g:qfixmemo_mapleader = '\M'
+        " デフォルトの保存先
+        let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
+        let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
+        " メモファイルの拡張子
+        let g:qfixmemo_ext = 'txt'
+        " ファイルタイプをmarkdownにする
+        let g:qfixmemo_filetype = 'mkd'
+        " 外部grep使用
+        let g:mygrepprg='grep'
+        " let g:QFixMRU_RootDir = qfixmemo_dir
+        " let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
+        " let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
+        let g:qfixmemo_template = [
+            \   '%TITLE% ',
+            \   '==========',
+            \   '%DATE%',
+            \   'tags: []',
+            \   'categories: []',
+            \   '- - -',
+            \   ''
+            \]
+        let g:qfixmemo_title = 'title:'
+        " let g:qfixmemo_timeformat = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
+        " let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
+        " let g:qfixmemo_template_keycmd = "2j$a"
+        let g:QFixMRU_Title = {}
+        let g:QFixMRU_Title['mkd'] = '^title:'
+        let qfixmemo_folding = 0
+        " let g:qfixmemo_title    = '#'
+        " let g:QFixMRU_Title = {}
+        " let g:QFixMRU_Title['mkd'] = '^# '
+        " let g:QFixMRU_Title['md'] = '^# '
+    endfunction
+    unlet s:bundle
+endif
 " }}}
 endif
 " }}}
