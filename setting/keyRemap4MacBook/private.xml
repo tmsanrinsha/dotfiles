@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<root>
+    <appdef>
+        <appname>VMWARE_FUSION</appname>
+        <equal>com.vmware.fusion</equal>
+    </appdef>
+    <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/replacementdef.xml の定義の上書き -->
+    <replacementdef>
+        <replacementname>EMACS_MODE_IGNORE_APPS</replacementname>
+        <replacementvalue>
+            ECLIPSE,
+            EMACS,
+            REMOTEDESKTOPCONNECTION,
+            TERMINAL,
+            VI,
+            VIRTUALMACHINE,
+            VMWARE_FUSION,
+            X11,
+            FIREFOX,
+            GOOGLE_CHROME
+        </replacementvalue>
+    </replacementdef>
+    <item>
+        <name>My Setting</name>
+        <item>
+            <name>Control+[ to Escape+EISUU</name>
+            <not>VMWARE_FUSION</not>
+            <identifier>myremap.cotrolLeftbracket2EscapeAndEisuu</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::BRACKET_LEFT, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+[ to Escape</name>
+            <only>VMWARE_FUSION</only>
+            <identifier>myremap.cotrolLeftbracket2Escape</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::BRACKET_LEFT, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+; to Escape+EISUU</name>
+            <appendix>(not vmware)</appendix>
+            <not>VMWARE_FUSION</not>
+            <identifier>myremap.cotrolSemicolon2EscapeAndEisuu</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+; to Escape</name>
+            <appendix>(only vmware)</appendix>
+            <only>VMWARE_FUSION</only>
+            <identifier>myremap.cotrolSemicolon2Escape</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+J to Return</name>
+            <identifier>myremap.cotrolJ2Return</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::J, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::RETURN</autogen>
+        </item>
+        <item>
+            <name>Control+M to Return</name>
+            <identifier>myremap.cotrolM2Return</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::RETURN</autogen>
+        </item>
+        <item>
+            <name>Change Command_R to Option_R</name>
+            <appendix>(+ When you type Command_R only, send KANA)</appendix>
+            <identifier>myremap.commandR2OptionR_kana</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R,
+                KeyCode::OPTION_R,
+                KeyCode::JIS_KANA
+            </autogen>
+        </item>
+        <!--
+        <item>
+            <name>Change Command_R to Option_R</name>
+            <appendix>(+ When you type Command_R only, toggle IM)</appendix>
+            <identifier>myremap.commandR2OptionR_toggleIM</identifier>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_R,
+                KeyCode::OPTION_R,
+                KeyCode::SPACE, ModifierFlag::COMMAND_L
+            </autogen>
+        </item>
+        <item>
+            <name>Change Command_R to Option_R</name>
+            <appendix>(+ When you type Command_R only, Escape)</appendix>
+            <identifier>myremap.commandR2OptionR_escape</identifier>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_R,
+                KeyCode::OPTION_R,
+                KeyCode::ESCAPE
+            </autogen>
+        </item>
+        -->
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
+            <identifier>myremap.commandL2commandL_vimode</identifier>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
+                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
+        </item>
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Command_L only, send EISUU)</appendix>
+            <identifier>myremap.commandL2eisuu</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L,
+                KeyCode::COMMAND_L,
+                KeyCode::JIS_EISUU</autogen>
+        </item>
+        <item>
+            <name>Enter to Option_R</name>
+            <appendix>(+ When you type Enter only, send Enter)</appendix>
+            <identifier>remap.enter2optionL_enter</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::RETURN,
+                KeyCode::OPTION_L,
+                KeyCode::RETURN</autogen>
+        </item>
+        <item>
+            <name>Control_L to Control_L</name>
+            <appendix>(+ When you type Control_L only, send EISUU+Escape)</appendix>
+            <identifier>remap.cntrolL2controlL_eisuuAndEscape</identifier>
+            <only>TERMINAL</only>
+            <inputsource_only>JAPANESE</inputsource_only>
+            <autogen>__KeyOverlaidModifier__ KeyCode::CONTROL_L,
+                KeyCode::CONTROL_L,
+                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control_L to Control_L</name>
+            <appendix>(+ When you type Control_L only, send Escape)</appendix>
+            <identifier>remap.cntrolL2controlL_Escape</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::CONTROL_L,
+                KeyCode::CONTROL_L,
+                KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
+            <appendix>(+ When you type Command_L only, send Eisuu and Escape)</appendix>
+            <identifier>myremap.commandL2commandL_vimode_eisuu_escape</identifier>
+            <not>VMWARE_FUSION</not>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
+                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L,
+                KeyCode::COMMAND_L,
+                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
+            <appendix>(+ When you type Command_L only, send Escape)</appendix>
+            <identifier>myremap.commandL2commandL_vimode_escape</identifier>
+            <only>VMWARE_FUSION</only>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
+                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L,
+                KeyCode::COMMAND_L,
+                KeyCode::ESCAPE</autogen>
+        </item>
+    </item>
+</root>
