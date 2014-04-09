@@ -52,7 +52,11 @@ set cursorline
 set t_Co=256 " 256色
 
 set showmatch matchtime=1 "括弧の対応
-set matchpairs& matchpairs+=<:>,（:）,「:」
+set matchpairs& matchpairs+=<:>
+" 7.3.769からmatchpairsにマルチバイト文字が使える
+if v:version >= 704 || v:version == 703 && has('patch769')
+    set matchpairs+=（:）,「:」
+endif
 runtime macros/matchit.vim "HTML tag match
 
 " 不可視文字の表示 {{{
