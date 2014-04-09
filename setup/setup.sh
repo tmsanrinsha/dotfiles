@@ -142,6 +142,7 @@ elif [[ "$uname" = Darwin ]]; then
         command_exists tree    || brew install tree
         command_exists zsh     || brew install zsh
 
+        brew install brew-cask
         brew cask install bettertouchtool
     fi
     # ウィンドウの整列

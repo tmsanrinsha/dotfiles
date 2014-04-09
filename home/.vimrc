@@ -2268,7 +2268,7 @@ if neobundle#is_installed('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
 
-    let g:vimwiki_list = [{'path': '~/Dropbox/wiki/', 'path_html': '~/Dropbox/public_html/'}]
+    let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/'}]
 
     let s:bundle = neobundle#get('vimwiki')
     function! s:bundle.hooks.on_source(bundle)
@@ -2289,9 +2289,10 @@ if neobundle#is_installed('memolist.vim')
     nnoremap <Leader>ml  :MemoList<CR>
     nnoremap <Leader>mg  :MemoGrep<CR>
 
+    let g:memolist_path = expand('~/Dropbox/memo')
+
     let s:bundle = neobundle#get('memolist.vim')
     function! s:bundle.hooks.on_source(bundle)
-        let g:memolist_path = expand('~/Dropbox/memo')
         let g:memolist_memo_suffix = "txt"
         let g:memolist_unite = 1
     endfunction
