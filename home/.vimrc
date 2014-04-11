@@ -1,9 +1,9 @@
 " {{{
 scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
+set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 if filereadable(expand('~/.vimrc.local.pre'))
     source ~/.vimrc.local.pre
 endif
-set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 let $VIMFILES = expand('~/.vim')
 
 if has('win32')
@@ -12,7 +12,7 @@ if has('win32')
     set runtimepath+=$HOME/.vim/after
     cd ~
 endif
-" }}}
+
 function! MyHasPatch(str) " {{{
     if has('patch-7.4.237')
         return has(a:str)
@@ -35,7 +35,7 @@ endfunction
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
     " has('patch-7.4.237')
-    if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
+    if g:has_plugin('neobundle') && MyHasPatch('patch-7.2.051')
         return neobundle#is_installed(a:plugin)
     else
         return 0
@@ -50,6 +50,7 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
+" }}}
 " 基本設定 {{{
 " ============================================================================
 set showmode "現在のモードを表示
@@ -63,7 +64,7 @@ set t_Co=256 " 256色
 set showmatch matchtime=1 "括弧の対応
 set matchpairs& matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
-if v:version >= 704 || v:version == 703 && has('patch769')
+if MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
 runtime macros/matchit.vim "HTML tag match
