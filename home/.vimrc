@@ -1054,16 +1054,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
     " Vimperatorのクイックヒント風にカーソル移動
     NeoBundleLazy 'Lokaltog/vim-easymotion'
-
-    " terryma/vim-multiple-cursors {{{
-    " ==========================================================================
-    " NeoBundle 'terryma/vim-multiple-cursors'
-    let g:multi_cursor_use_default_mapping=0
-    let g:multi_cursor_next_key='"'
-    let g:multi_cursor_prev_key="'"
-    let g:multi_cursor_skip_key='&'
-    let g:multi_cursor_quit_key='<Esc>'
-    " }}}
+    NeoBundle 'terryma/vim-multiple-cursors'
 
     " 部分的に編集
     NeoBundle 'thinca/vim-partedit'
@@ -2061,6 +2052,16 @@ if neobundle#is_installed('vim-easymotion')
     unlet s:bundle
 endif
 "}}}
+" vim-multiple-cursors {{{
+" ============================================================================
+if neobundle#is_installed('vim-multiple-cursors')
+    let g:multi_cursor_use_default_mapping = 0
+    let g:multi_cursor_next_key='+'
+    let g:multi_cursor_prev_key="-"
+    let g:multi_cursor_skip_key='&'
+    let g:multi_cursor_quit_key='<Esc>'
+endif
+" }}}
 " vim-partedit {{{
 " =============================================================================
 if s:is_installed('vim-partedit')
