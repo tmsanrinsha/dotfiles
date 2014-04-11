@@ -13,6 +13,15 @@ if has('win32')
     cd ~
 endif
 " }}}
+function! MyHasPatch(str) " {{{
+    if has('patch-7.4.237')
+        return has(a:str)
+    else
+        let patches =  split(matchstr(a:str, '\v(\d|\.)+'), '\.')
+        return v:version >  patches[0] . 0 . patches[1] ||
+            \  v:version == patches[0] . 0 . patches[1] && has('patch' . patches[2])
+    endif
+endfunction " }}}
 " Pluginの有無をチェック {{{
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
