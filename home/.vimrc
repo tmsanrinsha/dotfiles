@@ -106,8 +106,9 @@ set formatoptions-=o
 " アルファベットは増減させない
 set nrformats=hex
 
+"変更中のファイルでも、保存しないで他のファイルを表示
+set hidden
 set foldmethod=marker
-
 set shellslash
 
 " macに最初から入っているvimはセキュリティの問題からシステムのvimrcでmodelinesを0にしている。
@@ -124,6 +125,8 @@ endif
 " インデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentが解除されそのままペーストできる
 set pastetoggle=<F11>
+" ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
+
 " key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
 set mouse=a
 
@@ -210,6 +213,10 @@ inoremap <C-d> <Del>
 "inoremap <C-e> <End>  neocomplcacheにて設定
 "inoremap <C-k> <C-o>D neosnippetにて設定
 
+" インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
+nnoremap ]gp ]p`]j
+nnoremap ]gP ]P`]j
+
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " }}}
@@ -292,25 +299,6 @@ set laststatus=2
 "set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 "set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 "}}}
-" バッファ {{{
-" ==============================================================================
-nnoremap <M-n> :bn<CR>
-nnoremap <M-p> :bp<CR>
-nnoremap <M-1> :b1<CR>
-nnoremap <M-2> :b2<CR>
-nnoremap <M-3> :b3<CR>
-nnoremap <M-4> :b4<CR>
-nnoremap <M-5> :b5<CR>
-nnoremap <M-6> :b6<CR>
-nnoremap <M-7> :b7<CR>
-nnoremap <M-8> :b8<CR>
-nnoremap <M-9> :b9<CR>
-nnoremap <M-0> :b10<CR>
-
-"変更中のファイルでも、保存しないで他のファイルを表示
-set hidden
-
-"}}}
 " window {{{
 " ==============================================================================
 "nnoremap <M-h> <C-w>h
@@ -356,16 +344,18 @@ nnoremap <S-C-Tab> :tabp<CR>
 nnoremap [TAB]n :tabn<CR>
 nnoremap [TAB]p :tabp<CR>
 
-nnoremap [TAB]1  :1tabn<CR>
-nnoremap [TAB]2  :2tabn<CR>
-nnoremap [TAB]3  :3tabn<CR>
-nnoremap [TAB]4  :4tabn<CR>
-nnoremap [TAB]5  :5tabn<CR>
-nnoremap [TAB]6  :6tabn<CR>
-nnoremap [TAB]7  :7tabn<CR>
-nnoremap [TAB]8  :8tabn<CR>
-nnoremap [TAB]9  :9tabn<CR>
-nnoremap [TAB]0  :10tabn<CR>
+nnoremap <M-n> :tabn<CR>
+nnoremap <M-p> :tabp<CR>
+nnoremap <M-1> :1tabn<CR>
+nnoremap <M-2> :2tabn<CR>
+nnoremap <M-3> :3tabn<CR>
+nnoremap <M-4> :4tabn<CR>
+nnoremap <M-5> :5tabn<CR>
+nnoremap <M-6> :6tabn<CR>
+nnoremap <M-7> :7tabn<CR>
+nnoremap <M-8> :8tabn<CR>
+nnoremap <M-9> :9tabn<CR>
+nnoremap <M-0> :10tabn<CR>
 "}}}
 " コマンドラインモード {{{
 " ==============================================================================
@@ -473,6 +463,11 @@ function! s:force_blockwise_visual(next_key)
         return a:next_key
     endif
 endfunction
+" 最後に変更したテキスト（ペーストした部分など）を選択
+" ----------------------------------------------------------------------------
+nnoremap gm `[v`]
+vnoremap gm :<C-u>normal gm<CR>
+onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
 " ディレクトリ・パス {{{
@@ -1245,7 +1240,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
 
 
     " colorscheme
-    " NeoBundle 'tomasr/molokai'
+    NeoBundle 'tomasr/molokai'
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'vim-scripts/wombat256.vim'
     NeoBundle 'altercation/vim-colors-solarized'
@@ -1289,10 +1284,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \}
 
     " 自分のリポジトリ
-    " if (hostname() =~ 'sakura' || hostname() =~ 'VAIO' || $USER == 'tmsanrinsha')
-    "     let g:neobundle#types#git#default_protocol = "ssh"
-    " endif
-    NeoBundle 'tmsanrinsha/molokai'
+    NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
     " NeoBundle 'tmsanrinsha/vim-colors-solarized'
     NeoBundle 'tmsanrinsha/vim'
     NeoBundle 'tmsanrinsha/vim-emacscommandline'
@@ -1412,7 +1404,11 @@ endif
 "}}}
 " colorscheme {{{
 " ------------------------------------------------------------------------------
-if s:is_installed('molokai')
+if s:is_installed('my_molokai')
+    set background=dark
+    colorscheme molokai-customized
+elseif s:is_installed('molokai')
+    " let g:molokai_original = 1
     " let g:rehash256 = 1
     set background=dark
     colorscheme molokai
@@ -1437,7 +1433,7 @@ endif
 "}}}
 if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
 " Shougo/unite.vim {{{
-" ----------------------------------------------------------------------------
+" ============================================================================
 if s:is_installed('unite.vim')
     let g:unite_data_directory = $VIMFILES.'/.unite'
     let g:unite_enable_start_insert = 1
@@ -1521,6 +1517,7 @@ if s:is_installed('unite.vim')
     " ブックマーク
     nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
     "call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+    nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
     " vimfilerがどんどん増えちゃう
     call unite#custom_default_action('directory' , 'vimfiler')
@@ -1640,7 +1637,7 @@ if neobundle#is_installed('Conque-Shell')
         let g:ConqueTerm_ReadUnfocused = 1
         let g:ConqueTerm_CloseOnEnd = 1
         let g:ConqueTerm_StartMessages = 0
-        let g:ConqueTerm_CWInsert = 1
+        let g:ConqueTerm_CWInsert = 0
         let g:ConqueTerm_EscKey = '<C-j>'
     endfunction
     unlet s:bundle

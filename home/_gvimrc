@@ -6,10 +6,10 @@ endif
 if has('gui_macvim')
     let macvim_skip_colorscheme=1
 endif
-if g:has_plugin('molokai')
+if g:has_plugin('molokai-customized')
     "let g:rehash256 = 1
     set background=dark
-    colorscheme molokai
+    colorscheme molokai-customized
 " if g:has_plugin('solarized')
 "      set background=dark
 "      " set background=light
