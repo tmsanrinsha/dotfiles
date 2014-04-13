@@ -14,14 +14,39 @@
             TERMINAL,
             VI,
             VIRTUALMACHINE,
-            VMWARE_FUSION,
             X11,
-            FIREFOX,
-            GOOGLE_CHROME
+            VMWARE_FUSION,
         </replacementvalue>
+        <!-- FIREFOX,GOOGLE_CHROME -->
     </replacementdef>
     <item>
         <name>My Setting</name>
+        <item>
+            <name>Change Command_R to Option_R</name>
+            <appendix>(+ When you type Command_R only, send KANA)</appendix>
+            <identifier>myremap.commandR2OptionR_kana</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R,
+                KeyCode::OPTION_R,
+                KeyCode::JIS_KANA
+            </autogen>
+        </item>
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
+            <identifier>myremap.commandL2commandL_vimode</identifier>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
+                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
+        </item>
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Command_L only, send EISUU)</appendix>
+            <identifier>myremap.commandL2eisuu</identifier>
+            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L,
+                KeyCode::COMMAND_L,
+                KeyCode::JIS_EISUU</autogen>
+        </item>
+        <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/include/checkbox/emacs_mode.xml -->
         <item>
             <name>Control+[ to Escape+EISUU</name>
             <not>VMWARE_FUSION</not>
@@ -37,6 +62,82 @@
             <autogen>__KeyToKey__
                 KeyCode::BRACKET_LEFT, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
                 KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+J to Return</name>
+            <identifier>myremap.cotrolJ2Return</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::J, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::RETURN</autogen>
+        </item>
+        <item>
+            <name>Control+M to Return</name>
+            <identifier>myremap.cotrolM2Return</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::RETURN</autogen>
+        </item>
+        <item>
+            <name>Control+PNBF to Up/Down/Left/Right</name>
+            <identifier>.myremap.emacsmode_controlPNBF</identifier>
+            <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX, GOOGLE_CHROME</not>
+            <autogen>__KeyToKey__ KeyCode::P, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_UP</autogen>
+            <autogen>__KeyToKey__ KeyCode::N, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_DOWN</autogen>
+            <autogen>__KeyToKey__ KeyCode::B, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_LEFT</autogen>
+            <autogen>__KeyToKey__ KeyCode::F, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_RIGHT</autogen>
+        </item>
+        <item>
+          <name>Control+V to PageDown</name>
+          <identifier>myremap.emacsmode_controlV</identifier>
+          <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX</not>
+          <autogen>__KeyToKey__ KeyCode::V, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::PAGEDOWN</autogen>
+        </item>
+        <item>
+          <name>Option+V to PageUp</name>
+          <identifier>myremap.emacsmode_optionV</identifier>
+          <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX</not>
+          <autogen>__KeyToKey__ KeyCode::V, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_OPTION, KeyCode::PAGEUP</autogen>
+        </item>
+        <item>
+            <name>Control+W to Option+Delete</name>
+            <identifier>myremap.emacsmode_controlW</identifier>
+            <not>{{EMACS_MODE_IGNORE_APPS}}</not>
+            <autogen>__KeyToKey__ KeyCode::W, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::DELETE, ModifierFlag::OPTION_L</autogen>
+        </item>
+        <item>
+            <name>Option+BF to Option+Left/Right</name>
+            <identifier>remap.emacsmode_optionBF</identifier>
+            <not>{{EMACS_MODE_IGNORE_APPS}}</not>
+            <autogen>__KeyToKey__ KeyCode::B, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_OPTION, KeyCode::CURSOR_LEFT, ModifierFlag::OPTION_L</autogen>
+            <autogen>__KeyToKey__ KeyCode::F, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_OPTION, KeyCode::CURSOR_RIGHT, ModifierFlag::OPTION_L</autogen>
+        </item>
+        <item>
+          <name>Option+D to Option+Forward Delete</name>
+          <identifier>myremap.emacsmode_optionD</identifier>
+          <not>{{EMACS_MODE_IGNORE_APPS}}</not>
+          <autogen>__KeyToKey__ KeyCode::D, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_OPTION, KeyCode::FORWARD_DELETE, ModifierFlag::OPTION_L</autogen>
+        </item>
+        <item>
+            <name>[ex] Control+U to Command+Shift+Left,Command+X</name>
+            <identifier>myremap.emacsmode_ex_controlU</identifier>
+            <block>
+                <only>EXCEL</only>
+                <autogen>
+                    __KeyToKey__
+                    KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::NONE,
+                    KeyCode::HOME, ModifierFlag::SHIFT_L,
+                    KeyCode::X, ModifierFlag::COMMAND_L,
+                    Option::NOREPEAT
+                </autogen>
+            </block>
+            <block>
+                <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX, GOOGLE_CHROME,  DICTIONARY</not>
+                <autogen>__KeyToKey__ KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::NONE, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, KeyCode::X, ModifierFlag::COMMAND_L, Option::NOREPEAT</autogen>
+            </block>
+            <block>
+                <only>DICTIONARY</only>
+                <autogen>__KeyToKey__ KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::NONE, KeyCode::A, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::SHIFT_L, KeyCode::X, ModifierFlag::COMMAND_L, Option::NOREPEAT</autogen>
+            </block>
         </item>
         <item>
             <name>Control+; to Escape+EISUU</name>
@@ -55,29 +156,6 @@
             <autogen>__KeyToKey__
                 KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
                 KeyCode::ESCAPE</autogen>
-        </item>
-        <item>
-            <name>Control+J to Return</name>
-            <identifier>myremap.cotrolJ2Return</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::J, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::RETURN</autogen>
-        </item>
-        <item>
-            <name>Control+M to Return</name>
-            <identifier>myremap.cotrolM2Return</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::RETURN</autogen>
-        </item>
-        <item>
-            <name>Change Command_R to Option_R</name>
-            <appendix>(+ When you type Command_R only, send KANA)</appendix>
-            <identifier>myremap.commandR2OptionR_kana</identifier>
-            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R,
-                KeyCode::OPTION_R,
-                KeyCode::JIS_KANA
-            </autogen>
         </item>
         <!--
         <item>
@@ -101,22 +179,7 @@
             </autogen>
         </item>
         -->
-        <item>
-            <name>Command_L to Command_L</name>
-            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
-            <identifier>myremap.commandL2commandL_vimode</identifier>
-            <autogen>__KeyOverlaidModifier__
-                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
-                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
-        </item>
-        <item>
-            <name>Command_L to Command_L</name>
-            <appendix>(+ When you type Command_L only, send EISUU)</appendix>
-            <identifier>myremap.commandL2eisuu</identifier>
-            <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L,
-                KeyCode::COMMAND_L,
-                KeyCode::JIS_EISUU</autogen>
-        </item>
+        <!--
         <item>
             <name>Enter to Option_R</name>
             <appendix>(+ When you type Enter only, send Enter)</appendix>
@@ -171,5 +234,6 @@
                 KeyCode::COMMAND_L,
                 KeyCode::ESCAPE</autogen>
         </item>
+        -->
     </item>
 </root>
