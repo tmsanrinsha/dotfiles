@@ -85,8 +85,7 @@ function! s:Paste64Copy() range
         endif
         let l:i += 1
     endwhile
-    call system('echo -en "' . l:escaped . '" | pbcopy > /dev/tty')
-    redraw!
+    call system('echo -en "' . l:escaped . '" | paste64.mac > /dev/tty')
 endfunction
 
 command! -range Paste64Copy :call s:Paste64Copy()
