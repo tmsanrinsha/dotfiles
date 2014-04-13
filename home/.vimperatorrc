@@ -5,6 +5,9 @@ set complete=l
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
 hi Hint font-family: Consolas; font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
+" テキストボックスにフォーカスさせない
+set focuscontent
+
 set "editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"
 
 " Emacs like key bindings
@@ -22,7 +25,7 @@ inoremap <C-b> <Left>
 inoremap <A-f> <C-Right>
 inoremap <A-b> <C-Left>
 inoremap <A-d> <C-Del>
-inoremap <C-u> <S-Home><BS>
+" inoremap <C-u> <S-Home><BS>
 
 inoremap <C-p> <Up>
 inoremap <C-n> <down>
@@ -30,8 +33,8 @@ inoremap <C-n> <down>
 noremap ; :
 noremap : ;
 nnoremap <Esc><Esc> :set hlsearch<CR>
-noremap <A-p> :tabmove -1<CR>
-noremap <A-n> :tabmove +1<CR>
+noremap <C-h> :tabmove -1<CR>
+noremap <C-l> :tabmove +1<CR>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
 
@@ -47,6 +50,17 @@ style! -name=commandline-ime chrome://* #liberator-commandline-command input {im
 
 " はてなブックマーク
 " https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-%E3%81%A7%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E6%8B%A1%E5%BC%B5%E3%82%92%E4%BD%BF%E3%81%86
+javascript <<EOF
+// キーボードショートカットの指定
+// 空(null)を指定すれば hints や nnoremap を上書きしなくなる
+//    (注: 現バージョンではデフォルト値で上書きされてます。将来修正予定です)
+liberator.globalVariables.hBookmark_shortcuts = {
+    hintsAdd     : 'c',
+    hintsComment : 'C',
+    add          : ['C'],
+    comment      : [''],
+};
+EOF
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 set complete+=H
 

@@ -176,12 +176,14 @@ if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
         git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
         if [ ! -d "$vimperatordir/plugin" ]; then
             mkdir -p "$vimperatordir/plugin"
-            $ln ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
-            $ln ~/git/vimperator-plugins/_libly.js $vimperatordir/plugin
         fi
     else
         pushd ~/git/vimperator-plugins
         git pull
         popd
     fi
+    $ln -fs ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
+    $ln -fs ~/git/vimperator-plugins/_libly.js $vimperatordir/plugin
+    # テキストボックスにフォーカスさせない
+    $ln -fs ~/git/vimperator-plugins/forcefocuscontent.js $vimperatordir/plugin
 fi
