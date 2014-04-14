@@ -79,12 +79,19 @@
         </item>
         <item>
             <name>Control+PNBF to Up/Down/Left/Right</name>
-            <identifier>.myremap.emacsmode_controlPNBF</identifier>
+            <identifier>myremap.emacsmode_controlPNBF</identifier>
             <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX, GOOGLE_CHROME</not>
             <autogen>__KeyToKey__ KeyCode::P, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_UP</autogen>
             <autogen>__KeyToKey__ KeyCode::N, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_DOWN</autogen>
             <autogen>__KeyToKey__ KeyCode::B, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_LEFT</autogen>
             <autogen>__KeyToKey__ KeyCode::F, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_RIGHT</autogen>
+        </item>
+        <item>
+            <name>Control+PN to Up/Down</name>
+            <identifier>myremap.emacsmode_controlPN</identifier>
+            <only>FIREFOX, GOOGLE_CHROME</only>
+            <autogen>__KeyToKey__ KeyCode::P, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_UP</autogen>
+            <autogen>__KeyToKey__ KeyCode::N, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_DOWN</autogen>
         </item>
         <item>
           <name>Control+V to PageDown</name>
