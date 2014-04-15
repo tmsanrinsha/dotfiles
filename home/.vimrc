@@ -874,8 +874,8 @@ let g:ftplugin_sql_statements = 'create,alter'
 " }}}
 " yaml {{{
 " ----------------------------------------------------------------------------
-" autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
-autocmd MyVimrc FileType yaml setlocal foldmethod=indent
+autocmd MyVimrc FileType yaml
+    \   setlocal foldmethod=indent softtabstop=2 shiftwidth=2
 " }}}
 " vim {{{
 " ----------------------------------------------------------------------------
