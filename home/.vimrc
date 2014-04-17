@@ -1076,8 +1076,8 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     NeoBundle 'sudo.vim'
     " NeoBundle 'gmarik/sudo-gui.vim'
 
-    NeoBundle 'vim-scripts/YankRing.vim'
-    " NeoBundle 'LeafCage/yankround.vim'
+    " NeoBundle 'YankRing.vim'
+    NeoBundleLazy 'LeafCage/yankround.vim'
 
     NeoBundleLazy 'thinca/vim-ft-help_fold', {
                 \   'autoload' : { 'filetypes' : 'help' }
@@ -1334,23 +1334,6 @@ if g:has_plugin('sudo')
     endif
     nnoremap <Leader>W :w sudo:%<CR>
 endif
-"}}}
-" LeafCage/yankround.vim {{{
-" ==============================================================================
-if g:has_plugin('yankround')
-    let g:yankround_dir = $VIMFILES.'/.yankround'
-
-    nmap p <Plug>(yankround-p)
-    nmap P <Plug>(yankround-P)
-    nmap gp <Plug>(yankround-gp)
-    nmap gP <Plug>(yankround-gP)
-    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
-    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
-else
-    nnoremap <C-p> gT
-    nnoremap <C-n> gt
-endif
-
 "}}}
 " minibufexpl.vim {{{
 " ==============================================================================
@@ -2092,6 +2075,28 @@ if s:is_installed('vim-alignta')
     xnoremap [ALIGNTA]: :Alignta :<CR>
 endif
 " }}}
+" LeafCage/yankround.vim {{{
+" ============================================================================
+call neobundle#config('yankround.vim', {
+    \   'autoload': {
+    \       'mappings': '<Plug>(yankround-',
+    \       'unite_sources' : 'yankround'
+    \   }
+    \})
+
+if neobundle#is_installed('yankround.vim')
+    let g:yankround_dir = $VIMFILES.'/.yankround'
+
+    nmap p <Plug>(yankround-p)
+    xmap p <Plug>(yankround-p)
+    nmap P <Plug>(yankround-P)
+    nmap gp <Plug>(yankround-gp)
+    xmap gp <Plug>(yankround-gp)
+    nmap gP <Plug>(yankround-gP)
+    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
+    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
+endif
+"}}}
 " caw {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
