@@ -344,6 +344,9 @@ nnoremap <S-C-Tab> :tabp<CR>
 nnoremap [TAB]n :tabn<CR>
 nnoremap [TAB]p :tabp<CR>
 
+nnoremap <C-p> gT
+nnoremap <C-n> gt
+
 nnoremap <M-n> :tabn<CR>
 nnoremap <M-p> :tabp<CR>
 nnoremap <M-1> :1tabn<CR>
@@ -946,24 +949,12 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
 
     " unite {{{
-    " ==========================================================================
     NeoBundle 'Shougo/unite.vim'
-
     NeoBundle 'Shougo/neomru.vim'
-
-    NeoBundleLazy 'Shougo/unite-outline', {
-                \   'autoload' : { 'unite_sources' : ['outline'] }
-                \ }
-
-    NeoBundleLazy 'tacroe/unite-mark', {
-                \   'autoload' : { 'unite_sources' : ['mark'] }
-                \ }
-
-    NeoBundleLazy 'tsukkee/unite-tag', {
-                \   'autoload' : { 'unite_sources' : ['tag'] }
-                \ }
-
-    NeoBundle 'Shougo/unite-ssh'
+    NeoBundleLazy 'Shougo/unite-outline'
+    NeoBundleLazy 'tacroe/unite-mark'
+    NeoBundleLazy 'tsukkee/unite-tag'
+    NeoBundleLazy 'Shougo/unite-ssh'
     NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
     " }}}
