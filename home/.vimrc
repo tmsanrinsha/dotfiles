@@ -1413,6 +1413,7 @@ if s:is_installed('unite.vim')
     let g:unite_enable_start_insert = 1
     let g:unite_split_rule = "botright"
     let g:unite_winheight = "15"
+    " let g:unite_source_find_max_candidates = 1000
 
     nnoremap [unite] <Nop>
     nmap , [unite]
@@ -1433,7 +1434,7 @@ if s:is_installed('unite.vim')
 
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
-    " -----------
+
     " file_rec {{{
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
@@ -1456,7 +1457,7 @@ if s:is_installed('unite.vim')
         execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
     endfunction
     " }}}
-    " -----------
+
     " grep {{{
     if executable('grep')
         let g:unite_source_grep_command = 'grep'
@@ -1499,7 +1500,8 @@ if s:is_installed('unite.vim')
     autocmd MyVimrc FileType vimfiler
         \   call unite#custom_default_action('directory', 'lcd')
 
-    let g:unite_source_find_max_candidates = 1000
+    " dでファイルの削除
+    call unite#custom#alias('file', 'delete', 'vimfiler__delete')
 endif
 "}}}
 " h1mesuke/unite-outline {{{
