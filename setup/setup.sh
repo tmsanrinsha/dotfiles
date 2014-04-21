@@ -48,18 +48,19 @@ done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 
-test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
-test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
-test -d ~/script/common    || mkdir -p ~/script/common
-
-if [[ `uname` = CYGWIN* ]]; then
-    test -d ~/script/cygwin || mkdir -p ~/script/cygwin
-fi
-
 # http://beyondgrep.com
 if ! command_exists ack; then
     curl http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
     chmod a+x $HOME/bin/ack
+fi
+
+test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
+test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
+
+if [ ! -x ~/.zsh/completions/_pandoc ];then
+    # https://gist.github.com/sky-y/3334048
+    curl -L https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
+    chmod a+x ~/.zsh/completions/_pandoc
 fi
 
 # [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
@@ -121,6 +122,10 @@ if [[ "$uname" = CYGWIN* ]]; then
     fi
 elif [[ "$uname" = Darwin ]]; then
     ln -fs ~/_gvimrc ~/.gvimrc
+    if [ ! -x ~/bin/rmtrash ];then
+        curl -L https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
+        chmod a+x ~/bin/rmtrash
+    fi
     mkdir -p ~/setting
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
@@ -130,20 +135,19 @@ elif [[ "$uname" = Darwin ]]; then
         brew update  # homebrewの更新
         brew upgrade # packageの更新
 
+        brew install ant
+        brew install mercurial
+        brew install node
+        brew install python
+        brew install ruby
+        brew install tmux
+        brew install tree
+        brew install zsh
+
         brew tap phinze/homebrew-cask
-
-        command_exists ant     || brew install ant
-        command_exists hg      || brew install mercurial
-        command_exists node    || brew install node
-        command_exists python  || brew install python
-        command_exists rmtrash || brew install rmtrash
-        command_exists ruby    || brew install ruby
-        command_exists tmux    || brew install tmux
-        command_exists tree    || brew install tree
-        command_exists zsh     || brew install zsh
-
         brew install brew-cask
         brew cask install bettertouchtool
+        brew cask install pandoc
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then

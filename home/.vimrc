@@ -776,10 +776,7 @@ endfunction
 
 " shell {{{
 " ----------------------------------------------------------------------------
-augroup sh
-    autocmd!
-    autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
-augroup END
+autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 "}}}
 " HTML {{{
 " ----------------------------------------------------------------------------
@@ -1287,7 +1284,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
         execute 'source ' . expand($VIMFILES . '/.neobundlerc.local')
     endif
 
-    filetype plugin indent on     " Required!
+    call neobundle#end()
+
+    filetype plugin indent on     " Required!un
 
      " Installation check.
      " NeoBundleCheck
@@ -2274,7 +2273,10 @@ if neobundle#is_installed('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
 
-    let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/'}]
+    let g:vimwiki_list = [{
+        \   'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/',
+        \   'syntax': 'markdown', 'ext': '.txt'
+        \   }]
 
     let s:bundle = neobundle#get('vimwiki')
     function! s:bundle.hooks.on_source(bundle)

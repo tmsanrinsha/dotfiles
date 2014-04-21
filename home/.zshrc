@@ -12,7 +12,7 @@ fi
 [ -z "$ld_library_path" ] && typeset -T LD_LIBRARY_PATH ld_library_path
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
-fpath=(~/.zsh/functions/ $fpath)
+fpath=(~/.zsh/completions/ $fpath)
 
 # 基本設定 {{{
 # ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
@@ -120,6 +120,12 @@ fi
 
 # 補完 {{{
 autoload -U compinit && compinit
+# bash用の補完を使うためには以下の設定をする
+# https://github.com/dsanson/pandoc-completion
+# autoload bashcompinit
+# bashcompinit
+# source "/path/to/hoge-completion.bash"
+
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 # 補完対象が2つ以上の時、選択できるようにする
 zstyle ':completion:*:default' menu select=2
