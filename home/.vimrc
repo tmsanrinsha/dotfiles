@@ -1103,6 +1103,13 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
     " ファイルを保存時にシンタックスのチェック
     NeoBundle 'scrooloose/syntastic'
+    NeoBundle 'osyo-manga/vim-watchdogs', {
+        \   'depends': [
+        \       'thinca/vim-quickrun',
+        \       'Shougo/vimproc',
+        \       'osyo-manga/shabadou.vim'
+        \   ]
+        \}
     " debug
     NeoBundle 'joonty/vdebug'
     " caw.vim {{{
@@ -1217,12 +1224,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
                 \}
 
     " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
-    NeoBundleLazy 'rbtnn/vimconsole.vim', {
-                \   'autoload' : {
-                \       'commands' : 'VimConsoleToggle'
-                \   }
-                \}
-
+    NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
+    NeoBundleLazy 'syngan/vim-vimlint'
+    NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': 'vim'}}
 
     " colorscheme
     NeoBundle 'tomasr/molokai'
@@ -2169,6 +2173,16 @@ function! ExistOrMakeSaveversDirs()
         call mkdir(g:savevers_dirs, "p")
     endif
 endfunction
+" }}}
+" scrooloose/syntastic {{{
+" ============================================================================
+if s:is_installed('syntastic')
+    let g:syntastic_mode_map = {
+        \   'mode': 'active',
+        \   'passive_filetypes': ['vim']
+        \}
+    let g:syntastic_auto_loc_list = 1
+endif
 " }}}
 " eclim {{{
 " -----
