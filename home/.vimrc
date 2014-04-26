@@ -34,7 +34,6 @@ endfunction
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
-    " has('patch-7.4.237')
     if g:has_plugin('neobundle') && MyHasPatch('patch-7.2.051')
         return neobundle#is_installed(a:plugin)
     else
@@ -418,8 +417,8 @@ cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
 cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
-vnoremap <Leader>/ <ESC>/\%V
-vnoremap <Leader>? <ESC>?\%V
+xnoremap <Leader>/ <ESC>/\%V
+xnoremap <Leader>? <ESC>?\%V
 
 nnoremap <Leader>ss :%s///
 xnoremap <Leader>ss :s///
@@ -629,7 +628,7 @@ endfunction
 
 command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
-" color
+" color {{{
 " ============================================================================
 " カーソル以下のカラースキームの情報の取得 {{{
 " ----------------------------------------------------------------------------
@@ -754,8 +753,8 @@ autocmd MyVimrc BufRead sanrinsha*
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
 " }}}
-" ============================================================================
 " filetype {{{
+" ============================================================================
 nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
 nnoremap <Leader>fj :<C-u>setlocal filetype=javascript<CR>
 nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
@@ -902,7 +901,6 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " tsv {{{
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
-" }}}
 " }}}
 " plugin {{{
 " neobundle.vim {{{
@@ -1301,7 +1299,7 @@ else
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
                 \   'sudo.vim', 'yankround.vim', 'minibufexpl.vim', 'Kwbd.vim',
-                \   'vim-powerline', 'syntastic', 'molokai', 'vim-smartword'
+                \   'syntastic', 'molokai', 'vim-smartword'
                 \]
     for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
         let s:plugin_name = matchstr(path, '[^/]\+$')
@@ -1405,7 +1403,7 @@ if s:is_installed("vim-smartword")
     map ge <Plug>(smartword-ge)
 endif
 "}}}
-if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
+" if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
 " Shougo/unite.vim {{{
 " ============================================================================
 if s:is_installed('unite.vim')
@@ -1599,13 +1597,13 @@ endif
 " }}}
 " Conque-Shell {{{
 " ============================================================================
+if s:is_installed('Conque-Shell')
 call neobundle#config('Conque-Shell', {
     \   'autoload': {
     \       'commands': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
     \   }
     \})
 
-if neobundle#is_installed('Conque-Shell')
     noremap <Leader>C :ConqueTerm zsh<CR>
 
     let s:bundle = neobundle#get("Conque-Shell")
@@ -1621,8 +1619,8 @@ endif
 "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
-if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
-    if neobundle#is_installed("neocomplete")
+if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
+    if s:is_installed("neocomplete")
         let s:hooks = neobundle#get_hooks("neocomplete")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
@@ -1969,12 +1967,13 @@ endif
 "}}}
 " operator {{{
 " ==============================================================================
-call neobundle#config('vim-operator-user', {
-    \   'autoload': {
-    \       'mappings': '<Plug>(operator-'
-    \   }
-    \})
-if neobundle#is_installed("vim-operator-user")
+if s:is_installed("vim-operator-user")
+    call neobundle#config('vim-operator-user', {
+        \   'autoload': {
+        \       'mappings': '<Plug>(operator-'
+        \   }
+        \})
+
     map [Space]c <Plug>(operator-camelize-toggle)
     map [Space]p <Plug>(operator-replace)
     map [Space]P "+<Plug>(operator-replace)
@@ -2002,7 +2001,7 @@ if neobundle#is_installed("vim-operator-user")
 endif
 " }}}
 " textobj {{{
-if neobundle#is_installed("vim-textobj-lastpat")
+if s:is_installed("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
 endif
@@ -2013,13 +2012,13 @@ xmap ib <Plug>(textobj-multiblock-i)
 " }}}
 " vim-easymotion {{{
 " ============================================================================
-call neobundle#config('vim-easymotion', {
-    \   'autoload': {
-    \       'mappings': '<Plug>(easymotion-'
-    \   }
-    \})
+if s:is_installed('vim-easymotion')
+    call neobundle#config('vim-easymotion', {
+        \   'autoload': {
+        \       'mappings': '<Plug>(easymotion-'
+        \   }
+        \})
 
-if neobundle#is_installed('vim-easymotion')
     map S <Plug>(easymotion-s2)
     map f <Plug>(easymotion-fl)
     map t <Plug>(easymotion-tl)
@@ -2037,7 +2036,7 @@ endif
 "}}}
 " vim-multiple-cursors {{{
 " ============================================================================
-if neobundle#is_installed('vim-multiple-cursors')
+if s:is_installed('vim-multiple-cursors')
     let g:multi_cursor_use_default_mapping = 0
     let g:multi_cursor_next_key='+'
     let g:multi_cursor_prev_key="-"
@@ -2070,14 +2069,14 @@ endif
 " }}}
 " LeafCage/yankround.vim {{{
 " ============================================================================
-call neobundle#config('yankround.vim', {
-    \   'autoload': {
-    \       'mappings': '<Plug>(yankround-',
-    \       'unite_sources' : 'yankround'
-    \   }
-    \})
+if s:is_installed('yankround.vim')
+    call neobundle#config('yankround.vim', {
+        \   'autoload': {
+        \       'mappings': '<Plug>(yankround-',
+        \       'unite_sources' : 'yankround'
+        \   }
+        \})
 
-if neobundle#is_installed('yankround.vim')
     let g:yankround_dir = $VIMFILES.'/.yankround'
 
     nmap p <Plug>(yankround-p)
@@ -2141,7 +2140,7 @@ let g:automatic_config = [
 " foldCC {{{
 " ------------------------------------------------------------------------------
 " http://leafcage.hateblo.jp/entry/2013/04/24/053113
-if neobundle#is_installed('foldCC')
+if s:is_installed('foldCC')
     set foldtext=foldCC#foldtext()
     set foldcolumn=1
     set fillchars=vert:\|
@@ -2240,21 +2239,23 @@ endif
 " }}}
 " gitv {{{
 " --------
-let s:hooks = neobundle#get_hooks('gitv')
+if s:is_installed('gitv')
+    let s:hooks = neobundle#get_hooks('gitv')
 
-function! s:hooks.on_source(bundle)
-    function! GitvGetCurrentHash()
-        return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+    function! s:hooks.on_source(bundle)
+        function! GitvGetCurrentHash()
+            return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+        endfunction
+
+        autocmd MyVimrc FileType gitv
+            \   setlocal iskeyword+=/,-,.
+            \|  nnoremap <buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+            \|  nnoremap <buffer> <Space>rv :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
     endfunction
-
-    autocmd MyVimrc FileType gitv
-        \   setlocal iskeyword+=/,-,.
-        \|  nnoremap <buffer> C :<C-u>Git checkout <C-r><C-w><CR>
-        \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
-        \|  nnoremap <buffer> <Space>rv :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
-        \|  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
-        \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
-endfunction
+endif
 " }}}
 " open-browser.vim {{{
 " ==============================================================================
@@ -2273,7 +2274,7 @@ endif
 " }}}
 " vimrepress {{{
 " ============================================================================
-if neobundle#is_installed('vimrepress')
+if s:is_installed('vimrepress')
     call neobundle#config('vimrepress', {
         \   'autoload' : {
         \       'commands' : [
@@ -2285,7 +2286,7 @@ endif
 " }}}
 " vimwiki {{{
 " ============================================================================
-if neobundle#is_installed('vimwiki')
+if s:is_installed('vimwiki')
     call neobundle#config('vimwiki', {
         \   'autoload': {
         \       'mappings': '<Plug>Vimwiki'
@@ -2307,7 +2308,7 @@ endif
 " }}}
 " memoliset.vim {{{
 " ============================================================================
-if neobundle#is_installed('memolist.vim')
+if s:is_installed('memolist.vim')
     call neobundle#config('memolist.vim', {
         \   'autoload': {
         \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
@@ -2330,7 +2331,7 @@ endif
 " }}}
 " qfixhowm {{{
 " ==============================================================================
-if neobundle#is_installed('qfixhowm')
+if s:is_installed('qfixhowm')
 
     let s:bundle = neobundle#get("qfixhown")
     function! s:bundle.hooks.on_source(bundle)
@@ -2373,7 +2374,7 @@ if neobundle#is_installed('qfixhowm')
     unlet s:bundle
 endif
 " }}}
-endif
+" endif
 " }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
