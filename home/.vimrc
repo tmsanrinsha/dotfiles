@@ -2234,6 +2234,9 @@ if s:is_installed('vim-fugitive')
         noremap [fugitive]s :Gstatus<CR>
         noremap [fugitive]l :Glog<CR>
         noremap [fugitive]p :Git pull --rebase origin master<CR>
+
+        noremap d] :diffget //2 | diffupdate
+        noremap d[ :diffget //3 | diffupdate
     endfunction
 endif
 " }}}
