@@ -17,31 +17,19 @@ fpath=(~/.zsh/completions/ $fpath)
 # 基本設定 {{{
 # ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
 setopt noclobber
-# compacked complete list display
-setopt list_packed
 # 改行のない出力をプロンプトで上書きするのを防ぐ
 unsetopt promptcr
+# 対話シェルでコメントを使えるようにする
+setopt interactive_comments
+# zmv
+# http://ref.layer8.sh/ja/entry/show/id/2694
+# http://d.hatena.ne.jp/mollifier/20101227/p1
+autoload -Uz zmv
+alias zmv='zmv -W'
 # add-zsh-hook precmd functionするための設定
 # http://d.hatena.ne.jp/kiririmode/20120327/p1
 autoload -Uz add-zsh-hook
 # }}}
-# Keybind configuration {{{
-#
-# emacs like keybind -e
-# vi    like keybind -v
-bindkey -e
-bindkey "^/" undo
-bindkey "^[/" redo
-bindkey "^[v" quoted-insert
-#DELで一文字削除
-bindkey "^[[3~" delete-char
-#HOMEは行頭へ
-bindkey "^[[1~" beginning-of-line
-#Endで行末へ
-bindkey "^[[4~" end-of-line
-# }}}
-
-# エイリアス {{{
 # グローバルエイリアス {{{
 alias -g A='| awk'
 alias -g L='| less -R'
@@ -56,8 +44,6 @@ alias -g X='-print0 | xargs -0'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
-# }}}
-
 # プロンプト {{{
 # ==============================================================================
 if [[ "`hostname`" = *ua.sakura.ne.jp ]] || [[ `uname` = CYGWIN* ]]; then
@@ -117,7 +103,6 @@ if [[ "`hostname`" = *ua.sakura.ne.jp ]] || [[ `uname` = CYGWIN* ]]; then
     #  - 顔文字を参考にした
 fi
 # }}}
-
 # 補完 {{{
 autoload -U compinit && compinit
 # bash用の補完を使うためには以下の設定をする
@@ -126,12 +111,16 @@ autoload -U compinit && compinit
 # bashcompinit
 # source "/path/to/hoge-completion.bash"
 
+# compacked complete list display
+setopt list_packed
+
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+# 今いるディレクトリを補完候補から外す
+# http://qiita.com/items/7916037b1384d253b457
+zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*' use-cache true
 # 補完対象が2つ以上の時、選択できるようにする
 zstyle ':completion:*:default' menu select=2
-#bindkey '^i'    menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
-bindkey "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
-zstyle ':completion:*' use-cache true
 
 # Incremental completion on zsh
 # http://mimosa-pudica.net/zsh-incremental.html
@@ -157,42 +146,63 @@ rsf() {
 }
 ## }}}
 # }}}
+# keybind {{{
+bindkey -e # emacs like
+# bindkey -v # vi like
+bindkey "^/" undo
+bindkey "^[/" redo
+bindkey "^[v" quoted-insert
+# DELで一文字削除
+bindkey "^[[3~" delete-char
+# HOMEで行頭へ
+bindkey "^[[1~" beginning-of-line
+# Endで行末へ
+bindkey "^[[4~" end-of-line
 
-## 改行でls {{{
-## http://d.hatena.ne.jp/kei_q/20110406/1302091565
-#alls() {
-#  if [[ -z "$BUFFER" ]]; then
-#      echo ''
-#      ls
-#  fi
-#  zle accept-line
-#}
-#zle -N alls
-#bindkey "\C-m" alls
-#bindkey "\C-j" alls
-##}}}
+# 前方一致ヒストリ履歴検索
+bindkey "^N" history-beginning-search-forward
+bindkey "^P" history-beginning-search-backward
 
-# zmv
-# http://ref.layer8.sh/ja/entry/show/id/2694
-# http://d.hatena.ne.jp/mollifier/20101227/p1
-autoload -Uz zmv
-alias zmv='zmv -W'
+# カーソル位置が行末になったほうがいい人の設定
+# 漢のzsh (4) コマンド履歴の検索～EmacsとVi、どっちも設定できるぜzsh <http://news.mynavi.jp/column/zsh/004/>
+# autoload history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+# history-beginning-search-backward-end
+# history-beginning-search-forward-end
 
-# 単語境界にならない記号の設定
-# /を入れないこと区切り線とみなし、Ctrl+Wで1ディレクトリだけ削除できたりする
+# 2行以上あるとき、^p,^nで上下にしたいときは以下の設定。
+# ただし、ヒストリ検索のときカーソルが行末になる
+# autoload -U up-line-or-beginning-search down-line-or-beginning-search 
+# zle -N up-line-or-beginning-search
+# zle -N down-line-or-beginning-search
+# bindkey "^P" up-line-or-beginning-search
+# bindkey "^N" down-line-or-beginning-search
+# Zsh - コード片置き場 <https://sites.google.com/site/codehen/environment/zsh>
+
+# グロブ(*)が使えるインクリメンタルサーチ
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+## C-sでのヒストリ検索が潰されてしまうため、出力停止・開始用にC-s/C-qを使わない。
+setopt no_flow_control
+
+# 単語境界とみなさない記号の設定
+# /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# http://d.hatena.ne.jp/kiririmode/20120327/p1
-# add-zsh-hook precmd functionするための設定
-autoload -Uz add-zsh-hook
-
+# menuselectのキーバインド
+zmodload -i zsh/complist
+bindkey -M menuselect \
+    '^p' up-line-or-history '^n' down-line-or-history \
+    '^b' backward-char '^f' forward-char \
+    '^o' accept-and-infer-next-history
+bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
+# bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
+# }}}
 # ディレクトリ関連 {{{
 # ==============================================================================
 # auto change directory
 setopt auto_cd
-# 今いるディレクトリを補完候補から外す
-# http://qiita.com/items/7916037b1384d253b457
-zstyle ':completion:*' ignore-parents parent pwd ..
 # シンボリックリンクのディレクトリにcdしたら実際のディレクトリに移る
 # setopt chase_links
 
@@ -240,26 +250,6 @@ fi
 # }}}
 # 履歴 {{{
 # =============================================================================
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-#カーソル位置が行末になったほうがいい人は
-#history-beginning-search-backward-end
-#history-beginning-search-forward-end
-bindkey "^P" history-beginning-search-backward
-bindkey "^N" history-beginning-search-forward
-
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
-## C-sでのヒストリ検索が潰されてしまうため、出力停止・開始用にC-s/C-qを使わない。
-setopt no_flow_control
-# 対話シェルでコメントを使えるようにする
-setopt interactive_comments
-
-## Command history configuration
-#
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -306,7 +296,19 @@ if [ $TERM = screen ];then
     DISABLE_AUTO_TITLE=true
 fi
 # }}}
-
+## 改行でls {{{
+## http://d.hatena.ne.jp/kei_q/20110406/1302091565
+#alls() {
+#  if [[ -z "$BUFFER" ]]; then
+#      echo ''
+#      ls
+#  fi
+#  zle accept-line
+#}
+#zle -N alls
+#bindkey "\C-m" alls
+#bindkey "\C-j" alls
+##}}}
 if [ -f ~/.zsh/plugin/z.sh ]; then
     _Z_CMD=j
     source ~/.zsh/plugin/z.sh
