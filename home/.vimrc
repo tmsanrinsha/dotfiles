@@ -827,9 +827,6 @@ autocmd MyVimrc FileType html
     \|  setlocal path+=./;/
 " }}}
 " }}}
-" XML {{{
-" ----------------------------------------------------------------------------
-nnoremap <Leader>= :%s/></>\r</g<CR>:setlocal ft=xml<CR>gg=G
 " }}}
 " JavaScript {{{
 " ----------------------------------------------------------------------------
@@ -2105,12 +2102,22 @@ endif
 " vim-jsbeautify {{{
 " ==============================================================================
 if s:is_installed('vim-jsbeautify')
-    autocmd MyVimrc FileType javascript
-        \   setlocal formatexpr=JsBeautify()
-    autocmd MyVimrc FileType css
-        \   setlocal formatexpr=JsBeautify()
+    autocmd MyVimrc FileType javascript setlocal formatexpr=JsBeautify()
+    autocmd MyVimrc FileType css        setlocal formatexpr=CSSBeautify()
+    autocmd MyVimrc FileType html       setlocal formatexpr=HtmlBeautify()
+else
     autocmd MyVimrc FileType html
-        \   setlocal formatexpr=JsBeautify()
+        \   nnoremap gq :%s/></>\r</ge<CR>gg=G
+        \|  xnoremap gq  :s/></>\r</ge<CR>gg=G
+endif
+
+if executable('xmllint')
+    " formatexprの方が優先されるので、消しておく必要がある
+    autocmd MyVimrc FileType xml setlocal formatprg=xmllint\ --format\ - formatexpr=
+else
+    autocmd MyVimrc FileType xml
+        \   nnoremap gq :%s/></>\r</ge<CR>gg=G
+        \|  xnoremap gq  :s/></>\r</ge<CR>gg=G
 endif
 "}}}
 " automatic {{{
