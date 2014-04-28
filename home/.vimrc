@@ -25,7 +25,7 @@ endfunction " }}}
 " Pluginの有無をチェック {{{
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! g:has_plugin(plugin)
+function! HasPlugin(plugin)
   return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
   \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
   \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
@@ -34,7 +34,7 @@ endfunction
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! s:is_installed(plugin)
-    if g:has_plugin('neobundle') && MyHasPatch('patch-7.2.051')
+    if HasPlugin('neobundle') && MyHasPatch('patch-7.2.051')
         return neobundle#is_installed(a:plugin)
     else
         return 0
@@ -233,7 +233,7 @@ endif
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
-if ! g:has_plugin('savevers')
+if ! HasPlugin('savevers')
     set backup
     set backupdir=$VIMFILES/.bak
 
@@ -1315,8 +1315,8 @@ endif
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-if g:has_plugin('sudo')
-    if g:has_plugin('bclose')
+if HasPlugin('sudo')
+    if HasPlugin('bclose')
         nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
     else
         nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
@@ -1326,7 +1326,7 @@ endif
 "}}}
 " minibufexpl.vim {{{
 " ==============================================================================
-if g:has_plugin('minibufexpl')
+if HasPlugin('minibufexpl')
     " Put new window below current or on the right for vertical split
     let g:miniBufExplSplitBelow=0
     "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
@@ -1353,12 +1353,12 @@ endif
 " ==============================================================================
 " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
 " https://github.com/rgarver/Kwbd.vim
-if g:has_plugin('bclose')
+if HasPlugin('bclose')
     nmap <Leader>bd <Plug>Kwbd
 endif
 " }}}
 " vim-powerline{{{
-if g:has_plugin('Powerline')
+if HasPlugin('Powerline')
     let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
     "let g:Powerline_theme = 'skwp'
     "let g:Powerline_colorscheme = 'skwp'
@@ -1384,7 +1384,7 @@ elseif s:is_installed('molokai')
     " let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-elseif g:has_plugin('solarized')
+elseif HasPlugin('solarized')
     set background=dark
     let g:solarized_termcolors=256
     colorscheme solarized
