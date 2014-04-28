@@ -1504,7 +1504,14 @@ endif
 "}}}
 " h1mesuke/unite-outline {{{
 " =========================================================================
-nnoremap [unite]o :<C-u>Unite outline<CR>
+if s:is_installed('unite-outline')
+    nnoremap [unite]o :<C-u>Unite outline<CR>
+    let s:hooks = neobundle#get_hooks("unite-outline")
+    function! s:hooks.on_source(bundle)
+        call unite#sources#outline#alias('tmux', 'conf')
+    endfunction
+    unlet s:hooks
+endif
 " }}}
 " tacroe/unite-mark {{{
 " =========================================================================
