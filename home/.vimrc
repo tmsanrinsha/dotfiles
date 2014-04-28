@@ -826,7 +826,6 @@ autocmd MyVimrc FileType html
     \|  setlocal path+=./;/
 " }}}
 " }}}
-" }}}
 " JavaScript {{{
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
@@ -902,6 +901,7 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
+" }}}
 " plugin {{{
 " neobundle.vim {{{
 " ============================================================================
@@ -972,6 +972,11 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
     "     NeoBundle "Valloric/YouCompleteMe"
     " endif
+    " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+    "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+    "     \   'autoload': {'filetype': 'php'}
+    "     \}
+    NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetype': 'php'}}
     """ }}}
     """ スニペット補完 {{{
     NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
@@ -1403,7 +1408,6 @@ if s:is_installed("vim-smartword")
     map ge <Plug>(smartword-ge)
 endif
 "}}}
-" if g:has_plugin('neobundle') && (v:version >= 703 || v:version == 702 && has('patch051'))
 " Shougo/unite.vim {{{
 " ============================================================================
 if s:is_installed('unite.vim')
@@ -1973,7 +1977,7 @@ autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :Qu
 endif
 "}}}
 " operator {{{
-" ==============================================================================
+" ============================================================================
 if s:is_installed("vim-operator-user")
     call neobundle#config('vim-operator-user', {
         \   'autoload': {
@@ -2008,6 +2012,7 @@ if s:is_installed("vim-operator-user")
 endif
 " }}}
 " textobj {{{
+" ============================================================================
 if s:is_installed("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
@@ -2237,13 +2242,13 @@ if s:is_installed('vim-fugitive')
     function! s:hooks.on_source(bundle)
         nnoremap [fugitive] <Nop>
         nmap <Leader>g [fugitive]
-        noremap [fugitive]d :Gdiff<CR>
-        noremap [fugitive]s :Gstatus<CR>
-        noremap [fugitive]l :Glog<CR>
-        noremap [fugitive]p :Git pull --rebase origin master<CR>
+        nnoremap [fugitive]d :Gdiff<CR>
+        nnoremap [fugitive]s :Gstatus<CR>
+        nnoremap [fugitive]l :Glog<CR>
+        nnoremap [fugitive]p :Git pull --rebase origin master<CR>
 
-        noremap d] :diffget //2 | diffupdate
-        noremap d[ :diffget //3 | diffupdate
+        nnoremap d] :diffget //2 | diffupdate
+        nnoremap d[ :diffget //3 | diffupdate
     endfunction
 endif
 " }}}
@@ -2384,7 +2389,6 @@ if s:is_installed('qfixhowm')
     unlet s:bundle
 endif
 " }}}
-" endif
 " }}}
 if !has('gui_running') && filereadable(expand('~/.cvimrc'))
     source ~/.cvimrc
