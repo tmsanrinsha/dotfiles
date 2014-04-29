@@ -46,7 +46,11 @@ pathmungeR () {
 
 if [[ `uname` = Darwin ]]; then
     # homebrewでインストールしたものを優先
+    # .zashenvで設定するとvimのpythonの参照先がhomebrewでインストールしたものになり
+    # エラーが出るのでここで設定
     export PATH=/usr/local/bin:$PATH
+    # さらに自分でビルドしたものを優先
+    export PATH=$HOME/local/bin:$PATH
 fi
 # }}}
 
