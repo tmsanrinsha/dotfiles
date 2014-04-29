@@ -2255,6 +2255,13 @@ if s:is_installed('vim-fugitive')
 
         nnoremap <expr>[fugitive]] ":diffget //2 \| diffupdate\<CR>"
         nnoremap <expr>[fugitive][ ":diffget //3 \| diffupdate\<CR>"
+
+        function! s:ctags()
+            if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags')
+                call system('"'.b:git_dir.'/hooks/ctags" &') |
+            endif
+        endfunction
+        command! Ctags call s:ctags()
     endfunction
 endif
 " }}}
