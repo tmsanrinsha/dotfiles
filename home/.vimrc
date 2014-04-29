@@ -4,6 +4,7 @@ set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないよ�
 if filereadable(expand('~/.vimrc.local.pre'))
     source ~/.vimrc.local.pre
 endif
+
 let $VIMFILES = expand('~/.vim')
 
 if has('win32')
@@ -1088,7 +1089,6 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     endif
 
     " ステータスラインをカスタマイズ
-    " https://github.com/Lokaltog/vim-powerline
     NeoBundle 'Lokaltog/vim-powerline'
 
     NeoBundle 'LeafCage/foldCC'
@@ -1740,6 +1740,12 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
             let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
             "let g:neocomplcache_omni_patterns.java  = '.*'
         endif
+
+        " Enable heavy omni completion.
+        if !exists('g:neocomplete#sources#omni#input_patterns')
+            let g:neocomplete#sources#omni#input_patterns = {}
+        endif
+        let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
         " include補完
         "インクルードパスの指定
