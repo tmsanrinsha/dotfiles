@@ -30,6 +30,9 @@
 [push]
     default = matching
 
+[init]
+    templatedir = ~/.git_template
+
 [include]
 # includeが使えるかはgit config --global --includes -lで確かめる
     path = .gitconfig.local
