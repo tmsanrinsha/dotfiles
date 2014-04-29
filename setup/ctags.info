@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+src=https://github.com/shawncplus/phpcomplete.vim/blob/master/misc/ctags-better-php-parser.tar.bz2?raw=true
+archive_name=ctags-better-php-parser.tar.bz2

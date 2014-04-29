@@ -13,29 +13,32 @@ package=$1
 
 source $package.info
 
-if [ -z "$download" ]; then
-    tmpdir=`mktemp -d /tmp/build.XXXXXX`
-    cd $tmpdir
-
-    if which curl;then
-        downloader='curl -LRO'
-    elif which wget;then
-        downloader='wget -O'
-    else
-        echo 'curlまたはwgetをインストールしてください'
-        exit 1
-    fi
-
-    $downloader $src
-    archive=$(ls)
-    decomp.sh $archive
-    pkg_ver=$(ls | grep -v $archive)
-    cd $pkg_ver
+if which curl;then
+    downloader='curl -LRO'
+elif which wget;then
+    downloader='wget -O'
+else
+    echo 'curlまたはwgetをインストールしてください'
+    exit 1
 fi
 
+tmpdir=`mktemp -d /tmp/build.XXXXXX`
+cd $tmpdir
+
+$downloader $src
+archive=$(ls)
+if [ -n "$archive_name" ]; then
+    mv $archive $archive_name
+    archive=$archive_name
+fi
+
+decomp.sh $archive
+pkg_ver=$(ls | grep -v $archive)
+cd $pkg_ver
+
 if [ -z "$configure" ]; then
-./configure --prefix=$HOME/local/stow/$pkg_ver \
-    $configure_option
+    ./configure --prefix=$HOME/local/stow/$pkg_ver \
+        $configure_option
 else
     while read command
     do
