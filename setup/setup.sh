@@ -47,6 +47,11 @@ do
 done
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
+if ctags --version | grep Development; then
+    $ln -sv $git_dir/template/.ctags.dev ~/.ctags
+else
+    $ln -sv $git_dir/template/.ctags.old ~/.ctags
+fi
 
 # http://beyondgrep.com
 if ! command_exists ack; then

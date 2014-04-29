@@ -1,9 +1,11 @@
 --append=yes
+--tag-relative
 --recurse=yes
---exclude=\"\.svn\" \
+--php-kinds=cidfv
+--exclude=.svn
+--exclude=.git
 --langmap=PHP:+.inc.tpl
---php-kinds=cidfvj
 --regex-php=/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i
 --regex-php=/abstract class ([^ ]*)/\1/c/
 --regex-php=/interface ([^ ]*)/\1/c/
---regex-php=/(public |static |ract |protected |private )+function ([^ (]*)/\2/f/
+--regex-php=/(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/

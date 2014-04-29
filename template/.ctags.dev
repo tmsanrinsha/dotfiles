@@ -1,0 +1,10 @@
+--append=yes
+--tag-relative
+--recurse=yes
+--exclude=.svn
+--exclude=.git
+--langmap=PHP:+.inc.tpl
+--regex-php=/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i
+--regex-php=/abstract class ([^ ]*)/\1/c/
+--regex-php=/interface ([^ ]*)/\1/c/
+--fields=+aimS
