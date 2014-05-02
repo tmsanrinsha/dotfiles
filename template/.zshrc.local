@@ -25,7 +25,7 @@ bg_red=$'\e'"[41m"
 #    PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%B%S%M%b%s%{${reset_color}%}"
 #    RPROMPT="%{${fg_red}%}production%{${reset_color}%}"
 #else
-    PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%}"
+    PROMPT="${user_color}%n%{${reset_color}%}:${host_color}%M%{${reset_color}%}"
 #fi
 
 #PROMPT="$PROMPT
