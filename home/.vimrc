@@ -335,7 +335,8 @@ set showtabline=1
 
 nnoremap [TAB] <Nop>
 nmap <C-@> [TAB]
-nnoremap [TAB]c :tabnew<CR>
+" 一番右にタブを作る
+nnoremap [TAB]c :tablast <Bar> tabnew<CR>
 nnoremap [TAB]q :tabc<CR>
 
 nnoremap <C-Tab> :tabn<CR>
@@ -359,6 +360,16 @@ nnoremap <M-7> :7tabn<CR>
 nnoremap <M-8> :8tabn<CR>
 nnoremap <M-9> :9tabn<CR>
 nnoremap <M-0> :10tabn<CR>
+nnoremap [TAB]1 :1tabn<CR>
+nnoremap [TAB]2 :2tabn<CR>
+nnoremap [TAB]3 :3tabn<CR>
+nnoremap [TAB]4 :4tabn<CR>
+nnoremap [TAB]5 :5tabn<CR>
+nnoremap [TAB]6 :6tabn<CR>
+nnoremap [TAB]7 :7tabn<CR>
+nnoremap [TAB]8 :8tabn<CR>
+nnoremap [TAB]9 :9tabn<CR>
+nnoremap [TAB]0 :10tabn<CR>
 "}}}
 " コマンドラインモード {{{
 " ==============================================================================
@@ -2253,8 +2264,8 @@ if s:is_installed('vim-fugitive')
         nnoremap [fugitive]l :Glog<CR>
         nnoremap [fugitive]p :Git pull --rebase origin master<CR>
 
-        nnoremap <expr>[fugitive]] ":diffget //2 \| diffupdate\<CR>"
-        nnoremap <expr>[fugitive][ ":diffget //3 \| diffupdate\<CR>"
+        nnoremap [fugitive]] :diffget //2 <Bar> diffupdate\<CR>
+        nnoremap [fugitive][ :diffget //3 <Bar> diffupdate\<CR>
 
         function! s:ctags()
             if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags')
