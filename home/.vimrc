@@ -929,7 +929,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " すでにvimが起動しているときは、そちらで開く
     if has('clientserver')
         NeoBundle 'thinca/vim-singleton'
-        if neobundle#is_installed('vim-singleton')
+        if neobundle#is_installed('vim-singleton') && has('gui_running')
             call singleton#enable()
         endif
     endif
@@ -976,7 +976,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
     "" 補完・入力補助 {{{
     """ 自動補完 {{{
-    if has('lua') && (v:version >= 704 || v:version == 703 && has('patch825'))
+    if 0 && has('lua') && MyHasPatch('patch-7.3.825')
         NeoBundleLazy "Shougo/neocomplete", {"autoload": {"insert": 1}}
     else
         NeoBundleLazy "Shougo/neocomplcache", {"autoload": {"insert": 1}}
@@ -1680,8 +1680,8 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
-        execute 'let g:'.s:neocom_.'enable_auto_close_preview=1'
-        " autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
+        execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
+        autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
 
         let g:neocomplcache_enable_auto_delimiter = 0
 
@@ -1844,6 +1844,8 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#smart_close_popup()."\<CR>"'
+            " 補完候補が表示されている場合は確定。そうでない場合は改行
+            " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
         endif
         " }}}
     endfunction
