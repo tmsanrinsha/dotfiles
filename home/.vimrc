@@ -1691,9 +1691,27 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         " keys(neocomplete#variables#get_sources())`
         " " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
         " 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']
-        " let g:neocomplete#sources = {
-        "   \ '_' : ['vim', 'omni', 'include', 'buffer', 'file/include']
-        "     \ }
+
+        if !exists('g:neocomplete#sources')
+          let g:neocomplete#sources = {}
+        endif
+        " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
+        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
+
+        if !exists('g:neocomplcache_sources_list')
+          let g:neocomplcache_sources_list = {}
+        endif
+        " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
+        let g:neocomplcache_sources_list.php  = ['tags_complete', 'snippets_complete', 'dictionary_complete', 'omni_complete', 'member_complete', 'include_complete', 'buffer_complete', 'filename_complete', 'filename_include']
+
+        " 補完候補の順番
+        if neobundle#is_installed("neocomplete")
+            " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
+            call neocomplete#custom#source('file'        , 'rank', 400)
+            call neocomplete#custom#source('file/include', 'rank', 400)
+            call neocomplete#custom#source('member'      , 'rank', 100)
+        endif
+
 
         if s:is_installed('neocomplete')
             let g:neocomplete#data_directory = $VIMFILES . '/.neocomplete'
@@ -1717,13 +1735,6 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-        if neobundle#is_installed("neocomplete")
-            " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
-            call neocomplete#custom#source('file'        , 'rank', 400)
-            call neocomplete#custom#source('file/include', 'rank', 400)
-            call neocomplete#custom#source('member'      , 'rank', 100)
-        endif
-
         " Enable omni completion.
         augroup MyVimrc
             autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
@@ -1746,17 +1757,17 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
             endif
 
             let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.php  = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.php  = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
             let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
             let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
             "let g:neocomplcache_omni_patterns.java  = '.*'
-        endif
 
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
+            " Enable heavy omni completion.
+            if !exists('g:neocomplete#sources#omni#input_patterns')
+                let g:neocomplete#sources#omni#input_patterns = {}
+            endif
+            let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
         endif
-        let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
         " include補完
         "インクルードパスの指定
