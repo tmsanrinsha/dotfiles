@@ -306,7 +306,7 @@ set laststatus=2
 "nnoremap <M-k> <C-w>k
 "nnoremap <M-l> <C-w>l
 nnoremap <M--> <C-w>-
-nnoremap <M-;> <C-w>+
+nnoremap <M-+> <C-w>+
 nnoremap <M-,> <C-w><
 nnoremap <M-.> <C-w>>
 nnoremap <M-0> <C-w>=
@@ -976,7 +976,7 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " }}}
     "" 補完・入力補助 {{{
     """ 自動補完 {{{
-    if 0 && has('lua') && MyHasPatch('patch-7.3.825')
+    if has('lua') && MyHasPatch('patch-7.3.825')
         NeoBundleLazy "Shougo/neocomplete", {"autoload": {"insert": 1}}
     else
         NeoBundleLazy "Shougo/neocomplcache", {"autoload": {"insert": 1}}
@@ -986,9 +986,9 @@ if filereadable(expand($VIMFILES.'/bundle/neobundle.vim/autoload/neobundle.vim')
     " endif
     " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
     "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-    "     \   'autoload': {'filetype': 'php'}
+    "     \   'autoload': {'filetypes': 'php'}
     "     \}
-    NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetype': 'php'}}
+    NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
     """ }}}
     """ スニペット補完 {{{
     NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
@@ -1472,7 +1472,14 @@ if s:is_installed('unite.vim')
     " }}}
 
     " grep {{{
-    if executable('grep')
+    if executable('ag')
+        " Use ag in unite grep source.
+        let g:unite_source_grep_command = 'ag'
+        let g:unite_source_grep_default_opts =
+            \   '--line-numbers --nocolor --nogroup --hidden ' .
+            \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+        let g:unite_source_grep_recursive_opt = ''
+    elseif executable('grep')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inH'
         let g:unite_source_grep_recursive_opt = '-r'
@@ -1600,8 +1607,8 @@ if s:is_installed('vimshell')
             \   setlocal nonumber
             \|  setlocal nocursorline
             \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
-            \|  imap <expr> <buffer> <C-n> pumvisible() ? "\<C-n>" : "\<Plug>(vimshell_history_neocomplete)\<C-n>"
-            \|  imap <buffer><C-k> <Plug>(vimshell_zsh_complete)
+            \|  imap <buffer> <M-n> <Plug>(vimshell_history_neocomplete)
+            \|  imap <buffer> <C-k> <Plug>(vimshell_zsh_complete)
             \|  call vimshell#altercmd#define('g', 'git')
             \|  call vimshell#altercmd#define('l', 'll')
             \|  call vimshell#altercmd#define('ll', 'ls -l')
@@ -1681,7 +1688,7 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
-        autocmd MyVimrc InsertLeave * if pumvisible() == 0 | pclose | endif
+        " autocmd MyVimrc InsertLeave *.* pclose
 
         let g:neocomplcache_enable_auto_delimiter = 0
 
@@ -1696,7 +1703,7 @@ if s:is_installed('neocomplcache') || s:is_installed('neocomplete')
           let g:neocomplete#sources = {}
         endif
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
+        " let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
 
         if !exists('g:neocomplcache_sources_list')
           let g:neocomplcache_sources_list = {}
@@ -2127,8 +2134,8 @@ if s:is_installed('yankround.vim')
     nmap gp <Plug>(yankround-gp)
     xmap gp <Plug>(yankround-gp)
     nmap gP <Plug>(yankround-gP)
-    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "gT"
-    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next))" : "gt"
+    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
+    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
 endif
 "}}}
 " caw {{{
@@ -2173,11 +2180,11 @@ let g:automatic_default_set_config = {
             \   'height' : '20%',
             \   'move' : 'bottom',
             \ }
-let g:automatic_config = [
-            \   {
-            \       'match' : {'bufname' : 'vimshell'}
-            \   }
-            \]
+" let g:automatic_config = [
+"             \   {
+"             \       'match' : {'bufname' : 'vimshell'}
+"             \   }
+"             \]
 " }}}
 " foldCC {{{
 " ------------------------------------------------------------------------------
