@@ -54,7 +54,7 @@ augroup MyVimrc
 augroup END
 " }}}
 
-call SourceRc('~/local_pre.vim')
+call SourceRc('local_pre.vim')
 " }}}
 " 基本設定 {{{
 " ============================================================================
