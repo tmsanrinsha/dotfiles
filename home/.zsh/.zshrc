@@ -245,8 +245,21 @@ if [[ `uname` != Darwin ]]; then
     # autoload -Uz add-zsh-hookが必要
     add-zsh-hook precmd  share_dirs_precmd
 fi
-# }}}
-# }}}
+# }}} }}}
+# cdr
+# ----------------------------------------------------------------------------
+# zshでcdの履歴管理に標準添付のcdrを使う - @znz blog <http://blog.n-z.jp/blog/2013-11-12-zsh-cdr.html>
+if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
+    mkdir -p ${ZDOTDIR}/.cache
+    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+    add-zsh-hook chpwd chpwd_recent_dirs
+    # zstyle ':completion:*:*:cdr:*:*' menu selection
+    zstyle ':completion:*' recent-dirs-insert both
+    zstyle ':chpwd:*' recent-dirs-default true
+    zstyle ':chpwd:*' recent-dirs-max 500
+    zstyle ':chpwd:*' recent-dirs-file "${ZDOTDIR}/.cache/chpwd-recent-dirs"
+    # zstyle ':chpwd:*' recent-dirs-pushd true
+fi
 # }}}
 # 履歴 {{{
 # =============================================================================
@@ -319,7 +332,7 @@ if [ -f ~/.zshrc.local ]; then
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
-    test -f ~/.zshrc.cygwin && . ~/.zshrc.cygwin
+    test -f $ZDOTDIR/.zshrc.cygwin && . $ZDOTDIR/.zshrc.cygwin
 else
-    test -f ~/.zshrc.vcs && . ~/.zshrc.vcs
+    test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 fi
