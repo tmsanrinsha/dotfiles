@@ -439,8 +439,8 @@ cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 xnoremap <Leader>/ <ESC>/\%V
 xnoremap <Leader>? <ESC>?\%V
 
-nnoremap <Leader>ss :%s///
-xnoremap <Leader>ss :s///
+nnoremap "\<Leader>ss :%s/\<C-R>//"
+xnoremap "\<Leader>ss :s/\<C-R>//"
 " }}}
 " }}}
 " コマンドラインウィンドウ {{{
