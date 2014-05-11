@@ -335,6 +335,8 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
 
+    NeoBundle 'luochen1990/rainbow'
+    let g:rainbow_active = 1
     " カラースキームの色見本
     " http://cocopon.me/blog/?p=3522
     NeoBundleLazy 'cocopon/colorswatch.vim', {
