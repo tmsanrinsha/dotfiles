@@ -182,9 +182,6 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
                     \}
     endif
 
-    " ステータスラインをカスタマイズ
-    NeoBundle 'Lokaltog/vim-powerline'
-
     NeoBundle 'LeafCage/foldCC'
     " gundo.vim {{{
     " グラフィカルにundo履歴を見れる
@@ -229,17 +226,12 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
                     \}
     endif
 
+    NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
     NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
     " JavaScript, CSS, HTMLの整形
     if executable('node')
         NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload': {'filetypes': ['javascript', 'css', 'html']}}
     endif
-    " CSS
-    " #000000とかの色付け
-    NeoBundleLazy 'skammer/vim-css-color'
-    " rgb()に対応したやつ
-    " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
-    " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
 
     " JavaScript {{{
     " --------------
@@ -335,8 +327,19 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'vim-scripts/rdark-terminal'
     NeoBundle 'jonathanfilip/vim-lucius'
 
+    " ステータスラインをカスタマイズ
+    NeoBundle 'Lokaltog/vim-powerline'
+
     NeoBundle 'luochen1990/rainbow'
     let g:rainbow_active = 1
+
+    " CSS
+    " #000000とかの色付け
+    NeoBundleLazy 'skammer/vim-css-color'
+    " rgb()に対応したやつ
+    " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
+    " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
+
     " カラースキームの色見本
     " http://cocopon.me/blog/?p=3522
     NeoBundleLazy 'cocopon/colorswatch.vim', {
@@ -387,7 +390,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     filetype plugin indent on     " Required!un
 
      " Installation check.
-     " NeoBundleCheck
+     NeoBundleCheck
 
     if !has('vim_starting')
       " Call on_source hook when reloading .vimrc.
@@ -786,7 +789,7 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
           let g:neocomplete#sources = {}
         endif
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-        " let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
 
         if !exists('g:neocomplcache_sources_list')
           let g:neocomplcache_sources_list = {}
