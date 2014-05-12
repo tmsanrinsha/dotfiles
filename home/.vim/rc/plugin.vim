@@ -383,7 +383,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     " vim以外のリポジトリ
     NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
-    call SourceRc('neobunde_local.vim')
+    call SourceRc('neobundle_local.vim')
 
     call neobundle#end()
 
