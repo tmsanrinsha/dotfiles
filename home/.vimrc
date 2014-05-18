@@ -83,7 +83,9 @@ syntax enable
 scriptencoding utf-8
 augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-    autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
+    autocmd ColorScheme *
+        \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
+        \|  highlight Normal ctermbg=233 guibg=#1B1D1E
 augroup END
 " }}}
 
@@ -125,6 +127,18 @@ if MyHasPatch('patch-7.0.234') && MyHasPatch('patch-7.0.235')
 else
     set modelines=0
 endif
+
+" backspaceキーの挙動を設定する
+" " indent        : 行頭の空白の削除を許す
+" " eol           : 改行の削除を許す
+" " start         : 挿入モードの開始位置での削除を許す
+set backspace=indent,eol,start
+
+" カーソルを行頭、行末で止まらないようにする。
+" http://vimwiki.net/?'whichwrap'
+" set whichwrap=b,s,h,l,<,>,[,],~
+" " 矩形選択でカーソル位置の制限を解除
+" set virtualedit=block
 
 " pasteモードのトグル。autoindentをonにしてペーストすると
 " インデントが入った文章が階段状になってしまう。
@@ -186,7 +200,7 @@ set ambiwidth=double
 " :h map-modes
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
 
-" key mappingに対しては3000ミリ秒待ち、key codeに対しては10ミリ秒待つ
+" key mappingに対しては9000ミリ秒待ち、key codeに対しては10ミリ秒待つ
 set timeout timeoutlen=9000 ttimeoutlen=10
 if exists('+macmeta')
    " MacVimでMETAキーを使えるようにする
@@ -206,6 +220,29 @@ noremap : ;
 inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
+
+" カーソルを表示行で移動する
+nnoremap j gj
+xnoremap j gj
+nnoremap k gk
+xnoremap k gk
+nnoremap <down> gj
+xnoremap <down> gj
+nnoremap <up> gk
+xnoremap <up> gk
+nnoremap 0 g0
+xnoremap 0 g0
+nnoremap $ g$
+" これをやると<C-V>$Aできなくなる
+" xnoremap $ g$
+nnoremap gj j
+xnoremap gj j
+nnoremap gk k
+xnoremap gk k
+nnoremap g0 0
+xnoremap g0 0
+nnoremap g$ $
+xnoremap g$ $
 
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
@@ -523,44 +560,6 @@ function! s:auto_mkdir(dir, force)
     endif
 endfunction  " }}}
 " }}}
-" }}}
-" カーソル {{{
-" ==============================================================================
-" set virtualedit=block       " 矩形選択でカーソル位置の制限を解除
-
-"カーソルを表示行で移動する。
-nnoremap j gj
-xnoremap j gj
-nnoremap k gk
-xnoremap k gk
-nnoremap <down> gj
-xnoremap <down> gj
-nnoremap <up> gk
-xnoremap <up> gk
-nnoremap 0 g0
-xnoremap 0 g0
-nnoremap $ g$
-" これをやると<C-V>$Aできなくなる
-" xnoremap $ g$
-nnoremap gj j
-xnoremap gj j
-nnoremap gk k
-xnoremap gk k
-nnoremap g0 0
-xnoremap g0 0
-nnoremap g$ $
-xnoremap g$ $
-
-" backspaceキーの挙動を設定する
-" " indent        : 行頭の空白の削除を許す
-" " eol           : 改行の削除を許す
-" " start         : 挿入モードの開始位置での削除を許す
-set backspace=indent,eol,start
-
-" カーソルを行頭、行末で止まらないようにする。
-" http://vimwiki.net/?'whichwrap'
-"set whichwrap=b,s,h,l,<,>,[,],~
-"}}}
 " vimdiff {{{
 " ==============================================================================
 set diffopt=filler

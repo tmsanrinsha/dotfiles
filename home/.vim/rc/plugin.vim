@@ -53,7 +53,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     "" shell {{{
     NeoBundleLazy 'Shougo/vimshell', {
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
-                \   'depends' : 'Shougo/vim-vcs'
+                \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
                 \}
     NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
     " }}}
@@ -331,7 +331,6 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     NeoBundle 'Lokaltog/vim-powerline'
 
     NeoBundle 'luochen1990/rainbow'
-    let g:rainbow_active = 1
 
     " CSS
     " #000000とかの色付け
@@ -477,24 +476,22 @@ if HasPlugin('Powerline')
 endif
 "}}}
 " colorscheme {{{
-" ------------------------------------------------------------------------------
+" ==============================================================================
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_contrast = "high"
+" if IsInstalled('vim-colors-solarized')
+"     colorscheme solarized
 if IsInstalled('my_molokai')
-    set background=dark
     colorscheme molokai-customized
 elseif IsInstalled('molokai')
     " let g:molokai_original = 1
     " let g:rehash256 = 1
     set background=dark
     colorscheme molokai
-elseif HasPlugin('solarized')
-    set background=dark
-    let g:solarized_termcolors=256
-    colorscheme solarized
-    let g:solarized_contrast = "high"
 else
     colorscheme default
 endif
-
 "}}}
 " vim-smartword {{{
 " ==============================================================================
@@ -1402,9 +1399,7 @@ if IsInstalled('gitv')
     endfunction
 endif
 " }}}
-" open-browser.vim {{{
-" ==============================================================================
-if IsInstalled("open-browser.vim")
+if IsInstalled("open-browser.vim") " {{{
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
     let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
     nmap gx <Plug>(openbrowser-smart-search)
@@ -1415,8 +1410,7 @@ if IsInstalled("open-browser.vim")
     " vmap gx <Plug>(openbrowser-open)
     " nmap <2-LeftMouse> <Plug>(openbrowser-open)
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
-endif
-" }}}
+endif "}}}
 if IsInstalled("rainbow") " {{{
     let g:rainbow_active = 1
     let g:rainbow_conf = {
