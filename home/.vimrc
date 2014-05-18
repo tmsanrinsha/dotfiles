@@ -513,6 +513,16 @@ cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 " Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する
 " http://vim-users.jp/2009/05/hack17/
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+" Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{
+autocmd MyVimrc BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir) && (a:force ||
+        \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+        call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+endfunction  " }}}
+" }}}
 " }}}
 " カーソル {{{
 " ==============================================================================
