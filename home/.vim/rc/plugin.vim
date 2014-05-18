@@ -1417,6 +1417,31 @@ if IsInstalled("open-browser.vim")
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 " }}}
+if IsInstalled("rainbow") " {{{
+    let g:rainbow_active = 1
+    let g:rainbow_conf = {
+    \    'guifgs':   ['#FA248F', '#FA8F24', '#8FFA24', '#24FA8F', '#248FFA', '#8F24FA', '#FA2424', '#FAFA24', '#24FA24', '#24FAFA', '#2424FA', '#FA24FA'],
+    \    'ctermfgs': ['198',     '208',     '118',     '48',      '33',      '93',      '9',       '11',      '10',      '14',      '21',      '13'],
+    \    'operators': '_,_',
+    \    'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+    \    'separately': {
+    \        '*': {},
+    \        'lisp': {
+    \            'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+    \            'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+    \        },
+    \        'html': {
+    \            'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+    \        },
+    \        'xml': {
+    \            'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+    \        },
+    \        'vim': {
+    \            'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+    \        },
+    \    }
+    \}
+endif " }}}
 " vimrepress {{{
 " ============================================================================
 if IsInstalled('vimrepress')
