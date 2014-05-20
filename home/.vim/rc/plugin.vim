@@ -1,7 +1,6 @@
 " neobundle.vim {{{
 " ============================================================================
-if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
-    \   && (v:version >= 703 || v:version == 702 && has('patch051'))
+if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) && MyHasPatch('patch-7.2.051')
     if has('vim_starting')
       set runtimepath+=$VIMDIR/bundle/neobundle.vim/
     endif
@@ -76,6 +75,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim'))
     """ スニペット補完 {{{
     NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
     NeoBundleLazy 'Shougo/neosnippet-snippets', {"autoload": {"insert": 1}}
+    NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
     """ }}}
     " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
     "" }}}
@@ -707,14 +707,12 @@ if IsInstalled('vimshell')
     endfunction
 endif
 " }}}
-" Conque-Shell {{{
-" ============================================================================
-if IsInstalled('Conque-Shell')
-call neobundle#config('Conque-Shell', {
-    \   'autoload': {
-    \       'commands': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
-    \   }
-    \})
+if IsInstalled('Conque-Shell') " {{{
+    call neobundle#config('Conque-Shell', {
+        \   'autoload': {
+        \       'commands': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
+        \   }
+        \})
 
     noremap <Leader>C :ConqueTerm zsh<CR>
 
@@ -727,8 +725,7 @@ call neobundle#config('Conque-Shell', {
         let g:ConqueTerm_EscKey = '<C-j>'
     endfunction
     unlet s:bundle
-endif
-"}}}
+endif "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
 if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
