@@ -446,39 +446,6 @@ set history=100 "保存する履歴の数
 " アウト
 " let $BASH_ENV=expand('~/.bashenv')
 " let $ZDOTDIR=expand('~/.vim/')
-" 検索・置換 {{{
-" ------------------------------------------------------------------------------
-set incsearch
-set ignorecase "検索パターンの大文字小文字を区別しない
-set smartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
-set hlsearch   "検索結果をハイライト
-
-" ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :set hlsearch!<CR>
-
-nnoremap * *N
-nnoremap # g*N
-" function! s:RegistSearchWord()
-"     silent normal yiw
-"     let @/ = '\<'.@".'\>'
-" endfunction
-"
-" command! -range RegistSearchWord :call s:RegistSearchWord()
-" nnoremap <silent> * :RegistSearchWord<CR>
-
-" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
-cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
-
-"ヴィビュアルモードで選択した範囲だけ検索
-xnoremap <Leader>/ <ESC>/\%V
-xnoremap <Leader>? <ESC>?\%V
-
-nnoremap "\<Leader>ss :%s/\<C-R>//"
-xnoremap "\<Leader>ss :s/\<C-R>//"
-" }}}
 " }}}
 " コマンドラインウィンドウ {{{
 " ==============================================================================
@@ -503,6 +470,51 @@ function! s:init_cmdwin()
 
   startinsert!
 endfunction
+" }}}
+" 検索・置換 {{{
+" ==============================================================================
+set incsearch
+set ignorecase "検索パターンの大文字小文字を区別しない
+set smartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
+set hlsearch   "検索結果をハイライト
+
+" ESCキー2度押しでハイライトのトグル
+nnoremap <Esc><Esc> :set hlsearch!<CR>
+
+nnoremap * *N
+nnoremap # g*N
+
+" function! s:RegistSearchWord()
+"     silent normal yiw
+"     let @/ = '\<'.@".'\>'
+" endfunction
+"
+" command! -range RegistSearchWord :call s:RegistSearchWord()
+" nnoremap <silent> * :RegistSearchWord<CR>
+
+" /で検索しても、?で検索してもnで前方検索、Nで後方検索
+" http://deris.hatenablog.jp/entry/2014/05/20/235807
+nnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+nnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+
+function! s:search_forward_p()
+  return exists('v:searchforward') ? v:searchforward : 1
+endfunction
+
+" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
+cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
+
+"ヴィビュアルモードで選択した範囲だけ検索
+xnoremap <Leader>/ <ESC>/\%V
+xnoremap <Leader>? <ESC>?\%V
+
+nnoremap "\<Leader>ss :%s/\<C-R>//"
+xnoremap "\<Leader>ss :s/\<C-R>//"
 " }}}
 " ビジュアルモード {{{
 " =============================================================================
