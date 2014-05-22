@@ -6,7 +6,7 @@ set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
 hi Hint font-family: Consolas; font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
 " テキストボックスにフォーカスさせない
-set focuscontent
+" set focuscontent
 
 set "editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"
 
