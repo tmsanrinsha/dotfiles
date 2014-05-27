@@ -81,26 +81,13 @@ if [[ `uname` = Darwin ]]; then
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
 # }}}
-# ls {{{
-# ------------------------------------------------------------------------------
-if [ `uname` = FreeBSD -o `uname` = Darwin ];then
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    alias ls='ls -G'
-else
-    alias ls='ls --color'
-fi
+# alias {{{
+# ============================================================================
 alias l='ls'
 alias ll='ls -l'
-alias la='ls -a'
+# . ..以外の.で始まるファイルも表示
+alias la='ls -A'
 alias lla='ls -la'
-# }}}
-
-alias cp='cp -ip'
-alias mv='mv -i'
-
-if command_exists rmtrash; then
-    alias rm=rmtrash
-fi
 
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -108,12 +95,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-# http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
-alias sudo='sudo '
-
-if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
-    alias grep='grep --color=auto'
-fi
 alias egrep='egrep --color=auto'
 if [ `uname` = FreeBSD ];then
     alias find='find -E'
@@ -193,6 +174,7 @@ alias fxg='fxg.sh'
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
+# }}}
 
 if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local

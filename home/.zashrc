@@ -1,4 +1,3 @@
-# vim:ft=sh
 # bash, zsh共通設定
 
 #export PAGER=/usr/local/share/vim/vim73/macros/less.sh
@@ -12,7 +11,31 @@
 export LANG='ja_JP.UTF-8'
 export EDITOR='vim'
 
+# alias {{{
+# ============================================================================
+# すでにあるコマンドと同名のaliasの設定はここに書いて、
+# shell scriptなどでaliasが実行されないようにする
+if [ `uname` = FreeBSD -o `uname` = Darwin ];then
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    alias ls='ls -G'
+else
+    alias ls='ls --color'
+fi
+alias cp='cp -ip'
+alias mv='mv -i'
+if command_exists rmtrash; then
+    alias rm=rmtrash
+fi
 alias diff='diff -u'
+
+# http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
+alias sudo='sudo '
+
+if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
+    alias grep='grep --color=auto'
+fi
+# }}}
+
 
 # PATHの設定 {{{
 # ------------------------------------------------------------------------------
@@ -186,3 +209,4 @@ if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
 # }}}
+# vim:ft=zsh
