@@ -853,6 +853,18 @@ autocmd MyVimrc FileType html
     \|  setlocal path+=./;/
 " }}}
 " }}}
+" Markdown {{{
+" ----------------------------------------------------------------------------
+" fenced code blocksのコードをハイライト
+" plasticboy/vim-markdownを使っているとハイライトされない
+let g:markdown_fenced_languages = [
+\  'css',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'xml',
+\]
+" }}}
 " JavaScript {{{
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
