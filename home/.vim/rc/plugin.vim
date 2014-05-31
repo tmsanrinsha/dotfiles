@@ -1342,13 +1342,13 @@ if IsInstalled('vimconsole.vim')
 endif
 " }}}
 " instant-markdown-vim {{{
-" ==============================================================================
+" ============================================================================
 let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
 " vim-fugitive {{{
-" ------------
+" ============================================================================
 if IsInstalled('vim-fugitive')
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
@@ -1360,15 +1360,20 @@ if IsInstalled('vim-fugitive')
         nnoremap [fugitive]l :Glog<CR>
         nnoremap [fugitive]p :Git pull --rebase origin master<CR>
 
-        nnoremap [fugitive]] :diffget //2 <Bar> diffupdate\<CR>
-        nnoremap [fugitive][ :diffget //3 <Bar> diffupdate\<CR>
+        nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
+        nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
-        function! s:ctags()
-            if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags')
-                call system('"'.b:git_dir.'/hooks/ctags" &') |
+        autocmd MyVimrc BufWritePost *
+            \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
+            \   call system('"'.b:git_dir.'/hooks/ctags" &') |
+            \ endif
+
+        function! s:ctags(dir)
+            if exists('b:git_dir')
+                call system('ctags -R -f "'.b:git_dir.'/tags" "'.fnamemodify(a:dir, ':p').'" &')
             endif
         endfunction
-        command! Ctags call s:ctags()
+        command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
     endfunction
 endif
 " }}}
