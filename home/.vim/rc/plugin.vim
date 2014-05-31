@@ -391,10 +391,6 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
      " Installation check.
      NeoBundleCheck
 
-    if !has('vim_starting')
-      " Call on_source hook when reloading .vimrc.
-      call neobundle#call_hook('on_source')
-    endif
 else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
@@ -1535,3 +1531,8 @@ if IsInstalled('qfixhowm')
     unlet s:bundle
 endif
 " }}}
+if IsInstalled('neobundle.vim') && !has('vim_starting')
+    " Call on_source hook when reloading .vimrc.
+    " hookの設定より下に書かないとだめ
+    call neobundle#call_hook('on_source')
+endif
