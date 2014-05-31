@@ -47,6 +47,9 @@ set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
 nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
 
+" コンテキストメニューにCopy Pathと追加
+" http://d.hatena.ne.jp/tyru/20140531/add_right_click_popup_menu_for_openbrowser
+nnoremenu <silent> PopUp.Copy\ Path :let [@", @+, @*] = repeat([expand('%:p')], 3)<CR>
 "---------------------------------------------------------------------------
 " 日本語入力に関する設定:
 "
