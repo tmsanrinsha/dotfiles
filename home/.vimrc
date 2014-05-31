@@ -392,8 +392,8 @@ nnoremap [TAB]p :tabp<CR>
 nnoremap <C-p> gT
 nnoremap <C-n> gt
 
-nnoremap <M-n> :tabn<CR>
-nnoremap <M-p> :tabp<CR>
+nnoremap <M-n> :bnext<CR>
+nnoremap <M-p> :bprevious<CR>
 nnoremap <M-1> :1tabn<CR>
 nnoremap <M-2> :2tabn<CR>
 nnoremap <M-3> :3tabn<CR>
