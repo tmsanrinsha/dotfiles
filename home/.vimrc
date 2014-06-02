@@ -174,6 +174,8 @@ set fileencoding=utf-8
 
 if ! has('guess_encode')
     set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+else
+    set fileencodings=guess,ucs-boms,utf-8,euc-jp,cp932
 endif
 
 " エンコーディングを指定して開き直す
