@@ -1456,6 +1456,9 @@ if IsInstalled('vimwiki')
         \})
 
     nmap <Leader>ww  <Plug>VimwikiIndex
+    nmap <Leader>wd  <Plug>VimwikiDiaryIndex
+    nmap <Leader>wn  <Plug>VimwikiMakeDiaryNote
+    nmap <Leader>wu  <Plug>VimwikiDiaryGenerateLinks
 
     let g:vimwiki_list = [{
         \   'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/',
