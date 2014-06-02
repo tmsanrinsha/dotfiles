@@ -610,6 +610,7 @@ if IsInstalled('unite-outline')
     let s:hooks = neobundle#get_hooks("unite-outline")
     function! s:hooks.on_source(bundle)
         call unite#sources#outline#alias('tmux', 'conf')
+        call unite#sources#outline#alias('sh', 'conf')
     endfunction
     unlet s:hooks
 endif
