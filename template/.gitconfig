@@ -4,7 +4,7 @@
     ci = commit
     # 外部エディタを起動せず、diffを単語単位で
     di = diff --no-ext-diff
-    hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
+    hist = "log --pretty=format:\"%h %ad %s%d by %an\" --graph --date=short"
     st = status
     rt = remote -v
     # Githubのpushのurlをsshに変更

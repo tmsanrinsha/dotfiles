@@ -111,7 +111,6 @@ alias pk='pkill -f'
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
 # }}}
-
 # vim {{{
 # ------------------------------------------------------------------------------
 if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
@@ -126,7 +125,6 @@ fi
 alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
 # }}}
-
 # git {{{
 # ------------------------------------------------------------------------------
 alias gal='alias | grep git'
@@ -138,7 +136,9 @@ alias gd='git diff'
 alias gdn='git diff --no-ext-diff'
 alias gdr='git diff remotes/origin/master'
 alias gi='git init'
-alias gl='git log | vim -R -'
+alias gl='git hist -n 10'
+alias gla='git hist'
+alias glv='git log | vim -R'
 alias gm='git merge'
 alias gpl='git pull'
 alias gplr='git pull --rebase origin master'
