@@ -30,6 +30,10 @@ alias zmv='zmv -W'
 # http://d.hatena.ne.jp/kiririmode/20120327/p1
 autoload -Uz add-zsh-hook
 # }}}
+# alias {{{
+# ============================================================================
+alias hgr='history 1 | grep -C 3'
+# }}}
 # グローバルエイリアス {{{
 alias -g A='| awk'
 alias -g L='| less -R'
