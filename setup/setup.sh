@@ -138,6 +138,8 @@ elif [[ "$uname" = Darwin ]]; then
         ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
 
         brew update  # homebrewの更新
+        brew tap phinze/homebrew-cask
+        brew tap Homebrew/python
         brew upgrade # packageの更新
 
         brew install ant
@@ -149,10 +151,16 @@ elif [[ "$uname" = Darwin ]]; then
         brew install tree
         brew install zsh
 
-        brew tap phinze/homebrew-cask
+        # phinze/homebrew-cask
         brew install brew-cask
         brew cask install bettertouchtool
+        brew cask install eclipse-ide
         brew cask install pandoc
+
+        # Homebrew/python
+        brew install numpy
+        # pip install nosy
+        # pip install ipython
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then

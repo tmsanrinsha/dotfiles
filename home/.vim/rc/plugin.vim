@@ -213,18 +213,28 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " NeoBundle "tpope/vim-commentary"
     " }}}
 
-    " eclipseと連携
-    if executable('ant')
+    " eclipseと連携 {{{
+    if has('win32') && isdirectory(expand('~/eclipse'))
+        let g:eclipse_home = escape(expand('~/eclipse'), '\')
+    elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
+        " caskでインストールした場合、設定するディレクトリはEclipse.appの実体の一つ上のディレクトリ
+        let g:eclipse_home = resolve(expand('~/Applications/Eclipse.app/..'))
+    else
+        let g:eclipse_home = ''
+    endif
+
+    if executable('ant') && !empty(g:eclipse_home)
         NeoBundleLazy 'ervandew/eclim', {
                     \   'build' : {
-                    \       'windows' : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \       'windows' : 'ant -Declipse.home='.g:eclipse_home
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                    \       'mac'     : 'ant -Declipse.home='.escape(expand('~/eclipse'), '\')
+                    \       'mac'     : 'ant -Declipse.home='.g:eclipse_home
                     \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
                     \   },
-                    \   'autoload': {'filetypes': ['java', 'xml']}
+                    \   'autoload': {'commands': ['PingEclim']}
                     \}
     endif
+    " }}}
 
     NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
     NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
@@ -239,6 +249,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     NeoBundle 'jelera/vim-javascript-syntax'
     NeoBundle 'nono/jquery.vim'
     " }}}
+    NeoBundle 'davidhalter/jedi-vim'
     " SQL {{{
     NeoBundleLazy 'vim-scripts/dbext.vim', {
         \   'autoload': {'filetypes': 'sql'}
@@ -503,7 +514,7 @@ endif
 if IsInstalled('unite.vim')
     let g:unite_data_directory = $VIMDIR.'/.unite'
     let g:unite_enable_start_insert = 1
-    let g:unite_split_rule = "botright"
+    let g:unite_split_rule = "topleft"
     let g:unite_winheight = "15"
     " let g:unite_source_find_max_candidates = 1000
 
@@ -610,7 +621,7 @@ if IsInstalled('unite-outline')
     let s:hooks = neobundle#get_hooks("unite-outline")
     function! s:hooks.on_source(bundle)
         call unite#sources#outline#alias('tmux', 'conf')
-        call unite#sources#outline#alias('sh', 'conf')
+        " call unite#sources#outline#alias('sh', 'conf')
     endfunction
     unlet s:hooks
 endif
@@ -701,6 +712,10 @@ if IsInstalled('vimshell')
 
         " 参考
         " http://d.hatena.ne.jp/joker1007/20111018/1318950377
+
+        autocmd MyVimrc FileType int-*
+            \   inoremap <buffer> <expr> <C-p> pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
+            \|  execute 'setlocal filetype='.matchstr(&filetype, 'int-\zs.*')
     endfunction
 endif
 " }}}
@@ -825,7 +840,8 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-            autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+            " autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType python        setlocal omnifunc=jedi#completions
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
         augroup END
@@ -844,7 +860,6 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
             let g:neocomplcache_omni_patterns.php  = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
             let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
             let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-            "let g:neocomplcache_omni_patterns.java  = '.*'
 
             " Enable heavy omni completion.
             if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -852,6 +867,14 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
             endif
             let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
         endif
+
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
+        endif
+        let g:neocomplete#force_omni_input_patterns.java =
+            \ '\%(\h\w*\|)\)\.\w*'
+        let g:neocomplete#force_omni_input_patterns.python =
+            \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*>*\s*import \)\w*'
 
         " include補完
         "インクルードパスの指定
@@ -1329,6 +1352,13 @@ if IsInstalled('eclim')
         nnoremap [eclim]ji :JavaImportOrganize<CR>
 
     endfunction
+endif
+" }}}
+" jedi-vim {{{
+" ============================================================================
+if IsInstalled('jedi-vim')
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
 endif
 " }}}
 " console.vim {{{
