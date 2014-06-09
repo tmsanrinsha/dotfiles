@@ -26,6 +26,12 @@ function! MyHasPatch(str) " {{{
             \  v:version == patches[0] . 0 . patches[1] && has('patch' . patches[2])
     endif
 endfunction " }}}
+function! MyIsRuning(str) " {{{
+    if executable('pgrep')
+        return system('pgrep '.a:str) || 0
+    endif
+    return 0
+endfunction " }}}
 " Pluginの有無をチェック {{{
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
@@ -561,10 +567,12 @@ cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 " inoremap <C-r>f <C-r>=expand('%:p:r')<CR>
 " cnoremap <C-r>f <C-r>=expand('%:p:r')<CR>
 
-" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する
+" =をファイル名に使われる文字から外す
+set isfname-==
+" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{
 " http://vim-users.jp/2009/05/hack17/
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-
+" }}}
 " Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{
 autocmd MyVimrc BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 function! s:auto_mkdir(dir, force)

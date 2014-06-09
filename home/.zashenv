@@ -81,6 +81,7 @@ if [[ `uname` = Darwin ]]; then
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
 # }}}
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 # alias {{{
 # ============================================================================
 alias l='ls'
