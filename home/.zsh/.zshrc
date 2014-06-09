@@ -17,8 +17,7 @@ fpath=(~/.zsh/completions/ $fpath)
 # 基本設定 {{{
 # ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
 setopt noclobber
-# 改行のない出力をプロンプトで上書きするのを防ぐ
-unsetopt promptcr
+
 # 対話シェルでコメントを使えるようにする
 setopt interactive_comments
 # zmv
@@ -50,62 +49,60 @@ alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
 # プロンプト {{{
 # ==============================================================================
-if [[ "`hostname`" = *ua.sakura.ne.jp ]] || [[ `uname` = CYGWIN* ]]; then
-    # 現在のホストによってプロンプトの色を変える。
-    # 256色の内、カラーで背景黒の時見やすい色はこの216色かな
-    colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
+# 最後に改行のない出力をプロンプトで上書きするのを防ぐ
+# unsetopt promptcr
+# バージョン4.3.0からはデフォルトでセットされるprompt_spというオプションで
+# 最後に改行がない場合は%か#を最後に加えて改行されるようになった。
 
-    # hostnameをmd5でハッシュに変更し、1-217の数値を生成する
-    # hostnameが長いとエラーが出るので最初の8文字を使う
-    if [ `uname` = FreeBSD ];then
-        host_num=$((0x`hostname | md5    | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
-        user_num=$((0x`whoami   | md5    | cut -c1-8` % 216 + 1))
-    else
-        host_num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
-        user_num=$((0x`whoami   | md5sum | cut -c1-8` % 216 + 1))
-    fi
+# 現在のホストによってプロンプトの色を変える。
+# 256色の内、カラーで背景黒の時見やすい色はこの216色かな
+colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 
-    host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
-    user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
-
-    reset_color=$'\e'"[0m"
-    fg_yellow=$'\e'"[33m"
-    fg_red=$'\e'"[31m"
-    bg_red=$'\e'"[41m"
-
-    #if ! hostname | grep dev 1>/dev/null 2>&1; then
-    #    PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%B%S%M%b%s%{${reset_color}%}"
-    #    RPROMPT="%{${fg_red}%}production%{${reset_color}%}"
-    #else
-    PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%}"
-    #fi
-
-    #PROMPT="$PROMPT
-    #%0(?|%{$fg[yellow]%}|%18(?|%{$fg[yellow]%}|%{$bg[red]%}))%~%#%{${reset_color}%} "
-    PROMPT="$PROMPT
-    %0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%#%{${reset_color}%} "
-    PROMPT2="${color}%_>%{${reset_color}%} "
-
-    # command correct edition before each completion attempt
-    setopt correct
-    SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-
-    # 参考にしたサイト
-    # ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
-    #  - http://gihyo.jp/dev/serial/01/zsh-book/0003
-    #  - C-zでサスペンドしたとき(18)以外のエラー終了時の設定を参考にした
-    #  - エスケープシーケンスの記述、プロンプトで使える特殊文字の表がある
-    # ■【コラム】漢のzsh (2) 取りあえず、プロンプトを整えておく。カッコつけたいからね | エンタープライズ | マイナビニュース
-    #  - http://news.mynavi.jp/column/zsh/002/index.html
-    #  - SPROMPTの設定
-    # ■zshでログイン先によってプロンプトに表示されるホスト名の色を自動で変える - absolute-area
-    #  - http://absolute-area.com/post/6664864690/zsh
-    # ■The 256 color mode of xterm
-    #  - http://frexx.de/xterm-256-notes/
-    # ■可愛いzshの作り方 - プログラムモグモグ
-    #  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
-    #  - 顔文字を参考にした
+# hostnameをmd5でハッシュに変更し、1-217の数値を生成する
+# hostnameが長いとエラーが出るので最初の8文字を使う
+if which md5 1>/dev/null 2>&1; then
+    host_num=$((0x`hostname | md5    | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
+    user_num=$((0x`whoami   | md5    | cut -c1-8` % 216 + 1))
+else
+    host_num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
+    user_num=$((0x`whoami   | md5sum | cut -c1-8` % 216 + 1))
 fi
+
+host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
+user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
+
+reset_color=$'\e'"[0m"
+fg_yellow=$'\e'"[33m"
+fg_red=$'\e'"[31m"
+bg_red=$'\e'"[41m"
+
+PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
+%0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
+
+PROMPT2="%_> "
+
+# コマンド実行時に右プロンプトをけす
+setopt transient_rprompt
+
+# command correct edition before each completion attempt
+setopt correct
+SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+
+# 参考にしたサイト
+# ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
+#  - http://gihyo.jp/dev/serial/01/zsh-book/0003
+#  - C-zでサスペンドしたとき(18)以外のエラー終了時の設定を参考にした
+#  - エスケープシーケンスの記述、プロンプトで使える特殊文字の表がある
+# ■【コラム】漢のzsh (2) 取りあえず、プロンプトを整えておく。カッコつけたいからね | エンタープライズ | マイナビニュース
+#  - http://news.mynavi.jp/column/zsh/002/index.html
+#  - SPROMPTの設定
+# ■zshでログイン先によってプロンプトに表示されるホスト名の色を自動で変える - absolute-area
+#  - http://absolute-area.com/post/6664864690/zsh
+# ■The 256 color mode of xterm
+#  - http://frexx.de/xterm-256-notes/
+# ■可愛いzshの作り方 - プログラムモグモグ
+#  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
+#  - 顔文字を参考にした
 # }}}
 # 補完 {{{
 autoload -U compinit && compinit
