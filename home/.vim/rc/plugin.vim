@@ -1395,6 +1395,12 @@ if IsInstalled('vim-fugitive')
         nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
         nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
+        autocmd MyVimrc FileType gitcommit
+            \   nmap <buffer> rr [Colon]call system('rm <C-r><C-g>')<CR>R
+            " \   nmap <buffer> rr [Colon]!rm <C-r><C-g> > /dev/null<CR>
+
+        " Gitリポジトリ以下のときに、Ctagsを実行 {{{
+        " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
         autocmd MyVimrc BufWritePost *
             \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
             \   call system('"'.b:git_dir.'/hooks/ctags" &') |

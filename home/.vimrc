@@ -225,6 +225,8 @@ map <Space> [Space]
 noremap ; :
 noremap : ;
 
+nnoremap [Colon] :
+
 inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
