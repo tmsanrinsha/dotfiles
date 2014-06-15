@@ -54,7 +54,12 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
                 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
                 \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
                 \}
-    NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
+    if executable('svn')
+        NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
+    else
+        NeoBundleLazy 'oplatek/Conque-Shell'
+    endif
+
     " }}}
     "" 補完・入力補助 {{{
     """ 自動補完 {{{
