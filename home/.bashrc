@@ -1,9 +1,18 @@
+# 対話シェルもしくはsshのコマンド実行時に読み込まれる
 # bash, zsh共通設定の読み込み
 if [ -f ~/.zashenv ]; then
     . ~/.zashenv
 fi
 if [ -f ~/.zashrc ]; then
     . ~/.zashrc
+fi
+
+# sshのコマンド実行時はこれ以降を読み込ませない
+# $-変数の中に対話シェル（インタラクティブ）を示すiが含まれるかで判断
+# ${-#*i}は$-の文字列の先頭からiまでの部分を削除するされた文字列
+# http://sanrinsha.lolipop.jp/blog/2012/11/unixlinux%E3%81%A7%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E6%AF%8E%E3%81%AE%E3%82%B7%E3%82%A7%E3%83%AB%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB.html
+if [ "${-#*i}" = "$-" ]; then
+    return
 fi
 
 #前方一致でヒストリ検索
@@ -47,18 +56,19 @@ complete -c man
 
 # 現在のホストによってプロンプトの色を変える。
 # http://absolute-area.com/post/6664864690/zshを参考にした
-# 256色の内、カラーで背景黒の時見やすい色はこの217色かな
-colArr=({1..6} {9..14} {22..186} {190..229})
+# 256色の内、カラーで背景黒の時見やすい色はこの216色かな
+colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 # xtermの色についてはこちら
 # http://frexx.de/xterm-256-notes/
 
 # hostnameをmd5でハッシュに変更する
 # 長いとエラーが出るので最初の8文字を使う
-if [ `uname` = FreeBSD ];then
-    num=$((0x`hostname | md5 | cut -c1-8` % 217)) # zshの配列のインデックスは0から
+if which md5 1>/dev/null 2>&1; then
+    num=$((0x`hostname | md5 | cut -c1-8` % 216)) # zshの配列のインデックスは0から
 else
-    num=$((0x`hostname | md5sum | cut -c1-8` % 217))
+    num=$((0x`hostname | md5sum | cut -c1-8` % 216))
 fi
+echo $num
 PS1="\[\e[38;5;${colArr[$num]}m\][\h:\w]\\$ \[\e[0m\]"
 #PS1="\[\e[0;${col}m\][\u@\h \w]\\$ \[\e[0m\]"
  

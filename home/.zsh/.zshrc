@@ -61,12 +61,12 @@ colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 # hostnameをmd5でハッシュに変更し、1-217の数値を生成する
 # hostnameが長いとエラーが出るので最初の8文字を使う
 if which md5 1>/dev/null 2>&1; then
-    host_num=$((0x`hostname | md5    | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
-    user_num=$((0x`whoami   | md5    | cut -c1-8` % 216 + 1))
+    md5=md5
 else
-    host_num=$((0x`hostname | md5sum | cut -c1-8` % 216 + 1))
-    user_num=$((0x`whoami   | md5sum | cut -c1-8` % 216 + 1))
+    md5=md5sum
 fi
+host_num=$((0x`hostname | $md5 | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
+user_num=$((0x`whoami   | $md5 | cut -c1-8` % 216 + 1))
 
 host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
 user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
@@ -82,7 +82,7 @@ PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{b
 PROMPT2="%_> "
 
 # コマンド実行時に右プロンプトをけす
-setopt transient_rprompt
+# setopt transient_rprompt
 
 # command correct edition before each completion attempt
 setopt correct
