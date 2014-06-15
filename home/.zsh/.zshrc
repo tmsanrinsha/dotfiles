@@ -337,3 +337,5 @@ if [[ `uname` = CYGWIN* ]]; then
 else
     test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 fi
+
+alias | awk '{print "alias "$0}' >! ~/.vim/rc/.vimshrc
