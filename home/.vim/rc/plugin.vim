@@ -529,10 +529,15 @@ if IsInstalled('unite.vim')
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+
+    " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
+    " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
+    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap<CR>
+
     "最近使用したファイル一覧
-    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+    nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
     "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]M :<C-u>Unite directory_mru<CR>
+    nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
     call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
     " ファイル内検索結果
@@ -569,6 +574,10 @@ if IsInstalled('unite.vim')
             \   '--line-numbers --nocolor --nogroup --hidden ' .
             \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
+    elseif executable('zgrep')
+        let g:unite_source_grep_command = 'zgrep'
+        let g:unite_source_grep_default_opts = '-inH'
+        let g:unite_source_grep_recursive_opt = '-r'
     elseif executable('grep')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inH'
@@ -582,8 +591,10 @@ if IsInstalled('unite.vim')
 
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
+    " カレントバッファのディレクトリ以下に対してgrep
+    execute "nnoremap [unite]gb :<C-u>Unite grep:".expand('%:p:h')."<CR>"
     " 全バッファに対してgrep
-    nnoremap [unite]gb :<C-u>Unite grep:$buffers<CR>
+    nnoremap [unite]gB :<C-u>Unite grep:$buffers<CR>
     " プロジェクト内のファイルに対してgrep
     nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
     function! s:unite_grep_project(...)
@@ -1412,6 +1423,7 @@ if IsInstalled('vim-fugitive')
             endif
         endfunction
         command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
+        " }}}
     endfunction
 endif
 " }}}
