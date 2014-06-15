@@ -2,4 +2,4 @@ if [ -f ~/.zash_profile ]; then
         . ~/.zash_profile
 fi
 
-# vim:filetype=sh
+alias | awk '{print "alias "$0}' >! ~/.vim/rc/.vimshrc

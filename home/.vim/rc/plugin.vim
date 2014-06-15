@@ -693,6 +693,7 @@ if IsInstalled('vimshell')
 
         let g:vimshell_max_command_history = 3000
 
+        let g:vimshell_vimshrc_path = $VIMRC_DIR.'/.vimshrc'
 
         autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
