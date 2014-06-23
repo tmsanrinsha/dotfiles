@@ -64,7 +64,7 @@ test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
 if [ ! -x ~/.zsh/completions/_pandoc ];then
     # https://gist.github.com/sky-y/3334048
-    curl -L https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
+    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
     chmod a+x ~/.zsh/completions/_pandoc
 fi
 
