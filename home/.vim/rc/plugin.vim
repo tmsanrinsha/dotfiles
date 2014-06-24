@@ -579,10 +579,6 @@ if IsInstalled('unite.vim')
             \   '--line-numbers --nocolor --nogroup --hidden ' .
             \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
-    elseif executable('zgrep')
-        let g:unite_source_grep_command = 'zgrep'
-        let g:unite_source_grep_default_opts = '-inH'
-        let g:unite_source_grep_recursive_opt = '-r'
     elseif executable('grep')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inH'
