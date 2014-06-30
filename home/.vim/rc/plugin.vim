@@ -489,24 +489,6 @@ if HasPlugin('Powerline')
     "		\ }),
 endif
 "}}}
-" colorscheme {{{
-" ==============================================================================
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_contrast = "high"
-" if IsInstalled('vim-colors-solarized')
-"     colorscheme solarized
-if IsInstalled('my_molokai')
-    colorscheme molokai-customized
-elseif IsInstalled('molokai')
-    " let g:molokai_original = 1
-    " let g:rehash256 = 1
-    set background=dark
-    colorscheme molokai
-else
-    colorscheme default
-endif
-"}}}
 " vim-smartword {{{
 " ==============================================================================
 if IsInstalled("vim-smartword")
@@ -1243,6 +1225,11 @@ if IsInstalled('yankround.vim')
 
     let g:yankround_dir = $VIMDIR.'/.yankround'
 
+    " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
+    let g:yankround_use_region_hl = 1
+    autocmd MyVimrc ColorScheme *
+        \   highlight link YankRoundRegion IncSearch
+
     nmap p <Plug>(yankround-p)
     xmap p <Plug>(yankround-p)
     nmap P <Plug>(yankround-P)
@@ -1598,6 +1585,24 @@ if IsInstalled('qfixhowm')
     unlet s:bundle
 endif
 " }}}
+" colorscheme {{{
+" ==============================================================================
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_contrast = "high"
+" if IsInstalled('vim-colors-solarized')
+"     colorscheme solarized
+if IsInstalled('my_molokai')
+    colorscheme molokai-customized
+elseif IsInstalled('molokai')
+    " let g:molokai_original = 1
+    " let g:rehash256 = 1
+    set background=dark
+    colorscheme molokai
+else
+    colorscheme default
+endif
+"}}}
 if IsInstalled('neobundle.vim') && !has('vim_starting')
     " Call on_source hook when reloading .vimrc.
     " hookの設定より下に書かないとだめ
