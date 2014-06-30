@@ -266,9 +266,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     "             \   'autoload' : { 'filetypes' : 'markdown' }
     "             \}
     " NeoBundle 'tpope/vim-markdown'
+    " folding
     " NeoBundle 'plasticboy/vim-markdown'
-    NeoBundle 'tmsanrinsha/vim-markdown'
-    " NeoBundle 'nelstrom/vim-markdown-folding'
+    " NeoBundle 'tmsanrinsha/vim-markdown'
+    NeoBundle 'nelstrom/vim-markdown-folding'
+    " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
         NeoBundle 'suan/vim-instant-markdown'
@@ -1372,6 +1374,12 @@ endif
 if IsInstalled('jedi-vim')
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
+endif
+" }}}
+" vim-markdown-folding {{{
+" ============================================================================
+if IsInstalled('vim-markdown-folding')
+    let g:markdown_fold_style = 'nested'
 endif
 " }}}
 " console.vim {{{

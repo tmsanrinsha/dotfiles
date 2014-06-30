@@ -343,7 +343,6 @@ set smartindent
 "}}}
 " ステータスライン {{{
 " ==============================================================================
-
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
 "               0: 全く表示しない
 "               1: ウィンドウの数が2以上のときのみ表示
@@ -874,8 +873,12 @@ let g:markdown_fenced_languages = [
 \  'javascript',
 \  'js=javascript',
 \  'json=javascript',
+\  'php',
+\  'sql',
 \  'xml',
 \]
+" イタリックを無効に
+autocmd MyVimrc FileType markdown hi! def link markdownItalic Normal
 " }}}
 " JavaScript {{{
 " ----------------------------------------------------------------------------
