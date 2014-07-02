@@ -1213,7 +1213,7 @@ if IsInstalled('vim-alignta')
     xnoremap [ALIGNTA]: :Alignta :<CR>
 endif
 " }}}
-" LeafCage/yankround.vim {{{
+" LeafCage/yankround.vim {{{1
 " ============================================================================
 if IsInstalled('yankround.vim')
     call neobundle#config('yankround.vim', {
@@ -1228,7 +1228,7 @@ if IsInstalled('yankround.vim')
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
     let g:yankround_use_region_hl = 1
     autocmd MyVimrc ColorScheme *
-        \   highlight link YankRoundRegion IncSearch
+        \   highlight! link YankRoundRegion Search
 
     nmap p <Plug>(yankround-p)
     xmap p <Plug>(yankround-p)
@@ -1239,8 +1239,8 @@ if IsInstalled('yankround.vim')
     nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
     nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
 endif
-"}}}
-" caw {{{
+
+" caw {{{1
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
 if IsInstalled('caw.vim')
@@ -1288,23 +1288,26 @@ let g:automatic_default_set_config = {
 "             \   }
 "             \]
 " }}}
-" foldCC {{{
-" ------------------------------------------------------------------------------
+" foldCC {{{1
+" ============================================================================
 " http://leafcage.hateblo.jp/entry/2013/04/24/053113
 if IsInstalled('foldCC')
     set foldtext=foldCC#foldtext()
     set foldcolumn=1
     set fillchars=vert:\|
     let g:foldCCtext_head = '"+ " . v:folddashes . " "'
+    " let g:foldCCtext_head = 'repeat(" ", v:foldlevel) . "+ "'
     let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
     nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
 " 現在のカーソルの位置以外の折りたたみを閉じる
 nnoremap z- zMzv
-" }}}
-" savevers.vim {{{
-" ---------------
+" {{{2
+" {{{3
+
+" savevers.vim {{{1
+" ============================================================================
 set backup
 set patchmode=.clean
 
