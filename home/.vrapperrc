@@ -1,4 +1,4 @@
-" Basic setting {{{
+" Basic setting {{{1
 " ==============================================================================
 set smartindent
 set autoindent
@@ -6,19 +6,30 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+set list
+set number
+set softtabstop=4
+set tabstop=4
+set expandtab
+set shiftround=4
+
+" vrapper独自
+set saney " Yでカーソル位置から行末までヤンク
+" set contentassistmode " コンテンツ・アシストを<C-n>,<C-p>で移動できる
+set imdisable
 set gvimpath=/Users/tmiwa/vim73-kaoriya-win64/gvim.exe
-" }}}
-" 英字キーボード用 {{{
+
+" map {{{1
 " ==============================================================================
 nnoremap ; :
 vnoremap ; :
 nnoremap : ;
 vnoremap : ;
-" }}}
-" Insert mode 時に Emacs っぽくする {{{
-" ==============================================================================
+
+" Insert mode 時に Emacs っぽくする {{{2
+" ------------------------------------------------------------------------------
 inoremap <C-a> <Esc>0i
-inoremap <C-e> <Esc>:LineEnd<CR>a
+inoremap <C-e> <Esc>A
 
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
@@ -26,25 +37,26 @@ inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 
 inoremap <C-o> <Esc>o
-inoremap <C-h> <BS>
+" inoremap <C-h> <BACKSPACE> insert modeでは特殊キーにマップできない
 inoremap <C-d> <Esc><Right>xi
 inoremap <C-k> <Esc><Right>Da
-" }}}
-" コピー {{{
-" ==============================================================================
-nnoremap Y Vy
-" }}}
-" 移動 {{{
-" ==============================================================================
+
+" 移動
 nnoremap J 10j
 nnoremap K 10k
 vnoremap J 10j
 vnoremap K 10k
 " }}}
-" 整形 {{{
-" ==============================================================================
+
+" 次のメンバ(フィールド,メソッド)
+eclipseaction GoNextMember org.eclipse.jdt.ui.edit.text.java.goto.next.member
+nnoremap ]] :GoNextMember<CR>
+eclipseaction GoPrevMember org.eclipse.jdt.ui.edit.text.java.goto.previous.member
+nnoremap [[ :GoPrevMember<CR>
+
+" 整形
 vnoremap = :Format<CR>
-" }}}
+
 nnoremap \vr :source<Space>.vrapperrc<CR>
 
 " vim:ft=vim

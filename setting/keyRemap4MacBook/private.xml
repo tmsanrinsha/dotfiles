@@ -96,10 +96,18 @@
         </item>
         <item>
             <name>Control+PN to Up/Down</name>
+            <appendix>(for eclipse, firefox, google_chrome)</appendix>
             <identifier>myremap.emacsmode_controlPN</identifier>
-            <only>ECLIPSE,FIREFOX, GOOGLE_CHROME</only>
+            <only>ECLIPSE,FIREFOX,GOOGLE_CHROME</only>
             <autogen>__KeyToKey__ KeyCode::P, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_UP</autogen>
             <autogen>__KeyToKey__ KeyCode::N, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::CURSOR_DOWN</autogen>
+        </item>
+        <item>
+            <name>Control+H to BackSpace</name>
+            <appendix>(for eclipse)</appendix>
+            <identifier>myremap.emacsmode_controlH</identifier>
+            <only>ECLIPSE</only>
+            <autogen>__KeyToKey__ KeyCode::H, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::DELETE</autogen>
         </item>
         <item>
           <name>Control+V to PageDown</name>
