@@ -268,8 +268,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " NeoBundle 'tpope/vim-markdown'
     " folding
     " NeoBundle 'plasticboy/vim-markdown'
+    " forked from plasticboy/vim-markdown
+    " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
+    NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk/vim-markdown'}
     " NeoBundle 'tmsanrinsha/vim-markdown'
-    NeoBundle 'nelstrom/vim-markdown-folding'
+    " NeoBundle 'nelstrom/vim-markdown-folding'
     " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
     " NeoBundleLazy 'teramako/instant-markdown-vim'
     if executable('node') && executable('ruby')
@@ -512,10 +515,14 @@ if IsInstalled('unite.vim')
 
     " bundle以下のファイル
     " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
+
     " カレントディレクトリ以下のディレクトリ
     nnoremap <silent> [unite]d<CR> :<C-u>Unite directory<CR>
     execute 'nnoremap <silent> [unite]dv :<C-u>Unite directory:' . $VIMDIR . '/bundle<CR>'
+    execute 'nnoremap <silent> [unite]dg :<C-u>Unite directory:' . $HOME . '/git<CR>'
+
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 
@@ -769,15 +776,15 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
         endif
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
-        " 補完候補取得に時間がかかっても補完をskipしない
-        " execute 'let g:'.s:neocom_.'skip_auto_completion_time = ""'
+        " 補完候補取得に時間がかかったときにスキップ
+        execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.2"'
         " 候補の数を増やす
         " execute 'let g:'.s:neocom_.'max_list = 3000'
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
-        " autocmd MyVimrc InsertLeave *.* pclose
+        autocmd MyVimrc InsertLeave *.* pclose
 
         let g:neocomplcache_enable_auto_delimiter = 0
 
@@ -1166,10 +1173,10 @@ if IsInstalled('vim-easymotion')
         \})
 
     map S <Plug>(easymotion-s2)
-    map f <Plug>(easymotion-fl)
-    map t <Plug>(easymotion-tl)
-    map F <Plug>(easymotion-Fl)
-    map T <Plug>(easymotion-Tl)
+    " map f <Plug>(easymotion-fl)
+    " map t <Plug>(easymotion-tl)
+    " map F <Plug>(easymotion-Fl)
+    " map T <Plug>(easymotion-Tl)
 
 
     let s:bundle = neobundle#get("vim-easymotion")

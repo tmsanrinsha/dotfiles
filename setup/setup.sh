@@ -2,6 +2,14 @@
 
 set -eux
 
+all=0
+while getopts a OPT
+do
+  case $OPT in
+    "a" ) all=1 ;;
+  esac
+done
+
 # コマンドの存在チェック
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
 #      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
@@ -12,7 +20,6 @@ function command_exists {
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 home=$git_dir/home
-script_dir=$git_dir/script
 setup_dir=$git_dir/setup
 
 if [[ `uname` = CYGWIN* ]]; then
@@ -137,10 +144,12 @@ elif [[ "$uname" = Darwin ]]; then
     if command_exists brew; then
         ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
 
-        brew update  # homebrewの更新
-        brew tap phinze/homebrew-cask
-        brew tap Homebrew/python
-        brew upgrade # packageの更新
+        if [ $all -eq 1 ]; then
+            brew update  # homebrewの更新
+            brew tap caskroom/cask
+            brew tap Homebrew/python
+            brew upgrade # packageの更新
+        fi
 
         brew install ant
         brew install mercurial
@@ -171,7 +180,7 @@ elif [[ "$uname" = Darwin ]]; then
     fi
 fi
 
-# vimperator
+# vimperator {{{1
 if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
     if [[ "$uname" = CYGWIN* ]]; then
         vimperatordir="$HOME/vimperator"
@@ -199,8 +208,14 @@ if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
         git pull
         popd
     fi
-    $ln -fs ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
     $ln -fs ~/git/vimperator-plugins/_libly.js $vimperatordir/plugin
+    # :open node.jsなどをURL判定させない
+    $ln -fs ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
+    # migemoを使う
+    # リンクにフォーカスしない
+    # $ln -fs ~/git/vimperator-plugins/migemized_find.js $vimperatordir/plugin
+    # $ln -fs ~/git/vimperator-plugins/migemo_completion.js $vimperatordir/plugin
+    # $ln -fs ~/git/vimperator-plugins/migemo_hint.js $vimperatordir/plugin
     # テキストボックスにフォーカスさせない
-    $ln -fs ~/git/vimperator-plugins/forcefocuscontent.js $vimperatordir/plugin
+    # $ln -fs ~/git/vimperator-plugins/forcefocuscontent.js $vimperatordir/plugin
 fi

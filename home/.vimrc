@@ -146,12 +146,6 @@ set backspace=indent,eol,start
 " " 矩形選択でカーソル位置の制限を解除
 " set virtualedit=block
 
-" pasteモードのトグル。autoindentをonにしてペーストすると
-" インデントが入った文章が階段状になってしまう。
-" pasteモードではautoindentが解除されそのままペーストできる
-set pastetoggle=<F11>
-" ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
-
 set mouse=a
 
 " if has('path_extra')
@@ -337,9 +331,20 @@ set softtabstop=4
 "インデントの各段階に使われる空白の数
 set shiftwidth=4
 set expandtab
-"新しい行のインデントを現在行と同じくする
-set autoindent
-set smartindent
+
+" http://vim-jp.org/vimdoc-ja/indent.html
+" 後のものが有効にされると、前のものより優先される
+" set autoindent    一つ前の行に基づくインデント
+" set smartindent   'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
+"                    デントを増減させる。
+set cindent       " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
+                  " スタイルにも対応できる。
+
+" pasteモードのトグル。autoindentをonにしてペーストすると
+" インデントが入った文章が階段状になってしまう。
+" pasteモードではautoindentが解除されそのままペーストできる
+set pastetoggle=<F11>
+" ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
 "}}}
 " ステータスライン {{{
 " ==============================================================================
