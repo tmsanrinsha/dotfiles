@@ -783,6 +783,7 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
+        set completeopt-=preview
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
         autocmd MyVimrc InsertLeave *.* pclose
 
