@@ -76,10 +76,12 @@ set ruler
 set updatetime=500
 set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 augroup MyVimrc
-  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold  * call s:auto_cursorline('CursorHold')
   autocmd WinEnter * call s:auto_cursorline('WinEnter')
-  " autocmd WinLeave * call s:auto_cursorline('WinLeave')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
 
   let s:cursorline_lock = 0
   function! s:auto_cursorline(event)
@@ -87,7 +89,7 @@ augroup MyVimrc
       setlocal cursorline
       let s:cursorline_lock = 2
     elseif a:event ==# 'WinLeave'
-      setlocal nocursorline
+      setlocal cursorline
     elseif a:event ==# 'CursorMoved'
       if s:cursorline_lock
         if 1 < s:cursorline_lock

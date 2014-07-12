@@ -254,7 +254,9 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     NeoBundle 'jelera/vim-javascript-syntax'
     NeoBundle 'nono/jquery.vim'
     " }}}
-    NeoBundle 'davidhalter/jedi-vim'
+    NeoBundleLazy 'davidhalter/jedi-vim', {
+        \   'autoload': {'filetypes': 'python'}
+        \}
     " SQL {{{
     NeoBundleLazy 'vim-scripts/dbext.vim', {
         \   'autoload': {'filetypes': 'sql'}
@@ -768,6 +770,9 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
         let g:neocomplcache_enable_camel_case_completion = 1
         " Use underbar completion.
         let g:neocomplcache_enable_underbar_completion = 1 " Deleted
+
+        let g:neocomplete#enable_camel_case = 1
+
         " Set minimum syntax keyword length.
         if IsInstalled('neocomplete')
             let g:neocomplete#sources#syntax#min_syntax_length = 3
@@ -777,7 +782,7 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
         " 補完候補取得に時間がかかったときにスキップ
-        execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.2"'
+        execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.1"'
         " 候補の数を増やす
         " execute 'let g:'.s:neocom_.'max_list = 3000'
 
@@ -911,6 +916,8 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>"
+
         " <TAB>: completion.
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
