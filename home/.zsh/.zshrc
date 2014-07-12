@@ -76,7 +76,7 @@ fg_yellow=$'\e'"[33m"
 fg_red=$'\e'"[31m"
 bg_red=$'\e'"[41m"
 
-PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
+PROMPT="${user_color}%n%{${reset_color}%}:${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
 %0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
 
 PROMPT2="%_> "
@@ -280,7 +280,7 @@ setopt hist_ignore_space
 ## zshプロセス間でヒストリを共有する。
 setopt share_history
 # }}}
-# set terminal title including current directory {{{
+# set terminal title including current directory {{{1
 #==============================================================================
 case "${TERM}" in
 kterm*|xterm)
@@ -290,27 +290,38 @@ kterm*|xterm)
     add-zsh-hook precmd terminal_title_precmd
     ;;
 esac
-# }}}
-# tmux & screen {{{
+
+# tmux & screen {{{1
 # ============================================================================
 if [ $TERM = screen ];then
-    # ウィンドウ名をディレクトリ名@ホスト名(コマンド実行時はコマンド名@ホスト名)にする
-    tmux_preexec() {
+# ウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外はディレクトリ名@ホスト名にする {{{2
+# ----------------------------------------------------------------------------
+    function tmux_preexec() {
         mycmd=(${(s: :)${1}})
         echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
     }
 
-    tmux_precmd() {
+    function tmux_precmd() {
         echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
     }
     add-zsh-hook preexec tmux_preexec
-    add-zsh-hook precmd tmux_precmd
+    add-zsh-hook precmd  tmux_precmd
     # tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
     # http://qiita.com/items/c166700393481cb15e0c
     DISABLE_AUTO_TITLE=true
+
+# ssh先でウィンドウ分割・生成した時にssh先に接続する {{{2
+# ----------------------------------------------------------------------------
+    function tmux_ssh_preexec() {
+        local command=$1
+        if [[ "$command" = *ssh* ]]; then
+            tmux setenv TMUX_SSH_CMD_$(tmux display -p "#I") $command
+        fi
+    }
+    add-zsh-hook preexec tmux_ssh_preexec
 fi
-# }}}
-## 改行でls {{{
+
+# 改行でls {{{1
 ## http://d.hatena.ne.jp/kei_q/20110406/1302091565
 #alls() {
 #  if [[ -z "$BUFFER" ]]; then
