@@ -80,6 +80,7 @@ augroup MyVimrc
   " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
   autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
   autocmd CursorHold  * call s:auto_cursorline('CursorHold')
+  autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
   autocmd WinEnter * call s:auto_cursorline('WinEnter')
   autocmd WinLeave * call s:auto_cursorline('WinLeave')
 
@@ -102,6 +103,8 @@ augroup MyVimrc
     elseif a:event ==# 'CursorHold'
       setlocal cursorline
       let s:cursorline_lock = 1
+    elseif a:event ==# 'InsertEnter'
+      setlocal nocursorline
     endif
   endfunction
 augroup END
@@ -376,9 +379,9 @@ set expandtab
 " http://vim-jp.org/vimdoc-ja/indent.html
 " 後のものが有効にされると、前のものより優先される
 " set autoindent    一つ前の行に基づくインデント
-" set smartindent   'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
-"                    デントを増減させる。
-set cindent       " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
+set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
+                  " デントを増減させる。
+" set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
                   " スタイルにも対応できる。
 
 " pasteモードのトグル。autoindentをonにしてペーストすると

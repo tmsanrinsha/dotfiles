@@ -353,7 +353,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " ステータスラインをカスタマイズ
     NeoBundle 'Lokaltog/vim-powerline'
 
-    NeoBundle 'luochen1990/rainbow'
+    " NeoBundle 'luochen1990/rainbow'
 
     " CSS
     " #000000とかの色付け
@@ -626,6 +626,7 @@ if IsInstalled('unite-outline')
     let s:hooks = neobundle#get_hooks("unite-outline")
     function! s:hooks.on_source(bundle)
         call unite#sources#outline#alias('tmux', 'conf')
+        call unite#sources#outline#alias('zsh', 'conf')
         " call unite#sources#outline#alias('sh', 'conf')
     endfunction
     unlet s:hooks
@@ -916,7 +917,7 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-        inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>"
+        inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
         " <TAB>: completion.
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
