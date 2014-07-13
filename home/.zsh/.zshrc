@@ -14,7 +14,8 @@ fi
 typeset -U path cdpath fpath manpath ld_library_path include
 fpath=(~/.zsh/completions/ $fpath)
 
-# 基本設定 {{{
+# 基本設定 {{{1
+# ============================================================================
 # ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
 setopt noclobber
 
@@ -28,26 +29,33 @@ alias zmv='zmv -W'
 # add-zsh-hook precmd functionするための設定
 # http://d.hatena.ne.jp/kiririmode/20120327/p1
 autoload -Uz add-zsh-hook
-# }}}
-# alias {{{
+
+# alias {{{1
 # ============================================================================
 alias hgr='history 1 | grep -C 3'
-# }}}
-# グローバルエイリアス {{{
+
+# global alias {{{1
+# ============================================================================
 alias -g A='| awk'
+alias -g G='| grep'
 alias -g L='| less -R'
+alias -g P='| peco'
+# Vim: Warning: Input is not from a terminal
+# http://hateda.hatenadiary.jp/entry/2012/09/06/000000
+# http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
+alias -g PXV="| peco | xargs bash -c '</dev/tty vim \$@' ignoreme"
+alias -g V='| vim -R -'
+alias -g XV="| xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g H='| head'
 alias -g T='| tail -f'
 alias -g R='| tail -r'
-alias -g V='| vim -R -'
-alias -g G='| grep'
 alias -g E='| egrep'
 alias -g GI='| egrep -i'
 alias -g X='-print0 | xargs -0'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
-# プロンプト {{{
+# prompt {{{
 # ==============================================================================
 # 最後に改行のない出力をプロンプトで上書きするのを防ぐ
 # unsetopt promptcr
@@ -333,7 +341,61 @@ fi
 #zle -N alls
 #bindkey "\C-m" alls
 #bindkey "\C-j" alls
-##}}}
+
+# peco {{{1
+# ============================================================================
+if hash peco 2>/dev/null; then
+    # history {{{2
+    function peco_select_history() {
+        # historyを番号なし、逆順、時間表示で最初から表示
+        BUFFER=$(history -nri 1 | peco --query "$LBUFFER" | cut -d ' ' -f 4-)
+        CURSOR=$#BUFFER             # move cursor
+        zle -R -c                   # refresh
+    }
+    zle -N peco_select_history
+    bindkey '^R' peco_select_history
+
+    # ssh {{{2
+    function peco_select_ssh() {
+        # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
+        BUFFER=$(history -nrm 'ssh*' 1 | perl -ne 'print if!$line{$_}++' | peco --query "$LBUFFER")
+        CURSOR=$#BUFFER             # move cursor
+        zle -R -c                   # refresh
+    }
+    zle -N peco_select_ssh
+    bindkey '^x^s' peco_select_ssh
+
+    # cdr {{{2
+    function peco-cdr () {
+        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr > ")
+        if [ -n "$selected_dir" ]; then
+            BUFFER="cd ${selected_dir}"
+            zle accept-line
+        fi
+        zle clear-screen
+    }
+    zle -N peco-cdr
+    bindkey '^Xd' peco-cdr
+
+    # grepしてvimで開く {{{2
+    function peco-grep-vim () {
+        local selected_result="$(grep -nHr $@ . | peco --query "$@" | awk -F : '{print "-c " $2 " " $1}')"
+        if [ -n "$selected_result" ]; then
+            eval vim $selected_result
+        fi
+    }
+    alias pgv=peco-grep-vim
+
+    # p {{{2
+    # pecoの出力結果に対してコマンド実行
+    # http://r7kamura.github.io/2014/06/21/ghq.html
+    function p() {
+        peco | while read LINE; do $@ $LINE; done
+    }
+    # }}}
+fi
+# }}}
+
 if [ -f ~/.zsh/plugin/z.sh ]; then
     _Z_CMD=j
     source ~/.zsh/plugin/z.sh

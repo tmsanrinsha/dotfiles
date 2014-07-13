@@ -60,12 +60,24 @@ else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
 fi
 
+# ack {{{1
 # http://beyondgrep.com
 if ! command_exists ack; then
     curl http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
     chmod a+x $HOME/bin/ack
 fi
 
+# peco {{{1
+# macの場合はhomebrewでインストールする
+if ! command_exists peco && [ `uname` = Linux ]; then
+    mkdir -p ~/local/{src,bin}
+    pushd .
+    cd ~/local/src
+    curl -L 'https://github.com/peco/peco/releases/download/v0.2.0/peco_linux_amd64.tar.gz' | gzip -dc | tar xf -
+    ln -s ~/local/src/peco_linux_amd64/peco ~/local/bin
+    popd
+fi
+# }}}
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
 test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
