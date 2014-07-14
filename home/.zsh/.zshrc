@@ -320,13 +320,15 @@ if [ $TERM = screen ];then
 
 # ssh先でウィンドウ分割・生成した時にssh先に接続する {{{2
 # ----------------------------------------------------------------------------
-    function tmux_ssh_preexec() {
-        local command=$1
-        if [[ "$command" = *ssh* ]]; then
-            tmux setenv TMUX_SSH_CMD_$(tmux display -p "#I") $command
-        fi
-    }
-    add-zsh-hook preexec tmux_ssh_preexec
+    if hash tmux 2>/dev/null; then
+        function tmux_ssh_preexec() {
+            local command=$1
+            if [[ "$command" = *ssh* ]]; then
+                tmux setenv TMUX_SSH_CMD_$(tmux display -p "#I") $command
+            fi
+        }
+        add-zsh-hook preexec tmux_ssh_preexec
+    fi
 fi
 
 # 改行でls {{{1
