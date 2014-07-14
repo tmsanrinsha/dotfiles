@@ -971,8 +971,8 @@ if IsInstalled('neocomplcache') || IsInstalled('neocomplete')
     endfunction
 endif
 if IsInstalled("neocomplete")
-    let g:neocomplete#enable_cursor_hold_i=1
-    let g:neocomplete#cursor_hold_i_time=100
+    " let g:neocomplete#enable_cursor_hold_i=1
+    " let g:neocomplete#cursor_hold_i_time=100
 endif
 "}}}
 " Valloric/Youcompleteme {{{
