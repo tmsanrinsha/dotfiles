@@ -161,7 +161,6 @@ set nrformats=hex
 
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
-set foldmethod=marker
 set shellslash
 
 " macに最初から入っているvimはセキュリティの問題からシステムのvimrcでset modelines=0している。
@@ -939,7 +938,7 @@ let php_sql_query = 1     " 文字列中のSQLをハイライトする
 let php_htmlInStrings = 1 " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1   " ショートタグ (<?を無効にする→ハイライト除外にする)
 let php_parent_error_close = 1  " for highlighting parent error ] or )
-let php_parent_error_open = 1   " for skipping an php end tag,
+let php_parent_error_open = 0   " for skipping an php end tag,
 "                                 if there exists an open ( or [ without a closing one
 let PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントする
 "let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする (重い)

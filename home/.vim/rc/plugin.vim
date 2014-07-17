@@ -1308,9 +1308,26 @@ let g:automatic_default_set_config = {
 "             \   }
 "             \]
 " }}}
-" foldCC {{{1
+" fold {{{1
 " ============================================================================
+set foldmethod=marker
+" foldmethod=expr が重い場合の対処法 - 永遠に未完成
+" <http://d.hatena.ne.jp/thinca/20110523/1306080318>
+augroup foldmethod-expr
+autocmd!
+autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+\ | let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+\ | setlocal foldmethod=manual foldexpr=0
+\ | endif
+autocmd InsertLeave * if exists('b:foldinfo')
+\ | let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+\ | endif
+augroup END
+
 " http://leafcage.hateblo.jp/entry/2013/04/24/053113
+" 現在のカーソルの位置以外の折りたたみを閉じる
+nnoremap z- zMzv
+nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 if IsInstalled('foldCC')
     set foldtext=foldCC#foldtext()
     set foldcolumn=1
@@ -1319,13 +1336,7 @@ if IsInstalled('foldCC')
     " let g:foldCCtext_head = 'repeat(" ", v:foldlevel) . "+ "'
     let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
-    nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 endif
-" 現在のカーソルの位置以外の折りたたみを閉じる
-nnoremap z- zMzv
-" {{{2
-" {{{3
-
 " savevers.vim {{{1
 " ============================================================================
 set backup
