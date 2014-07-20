@@ -100,31 +100,34 @@ fi
 # ============================================================================
 # tmでtmuxのセッションがなければ作り、あったらそこにアタッチする
 # -2は256色のためのオプション
-# attach to an existing tmux session, or create one if none exist
-# also set up access to the system clipboard from within tmux when possible
+# macではクリップボードにアクセスできるようにreattach-to-user-namespaceを使う
 #
 # e.g.
 # https://gist.github.com/1462391
 # https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
 # http://yonchu.hatenablog.com/entry/20120514/1337026014
 function tm {
-    # tmuxもscreenも起動していない場合
+    # tmuxの中でもscreenの中でもない場合
     if [ -z "$TMUX" -a -z "$STY" ]; then
         if type tmux >/dev/null 2>&1; then
             if tmux has-session >/dev/null 2>&1; then
+                #  セッションがあるならそこにアタッチ
                 tmux -2 attach && echo "tmux attached session "
             else
                 # Macでコピーできるようにする
-                if [[ ( $OSTYPE == darwin* ) && ( -x $(which reattach-to-user-namespace 2>/dev/null) ) ]]; then
+                if [[ $OSTYPE == darwin* ]]; then
+                    if ! hash reattach-to-user-namespace 2>/dev/null; then
+                        brew install reattach-to-user-namespace || echo 'Install failed'
+                    fi
                     # on OS X force tmux's default command to spawn a shell in the user's namespace
                     tmux_config='set-option -g default-command "reattach-to-user-namespace -l $SHELL"'
                 fi
-                tmux_config="$tmux_config
-# シェルのプロンプトをさかのぼる
-bind @ copy-mode \; send-keys ? C-u "$(whoami)": C-m n"
 
                 tmux_config=$(cat $HOME/.tmux.conf)"
-$tmux_config"
+$tmux_config
+# シェルのプロンプトをさかのぼる
+bind @ copy-mode \; send-keys ? C-u "$(whoami)": C-m n
+"
                 tmux -2 -f <(echo "$tmux_config") new-session
             fi
         elif type screen >/dev/null 2>&1; then
