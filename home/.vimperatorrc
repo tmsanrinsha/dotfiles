@@ -1,16 +1,38 @@
+" 初期化
 set all&
+nmapclear
+vmapclear
+imapclear
+cmapclear
+
+js<<EOM
+if(liberator.has("MacUnix")) {
+  liberator.execute('"editor=/Applications/MacVim.app/Contents/MacOS/MacVim -f --remote-tab-silent"');
+} else {
+  liberator.execute('"editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"');
+}
+EOM
+
 set complete=l
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
-hi Hint font-family: Consolas; font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
+js<<EOM
+if(liberator.has("MacUnix")) {
+  liberator.execute('hi Hint font-family: Consolas;');
+} else {
+  liberator.execute('hi Hint font-family: Consolas;');
+}
+EOM
+
+hi Hint font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
 " テキストボックスにフォーカスさせない
 " set focuscontent
 
-set "editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"
-
-" Emacs like key bindings
+" mapping {{{1
+" ============================================================================
+" Emacs like key bindings {{{2
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
 cnoremap <C-f> <Right>
@@ -29,6 +51,7 @@ inoremap <A-d> <C-Del>
 
 inoremap <C-p> <Up>
 inoremap <C-n> <down>
+" }}}
 
 noremap ; :
 noremap : ;
@@ -42,18 +65,25 @@ noremap ,B :bmarks<Space>
 noremap ,h :history<Space>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
+nnoremap ZZ :restart<CR>
+" }}}
 
 " qmark
 qmark g https://mail.google.com/
 qmark c https://www.google.com/calendar/
-qmark l http://reader.livedoor.com/reader/
-qmark b hatenabookmark
+qmark n http://www.nicovideo.jp/
 
 " コマンドモード開始時に自動的にIMEをOFFにする
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
-" はてなブックマーク
+" デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
+" こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
+"set defsearch=g
+" set hintmatching=custom
+
+" はてなブックマーク {{{1
+" ============================================================================
 " https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-%E3%81%A7%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E6%8B%A1%E5%BC%B5%E3%82%92%E4%BD%BF%E3%81%86
 javascript <<EOF
 // キーボードショートカットの指定
@@ -69,15 +99,54 @@ EOF
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 set complete+=H
 
-" set hintmatching=custom
-" google.co.jpではVimperatorを無効にする
-"autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
+" plugin_loader {{{1
+" ============================================================================
+let g:plugin_loader_roots = "~/git/vimperator-plugins"
+let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 
-" デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
-" こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
-"set defsearch=g
+" copy.js {{{1
+" ============================================================================
+" http://chroju89.hatenablog.jp/entry/2014/02/09/102914
+javascript <<EOM
+liberator.globalVariables.copy_templates = [
+    { label: 'title',          value: '%TITLE%'},
+    { label: 'titleAndURL',    value: '%TITLE%\n%URL%'},
+    { label: 'markdown',       value: '[%TITLE%](%URL%)'},
+    { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>'},
+    { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+];
+EOM
 
-" config {{{
+" mapを上で設定すると不安定なので、ここで設定
+nnoremap ,yt :copy title<CR>
+nnoremap ,yu :copy titleAndURL<CR>
+nnoremap ,ym :copy markdown<CR>
+nnoremap ,ya :copy anchor<CR>
+
+" feedsomekeys_3.js {{{1
+" ============================================================================
+" feedSomeKeys_3.jsで無効化するキーを設定する
+" http://vimperator.g.hatena.ne.jp/nokturnalmortum/20100302/1267531921
+" URLの正規表現を「"」でなくて、「'」で括るのが密かなポイントです。
+" (「"」の場合、エスケープを \\ のように二重にしなくてはいけなくなります。)
+
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+" ?でショートカットキーを見れるようにする
+lazy fmaps -u='.*' ?
+" gmailでnとj、pとjを入れ替える。
+lazy fmaps -u='mail\.google\.com/mail' n,j p,k
+" うまくいかない
+lazy fmaps -u='github\.com' n,j p,k f,t w s ? <Esc>
+
+" ignorekeysはvimperatorで標準で出来る設定
+" http://vimperator.g.hatena.ne.jp/teramako/20120527/1338101792
+" feedSomeKeys_3.jsとは反対ですべてのキーを無効化して、vimperatorで使うキーを設定する
+" ignorekeys add github\\.com  -except F,T,b,c,d,f,g,j,k,o,t,:,<C-l>,<C-h>,<C-f>,<C-b>
+" ignorekeys add twitter\\.com -except F,T,b,c,d,f,g,j,k,o,t,:,<C-l>,<C-h>,<C-f>,<C-b>
+" ignorekeysがなかった頃
+" autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
+
+" config {{{1
 " ============================================================================
 " frecency {{{
 " ----------------------------------------------------------------------------
