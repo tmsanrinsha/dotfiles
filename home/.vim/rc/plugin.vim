@@ -44,7 +44,6 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     NeoBundle 'ujihisa/vimshell-ssh'
     "NeoBundle 'Shougo/unite-sudo'
     " }}}
-
     " http://archiva.jp/web/tool/vim_grep2.html
     NeoBundle 'thinca/vim-qfreplace'
 
@@ -96,7 +95,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
                 \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
                 \}
     " }}}
-    " operator {{{
+    " operator系 {{{
     NeoBundleLazy "kana/vim-operator-user"
     NeoBundleLazy 'kana/vim-operator-replace', {
         \   'depends': 'kana/vim-operator-user',
@@ -118,6 +117,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
         \   'depends': 'kana/vim-operator-user',
         \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
         \}
+    if !has('clipboard') || $SSH_CLIENT != ''
+        NeoBundleLazy 'tmsanrinsha/vim-fakeclip', {
+            \   'autoload': {'mappings': '<Plug>(fakeclip-'}
+            \}
+    endif
     " }}}
     " textobj {{{
     NeoBundle 'kana/vim-textobj-user'
@@ -1130,7 +1134,7 @@ autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :Qu
 " set errorformat=debug:\%s
 endif
 "}}}
-" operator {{{
+" operator {{{1
 " ============================================================================
 if IsInstalled("vim-operator-user")
     call neobundle#config('vim-operator-user', {
@@ -1149,23 +1153,35 @@ if IsInstalled("vim-operator-user")
     nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
-    let s:hooks = neobundle#get_hooks("vim-operator-user")
-    function! s:hooks.on_source(bundle)
-        " clipboard copyのoperator
-        " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
-        function! OperatorYankClipboard(motion_wiseness)
-            let visual_commnad =
-                \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
-            execute 'normal!' '`['.visual_commnad.'`]"+y'
-        endfunction
-
-        call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
-    endfunction
-    unlet s:hooks
-    map [Space]y <Plug>(operator-yank-clipboard)
+    " そもそもclipboardはoperator
+    " let s:hooks = neobundle#get_hooks("vim-operator-user")
+    " function! s:hooks.on_source(bundle)
+    "     " clipboard copyのoperator
+    "     " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
+    "     function! OperatorYankClipboard(motion_wiseness)
+    "         let visual_commnad =
+    "             \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
+    "         execute 'normal!' '`['.visual_commnad.'`]"+y'
+    "     endfunction
+    "
+    "     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
+    " endfunction
+    " unlet s:hooks
+    " map [Space]y <Plug>(operator-yank-clipboard)
 endif
-" }}}
-" textobj {{{
+" clipboard copy {{{1
+" ----------------------------------------------------------------------------
+nmap [Space]y "+y
+xmap [Space]y "+y
+nmap [Space]yy "+yy
+nmap [Space]Y "+yy
+
+if IsInstalled('vim-fakeclip')
+    let g:fakeclip_provide_provide_key_mapping = 1
+    let g:fakeclip_write_clipboard_command = 'pbcopy'
+endif
+
+" textobj {{{1
 " ============================================================================
 if IsInstalled("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
@@ -1313,16 +1329,15 @@ let g:automatic_default_set_config = {
 set foldmethod=marker
 " foldmethod=expr が重い場合の対処法 - 永遠に未完成
 " <http://d.hatena.ne.jp/thinca/20110523/1306080318>
-augroup foldmethod-expr
-autocmd!
-autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-\ | let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-\ | setlocal foldmethod=manual foldexpr=0
-\ | endif
-autocmd InsertLeave * if exists('b:foldinfo')
-\ | let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-\ | endif
-augroup END
+autocmd MyVimrc InsertEnter *
+    \|  if &l:foldmethod ==# 'expr'
+    \|      let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+    \|      setlocal foldmethod=manual foldexpr=0
+    \|  endif
+autocmd MyVimrc InsertLeave *
+    \|  if exists('b:foldinfo')
+    \|      let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+    \|  endif
 
 " http://leafcage.hateblo.jp/entry/2013/04/24/053113
 " 現在のカーソルの位置以外の折りたたみを閉じる
