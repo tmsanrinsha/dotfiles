@@ -166,6 +166,7 @@ elif [[ "$uname" = Darwin ]]; then
 
         brew install ant
         brew install mercurial
+        brew install nkf
         brew install node
         brew install python
         brew install ruby
@@ -215,23 +216,15 @@ if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
     # popd
 
     if [ ! -d ~/git/vimperator-plugins ]; then
-        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
         if [ ! -d "$vimperatordir/plugin" ]; then
             mkdir -p "$vimperatordir/plugin"
         fi
+        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
     else
         pushd ~/git/vimperator-plugins
         git pull
         popd
     fi
-    $ln -fs ~/git/vimperator-plugins/_libly.js $vimperatordir/plugin
-    # :open node.jsなどをURL判定させない
-    $ln -fs ~/git/vimperator-plugins/prevent-pseudo-domain.js $vimperatordir/plugin
-    # migemoを使う
-    # リンクにフォーカスしない
-    # $ln -fs ~/git/vimperator-plugins/migemized_find.js $vimperatordir/plugin
-    # $ln -fs ~/git/vimperator-plugins/migemo_completion.js $vimperatordir/plugin
-    # $ln -fs ~/git/vimperator-plugins/migemo_hint.js $vimperatordir/plugin
-    # テキストボックスにフォーカスさせない
-    # $ln -fs ~/git/vimperator-plugins/forcefocuscontent.js $vimperatordir/plugin
+
+    $ln -fs ~/git/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
