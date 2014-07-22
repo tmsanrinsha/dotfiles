@@ -198,7 +198,6 @@ fi
 #     fi
 # fi
 
-
 # .zashrc.cygwin {{{
 if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
     . ~/.zashrc.cygwin

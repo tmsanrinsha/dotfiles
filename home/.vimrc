@@ -59,8 +59,8 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
-
 call SourceRc('local_pre.vim')
+call SourceRc('plugin.vim')
 " }}}
 " 基本設定 {{{
 " ============================================================================
@@ -195,7 +195,7 @@ set helplang=en,ja
 " 文字コード・改行コード {{{
 " ==============================================================================
 " 文字コード
-set encoding=utf-8
+" set encoding=utf-8 上で設定
 set fileencoding=utf-8
 
 " ファイルのエンコードの判定を前から順番にする
@@ -325,7 +325,7 @@ inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
-if ! HasPlugin('savevers')
+if ! isdirectory('~/.vim/bundle/savevers.vim')
     set backup
     set backupdir=$VIMDIR/.bak
 
@@ -377,7 +377,7 @@ set expandtab
 
 " http://vim-jp.org/vimdoc-ja/indent.html
 " 後のものが有効にされると、前のものより優先される
-" set autoindent    一つ前の行に基づくインデント
+set autoindent    " 一つ前の行に基づくインデント
 set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
                   " デントを増減させる。
 " set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
@@ -714,7 +714,19 @@ endfunction
 
 command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
-" color {{{
+" colorscheme {{{1
+" ==============================================================================
+set background=dark
+if isdirectory(expand('~/.vim/bundle/my_molokai'))
+    colorscheme molokai-customized
+else
+    colorscheme default
+endif
+" let g:solarized_termcolors=256
+" let g:solarized_contrast = "high"
+" colorscheme solarized
+
+" color {{{1
 " ============================================================================
 " カーソル以下のカラースキームの情報の取得 {{{
 " ----------------------------------------------------------------------------
@@ -804,14 +816,14 @@ function! s:pow(x, n)
     endfor
 endfunction
 
-let s:colortable=[]
-for c in range(0, 254)
-    let color = s:Xterm2rgb(c)
-    call add(s:colortable, color)
-endfor
-
 " selects the nearest xterm color for a rgb value like #FF0000
 function! s:Rgb2xterm(color)
+    let s:colortable=[]
+    for c in range(0, 254)
+        let color = s:Xterm2rgb(c)
+        call add(s:colortable, color)
+    endfor
+
     let best_match=0
     let smallest_distance = 10000000000
     let r = eval('0x'.a:color[1].a:color[2])
@@ -987,7 +999,7 @@ let g:vim_indent_cont = &sw
 " }}}
 " help {{{
 " ----------------------------------------------------------------------------
-autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
+" autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}
 " Git {{{
 " ----------------------------------------------------------------------------
@@ -1007,7 +1019,6 @@ autocmd MyVimrc FileType crontab setlocal backupcopy=yes
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
-call SourceRc('plugin.vim')
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif

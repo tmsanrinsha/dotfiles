@@ -4,7 +4,7 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     if has('vim_starting')
       set runtimepath+=$VIMDIR/bundle/neobundle.vim/
     endif
-    call neobundle#rc(expand('~/.vim/bundle/'))
+    call neobundle#begin(expand('~/.vim/bundle/'))
     let g:neobundle#types#git#default_protocol = "git"
     let g:neobundle#install_process_timeout = 2000
 
@@ -376,17 +376,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
         \   'unite_sources' : 'gvimrgb'
         \ }}
 
-    " HttpStatus コマンドで、HTTP のステータスコードをすばやくしらべる!
-    " http://mattn.kaoriya.net/software/vim/20130221123856.htm
-    NeoBundleLazy 'mattn/httpstatus-vim', {
-                \   'autoload' : { 'commands' : 'HttpStatus' }
-                \ }
-
     " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
-    if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
-        NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
-    endif
+    " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
+    "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
+    " endif
     NeoBundleLazy 'vimwiki/vimwiki'
     NeoBundleLazy 'glidenote/memolist.vim'
     " NeoBundle 'fuenor/qfixhowm'
@@ -394,11 +388,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " NeoBundle 'jceb/vim-orgmode'
 
     " http://d.hatena.ne.jp/itchyny/20140108/1389164688
-    NeoBundleLazy 'itchyny/calendar.vim', {
-                \   'autoload' : { 'commands' : [
-                \       'Calendar'
-                \   ]}
-                \}
+    " NeoBundleLazy 'itchyny/calendar.vim', {
+    "             \   'autoload' : { 'commands' : [
+    "             \       'Calendar'
+    "             \   ]}
+    "             \}
 
     " 自分のリポジトリ
     NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
@@ -1492,9 +1486,21 @@ if IsInstalled('gitv')
     endfunction
 endif
 " }}}
-if IsInstalled("open-browser.vim") " {{{
+" open-browser.vim {{{1
+" ============================================================================
+if IsInstalled("open-browser.vim")
+
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
     let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
+    if $SSH_CLIENT != ''
+        let g:openbrowser_browser_commands = [
+            \   {
+            \       "name": "rfbrowser",
+            \       "args": "rfbrowser {uri}"
+            \   }
+            \]
+    endif
+
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
@@ -1503,8 +1509,10 @@ if IsInstalled("open-browser.vim") " {{{
     " vmap gx <Plug>(openbrowser-open)
     " nmap <2-LeftMouse> <Plug>(openbrowser-open)
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
-endif "}}}
-if IsInstalled("rainbow") " {{{
+endif
+
+" rainbow {{{1
+if IsInstalled("rainbow")
     let g:rainbow_active = 1
     let g:rainbow_conf = {
     \    'guifgs':   ['#FA248F', '#FA8F24', '#8FFA24', '#24FA8F', '#248FFA', '#8F24FA', '#FA2424', '#FAFA24', '#24FA24', '#24FAFA', '#2424FA', '#FA24FA'],
@@ -1634,24 +1642,6 @@ if IsInstalled('qfixhowm')
     unlet s:bundle
 endif
 " }}}
-" colorscheme {{{
-" ==============================================================================
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_contrast = "high"
-" if IsInstalled('vim-colors-solarized')
-"     colorscheme solarized
-if IsInstalled('my_molokai')
-    colorscheme molokai-customized
-elseif IsInstalled('molokai')
-    " let g:molokai_original = 1
-    " let g:rehash256 = 1
-    set background=dark
-    colorscheme molokai
-else
-    colorscheme default
-endif
-"}}}
 if IsInstalled('neobundle.vim') && !has('vim_starting')
     " Call on_source hook when reloading .vimrc.
     " hookの設定より下に書かないとだめ
