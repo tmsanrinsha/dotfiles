@@ -11,9 +11,6 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " すでにvimが起動しているときは、そちらで開く
     if has('clientserver')
         NeoBundle 'thinca/vim-singleton'
-        if neobundle#is_installed('vim-singleton') && has('gui_running')
-            call singleton#enable()
-        endif
     endif
 
     " Let neobundle manage neobundle
@@ -406,6 +403,10 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     call SourceRc('neobundle_local.vim')
 
     call neobundle#end()
+
+    if neobundle#is_installed('vim-singleton') && has('gui_running')
+        call singleton#enable()
+    endif
 
     filetype plugin indent on     " Required!un
 
