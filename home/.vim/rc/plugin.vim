@@ -8,6 +8,9 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     let g:neobundle#types#git#default_protocol = "git"
     let g:neobundle#install_process_timeout = 2000
 
+    if neobundle#has_fresh_cache(expand('~/.vim/rc/plugin.vim'))
+        NeoBundleLoadCache
+    else
     " すでにvimが起動しているときは、そちらで開く
     if has('clientserver')
         NeoBundle 'thinca/vim-singleton'
@@ -88,9 +91,9 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     "             \   'autoload' : { 'commands' : 'QuickRun' },
     "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
     "             \}
-    NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-                \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-                \}
+    " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
+    "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+    "             \}
     " }}}
     " operator系 {{{
     NeoBundleLazy "kana/vim-operator-user"
@@ -182,11 +185,11 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     NeoBundle 'rgarver/Kwbd.vim'
 
     " 一時バッファの制御
-    if v:version >= 704 || (v:version == 703 && has('patch462'))
-        NeoBundle 'osyo-manga/vim-automatic', {
-                    \   'depends': 'osyo-manga/vim-gift',
-                    \}
-    endif
+    " if v:version >= 704 || (v:version == 703 && has('patch462'))
+    "     NeoBundle 'osyo-manga/vim-automatic', {
+    "                 \   'depends': 'osyo-manga/vim-gift',
+    "                 \}
+    " endif
 
     NeoBundle 'LeafCage/foldCC'
     " gundo.vim {{{
@@ -203,13 +206,13 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
     " }}}
     " ファイルを保存時にシンタックスのチェック
     NeoBundle 'scrooloose/syntastic'
-    NeoBundle 'osyo-manga/vim-watchdogs', {
-        \   'depends': [
-        \       'thinca/vim-quickrun',
-        \       'Shougo/vimproc',
-        \       'osyo-manga/shabadou.vim'
-        \   ]
-        \}
+    " NeoBundle 'osyo-manga/vim-watchdogs', {
+    "     \   'depends': [
+    "     \       'thinca/vim-quickrun',
+    "     \       'Shougo/vimproc',
+    "     \       'osyo-manga/shabadou.vim'
+    "     \   ]
+    "     \}
     " debug
     NeoBundle 'joonty/vdebug'
     " caw.vim {{{
@@ -402,13 +405,15 @@ if filereadable(expand($VIMDIR.'/bundle/neobundle.vim/autoload/neobundle.vim')) 
 
     call SourceRc('neobundle_local.vim')
 
+    NeoBundleSaveCache
+    endif
     call neobundle#end()
 
     if neobundle#is_installed('vim-singleton') && has('gui_running')
         call singleton#enable()
     endif
 
-    filetype plugin indent on     " Required!un
+    filetype plugin indent on     " Required!
 
      " Installation check.
      NeoBundleCheck
