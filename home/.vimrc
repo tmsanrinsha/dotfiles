@@ -36,15 +36,16 @@ endfunction " }}}
 " runtimepathにあるか
 " http://yomi322.hateblo.jp/entry/2012/06/20/225559
 function! HasPlugin(plugin)
-  return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+  " return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+  " \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+  " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+  return isdirectory(expand('~/.vim/bundle/'.a:plugin))
 endfunction
 " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
 " neobundle#is_installedを使う
 " 直接使うとneobundleがない場合にエラーが出るので確認
 function! IsInstalled(plugin)
-    if HasPlugin('neobundle') && MyHasPatch('patch-7.2.051')
+    if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         return neobundle#is_installed(a:plugin)
     else
         return 0
