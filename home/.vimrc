@@ -32,26 +32,25 @@ function! MyIsRuning(str) " {{{
     endif
     return 0
 endfunction " }}}
-" Pluginの有無をチェック {{{
-" runtimepathにあるか
-" http://yomi322.hateblo.jp/entry/2012/06/20/225559
-function! HasPlugin(plugin)
-  " return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-  " \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-  " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-  return isdirectory(expand('~/.vim/bundle/'.a:plugin))
-endfunction
-" NeoBundleLazyを使うと最初はruntimepathに含まれないため、
-" neobundle#is_installedを使う
-" 直接使うとneobundleがない場合にエラーが出るので確認
-function! IsInstalled(plugin)
+function! HasPlugin(plugin) " {{{
+    " Pluginの有無をチェック
+    " runtimepathにあるか
+    " http://yomi322.hateblo.jp/entry/2012/06/20/225559
+    " return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+    " \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+    " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+    return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
+endfunction " }}}
+function! IsInstalled(plugin) " {{{
+    " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
+    " neobundle#is_installedを使う
+    " 直接使うとneobundleがない場合にエラーが出るので確認
     if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         return neobundle#is_installed(a:plugin)
     else
         return 0
     endif
-endfunction
-" }}}
+endfunction " }}}
 " vimrc全体で使うaugroup {{{
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
 " autocmd!の回数を減らすことでVimの起動を早くする
