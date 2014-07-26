@@ -66,12 +66,14 @@ noremap ,h :history<Space>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
-" }}}
 
-" qmark
-qmark g https://mail.google.com/
+" qmark {{{1
 qmark c https://www.google.com/calendar/
+qmark f https://www.facebook.com/
+qmark g https://mail.google.com/
 qmark n http://www.nicovideo.jp/
+qmark t https://twitter.com/
+" }}}
 
 " コマンドモード開始時に自動的にIMEをOFFにする
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
