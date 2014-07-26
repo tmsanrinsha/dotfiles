@@ -159,7 +159,6 @@ elif [[ "$uname" = Darwin ]]; then
         if [ $all -eq 1 ]; then
             brew update  # homebrewの更新
             brew tap caskroom/cask
-            brew tap Homebrew/python
             brew tap peco/peco
             brew upgrade # packageの更新
         fi
@@ -180,13 +179,14 @@ elif [[ "$uname" = Darwin ]]; then
         brew cask install eclipse-ide
         brew cask install pandoc
 
-        # Homebrew/python
-        brew install numpy
-        # pip install nosy
-        # pip install ipython
-
         # peco/peco
         brew install peco
+
+        # brew install pythonでインストールされるpipでインストール
+        pip install pumpy
+        pip install nosy
+        pip install ipython
+
     fi
     # ウィンドウの整列
     if [ ! -d ~/git/ShiftIt ];then
