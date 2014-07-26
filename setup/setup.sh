@@ -82,14 +82,14 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     #     vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
     # fi
 fi
-if [[ "$uname" = Darwin ]]; then
+if [[ `uname` = Darwin ]]; then
     ln -fs ~/_gvimrc ~/.gvimrc
 fi
 
 # vimperator {{{1
 # ============================================================================
-if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
-    if [[ "$uname" = CYGWIN* ]]; then
+if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
+    if [[ `uname` = CYGWIN* ]]; then
         vimperatordir="$HOME/vimperator"
     else
         vimperatordir="$HOME/.vimperator"
@@ -138,8 +138,7 @@ fi
 
 # install {{{1
 # ============================================================================
-uname=`uname`
-if [[ "$uname" = CYGWIN* ]]; then
+if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
@@ -161,7 +160,7 @@ if [[ "$uname" = CYGWIN* ]]; then
         cp ssh-pageant.1 /usr/share/man/man1/
         popd
     fi
-elif [[ "$uname" = Darwin ]]; then
+elif [[ `uname` = Darwin ]]; then
     if [ ! -x ~/bin/rmtrash ];then
         curl -L https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
@@ -199,7 +198,7 @@ elif [[ "$uname" = Darwin ]]; then
         brew install peco
 
         # brew install pythonでインストールされるpipでインストール
-        pip install pumpy
+        pip install numpy
         pip install nosy
         pip install ipython
 
