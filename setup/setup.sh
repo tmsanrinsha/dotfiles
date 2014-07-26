@@ -17,6 +17,8 @@ function command_exists {
   hash "$1" 2>/dev/null;
 }
 
+# 設定ファイルにシンボリックリンクを貼る {{{1
+# ============================================================================
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 home=$git_dir/home
@@ -60,7 +62,55 @@ else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
 fi
 
+# zsh {{{1
+# ============================================================================
+test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
+test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
+
+if [ ! -x ~/.zsh/completions/_pandoc ];then
+    # https://gist.github.com/sky-y/3334048
+    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
+    chmod a+x ~/.zsh/completions/_pandoc
+fi
+
+# vim {{{1
+# ============================================================================
+if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
+    mkdir -p ~/.vim/bundle
+    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+    # if which git >/dev/null 2>&1; then
+    #     vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
+    # fi
+fi
+if [[ "$uname" = Darwin ]]; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+fi
+
+# vimperator {{{1
+# ============================================================================
+if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
+    if [[ "$uname" = CYGWIN* ]]; then
+        vimperatordir="$HOME/vimperator"
+    else
+        vimperatordir="$HOME/.vimperator"
+    fi
+
+    if [ ! -d ~/git/vimperator-plugins ]; then
+        if [ ! -d "$vimperatordir/plugin" ]; then
+            mkdir -p "$vimperatordir/plugin"
+        fi
+        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
+    else
+        pushd ~/git/vimperator-plugins
+        git pull
+        popd
+    fi
+
+    $ln -fs ~/git/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
+fi
+
 # ack {{{1
+# ============================================================================
 # http://beyondgrep.com
 if ! command_exists ack; then
     curl http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
@@ -68,6 +118,7 @@ if ! command_exists ack; then
 fi
 
 # peco {{{1
+# ============================================================================
 # macの場合はhomebrewでインストールする
 if ! command_exists peco && [ `uname` = Linux ]; then
     mkdir -p ~/local/{src,bin}
@@ -78,49 +129,15 @@ if ! command_exists peco && [ `uname` = Linux ]; then
     popd
 fi
 # }}}
-test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
-test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
-if [ ! -x ~/.zsh/completions/_pandoc ];then
-    # https://gist.github.com/sky-y/3334048
-    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
-    chmod a+x ~/.zsh/completions/_pandoc
-fi
-
-# [ ! -d ~/script/pseudo ] && mkdir -p ~/script/pseudo
-#
-# if [ ! -x ~/script/pseudo/git ];then
-#     # http://d.hatena.ne.jp/hnw/20120602
-#     # https://github.com/hnw/fakegit
-#     curl -L https://raw.github.com/hnw/fakegit/master/bin/fakegit > ~/script/pseudo/git
-#     chmod a+x $HOME/script/pseudo/git
-# fi
-
-# zsh
-# if [ ! -d ~/git/z ]; then
-#     test -d ~/git || mkdir ~/git
-#     git clone git://github.com/rupa/z.git ~/git/z
-#     test -d ~/.zsh/plugin || mkdir -p ~/.zsh/plugin
-#     ln -s ~/git/z/z.sh ~/.zsh/plugin
-#     test -d ~/local/man/man1 || mkdir -p ~/local/man/man1
-#     ln -s ~/git/z/z.1 ~/local/man/man1
-#     test -d ~/.z || mkdir -p ~/.z
-# fi
-
-# vim
-if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
-    mkdir -p ~/.vim/bundle
-    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    # if which git >/dev/null 2>&1; then
-    #     vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
-    # fi
-fi
-
-# cpanm
+# cpanm {{{1
+# ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
 # cpanm --skip-installed MIME::Base64
 # cpanm --skip-installed App::Ack
 
+# install {{{1
+# ============================================================================
 uname=`uname`
 if [[ "$uname" = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
@@ -145,7 +162,6 @@ if [[ "$uname" = CYGWIN* ]]; then
         popd
     fi
 elif [[ "$uname" = Darwin ]]; then
-    ln -fs ~/_gvimrc ~/.gvimrc
     if [ ! -x ~/bin/rmtrash ];then
         curl -L https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
@@ -173,7 +189,7 @@ elif [[ "$uname" = Darwin ]]; then
         brew install tree
         brew install zsh
 
-        # phinze/homebrew-cask
+        # caskroom/cask
         brew install brew-cask
         brew cask install bettertouchtool
         brew cask install eclipse-ide
@@ -195,36 +211,4 @@ elif [[ "$uname" = Darwin ]]; then
         pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
         popd
     fi
-fi
-
-# vimperator {{{1
-if [[ "$uname" = CYGWIN* || "$uname" = Darwin ]]; then
-    if [[ "$uname" = CYGWIN* ]]; then
-        vimperatordir="$HOME/vimperator"
-    else
-        vimperatordir="$HOME/.vimperator"
-    fi
-
-    # if [ ! -d "$vimperatordir/vimppm/vimppm" ]; then
-    #     mkdir -p "$vimperatordir/vimppm"
-    #     pushd "$vimperatordir/vimppm"
-    #     git clone git://github.com/cd01/vimppm
-    # else
-    #     pushd "$vimperatordir/vimppm/vimppm"
-    #     git pull
-    # fi
-    # popd
-
-    if [ ! -d ~/git/vimperator-plugins ]; then
-        if [ ! -d "$vimperatordir/plugin" ]; then
-            mkdir -p "$vimperatordir/plugin"
-        fi
-        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
-    else
-        pushd ~/git/vimperator-plugins
-        git pull
-        popd
-    fi
-
-    $ln -fs ~/git/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
