@@ -781,9 +781,9 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
 
         " 使用する補完の種類を減らす
         " http://alpaca-tc.github.io/blog/vim/neocomplete-vs-youcompleteme.html
-        " 現在のSourceの取得は `:echo
-        " keys(neocomplete#variables#get_sources())`
-        " " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
+        " 現在のSourceの取得は 
+        " `:echo keys(neocomplete#variables#get_sources())`
+        " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
         " 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']
 
         if !exists('g:neocomplete#sources')
