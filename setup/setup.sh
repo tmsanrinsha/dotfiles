@@ -179,6 +179,7 @@ elif [[ `uname` = Darwin ]]; then
         fi
 
         brew install ant
+        brew install go
         brew install mercurial
         brew install nkf
         brew install node

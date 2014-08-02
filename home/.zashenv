@@ -82,6 +82,8 @@ if [[ `uname` = Darwin ]]; then
 fi
 # }}}
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+export GOPATH=$HOME/.go
+pathmunge $GOPATH/bin
 # alias {{{
 # ============================================================================
 alias l='ls'
