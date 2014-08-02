@@ -775,7 +775,8 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
 
         set completeopt-=preview
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
-        autocmd MyVimrc InsertLeave *.* pclose
+        " fugitiveのバッファも閉じてしまうのでコメントアウト
+        " autocmd MyVimrc InsertLeave *.* pclose
 
         let g:neocomplcache_enable_auto_delimiter = 0
 

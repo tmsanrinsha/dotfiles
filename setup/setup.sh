@@ -129,7 +129,6 @@ if ! command_exists peco && [ `uname` = Linux ]; then
     popd
 fi
 # }}}
-
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
@@ -180,6 +179,7 @@ elif [[ `uname` = Darwin ]]; then
 
         brew install ant
         brew install go
+        brew install jq
         brew install mercurial
         brew install nkf
         brew install node
