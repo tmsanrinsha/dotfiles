@@ -128,7 +128,18 @@ if ! command_exists peco && [ `uname` = Linux ]; then
     ln -s ~/local/src/peco_linux_amd64/peco ~/local/bin
     popd
 fi
-# }}}
+
+# ghq {{{1
+# ============================================================================
+if ! command_exists peco && [ `uname` = Linux ]; then
+    mkdir -p ~/local/{src,bin}
+    pushd .
+    cd ~/local/src
+    curl -L 'https://github.com/motemen/ghq/releases/download/v0.4/ghq_linux_amd64.tar.gz' | gzip -dc | tar xf -
+    ln -s ~/local/src/peco_linux_amd64/ghq ~/local/bin
+    popd
+fi
+
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
