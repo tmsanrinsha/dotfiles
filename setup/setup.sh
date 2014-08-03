@@ -131,7 +131,7 @@ fi
 
 # ghq {{{1
 # ============================================================================
-if ! command_exists peco && [ `uname` = Linux ]; then
+if ! command_exists ghq && [ `uname` = Linux ]; then
     mkdir -p ~/local/{src,bin}
     pushd .
     cd ~/local/src
