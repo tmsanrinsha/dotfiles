@@ -13,17 +13,19 @@ done
 # コマンドの存在チェック
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
 #      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
-function command_exists {
-  hash "$1" 2>/dev/null;
-}
+# function command_exists {
+#   hash "$1" 2>/dev/null;
+# }
 
-# 設定ファイルにシンボリックリンクを貼る {{{1
-# ============================================================================
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 home=$git_dir/home
 setup_dir=$git_dir/setup
 
+source $home/.zashenv
+
+# 設定ファイルにシンボリックリンクを貼る {{{1
+# ============================================================================
 if [[ `uname` = CYGWIN* ]]; then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
     # なぜか英語になっちゃう
@@ -129,17 +131,6 @@ if ! command_exists peco && [ `uname` = Linux ]; then
     popd
 fi
 
-# ghq {{{1
-# ============================================================================
-if ! command_exists ghq && [ `uname` = Linux ]; then
-    mkdir -p ~/local/{src,bin}
-    pushd .
-    cd ~/local/src
-    curl -L 'https://github.com/motemen/ghq/releases/download/v0.4/ghq_linux_amd64.tar.gz' | gzip -dc | tar xf -
-    ln -s ~/local/src/peco_linux_amd64/ghq ~/local/bin
-    popd
-fi
-
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
@@ -223,3 +214,23 @@ elif [[ `uname` = Darwin ]]; then
         popd
     fi
 fi
+# ghq {{{1
+# ============================================================================
+if ! command_exists ghq && [ `uname` = Linux ]; then
+    mkdir -p ~/local/{src,bin}
+    pushd .
+    cd ~/local/src
+    curl -L 'https://github.com/motemen/ghq/releases/download/v0.4/ghq_linux_amd64.tar.gz' | gzip -dc | tar xf -
+    ln -s ~/local/src/ghq_linux_amd64/ghq ~/local/bin
+    popd
+fi
+
+# remote2local {{{1
+# ============================================================================
+if ghq get https://github.com/tmsanrinsha/remote2local | grep -v exists; then
+    if [ `uname` = Darwin ]; then
+        ln -s $GHQ/github.com/tmsanrinsha/remote2local/Library/LaunchAgents/rfrouter.plist ~/Library/LaunchAgents/rfrouter.plist
+        launchctl load ~/Library/LaunchAgents/rfrouter.plist
+    fi
+fi
+

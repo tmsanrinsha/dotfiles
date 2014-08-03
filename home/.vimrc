@@ -844,7 +844,7 @@ command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
 " ftdetect {{{
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha*
-            \   setlocal filetype=mkd
+            \   setlocal filetype=markdown
 " autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html

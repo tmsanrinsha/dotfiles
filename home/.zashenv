@@ -1,4 +1,7 @@
-# vim:filetype=sh
+##
+# コマンドの存在チェック
+# @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
+#      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
 function command_exists {
   hash "$1" 2>/dev/null;
 }
@@ -79,9 +82,9 @@ if [[ `uname` = Darwin ]]; then
     # ruby
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
+# }}}
 export GHQ=$HOME/.ghq
 pathmunge $GHQ/github.com/tmsanrinsha/remote2local/bin
-# }}}
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export GOPATH=$HOME/.go
 pathmunge $GOPATH/bin
@@ -184,3 +187,4 @@ if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local
 fi
 
+# vim:filetype=sh
