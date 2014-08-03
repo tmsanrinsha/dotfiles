@@ -111,17 +111,17 @@ let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 " http://chroju89.hatenablog.jp/entry/2014/02/09/102914
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-    { label: 'title',          value: '%TITLE%'},
-    { label: 'titleAndURL',    value: '%TITLE%\n%URL%'},
-    { label: 'markdown',       value: '[%TITLE%](%URL%)'},
-    { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>'},
-    { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+    { label: 'title',     value: '%TITLE%'},
+    { label: 'plain',     value: '%TITLE%\n%URL%'},
+    { label: 'markdown',  value: '[%TITLE%](%URL%)'},
+    { label: 'anchor',    value: '<a href="%URL%">%TITLE%</a>'},
+    { label: 'selanchor', value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
 ];
 EOM
 
 " mapを上で設定すると不安定なので、ここで設定
 nnoremap ,yt :copy title<CR>
-nnoremap ,yu :copy titleAndURL<CR>
+nnoremap ,yp :copy plain<CR>
 nnoremap ,ym :copy markdown<CR>
 nnoremap ,ya :copy anchor<CR>
 
