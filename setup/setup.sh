@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eux
+set -ex
 
 all=0
 while getopts a OPT
@@ -9,13 +9,6 @@ do
     "a" ) all=1 ;;
   esac
 done
-
-# コマンドの存在チェック
-# @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
-#      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
-# function command_exists {
-#   hash "$1" 2>/dev/null;
-# }
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
