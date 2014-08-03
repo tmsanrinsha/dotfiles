@@ -83,8 +83,8 @@ if [[ `uname` = Darwin ]]; then
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
 # }}}
-export GHQ=$HOME/.ghq
-pathmunge $GHQ/github.com/tmsanrinsha/remote2local/bin
+export SRC_ROOT=$HOME/.ghq
+pathmunge $SRC_ROOT/github.com/tmsanrinsha/remote2local/bin
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export GOPATH=$HOME/.go
 pathmunge $GOPATH/bin

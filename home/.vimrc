@@ -654,29 +654,6 @@ nmap K <Leader>K
 let $PAGER=''
 
 "}}}
-" vimrcの編集 {{{
-" ==============================================================================
-" http://vim-users.jp/2009/09/hack74/
-" .vimrcと.gvimrcの編集
-nnoremap [VIMRC] <Nop>
-nmap <Leader>v [VIMRC]
-" nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
-" nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent> [VIMRC]e :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vimrc<CR>
-nnoremap <silent> [VIMRC]E :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/_gvimrc<CR>
-
-" Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
-nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
-
-""vimrc auto update
-"augroup MyAutoCmd
-"  autocmd!
-"  " nested: autocmdの実行中に更に別のautocmdを実行する
-"  autocmd BufWritePost .vimrc nested source $MYVIMRC
-"  " autocmd BufWritePost .vimrc RcbVimrc
-"augroup END
-"}}}
 " printing {{{
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
@@ -989,15 +966,36 @@ let g:ftplugin_sql_statements = 'create,alter'
 autocmd MyVimrc FileType yaml
     \   setlocal foldmethod=indent softtabstop=2 shiftwidth=2
 " }}}
-" vim {{{
+" vim {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType vim
     \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR>
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
 let g:vim_indent_cont = &sw
-" }}}
-" help {{{
+" vimrcの編集 {{{3
+" http://vim-users.jp/2009/09/hack74/
+" .vimrcと.gvimrcの編集
+nnoremap [VIMRC] <Nop>
+nmap <Leader>v [VIMRC]
+" nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
+" nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent> [VIMRC]e :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vimrc<CR>
+nnoremap <silent> [VIMRC]E :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/_gvimrc<CR>
+
+" Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
+
+""vimrc auto update
+"augroup MyAutoCmd
+"  autocmd!
+"  " nested: autocmdの実行中に更に別のautocmdを実行する
+"  autocmd BufWritePost .vimrc nested source $MYVIMRC
+"  " autocmd BufWritePost .vimrc RcbVimrc
+"augroup END
+
+" help {{{2
 " ----------------------------------------------------------------------------
 " autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " }}}

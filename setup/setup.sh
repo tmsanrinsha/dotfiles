@@ -222,7 +222,7 @@ fi
 # ============================================================================
 if ghq get https://github.com/tmsanrinsha/remote2local | grep -v exists; then
     if [ `uname` = Darwin ]; then
-        ln -s $GHQ/github.com/tmsanrinsha/remote2local/Library/LaunchAgents/rfrouter.plist ~/Library/LaunchAgents/rfrouter.plist
+        ln -s $SRC_ROOT/github.com/tmsanrinsha/remote2local/Library/LaunchAgents/rfrouter.plist ~/Library/LaunchAgents/rfrouter.plist
         launchctl load ~/Library/LaunchAgents/rfrouter.plist
     fi
 fi
