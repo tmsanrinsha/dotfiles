@@ -56,7 +56,6 @@ fi
 # MacVimで!でコマンド実行をするとPATHの先頭に /etc/pathsとMacVimのPATHを追加するようなので
 # さらに先頭に$HOME/local/binを追加する
 # pathmungeだと、すでにPATHにあるため追加できないのでexportで追加
-# pathmunge ${HOME}/local/bin
 export PATH=$HOME/local/bin:$PATH
 
 # neobundleで管理するスクリプト
@@ -80,6 +79,8 @@ if [[ `uname` = Darwin ]]; then
     # ruby
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
+export GHQ=$HOME/.ghq
+pathmunge $GHQ/github.com/tmsanrinsha/remote2local/bin
 # }}}
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export GOPATH=$HOME/.go
