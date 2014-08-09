@@ -30,25 +30,26 @@ else
     ln=ln
 fi
 
-# ディレクトリの作成
-for dir in `find $home -mindepth 1 -type d | sed -e "s|$home/||"`
-do
-    test -d ~/$dir || mkdir ~/$dir
-done
+# ディレクトリがなければ作る
+# 空白ではなくヌル文字で区切る
+while IFS= read -r -d '' dir; do
+    dir=${dir#./}
+    test -d "$HOME/$dir" || mkdir "$HOME/$dir"
+done < <(find . -mindepth 1 -type d -print0)
 
 # シンボリックリンクを貼る
-for file in `find $home -type f ! -regex '.*swp.*' | sed "s|$home/||"`
-do
+while IFS= read -r -d '' file; do
+    file=${file#./}
     # 実体ファイルがある場合はバックアップをとる
-    if [ -f ~/$file -a ! -L ~/$file ]; then
-        mv ~/$file ~/${file}.bak
+    if [ -f "$HOME/$file" -a ! -L "$HOME/$file" ]; then
+        mv "$HOME/$file" "$HOME/${file}.bak"
     fi
     # シンボリックリンクは削除
-    if [ -L ~/$file ]; then
-        rm ~/$file
+    if [ -L "$HOME/$file" ]; then
+        rm "$HOME/$file"
     fi
-    $ln -sv $home/$file ~/$file
-done
+    $ln -sv "$home/$file" "$HOME/$file"
+done < <(find . -type f ! -regex '.*swp.*' -print0)
 
 # [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
 if ctags --version | grep Development; then
