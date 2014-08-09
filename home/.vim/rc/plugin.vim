@@ -122,9 +122,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
             \}
         if !has('clipboard') || $SSH_CLIENT != ''
-            NeoBundleLazy 'tmsanrinsha/vim-fakeclip', {
-                \   'autoload': {'mappings': '<Plug>(fakeclip-'}
-                \}
+            NeoBundle 'tmsanrinsha/vim-fakeclip'
         endif
         " }}}
         " textobj {{{
@@ -427,7 +425,7 @@ else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
-                \   'sudo.vim', 'Kwbd.vim',
+                \   'sudo.vim', 'vim-powerline',
                 \   'syntastic', 'my_molokai', 'vim-smartword'
                 \]
     " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
@@ -1159,7 +1157,7 @@ nmap [Space]Y "+yy
 
 if neobundle#is_installed('vim-fakeclip')
     let g:fakeclip_provide_provide_key_mapping = 1
-    let g:fakeclip_write_clipboard_command = 'pbcopy'
+    let g:fakeclip_write_clipboard_command = 'rfpbcopy'
 endif
 
 " textobj {{{1
@@ -1433,8 +1431,7 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
         autocmd MyVimrc FileType gitcommit
-            \   nmap <buffer> rr [Colon]call system('rm <C-r><C-g>')<CR>R
-            " \   nmap <buffer> rr [Colon]!rm <C-r><C-g> > /dev/null<CR>
+            \   nmap <buffer> [Space]r [Colon]call system('rm "'.expand('%:h:h').'/<C-r><C-g>"')<CR>r
 
         " Gitリポジトリ以下のときに、Ctagsを実行 {{{
         " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
