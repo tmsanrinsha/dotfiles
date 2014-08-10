@@ -30,6 +30,7 @@ else
     ln=ln
 fi
 
+cd $home
 # ディレクトリがなければ作る
 # 空白ではなくヌル文字で区切る
 while IFS= read -r -d '' dir; do

@@ -122,7 +122,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
             \}
         if !has('clipboard') || $SSH_CLIENT != ''
-            NeoBundle 'tmsanrinsha/vim-fakeclip'
+            NeoBundleLazy 'tmsanrinsha/vim-fakeclip', {
+                \   'autoload': {'mappings': '<Plug>(fakeclip-'}
+                \}
         endif
         " }}}
         " textobj {{{
@@ -142,7 +144,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
         " }}}
         " dでキー待ちが発生してしまう
-        NeoBundle 'tpope/vim-surround'
+        " NeoBundle 'tpope/vim-surround'
         NeoBundle 'tpope/vim-repeat'
         NeoBundleLazy 'kana/vim-smartword', {
             \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
@@ -1149,7 +1151,7 @@ if neobundle#is_installed("vim-operator-user")
     " map [Space]y <Plug>(operator-yank-clipboard)
 endif
 " clipboard copy {{{1
-" ----------------------------------------------------------------------------
+" ============================================================================
 nmap [Space]y "+y
 xmap [Space]y "+y
 nmap [Space]yy "+yy
