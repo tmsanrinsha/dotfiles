@@ -755,7 +755,8 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         " Use underbar completion.
         let g:neocomplcache_enable_underbar_completion = 1 " Deleted
 
-        let g:neocomplete#enable_camel_case = 1
+        " smartcaseな補完にする
+        let g:neocomplete#enable_camel_case = 0
 
         " Set minimum syntax keyword length.
         if neobundle#is_installed('neocomplete')
@@ -901,6 +902,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        execute 'inoremap <expr><C-Space>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
         " <TAB>: completion.
