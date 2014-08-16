@@ -1552,7 +1552,7 @@ endif
 if neobundle#is_installed('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
-    nmap <Leader>wd  <Plug>VimwikiDiaryIndex
+    nmap <Leader>w<Leader>d  <Plug>VimwikiDiaryIndex
     nmap <Leader>wn  <Plug>VimwikiMakeDiaryNote
     nmap <Leader>wu  <Plug>VimwikiDiaryGenerateLinks
 
