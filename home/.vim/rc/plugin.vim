@@ -122,9 +122,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
             \}
         if !has('clipboard') || $SSH_CLIENT != ''
-            NeoBundleLazy 'tmsanrinsha/vim-fakeclip', {
-                \   'autoload': {'mappings': '<Plug>(fakeclip-'}
-                \}
+            NeoBundle 'tmsanrinsha/vim-fakeclip'
         endif
         " }}}
         " textobj {{{
@@ -1157,6 +1155,8 @@ xmap [Space]y "+y
 nmap [Space]yy "+yy
 nmap [Space]Y "+yy
 
+" vim-fakeclip {{{2
+" ----------------------------------------------------------------------------
 if neobundle#is_installed('vim-fakeclip')
     let g:fakeclip_provide_provide_key_mapping = 1
     let g:fakeclip_write_clipboard_command = 'rfpbcopy'
