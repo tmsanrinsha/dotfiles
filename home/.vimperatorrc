@@ -28,7 +28,7 @@ EOM
 hi Hint font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
 " テキストボックスにフォーカスさせない
-" set focuscontent
+set focuscontent
 
 " mapping {{{1
 " ============================================================================
