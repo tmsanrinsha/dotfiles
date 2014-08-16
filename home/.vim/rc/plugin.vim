@@ -906,7 +906,16 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
         " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " ポップアップが出ていたら下を選択
+        " 出てなくて、
+        "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
+        "   空白が消えてしまうので
+        "   それ以外は普通のタブ
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
+        inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
+            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
+
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
         " http://vim-users.jp/2009/10/hack81/
