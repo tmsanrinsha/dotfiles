@@ -174,6 +174,7 @@ elif [[ `uname` = Darwin ]]; then
             brew upgrade # packageの更新
         fi
 
+        brew install ag
         brew install ant
         brew install go
         brew install jq
@@ -188,6 +189,7 @@ elif [[ `uname` = Darwin ]]; then
 
         # caskroom/cask
         brew install brew-cask
+        brew cask install alfred
         brew cask install bettertouchtool
         brew cask install eclipse-ide
         brew cask install pandoc
