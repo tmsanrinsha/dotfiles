@@ -391,7 +391,8 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
-        " NeoBundle 'jceb/vim-orgmode'
+        NeoBundle 'jceb/vim-orgmode'
+        NeoBundle 'utl.vim'
 
         " http://d.hatena.ne.jp/itchyny/20140108/1389164688
         " NeoBundleLazy 'itchyny/calendar.vim', {
