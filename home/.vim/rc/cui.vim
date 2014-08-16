@@ -1,8 +1,9 @@
-" key setting {{{
-" ==============================================================================
-" cuiのvimでaltを使う設定
-" https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
+" key setting {{{1
+" ============================================================================
 if v:version > 701
+    " cuiのvimでaltを使う設定 {{{2
+    " ------------------------------------------------------------------------
+    " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
     for i in range(32,126)
         let c = nr2char(i)
         if c=='|' || c=='"'
@@ -18,7 +19,8 @@ if v:version > 701
         endif
     endfor
 
-    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック
+    " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック {{{2
+    " ------------------------------------------------------------------------
     " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
     " MapFastKeycode: helper for fast keycode mappings
     " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
@@ -40,8 +42,11 @@ if v:version > 701
     call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
 endif
 
-"}}}
-" paste {{{
+" 端末でCtrl+Spaceを打つと<NUL>(^@)が送られるのでmapしておく
+map  <NUL> <C-Space>
+map! <NUL> <C-Space>
+
+" paste {{{1
 " ==============================================================================
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
