@@ -126,6 +126,7 @@ set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:% ",eol:↲
 
 " 全角スペースをハイライト （Vimテクニックバイブル1-11）
 syntax enable
+" [Vim documentation: syntax](http://vim-jp.org/vimdoc-ja/syntax.html)
 scriptencoding utf-8
 augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
@@ -134,24 +135,6 @@ augroup MyVimrc
         \|  highlight Normal ctermbg=233 guibg=#1B1D1E
 augroup END
 " }}}
-
-set textwidth=0
-
-set formatoptions&
-" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
-set formatoptions+=r
-" M : マルチバイト文字の連結(J)でスペースを挿入しない
-set formatoptions+=M
-if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
-    " j : コメント行の連結でcomment leaderを取り除く
-    set formatoptions+=j
-endif
-" t : textwidthを使って自動的に折り返す
-set formatoptions-=t
-" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
-set formatoptions-=c
-" o : Normal modeでoまたOを押したら、comment leaderを挿入する
-set formatoptions-=o
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進数と16進数を増減させる。
@@ -173,18 +156,6 @@ else
     set modelines=0
 endif
 
-" backspaceキーの挙動を設定する
-" " indent        : 行頭の空白の削除を許す
-" " eol           : 改行の削除を許す
-" " start         : 挿入モードの開始位置での削除を許す
-set backspace=indent,eol,start
-
-" カーソルを行頭、行末で止まらないようにする。
-" http://vimwiki.net/?'whichwrap'
-" set whichwrap=b,s,h,l,<,>,[,],~
-" " 矩形選択でカーソル位置の制限を解除
-" set virtualedit=block
-
 set mouse=a
 
 " if has('path_extra')
@@ -192,8 +163,24 @@ set mouse=a
 " endif
 set helplang=en,ja
 "}}}
-" 文字コード・改行コード {{{
-" ==============================================================================
+
+" cursor {{{1
+" ============================================================================
+" backspaceキーの挙動を設定する
+"   indent        : 行頭の空白の削除を許す
+"   eol           : 改行の削除を許す
+"   start         : 挿入モードの開始位置での削除を許す
+set backspace=indent,eol,start
+
+" カーソルを行頭、行末で止まらないようにする。
+" http://vimwiki.net/?'whichwrap'
+set whichwrap&
+" set whichwrap=b,s,h,l,<,>,[,],~
+" " 矩形選択でカーソル位置の制限を解除
+" set virtualedit=block
+
+" 文字コード・改行コード {{{1
+" ============================================================================
 " 文字コード
 " set encoding=utf-8 上で設定
 set fileencoding=utf-8
@@ -365,7 +352,7 @@ autocmd MyVimrc BufReadPost *
             \ endif
 
 "}}}
-" タブ・インデント {{{
+" タブ・インデント {{{1
 " ==============================================================================
 "ファイル内の <Tab> が対応する空白の数
 set tabstop=4
@@ -388,8 +375,49 @@ set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し�
 " pasteモードではautoindentが解除されそのままペーストできる
 set pastetoggle=<F11>
 " ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
-"}}}
-" ステータスライン {{{
+
+" format {{{1
+" ==============================================================================
+set textwidth=0
+
+" :h fo-table
+set formatoptions&
+" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
+set formatoptions+=r
+" M : マルチバイト文字の連結(J)でスペースを挿入しない
+set formatoptions+=M
+if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
+    " j : コメント行の連結でcomment leaderを取り除く
+    set formatoptions+=j
+endif
+" t : textwidthを使って自動的に折り返す
+set formatoptions-=t
+" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
+
+set formatoptions-=c
+" o : Normal modeでoまたOを押したら、comment leaderを挿入する
+set formatoptions+=o
+
+" インデントしない改行
+" [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
+" [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
+nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>ji
+inoremap <silent><C-j> <Esc>:<C-u>call append(expand('.'), '')<CR>ji
+
+
+" * があるときに<Tab>を打つと右にインデントしたい
+" function! s:MyIndent()
+"     if match(getline('.'), '^\s*\*') >= 0
+"         normal! >>A
+"     else
+"         execute "normal! i\<Tab>"
+"     endif
+" endfunction
+" command! MyIndent call s:MyIndent()
+
+" inoremap <Tab> <C-o>:MyIndent<CR>
+
+" ステータスライン {{{1
 " ==============================================================================
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
 "               0: 全く表示しない
@@ -437,7 +465,7 @@ set showtabline=1
 nnoremap [TAB] <Nop>
 nmap <C-@> [TAB]
 " 一番右にタブを作る
-nnoremap [TAB]c :tablast <Bar> tabnew<CR>
+nnoremap <A-t> :tablast <Bar> tabnew<CR>
 nnoremap [TAB]q :tabc<CR>
 
 nnoremap <C-Tab> :tabn<CR>
@@ -841,7 +869,7 @@ nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
 " [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
-autocmd MyVimrc FileType vim,text,mkd call s:override_plugin_setting()
+autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
 
 function! s:override_plugin_setting()
     setlocal textwidth<
