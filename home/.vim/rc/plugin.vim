@@ -155,6 +155,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleLazy 'Lokaltog/vim-easymotion'
         NeoBundle 'terryma/vim-multiple-cursors'
 
+        NeoBundleLazy 'thinca/vim-ref', {
+            \   'autoload': {'commands': ['Ref', 'Man']}
+            \}
+        " NeoBundle 'thinca/vim-ref'
         " 部分的に編集
         NeoBundle 'thinca/vim-partedit'
 
@@ -1219,8 +1223,21 @@ if neobundle#is_installed('vim-multiple-cursors')
     let g:multi_cursor_quit_key='<Esc>'
 endif
 " }}}
-" vim-partedit {{{
-" =============================================================================
+" vim-ref {{{1
+" ============================================================================
+if neobundle#is_installed('vim-ref')
+    let s:hooks = neobundle#get_hooks("vim-ref")
+
+    function! s:hooks.on_source(bundle)
+        if has('mac')
+            let g:ref_man_cmd = "man -P cat"
+        endif
+        command! -nargs=* Man Ref man <args>
+    endfunction
+endif
+
+" vim-partedit {{{1
+" ============================================================================
 if neobundle#is_installed('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif

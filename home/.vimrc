@@ -674,13 +674,15 @@ nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
 " Manual {{{
 " ==============================================================================
-":Man <man>でマニュアルを開く
+" macでのManの調子が悪いのでvim-refの:Ref manを使うことにする
+" ":Man <man>でマニュアルを開く
 runtime ftplugin/man.vim
-nmap K <Leader>K
-"コマンドラインでmanを使ったとき、vimの:Manで見るようにするための設定
-"http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
-".zshrc .bashrc等にも記述が必要
-let $PAGER=''
+" nmap K <Leader>K
+" " http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+" " [manをVimで見る - rcmdnk's blog](http://rcmdnk.github.io/blog/2014/07/20/computer-vim/)
+" let $PAGER=''
+" " コマンドラインでmanを使ったとき、vimの:Manで見るようにするためには
+" ".zshrc .bashrc等にも記述が必要
 
 "}}}
 " printing {{{
