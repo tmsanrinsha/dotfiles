@@ -15,11 +15,18 @@ export EDITOR='vim'
 # ============================================================================
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
 # shell scriptなどでaliasが実行されないようにする
-if [ `uname` = FreeBSD -o `uname` = Darwin ];then
+if ls --version | grep GNU 1>/dev/null 2>&1; then
+    alias ls='ls --color=auto'
+    if [ -f ~/.dircolors ]; then
+        if type dircolors > /dev/null 2>&1; then
+            eval $(dircolors ~/.dircolors)
+        elif type gdircolors > /dev/null 2>&1; then
+            eval $(gdircolors ~/.dircolors)
+        fi
+    fi
+else
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -G'
-else
-    alias ls='ls --color'
 fi
 alias cp='cp -ip'
 alias mv='mv -i'

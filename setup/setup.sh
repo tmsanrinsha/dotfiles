@@ -59,6 +59,12 @@ else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
 fi
 
+# dircolors {{{1
+# ============================================================================
+if [ ! -f ~/.dircolors ];then
+    curl -Lk 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > .dircolors
+fi
+
 # zsh {{{1
 # ============================================================================
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
