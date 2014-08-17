@@ -500,7 +500,7 @@ nnoremap [TAB]8 :8tabn<CR>
 nnoremap [TAB]9 :9tabn<CR>
 nnoremap [TAB]0 :10tabn<CR>
 "}}}
-" コマンドラインモード {{{
+" Command-line mode {{{
 " ==============================================================================
 " 補完 {{{
 " ------------------------------------------------------------------------------
@@ -532,7 +532,7 @@ set history=100 "保存する履歴の数
 " let $BASH_ENV=expand('~/.bashenv')
 " let $ZDOTDIR=expand('~/.vim/')
 " }}}
-" コマンドラインウィンドウ {{{
+" cmdline-window {{{
 " ==============================================================================
 " http://vim-users.jp/2010/07/hack161/
 " nnoremap <sid>(command-line-enter) q:
@@ -552,6 +552,7 @@ function! s:init_cmdwin()
 
   " Completion.
   inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <buffer><expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
 
   startinsert!
 endfunction
@@ -595,8 +596,8 @@ cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
 cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
-xnoremap <Leader>/ <ESC>/\%V
-xnoremap <Leader>? <ESC>?\%V
+xnoremap / <ESC>q/\%V
+xnoremap ? <ESC>q?\%V
 
 nnoremap "\<Leader>ss :%s/\<C-R>//"
 xnoremap "\<Leader>ss :s/\<C-R>//"
