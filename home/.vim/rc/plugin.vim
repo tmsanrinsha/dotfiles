@@ -1,4 +1,5 @@
-" neobundle.vim {{{
+
+" neobundle.vim {{{1
 " ============================================================================
 if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
     if has('vim_starting')
@@ -160,7 +161,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \}
         " NeoBundle 'thinca/vim-ref'
         " 部分的に編集
-        NeoBundle 'thinca/vim-partedit'
+        NeoBundleLazy 'thinca/vim-partedit', {
+            \   'autoload': {'commands': 'Partedit'}
+            \}
 
         " 整形
         if v:version >= 701
@@ -511,10 +514,14 @@ if neobundle#is_installed('unite.vim')
     " bundle以下のファイル
     " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
 
+    " directory
     " カレントディレクトリ以下のディレクトリ
-    nnoremap <silent> [unite]d<CR> :<C-u>Unite directory<CR>
-    execute 'nnoremap <silent> [unite]dv :<C-u>Unite directory:' . $VIMDIR . '/bundle<CR>'
-    execute 'nnoremap <silent> [unite]dg :<C-u>Unite directory:' . $HOME . '/git<CR>'
+    nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap [unite]dm    :<C-u>Unite directory_mru<CR>
+    execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
+    execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
+    execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
 
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 
@@ -527,8 +534,6 @@ if neobundle#is_installed('unite.vim')
 
     "最近使用したファイル一覧
     nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
     call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
     " ファイル内検索結果
@@ -537,6 +542,7 @@ if neobundle#is_installed('unite.vim')
     " file_rec {{{
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
+    execute 'nnoremap [unite]fs :<C-u>Unite file_rec/async:' . $SRC_ROOT . '<CR>'
 
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
