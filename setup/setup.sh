@@ -182,6 +182,8 @@ elif [[ `uname` = Darwin ]]; then
 
         brew install ag
         brew install ant
+        brew install coreutils
+        brew install gnu-sed
         brew install go
         brew install jq
         brew install mercurial

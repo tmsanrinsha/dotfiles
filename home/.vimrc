@@ -730,8 +730,8 @@ if isdirectory(expand('~/.vim/bundle/my_molokai'))
 else
     colorscheme default
 endif
-" let g:solarized_termcolors=256
-" let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
+let g:solarized_contrast = "high"
 " colorscheme solarized
 
 " color {{{1
