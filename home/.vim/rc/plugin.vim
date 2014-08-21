@@ -331,7 +331,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'depends'  : 'mattn/webapi-vim'
             \}
 
-        NeoBundleLazy 'vim-scripts/DirDiff.vim', {
+        NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
             \   'autoload' : {
             \       'commands' : {
             \           'name' : 'DirDiff',
