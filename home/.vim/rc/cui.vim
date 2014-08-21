@@ -1,6 +1,7 @@
 " key setting {{{1
 " ============================================================================
 if v:version > 701
+    " :h terminal-info
     " cuiのvimでaltを使う設定 {{{2
     " ------------------------------------------------------------------------
     " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
@@ -21,6 +22,7 @@ if v:version > 701
 
     " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック {{{2
     " ------------------------------------------------------------------------
+    " :h t_ku以下にないものは以下で定義
     " http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
     " MapFastKeycode: helper for fast keycode mappings
     " makes use of unused vim keycodes <[S-]F15> to <[S-]F37>
@@ -45,6 +47,11 @@ endif
 " 端末でCtrl+Spaceを打つと<NUL>(^@)が送られるのでmapしておく
 map  <NUL> <C-Space>
 map! <NUL> <C-Space>
+
+set <S-Left>=[1;2D
+set <S-Right>=[1;2C
+set <S-Up>=[1;2A
+set <S-Down>=[1;2B
 
 " paste {{{1
 " ==============================================================================
