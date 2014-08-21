@@ -915,16 +915,21 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         execute 'inoremap <expr><C-Space>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
+        " 矩形選択して挿入モードに入った時にうまくいかない
+        " " <TAB>: completion.
+        " " ポップアップが出ていたら下を選択
+        " " 出てなくて、
+        " "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
+        " "   空白が消えてしまうので
+        " "   それ以外は普通のタブ
+        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
+        " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
+        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
+
         " <TAB>: completion.
-        " ポップアップが出ていたら下を選択
-        " 出てなくて、
-        "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
-        "   空白が消えてしまうので
-        "   それ以外は普通のタブ
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
-        inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
-            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
+        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
