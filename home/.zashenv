@@ -156,6 +156,7 @@ alias gs='git status'
 # gitのルートディレクトリに移動
 alias cdt='cd `git rev-parse --show-toplevel`'
 # }}}
+alias cdg='cd `ghq list -p | peco || pwd`'
 
 alias phpunit='phpunit --colors'
 
