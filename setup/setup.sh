@@ -189,6 +189,7 @@ elif [[ `uname` = Darwin ]]; then
         brew install mercurial
         brew install nkf
         brew install node
+        brew install pwgen
         brew install python
         brew install ruby
         brew install tmux
