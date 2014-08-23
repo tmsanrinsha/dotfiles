@@ -1,4 +1,5 @@
-" neobundle.vim {{{
+
+" neobundle.vim {{{1
 " ============================================================================
 if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
     if has('vim_starting')
@@ -155,8 +156,14 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleLazy 'Lokaltog/vim-easymotion'
         NeoBundle 'terryma/vim-multiple-cursors'
 
+        NeoBundleLazy 'thinca/vim-ref', {
+            \   'autoload': {'commands': ['Ref', 'Man']}
+            \}
+        " NeoBundle 'thinca/vim-ref'
         " 部分的に編集
-        NeoBundle 'thinca/vim-partedit'
+        NeoBundleLazy 'thinca/vim-partedit', {
+            \   'autoload': {'commands': 'Partedit'}
+            \}
 
         " 整形
         if v:version >= 701
@@ -324,7 +331,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'depends'  : 'mattn/webapi-vim'
             \}
 
-        NeoBundleLazy 'vim-scripts/DirDiff.vim', {
+        NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
             \   'autoload' : {
             \       'commands' : {
             \           'name' : 'DirDiff',
@@ -507,10 +514,14 @@ if neobundle#is_installed('unite.vim')
     " bundle以下のファイル
     " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
 
+    " directory
     " カレントディレクトリ以下のディレクトリ
-    nnoremap <silent> [unite]d<CR> :<C-u>Unite directory<CR>
-    execute 'nnoremap <silent> [unite]dv :<C-u>Unite directory:' . $VIMDIR . '/bundle<CR>'
-    execute 'nnoremap <silent> [unite]dg :<C-u>Unite directory:' . $HOME . '/git<CR>'
+    nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap [unite]dm    :<C-u>Unite directory_mru<CR>
+    execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
+    execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
+    execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
 
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 
@@ -523,8 +534,6 @@ if neobundle#is_installed('unite.vim')
 
     "最近使用したファイル一覧
     nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
     call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
     " ファイル内検索結果
@@ -533,6 +542,7 @@ if neobundle#is_installed('unite.vim')
     " file_rec {{{
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
+    execute 'nnoremap [unite]fs :<C-u>Unite file_rec/async:' . $SRC_ROOT . '<CR>'
 
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
@@ -905,16 +915,21 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         execute 'inoremap <expr><C-Space>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
+        " 矩形選択して挿入モードに入った時にうまくいかない
+        " " <TAB>: completion.
+        " " ポップアップが出ていたら下を選択
+        " " 出てなくて、
+        " "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
+        " "   空白が消えてしまうので
+        " "   それ以外は普通のタブ
+        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
+        " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
+        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
+
         " <TAB>: completion.
-        " ポップアップが出ていたら下を選択
-        " 出てなくて、
-        "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
-        "   空白が消えてしまうので
-        "   それ以外は普通のタブ
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
-        inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
-            \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
+        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
@@ -1219,8 +1234,21 @@ if neobundle#is_installed('vim-multiple-cursors')
     let g:multi_cursor_quit_key='<Esc>'
 endif
 " }}}
-" vim-partedit {{{
-" =============================================================================
+" vim-ref {{{1
+" ============================================================================
+if neobundle#is_installed('vim-ref')
+    let s:hooks = neobundle#get_hooks("vim-ref")
+
+    function! s:hooks.on_source(bundle)
+        if has('mac')
+            let g:ref_man_cmd = "man -P cat"
+        endif
+        command! -nargs=* Man Ref man <args>
+    endfunction
+endif
+
+" vim-partedit {{{1
+" ============================================================================
 if neobundle#is_installed('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif
@@ -1484,6 +1512,15 @@ if neobundle#is_installed('gitv')
     endfunction
 endif
 " }}}
+" DirDiff.vim {{{1
+" ============================================================================
+if neobundle#is_installed("DirDiff.vim")
+    let s:bundle = neobundle#get('DirDiff.vim')
+    function! s:bundle.hooks.on_source(bundle)
+        let g:DirDiffDynamicDiffText = 1
+    endfunction
+endif
+
 " open-browser.vim {{{1
 " ============================================================================
 if neobundle#is_installed("open-browser.vim")

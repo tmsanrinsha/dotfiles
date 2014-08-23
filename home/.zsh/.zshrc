@@ -114,7 +114,7 @@ SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
 #  - 顔文字を参考にした
 # }}}
-# 補完 {{{
+# complete {{{
 autoload -U compinit && compinit
 # bash用の補完を使うためには以下の設定をする
 # https://github.com/dsanson/pandoc-completion
@@ -125,7 +125,12 @@ autoload -U compinit && compinit
 # compacked complete list display
 setopt list_packed
 
-zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+else
+    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+fi
+
 # 今いるディレクトリを補完候補から外す
 # http://qiita.com/items/7916037b1384d253b457
 zstyle ':completion:*' ignore-parents parent pwd ..
@@ -349,6 +354,15 @@ fi
 # peco {{{1
 # ============================================================================
 if hash peco 2>/dev/null; then
+    # git {{{2
+    function peco_git_sha1() {
+        GIT_COMMIT_HASH=$(git log --oneline --graph --all --decorate | peco | sed -e "s/^\W\+\([0-9A-Fa-f]\+\).*$/\1/")
+        BUFFER=${BUFFER}${GIT_COMMIT_HASH}
+        CURSOR=$#BUFFER
+    }
+    zle -N peco_git_sha1
+    bindkey "^x^s" peco_git_sha1
+
     # history {{{2
     function peco_select_history() {
         # historyを番号なし、逆順、時間表示で最初から表示
@@ -359,15 +373,15 @@ if hash peco 2>/dev/null; then
     zle -N peco_select_history
     bindkey '^R' peco_select_history
 
-    # ssh {{{2
-    function peco_select_ssh() {
+    # host {{{2
+    function peco_select_host() {
         # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
-        BUFFER=$(history -nrm 'ssh*' 1 | perl -ne 'print if!$line{$_}++' | peco --query "$LBUFFER")
+        BUFFER=${BUFFER}$(history -nrm 'ssh*' 1 | perl -ne 'print if!$line{$_}++' | awk '{print $2}' | peco)
         CURSOR=$#BUFFER             # move cursor
         zle -R -c                   # refresh
     }
-    zle -N peco_select_ssh
-    bindkey '^x^s' peco_select_ssh
+    zle -N peco_select_host
+    bindkey '^x^h' peco_select_host
 
     # cdr {{{2
     function peco-cdr () {

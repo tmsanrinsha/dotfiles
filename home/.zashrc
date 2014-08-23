@@ -15,11 +15,18 @@ export EDITOR='vim'
 # ============================================================================
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
 # shell scriptなどでaliasが実行されないようにする
-if [ `uname` = FreeBSD -o `uname` = Darwin ];then
+if ls --version | grep GNU 1>/dev/null 2>&1; then
+    alias ls='ls --color=auto'
+    if [ -f ~/.dircolors ]; then
+        if type dircolors > /dev/null 2>&1; then
+            eval $(dircolors ~/.dircolors)
+        elif type gdircolors > /dev/null 2>&1; then
+            eval $(gdircolors ~/.dircolors)
+        fi
+    fi
+else
     export LSCOLORS=exfxcxdxbxegedabagacad
     alias ls='ls -G'
-else
-    alias ls='ls --color'
 fi
 alias cp='cp -ip'
 alias mv='mv -i'
@@ -35,7 +42,7 @@ if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
 # }}}
-# PATHの設定 {{{
+# PATHの設定 {{{1
 # ------------------------------------------------------------------------------
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数
 pathmunge () {
@@ -73,20 +80,24 @@ if [[ `uname` = Darwin ]]; then
     # さらに自分でビルドしたものを優先
     export PATH=$HOME/local/bin:$PATH
 fi
-# }}}
 
-#manのpagerとしてvimの:Manを使う。
-#.vimrcにも設定が必要
-#http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+# Man {{{1
+# ============================================================================
+# manのpagerとしてvimの:Manを使う。
+# http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 # cygwinだとcolがなかったので使わない
 if [[ `uname` != CYGWIN* ]]; then
     export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-        vim -R -c 'setlocal ft=man nomod nolist' -c 'noremap q :q<CR>' \
+        vim -c 'setlocal ft=man nonumber nomod nolist' -c 'noremap q :q<CR>' \
         -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
         -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 fi
+# man manでman以外出たり、lessになったりする
+# function man() {
+#     vim -c 'Ref man '$1 -c 'winc j' -c 'q'
+# }
 
-# screen {{{
+# screen {{{1
 # ============================================================================
 #screenがインストールされていて、Screenを起動していないときは自動起動
 #ただし、.screenrcでterm xterm-256colorと設定しているとする

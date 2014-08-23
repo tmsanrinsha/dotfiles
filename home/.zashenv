@@ -36,23 +36,21 @@ pathmunge ${HOME}/bin
 pathmungeR ${HOME}/script/common
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmungeR $HOME/script/pseudo after
+
 if [[ `uname` = CYGWIN* ]]; then
     # Cygwin用のコマンドを置くディレクトリ
     pathmungeR $HOME/script/cygwin
 elif [[ $OSTYPE == darwin* ]]; then
     # Mac用のコマンドを置くディレクトリ
     pathmungeR $HOME/script/mac
-    # All commands have been installed with the prefix 'g'.
-    #
-    # If you really need to use these commands with their normal names, you
-    # can add a "gnubin" directory to your PATH from your bashrc like:
-    #
-    #     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    #
-    # Additionally, you can access their man pages with normal names if you add
-    # the "gnuman" directory to your MANPATH from your bashrc as well:
-    #
-    #     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+    # coreutils
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+    # gnu-sed
+    PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+    MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 fi
 
 # makeで作った実行ファイルなどを置くディレクトリ
@@ -158,6 +156,7 @@ alias gs='git status'
 # gitのルートディレクトリに移動
 alias cdt='cd `git rev-parse --show-toplevel`'
 # }}}
+alias cdg='cd `ghq list -p | peco || pwd`'
 
 alias phpunit='phpunit --colors'
 

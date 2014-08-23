@@ -59,6 +59,12 @@ else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
 fi
 
+# dircolors {{{1
+# ============================================================================
+if [ ! -f ~/.dircolors ];then
+    curl -Lk 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > .dircolors
+fi
+
 # zsh {{{1
 # ============================================================================
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
@@ -176,11 +182,14 @@ elif [[ `uname` = Darwin ]]; then
 
         brew install ag
         brew install ant
+        brew install coreutils
+        brew install gnu-sed
         brew install go
         brew install jq
         brew install mercurial
         brew install nkf
         brew install node
+        brew install pwgen
         brew install python
         brew install ruby
         brew install tmux
