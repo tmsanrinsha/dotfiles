@@ -1170,7 +1170,7 @@ nmap [Space]Y "+yy
 " vim-fakeclip {{{2
 " ----------------------------------------------------------------------------
 if neobundle#is_installed('vim-fakeclip')
-    let g:fakeclip_provide_provide_key_mapping = 1
+    let g:fakeclip_provide_clipboard_key_mappings = 1
     let g:fakeclip_write_clipboard_command = 'rfpbcopy'
 endif
 
