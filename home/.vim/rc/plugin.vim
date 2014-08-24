@@ -122,6 +122,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
             \}
+        " clipboardが使えない、もしくはsshで接続している時にvim-fakeclipを使う。
         if !has('clipboard') || $SSH_CLIENT != ''
             NeoBundle 'tmsanrinsha/vim-fakeclip'
         endif
@@ -287,7 +288,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk/vim-markdown'}
         " NeoBundle 'tmsanrinsha/vim-markdown'
-        " NeoBundle 'nelstrom/vim-markdown-folding'
+        NeoBundleLazy 'nelstrom/vim-markdown-folding', {
+            \   'autoload': {'filetypes': 'markdown'}
+            \}
         " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
         " NeoBundleLazy 'teramako/instant-markdown-vim'
         if executable('node') && executable('ruby')
@@ -1185,7 +1188,9 @@ nmap [Space]Y "+yy
 " vim-fakeclip {{{2
 " ----------------------------------------------------------------------------
 if neobundle#is_installed('vim-fakeclip')
+    " +clipboardでもfakeclipのキーマッピングを使う
     let g:fakeclip_provide_provide_key_mapping = 1
+    " クリップボードコピーのコマンドにrfpbcopyを使う
     let g:fakeclip_write_clipboard_command = 'rfpbcopy'
 endif
 
@@ -1370,7 +1375,7 @@ if neobundle#is_installed('foldCC')
     set fillchars=vert:\|
     let g:foldCCtext_head = '"+ " . v:folddashes . " "'
     " let g:foldCCtext_head = 'repeat(" ", v:foldlevel) . "+ "'
-    let g:foldCCtext_tail = 'printf(" %4d lines Lv%-2d", v:foldend-v:foldstart+1, v:foldlevel)'
+    let g:foldCCtext_tail = 'printf("[Lv%d %3d]", v:foldlevel, v:foldend-v:foldstart+1)'
     nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
 endif
 " savevers.vim {{{1
@@ -1433,13 +1438,22 @@ if neobundle#is_installed('jedi-vim')
     let g:jedi#auto_vim_configuration = 0
 endif
 " }}}
-" vim-markdown-folding {{{
+" rcmdnk/vim-markdown {{{1
+" ============================================================================
+if neobundle#is_installed('rcmdnk/vim-markdown')
+    let g:vim_markdown_folding_disabled = 1
+endif
+
+" vim-markdown-folding {{{1
 " ============================================================================
 if neobundle#is_installed('vim-markdown-folding')
-    let g:markdown_fold_style = 'nested'
+    let s:hooks = neobundle#get_hooks("vim-markdown-folding")
+    function! s:hooks.on_source(bundle)
+        let g:markdown_fold_style = 'nested'
+    endfunction
 endif
-" }}}
-" console.vim {{{
+
+" console.vim {{{1
 " ==============================================================================
 if neobundle#is_installed('vimconsole.vim')
     let g:vimconsole#auto_redraw = 1
@@ -1462,6 +1476,8 @@ if neobundle#is_installed('vim-fugitive')
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
     function! s:hooks.on_source(bundle)
+        " Gbrowse ではgit config --global web.browserの値は見てない
+        let g:netrw_browsex_viewer = 'rfbrowser'
         nnoremap [fugitive] <Nop>
         nmap <Leader>g [fugitive]
         nnoremap [fugitive]d :Gdiff<CR>

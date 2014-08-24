@@ -201,10 +201,12 @@ elif [[ `uname` = Darwin ]]; then
         brew cask install alfred
         brew cask install bettertouchtool
         brew cask install eclipse-ide
+        # formuraでもinstallできる
         brew cask install pandoc
 
         # peco/peco
-        brew install peco
+        # formulaがないと言われる
+        # brew install peco
 
         # brew install pythonでインストールされるpipでインストール
         pip install numpy
