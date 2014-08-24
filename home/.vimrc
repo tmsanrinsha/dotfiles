@@ -661,7 +661,7 @@ endfunction  " }}}
 " }}}
 " vimdiff {{{
 " ==============================================================================
-set diffopt=filler
+set diffopt+=vertical
 nnoremap [VIMDIFF] <Nop>
 nmap <Leader>d [VIMDIFF]
 nnoremap <silent> [VIMDIFF]t :diffthis<CR>
