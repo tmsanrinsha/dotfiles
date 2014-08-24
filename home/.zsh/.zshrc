@@ -12,7 +12,7 @@ fi
 [ -z "$ld_library_path" ] && typeset -T LD_LIBRARY_PATH ld_library_path
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
-fpath=(~/.zsh/completions/ $fpath)
+fpath=(~/.zsh/functions ~/.zsh/completions $fpath)
 # ghqの補完
 fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)
 
@@ -114,55 +114,8 @@ SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
 #  - 顔文字を参考にした
 # }}}
-# complete {{{
-autoload -U compinit && compinit
-# bash用の補完を使うためには以下の設定をする
-# https://github.com/dsanson/pandoc-completion
-# autoload bashcompinit
-# bashcompinit
-# source "/path/to/hoge-completion.bash"
-
-# compacked complete list display
-setopt list_packed
-
-if [ -n "$LS_COLORS" ]; then
-    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-else
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-fi
-
-# 今いるディレクトリを補完候補から外す
-# http://qiita.com/items/7916037b1384d253b457
-zstyle ':completion:*' ignore-parents parent pwd ..
-zstyle ':completion:*' use-cache true
-# 補完対象が2つ以上の時、選択できるようにする
-zstyle ':completion:*:default' menu select=2
-
-# Incremental completion on zsh
-# http://mimosa-pudica.net/zsh-incremental.html
-if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
-    . ~/.zsh/plugin/incr-0.2.zsh
-fi
-
-## 補完関数を作るための設定 {{{
-# http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
-zstyle ':completion:*' verbose yes
-#zstyle ':completion:*' format '%BCompleting %d%b'
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name ''
-
-# site-functionsのリロード
-rsf() {
-  local f
-  f=(~/local/share/zsh/site-functions/*(.))
-  unfunction $f:t 2> /dev/null
-  autoload -U $f:t
-}
-## }}}
-# }}}
-# keybind {{{
+# keybind {{{1
+# ============================================================================
 bindkey -e # emacs like
 # bindkey -v # vi like
 bindkey "^/" undo
@@ -215,6 +168,57 @@ bindkey -M menuselect \
 bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
 # bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
 # }}}
+# complete {{{
+# ============================================================================
+autoload -U compinit && compinit
+# bash用の補完を使うためには以下の設定をする
+# https://github.com/dsanson/pandoc-completion
+# autoload bashcompinit
+# bashcompinit
+# source "/path/to/hoge-completion.bash"
+
+# compacked complete list display
+setopt list_packed
+
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+else
+    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+fi
+
+# 今いるディレクトリを補完候補から外す
+# http://qiita.com/items/7916037b1384d253b457
+zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*' use-cache true
+# 補完対象が2つ以上の時、選択できるようにする
+zstyle ':completion:*:default' menu select=2
+
+## 補完関数を作るための設定
+# http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
+zstyle ':completion:*' verbose yes
+#zstyle ':completion:*' format '%BCompleting %d%b'
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+# コンテキストの確認
+bindkey "^Xh" _complete_help
+
+# site-functionsのリロード
+rsf() {
+  local f
+  f=(~/local/share/zsh/site-functions/*(.))
+  unfunction $f:t 2> /dev/null
+  autoload -U $f:t
+}
+
+# Incremental completion on zsh
+# http://mimosa-pudica.net/zsh-incremental.html
+if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
+    . ~/.zsh/plugin/incr-0.2.zsh
+fi
+
 # ディレクトリ関連 {{{
 # ==============================================================================
 # auto change directory
