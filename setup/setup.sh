@@ -120,6 +120,14 @@ if ! command_exists ack; then
     chmod a+x $HOME/bin/ack
 fi
 
+# screenshotTable.sh {{{1
+# ============================================================================
+# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
+if ! command_exists ack; then
+    curl https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh > $HOME/bin/screenshotTable.sh
+    chmod a+x $HOME/bin/screenshotTable.sh
+fi
+
 # peco {{{1
 # ============================================================================
 # macの場合はhomebrewでインストールする
