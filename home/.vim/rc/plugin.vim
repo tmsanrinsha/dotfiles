@@ -1528,15 +1528,6 @@ if neobundle#is_installed('gitv')
     endfunction
 endif
 " }}}
-" DirDiff.vim {{{1
-" ============================================================================
-if neobundle#is_installed("DirDiff.vim")
-    let s:bundle = neobundle#get('DirDiff.vim')
-    function! s:bundle.hooks.on_source(bundle)
-        let g:DirDiffDynamicDiffText = 1
-    endfunction
-endif
-
 " open-browser.vim {{{1
 " ============================================================================
 if neobundle#is_installed("open-browser.vim")
