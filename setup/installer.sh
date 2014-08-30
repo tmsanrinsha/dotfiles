@@ -12,17 +12,20 @@ if ! type ghq; then
             curl -fLO "${url}/ghq_linux_amd64.tar.gz"
             gzip -dc ghq_linux_amd64.tar.gz | tar xf -
             cp /tmp/ghq_linux_amd64/ghq ~/bin
+            export PATH=~/bin:$PATH
             ;;
         Darwin)
-            curl -fLO "${url}/ghq_darwin_amd64.zip"
-            unzip ghq_darwin_amd64.zip
-            cp /tmp/ghq_darwin_amd64/ghq ~/bin
+            if ! type go; then
+                brew install go
+            fi
+            export GOPATH=$HOME/.go
+            go get github.com/motemen/ghq
+            export PATH=$GOPATH/bin:$PATH
             ;;
         *)
             echo "Don't match anything"
             exit
     esac
-    export PATH=~/bin:$PATH
 fi
 
 SRC_ROOT="$HOME/src"
