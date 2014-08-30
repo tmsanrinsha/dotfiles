@@ -52,7 +52,13 @@ while IFS= read -r -d '' file; do
     $ln -sv "$home/$file" "$HOME/$file"
 done < <(find . -type f ! -regex '.*swp.*' -print0)
 
-# [ ! -f ~/.gitconfig ] && cp $gitdir/.gitconfig ~/.gitconfig
+if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
+    mv ~/.gitconfig{,.bak}
+fi
+cp $gitdir/.gitconfig ~/.gitconfig
+git config --global --remove-section "ghq" || :
+git config --global "ghq.root" "$SRC_ROOT"
+
 if ctags --version | grep Development; then
     $ln -sfv $git_dir/template/.ctags.dev ~/.ctags
 else
