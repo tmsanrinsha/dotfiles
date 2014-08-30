@@ -216,10 +216,12 @@ elif [[ `uname` = Darwin ]]; then
         # formulaがないと言われる
         # brew install peco
 
+        brew install matplotlib
         # brew install pythonでインストールされるpipでインストール
         pip install numpy
         pip install nosy
         pip install ipython
+        pip install six
 
     fi
     # ウィンドウの整列
