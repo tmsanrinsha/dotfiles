@@ -230,16 +230,6 @@ elif [[ `uname` = Darwin ]]; then
         popd
     fi
 fi
-# ghq {{{1
-# ============================================================================
-if ! command_exists ghq && [ `uname` = Linux ]; then
-    mkdir -p ~/local/{src,bin}
-    pushd .
-    cd ~/local/src
-    curl -L 'https://github.com/motemen/ghq/releases/download/v0.4/ghq_linux_amd64.tar.gz' | gzip -dc | tar xf -
-    ln -s ~/local/src/ghq_linux_amd64/ghq ~/local/bin
-    popd
-fi
 
 # remote2local {{{1
 # ============================================================================
