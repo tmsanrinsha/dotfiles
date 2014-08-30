@@ -849,8 +849,6 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
-            " autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType python        setlocal omnifunc=jedi#completions
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
         augroup END
@@ -877,13 +875,6 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
         endif
 
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-        let g:neocomplete#force_omni_input_patterns.java =
-            \ '\%(\h\w*\|)\)\.\w*'
-        let g:neocomplete#force_omni_input_patterns.python =
-            \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*>*\s*import \)\w*'
 
         " include補完
         "インクルードパスの指定
@@ -1406,20 +1397,28 @@ if neobundle#is_installed('syntastic')
         \   'mode': 'active',
         \   'passive_filetypes': ['vim']
         \}
+    let g:syntastic_python_checkers = ['flake8']
     let g:syntastic_auto_loc_list = 1
 endif
 " }}}
 " eclim {{{
-" -----
+" ============================================================================
 if neobundle#is_installed('eclim')
     let s:hooks = neobundle#get_hooks("eclim")
 
     function! s:hooks.on_source(bundle)
+        autocmd MyVimrc FileType java
+            \   setlocal omnifunc=eclim#java#complete#CodeComplete
+            \|  setlocal completeopt-=preview " neocomplete使用時にpreviewが重いので
         " neocomplcacheで補完するため
         let g:EclimCompletionMethod = 'omnifunc'
-        autocmd MyVimrc FileType java
-                    \   setlocal omnifunc=eclim#java#complete#CodeComplete
-                    \|  setlocal completeopt-=preview " neocomplete使用時にpreviewが重いので
+
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
+        endif
+        let g:neocomplete#force_omni_input_patterns.java =
+            \ '\%(\h\w*\|)\)\.\w*'
+
         nnoremap [eclim] <Nop>
         nmap <Leader>e [eclim]
         nnoremap [eclim]pi :ProjectInfo<CR>
@@ -1434,8 +1433,25 @@ endif
 " jedi-vim {{{
 " ============================================================================
 if neobundle#is_installed('jedi-vim')
-    let g:jedi#completions_enabled = 0
-    let g:jedi#auto_vim_configuration = 0
+    let s:hooks = neobundle#get_hooks("jedi-vim")
+    function! s:hooks.on_source(bundle)
+        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
+        let g:jedi#completions_enabled = 0
+        let g:jedi#auto_vim_configuration = 0
+
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
+        endif
+
+        " iexe pythonで>>>がある場合も補完が効くように
+        " '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+        " を ^\s* -> ^>*\s* に変更した
+        let g:neocomplete#force_omni_input_patterns.python =
+            \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*\s*import \)\w*'
+
+        " quickrunと被るため大文字に変更
+        let g:jedi#rename_command = '<Leader>R'
+    endfunction
 endif
 " }}}
 " rcmdnk/vim-markdown {{{1
