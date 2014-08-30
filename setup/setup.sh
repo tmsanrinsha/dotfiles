@@ -55,7 +55,7 @@ done < <(find . -type f ! -regex '.*swp.*' -print0)
 if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
-cp $gitdir/.gitconfig ~/.gitconfig
+cp $git_dir/template/.gitconfig ~/.gitconfig
 git config --global --remove-section "ghq" || :
 git config --global "ghq.root" "$SRC_ROOT"
 
