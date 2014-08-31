@@ -36,11 +36,22 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         endif
 
         " unite {{{
-        NeoBundle 'Shougo/unite.vim'
-        NeoBundle 'Shougo/neomru.vim'
+        " --------------------------------------------------------------------
+        NeoBundleLazy 'Shougo/unite.vim', {
+            \   'autoload': {
+            \       'commands': ['Unite']
+            \   }
+            \}
+        NeoBundleLazy 'Shougo/neomru.vim', {
+            \   'autoload': {
+            \       'unite_sources': ['file_mru', 'directory_mru']
+            \   }
+            \}
+        " unite-で始まるプラグインは自動的にunite_sourcesがセットされる
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
+        NeoBundleLazy 'sorah/unite-ghq'
         NeoBundleLazy 'Shougo/unite-ssh'
         NeoBundle 'ujihisa/vimshell-ssh'
         "NeoBundle 'Shougo/unite-sudo'
@@ -514,9 +525,6 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    " bundle以下のファイル
-    " call unite#custom#source('file_rec','ignore_patten','.*\.neobundle/.*')
-
     " directory
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
@@ -525,8 +533,6 @@ if neobundle#is_installed('unite.vim')
     execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
     execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
     execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
-
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
@@ -608,7 +614,8 @@ if neobundle#is_installed('unite.vim')
     nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
     " ブックマーク
     nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-    "call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
     " vimfilerがどんどん増えちゃう
@@ -650,7 +657,16 @@ augroup unite-tag
                 \| endif
 augroup END
 " }}}
-" vimfiler {{{
+" unite-ghq {{{1
+" ============================================================================
+nnoremap [unite]dg :<C-u>Unite ghq<CR>
+
+let s:hooks = neobundle#get_hooks("unite-ghq")
+function! s:hooks.on_source(bundle)
+    call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
+endfunction
+
+" vimfiler {{{1
 " ==============================================================================
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効にした状態で起動する
