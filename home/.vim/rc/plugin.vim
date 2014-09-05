@@ -83,6 +83,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         else
             NeoBundleLazy "Shougo/neocomplcache", {"autoload": {"insert": 1}}
         endif
+        NeoBundleLazy "Shougo/context_filetype.vim", {"autoload": {"insert": 1}}
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
@@ -533,6 +534,7 @@ if neobundle#is_installed('unite.vim')
     execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
     execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
     execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
+    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
