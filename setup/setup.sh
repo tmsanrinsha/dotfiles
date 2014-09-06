@@ -70,10 +70,10 @@ fi
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
 test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
-if [ ! -x ~/.zsh/completions/_pandoc ];then
+if [ ! -x ~/.zsh/functions/_pandoc ];then
     # https://gist.github.com/sky-y/3334048
-    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/completions/_pandoc
-    chmod a+x ~/.zsh/completions/_pandoc
+    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/functions/_pandoc
+    chmod a+x ~/.zsh/functions/_pandoc
 fi
 
 # vim {{{1
@@ -123,7 +123,7 @@ fi
 # screenshotTable.sh {{{1
 # ============================================================================
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
-if ! command_exists ack; then
+if ! command_exists screenshotTable.sh; then
     curl https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh > $HOME/bin/screenshotTable.sh
     chmod a+x $HOME/bin/screenshotTable.sh
 fi
@@ -235,10 +235,16 @@ fi
 
 # remote2local {{{1
 # ============================================================================
-if ghq get https://github.com/tmsanrinsha/remote2local | grep -v exists; then
+# if ghq get https://github.com/tmsanrinsha/remote2local | grep -v exists; then
+if [ ! -d $SRC_ROOT/tmsanrinsha/remote2local ]; then
+    git clone https://github.com/tmsanrinsha/remote2local.git $SRC_ROOT/tmsanrinsha/remote2local
     if [ `uname` = Darwin ]; then
-        ln -s $SRC_ROOT/github.com/tmsanrinsha/remote2local/Library/LaunchAgents/rfrouter.plist ~/Library/LaunchAgents/rfrouter.plist
+        ln -fs $SRC_ROOT/tmsanrinsha/remote2local/Library/LaunchAgents/rfrouter.plist ~/Library/LaunchAgents/rfrouter.plist
         launchctl load ~/Library/LaunchAgents/rfrouter.plist
     fi
+    ln -fs $SRC_ROOT/tmsanrinsha/remote2local/bin/* ~/bin
+else
+    pushd $SRC_ROOT/tmsanrinsha/remote2local
+    git pull
+    popd
 fi
-
