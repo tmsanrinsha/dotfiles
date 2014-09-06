@@ -340,7 +340,7 @@ endif
 if has('persistent_undo')
     set undofile
     if !isdirectory($VIM_CACHE_DIR.'/undo')
-        call mkdir($VIM_CACHE_DIR.'/undo')
+        call mkdir($VIM_CACHE_DIR.'/undo', "p")
     endif
     set undodir=$VIM_CACHE_DIR/undo
 endif
