@@ -17,11 +17,11 @@ export EDITOR='vim'
 # shell scriptなどでaliasが実行されないようにする
 if ls --version | grep GNU 1>/dev/null 2>&1; then
     alias ls='ls --color=auto'
-    if [ -f ~/.dircolors ]; then
+    if [ -f ~/.cache/dircolors ]; then
         if type dircolors > /dev/null 2>&1; then
-            eval $(dircolors ~/.dircolors)
+            eval $(dircolors ~/.cache/dircolors)
         elif type gdircolors > /dev/null 2>&1; then
-            eval $(gdircolors ~/.dircolors)
+            eval $(gdircolors ~/.cache/dircolors)
         fi
     fi
 else
@@ -156,22 +156,18 @@ fi
 # VVM {{{
 test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
 # }}}
-
 # svn {{{
 alias svnvd='svn diff --diff-cmd ~/bin/svn_diff_vim'
 # }}}
-
 # perl {{{
 # ==============================================================================
 # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
 alias pl="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
 #}}}
-
 # gisty {{{
 export GISTY_DIR="$HOME/gists"
 export GISTY_SSL_VERIFY="NONE"
 # }}}
-
 # nvm {{{
 # http://sanrinsha.lolipop.jp/blog/2012/03/node-jsnvm.html
 if [ -f ~/.nvm/nvm.sh ]; then

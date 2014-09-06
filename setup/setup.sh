@@ -56,19 +56,13 @@ if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
 cp $git_dir/template/.gitconfig ~/.gitconfig
-git config --global --remove-section "ghq" || :
-git config --global "ghq.root" "$SRC_ROOT"
+# git config --global --remove-section "ghq" || :
+# git config --global "ghq.root" "$SRC_ROOT"
 
 if ctags --version | grep Development; then
     $ln -sfv $git_dir/template/.ctags.dev ~/.ctags
 else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
-fi
-
-# dircolors {{{1
-# ============================================================================
-if [ ! -f ~/.dircolors ];then
-    curl -Lk 'https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark' > .dircolors
 fi
 
 # zsh {{{1
