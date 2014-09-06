@@ -1009,16 +1009,15 @@ let g:vim_indent_cont = &sw
 " vimrcの編集 {{{3
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
-nnoremap [VIMRC] <Nop>
-nmap <Leader>v [VIMRC]
-" nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
-" nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent> [VIMRC]e :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vimrc<CR>
-nnoremap <silent> [VIMRC]E :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/_gvimrc<CR>
+nnoremap [VIM] <Nop>
+nmap <Leader>v [VIM]
+" vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
+execute 'nnoremap [VIM]e :<C-u>edit ' . systemlist('readlink $MYVIMRC')[0] . '<CR>'
+execute 'nnoremap [VIM]E :<C-u>edit ' . systemlist('readlink ~/_gvimrc')[0] . '<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
-nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 
 ""vimrc auto update
 "augroup MyAutoCmd
