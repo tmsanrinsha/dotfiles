@@ -86,7 +86,7 @@ set nomousehide
 " ウィンドウの位置とサイズを記憶する {{{
 " ==============================================================================
 " http://vim-users.jp/2010/01/hack120/
-let g:save_window_file = $VIMFILES.'/.vimwinpos'
+let g:save_window_file = $VIM_CACHE_DIR.'/vimwinpos'
 
 autocmd MyVimrc VimLeavePre * call s:save_window()
 
