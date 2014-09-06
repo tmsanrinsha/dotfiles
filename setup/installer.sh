@@ -28,7 +28,7 @@ if ! type ghq; then
     esac
 fi
 
-SRC_ROOT="$HOME/src"
+SRC_ROOT="$HOME/git"
 git config --global --remove-section "ghq" || :
 git config --global "ghq.root" "$SRC_ROOT"
 
