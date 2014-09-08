@@ -17,11 +17,11 @@ export EDITOR='vim'
 # shell scriptなどでaliasが実行されないようにする
 if ls --version | grep GNU 1>/dev/null 2>&1; then
     alias ls='ls --color=auto'
-    if [ -f ~/.cache/dircolors ]; then
+    if [ -f ~/.config/dircolors ]; then
         if type dircolors > /dev/null 2>&1; then
-            eval $(dircolors ~/.cache/dircolors)
+            eval $(dircolors ~/.config/dircolors)
         elif type gdircolors > /dev/null 2>&1; then
-            eval $(gdircolors ~/.cache/dircolors)
+            eval $(gdircolors ~/.config/dircolors)
         fi
     fi
 else
