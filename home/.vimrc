@@ -1012,8 +1012,8 @@ let g:vim_indent_cont = &sw
 nnoremap [VIM] <Nop>
 nmap <Leader>v [VIM]
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
-execute 'nnoremap [VIM]e :<C-u>edit ' . systemlist('readlink $MYVIMRC')[0] . '<CR>'
-execute 'nnoremap [VIM]E :<C-u>edit ' . systemlist('readlink ~/_gvimrc')[0] . '<CR>'
+execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
+execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink ~/_gvimrc'), "\<NL>", '', '') . '<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
