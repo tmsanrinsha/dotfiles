@@ -82,7 +82,6 @@ if [[ `uname` = Darwin ]]; then
 fi
 # }}}
 export SRC_ROOT=$HOME/git
-pathmunge $SRC_ROOT/github.com/tmsanrinsha/remote2local/bin
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export GOPATH=$HOME/.go
 pathmunge $GOPATH/bin
