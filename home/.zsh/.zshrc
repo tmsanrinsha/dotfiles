@@ -418,13 +418,13 @@ if hash peco 2>/dev/null; then
 fi
 # }}}
 
-if [ -f ~/.zsh/plugin/z.sh ]; then
+if [ -f $ZDOTDIR/plugin/z.sh ]; then
     _Z_CMD=j
-    source ~/.zsh/plugin/z.sh
+    source $ZDOTDIR/plugin/z.sh
 fi
 
-if [ -f ~/.zshrc.local ]; then
-    . ~/.zshrc.local
+if [ -f $ZDOTDIR/.zshrc.local ]; then
+    . $ZDOTDIR/.zshrc.local
 fi
 
 if [[ `uname` = CYGWIN* ]]; then
