@@ -517,7 +517,7 @@ endif
 " Shougo/unite.vim {{{1
 " ============================================================================
 if neobundle#is_installed('unite.vim')
-    let g:unite_data_directory = $VIMDIR.'/.unite'
+    let g:unite_data_directory = $VIM_CACHE_DIR.'/unite'
     let g:unite_enable_start_insert = 1
     let g:unite_split_rule = "topleft"
     let g:unite_winheight = "15"
@@ -674,7 +674,7 @@ let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効にした状態で起動する
 let g:vimfiler_safe_mode_by_default = 0
 
-let g:vimfiler_data_directory = $VIMDIR.'/.vimfiler'
+let g:vimfiler_data_directory = $VIM_CACHE_DIR.'/.vimfiler'
 
 nnoremap [VIMFILER] <Nop>
 nmap <Leader>f [VIMFILER]
@@ -715,7 +715,7 @@ if neobundle#is_installed('vimshell')
         let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
         let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b] ", "(%s)-[%b|%a] ")' " Shougo/vim-vcs is required
 
-        let g:vimshell_data_directory = $VIMDIR.'/.vimshell'
+        let g:vimshell_data_directory = $VIM_CACHE_DIR.'/vimshell'
 
         let g:vimshell_max_command_history = 3000
 
@@ -840,9 +840,9 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
 
 
         if neobundle#is_installed('neocomplete')
-            let g:neocomplete#data_directory = $VIMDIR . '/.neocomplete'
+            let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
         else
-            let g:neocomplcache_temporary_dir = $VIMDIR . '/.neocomplcache'
+            let g:neocomplcache_temporary_dir = $VIM_CACHE_DIR . '/neocomplcache'
         endif
         " Define dictionary.
         let g:neocomplcache_dictionary_filetype_lists = {
@@ -1294,7 +1294,7 @@ if neobundle#is_installed('yankround.vim')
         \   }
         \})
 
-    let g:yankround_dir = $VIMDIR.'/.yankround'
+    let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
     let g:yankround_use_region_hl = 1
@@ -1396,7 +1396,7 @@ let g:versdiff_no_resize = 0
 
 autocmd MyVimrc BufEnter * call UpdateSaveversDirs()
 function! UpdateSaveversDirs()
-    let s:basedir = $VIMDIR . "/.savevers"
+    let s:basedir = $VIM_CACHE_DIR . "/savevers"
     " ドライブ名を変更して、連結する (e.g. C: -> /C/)
     let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
 endfunction

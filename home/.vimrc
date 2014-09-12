@@ -4,6 +4,7 @@ set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないよ�
 
 let $VIMDIR = expand('~/.vim')
 let $VIMRC_DIR = $VIMDIR . '/rc'
+let $VIM_CACHE_DIR = expand('~/.cache/vim')
 
 if has('win32')
     set runtimepath&
@@ -313,13 +314,13 @@ inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " savevers.vimが場合はそちらを使う
 if ! isdirectory('~/.vim/bundle/savevers.vim')
     set backup
-    set backupdir=$VIMDIR/.bak
+    set backupdir=$VIM_CACHE_DIR/backup
 
     augroup backup
         autocmd!
         autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
         function! UpdateBackupFile()
-            let basedir = expand("$VIMDIR/.bak")
+            let basedir = expand("$VIM_CACHE_DIR/bakup")
             let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
             if !isdirectory(dir)
                 call mkdir(dir, "p")
@@ -338,12 +339,13 @@ endif
 " 開いた時に前回保存時と内容が違う場合はリセットされる
 if has('persistent_undo')
     set undofile
-    if !isdirectory($VIMDIR.'/.undo')
-        call mkdir($VIMDIR.'/.undo')
+    if !isdirectory($VIM_CACHE_DIR.'/undo')
+        call mkdir($VIM_CACHE_DIR.'/undo', "p")
     endif
-    set undodir=$VIMDIR/.undo
+    set undodir=$VIM_CACHE_DIR/undo
 endif
 
+" 前回のカーソル位置にジャンプ
 " Always Jump to the Last Known Cursor Position
 autocmd MyVimrc BufReadPost *
             \ if line("`\"") > 1 && line("`\"") <= line("$") |
@@ -1007,16 +1009,15 @@ let g:vim_indent_cont = &sw
 " vimrcの編集 {{{3
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
-nnoremap [VIMRC] <Nop>
-nmap <Leader>v [VIMRC]
-" nnoremap <silent> [VIMRC]e :<C-u>edit $MYVIMRC<CR>
-" nnoremap <silent> [VIMRC]E :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent> [VIMRC]e :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vimrc<CR>
-nnoremap <silent> [VIMRC]E :<C-u>edit $SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/_gvimrc<CR>
+nnoremap [VIM] <Nop>
+nmap <Leader>v [VIM]
+" vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
+execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
+execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink ~/_gvimrc'), "\<NL>", '', '') . '<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [VIMRC]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
-nnoremap <silent> [VIMRC]R :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 
 ""vimrc auto update
 "augroup MyAutoCmd
