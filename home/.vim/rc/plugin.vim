@@ -122,10 +122,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
             \}
-        NeoBundleLazy "rhysd/vim-operator-surround", {
-            \   'depends': 'kana/vim-operator-user',
-            \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
-            \}
+        " NeoBundleLazy "rhysd/vim-operator-surround", {
+        "     \   'depends': 'kana/vim-operator-user',
+        "     \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+        "     \}
         NeoBundleLazy "tyru/operator-camelize.vim", {
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
@@ -155,8 +155,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         endif
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
         " }}}
-        " dでキー待ちが発生してしまう
-        " NeoBundle 'tpope/vim-surround'
+        NeoBundle 'tpope/vim-surround'
         NeoBundle 'tpope/vim-repeat'
         NeoBundleLazy 'kana/vim-smartword', {
             \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
@@ -684,6 +683,14 @@ nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
 
 autocmd MyVimrc FileType vimfiler
     \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
+" vimfilerでsurroundのmapを消す。vimfilerからunite.vimを使った時エラーがでるので
+" silentする
+autocmd MyVimrc BufEnter vimfiler*
+    \   silent! nunmap ds
+    \|  silent! nunmap cs
+autocmd MyVimrc BufLeave vimfiler*
+    \   nmap ds <Plug>Dsurround
+    \|  nmap cs <Plug>Csurround
 "}}}
 " vimshell {{{
 " ============================================================================
@@ -1165,11 +1172,11 @@ if neobundle#is_installed("vim-operator-user")
     map [Space]p <Plug>(operator-replace)
     map [Space]P "+<Plug>(operator-replace)
     map [Space]/ <Plug>(operator-search)
-    map sa <Plug>(operator-surround-append)
-    map sd <Plug>(operator-surround-delete)
-    map sr <Plug>(operator-surround-replace)
-    nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-    nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    " map sa <Plug>(operator-surround-append)
+    " map sd <Plug>(operator-surround-delete)
+    " map sr <Plug>(operator-surround-replace)
+    " nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    " nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
     " そもそもclipboardはoperator
     " let s:hooks = neobundle#get_hooks("vim-operator-user")
