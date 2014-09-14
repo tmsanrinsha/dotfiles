@@ -518,8 +518,6 @@ endif
 if neobundle#is_installed('unite.vim')
     let g:unite_data_directory = $VIM_CACHE_DIR.'/unite'
     let g:unite_enable_start_insert = 1
-    let g:unite_split_rule = "topleft"
-    let g:unite_winheight = "15"
     " let g:unite_source_find_max_candidates = 1000
 
     nnoremap [unite] <Nop>
@@ -625,6 +623,13 @@ if neobundle#is_installed('unite.vim')
     autocmd MyVimrc FileType vimfiler
         \   call unite#custom_default_action('directory', 'lcd')
 
+    call unite#custom#profile('default', 'context', {
+        \   'start_insert': 1,
+        \   'direction': 'topleft',
+        \   'winheight': 10,
+        \   'auto_resize': 1,
+        \   'prompt': '» ',
+        \ })
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
 endif
