@@ -674,7 +674,16 @@ nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
 nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 "}}}
-" Manual {{{
+" cript {{{1
+" ============================================================================
+" [Using VIM as Your Password Manager - Stelfox Athenæum](http://stelfox.net/blog/2013/11/using-vim-as-your-password-manager/)
+set cryptmethod=blowfish
+autocmd MyVimrc BufReadPost *
+\   if &key != ""
+\|      set noswapfile nowritebackup viminfo= nobackup noshelltemp history=0 secure
+\|  endif
+
+" man {{{1
 " ==============================================================================
 " macでのManの調子が悪いのでvim-refの:Ref manを使うことにする
 " ":Man <man>でマニュアルを開く
