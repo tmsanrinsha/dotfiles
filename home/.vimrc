@@ -1010,8 +1010,9 @@ autocmd MyVimrc FileType yaml
 " }}}
 " vim {{{2
 " ----------------------------------------------------------------------------
+" keywordprgが設定されてない場合はKでカーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
-    \   nnoremap <buffer> <C-]> :<C-u>help<Space><C-r><C-w><CR>
+    \   setlocal keywordprg=
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
 let g:vim_indent_cont = &sw
@@ -1035,11 +1036,8 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "  autocmd BufWritePost .vimrc nested source $MYVIMRC
 "  " autocmd BufWritePost .vimrc RcbVimrc
 "augroup END
+autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 
-" help {{{2
-" ----------------------------------------------------------------------------
-" autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
-" }}}
 " Git {{{
 " ----------------------------------------------------------------------------
 " コミットメッセージは72文字で折り返す
