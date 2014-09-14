@@ -63,6 +63,7 @@ noremap <C-k> :tabmove +1<CR>
 
 noremap ,B :bmarks<Space>
 noremap ,h :history<Space>
+noremap ,ps :panorama switch<Space>
 
 nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
