@@ -351,7 +351,6 @@ autocmd MyVimrc BufReadPost *
             \ if line("`\"") > 1 && line("`\"") <= line("$") |
             \   execute "normal! g`\"" |
             \ endif
-
 "}}}
 " tab, indent {{{1
 " ==============================================================================
@@ -441,7 +440,7 @@ nnoremap <M-+> <C-w>+
 nnoremap <M-,> <C-w><
 nnoremap <M-.> <C-w>>
 nnoremap <M-0> <C-w>=
-nnoremap <C-w>; <C-w>p
+nnoremap <C-w><C-w> <C-w>p
 
 set splitbelow
 set splitright
@@ -1038,7 +1037,7 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "augroup END
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 
-" Git {{{
+" Git {{{2
 " ----------------------------------------------------------------------------
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html

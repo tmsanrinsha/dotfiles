@@ -409,7 +409,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \       'mappings': '<Plug>Vimwiki'
             \   }
             \}
-        NeoBundleLazy 'glidenote/memolist.vim'
+        " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
         NeoBundle 'jceb/vim-orgmode'
