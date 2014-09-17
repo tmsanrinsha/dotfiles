@@ -333,6 +333,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'autoload' : { 'filetypes' : 'confluencewiki' }
             \ }
         " }}}
+        " mql4 {{{
+        NeoBundleLazy 'vobornik/vim-mql4', {
+            \   'autoload' : { 'filetypes' : 'mql4' }
+            \ }
 
         NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
         NeoBundleLazy 'gregsexton/gitv', {
