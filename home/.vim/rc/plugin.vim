@@ -9,6 +9,11 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
     let g:neobundle#types#git#default_protocol = "git"
     let g:neobundle#install_process_timeout = 2000
 
+    if has('win32') && has('kaoriya')
+        " kaoriya版Vim同梱のvimprocを使う
+        set runtimepath+=$VIM/plugins/vimproc
+    endif
+
     if neobundle#has_fresh_cache(expand($VIMDIR.'/rc/plugin.vim'))
         NeoBundleLoadCache
     else
@@ -16,15 +21,12 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleFetch 'Shougo/neobundle.vim'
 
         " すでにvimが起動しているときは、そちらで開く
-        if has('clientserver')
-            NeoBundle 'thinca/vim-singleton'
-        endif
+        NeoBundle 'thinca/vim-singleton', {
+            \ 'disable': !has('clientserver'),
+            \ }
 
         " recommended to install
-        if has('win32') && has('kaoriya')
-            " kaoriya版Vim同梱のvimprocを使う
-            set runtimepath+=$VIM/plugins/vimproc
-        else
+        if ! (has('win32') && has('kaoriya'))
             NeoBundle 'Shougo/vimproc', {
                 \   'build' : {
                 \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -236,14 +238,13 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "     \}
         " debug
         NeoBundle 'joonty/vdebug'
-        " caw.vim {{{
+        " caw.vim {{{2
         " -------
         " コメント操作
         NeoBundle "tyru/caw.vim"
         " NeoBundle "tpope/vim-commentary"
-        " }}}
 
-        " eclipseと連携 {{{
+        " eclipseと連携 {{{2
         if has('win32') && isdirectory(expand('~/eclipse'))
             let g:eclipse_home = escape(expand('~/eclipse'), '\')
         elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
@@ -253,17 +254,17 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             let g:eclipse_home = ''
         endif
 
-        if executable('ant') && !empty(g:eclipse_home)
-            NeoBundleLazy 'ervandew/eclim', {
-                \   'build' : {
-                \       'windows' : 'ant -Declipse.home='.g:eclipse_home
-                \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                \       'mac'     : 'ant -Declipse.home='.g:eclipse_home
-                \                     .' -Dvim.files='.escape(expand('~/.vim/bundle/eclim'), '\'),
-                \   },
-                \   'autoload': {'commands': ['PingEclim']}
-                \}
-        endif
+        NeoBundleLazy 'ervandew/eclim', {
+            \   'build' : {
+            \       'windows': 'ant -Declipse.home=' . g:eclipse_home
+            \                     .' -Dvim.files=' . escape(expand('~/.vim/bundle/eclim'), '\'),
+            \       'mac':     'ant -Declipse.home=' . g:eclipse_home
+            \                     .' -Dvim.files=' . expand('~/.vim/bundle/eclim'),
+            \   },
+            \   'autoload': {'commands': ['PingEclim']},
+            \   'external_commands': 'ant',
+            \   'disables': !exists(g:eclipse_home),
+            \}
         " }}}
 
         NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
