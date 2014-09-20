@@ -311,6 +311,13 @@ set noswapfile
 ""       set noswapfile
 ""   endif
 
+" FreeBSD, Macでcrontab -eしたときに
+"   crontab: temp file must be edited in place
+" というエラーが出てcrontabが更新されないときの対策
+" [crontabをVimで編集した時に出るエラーの対処法](http://sanrinsha.lolipop.jp/blog/2013/03/post-10825.html)
+set backupskip&
+set backupskip+=/home/tmp/*,/private/tmp/*
+
 " 富豪的バックアップ
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
@@ -1049,10 +1056,6 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
     \|  setlocal colorcolumn=+1
     \|  startinsert
 " }}}
-" crontab {{{
-" ----------------------------------------------------------------------------
-autocmd MyVimrc FileType crontab setlocal backupcopy=yes
-"}}}
 " tsv {{{
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
