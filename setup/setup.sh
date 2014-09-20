@@ -238,6 +238,10 @@ elif [[ `uname` = Darwin ]]; then
     #     # x11のサポートなしだとbuildできる
     #     pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
     #     popd
+    if ! command_exists composer; then
+        pushd ~/bin
+        curl -sS https://getcomposer.org/installer | php
+        mv composer.phar composer
         popd
     fi
 fi
