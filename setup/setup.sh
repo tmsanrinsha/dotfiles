@@ -181,6 +181,14 @@ elif [[ `uname` = Darwin ]]; then
     if command_exists brew; then
         ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
 
+        # すでにinstallされているとエラーが出るため、コマンドがあるかをチェックしてからインストール
+        function brew-install {
+            brew list $1 >/dev/null || brew install $1
+        }
+        function brew-cask-install {
+            brew cask list $1 >/dev/null || brew cask install $1
+        }
+
         if [ $all -eq 1 ]; then
             brew update  # homebrewの更新
             brew tap caskroom/cask
@@ -188,47 +196,48 @@ elif [[ `uname` = Darwin ]]; then
             brew upgrade # packageの更新
         fi
 
-        brew install ag
-        brew install ant
-        brew install coreutils
-        brew install gnu-sed
-        brew install go
-        brew install jq
-        brew install mercurial
-        brew install nkf
-        brew install node
-        brew install pwgen
-        brew install python
-        brew install ruby
-        brew install tmux
-        brew install tree
-        brew install zsh
+        brew-install ag
+        brew-install ant
+        brew-install coreutils
+        brew-install gnu-sed
+        brew-install go
+        brew-install jq
+        brew-install mercurial
+        brew-install nkf
+        brew-install node
+        brew-install pwgen
+        brew-install python
+        brew-install ruby
+        brew-install tmux
+        brew-install tree
+        brew-install zsh
 
         # caskroom/cask
-        brew install brew-cask
-        brew cask install alfred
-        brew cask install bettertouchtool
-        brew cask install eclipse-ide
+        brew-install brew-cask
+        brew-cask-install alfred
+        brew-cask-install bettertouchtool
+        brew-cask-install eclipse-ide
         # formuraでもinstallできる
-        brew cask install pandoc
+        brew-cask-install pandoc
 
         # peco/peco
         # formulaがないと言われる
         # brew install peco
 
-        brew install matplotlib
+        brew-install matplotlib
         # brew install pythonでインストールされるpipでインストール
-        pip install numpy
-        pip install nosy
-        pip install ipython
-        pip install six
-
+        # 失敗
+        # pip install numpy
+        # pip install nosy
+        # pip install ipython
+        # pip install six
     fi
     # ウィンドウの整列
-    if [ ! -d ~/git/ShiftIt ];then
-        git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
-        # x11のサポートなしだとbuildできる
-        pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
+    # if [ ! -d ~/git/ShiftIt ];then
+    #     git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
+    #     # x11のサポートなしだとbuildできる
+    #     pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
+    #     popd
         popd
     fi
 fi
