@@ -1416,7 +1416,7 @@ function! UpdateSaveversDirs()
     let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
 endfunction
 
-autocmd MyVimrc BufWrite * call ExistOrMakeSaveversDirs()
+autocmd MyVimrc BufWrite * call UpdateSaveversDirs() | call ExistOrMakeSaveversDirs()
 function! ExistOrMakeSaveversDirs()
     if !isdirectory(g:savevers_dirs)
         call mkdir(g:savevers_dirs, "p")
