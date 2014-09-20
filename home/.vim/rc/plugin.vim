@@ -660,13 +660,11 @@ nnoremap [unite]` :<C-u>Unite mark<CR>
 " =========================================================================
 nnoremap [unite]t :<C-u>Unite tag<CR>
 
-augroup unite-tag
-    autocmd!
-    autocmd BufEnter *
-                \ if empty(&buftype) && &filetype != 'vim'
-                \| nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-                \| endif
-augroup END
+" helpやfiletypeがvimのときは使用しない
+autocmd MyVimrc BufEnter *
+    \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
+    \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+    \|  endif
 " }}}
 " unite-ghq {{{1
 " ============================================================================
@@ -1439,12 +1437,14 @@ endif
 " eclim {{{
 " ============================================================================
 if neobundle#is_installed('eclim')
+
     let s:hooks = neobundle#get_hooks("eclim")
 
     function! s:hooks.on_source(bundle)
         autocmd MyVimrc FileType java
             \   setlocal omnifunc=eclim#java#complete#CodeComplete
-            \|  setlocal completeopt-=preview " neocomplete使用時にpreviewが重いので
+            \|  setlocal completeopt-=preview
+            \|  nnoremap <buffer> <C-]> :<C-u>JavaSearch<CR>
         " neocomplcacheで補完するため
         let g:EclimCompletionMethod = 'omnifunc'
 
