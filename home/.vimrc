@@ -121,6 +121,9 @@ if MyHasPatch('patch-7.3.769')
 endif
 runtime macros/matchit.vim "HTML tag match
 
+" ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
+set visualbell t_vt=
+
 " 不可視文字の表示 {{{
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:% ",eol:↲
