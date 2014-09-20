@@ -1051,12 +1051,16 @@ autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 " ----------------------------------------------------------------------------
 " コミットメッセージは72文字で折り返す
 " http://keijinsonyaban.blogspot.jp/2011/01/git.html
+" 72列目に線を引く
+" Insert modeで始める
 autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
-    \   setlocal textwidth=72
-    \|  setlocal colorcolumn=+1
+    \   setlocal colorcolumn=+1
     \|  startinsert
-" }}}
-" tsv {{{
+" ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
+autocmd MyVimrc FileType gitcommit
+    \  setlocal formatoptions<
+
+" tsv {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
