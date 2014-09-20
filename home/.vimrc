@@ -299,17 +299,17 @@ inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " }}}
 " swap, backup, undo {{{
 " ==============================================================================
-" updatetimeを短くして、CursorHoldに使いたいので、同様にupdatetimeの値を使用する
-" swqpファイルの作成をやめる
-" /*
-" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
-"   set directory&
-"   set directory-=~/tmp
-"   " 他の人が編集する可能性がない場合はswapファイルを作成しない
-"   if has('win32') || has('mac')
-"       set noswapfile
-"   endif
-" */
+" updatetimeを短くして、CursorHoldに使うので
+" swap fileがupdatetimeごとに作成されないようにする
+set noswapfile
+
+"" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
+""   set directory&
+""   set directory-=~/tmp
+""   " 他の人が編集する可能性がない場合はswapファイルを作成しない
+""   if has('win32') || has('mac')
+""       set noswapfile
+""   endif
 
 " 富豪的バックアップ
 " http://d.hatena.ne.jp/viver/20090723/p1
