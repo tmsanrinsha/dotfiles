@@ -205,6 +205,8 @@ elif [[ `uname` = Darwin ]]; then
         brew-install mercurial
         brew-install nkf
         brew-install node
+        brew-install php56
+        brew-install php56-yaml
         brew-install pwgen
         brew-install python
         brew-install ruby

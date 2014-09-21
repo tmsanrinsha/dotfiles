@@ -89,6 +89,8 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
+        " 補完がエラーが発生する
+        " Composerプロジェクトのルートディレクトリでvimを開く必要があり
         " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
         "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
         "     \   'autoload': {'filetypes': 'php'}
@@ -792,7 +794,6 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         let g:acp_enableAtStartup = 0
         " Use neocomplcache.
         execute 'let g:'.s:neocom_.'enable_at_startup = 1'
-        execute 'let g:'.s:neocom_.'enable_auto_select = 0'
         " Use smartcase.
         execute 'let g:'.s:neocom_.'enable_smart_case = 1'
         execute 'let g:'.s:neocom_.'enable_ignore_case = 1'
@@ -826,6 +827,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
 
         let g:neocomplcache_enable_auto_delimiter = 0
 
+        " let g:neocomplete#sources#tags#cache_limit_size = 1000000
         " 使用する補完の種類を減らす
         " http://alpaca-tc.github.io/blog/vim/neocomplete-vs-youcompleteme.html
         " 現在のSourceの取得は 
@@ -881,7 +883,6 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
         augroup END
@@ -1000,8 +1001,9 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
             execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
-            execute 'inoremap <expr><CR> ' . s:neocom . '#smart_close_popup()."\<CR>"'
+            execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
             " 補完候補が表示されている場合は確定。そうでない場合は改行
+            " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
             " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
         endif
         " }}}
@@ -1012,10 +1014,6 @@ if neobundle#is_installed("neocomplete")
     " let g:neocomplete#cursor_hold_i_time=100
 endif
 "}}}
-" Valloric/Youcompleteme {{{
-" ==============================================================================
-let g:ycm_filetype_whitelist = { 'java': 1 }
-" }}}
 " neosnippet {{{
 " ==============================================================================
 if neobundle#is_installed('neosnippet')
@@ -1042,7 +1040,24 @@ if neobundle#is_installed('neosnippet')
     endfunction
 endif
 " }}}
-" vim-quickrun {{{
+" Valloric/Youcompleteme {{{
+" ==============================================================================
+let g:ycm_filetype_whitelist = { 'java': 1 }
+" }}}
+" PHP {{{1
+" ============================================================================
+autocmd MyVimrc FileType php call s:setOmniFunc()
+
+function! s:setOmniFunc()
+    if neobundle#is_installed('phpcomplete-extended') &&
+        \   phpcomplete_extended#is_phpcomplete_extended_project()
+        setlocal omnifunc=phpcomplete_extended#CompletePHP
+    else
+        setlocal omnifunc=phpcomplete#CompletePHP
+    endif
+endfunction
+
+" vim-quickrun {{{1
 " ==============================================================================
 if neobundle#is_installed('vim-quickrun')
     noremap <Leader>r :QuickRun<CR>
@@ -1539,8 +1554,10 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
         nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
+        " nnoremapだと<C-r><C-g>とrのremapができないのでnmap
+        " nmapだと:が;になってしまうので[Colon]を使う
         autocmd MyVimrc FileType gitcommit
-            \   nmap <buffer> [Space]r [Colon]call system('rm "'.expand('%:h:h').'/<C-r><C-g>"')<CR>r
+            \   nmap <buffer> [Space]r [Colon]call system('rm -r "'.expand('%:h:h').'/<C-r><C-g>"')<CR>r
 
         " Gitリポジトリ以下のときに、Ctagsを実行 {{{
         " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html

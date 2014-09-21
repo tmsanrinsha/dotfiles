@@ -689,7 +689,7 @@ nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 set cryptmethod=blowfish
 autocmd MyVimrc BufReadPost *
 \   if &key != ""
-\|      set noswapfile nowritebackup viminfo= nobackup noshelltemp history=0 secure
+\|      setlocal noswapfile nowritebackup noshelltemp secure
 \|  endif
 
 " man {{{1
