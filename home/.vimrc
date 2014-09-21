@@ -1021,7 +1021,7 @@ autocmd MyVimrc FileType yaml
 " ----------------------------------------------------------------------------
 " keywordprgが設定されてない場合はKでカーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
-    \   setlocal keywordprg=
+    \   setlocal keywordprg=:help
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
 let g:vim_indent_cont = &sw
