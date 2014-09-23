@@ -711,17 +711,21 @@ set printfont=Andale\ Mono:h12:cUTF8
 "}}}
 " Quickfix {{{
 " ==============================================================================
-nnoremap [q :cprevious<CR>   " 前へ
-nnoremap ]q :cnext<CR>       " 次へ
-nnoremap [Q :<C-u>cfirst<CR> " 最初へ
-nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+nnoremap [Q :cprevious<CR>
+nnoremap ]Q :cnext<CR>
 noremap [quickfix] <Nop>
 nmap <Leader>q [quickfix]
 noremap [quickfix]o :copen<CR>
-noremap [quickfix]c :cclose<CR>
-nmap <Leader>l [location]
-noremap [location]o :lopen<CR>
-noremap [location]c :lclose<CR>
+noremap [quickfix]q :cclose<CR>
+nnoremap [L :<C-u>lprevious<CR>
+nnoremap ]L :<C-u>lnext<CR>
+noremap [,location] <Nop>
+nmap <Leader>l [,location]
+noremap [,location]o :lopen<CR>
+noremap [,location]q :lclose<CR>
+
+" 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
+" http://www.vim.org/scripts/script.php?script_id=4449
 
 " show quickfix automatically
 " これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト

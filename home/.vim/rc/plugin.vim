@@ -170,6 +170,11 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
 
         " Vimperatorのクイックヒント風にカーソル移動
         NeoBundleLazy 'Lokaltog/vim-easymotion'
+        " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
+        " http://www.vim.org/scripts/script.php?script_id=4449
+        NeoBundle 'QuickFixCurrentNumber', {
+            \   'depends': 'ingo-library'
+            \}
         NeoBundle 'terryma/vim-multiple-cursors'
 
         NeoBundleLazy 'thinca/vim-ref', {
