@@ -136,7 +136,7 @@ augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
     autocmd ColorScheme *
         \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
-        \|  highlight Normal ctermbg=233 guibg=#1B1D1E
+        " \|  highlight Normal ctermbg=233 guibg=#1B1D1E
 augroup END
 " }}}
 
@@ -744,14 +744,14 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
 " colorscheme {{{1
 " ==============================================================================
-set background=dark
 if isdirectory(expand('~/.vim/bundle/my_molokai'))
+    set background=dark
     colorscheme molokai-customized
 else
     colorscheme default
 endif
-let g:solarized_termcolors=256
-let g:solarized_contrast = "high"
+" let g:solarized_termcolors=256
+" let g:solarized_contrast = "high"
 " colorscheme solarized
 
 " color {{{1

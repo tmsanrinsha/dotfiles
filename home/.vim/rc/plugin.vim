@@ -263,7 +263,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \       'mac':     'ant -Declipse.home=' . g:eclipse_home
             \                     .' -Dvim.files=' . expand('~/.vim/bundle/eclim'),
             \   },
-            \   'autoload': {'commands': ['PingEclim']},
+            \   'autoload': {
+            \       'filetypes': 'java',
+            \       'commands': 'PingEclim',
+            \   },
             \   'external_commands': 'ant',
             \   'disables': !exists(g:eclipse_home),
             \}
