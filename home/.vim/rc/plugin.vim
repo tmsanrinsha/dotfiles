@@ -1562,10 +1562,20 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
         nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
-        " nnoremapだと<C-r><C-g>とrのremapができないのでnmap
-        " nmapだと:が;になってしまうので[Colon]を使う
-        autocmd MyVimrc FileType gitcommit
-            \   nmap <buffer> [Space]r [Colon]call system('rm -r "'.expand('%:h:h').'/<C-r><C-g>"')<CR>r
+        ""
+        " gitcommitでカーソル行のファイルをrmする
+        function! s:gitcommitRm()
+            if executable('rmtrash')
+                let s:my_rm_commant = 'rmtrash'
+            else
+                let s:my_rm_commant = 'rm -r'
+            endif
+            " nnoremapだと<C-r><C-g>とrのremapができないのでnmap
+            " nmapだと:が;になってしまうので[Colon]を使う
+            execute   "nmap <buffer> [Space]r [Colon]call system('" . s:my_rm_commant . " \"' . expand('%:h:h') . '/<C-r><C-g>\"')<CR>r"
+        endfunction
+
+        autocmd MyVimrc FileType gitcommit call s:gitcommitRm()
 
         " Gitリポジトリ以下のときに、Ctagsを実行 {{{
         " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
