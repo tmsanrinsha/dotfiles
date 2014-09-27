@@ -1546,8 +1546,10 @@ let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
-" vim-fugitive {{{
+" Git {{{
 " ============================================================================
+" vim-fugitive {{{
+" ----------------------------------------------------------------------------
 if neobundle#is_installed('vim-fugitive')
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
@@ -1609,7 +1611,7 @@ if neobundle#is_installed('gitv')
         autocmd MyVimrc FileType gitv
             \   setlocal iskeyword+=/,-,.
             \|  nnoremap <buffer> C :<C-u>Git checkout <C-r><C-w><CR>
-            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase -i <C-r>=GitvGetCurrentHash()<CR><CR>
             \|  nnoremap <buffer> <Space>rv :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
             \|  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
             \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
