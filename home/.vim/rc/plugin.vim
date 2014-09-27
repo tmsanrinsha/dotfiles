@@ -256,7 +256,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " NeoBundle "tpope/vim-commentary"
 
         " eclipseと連携 {{{2
-        if empty(g:eclipse_home)
+        if ! exists('g:eclipse_home')
             if has('win32') && isdirectory(expand('~/eclipse'))
                 let g:eclipse_home = escape(expand('~/eclipse'), '\')
             elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
