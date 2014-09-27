@@ -1461,6 +1461,8 @@ endif
 " ============================================================================
 if neobundle#is_installed('eclim')
 
+    " エラーのマークがずれる場合はエンコーディングが間違っている
+    " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
     let s:hooks = neobundle#get_hooks("eclim")
 
     function! s:hooks.on_source(bundle)
