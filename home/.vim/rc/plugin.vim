@@ -170,6 +170,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
 
         " Vimperatorのクイックヒント風にカーソル移動
         NeoBundleLazy 'Lokaltog/vim-easymotion'
+
         " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
         " http://www.vim.org/scripts/script.php?script_id=4449
         NeoBundle 'QuickFixCurrentNumber', {
@@ -234,6 +235,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " バックアップ
         NeoBundle 'savevers.vim'
         " }}}
+
+        " noeol, eolを保ったまま保存
+        NeoBundle 'PreserveNoEOL'
         " ファイルを保存時にシンタックスのチェック
         NeoBundle 'scrooloose/syntastic'
         " NeoBundle 'osyo-manga/vim-watchdogs', {
@@ -1445,8 +1449,11 @@ function! ExistOrMakeSaveversDirs()
         call mkdir(g:savevers_dirs, "p")
     endif
 endfunction
-" }}}
-" scrooloose/syntastic {{{
+
+" PreserveNoEOL {{{1
+" ============================================================================
+let g:PreserveNoEOL = 1
+" scrooloose/syntastic {{{1
 " ============================================================================
 if neobundle#is_installed('syntastic')
     let g:syntastic_mode_map = {
