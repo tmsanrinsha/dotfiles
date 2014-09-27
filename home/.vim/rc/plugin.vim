@@ -256,13 +256,15 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " NeoBundle "tpope/vim-commentary"
 
         " eclipseと連携 {{{2
-        if has('win32') && isdirectory(expand('~/eclipse'))
-            let g:eclipse_home = escape(expand('~/eclipse'), '\')
-        elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
-            " caskでインストールした場合、設定するディレクトリはEclipse.appの実体の一つ上のディレクトリ
-            let g:eclipse_home = resolve(expand('~/Applications/Eclipse.app/..'))
-        else
-            let g:eclipse_home = ''
+        if empty(g:eclipse_home)
+            if has('win32') && isdirectory(expand('~/eclipse'))
+                let g:eclipse_home = escape(expand('~/eclipse'), '\')
+            elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
+                " caskでインストールした場合、設定するディレクトリはEclipse.appの実体の一つ上のディレクトリ
+                let g:eclipse_home = resolve(expand('~/Applications/Eclipse.app/..'))
+            else
+                let g:eclipse_home = ''
+            endif
         endif
 
         NeoBundleLazy 'ervandew/eclim', {
