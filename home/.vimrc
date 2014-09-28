@@ -253,6 +253,8 @@ nnoremap [Colon] :
 inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
+" ファイルのパスをヤンク
+nnoremap yp :let @" = expand("%")<CR>
 
 " カーソルを表示行で移動する
 nnoremap j gj
