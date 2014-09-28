@@ -27,7 +27,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
 
         " recommended to install
         if ! (has('win32') && has('kaoriya'))
-            NeoBundle 'Shougo/vimproc', {
+            NeoBundle 'Shougo/vimproc.vim', {
                 \   'build' : {
                 \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
                 \     'cygwin'  : 'make -f make_cygwin.mak',
@@ -49,19 +49,23 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \       'unite_sources': ['file_mru', 'directory_mru']
             \   }
             \}
+        NeoBundleLazy 'Shougo/neossh.vim', {
+            \   'autoload': {
+            \       'unite_sources': ['ssh']
+            \   }
+            \}
         " unite-で始まるプラグインは自動的にunite_sourcesがセットされる
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
         NeoBundleLazy 'sorah/unite-ghq'
-        NeoBundleLazy 'Shougo/unite-ssh'
         NeoBundle 'ujihisa/vimshell-ssh'
         "NeoBundle 'Shougo/unite-sudo'
         " }}}
         " http://archiva.jp/web/tool/vim_grep2.html
         NeoBundle 'thinca/vim-qfreplace'
 
-        NeoBundle 'Shougo/vimfiler'
+        NeoBundle 'Shougo/vimfiler.vim'
         "" shell {{{
         NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
@@ -81,9 +85,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "" 補完・入力補助 {{{
         """ 自動補完 {{{
         if has('lua') && MyHasPatch('patch-7.3.825')
-            NeoBundleLazy "Shougo/neocomplete", {"autoload": {"insert": 1}}
+            NeoBundleLazy "Shougo/neocomplete.vim", {"autoload": {"insert": 1}}
         else
-            NeoBundleLazy "Shougo/neocomplcache", {"autoload": {"insert": 1}}
+            NeoBundleLazy "Shougo/neocomplcache.vim", {"autoload": {"insert": 1}}
         endif
         NeoBundleLazy "Shougo/context_filetype.vim", {"autoload": {"insert": 1}}
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
@@ -313,7 +317,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " NeoBundle 'plasticboy/vim-markdown'
         " forked from plasticboy/vim-markdown
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
-        NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk/vim-markdown'}
+        NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk_vim-markdown'}
         " NeoBundle 'tmsanrinsha/vim-markdown'
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
             \   'autoload': {'filetypes': 'markdown'}
@@ -592,6 +596,7 @@ if neobundle#is_installed('unite.vim')
     " }}}
 
     " grep {{{
+    " ------------------------------------------------------------------------
     if executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
@@ -1537,7 +1542,7 @@ if neobundle#is_installed('vim-markdown-folding')
     endfunction
 endif
 
-" console.vim {{{1
+" vimconsole.vim {{{1
 " ==============================================================================
 if neobundle#is_installed('vimconsole.vim')
     let g:vimconsole#auto_redraw = 1
@@ -1546,6 +1551,7 @@ if neobundle#is_installed('vimconsole.vim')
                     \    nnoremap <buffer> <F12> :VimConsoleToggle<CR>
                     \ |  nnoremap <buffer> <C-l> :VimConsoleClear<CR>
     augroup END
+    let g:vimconsole#maximum_caching_objects_count = 100
 endif
 " }}}
 " instant-markdown-vim {{{
