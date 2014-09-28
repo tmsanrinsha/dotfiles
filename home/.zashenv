@@ -5,8 +5,8 @@
 function command_exists {
   hash "$1" 2>/dev/null;
 }
-# PATHの設定 {{{
-# ------------------------------------------------------------------------------
+# PATHの設定 {{{1
+# ============================================================================
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数
 pathmunge () {
     case ":${PATH}:" in
@@ -80,12 +80,19 @@ if [[ `uname` = Darwin ]]; then
     # ruby
     export PATH=/usr/local/opt/ruby/bin:$PATH
 fi
-# }}}
+
+# Environment Variables {{{1
+# ============================================================================
+export LANG='ja_JP.UTF-8'
+if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+    export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+else
+    export EDITOR='vim'
+fi
 export SRC_ROOT=$HOME/git
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
-export GOPATH=$HOME/.go
-pathmunge $GOPATH/bin
-# alias {{{
+
+# alias {{{1
 # ============================================================================
 alias l='ls'
 alias ll='ls -l'
@@ -108,15 +115,15 @@ alias pg='ps aux | grep -v grep | grep'
 alias pe='ps aux | egrep'
 alias pk='pkill -f'
 
-# tree {{{
-# ------------------------------------------------------------------------------
+# tree {{{2
+# ----------------------------------------------------------------------------
 # -F:ディレクトリなら/をつけるなど
 # -C:color
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
-# }}}
-# vim {{{
-# ------------------------------------------------------------------------------
+
+# vim {{{2
+# ----------------------------------------------------------------------------
 if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
     alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 fi
@@ -128,8 +135,8 @@ if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
 fi
 alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
-# }}}
-# git {{{
+
+# git {{{2
 # ------------------------------------------------------------------------------
 alias gal='alias | grep git'
 alias ga='git add'
@@ -179,6 +186,11 @@ alias fxg='fxg.sh'
 alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
+# }}}
+# Go language {{{1
+# ============================================================================
+export GOPATH=$HOME/.go
+pathmunge $GOPATH/bin
 # }}}
 
 if [ -f ~/.zashenv.local ]; then
