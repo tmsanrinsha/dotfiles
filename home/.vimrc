@@ -1053,6 +1053,7 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "  autocmd BufWritePost .vimrc nested source $MYVIMRC
 "  " autocmd BufWritePost .vimrc RcbVimrc
 "augroup END
+autocmd MyVimrc BufWritePost *.vim source %
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 
 " Git {{{2
