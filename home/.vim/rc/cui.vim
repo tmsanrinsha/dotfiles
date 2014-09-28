@@ -45,8 +45,8 @@ if v:version > 701
 endif
 
 " 端末でCtrl+Spaceを打つと<NUL>(^@)が送られるのでmapしておく
-map  <NUL> <C-Space>
-map! <NUL> <C-Space>
+imap  <NUL> <C-Space>
+" map! <NUL> <C-Space>
 
 set <S-Left>=[1;2D
 set <S-Right>=[1;2C

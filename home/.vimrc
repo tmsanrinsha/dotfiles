@@ -476,8 +476,9 @@ set showtabline=1
 nnoremap [TAB] <Nop>
 nmap <C-@> [TAB]
 " 一番右にタブを作る
-nnoremap <A-t> :tablast <Bar> tabnew<CR>
-nnoremap [TAB]q :tabc<CR>
+" nnoremap <A-t> :tablast <Bar> tabnew<CR>
+nnoremap <A-t> :tabnew<CR>
+nnoremap [TAB]q :tabclose<CR>
 
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <S-C-Tab> :tabp<CR>
@@ -1023,13 +1024,14 @@ autocmd MyVimrc FileType yaml
 " }}}
 " vim {{{2
 " ----------------------------------------------------------------------------
-" keywordprgが設定されてない場合はKでカーソル下のキーワードを:helpで開く (:help K)
+" カーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
     \   setlocal keywordprg=:help
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
+" \を打った時のindentの幅
 let g:vim_indent_cont = &sw
-" vimrcの編集 {{{3
+
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
 nnoremap [VIM] <Nop>
