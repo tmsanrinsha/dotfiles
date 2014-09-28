@@ -618,7 +618,7 @@ if neobundle#is_installed('unite.vim')
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
     " カレントバッファのディレクトリ以下に対してgrep
-    execute "nnoremap [unite]gb :<C-u>Unite grep:".expand('%:p:h')."<CR>"
+    nnoremap [unite]gb :<C-u>execute "Unite grep:".expand('%:p:h')<CR>
     " 全バッファに対してgrep
     nnoremap [unite]gB :<C-u>Unite grep:$buffers<CR>
     " プロジェクト内のファイルに対してgrep
