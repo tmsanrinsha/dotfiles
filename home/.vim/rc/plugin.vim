@@ -866,7 +866,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         let g:neocomplcache_sources_list.php  = ['tags_complete', 'snippets_complete', 'dictionary_complete', 'omni_complete', 'member_complete', 'include_complete', 'buffer_complete', 'filename_complete', 'filename_include']
 
         " 補完候補の順番
-        if neobundle#is_installed("neocomplete")
+        if neobundle#is_installed("neocomplete.vim")
             " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
             call neocomplete#custom#source('file'        , 'rank', 400)
             call neocomplete#custom#source('file/include', 'rank', 400)
@@ -1438,19 +1438,21 @@ endif
 " savevers.vim {{{1
 " ============================================================================
 set backup
-set patchmode=.clean
+set patchmode=.bak
+execute "set backupskip+=*" . &patchmode
+execute "set suffixes+=" . &patchmode
 
 let g:versdiff_no_resize = 0
 
-autocmd MyVimrc BufEnter * call UpdateSaveversDirs()
-function! UpdateSaveversDirs()
+autocmd MyVimrc BufEnter * call s:updateSaveversDirs()
+function! s:updateSaveversDirs()
     let s:basedir = $VIM_CACHE_DIR . "/savevers"
     " ドライブ名を変更して、連結する (e.g. C: -> /C/)
     let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
 endfunction
 
-autocmd MyVimrc BufWrite * call UpdateSaveversDirs() | call ExistOrMakeSaveversDirs()
-function! ExistOrMakeSaveversDirs()
+autocmd MyVimrc BufWrite * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
+function! s:existOrMakeSaveversDirs()
     if !isdirectory(g:savevers_dirs)
         call mkdir(g:savevers_dirs, "p")
     endif
