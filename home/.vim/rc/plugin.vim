@@ -67,7 +67,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
 
         NeoBundle 'Shougo/vimfiler.vim'
         "" shell {{{
-        NeoBundleLazy 'Shougo/vimshell', {
+        NeoBundleLazy 'Shougo/vimshell.vim', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
             \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
             \}
@@ -722,7 +722,7 @@ autocmd MyVimrc BufLeave vimfiler*
 "}}}
 " vimshell {{{
 " ============================================================================
-if neobundle#is_installed('vimshell')
+if neobundle#is_installed('vimshell.vim')
     nmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H  :VimShellPop<CR>
     nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
@@ -733,7 +733,7 @@ if neobundle#is_installed('vimshell')
     nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
     nnoremap [VIMSHELL]s  :VimShellSendString<CR>
 
-    let s:hooks = neobundle#get_hooks("vimshell")
+    let s:hooks = neobundle#get_hooks("vimshell.vim")
     function! s:hooks.on_source(bundle)
         nnoremap [VIMSHELL] <Nop>
         " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
@@ -796,13 +796,13 @@ if neobundle#is_installed('Conque-Shell') " {{{
 endif "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
-if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplete')
-    if neobundle#is_installed("neocomplete")
-        let s:hooks = neobundle#get_hooks("neocomplete")
+if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocomplete.vim')
+    if neobundle#is_installed("neocomplete.vim")
+        let s:hooks = neobundle#get_hooks("neocomplete.vim")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
     else
-        let s:hooks = neobundle#get_hooks("neocomplcache")
+        let s:hooks = neobundle#get_hooks("neocomplcache.vim")
         let s:neocom = 'neocomplcache'
         let s:neocom_ = 'neocomplcache_'
     endif
@@ -824,7 +824,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         let g:neocomplete#enable_camel_case = 0
 
         " Set minimum syntax keyword length.
-        if neobundle#is_installed('neocomplete')
+        if neobundle#is_installed('neocomplete.vim')
             let g:neocomplete#sources#syntax#min_syntax_length = 3
         else
             let g:neocomplcache_min_syntax_length = 3
@@ -874,7 +874,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         endif
 
 
-        if neobundle#is_installed('neocomplete')
+        if neobundle#is_installed('neocomplete.vim')
             let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
         else
             let g:neocomplcache_temporary_dir = $VIM_CACHE_DIR . '/neocomplcache'
@@ -1027,7 +1027,7 @@ if neobundle#is_installed('neocomplcache') || neobundle#is_installed('neocomplet
         " }}}
     endfunction
 endif
-if neobundle#is_installed("neocomplete")
+if neobundle#is_installed("neocomplete.vim")
     " let g:neocomplete#enable_cursor_hold_i=1
     " let g:neocomplete#cursor_hold_i_time=100
 endif
