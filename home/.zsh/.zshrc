@@ -433,4 +433,7 @@ else
     test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 fi
 
-alias | awk '{print "alias "$0}' >! ~/.vim/rc/.vimshrc
+alias | awk '{print "alias "$0}' \
+    | grep -v 'ls --color' \
+    | grep -v 'ls -G' \
+    | grep -v 'vi=vim' >! ~/.vim/rc/.vimshrc
