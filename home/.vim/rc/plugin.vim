@@ -58,7 +58,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
-        NeoBundleLazy 'sorah/unite-ghq'
+        " NeoBundleLazy 'sorah/unite-ghq'
         NeoBundle 'ujihisa/vimshell-ssh'
         "NeoBundle 'Shougo/unite-sudo'
         " }}}
@@ -541,7 +541,7 @@ if neobundle#is_installed('vim-singleton') && has('gui_running')
     call singleton#enable()
 endif
 
-" Shougo/unite.vim {{{1
+" unite.vim {{{1
 " ============================================================================
 if neobundle#is_installed('unite.vim')
     let g:unite_data_directory = $VIM_CACHE_DIR.'/unite'
@@ -665,7 +665,30 @@ if neobundle#is_installed('unite.vim')
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
 endif
 "}}}
-" h1mesuke/unite-outline {{{
+" neossh.vim {{{1
+" =========================================================================
+" let g:neossh#ssh_command = 'ftp.sh -p PORT HOSTNAME'
+" let g:neossh#list_command = 'ls'
+
+" let ls -lFa',
+" let g:neossh#copy_directory_command',
+" let scp -P PORT -q -r $srcs $dest',
+" let g:neossh#copy_file_command',
+" let scp -P PORT -q $srcs $dest',
+" let g:neossh#delete_file_command',
+" let rm $srcs',
+" let g:neossh#delete_directory_command',
+" let rm -r $srcs',
+" let g:neossh#move_command',
+" let mv $srcs $dest',
+" let g:neossh#mkdir_command',
+" let mkdir $dest',
+" let g:neossh#newfile_command',
+" let touch $dest',
+
+" let g:unite_source_ssh_enable_debug = 1
+
+" unite-outline {{{
 " =========================================================================
 if neobundle#is_installed('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
@@ -694,12 +717,12 @@ autocmd MyVimrc BufEnter *
 " }}}
 " unite-ghq {{{1
 " ============================================================================
-nnoremap [unite]dg :<C-u>Unite ghq<CR>
-
-let s:hooks = neobundle#get_hooks("unite-ghq")
-function! s:hooks.on_source(bundle)
-    call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
-endfunction
+" nnoremap [unite]dg :<C-u>Unite ghq<CR>
+"
+" let s:hooks = neobundle#get_hooks("unite-ghq")
+" function! s:hooks.on_source(bundle)
+"     call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
+" endfunction
 
 " vimfiler {{{1
 " ==============================================================================
