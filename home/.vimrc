@@ -42,6 +42,14 @@ function! HasPlugin(plugin) " {{{
     " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
     return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
 endfunction " }}}
+" バッファ名nameを持つウィンドウに移動する
+function! GotoWin(name) " {{{
+    let nr = bufwinnr(a:name)
+    if nr > 0
+        execute nr . 'wincmd w'
+    endif
+    return nr
+endfunction " }}}
 function! IsInstalled(plugin) " {{{
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
     " neobundle#is_installedを使う
