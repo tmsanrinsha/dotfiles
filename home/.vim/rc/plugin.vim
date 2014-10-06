@@ -399,7 +399,14 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundle 'jonathanfilip/vim-lucius'
 
         " ステータスラインをカスタマイズ
-        NeoBundle 'Lokaltog/vim-powerline'
+        " NeoBundle 'Lokaltog/vim-powerline'
+        NeoBundle 'itchyny/lightline.vim', {
+            \   'depends': [
+            \       'tpope/vim-fugitive',
+            \       'majutsushi/tagbar',
+            \       'osyo-manga/vim-anzu',
+            \   ]
+            \}
 
         " NeoBundle 'luochen1990/rainbow'
 
@@ -1658,7 +1665,107 @@ if neobundle#is_installed("open-browser.vim")
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 
+" lightline, statusline {{{1
+" ============================================================================
+    " \       'paste': '%{&paste?"PASTE":""}',
+    " \       'readonly': '%2*%{&filetype=="help"?"":&readonly?"RO":""}%*',
+    " \       'paste': '%{&paste?"PASTE":""}%R%H%W%q',
+let g:lightline = {
+    \   'colorscheme': 'my_powerline',
+    \   'active': {
+    \       'left': [
+    \           ['mode'],
+    \           ['flag_red'],
+    \           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
+    \       ]
+    \   },
+    \   'component': {
+    \       'flag_red': '%{&paste?"PASTE":""}%R%W%<',
+    \       'flag': '%H%q',
+    \       'lineinfo': '%3l:%-2v',
+    \   },
+    \   'component_visible_condition': {
+    \       'flag': '(&filetype == "help" || &filetype == "qf")',
+    \   },
+    \   'component_function': {
+    \       'mode': 'lightline#mode',
+    \       'fugitive': 'MyFugitive',
+    \       'filename': 'MyFilename',
+    \       'fileformat': 'MyFileformat',
+    \       'filetype': 'MyFiletype',
+    \       'fileencoding': 'MyFileencoding',
+    \       'anzu': 'anzu#search_status',
+    \       'currenttag': 'MyCurrentTag',
+    \   },
+    \   'separator': { 'left': '', 'right': '' },
+    \   'subseparator': { 'left': '|', 'right': '|' },
+    \   'mode_map': {
+    \       'n' : 'N',
+    \       'i' : 'I',
+    \       'R' : 'R',
+    \       'v' : 'V',
+    \       'V' : 'VL',
+    \       'c' : 'C',
+    \       "\<C-v>": 'VB',
+    \       's' : 'S',
+    \       'S' : 'SL',
+    \       "\<C-s>": 'SB',
+    \       '?': '' }
+    \}
+
+" 途中で色変更をするとInsert modeがおかしくなる
+" autocmd MyVimrc ColorScheme *
+"     \   hi User1 ctermfg=red guifg=red
+
+function! MyModified()
+  return &ft =~ 'help\|qf\|gitcommit\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'RO' : ''
+endfunction
+
+function! MyFilename()
+    return (
+    \   &ft == 'vimfiler' ? vimfiler#get_status_string() :
+    \   &ft == 'unite' ? unite#get_status_string() :
+    \   &ft == 'vimshell' ? vimshell#get_status_string() :
+    \   &ft == 'help' ? expand('%:t') :
+    \   &ft == 'qf' ? '' :
+    \   &ft == 'gitcommit' ? '' :
+    \   '' != expand('%:~:.') ? expand('%:~:.') : '[No Name]'
+    \) .
+    \('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 100 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) >100 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 100 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyCurrentTag()
+  return tagbar#currenttag('%s', '')
+endfunction
+
 " rainbow {{{1
+" ============================================================================
 if neobundle#is_installed("rainbow")
     let g:rainbow_active = 1
     let g:rainbow_conf = {

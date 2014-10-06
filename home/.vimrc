@@ -438,16 +438,18 @@ inoremap <silent><C-j> <Esc>:<C-u>call append(expand('.'), '')<CR>ji
 
 " inoremap <Tab> <C-o>:MyIndent<CR>
 
-" ステータスライン {{{1
+" statusline {{{1
 " ==============================================================================
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
-"               0: 全く表示しない
-"               1: ウィンドウの数が2以上のときのみ表示
-"               2: 常に表示
+" 0: 全く表示しない
+" 1: ウィンドウの数が2以上のときのみ表示
+" 2: 常に表示
 set laststatus=2
 
-"set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
-"set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+" lightline.vimで設定
+" set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
+" set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+
 "}}}
 " window {{{
 " ==============================================================================
