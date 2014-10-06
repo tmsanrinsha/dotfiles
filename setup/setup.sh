@@ -179,7 +179,7 @@ elif [[ `uname` = Darwin ]]; then
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
     curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if command_exists brew; then
-        ln -fs /usr/local/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
+        ln -fs $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
 
         # すでにinstallされているとエラーが出るため、コマンドがあるかをチェックしてからインストール
         function brew-install {
@@ -209,6 +209,7 @@ elif [[ `uname` = Darwin ]]; then
         brew-install php56-yaml
         brew-install pwgen
         brew-install python
+        brew install reattach-to-user-namespace
         brew-install ruby
         brew-install tmux
         brew-install tree

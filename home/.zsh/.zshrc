@@ -88,6 +88,8 @@ bg_red=$'\e'"[41m"
 
 PROMPT="${user_color}%n%{${reset_color}%}:${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
 %0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
+# リポジトリの情報を表示
+test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 
 PROMPT2="%_> "
 

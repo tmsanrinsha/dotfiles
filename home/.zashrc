@@ -98,16 +98,21 @@ fi
 
 # screen {{{1
 # ============================================================================
+# test -z $STYでscreenの中にいるか確認できる
+
 #screenがインストールされていて、Screenを起動していないときは自動起動
 #ただし、.screenrcでterm xterm-256colorと設定しているとする
 #if [ $TERM != 'xterm-256color' ];then 
 #    # すでに screen セッションがある場合そこに接続し、なければ作成する
 #    # screenがないときのエラーは/dev/nullに送る
 #    screen -RU 2>/dev/null
+#    # screen -rx || screen -D -RR
 #fi
 # }}}
 # tmux {{{
 # ============================================================================
+# test -z $TMUXでTMUXの中にいるか確認できる
+
 # tmでtmuxのセッションがなければ作り、あったらそこにアタッチする
 # -2は256色のためのオプション
 # macではクリップボードにアクセスできるようにreattach-to-user-namespaceを使う
@@ -118,36 +123,29 @@ fi
 # http://yonchu.hatenablog.com/entry/20120514/1337026014
 function tm {
     # tmuxの中でもscreenの中でもない場合
-    if [ -z "$TMUX" -a -z "$STY" ]; then
-        if type tmux >/dev/null 2>&1; then
-            if tmux has-session >/dev/null 2>&1; then
-                #  セッションがあるならそこにアタッチ
-                tmux -2 attach && echo "tmux attached session "
-            else
-                # Macでコピーできるようにする
-                if [[ $OSTYPE == darwin* ]]; then
-                    if ! hash reattach-to-user-namespace 2>/dev/null; then
-                        brew install reattach-to-user-namespace || echo 'Install failed'
-                    fi
-                    # on OS X force tmux's default command to spawn a shell in the user's namespace
-                    tmux_config='set-option -g default-command "reattach-to-user-namespace -l $SHELL"'
-                fi
-
-                tmux_config=$(cat $HOME/.tmux.conf)"
-$tmux_config
-# シェルのプロンプトをさかのぼる
-bind @ copy-mode \; send-keys ? C-u "$(whoami)": C-m n
-"
-                tmux -2 -f <(echo "$tmux_config") new-session
-            fi
-        elif type screen >/dev/null 2>&1; then
-            screen -rx || screen -D -RR
+    if tmux has-session >/dev/null 2>&1; then
+        #  セッションがあるならそこにアタッチ
+        tmux -2 attach
+    else
+        # Macでコピーできるようにする
+        if [[ $OSTYPE == darwin* ]] && ! hash reattach-to-user-namespace 2>/dev/null; then
+            # on OS X force tmux's default command to spawn a shell in the user's namespace
+            tmux_config='set-option -g default-command "reattach-to-user-namespace -l $SHELL"'
+            # reattach-to-user-namespaceを設定するとcopy-modeでクリップボードコピーをしなくなるのでcopy-pipeする
+            tmux_config="\n"'bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"'
         fi
+
+        tmux_config=$(cat $HOME/.tmux.conf)"
+        $tmux_config
+        # シェルのプロンプトをさかのぼる
+        bind @ copy-mode \; send-keys ? C-u "$(whoami)": C-m n
+        "
+        tmux -2 -f <(echo "$tmux_config") new-session
     fi
 }
 # }}}
 
-if [ $SHLVL -eq 1 ];then # tmux, screenを起動していないとき
+if [ $SHLVL -eq 1 ]; then # tmux, screenを起動していないとき
     # 回線が切られた時にlogoutする。.bash_logout等を実行するための設定
     trap logout HUP
 fi

@@ -312,13 +312,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " NeoBundleLazy 'tpope/vim-markdown', {
         "             \   'autoload' : { 'filetypes' : 'markdown' }
         "             \}
-        " NeoBundle 'tpope/vim-markdown'
         " folding
-        " NeoBundle 'plasticboy/vim-markdown'
         " forked from plasticboy/vim-markdown
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk_vim-markdown'}
-        " NeoBundle 'tmsanrinsha/vim-markdown'
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
             \   'autoload': {'filetypes': 'markdown'}
             \}
@@ -1531,7 +1528,7 @@ endif
 " }}}
 " rcmdnk/vim-markdown {{{1
 " ============================================================================
-if neobundle#is_installed('rcmdnk/vim-markdown')
+if neobundle#is_installed('rcmdnk_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
 endif
 
