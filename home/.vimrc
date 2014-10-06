@@ -450,8 +450,17 @@ set laststatus=2
 " set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
 " set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
 
-"}}}
-" window {{{
+" titlestring {{{1
+" ============================================================================
+" tmux使用時もtitlestringを変更できるように設定する
+if &term == "screen"
+  let &t_ts = "\ePtmux;\e\e]2;"
+  let &t_fs = "\007\e\\"
+endif
+
+let &titlestring = "%{expand('%:p')} @" . hostname() . ""
+
+" window {{{1
 " ==============================================================================
 "nnoremap <M-h> <C-w>h
 "nnoremap <M-j> <C-w>j
