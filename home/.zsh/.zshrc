@@ -303,14 +303,17 @@ setopt share_history
 # }}}
 # set terminal title including current directory {{{1
 #==============================================================================
-case "${TERM}" in
-kterm*|xterm)
-    terminal_title_precmd() {
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-    add-zsh-hook precmd terminal_title_precmd
-    ;;
-esac
+set_terminal_title_string() {
+    case "${TERM}" in
+        kterm*|xterm)
+            echo -ne "\e]2;${HOST%%.*}:${PWD}\007"
+            ;;
+        screen*|xterm-256color) # tmux用
+            echo -ne "\ePtmux;\e\e]2;${HOST%%.*}:${PWD}\007\e\\"
+            ;;
+    esac
+}
+add-zsh-hook precmd set_terminal_title_string
 
 # tmux & screen {{{1
 # ============================================================================
@@ -431,8 +434,6 @@ fi
 
 if [[ `uname` = CYGWIN* ]]; then
     test -f $ZDOTDIR/.zshrc.cygwin && . $ZDOTDIR/.zshrc.cygwin
-else
-    test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 fi
 
 alias | awk '{print "alias "$0}' \
