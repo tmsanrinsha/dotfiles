@@ -1598,7 +1598,7 @@ autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPr
 if neobundle#is_installed('vim-fugitive')
     let s:hooks = neobundle#get_hooks("vim-fugitive")
 
-    function! s:hooks.on_source(bundle)
+    " function! s:hooks.on_source(bundle)
         " Gbrowse ではgit config --global web.browserの値は見てない
         let g:netrw_browsex_viewer = 'rfbrowser'
         nnoremap [fugitive] <Nop>
@@ -1640,7 +1640,7 @@ if neobundle#is_installed('vim-fugitive')
         endfunction
         command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
         " }}}
-    endfunction
+    " endfunction
 endif
 " }}}
 " gitv {{{
