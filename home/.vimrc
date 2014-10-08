@@ -52,9 +52,9 @@ function! GotoWin(name) " {{{
 endfunction " }}}
 function! IsInstalled(plugin) " {{{
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
-    " neobundle#is_installedを使う
-    " 直接使うとneobundleがない場合にエラーが出るので確認
-    if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
+    " runtimepathのチェックでプラグインがインストールされているかをチェックできない
+    " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
+    if exists('*neobundle#is_installed')
         return neobundle#is_installed(a:plugin)
     else
         return 0
