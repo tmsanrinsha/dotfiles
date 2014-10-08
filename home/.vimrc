@@ -458,6 +458,7 @@ if &term == "screen"
   let &t_fs = "\007\e\\"
 endif
 
+set title
 let &titlestring = "%{expand('%:p')} @" . hostname() . ""
 
 " window {{{1
