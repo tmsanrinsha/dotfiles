@@ -1468,6 +1468,7 @@ endif
 " ============================================================================
 set backup
 set patchmode=.bak
+set backupdir=$VIM_CACHE_DIR/savevers
 execute "set backupskip+=*" . &patchmode
 execute "set suffixes+=" . &patchmode
 
