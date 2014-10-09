@@ -128,11 +128,11 @@ function tm {
         tmux -2 attach
     else
         # Macでコピーできるようにする
-        if [[ $OSTYPE == darwin* ]] && ! hash reattach-to-user-namespace 2>/dev/null; then
+        if [[ $OSTYPE == darwin* ]] && hash reattach-to-user-namespace 2>/dev/null; then
             # on OS X force tmux's default command to spawn a shell in the user's namespace
             tmux_config='set-option -g default-command "reattach-to-user-namespace -l $SHELL"'
             # reattach-to-user-namespaceを設定するとcopy-modeでクリップボードコピーをしなくなるのでcopy-pipeする
-            tmux_config="\n"'bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"'
+            tmux_config="$tmux_config\n"'bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"'
         fi
 
         tmux_config=$(cat $HOME/.tmux.conf)"

@@ -250,8 +250,10 @@ endif
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
 " [Space]でmapするようにするとVimFilerのスペースキーでキー待ちが発生しなくなる
-noremap [Space]   <Nop>
-map <Space> [Space]
+nnoremap [Space]   <Nop>
+xnoremap [Space]   <Nop>
+nmap <Space> [Space]
+xmap <Space> [Space]
 
 noremap ; :
 noremap : ;

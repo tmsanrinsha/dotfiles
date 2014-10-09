@@ -1081,9 +1081,7 @@ if neobundle#is_installed('neosnippet')
         let g:neosnippet#enable_snipmate_compatibility = 1
 
         " Tell Neosnippet about the other snippets
-        if filereadable(expand('~/.vim/bundle/vim-snippets/snippets'))
-            let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-        endif
+        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
     endfunction
 endif
 " }}}
