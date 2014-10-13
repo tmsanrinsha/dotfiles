@@ -1454,15 +1454,17 @@ autocmd MyVimrc InsertLeave *
 " 現在のカーソルの位置以外の折りたたみを閉じる
 nnoremap z- zMzv
 nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
+
 if neobundle#is_installed('foldCC')
-    set foldtext=foldCC#foldtext()
+    set foldtext=FoldCCtext()
     set foldcolumn=1
     set fillchars=vert:\|
     let g:foldCCtext_head = '"+ " . v:folddashes . " "'
     " let g:foldCCtext_head = 'repeat(" ", v:foldlevel) . "+ "'
     let g:foldCCtext_tail = 'printf("[Lv%d %3d]", v:foldlevel, v:foldend-v:foldstart+1)'
-    nnoremap <Leader><C-g> :echo foldCC#navi()<CR>
+    nnoremap <Leader><C-g> :echo FoldCCnavi()<CR>
 endif
+
 " savevers.vim {{{1
 " ============================================================================
 set backup
