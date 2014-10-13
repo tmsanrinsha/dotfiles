@@ -85,37 +85,37 @@ set ruler
 set updatetime=500
 set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 augroup MyVimrc
-  " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-  " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-  autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
-  autocmd CursorHold  * call s:auto_cursorline('CursorHold')
-  autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
-  autocmd WinEnter * call s:auto_cursorline('WinEnter')
-  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+    " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+    " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+    autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
+    autocmd CursorHold  * call s:auto_cursorline('CursorHold')
+    autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
+    autocmd WinEnter * call s:auto_cursorline('WinEnter')
+    autocmd WinLeave * call s:auto_cursorline('WinLeave')
 
-  let s:cursorline_lock = 0
-  function! s:auto_cursorline(event)
-    if a:event ==# 'WinEnter'
-      setlocal cursorline
-      let s:cursorline_lock = 2
-    elseif a:event ==# 'WinLeave'
-      setlocal cursorline
-    elseif a:event ==# 'CursorMoved'
-      if s:cursorline_lock
-        if 1 < s:cursorline_lock
-          let s:cursorline_lock = 1
-        else
-          setlocal nocursorline
-          let s:cursorline_lock = 0
+    let s:cursorline_lock = 0
+    function! s:auto_cursorline(event)
+        if a:event ==# 'WinEnter'
+            setlocal cursorline
+            let s:cursorline_lock = 2
+        elseif a:event ==# 'WinLeave'
+            setlocal cursorline
+        elseif a:event ==# 'CursorMoved'
+            if s:cursorline_lock
+                if 1 < s:cursorline_lock
+                    let s:cursorline_lock = 1
+                else
+                    setlocal nocursorline
+                    let s:cursorline_lock = 0
+                endif
+            endif
+        elseif a:event ==# 'CursorHold'
+            setlocal cursorline
+            let s:cursorline_lock = 1
+        elseif a:event ==# 'InsertEnter'
+            setlocal nocursorline
         endif
-      endif
-    elseif a:event ==# 'CursorHold'
-      setlocal cursorline
-      let s:cursorline_lock = 1
-    elseif a:event ==# 'InsertEnter'
-      setlocal nocursorline
-    endif
-  endfunction
+    endfunction
 augroup END
 " }}}
 
@@ -237,8 +237,8 @@ set ambiwidth=double
 " key mappingに対しては9000ミリ秒待ち、key codeに対しては10ミリ秒待つ
 set timeout timeoutlen=9000 ttimeoutlen=10
 if exists('+macmeta')
-   " MacVimでMETAキーを使えるようにする
-   set macmeta
+    " MacVimでMETAキーを使えるようにする
+    set macmeta
 endif
 " let mapleader = "\<space>"
 
@@ -451,8 +451,8 @@ set laststatus=2
 " ============================================================================
 " tmux使用時もtitlestringを変更できるように設定する
 if &term == "screen"
-  let &t_ts = "\ePtmux;\e\e]2;"
-  let &t_fs = "\007\e\\"
+    let &t_ts = "\ePtmux;\e\e]2;"
+    let &t_fs = "\007\e\\"
 endif
 
 set title
@@ -575,17 +575,17 @@ set history=100 "保存する履歴の数
 
 autocmd MyVimrc CmdwinEnter * call s:init_cmdwin()
 function! s:init_cmdwin()
-  nnoremap <buffer> q :<C-u>quit<CR>
-  nnoremap <buffer> <TAB> :<C-u>quit<CR>
-  inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-  inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-  inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+    nnoremap <buffer> q :<C-u>quit<CR>
+    nnoremap <buffer> <TAB> :<C-u>quit<CR>
+    inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+    inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+    inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
 
-  " Completion.
-  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <buffer><expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
+    " Completion.
+    inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <buffer><expr><C-p>  pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
 
-  startinsert!
+    startinsert!
 endfunction
 " }}}
 " 検索・置換 {{{
@@ -617,7 +617,7 @@ vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
 vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
 
 function! s:search_forward_p()
-  return exists('v:searchforward') ? v:searchforward : 1
+    return exists('v:searchforward') ? v:searchforward : 1
 endfunction
 
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
@@ -790,20 +790,20 @@ endif
 " ----------------------------------------------------------------------------
 " http://cohama.hateblo.jp/entry/2013/08/11/020849
 function! s:get_syn_id(transparent)
-  let synid = synID(line("."), col("."), 1)
-  if a:transparent
-    return synIDtrans(synid)
-  else
-    return synid
-  endif
+    let synid = synID(line("."), col("."), 1)
+    if a:transparent
+        return synIDtrans(synid)
+    else
+        return synid
+    endif
 endfunction
 function! s:get_syn_attr(synid)
-  let name = synIDattr(a:synid, "name")
-  let ctermfg = synIDattr(a:synid, "fg", "cterm")
-  let ctermbg = synIDattr(a:synid, "bg", "cterm")
-  let guifg = synIDattr(a:synid, "fg", "gui")
-  let guibg = synIDattr(a:synid, "bg", "gui")
-  return {
+    let name = synIDattr(a:synid, "name")
+    let ctermfg = synIDattr(a:synid, "fg", "cterm")
+    let ctermbg = synIDattr(a:synid, "bg", "cterm")
+    let guifg = synIDattr(a:synid, "fg", "gui")
+    let guibg = synIDattr(a:synid, "bg", "gui")
+    return {
         \ "name": name,
         \ "ctermfg": ctermfg,
         \ "ctermbg": ctermbg,
@@ -811,19 +811,19 @@ function! s:get_syn_attr(synid)
         \ "guibg": guibg}
 endfunction
 function! s:get_syn_info()
-  let baseSyn = s:get_syn_attr(s:get_syn_id(0))
-  echo "name: " . baseSyn.name .
-        \ " ctermfg: " . baseSyn.ctermfg .
-        \ " ctermbg: " . baseSyn.ctermbg .
-        \ " guifg: " . baseSyn.guifg .
-        \ " guibg: " . baseSyn.guibg
-  let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
-  echo "link to"
-  echo "name: " . linkedSyn.name .
-        \ " ctermfg: " . linkedSyn.ctermfg .
-        \ " ctermbg: " . linkedSyn.ctermbg .
-        \ " guifg: " . linkedSyn.guifg .
-        \ " guibg: " . linkedSyn.guibg
+    let baseSyn = s:get_syn_attr(s:get_syn_id(0))
+    echo "name: " . baseSyn.name .
+      \ " ctermfg: " . baseSyn.ctermfg .
+      \ " ctermbg: " . baseSyn.ctermbg .
+      \ " guifg: " . baseSyn.guifg .
+      \ " guibg: " . baseSyn.guibg
+    let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
+    echo "link to"
+    echo "name: " . linkedSyn.name .
+      \ " ctermfg: " . linkedSyn.ctermfg .
+      \ " ctermbg: " . linkedSyn.ctermbg .
+      \ " guifg: " . linkedSyn.guifg .
+      \ " guibg: " . linkedSyn.guibg
 endfunction
 command! SyntaxInfo call s:get_syn_info()
 " }}}
@@ -1050,7 +1050,8 @@ autocmd MyVimrc FileType vim
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
 " \を打った時のindentの幅
-let g:vim_indent_cont = &sw
+" let g:vim_indent_cont = &sw
+let g:vim_indent_cont = 0
 
 " http://vim-users.jp/2009/09/hack74/
 " .vimrcと.gvimrcの編集
