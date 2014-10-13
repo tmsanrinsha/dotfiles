@@ -169,11 +169,6 @@ else
 endif
 
 set mouse=a
-
-" if has('path_extra')
-"     set tags=./tags;~,~/**2/tags
-" endif
-set helplang=en,ja
 "}}}
 " cursor {{{1
 " ============================================================================
@@ -632,8 +627,8 @@ cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
 cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
-xnoremap / <ESC>q/\%V
-xnoremap ? <ESC>q?\%V
+xnoremap \/ <ESC>/\%V
+xnoremap \? <ESC>?\%V
 
 nnoremap "\<Leader>ss :%s/\<C-R>//"
 xnoremap "\<Leader>ss :s/\<C-R>//"
@@ -707,7 +702,13 @@ nnoremap <silent> [VIMDIFF]o :diffoff<CR>
 nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
 nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
-"}}}
+
+" tag {{{1
+" ============================================================================
+if has('path_extra')
+    set tags+=~/tags
+endif
+
 " cript {{{1
 " ============================================================================
 " [Using VIM as Your Password Manager - Stelfox Athenæum](http://stelfox.net/blog/2013/11/using-vim-as-your-password-manager/)
@@ -1075,11 +1076,14 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "  autocmd BufWritePost .vimrc nested source $MYVIMRC
 "  " autocmd BufWritePost .vimrc RcbVimrc
 "augroup END
-autocmd MyVimrc BufWritePost *.vim
-    \   if filereadable(expand('%'))
-    \|       source %
-    \|  endif
 
+" autocmd MyVimrc BufWritePost *.vim
+"     \   if filereadable(expand('%'))
+"     \|       source %
+"     \|  endif
+
+" ### help {{{3
+set helplang=en,ja
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 
 " Git {{{2
