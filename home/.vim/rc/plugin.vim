@@ -1634,9 +1634,10 @@ if neobundle#is_installed('vim-fugitive')
             \ endif
 
         function! s:ctags(dir)
-            if exists('b:git_dir')
-                call system('ctags -R -f "'.b:git_dir.'/tags" "'.fnamemodify(a:dir, ':p').'" &')
-            endif
+            " if exists('b:git_dir')
+            "     call system('ctags -R -f "'.b:git_dir.'/tags" "'.fnamemodify(a:dir, ':p').'" &')
+            " endif
+            call system('ctags -R -f ~/tags "'.fnamemodify(a:dir, ':p').'" &')
         endfunction
         command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
         " }}}
