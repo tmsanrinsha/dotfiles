@@ -239,9 +239,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " バックアップ
         NeoBundle 'savevers.vim'
         " }}}
-
         " noeol, eolを保ったまま保存
         NeoBundle 'PreserveNoEOL'
+        " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
+        NeoBundle 'ciaranm/detectindent'
         " ファイルを保存時にシンタックスのチェック
         NeoBundle 'scrooloose/syntastic'
         " NeoBundle 'osyo-manga/vim-watchdogs', {
@@ -1492,6 +1493,7 @@ endfunction
 " PreserveNoEOL {{{1
 " ============================================================================
 let g:PreserveNoEOL = 1
+
 " scrooloose/syntastic {{{1
 " ============================================================================
 if neobundle#is_installed('syntastic')

@@ -1099,6 +1099,21 @@ autocmd MyVimrc FileType gitcommit
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
+" detectindent {{{1
+" ============================================================================
+if IsInstalled('detectindent')
+    " let g:detectindent_verbosity = 0
+    autocmd MyVimrc BufWinEnter *
+    \   let g:detectindent_preferred_indent = &shiftwidth
+    \|  if &expandtab == 0
+    \|      unlet g:detectindent_preferred_expandtab
+    \|  else
+    \|      let g:detectindent_preferred_expandtab = 1
+    \|  endif
+    \|  DetectIndent
+endif
+
+" その他の設定 {{{1
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif
