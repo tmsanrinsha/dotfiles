@@ -691,8 +691,8 @@ function! s:auto_mkdir(dir, force)
     endif
 endfunction  " }}}
 " }}}
-" vimdiff {{{
-" ==============================================================================
+" vimdiff {{{1
+" ============================================================================
 set diffopt+=vertical
 nnoremap [VIMDIFF] <Nop>
 nmap <Leader>d [VIMDIFF]
@@ -1041,11 +1041,6 @@ autocmd MyVimrc FileType java
 " ]}, [{ の移動先
 let g:sql_type_default = 'mysql'
 let g:ftplugin_sql_statements = 'create,alter'
-" }}}
-" yaml {{{
-" ----------------------------------------------------------------------------
-autocmd MyVimrc FileType yaml
-    \   setlocal foldmethod=indent softtabstop=2 shiftwidth=2
 " }}}
 " vim {{{2
 " ----------------------------------------------------------------------------
