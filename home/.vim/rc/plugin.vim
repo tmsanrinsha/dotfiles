@@ -1374,7 +1374,8 @@ if neobundle#is_installed('yankround.vim')
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
     let g:yankround_use_region_hl = 1
     autocmd MyVimrc ColorScheme *
-        \   highlight! link YankRoundRegion Search
+        \   highlight! YankRoundRegion ctermfg=16 ctermbg=187
+        " \   highlight! link YankRoundRegion IncSearch
 
     nmap p <Plug>(yankround-p)
     xmap p <Plug>(yankround-p)
