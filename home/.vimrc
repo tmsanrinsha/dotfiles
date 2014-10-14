@@ -474,8 +474,8 @@ nnoremap <C-w><C-w> <C-w>p
 set splitbelow
 set splitright
 
-"  常にカーソル行を真ん中に
-"set scrolloff=999
+" 常にカーソル行を真ん中にする場合は999など
+set scrolloff=5
 
 "縦分割されたウィンドウのスクロールを同期させる
 "同期させたいウィンドウ上で<F12>を押せばおｋ
