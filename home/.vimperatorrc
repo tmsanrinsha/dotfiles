@@ -18,14 +18,14 @@ set complete=l
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
 js<<EOM
+var fontFamily;
 if(liberator.has("MacUnix")) {
-  liberator.execute('hi Hint font-family: Consolas;');
+  fontFamily = 'Monaco';
 } else {
-  liberator.execute('hi Hint font-family: Consolas;');
+  fontFamily = 'Consolas';
 }
+liberator.execute('highlight Hint font-size:14px; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: ' + fontFamily);
 EOM
-
-hi Hint font-size:14px; font-weight: bold; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
 " テキストボックスにフォーカスさせない
 set focuscontent
