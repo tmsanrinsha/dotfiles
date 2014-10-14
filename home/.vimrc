@@ -119,15 +119,12 @@ augroup MyVimrc
 augroup END
 " }}}
 
-set t_Co=256 " 256色
-
 set showmatch matchtime=1 "括弧の対応
 set matchpairs& matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
 if MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
-runtime macros/matchit.vim "HTML tag match
 
 " ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
 set visualbell t_vt=
@@ -712,10 +709,10 @@ endif
 " cript {{{1
 " ============================================================================
 " [Using VIM as Your Password Manager - Stelfox Athenæum](http://stelfox.net/blog/2013/11/using-vim-as-your-password-manager/)
-set cryptmethod=blowfish
+" set cryptmethod=blowfishは重いのでkeyがあるときのみ設定
 autocmd MyVimrc BufReadPost *
 \   if &key != ""
-\|      setlocal noswapfile nowritebackup noshelltemp secure
+\|      setlocal cryptmethod=blowfish noswapfile nowritebackup noshelltemp secure
 \|  endif
 
 " man {{{1
@@ -774,8 +771,8 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
 " colorscheme {{{1
 " ==============================================================================
+set t_Co=256 " 256色
 if isdirectory(expand('~/.vim/bundle/my_molokai'))
-    set background=dark
     colorscheme molokai-customized
 else
     colorscheme default
@@ -933,55 +930,6 @@ endfunction
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 "}}}
-" HTML {{{
-" ----------------------------------------------------------------------------
-" HTML Key Mappings for Typing Character Codes: {{{
-" * http://www.stripey.com/vim/html.html
-" * https://github.com/sigwyg/dotfiles/blob/8c70c4032ebad90a8d92b76b1c5d732f28559e40/.vimrc
-"
-" |--------------------------------------------------------------------
-" |Keys     |Insert   |For  |Comment
-" |---------|---------|-----|-------------------------------------------
-" |\&       |&amp;    |&    |ampersand
-" |\<       |&lt;     |<    |less-than sign
-" |\>       |&gt;     |>    |greater-than sign
-" |\.       |&middot; |・   |middle dot (decimal point)
-" |\?       |&#8212;  |?    |em-dash
-" |\2       |&#8220;  |“   |open curved double quote
-" |\"       |&#8221;  |”   |close curved double quote
-" |\`       |&#8216;  |‘   |open curved single quote
-" |\'       |&#8217;  |’   |close curved single quote (apostrophe)
-" |\`       |`        |`    |OS-dependent open single quote
-" |\'       |'        |'    |OS-dependent close or vertical single quote
-" |\<Space> |&nbsp;   |     |non-breaking space
-" |---------------------------------------------------------------------
-"
-augroup MapHTMLKeys
-    autocmd!
-    autocmd FileType html call MapHTMLKeys()
-    function! MapHTMLKeys()
-        inoremap <buffer> \\ \
-        inoremap <buffer> \& &amp;
-        inoremap <buffer> \< &lt;
-        inoremap <buffer> \> &gt;
-        inoremap <buffer> \. ・
-        inoremap <buffer> \- &#8212;
-        inoremap <buffer> \<Space> &nbsp;
-        inoremap <buffer> \` &#8216;
-        inoremap <buffer> \' &#8217;
-        inoremap <buffer> \2 &#8220;
-        inoremap <buffer> \" &#8221;
-    endfunction " MapHTMLKeys()
-augroup END
-"}}}
-" gf(goto file)の設定 {{{
-" http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
-autocmd MyVimrc FileType html
-    \   setlocal includeexpr=substitute(v:fname,'^\\/','','')
-    \|  setlocal path&
-    \|  setlocal path+=./;/
-" }}}
-" }}}
 " Markdown {{{
 " ----------------------------------------------------------------------------
 " fenced code blocksのコードをハイライト
@@ -1057,9 +1005,12 @@ let g:vim_indent_cont = 0
 " .vimrcと.gvimrcの編集
 nnoremap [VIM] <Nop>
 nmap <Leader>v [VIM]
+" executeは重いのでやめる
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
-execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
-execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink ~/_gvimrc'), "\<NL>", '', '') . '<CR>'
+" execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
+" execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink ~/_gvimrc'), "\<NL>", '', '') . '<CR>'
+nnoremap [VIM]e :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vimrc<CR>
+nnoremap [VIM]E :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/_gvimrc<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
