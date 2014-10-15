@@ -719,7 +719,7 @@ autocmd MyVimrc BufReadPost *
 " ==============================================================================
 " macでのManの調子が悪いのでvim-refの:Ref manを使うことにする
 " ":Man <man>でマニュアルを開く
-runtime ftplugin/man.vim
+" runtime ftplugin/man.vim
 " nmap K <Leader>K
 " " http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 " " [manをVimで見る - rcmdnk's blog](http://rcmdnk.github.io/blog/2014/07/20/computer-vim/)

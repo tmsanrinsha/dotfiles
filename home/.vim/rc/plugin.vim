@@ -244,7 +244,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
         NeoBundle 'ciaranm/detectindent'
         " ファイルを保存時にシンタックスのチェック
-        NeoBundle 'scrooloose/syntastic'
+        NeoBundleLazy 'scrooloose/syntastic'
         " NeoBundle 'osyo-manga/vim-watchdogs', {
         "     \   'depends': [
         "     \       'thinca/vim-quickrun',
@@ -253,7 +253,7 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "     \   ]
         "     \}
         " debug
-        NeoBundle 'joonty/vdebug'
+        NeoBundleLazy 'joonty/vdebug'
         " caw.vim {{{2
         " -------
         " コメント操作
@@ -1108,124 +1108,128 @@ endfunction
 if neobundle#is_installed('vim-quickrun')
     noremap <Leader>r :QuickRun<CR>
     noremap <Leader>r :QuickRun<CR>
-    " let g:quickrun_no_default_key_mappings = 1
-    " map <Leader>r <Plug>(quickrun)
-    " <C-c> で実行を強制終了させる
-    " quickrun.vim が実行していない場合には <C-c> を呼び出す
-    nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
+    let s:bundle = neobundle#get("vim-quickrun")
     let g:quickrun_config = {}
-    let g:quickrun_config['_'] = {
-                \   'runner'                    : 'vimproc',
-                \   'runner/vimproc/updatetime' : 100,
-                \   'outputter'                 : 'multi:buffer:quickfix',
-                \   'outputter/buffer/split'    : ''
-                \}
+    function! s:bundle.hooks.on_source(bundle)
+        " let g:quickrun_no_default_key_mappings = 1
+        " map <Leader>r <Plug>(quickrun)
 
-    " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
-    " \   'outputter' : 'my_outputter',
-    " \   'outputter'                 : 'unite_quickfix',
+        " <C-c> で実行を強制終了させる
+        " quickrun.vim が実行していない場合には <C-c> を呼び出す
+        nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
-    " :QuickRun -outputter my_outputter {{{
-    " プロセスの実行中は、buffer に出力し、
-    " プロセスが終了したら、quickfix へ出力を行う
+        let g:quickrun_config['_'] = {
+        \   'runner'                    : 'vimproc',
+        \   'runner/vimproc/updatetime' : 100,
+        \   'outputter'                 : 'multi:buffer:quickfix',
+        \   'outputter/buffer/split'    : ''
+        \}
 
-    " 既存の outputter をコピーして拡張
-    let my_outputter = quickrun#outputter#multi#new()
-    let my_outputter.config.targets = ["buffer", "quickfix"]
+        " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
+        " \   'outputter' : 'my_outputter',
+        " \   'outputter'                 : 'unite_quickfix',
 
-    function! my_outputter.init(session)
-        " quickfix を閉じる
-        :cclose
-        " 元の処理を呼び出す
-        call call(quickrun#outputter#multi#new().init, [a:session], self)
-    endfunction
+        " :QuickRun -outputter my_outputter {{{2
+        " --------------------------------------------------------------------
+        " プロセスの実行中は、buffer に出力し、
+        " プロセスが終了したら、quickfix へ出力を行う
 
-    function! my_outputter.finish(session)
-        call call(quickrun#outputter#multi#new().finish, [a:session], self)
-        " 出力バッファの削除
-        bwipeout [quickrun
-        " vim-hier を使用している場合は、ハイライトを更新したりとか
-        " :HierUpdate
-    endfunction
+        " 既存の outputter をコピーして拡張
+        let my_outputter = quickrun#outputter#multi#new()
+        let my_outputter.config.targets = ["buffer", "quickfix"]
 
-    " quickrun に outputter を登録
-    call quickrun#register_outputter("my_outputter", my_outputter)
-" }}}
+        function! my_outputter.init(session)
+            " quickfix を閉じる
+            :cclose
+            " 元の処理を呼び出す
+            call call(quickrun#outputter#multi#new().init, [a:session], self)
+        endfunction
 
-" phpunit {{{
-" --------------------------------------------------------------------------
-" http://www.karakaram.com/quickrun-phpunit
-" http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html
-autocmd MyVimrc BufWinEnter,BufNewFile *Test.php setlocal filetype=php.phpunit
+        function! my_outputter.finish(session)
+            call call(quickrun#outputter#multi#new().finish, [a:session], self)
+            " 出力バッファの削除
+            bwipeout [quickrun
+            " vim-hier を使用している場合は、ハイライトを更新したりとか
+            " :HierUpdate
+        endfunction
 
-let g:quickrun_config['php.phpunit'] = {
-            \   'command'                : 'phpunit',
-            \   'cmdopt'                 : '',
-            \   'exec'                   : '%c %o %s'
+        " quickrun に outputter を登録
+        call quickrun#register_outputter("my_outputter", my_outputter)
+
+        " PHPUnit {{{2
+        " --------------------------------------------------------------------
+        " [VimでPHPUnitの実行結果をシンプルに表示するプラグインを書いた | karakaram-blog](http://www.karakaram.com/phpunit-location-list)
+        let g:quickrun_config['php.phpunit'] = {
+        \   'command'   : 'phpunit',
+        \   'cmdopt'    : '',
+        \   'exec'      : '%c        %o %s'
+        \   'outputter' : 'phpunit'
+        \}
+        " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
+
+        " Android Dev {{{2
+        " --------------------------------------------------------------------------
+        function! s:QuickRunAndroidProject()
+            let l:project_dir = unite#util#path2project_directory(expand('%'))
+
+            for l:line in readfile(l:project_dir.'/AndroidManifest.xml')
+                " package名の取得
+                " ex) com.sample.helloworld
+                if !empty(matchstr(l:line, 'package="\zs.*\ze"'))
+                    let l:package = matchstr(l:line, 'package="\zs.*\ze"')
+                    continue
+                endif
+
+                " android:nameの取得
+                " ex) com.sample.helloworld.HelloWorldActivity
+                if !empty(matchstr(l:line, 'android:name="\zs.*\ze"'))
+                    let l:android_name = matchstr(l:line, 'android:name="\zs.*\ze"')
+                    break
+                endif
+            endfor
+
+            if empty(l:package)
+                echo 'package名が見つかりません'
+                return -1
+            elseif empty(l:android_name)
+                echo 'android:nameが見つかりません'
+                return -1
+            endif
+
+            let l:apk_file = l:project_dir.'/bin/'.matchstr(l:android_name, '[^.]\+$').'-debug.apk'
+            " ex) com.sample.helloworld/.HelloWorldActivity
+            let l:component = substitute(l:android_name, '\zs\.\ze[^.]*$', '/.', '')
+
+            let g:quickrun_config['androidProject'] = {
+            \   'hook/cd/directory'           : l:project_dir,
+            \   'hook/output_encode/encoding' : 'sjis',
+            \   'exec'                        : [
+            \       'android update project --path .',
+            \       'ant debug',
+            \       'adb -d install -r '.l:apk_file,
+            \       'adb shell am start -a android.intent.action.MAIN -n '.l:package.'/'.l:android_name
+            \   ]
             \}
-"}}}
 
-" Android Dev {{{
-" --------------------------------------------------------------------------
-function! s:QuickRunAndroidProject()
-    let l:project_dir = unite#util#path2project_directory(expand('%'))
+            QuickRun androidProject
+        endfunction
 
-    for l:line in readfile(l:project_dir.'/AndroidManifest.xml')
-        " package名の取得
-        " ex) com.sample.helloworld
-        if !empty(matchstr(l:line, 'package="\zs.*\ze"'))
-            let l:package = matchstr(l:line, 'package="\zs.*\ze"')
-            continue
-        endif
+        command! QuickRunAndroidProject call s:QuickRunAndroidProject()
+        autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
 
-        " android:nameの取得
-        " ex) com.sample.helloworld.HelloWorldActivity
-        if !empty(matchstr(l:line, 'android:name="\zs.*\ze"'))
-            let l:android_name = matchstr(l:line, 'android:name="\zs.*\ze"')
-            break
-        endif
-    endfor
-
-    if empty(l:package)
-        echo 'package名が見つかりません'
-        return -1
-    elseif empty(l:android_name)
-        echo 'android:nameが見つかりません'
-        return -1
-    endif
-
-    let l:apk_file = l:project_dir.'/bin/'.matchstr(l:android_name, '[^.]\+$').'-debug.apk'
-    " ex) com.sample.helloworld/.HelloWorldActivity
-    let l:component = substitute(l:android_name, '\zs\.\ze[^.]*$', '/.', '')
-
-    let g:quickrun_config['androidProject'] = {
-                \   'hook/cd/directory'           : l:project_dir,
-                \   'hook/output_encode/encoding' : 'sjis',
-                \   'exec'                        : [
-                \       'android update project --path .',
-                \       'ant debug',
-                \       'adb -d install -r '.l:apk_file,
-                \       'adb shell am start -a android.intent.action.MAIN -n '.l:package.'/'.l:android_name
-                \   ]
-                \}
-
-    QuickRun androidProject
-endfunction
-
-command! QuickRunAndroidProject call s:QuickRunAndroidProject()
-autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
-"}}}
-
-" let g:quickrun_config['node'] = {
-"             \   'runner/vimproc/updatetime' : 1000,
-"             \   'command'                : 'tail',
-"             \   'cmdopt'                 : '',
-"             \   'exec'                   : '%c %o ~/git/jidaraku_schedular/log',
-"             \   'outputter/multi'   : [ 'buffer', 'quickfix' , 'message'],
-"             \}
-" "
-" set errorformat=debug:\%s
+        " Node.js {{{2
+        " --------------------------------------------------------------------
+        " let g:quickrun_config['node'] = {
+        "             \   'runner/vimproc/updatetime' : 1000,
+        "             \   'command'                : 'tail',
+        "             \   'cmdopt'                 : '',
+        "             \   'exec'                   : '%c %o ~/git/jidaraku_schedular/log',
+        "             \   'outputter/multi'   : [ 'buffer', 'quickfix' , 'message'],
+        "             \}
+        " "
+        " set errorformat=debug:\%s
+    endfunction
 endif
 "}}}
 " operator {{{1
@@ -1497,6 +1501,7 @@ let g:PreserveNoEOL = 1
 " scrooloose/syntastic {{{1
 " ============================================================================
 if neobundle#is_installed('syntastic')
+    autocmd MyVimrc BufWrite * NeoBundleSource syntastic
     let g:syntastic_mode_map = {
         \   'mode': 'active',
         \   'passive_filetypes': ['vim']
