@@ -110,8 +110,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "" }}}
         " quickrun {{{
         NeoBundleLazy 'thinca/vim-quickrun', {
-            \   'autoload' : { 'commands' : [ 'QuickRun' ] }
+            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
+            \   'depends' : ['karakaram/vim-quickrun-phpunit']
             \}
+        NeoBundleLazy 'karakaram/vim-quickrun-phpunit'
         " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
         "             \   'autoload' : { 'commands' : 'QuickRun' },
         "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
