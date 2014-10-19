@@ -947,6 +947,9 @@ let g:markdown_fenced_languages = [
 \]
 " イタリックを無効に
 autocmd MyVimrc FileType markdown hi! def link markdownItalic Normal
+autocmd MyVimrc FileType markdown,html
+\   nnoremap <buffer> <Leader>p :<C-u>%!pandoc -f html -t markdown<CR>
+\|  xnoremap <buffer> <Leader>p :!pandoc -f html -t markdown<CR>
 " }}}
 " JavaScript {{{
 " ----------------------------------------------------------------------------
