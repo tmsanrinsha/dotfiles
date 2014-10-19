@@ -752,6 +752,21 @@ noremap [,location]q :lclose<CR>
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
 
+" [Vim - errorformatについて(入門編) - Qiita](http://qiita.com/rbtnn/items/92f80d53803ce756b4b8)
+function! TestErrFmt(errfmt,lines)
+  let temp_errorfomat = &errorformat
+  try
+    let &errorformat = a:errfmt
+    cexpr join(a:lines,"\n")
+    copen
+  catch
+    echo v:exception
+    echo v:throwpoint
+  finally
+    let &errorformat = temp_errorfomat
+  endtry
+endfunction
+
 " show quickfix automatically
 " これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
 " autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
