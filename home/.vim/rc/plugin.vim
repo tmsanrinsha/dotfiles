@@ -259,8 +259,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " caw.vim {{{2
         " -------
         " コメント操作
-        NeoBundle "tyru/caw.vim"
+        " NeoBundle "tyru/caw.vim"
         " NeoBundle "tpope/vim-commentary"
+        NeoBundle "tomtom/tcomment_vim"
 
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
@@ -296,21 +297,21 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload': {'filetypes': ['javascript', 'css', 'html']}}
         endif
 
-        " JavaScript {{{
+        " JavaScript {{{2
         " --------------
         NeoBundle 'pangloss/vim-javascript'
         NeoBundle 'jelera/vim-javascript-syntax'
         NeoBundle 'nono/jquery.vim'
-        " }}}
+        " Python {{{2
+        " ----------
         NeoBundleLazy 'davidhalter/jedi-vim', {
             \   'autoload': {'filetypes': 'python'}
             \}
-        " SQL {{{
+        " SQL {{{2
         NeoBundleLazy 'vim-scripts/dbext.vim', {
             \   'autoload': {'filetypes': 'sql'}
             \}
-        " }}}
-        " Markdown {{{
+        " Markdown {{{2
         " ------------
         " NeoBundleLazy 'tpope/vim-markdown', {
         "             \   'autoload' : { 'filetypes' : 'markdown' }
