@@ -126,6 +126,8 @@ if MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
 
+runtime macros/matchit.vim
+
 " ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
 set visualbell t_vt=
 
