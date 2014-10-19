@@ -1166,7 +1166,7 @@ if neobundle#is_installed('vim-quickrun')
         let g:quickrun_config['php.phpunit'] = {
         \   'command'   : 'phpunit',
         \   'cmdopt'    : '',
-        \   'exec'      : '%c        %o %s'
+        \   'exec'      : '%c %o %s',
         \   'outputter' : 'phpunit'
         \}
         " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
