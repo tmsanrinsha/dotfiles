@@ -3,18 +3,12 @@ function! s:IndentLevel(lnum)
 endfunction
 
 function! s:NextNonBlankLine(lnum)
-    let numlines = line('$')
-    let current = a:lnum + 1
-
-    while current <= numlines
-        if getline(current) =~? '\v\S'
-            return current
-        endif
-
-        let current += 1
-    endwhile
-
-    return -2
+    let lnum = nextnonblank(a:lnum)
+    if lnum == 0
+        return -2
+    else
+        return lnum
+    endif
 endfunction
 
 function! fold#indent(lnum)
