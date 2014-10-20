@@ -1407,7 +1407,15 @@ if neobundle#is_installed('caw.vim')
     nmap <Leader>cy yyPgcij
     xmap <Leader>cy ygvgcigv<C-c>p
 endif
-"}}}
+
+" tcomment_vim {{{1
+" ============================================================================
+if neobundle#is_installed('tcomment_vim')
+    " コメントアウトしてコピー
+    nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
+    xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
+endif
+
 " vim-jsbeautify {{{
 " ==============================================================================
 if neobundle#is_installed('vim-jsbeautify')
