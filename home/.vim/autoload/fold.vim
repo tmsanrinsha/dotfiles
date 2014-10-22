@@ -3,7 +3,7 @@ function! s:IndentLevel(lnum)
 endfunction
 
 function! s:NextNonBlankLine(lnum)
-    let lnum = nextnonblank(a:lnum)
+    let lnum = nextnonblank(a:lnum + 1)
     if lnum == 0
         return -2
     else
