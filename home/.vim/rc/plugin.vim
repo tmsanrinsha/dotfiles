@@ -901,9 +901,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         " 補完候補の順番
         if neobundle#is_installed("neocomplete.vim")
             " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
+            call neocomplete#custom#source('omni'        , 'rank', 500)
+            call neocomplete#custom#source('member'      , 'rank', 450)
             call neocomplete#custom#source('file'        , 'rank', 400)
             call neocomplete#custom#source('file/include', 'rank', 400)
-            call neocomplete#custom#source('member'      , 'rank', 100)
         endif
 
 
@@ -1061,8 +1062,8 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
-    " let g:neocomplete#enable_cursor_hold_i=1
-    " let g:neocomplete#cursor_hold_i_time=100
+    let g:neocomplete#enable_cursor_hold_i=1
+    let g:neocomplete#cursor_hold_i_time=100
 endif
 "}}}
 " neosnippet {{{
