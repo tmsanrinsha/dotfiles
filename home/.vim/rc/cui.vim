@@ -46,6 +46,7 @@ endif
 
 " 端末でCtrl+Spaceを打つと<NUL>(^@)が送られるのでmapしておく
 imap  <NUL> <C-Space>
+cmap  <NUL> <C-Space>
 " map! <NUL> <C-Space>
 
 set <S-Left>=[1;2D

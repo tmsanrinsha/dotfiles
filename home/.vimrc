@@ -551,7 +551,7 @@ cnoremap <DOWN> <C-N>
 
 " vim-emacscommandlineで<C-F>は右に進むになっているので、
 " コマンドラインウィンドウを開きたいときは<Leader><C-F>にする
-cnoremap <Leader><C-F> <C-F>
+cnoremap <C-Space> <C-F>
 
 set history=100 "保存する履歴の数
 
