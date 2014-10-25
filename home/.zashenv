@@ -160,7 +160,15 @@ alias gs='git status'
 
 # gitのルートディレクトリに移動
 alias cdt='cd `git rev-parse --show-toplevel`'
+
+# tail {{{2
+# ----------------------------------------------------------------------------
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias taa='tail -f /var/log/apache2/access_log'
+  alias tae='tail -f /var/log/apache2/error_log'
+fi
 # }}}
+
 alias cdg='cd `ghq list -p | peco || pwd`'
 
 alias phpunit='phpunit --colors'
@@ -182,7 +190,7 @@ alias dc='decomp.sh'
 alias fxg='fxg.sh'
 # Linuxのバージョンを表示するコマンド
 # http://blog.layer8.sh/ja/2011/12/23/linux%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%84os%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89linux/
-alias linux='cat /etc/`ls /etc -F | grep "release$\|version$"`'
+alias version='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
 # }}}

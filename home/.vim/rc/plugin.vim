@@ -132,10 +132,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
             \}
-        " NeoBundleLazy "rhysd/vim-operator-surround", {
-        "     \   'depends': 'kana/vim-operator-user',
-        "     \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
-        "     \}
+        NeoBundleLazy "rhysd/vim-operator-surround", {
+            \   'depends': 'kana/vim-operator-user',
+            \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+            \}
         NeoBundleLazy "tyru/operator-camelize.vim", {
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
@@ -1249,9 +1249,9 @@ if neobundle#is_installed("vim-operator-user")
     map [Space]p <Plug>(operator-replace)
     map [Space]P "+<Plug>(operator-replace)
     map [Space]/ <Plug>(operator-search)
-    " map sa <Plug>(operator-surround-append)
-    " map sd <Plug>(operator-surround-delete)
-    " map sr <Plug>(operator-surround-replace)
+    map sa <Plug>(operator-surround-append)
+    map sd <Plug>(operator-surround-delete)
+    map sr <Plug>(operator-surround-replace)
     " nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     " nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
