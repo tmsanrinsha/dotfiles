@@ -1,4 +1,4 @@
-function! unite#sources#outline#conf#outline_info()
+function! unite#sources#outline#sh#outline_info()
   return s:outline_info
 endfunction
 
@@ -6,7 +6,7 @@ endfunction
 " Outline Info
 
 let s:outline_info = {
-            \ 'heading+1': '\s*\(#\|"\)\s*=\{4,}$',
+      \ 'heading+1': '\s*#\s*[-=]\{4,}$',
       \ }
 
 function! s:outline_info.create_heading(which, heading_line, matched_line, context)
