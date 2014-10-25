@@ -19,3 +19,5 @@ augroup my_after_ftplugin_apache
     autocmd! * <buffer>
     autocmd BufWritePost <buffer> make
 augroup END
+
+nnoremap <buffer> <Leader>r :!sudo apachectl restart<CR>
