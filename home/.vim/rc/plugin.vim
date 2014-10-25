@@ -177,17 +177,11 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " Vimperatorのクイックヒント風にカーソル移動
         NeoBundleLazy 'Lokaltog/vim-easymotion'
 
-        " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
-        " http://www.vim.org/scripts/script.php?script_id=4449
-        NeoBundle 'QuickFixCurrentNumber', {
-            \   'depends': 'ingo-library'
-            \}
         NeoBundle 'terryma/vim-multiple-cursors'
 
         NeoBundleLazy 'thinca/vim-ref', {
             \   'autoload': {'commands': ['Ref', 'Man']}
             \}
-        " NeoBundle 'thinca/vim-ref'
         " 部分的に編集
         NeoBundleLazy 'thinca/vim-partedit', {
             \   'autoload': {'commands': 'Partedit'}
@@ -245,6 +239,14 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundle 'PreserveNoEOL'
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
         NeoBundle 'ciaranm/detectindent'
+
+        " quickfix, syntax check {{{2
+        " -------------------------------------------------------------------
+        " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
+        " http://www.vim.org/scripts/script.php?script_id=4449
+        NeoBundle 'QuickFixCurrentNumber', {
+            \   'depends': 'ingo-library'
+            \}
         " ファイルを保存時にシンタックスのチェック
         NeoBundleLazy 'scrooloose/syntastic'
         " NeoBundle 'osyo-manga/vim-watchdogs', {
@@ -254,7 +256,8 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "     \       'osyo-manga/shabadou.vim'
         "     \   ]
         "     \}
-        " debug
+
+        " debug {{{2
         NeoBundleLazy 'joonty/vdebug'
         " caw.vim {{{2
         " -------
@@ -431,7 +434,6 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'unite_sources' : 'gvimrgb'
             \ }}
 
-        " NeoBundle 'thinca/vim-ref', {'type' : 'nosync', 'rev' : '91fb1b' }
 
         " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
         "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
