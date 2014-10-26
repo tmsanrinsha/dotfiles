@@ -120,6 +120,13 @@ if ! command_exists ack; then
     chmod a+x $HOME/bin/ack
 fi
 
+# ghinst {{{1
+# ============================================================================
+if ! command_exists ghinst; then
+    curl https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst > $HOME/bin/ghinst
+    chmod a+x $HOME/bin/ghinst
+fi
+
 # screenshotTable.sh {{{1
 # ============================================================================
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
