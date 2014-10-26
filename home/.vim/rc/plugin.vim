@@ -591,6 +591,9 @@ if neobundle#is_installed('unite.vim')
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
     function! s:unite_file_buffer()
+        if &filetype == 'vimfiler'
+            normal gc
+        endif
         let dir = expand('%:p:h')
         " windowsでドライブのC:をC\:に変更する必要がある
         execute 'Unite file_rec/async:' . escape(dir, ':')
