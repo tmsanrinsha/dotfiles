@@ -557,7 +557,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    nmap [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_exit)
+    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_exit)
 
     " directory
     " カレントディレクトリ以下のディレクトリ
