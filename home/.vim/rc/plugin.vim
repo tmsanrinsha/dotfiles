@@ -610,9 +610,14 @@ if neobundle#is_installed('unite.vim')
     endfunction
     " }}}
 
-    " grep {{{
+    " unite-grep {{{
     " ------------------------------------------------------------------------
-    if executable('ag')
+    if executable('jvgrep')
+        " Use jvgrep in unite grep source.
+        let g:unite_source_grep_command = 'jvgrep'
+        let g:unite_source_grep_default_opts = '--color=never -i'
+        let g:unite_source_grep_recursive_opt = '-R'
+    elseif executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
