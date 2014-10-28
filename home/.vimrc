@@ -915,13 +915,18 @@ command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
 " }}}
 " ftdetect {{{
 " ==============================================================================
-autocmd MyVimrc BufRead sanrinsha*
-            \   setlocal filetype=markdown
+autocmd MyVimrc BufRead sanrinsha* setlocal filetype=markdown
 " autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
 autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
+
+" *.htmlのファイルの1行目に<?phpがあるときにfiletypeをphpにする
+autocmd MyVimrc BufRead,BufNewFile *.html
+\   if getline(1) =~ '<?php'
+\|      setlocal filetype=php
+\|  endif
 " }}}
 " filetype {{{
 " ============================================================================
@@ -984,13 +989,21 @@ let PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントす�
 "     autocmd!
 "     au Syntax php set foldmethod=syntax
 " augroup END
-" " Vimテクニックバイブル1-13
-" " PHPプログラムの構文チェック
-" " http://d.hatena.ne.jp/i_ogi/20070321/1174495931
-" autocmd FileType php setlocal makeprg=php\ -l\ % | setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-autocmd MyVimrc FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-" autocmd BufWrite *.php w | make
-" "http://d.hatena.ne.jp/Cside/20110805/p1に構文チェックを非同期にやる方法が書いてある
+
+autocmd MyVimrc FileType php call s:filetype_php()
+
+function! s:filetype_php()
+    " open_basedirの値をpathに追加
+    if ! exists('g:php_open_basedir')
+        let tmp = system("php -r 'echo ini_get(\"open_basedir\");' | tr ':' ','")
+        let g:php_open_basedir = substitute(tmp, "\<NL>", '', '')
+    endif
+    let &l:path .= g:php_open_basedir
+
+    setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+    " setlocal makeprg=php\ -l\ %
+endfunction
+
 "}}}
 " Java {{{
 " ----------------------------------------------------------------------------
