@@ -139,14 +139,12 @@ fi
 # ============================================================================
 # macの場合はhomebrewでインストールする
 if ! command_exists peco && [ `uname` = Linux ]; then
-    mkdir -p ~/local/{src,bin}
-    pushd .
-    cd ~/local/src
-    curl -L 'https://github.com/peco/peco/releases/download/v0.2.0/peco_linux_amd64.tar.gz' | gzip -dc | tar xf -
-    ln -s ~/local/src/peco_linux_amd64/peco ~/local/bin
-    popd
+    ghinst peco/peco
 fi
 
+# jvgrep {{{1
+# ============================================================================
+command_exists jvgrep || ghinst mattn/jvgrep
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
