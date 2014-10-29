@@ -1124,7 +1124,6 @@ if neobundle#is_installed('vim-quickrun')
     noremap <Leader>r :QuickRun<CR>
 
     let s:bundle = neobundle#get("vim-quickrun")
-    let g:quickrun_config = {}
     function! s:bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
@@ -1133,6 +1132,9 @@ if neobundle#is_installed('vim-quickrun')
         " quickrun.vim が実行していない場合には <C-c> を呼び出す
         nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
+        if !exists("g:quickrun_config")
+            let g:quickrun_config = {}
+        endif
         let g:quickrun_config['_'] = {
         \   'runner'                    : 'vimproc',
         \   'runner/vimproc/updatetime' : 100,
@@ -1174,12 +1176,14 @@ if neobundle#is_installed('vim-quickrun')
         " PHPUnit {{{2
         " --------------------------------------------------------------------
         " [VimでPHPUnitの実行結果をシンプルに表示するプラグインを書いた | karakaram-blog](http://www.karakaram.com/phpunit-location-list)
-        let g:quickrun_config['php.phpunit'] = {
-        \   'command'   : 'phpunit',
-        \   'cmdopt'    : '',
-        \   'exec'      : '%c %o %s',
-        \   'outputter' : 'phpunit'
-        \}
+        if !exists("g:quickrun_config['php.phpunit']")
+            let g:quickrun_config['php.phpunit'] = {
+            \   'command'   : 'phpunit',
+            \   'cmdopt'    : '',
+            \   'exec'      : '%c %o %s',
+            \   'outputter' : 'phpunit'
+            \}
+        endif
         " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
 
         " Android Dev {{{2
