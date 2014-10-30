@@ -1439,17 +1439,19 @@ if neobundle#is_installed('vim-jsbeautify')
     autocmd MyVimrc FileType html       setlocal formatexpr=HtmlBeautify()
 else
     autocmd MyVimrc FileType html
-        \   nnoremap gq :%s/></>\r</ge<CR>gg=G
-        \|  xnoremap gq  :s/></>\r</ge<CR>gg=G
+        \   nnoremap <buffer> gq :%s/></>\r</ge<CR>gg=G
+        \|  xnoremap <buffer> gq  :s/></>\r</ge<CR>gg=G
 endif
 
 if executable('xmllint')
     " formatexprの方が優先されるので、消しておく必要がある
-    autocmd MyVimrc FileType xml setlocal formatprg=xmllint\ --format\ - formatexpr=
+    autocmd MyVimrc FileType xml
+    \   setlocal formatprg=xmllint\ --format\ --encode\ utf-8\ -
+    \|  setlocal formatexpr=
 else
     autocmd MyVimrc FileType xml
-        \   nnoremap gq :%s/></>\r</ge<CR>gg=G
-        \|  xnoremap gq  :s/></>\r</ge<CR>gg=G
+    \   nnoremap <buffer> gq :%s/></>\r</ge<CR>gg=G
+    \|  xnoremap <buffer> gq  :s/></>\r</ge<CR>gg=G
 endif
 "}}}
 " automatic {{{
