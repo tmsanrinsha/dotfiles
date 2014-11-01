@@ -1,7 +1,6 @@
-
 " neobundle.vim {{{1
 " ============================================================================
-if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
+if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051')
     if has('vim_starting')
       set runtimepath+=$VIMDIR/bundle/neobundle.vim/
     endif
@@ -19,11 +18,6 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
     else
         " Let neobundle manage neobundle
         NeoBundleFetch 'Shougo/neobundle.vim'
-
-        " すでにvimが起動しているときは、そちらで開く
-        NeoBundle 'thinca/vim-singleton', {
-            \ 'disable': !has('clientserver'),
-            \ }
 
         " recommended to install
         if ! (has('win32') && has('kaoriya'))
@@ -59,18 +53,18 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
         " NeoBundleLazy 'sorah/unite-ghq'
-        NeoBundle 'ujihisa/vimshell-ssh'
-        "NeoBundle 'Shougo/unite-sudo'
+        " NeoBundle 'Shougo/unite-sudo'
         " }}}
         " http://archiva.jp/web/tool/vim_grep2.html
         NeoBundle 'thinca/vim-qfreplace'
 
-        NeoBundle 'Shougo/vimfiler.vim'
-        "" shell {{{
+        " shell {{{
+        " --------------------------------------------------------------------
         NeoBundleLazy 'Shougo/vimshell.vim', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
             \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
             \}
+        NeoBundle 'ujihisa/vimshell-ssh'
         " if executable('svn')
         "     NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
         " else
@@ -80,8 +74,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
                 \   }
                 \}
         " endif
-
         " }}}
+
+        NeoBundle 'Shougo/vimfiler.vim'
+
         "" 補完・入力補助 {{{
         """ 自動補完 {{{
         if has('lua') && MyHasPatch('patch-7.3.825')
@@ -93,13 +89,6 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
-        " 補完がエラーが発生する
-        " Composerプロジェクトのルートディレクトリでvimを開く必要があり
-        " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-        "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
-        "     \   'autoload': {'filetypes': 'php'}
-        "     \}
-        NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
         """ }}}
         """ スニペット補完 {{{
         NeoBundle 'Shougo/neosnippet', {"autoload": {"insert": 1}}
@@ -108,20 +97,6 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         """ }}}
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
         "" }}}
-        " quickrun {{{
-        NeoBundleLazy 'thinca/vim-quickrun', {
-            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
-            \   'depends' : ['karakaram/vim-quickrun-phpunit']
-            \}
-        NeoBundleLazy 'karakaram/vim-quickrun-phpunit'
-        " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'autoload' : { 'commands' : 'QuickRun' },
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
-        " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
-        " }}}
         " operator系 {{{
         NeoBundleLazy "kana/vim-operator-user"
         NeoBundleLazy 'kana/vim-operator-replace', {
@@ -194,6 +169,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             NeoBundle 'Align'
         endif
 
+        " コメント操作
+        " NeoBundle "tyru/caw.vim"
+        " NeoBundle "tpope/vim-commentary"
+        NeoBundle "tomtom/tcomment_vim"
 
         " sudo権限でファイルを開く・保存
         NeoBundle 'sudo.vim'
@@ -214,6 +193,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
 
         " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
         NeoBundle 'rgarver/Kwbd.vim'
+        " すでにvimが起動しているときは、そちらで開く
+        NeoBundle 'thinca/vim-singleton', {
+            \ 'disable': !has('clientserver'),
+            \ }
 
         " 一時バッファの制御
         " if v:version >= 704 || (v:version == 703 && has('patch462'))
@@ -240,6 +223,16 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
         NeoBundle 'ciaranm/detectindent'
 
+        NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
+            \   'autoload' : {
+            \       'commands' : {
+            \           'name' : 'DirDiff',
+            \           'complete' : 'dir'
+            \       }
+            \   }
+            \}
+        NeoBundle 'tmsanrinsha/diffchar.vim'
+
         " quickfix, syntax check {{{2
         " -------------------------------------------------------------------
         " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
@@ -257,14 +250,22 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
         "     \   ]
         "     \}
 
-        " debug {{{2
+        " quickrun {{{
+        NeoBundleLazy 'thinca/vim-quickrun', {
+            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
+            \   'depends' : ['karakaram/vim-quickrun-phpunit']
+            \}
+        NeoBundleLazy 'karakaram/vim-quickrun-phpunit'
+        " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
+        "             \   'autoload' : { 'commands' : 'QuickRun' },
+        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+        "             \}
+        " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
+        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+        "             \}
+        " }}}
+
         NeoBundleLazy 'joonty/vdebug'
-        " caw.vim {{{2
-        " -------
-        " コメント操作
-        " NeoBundle "tyru/caw.vim"
-        " NeoBundle "tpope/vim-commentary"
-        NeoBundle "tomtom/tcomment_vim"
 
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
@@ -293,6 +294,12 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \}
         " }}}
 
+        NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
+        " Composerプロジェクトのルートディレクトリでvimを開く必要があり
+        " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+        "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+        "     \   'autoload': {'filetypes': 'php'}
+        "     \}
         NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
         NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
         " JavaScript, CSS, HTMLの整形
@@ -332,7 +339,10 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             NeoBundle 'suan/vim-instant-markdown'
         endif
         " }}}
-        " yaml {{{
+        " sh {{{2
+        " indentの改善
+        NeoBundle 'sh.vim--Cla'
+        " yaml {{{2
         " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
         "             \   'autoload' : { 'filetypes' : 'yaml' }
         "             \}
@@ -367,19 +377,9 @@ if HasPlugin('neobundle.vim') && MyHasPatch('patch-7.2.051')
             \   'autoload': {'commands' : ['Gitv']}
             \}
 
-
         NeoBundleLazy 'mattn/gist-vim', {
             \   'autoload' : { 'commands' : [ 'Gist' ] },
             \   'depends'  : 'mattn/webapi-vim'
-            \}
-
-        NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
-            \   'autoload' : {
-            \       'commands' : {
-            \           'name' : 'DirDiff',
-            \           'complete' : 'dir'
-            \       }
-            \   }
             \}
 
         NeoBundleLazy 'tyru/open-browser.vim', {
@@ -499,12 +499,18 @@ else
     filetype plugin indent on
 endif
 "}}}
+" vim-singleton {{{1
+" ============================================================================
+if neobundle#is_installed('vim-singleton') && has('gui_running')
+    call singleton#enable()
+endif
+
 " sudo.vim {{{
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-if HasPlugin('sudo.vim')
-    if HasPlugin('bclose')
+if IsInstalled('sudo.vim')
+    if IsInstalled('bclose')
         nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
     else
         nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
@@ -513,7 +519,7 @@ if HasPlugin('sudo.vim')
 endif
 "}}}
 " vim-powerline{{{
-if HasPlugin('vim-powerline')
+if IsInstalled('vim-powerline')
     let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
     "let g:Powerline_theme = 'skwp'
     "let g:Powerline_colorscheme = 'skwp'
@@ -531,7 +537,7 @@ endif
 "}}}
 " vim-smartword {{{
 " ==============================================================================
-if HasPlugin("vim-smartword")
+if IsInstalled("vim-smartword")
     map w <Plug>(smartword-w)
     map b <Plug>(smartword-b)
     map e <Plug>(smartword-e)
@@ -541,12 +547,6 @@ endif
 if !neobundle#is_installed('neobundle.vim')
     finish
 endif
-" vim-singleton {{{1
-" ============================================================================
-if neobundle#is_installed('vim-singleton') && has('gui_running')
-    call singleton#enable()
-endif
-
 " unite.vim {{{1
 " ============================================================================
 if neobundle#is_installed('unite.vim')
@@ -1526,6 +1526,20 @@ endfunction
 " ============================================================================
 let g:PreserveNoEOL = 1
 
+" detectindent {{{1
+" ============================================================================
+if IsInstalled('detectindent')
+    " let g:detectindent_verbosity = 0
+    autocmd MyVimrc BufWinEnter *
+    \   let g:detectindent_preferred_indent = &shiftwidth
+    \|  if &expandtab == 0
+    \|      unlet! g:detectindent_preferred_expandtab
+    \|  else
+    \|      let g:detectindent_preferred_expandtab = 1
+    \|  endif
+    \|  DetectIndent
+endif
+
 " scrooloose/syntastic {{{1
 " ============================================================================
 if neobundle#is_installed('syntastic')
@@ -1962,7 +1976,7 @@ finish
 
 " minibufexpl.vim {{{
 " ==============================================================================
-if HasPlugin('minibufexpl')
+if IsInstalled('minibufexpl')
     " Put new window below current or on the right for vertical split
     let g:miniBufExplSplitBelow=0
     "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
@@ -1989,7 +2003,7 @@ endif
 " ==============================================================================
 " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
 " https://github.com/rgarver/Kwbd.vim
-if HasPlugin('bclose')
+if IsInstalled('bclose')
     nmap <Leader>bd <Plug>Kwbd
 endif
 " }}}
