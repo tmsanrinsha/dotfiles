@@ -687,6 +687,49 @@ nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
 nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 
+" vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
+" ----------------------------------------------------------------------------
+" http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
+" https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
+let s:git_diff_normal="git-diff-normal"
+let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
+
+function! GitDiffNormal()
+  let args=[s:git_diff_normal]
+  if &diffopt =~ "iwhite"
+    call add(args, "--ignore-all-space")
+  endif
+  call extend(args, s:git_diff_normal_opts)
+  call extend(args, [v:fname_in, v:fname_new])
+  let cmd=join(args, " ") . ">" . v:fname_out
+  call system(cmd)
+endfunction
+
+if executable(s:git_diff_normal)
+  call system(s:git_diff_normal)
+  if v:shell_error == 0
+    set diffexpr=GitDiffNormal()
+  endif
+endif
+
+" diffchar.vim {{{2
+" ----------------------------------------------------------------------------
+" vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
+" http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
+if IsInstalled('diffchar.vim')
+    let t:DiffUnit='Word3'
+    " vimdiffで起動した時にdiffcharを有効にする
+    if &diff
+        autocmd MyVimrc VimEnter * %SDChar
+    endif
+
+    " Gdiff使った時に自動的にdiffcharを有効にしたかったが、エラーが出るため断念
+    " autocmd MyVimrc BufEnter *
+    " \   if &diff |
+    " \       execute '%SDChar' |
+    " \   endif
+endif
+
 " tag {{{1
 " ============================================================================
 if has('path_extra')

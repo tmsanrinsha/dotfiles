@@ -17,6 +17,14 @@ setup_dir=$git_dir/setup
 
 source $home/.zashenv
 
+function install() {
+  local url=$1
+  local file=`basename $url`
+  if ! type $file 1>/dev/null 2>&1; then
+    curl $url > $HOME/bin/$file
+    chmod a+x $HOME/bin/$file
+  fi
+}
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* ]]; then
@@ -120,20 +128,13 @@ if ! command_exists ack; then
     chmod a+x $HOME/bin/ack
 fi
 
-# ghinst {{{1
-# ============================================================================
-if ! command_exists ghinst; then
-    curl https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst > $HOME/bin/ghinst
-    chmod a+x $HOME/bin/ghinst
-fi
+install 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst'
+install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
 
 # screenshotTable.sh {{{1
 # ============================================================================
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
-if ! command_exists screenshotTable.sh; then
-    curl https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh > $HOME/bin/screenshotTable.sh
-    chmod a+x $HOME/bin/screenshotTable.sh
-fi
+install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 
 # peco {{{1
 # ============================================================================
