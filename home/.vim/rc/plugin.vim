@@ -872,6 +872,8 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         else
             let g:neocomplcache_min_syntax_length = 3
         endif
+        let g:neocomplete#auto_completion_start_length = 3
+
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
 
         " 補完候補取得に時間がかかったときにスキップ
