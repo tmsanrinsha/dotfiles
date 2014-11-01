@@ -567,7 +567,6 @@ if neobundle#is_installed('unite.vim')
     execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
     execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
     execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
@@ -578,7 +577,6 @@ if neobundle#is_installed('unite.vim')
 
     "最近使用したファイル一覧
     nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
-    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
@@ -608,6 +606,13 @@ if neobundle#is_installed('unite.vim')
         " windowsでドライブのC:をC\:に変更する必要がある
         execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
     endfunction
+
+    let s:hooks = neobundle#get_hooks("unite.vim")
+    function! s:hooks.on_source(bundle)
+        call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+        call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+    endfunction
+
     " }}}
 
     " unite-grep {{{
