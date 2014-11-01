@@ -1,3 +1,4 @@
+
 " neobundle.vim {{{1
 " ============================================================================
 if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051')
@@ -31,7 +32,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
                 \ }
         endif
 
-        " unite {{{
+        " unite {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy 'Shougo/unite.vim', {
             \   'autoload': {
@@ -91,7 +92,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " endif
         """ }}}
         """ スニペット補完 {{{
-        NeoBundle 'Shougo/neosnippet', {"autoload": {"insert": 1}}
+        NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
         NeoBundleLazy 'Shougo/neosnippet-snippets', {"autoload": {"insert": 1}}
         NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
         """ }}}
@@ -1086,9 +1087,12 @@ endif
 " neosnippet {{{
 " ==============================================================================
 if neobundle#is_installed('neosnippet')
-    " let s:hooks = neobundle#get_hooks("neosnippet")
-    "
-    " function! s:hooks.on_source(bundle)
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+    let s:hooks = neobundle#get_hooks("neosnippet")
+
+    function! s:hooks.on_source(bundle)
         " Plugin key-mappings.
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
         smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -1102,9 +1106,7 @@ if neobundle#is_installed('neosnippet')
         " Enable snipMate compatibility feature.
         let g:neosnippet#enable_snipmate_compatibility = 1
 
-        " Tell Neosnippet about the other snippets
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-    " endfunction
+    endfunction
 endif
 " }}}
 " Valloric/Youcompleteme {{{
