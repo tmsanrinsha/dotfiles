@@ -18,7 +18,7 @@ setup_dir=$git_dir/setup
 if which curl;then
     downloader='curl -kLR'
 elif which wget;then
-    downloader='wget -O -'
+    downloader='wget --no-check-certificate -O -'
 else
     echo 'curlまたはwgetをインストールしてください'
     exit 1
