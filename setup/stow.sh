@@ -14,7 +14,13 @@ include,\
 share/{doc,info,man}\
 }
 
-tmpdir=`mktemp -d /tmp/XXXXXX`
+if type mktemp 1>/dev/null 2>&1; then
+    tmpdir=`mktemp -d /tmp/XXXXXX`
+else
+    mkdir -p ~/tmp/$$
+    tmpdir="$HOME/tmp/$$"
+fi
+
 cd $tmpdir
 if which curl;then
     curl='curl -L'
