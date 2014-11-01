@@ -695,21 +695,18 @@ let s:git_diff_normal="git-diff-normal"
 let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
 
 function! GitDiffNormal()
-  let args=[s:git_diff_normal]
-  if &diffopt =~ "iwhite"
-    call add(args, "--ignore-all-space")
-  endif
-  call extend(args, s:git_diff_normal_opts)
-  call extend(args, [v:fname_in, v:fname_new])
-  let cmd=join(args, " ") . ">" . v:fname_out
-  call system(cmd)
+    let args=[s:git_diff_normal]
+    if &diffopt =~ "iwhite"
+        call add(args, "--ignore-all-space")
+    endif
+    call extend(args, s:git_diff_normal_opts)
+    call extend(args, [v:fname_in, v:fname_new])
+    let cmd=join(args, " ") . ">" . v:fname_out
+    call system(cmd)
 endfunction
 
-if executable(s:git_diff_normal)
-  call system(s:git_diff_normal)
-  if v:shell_error == 0
+if executable(s:git_diff_normal) && executable('git')
     set diffexpr=GitDiffNormal()
-  endif
 endif
 
 " diffchar.vim {{{2
