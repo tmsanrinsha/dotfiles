@@ -1,4 +1,5 @@
-" {{{
+" 初期設定 {{{1
+" ============================================================================
 scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
 set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
 
@@ -33,17 +34,8 @@ function! MyIsRuning(str) " {{{
     endif
     return 0
 endfunction " }}}
-function! HasPlugin(plugin) " {{{
-    " Pluginの有無をチェック
-    " runtimepathにあるか
-    " http://yomi322.hateblo.jp/entry/2012/06/20/225559
-    " return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-    " \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-    " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-    return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
-endfunction " }}}
-" バッファ名nameを持つウィンドウに移動する
-function! GotoWin(name) " {{{
+"" バッファ名nameを持つウィンドウに移動する {{{
+function! GotoWin(name)
     let nr = bufwinnr(a:name)
     if nr > 0
         execute nr . 'wincmd w'
@@ -57,7 +49,12 @@ function! IsInstalled(plugin) " {{{
     if exists('*neobundle#is_installed')
         return neobundle#is_installed(a:plugin)
     else
-        return 0
+      " runtimepathにあるか
+      " http://yomi322.hateblo.jp/entry/2012/06/20/225559
+      return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+      \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+      \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+      " return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
     endif
 endfunction " }}}
 " vimrc全体で使うaugroup {{{
@@ -131,21 +128,9 @@ runtime macros/matchit.vim
 " ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
 set visualbell t_vt=
 
-" 不可視文字の表示 {{{
+" 不可視文字の表示
 set list
 set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:% ",eol:↲
-
-" 全角スペースをハイライト （Vimテクニックバイブル1-11）
-syntax enable
-" [Vim documentation: syntax](http://vim-jp.org/vimdoc-ja/syntax.html)
-scriptencoding utf-8
-augroup MyVimrc
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-    autocmd ColorScheme *
-        \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
-        " \|  highlight Normal ctermbg=233 guibg=#1B1D1E
-augroup END
-" }}}
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進数と16進数を増減させる。
@@ -789,6 +774,16 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " colorscheme {{{1
 " ==============================================================================
 set t_Co=256 " 256色
+syntax enable
+
+" 全角スペースをハイライト （Vimテクニックバイブル1-11）
+" [Vim documentation: syntax](http://vim-jp.org/vimdoc-ja/syntax.html)
+augroup MyVimrc
+    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+    autocmd ColorScheme *
+    \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
+augroup END
+
 if isdirectory(expand('~/.vim/bundle/my_molokai'))
     colorscheme molokai-customized
 else
@@ -1084,20 +1079,6 @@ autocmd MyVimrc FileType gitcommit
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 " }}}
 " }}}
-" detectindent {{{1
-" ============================================================================
-if IsInstalled('detectindent')
-    " let g:detectindent_verbosity = 0
-    autocmd MyVimrc BufWinEnter *
-    \   let g:detectindent_preferred_indent = &shiftwidth
-    \|  if &expandtab == 0
-    \|      unlet g:detectindent_preferred_expandtab
-    \|  else
-    \|      let g:detectindent_preferred_expandtab = 1
-    \|  endif
-    \|  DetectIndent
-endif
-
 " その他の設定 {{{1
 if !has('gui_running')
     call SourceRc('cui.vim')
