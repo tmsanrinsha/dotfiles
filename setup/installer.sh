@@ -2,6 +2,8 @@
 set -ex
 
 # curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
+# or
+# wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
 
 SRC_ROOT="$HOME/git"
 if [ ! -d $SRC_ROOT/tmsanrinsha ]; then

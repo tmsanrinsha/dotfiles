@@ -15,13 +15,22 @@ git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
 home=$git_dir/home
 setup_dir=$git_dir/setup
 
+if which curl;then
+    downloader='curl -kLR'
+elif which wget;then
+    downloader='wget -O -'
+else
+    echo 'curlまたはwgetをインストールしてください'
+    exit 1
+fi
+
 source $home/.zashenv
 
 function install() {
   local url=$1
   local file=`basename $url`
   if ! type $file 1>/dev/null 2>&1; then
-    curl $url > $HOME/bin/$file
+    $downloader $url > $HOME/bin/$file
     chmod a+x $HOME/bin/$file
   fi
 }
@@ -80,7 +89,7 @@ test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
 if [ ! -x ~/.zsh/functions/_pandoc ];then
     # https://gist.github.com/sky-y/3334048
-    curl -kL https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/functions/_pandoc
+    $downloader https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/functions/_pandoc
     chmod a+x ~/.zsh/functions/_pandoc
 fi
 
@@ -124,7 +133,7 @@ fi
 # ============================================================================
 # http://beyondgrep.com
 if ! command_exists ack; then
-    curl http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
+    $downloader http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
     chmod a+x $HOME/bin/ack
 fi
 
@@ -156,7 +165,7 @@ command_exists jvgrep || ghinst mattn/jvgrep
 # ============================================================================
 if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
-        curl https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
+        $downloader https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
     fi
 
@@ -170,7 +179,7 @@ if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x /usr/bin/ssh-pageant ]; then
         pushd .
         cd /usr/src
-        curl -L https://github.com/downloads/cuviper/ssh-pageant/ssh-pageant-1.1-release.tar.gz | tar  zxvf -
+        $downloader https://github.com/downloads/cuviper/ssh-pageant/ssh-pageant-1.1-release.tar.gz | tar  zxvf -
         cd ssh-pageant-1.1
         cp ssh-pageant.exe /usr/bin/
         cp ssh-pageant.1 /usr/share/man/man1/
@@ -178,12 +187,12 @@ if [[ `uname` = CYGWIN* ]]; then
     fi
 elif [[ `uname` = Darwin ]]; then
     if [ ! -x ~/bin/rmtrash ];then
-        curl -L https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
+        $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
     fi
     mkdir -p ~/setting
-    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
-    curl -L https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
+    $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
+    $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if command_exists brew; then
         ln -fs $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
 
@@ -249,7 +258,7 @@ elif [[ `uname` = Darwin ]]; then
     #     popd
     if ! command_exists composer; then
         pushd ~/bin
-        curl -sS https://getcomposer.org/installer | php
+        $downloader https://getcomposer.org/installer | php
         mv composer.phar composer
         popd
     fi
