@@ -20,6 +20,6 @@ endif
 
 augroup after_ftplugin_conque_term
     autocmd! * <buffer>
-    autocmd InsertEnter <buffer> execute 'let ' . s:neocom_disable_auto_complete . ' = 1'
-    autocmd BufLeave    <buffer> execute 'let ' . s:neocom_disable_auto_complete . ' = 0'
+    autocmd BufEnter <buffer> execute 'let ' . s:neocom_disable_auto_complete . ' = 1'
+    autocmd BufLeave <buffer> execute 'let ' . s:neocom_disable_auto_complete . ' = 0'
 augroup END
