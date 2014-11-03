@@ -326,7 +326,7 @@ if [ $TERM = screen ];then
     }
 
     function tmux_precmd() {
-        echo -ne "\ek$(basename $(pwd))@${HOST%%.*}\e\\"
+        echo -ne "\ek$(basename "$(pwd)")@${HOST%%.*}\e\\"
     }
     add-zsh-hook preexec tmux_preexec
     add-zsh-hook precmd  tmux_precmd
