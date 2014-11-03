@@ -777,6 +777,24 @@ noremap [,location]q :lclose<CR>
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
 
+" Automatically fitting a quickfix window height - Vim Tips Wiki
+" http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
+autocmd MyVimrc FileType qf call s:AdjustWindowHeight(1, 10)
+function! s:AdjustWindowHeight(minheight, maxheight)
+    let l = 1
+    let n_lines = 0
+    let w_width = winwidth(0)
+    while l <= line('$')
+        " number to float for division
+        let l_len = strlen(getline(l)) + 0.0
+        let line_width = l_len/w_width
+        let n_lines += float2nr(ceil(line_width))
+        let l += 1
+    endw
+    exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
+" errorformatの確認のための関数
 " [Vim - errorformatについて(入門編) - Qiita](http://qiita.com/rbtnn/items/92f80d53803ce756b4b8)
 function! TestErrFmt(errfmt,lines)
   let temp_errorfomat = &errorformat
