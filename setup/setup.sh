@@ -163,6 +163,8 @@ command_exists jvgrep || ghinst mattn/jvgrep
 
 # install {{{1
 # ============================================================================
+# CYGWIN {{{2
+# ----------------------------------------------------------------------------
 if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         $downloader https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
@@ -185,6 +187,8 @@ if [[ `uname` = CYGWIN* ]]; then
         cp ssh-pageant.1 /usr/share/man/man1/
         popd
     fi
+# Darwin {{{2
+# ----------------------------------------------------------------------------
 elif [[ `uname` = Darwin ]]; then
     if [ ! -x ~/bin/rmtrash ];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
@@ -207,6 +211,8 @@ elif [[ `uname` = Darwin ]]; then
         if [ $all -eq 1 ]; then
             brew update  # homebrewの更新
             brew upgrade # packageの更新
+            brew cleanup
+            brew cask cleanup
             brew tap peco/peco
         fi
 
@@ -231,6 +237,10 @@ elif [[ `uname` = Darwin ]]; then
 
         ## caskroom/cask
         brew-install caskroom/cask/brew-cask
+
+        # brew caskでインストールしたものをalfredから検索可能にする
+        brew cask alfred link
+
         brew-cask-install alfred
         brew-cask-install bettertouchtool
         brew-cask-install eclipse-ide
