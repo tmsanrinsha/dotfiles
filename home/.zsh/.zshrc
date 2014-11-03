@@ -370,7 +370,7 @@ if hash peco 2>/dev/null; then
         CURSOR=$#BUFFER
     }
     zle -N peco_git_sha1
-    bindkey "^x^s" peco_git_sha1
+    bindkey "^[s" peco_git_sha1
 
     # history {{{2
     function peco_select_history() {
@@ -402,7 +402,7 @@ if hash peco 2>/dev/null; then
         zle clear-screen
     }
     zle -N peco-cdr
-    bindkey '^Xd' peco-cdr
+    bindkey '^[r' peco-cdr
 
     # grepしてvimで開く {{{2
     function peco-grep-vim () {
