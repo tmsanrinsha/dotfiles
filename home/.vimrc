@@ -765,7 +765,7 @@ nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>
 noremap [quickfix] <Nop>
 nmap <Leader>q [quickfix]
-noremap [quickfix]o :copen<CR>
+noremap [quickfix]o :botright copen<CR>
 noremap [quickfix]q :cclose<CR>
 nnoremap [L :<C-u>lprevious<CR>
 nnoremap ]L :<C-u>lnext<CR>
