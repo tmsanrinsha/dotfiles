@@ -714,7 +714,7 @@ endif
 " vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
 " http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
 if IsInstalled('diffchar.vim')
-    let t:DiffUnit='Word3'
+    let g:DiffUnit='Word3'
     " vimdiffで起動した時にdiffcharを有効にする
     if &diff
         autocmd MyVimrc VimEnter * %SDChar
