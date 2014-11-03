@@ -777,6 +777,10 @@ noremap [,location]q :lclose<CR>
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
 
+" show quickfix automatically
+" これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
+" autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | botright cwindow | botright lwindow | endif
+
 " Automatically fitting a quickfix window height - Vim Tips Wiki
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 autocmd MyVimrc FileType qf call s:AdjustWindowHeight(1, 10)
@@ -810,9 +814,6 @@ function! TestErrFmt(errfmt,lines)
   endtry
 endfunction
 
-" show quickfix automatically
-" これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
-" autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | cwindow | lwindow | endif
 "}}}
 " Ip2host {{{
 " ==============================================================================
