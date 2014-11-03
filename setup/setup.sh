@@ -206,9 +206,8 @@ elif [[ `uname` = Darwin ]]; then
 
         if [ $all -eq 1 ]; then
             brew update  # homebrewの更新
-            brew tap caskroom/cask
-            brew tap peco/peco
             brew upgrade # packageの更新
+            brew tap peco/peco
         fi
 
         brew-install ag
@@ -230,8 +229,8 @@ elif [[ `uname` = Darwin ]]; then
         brew-install tree
         brew-install zsh
 
-        # caskroom/cask
-        brew-install brew-cask
+        ## caskroom/cask
+        brew-install caskroom/cask/brew-cask
         brew-cask-install alfred
         brew-cask-install bettertouchtool
         brew-cask-install eclipse-ide
