@@ -706,18 +706,17 @@ function! GitDiffNormal()
     call system(cmd)
 endfunction
 
-autocmd MyVimrc FilterWritePre
+autocmd MyVimrc FilterWritePre *
 \   if &diff && !exists('g:my_check_diff')
-\       if executable(s:git_diff_normal) && executable('git')
-\           " --diff-algorithm optionが使えるかのチェック
-\           call system('git ' . s:git_diff_normal_opts[0] . '>/dev/null 2>&1')
-\           if v:shell_error != 255
-\               set diffexpr=GitDiffNormal()
-\           endif
-\       endif
-\       let g:my_check_diff = 1
-\   endif
-
+\|      let g:my_check_diff = 1
+\|      if executable(s:git_diff_normal) && executable('git')
+\|          " --diff-algorithm optionが使えるかのチェック
+\|          call system('git ' . s:git_diff_normal_opts[0] . '>/dev/null 2>&1')
+\|          if v:shell_error != 255
+\|              set diffexpr=GitDiffNormal()
+\|          endif
+\|      endif
+\|  endif
 
 " diffchar.vim {{{2
 " ----------------------------------------------------------------------------

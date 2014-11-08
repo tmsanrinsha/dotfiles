@@ -22,8 +22,7 @@ git="${GIT:-git}"
 
 ## Check if git(1) is available or not
 if [ $# -eq 0 ]; then
-  # type "$git" >/dev/null 2>&1
-  git diff --diff-algorithm=histogram >/dev/null 2>&1
+  type "$git" >/dev/null 2>&1
   exit $?
 fi
 
@@ -34,22 +33,12 @@ if [ X"$1" == X"--vimrc" ]; then
 fi
 
 ## Do git-diff(1) and convert into normal diff format for vimdiff(1)
-diff=`"$git" diff \
+"$git" diff \
   --unified=0 \
   --no-ext-diff \
   --no-index \
   --no-color \
-  "$@"`
-
-# status=$?
-# echo $diff
-# if [ $status -ne 255 ];then
-# echo $status
-#     exit $status
-# fi
-# echo 'ge'
-# echo $diff
-echo $diff \
+  "$@" \
 |sed \
   -e '1,/^+++/d' \
   -e 's/^@@ -\([0-9]*\),*\([^ ]*\) +\([0-9]*\),*\([^ ]*\).*/\1,\2,\3,\4/' \
@@ -88,26 +77,34 @@ echo $diff \
 exit 0
 
 : <<'VIMRC_EOF'
-let g:git_diff_normal="git-diff-normal"
-let g:git_diff_normal_opts=["--diff-algorithm=histogram"]
+augroup MyVimrc
+    autocmd!
+augroup END
+
+let s:git_diff_normal="git-diff-normal"
+let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
 
 function! GitDiffNormal()
-  let args=[g:git_diff_normal]
-  if &diffopt =~ "iwhite"
-    call add(args, "--ignore-all-space")
-  endif
-  call extend(args, g:git_diff_normal_opts)
-  call extend(args, [v:fname_in, v:fname_new])
-  let cmd="!" . join(args, " ") . ">" . v:fname_out
-  silent execute cmd
-  redraw!
+    let args=[s:git_diff_normal]
+    if &diffopt =~ "iwhite"
+        call add(args, "--ignore-all-space")
+    endif
+    call extend(args, s:git_diff_normal_opts)
+    call extend(args, [v:fname_in, v:fname_new])
+    let cmd=join(args, " ") . ">" . v:fname_out
+    call system(cmd)
 endfunction
 
-if executable(g:git_diff_normal)
-  call system(g:git_diff_normal)
-  if v:shell_error == 0
-    set diffexpr=GitDiffNormal()
-  endif
-endif
+autocmd MyVimrc FilterWritePre *
+\   if &diff && !exists('g:my_check_diff')
+\|      let g:my_check_diff = 1
+\|      if executable(s:git_diff_normal) && executable('git')
+\|          " --diff-algorithm optionが使えるかのチェック
+\|          call system('git ' . s:git_diff_normal_opts[0] . '>/dev/null 2>&1')
+\|          if v:shell_error != 255
+\|              set diffexpr=GitDiffNormal()
+\|          endif
+\|      endif
+\|  endif
 VIMRC_EOF
 
