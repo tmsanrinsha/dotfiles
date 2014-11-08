@@ -691,6 +691,7 @@ nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 " ----------------------------------------------------------------------------
 " http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
 " https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
+" gitのバージョンが1.7だと使えなかった
 let s:git_diff_normal="git-diff-normal"
 let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
 
@@ -705,9 +706,18 @@ function! GitDiffNormal()
     call system(cmd)
 endfunction
 
-if executable(s:git_diff_normal) && executable('git')
-    set diffexpr=GitDiffNormal()
-endif
+autocmd MyVimrc FilterWritePre
+\   if &diff && !exists('g:my_check_diff')
+\       if executable(s:git_diff_normal) && executable('git')
+\           " --diff-algorithm optionが使えるかのチェック
+\           call system('git ' . s:git_diff_normal_opts[0] . '>/dev/null 2>&1')
+\           if v:shell_error != 255
+\               set diffexpr=GitDiffNormal()
+\           endif
+\       endif
+\       let g:my_check_diff = 1
+\   endif
+
 
 " diffchar.vim {{{2
 " ----------------------------------------------------------------------------
