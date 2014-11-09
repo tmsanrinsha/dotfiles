@@ -258,6 +258,8 @@ elif [[ `uname` = Darwin ]]; then
         # pip install nosy
         # pip install ipython
         # pip install six
+
+        # brew cask install playonmac
     fi
     # ウィンドウの整列
     # if [ ! -d ~/git/ShiftIt ];then
