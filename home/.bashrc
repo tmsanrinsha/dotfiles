@@ -68,7 +68,7 @@ if which md5 1>/dev/null 2>&1; then
 else
     num=$((0x`hostname | md5sum | cut -c1-8` % 216))
 fi
-echo $num
+
 PS1="\[\e[38;5;${colArr[$num]}m\][\h:\w]\\$ \[\e[0m\]"
 #PS1="\[\e[0;${col}m\][\u@\h \w]\\$ \[\e[0m\]"
  
