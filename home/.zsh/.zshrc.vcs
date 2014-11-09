@@ -175,6 +175,7 @@ function _update_vcs_info_msg() {
     fi
 
     # jobがあるなら表示。SHLVLが3以上（tmux上でvim開いて:shとか）なら表示
-    RPROMPT="%(1j|JOBS:%j |)%(3L|SHLVL:%L |)%l $prompt"
+    # RPROMPT="%(1j|JOBS:%j |)%(3L|SHLVL:%L |)%l $prompt"
+    RPROMPT="%(1j|JOBS:%j |)%(3L|SHLVL:%L |) $prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
