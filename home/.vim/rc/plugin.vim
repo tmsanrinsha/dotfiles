@@ -134,7 +134,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'kana/vim-textobj-indent'
         NeoBundle 'sgur/vim-textobj-parameter'
         NeoBundle 'thinca/vim-textobj-comment'
-        if (v:version == 703 && !has('patch610')) || v:version == 702
+        if !MyHasPatch('patch-7.3.610')
             NeoBundleLazy 'kana/vim-textobj-lastpat', {
                 \   'depends': 'kana/vim-textobj-user',
                 \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
@@ -559,17 +559,6 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_exit)
-
-    " directory
-    " カレントディレクトリ以下のディレクトリ
-    nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap [unite]dm    :<C-u>Unite directory_mru<CR>
-    execute 'nnoremap [unite]dv :<C-u>Unite directory:' . $VIMDIR   . '/bundle<CR>'
-    execute 'nnoremap [unite]dV :<C-u>Unite directory:' . $VIM      . '<CR>'
-    execute 'nnoremap [unite]dg :<C-u>Unite directory:' . $HOME     . '/git<CR>'
-
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 
@@ -583,10 +572,20 @@ if neobundle#is_installed('unite.vim')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
-    " file_rec {{{
+    " directory {{{2
+    " カレントディレクトリ以下のディレクトリ
+    nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap [unite]dm :<C-u>Unite directory_mru<CR>
+    nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR/bundle<CR>
+    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
+    nnoremap [unite]dg :<C-u>Unite directory:$HOME/git<CR>
+
+    " file_rec {{{2
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
-    execute 'nnoremap [unite]fs :<C-u>Unite file_rec/async:' . $SRC_ROOT . '<CR>'
+    " srcのdirectory以下のファイル
+    nnoremap [unite]fs :<C-u>Unite file_rec/async:$SRC_ROOT<CR>
 
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
@@ -611,13 +610,15 @@ if neobundle#is_installed('unite.vim')
 
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
+        " uniteウィンドウを閉じる
+        nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_exit)
         call unite#custom_default_action('source/directory/directory' , 'vimfiler')
         call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
     endfunction
 
     " }}}
 
-    " unite-grep {{{
+    " unite-grep {{{2
     " ------------------------------------------------------------------------
     if executable('jvgrep')
         " Use jvgrep in unite grep source.
