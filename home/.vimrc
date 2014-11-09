@@ -76,46 +76,6 @@ set cmdheight=2 "コマンドラインの高さを2行にする
 set number
 set ruler
 
-" cursorlineは重いので必要なときだけ有効にする {{{
-" 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
-" <http://d.hatena.ne.jp/thinca/20090530/1243615055>
-set updatetime=500
-set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
-augroup MyVimrc
-    " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-    " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-    autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
-    autocmd CursorHold  * call s:auto_cursorline('CursorHold')
-    autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
-    autocmd WinEnter * call s:auto_cursorline('WinEnter')
-    autocmd WinLeave * call s:auto_cursorline('WinLeave')
-
-    let s:cursorline_lock = 0
-    function! s:auto_cursorline(event)
-        if a:event ==# 'WinEnter'
-            setlocal cursorline
-            let s:cursorline_lock = 2
-        elseif a:event ==# 'WinLeave'
-            setlocal cursorline
-        elseif a:event ==# 'CursorMoved'
-            if s:cursorline_lock
-                if 1 < s:cursorline_lock
-                    let s:cursorline_lock = 1
-                else
-                    setlocal nocursorline
-                    let s:cursorline_lock = 0
-                endif
-            endif
-        elseif a:event ==# 'CursorHold'
-            setlocal cursorline
-            let s:cursorline_lock = 1
-        elseif a:event ==# 'InsertEnter'
-            setlocal nocursorline
-        endif
-    endfunction
-augroup END
-" }}}
-
 set showmatch matchtime=1 "括弧の対応
 set matchpairs& matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
@@ -459,7 +419,7 @@ set splitbelow
 set splitright
 
 " 常にカーソル行を真ん中にする場合は999など
-set scrolloff=5
+set scrolloff=1
 
 "縦分割されたウィンドウのスクロールを同期させる
 "同期させたいウィンドウ上で<F12>を押せばおｋ
@@ -810,17 +770,17 @@ endfunction
 " errorformatの確認のための関数
 " [Vim - errorformatについて(入門編) - Qiita](http://qiita.com/rbtnn/items/92f80d53803ce756b4b8)
 function! TestErrFmt(errfmt,lines)
-  let temp_errorfomat = &errorformat
-  try
-    let &errorformat = a:errfmt
-    cexpr join(a:lines,"\n")
-    copen
-  catch
-    echo v:exception
-    echo v:throwpoint
-  finally
-    let &errorformat = temp_errorfomat
-  endtry
+    let temp_errorfomat = &errorformat
+    try
+        let &errorformat = a:errfmt
+        cexpr join(a:lines,"\n")
+        copen
+    catch
+        echo v:exception
+        echo v:throwpoint
+    finally
+        let &errorformat = temp_errorfomat
+    endtry
 endfunction
 
 "}}}
@@ -840,17 +800,62 @@ endfunction
 command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " }}}
 " colorscheme {{{1
-" ==============================================================================
+" ============================================================================
 set t_Co=256 " 256色
 syntax enable
 
-" 全角スペースをハイライト （Vimテクニックバイブル1-11）
+" 全角スペースをハイライト （Vimテクニックバイブル1-11）{{{2
+" ----------------------------------------------------------------------------
 " [Vim documentation: syntax](http://vim-jp.org/vimdoc-ja/syntax.html)
 augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
     autocmd ColorScheme *
     \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
+
+" cursorlineは重いので必要なときだけ有効にする {{{2
+" ----------------------------------------------------------------------------
+" 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
+" <http://d.hatena.ne.jp/thinca/20090530/1243615055>
+set updatetime=500
+set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
+augroup MyVimrc
+    " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+    " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+    autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
+    autocmd CursorHold  * call s:auto_cursorline('CursorHold')
+    autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
+    autocmd WinEnter    * call s:auto_cursorline('WinEnter')
+    autocmd WinLeave    * call s:auto_cursorline('WinLeave')
+
+    let s:cursorline_lock = 0
+    function! s:auto_cursorline(event)
+        if &filetype == 'qf'
+            return
+        endif
+        if a:event ==# 'WinEnter'
+            setlocal cursorline
+            let s:cursorline_lock = 2
+        elseif a:event ==# 'WinLeave' && &filetype != 'qf'
+            setlocal cursorline
+        elseif a:event ==# 'CursorMoved'
+            if s:cursorline_lock
+                if 1 < s:cursorline_lock
+                    let s:cursorline_lock = 1
+                else
+                    setlocal nocursorline
+                    let s:cursorline_lock = 0
+                endif
+            endif
+        elseif a:event ==# 'CursorHold'
+            setlocal cursorline
+            let s:cursorline_lock = 1
+        elseif a:event ==# 'InsertEnter'
+            setlocal nocursorline
+        endif
+    endfunction
+augroup END
+" }}}
 
 if isdirectory(expand('~/.vim/bundle/my_molokai'))
     colorscheme molokai-customized
@@ -1086,7 +1091,7 @@ autocmd MyVimrc FileType java
 let g:sql_type_default = 'mysql'
 let g:ftplugin_sql_statements = 'create,alter'
 " }}}
-" vim {{{2
+" Vim {{{2
 " ----------------------------------------------------------------------------
 " カーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
