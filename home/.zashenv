@@ -51,6 +51,11 @@ elif [[ $OSTYPE == darwin* ]]; then
     # gnu-sed
     PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
     MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+
+    # wine
+    if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
+        pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
+    fi
 fi
 
 # makeで作った実行ファイルなどを置くディレクトリ
