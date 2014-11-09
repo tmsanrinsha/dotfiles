@@ -97,6 +97,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
         """ }}}
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
+        NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
         "" }}}
         " operator系 {{{
         NeoBundleLazy "kana/vim-operator-user"
