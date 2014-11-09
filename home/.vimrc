@@ -1142,6 +1142,16 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
 autocmd MyVimrc FileType gitcommit
     \  setlocal formatoptions<
 
+" MQL4 {{{2
+" ----------------------------------------------------------------------------
+" wineで使っているせいか相対パスで実行してやらないとだめなので、lcdする
+autocmd MyVimrc FileType mql4
+\   lcd %:p:h |
+\   setlocal makeprg=wine\ ~/bin/mql.exe\ % |
+\   let &l:errorformat = '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#'
+
+autocmd BufWritePost *.mq4 make
+
 " tsv {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
