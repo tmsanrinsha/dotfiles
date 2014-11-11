@@ -1,10 +1,15 @@
-##
-# コマンドの存在チェック
+# コマンドの存在チェック {{{1
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
 #      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
 function command_exists {
   hash "$1" 2>/dev/null;
 }
+
+# hosts用の設定の出力 {{{1
+function hosts {
+    host $(hostname) | awk '{print $4"	#"$1}'
+}
+
 # PATHの設定 {{{1
 # ============================================================================
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数
