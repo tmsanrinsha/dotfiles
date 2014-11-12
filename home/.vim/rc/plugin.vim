@@ -441,10 +441,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
         " endif
         NeoBundleLazy 'vimwiki/vimwiki', {
-            \   'autoload': {
-            \       'mappings': '<Plug>Vimwiki'
-            \   }
-            \}
+        \   'autoload': {
+        \       'mappings': '<Plug>Vimwiki'
+        \   },
+        \   'filetypes': 'vimwiki'
+        \}
+
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
