@@ -6,13 +6,27 @@ set -ex
 # CentOSの場合でコンパイルしない場合はこちらを参照
 # http://d.hatena.ne.jp/deris/20120804/1344080402
 
-# http://www.vim.org/download.phpで最新バージョンを確かめる
-ver=7.4
-patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
-# vimdir=$HOME/vim/${ver}.${patch}
-pkg_ver=vim-${ver}.${patch}
+if which git; then
+    vvm=$HOME/.vvm
+    if [ ! -d $vvm/vim ]; then
+        git clone https://github.com/vim-jp/vim.git $vvm/vim
+        cd $vvm/vim
+    else
+        cd $vvm/vim
+        git pull
+    fi
+    pkg_ver=$(git log --grep='^Added tag' -1 | awk '/Added/ {print $3}')
+else
+    # http://www.vim.org/download.phpで最新バージョンを確かめる
+    ver=7.4
+    patch=`curl ftp://ftp.vim.org/pub/vim/patches/${ver}/README | tail -1 | awk '{print $2}' | sed "s/${ver}\.//"`
+    # vimdir=$HOME/vim/${ver}.${patch}
+    pkg_ver=vim-${ver}.${patch}
+fi
 
-if which hg &>/dev/null; then
+if which git; then
+    :
+elif which hg &>/dev/null; then
     # hgを使う
     if [ ! -d ~/hg ]; then
         mkdir ~/hg
@@ -27,8 +41,6 @@ else
     # patchを使う方法
     tmpdir=`mktemp -d /tmp/XXXXXX`
     cd $tmpdir
-    # mkdir -p $vimdir/{bin,src}
-    # cd $vimdir/src
 
     if which curl;then
         downloader='curl -L'
@@ -63,22 +75,27 @@ else
 fi
 
 if which python; then
-    option=--enable-pythoninterp
+    option='--enable-pythoninterp=yes'
+fi
+
+if which lua; then
+    option="${option} --enable-luainterp"
 fi
 
 # ./configure --helpでオプションの詳細が見れる
 # --with-featuresで何が入るかはこちら
 # http://vim-jp.org/vimdoc-ja/various.html#:ve
+# LD_RUN_PATH="$HOME/local/lib:$LD_RUN_PATH"
+# LDFLAGS="-L$HOME/local/lib"
+# CFLAGS="-I$HOME/local/include"
 ./configure \
+--prefix=$HOME/local/stow/$pkg_ver \
 --with-features=huge \
 --enable-multibyte \
 --disable-gui \
 --without-x \
---prefix=$HOME/local/stow/$pkg_ver \
 $option
 # --with-local-dir=$HOME/local \
-# LDFLAGS="-L$HOME/local/lib" \
-# CFLAGS="-I$HOME/local/include"
 
 make
 make install
