@@ -128,7 +128,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " }}}
         " textobj {{{
         NeoBundle 'kana/vim-textobj-user'
-        NeoBundle 'kana/vim-textobj-entire'
+        NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(textobj-entire'}}
         NeoBundle 'kana/vim-textobj-function'
         NeoBundle 'kentaro/vim-textobj-function-php'
         NeoBundle 'kana/vim-textobj-indent'
@@ -1320,6 +1320,12 @@ if neobundle#is_installed("vim-textobj-lastpat")
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
 endif
+
+omap ae <Plug>(textobj-entire-a)
+omap ie <Plug>(textobj-entire-i)
+xmap ae <Plug>(textobj-entire-a)
+xmap ie <Plug>(textobj-entire-i)
+
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
