@@ -236,14 +236,19 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends': 'ingo-library'
             \}
         " ファイルを保存時にシンタックスのチェック
-        NeoBundleLazy 'scrooloose/syntastic'
-        " NeoBundle 'osyo-manga/vim-watchdogs', {
-        "     \   'depends': [
-        "     \       'thinca/vim-quickrun',
-        "     \       'Shougo/vimproc',
-        "     \       'osyo-manga/shabadou.vim'
-        "     \   ]
-        "     \}
+        " NeoBundleLazy 'scrooloose/syntastic'
+        NeoBundle 'osyo-manga/vim-watchdogs', {
+        \   'depends': [
+        \       'Shougo/vimproc.vim',
+        \       'thinca/vim-quickrun',
+        \   ]
+        \}
+        NeoBundle 'osyo-manga/shabadou.vim'
+        NeoBundle "cohama/vim-hier"
+        " カレント行のquickfixメッセージを画面下部に表示
+        NeoBundle "dannyob/quickfixstatus"
+        " NeoBundle 'KazuakiM/vim-qfsigns'
+        " NeoBundle "tomtom/quickfixsigns_vim"
 
         " quickrun {{{
         NeoBundleLazy 'thinca/vim-quickrun', {
@@ -1106,8 +1111,51 @@ function! s:setOmniFunc()
     endif
 endfunction
 
+" vim-watchdogs {{{1
+" ============================================================================
+if neobundle#is_installed('vim-watchdogs')
+    let g:watchdogs_check_BufWritePost_enable = 1
+    if !exists("g:quickrun_config")
+        let g:quickrun_config = {}
+    endif
+
+    " let g:quickrun_config['_'] = {
+    " \   'runner'                    : 'vimproc',
+    " \   'runner/vimproc/updatetime' : 50,
+    " \   'outputter'                 : 'multi:buffer:quickfix',
+    " \   'outputter/buffer/split'    : 'botright'
+    " \}
+
+    " 全体の設定でhookがうまくいかない？
+    let g:quickrun_config = {
+    \   'watchdogs_checker/_': {
+    \       'hook/quickfix_status_enable/enable_exit':   1,
+    \       'hook/quickfix_status_enable/priority_exit': 1,
+    \       "outputter/quickfix/open_cmd" : "",
+    \   },
+    \}
+
+    let g:quickrun_config = {
+    \   "watchdogs_checker/mql": {
+    \       "hook/cd/directory": '%S:p:h',
+    \       "command":           "wine",
+    \       "cmdopt":            "~/bin/mql.exe /s",
+    \       "exec":              "%c %o %S:t",
+    \       'hook/quickfix_status_enable/enable_exit':   1,
+    \       'hook/quickfix_status_enable/priority_exit': 1,
+    \   },
+    \   "mql4/watchdogs_checker" : {
+    \       "type" : "watchdogs_checker/mql"
+    \   },
+    \
+    \}
+
+    " watchdogs.vim の設定を更新（初回は呼ばれる）
+    call watchdogs#setup(g:quickrun_config)
+endif
+
 " vim-quickrun {{{1
-" ==============================================================================
+" ============================================================================
 if neobundle#is_installed('vim-quickrun')
     noremap <Leader>r :QuickRun<CR>
     noremap <Leader>r :QuickRun<CR>
@@ -1126,9 +1174,9 @@ if neobundle#is_installed('vim-quickrun')
         endif
         let g:quickrun_config['_'] = {
         \   'runner'                    : 'vimproc',
-        \   'runner/vimproc/updatetime' : 100,
+        \   'runner/vimproc/updatetime' : 50,
         \   'outputter'                 : 'multi:buffer:quickfix',
-        \   'outputter/buffer/split'    : ''
+        \   'outputter/buffer/split'    : 'botright'
         \}
 
         " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
