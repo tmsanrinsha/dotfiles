@@ -250,7 +250,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundle 'KazuakiM/vim-qfsigns'
         " NeoBundle "tomtom/quickfixsigns_vim"
 
-        " quickrun {{{
+        " quickrun {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy 'thinca/vim-quickrun', {
             \   'autoload' : { 'commands' : [ 'QuickRun' ] },
             \   'depends' : ['karakaram/vim-quickrun-phpunit']
@@ -448,8 +449,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
-        NeoBundle 'jceb/vim-orgmode'
-        NeoBundle 'utl.vim'
+        " NeoBundle 'jceb/vim-orgmode'
+        " NeoBundle 'utl.vim'
 
         " http://d.hatena.ne.jp/itchyny/20140108/1389164688
         " NeoBundleLazy 'itchyny/calendar.vim', {
@@ -943,53 +944,21 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         " let g:neocomplete#sources#omni#functions.sql =
         " \ 'sqlcomplete#Complete'
 
-        if executable('uname') && (system('uname -a') =~ 'FreeBSD 4' || system('uname -a') =~ 'FreeBSD 6')
-            " スペックが低いマシーンでは有効にしない
-        else
-            " Enable heavy omni completion.
-            if !exists('g:neocomplcache_omni_patterns')
-                let g:neocomplcache_omni_patterns = {}
-            endif
-
-            let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.php  = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-            let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
-            let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
-            " Enable heavy omni completion.
-            if !exists('g:neocomplete#sources#omni#input_patterns')
-                let g:neocomplete#sources#omni#input_patterns = {}
-            endif
-            let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+        " Enable heavy omni completion.
+        if !exists('g:neocomplcache_omni_patterns')
+            let g:neocomplcache_omni_patterns = {}
         endif
 
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.php  = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+        let g:neocomplcache_omni_patterns.c    = '\%(\.\|->\)\h\w*'
+        let g:neocomplcache_omni_patterns.cpp  = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-        " include補完
-        "インクルードパスの指定
-        " let g:neocomplcache_include_paths = {
-        "             \ 'cpp' : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
-        "             \ 'c' : '.,/usr/include',
-        "             \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
-        "             \ 'java' : '.,$HOME/AppData/Local/Android/android-sdk/sources/',
-        "             \ }
-        "\ 'perl' : '$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,$HOME/perl5/lib/perl5/cygwin-thread-multi-64int,$HOME/perl5/lib/perl5,/usr/lib/perl5/site_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/site_perl/5.14,/usr/lib/perl5/vendor_perl/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/vendor_perl/5.14,/usr/lib/perl5/5.14/i686-cygwin-threads-64int,/usr/lib/perl5/5.14,/usr/lib/perl5/site_perl/5.10,/usr/lib/perl5/vendor_perl/5.10,/usr/lib/perl5/site_perl/5.8,,',
-        "インクルード文のパターンを指定
-        " let g:neocomplcache_include_patterns = {
-        "             \ 'cpp' : '^\s*#\s*include',
-        "             \ 'ruby' : '^\s*require',
-        "             \ }
-        "             "\ 'perl' : '^\s*use',
-        " "インクルード先のファイル名の解析パターン
-        " let g:neocomplcache_include_exprs = {
-        "             \ 'ruby' : substitute(v:fname,'::','/','g'),
-        "             \ }
-        "             "\ 'perl' : substitute(substitute(v:fname,'::','/','g'),'$','.pm','')
-        " " ファイルを探す際に、この値を末尾に追加したファイルも探す。
-        " let g:neocomplcache_include_suffixes = {
-        "             \ 'ruby' : '.rb',
-        "             \ 'haskell' : '.hs'
-        "             \ }
-        "let g:neocomplcache_include_max_processes = 1000
+        " Enable heavy omni completion.
+        if !exists('g:neocomplete#sources#omni#input_patterns')
+            let g:neocomplete#sources#omni#input_patterns = {}
+        endif
+        let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
@@ -1443,9 +1412,9 @@ if neobundle#is_installed('yankround.vim')
         \   highlight! YankRoundRegion ctermfg=16 ctermbg=187
         " \   highlight! link YankRoundRegion IncSearch
 
-    nmap p <Plug>(yankround-p)
-    xmap p <Plug>(yankround-p)
-    nmap P <Plug>(yankround-P)
+    nmap p  <Plug>(yankround-p)
+    xmap p  <Plug>(yankround-p)
+    nmap P  <Plug>(yankround-P)
     nmap gp <Plug>(yankround-gp)
     xmap gp <Plug>(yankround-gp)
     nmap gP <Plug>(yankround-gP)
