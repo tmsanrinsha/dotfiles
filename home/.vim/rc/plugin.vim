@@ -243,12 +243,17 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \       'thinca/vim-quickrun',
         \   ]
         \}
+        " quickrunのhook設定
         NeoBundle 'osyo-manga/shabadou.vim'
+        " quickfixに表示されている行をハイライト
         NeoBundle "cohama/vim-hier"
         " カレント行のquickfixメッセージを画面下部に表示
         NeoBundle "dannyob/quickfixstatus"
+        " statuslineにエラーを表示
+        NeoBundle "KazuakiM/vim-qfstatusline"
+        " signの表示
+        NeoBundle "tomtom/quickfixsigns_vim"
         " NeoBundle 'KazuakiM/vim-qfsigns'
-        " NeoBundle "tomtom/quickfixsigns_vim"
 
         " quickrun {{{2
         " --------------------------------------------------------------------
@@ -1088,40 +1093,32 @@ if neobundle#is_installed('vim-watchdogs')
         let g:quickrun_config = {}
     endif
 
-    " let g:quickrun_config['_'] = {
-    " \   'runner'                    : 'vimproc',
-    " \   'runner/vimproc/updatetime' : 50,
-    " \   'outputter'                 : 'multi:buffer:quickfix',
-    " \   'outputter/buffer/split'    : 'botright'
-    " \}
-
-    " 全体の設定でhookがうまくいかない？
-    let g:quickrun_config = {
-    \   'watchdogs_checker/_': {
-    \       'hook/quickfix_status_enable/enable_exit':   1,
-    \       'hook/quickfix_status_enable/priority_exit': 1,
-    \       "outputter/quickfix/open_cmd" : "",
-    \   },
+    let g:quickrun_config['watchdogs_checker/_'] = {
+    \   'hook/quickfix_status_enable/enable_exit':   1,
+    \   'hook/quickfix_status_enable/priority_exit': 1,
+    \   "hook/qfstatusline_update/enable_exit":      1,
+    \   "hook/qfstatusline_update/priority_exit":    4,
+    \   "outputter/quickfix/open_cmd":               "",
     \}
 
-    let g:quickrun_config = {
-    \   "watchdogs_checker/mql": {
-    \       "hook/cd/directory": '%S:p:h',
-    \       "command":           "wine",
-    \       "cmdopt":            "~/bin/mql.exe /s",
-    \       "exec":              "%c %o %S:t",
-    \       'hook/quickfix_status_enable/enable_exit':   1,
-    \       'hook/quickfix_status_enable/priority_exit': 1,
-    \   },
-    \   "mql4/watchdogs_checker" : {
-    \       "type" : "watchdogs_checker/mql"
-    \   },
-    \
+    let g:quickrun_config["watchdogs_checker/mql"] = {
+    \   "hook/cd/directory": '%S:p:h',
+    \   "command":           "wine",
+    \   "cmdopt":            "~/bin/mql.exe",
+    \   "exec":              "%c %o %S:t",
+    \}
+
+    let g:quickrun_config["mql4/watchdogs_checker"] = {
+    \   "type" : "watchdogs_checker/mql"
     \}
 
     " watchdogs.vim の設定を更新（初回は呼ばれる）
     call watchdogs#setup(g:quickrun_config)
 endif
+
+" quickfixsign_vim {{{1
+" ============================================================================
+let g:quickfixsigns_classes = ['qfl']
 
 " vim-quickrun {{{1
 " ============================================================================
@@ -1770,6 +1767,11 @@ let g:lightline = {
     \           ['mode'],
     \           ['flag_red'],
     \           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
+    \       ],
+    \       'right': [
+    \           ['syntaxcheck', 'lineinfo'],
+    \           ['percent'],
+    \           ['fileformat', 'fileencoding', 'filetype']
     \       ]
     \   },
     \   'component': {
@@ -1790,6 +1792,12 @@ let g:lightline = {
     \       'anzu': 'anzu#search_status',
     \       'currenttag': 'MyCurrentTag',
     \   },
+    \   'component_expand': {
+    \       'syntaxcheck': 'qfstatusline#Update',
+    \   },
+    \   'component_type': {
+    \       'syntaxcheck': 'error',
+    \   },
     \   'separator': { 'left': '', 'right': '' },
     \   'subseparator': { 'left': '|', 'right': '|' },
     \   'mode_map': {
@@ -1805,6 +1813,8 @@ let g:lightline = {
     \       "\<C-s>": 'SB',
     \       '?': '' }
     \}
+" :WatchdogsRun後にlightline.vimを更新
+let g:Qfstatusline#UpdateCmd = function('lightline#update')
 
 " 途中で色変更をするとInsert modeがおかしくなる
 " autocmd MyVimrc ColorScheme *
