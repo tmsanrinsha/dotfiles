@@ -176,10 +176,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundle "tpope/vim-commentary"
         NeoBundle "tomtom/tcomment_vim"
 
-        " sudo権限でファイルを開く・保存
-        NeoBundle 'sudo.vim'
-        " NeoBundle 'gmarik/sudo-gui.vim'
-
         " NeoBundle 'YankRing.vim'
         NeoBundleLazy 'LeafCage/yankround.vim'
 
@@ -190,11 +186,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'autoload' : { 'commands' : 'HelpNew' }
             \ }
 
-        " ミニバッファにバッファ一覧を表示
-        " NeoBundle 'fholgado/minibufexpl.vim'
-
-        " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-        NeoBundle 'rgarver/Kwbd.vim'
         " すでにvimが起動しているときは、そちらで開く
         NeoBundle 'thinca/vim-singleton', {
             \ 'disable': !has('clientserver'),
@@ -208,18 +199,20 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " endif
 
         NeoBundle 'LeafCage/foldCC'
+        " sudo権限でファイルを開く・保存
+        NeoBundle 'sudo.vim'
+        " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
+        NeoBundle 'rgarver/Kwbd.vim'
         " gundo.vim {{{
-        " グラフィカルにundo履歴を見れる
+        " undo履歴をtreeで見る
         NeoBundleLazy 'sjl/gundo.vim', {
             \   'autoload' : {
             \       'commands' : 'GundoToggle'
             \   }
             \}
         " }}}
-        " savevers.vim {{{
-        " バックアップ
+        " backup
         NeoBundle 'savevers.vim'
-        " }}}
         " noeol, eolを保ったまま保存
         NeoBundle 'PreserveNoEOL'
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
@@ -363,16 +356,16 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'script_type' : 'syntax'
             \}
         " }}}
-        " confluence {{{
+        " confluence {{{2
         " confluenceのシンタックスファイル
         NeoBundleLazy 'confluencewiki.vim', {
             \   'autoload' : { 'filetypes' : 'confluencewiki' }
             \ }
-        " }}}
-        " mql4 {{{
+        " mql4 {{{2
         NeoBundleLazy 'vobornik/vim-mql4', {
             \   'autoload' : { 'filetypes' : 'mql4' }
             \ }
+        " }}}
 
         NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
         NeoBundleLazy 'gregsexton/gitv', {
@@ -485,9 +478,8 @@ else
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
-                \   'sudo.vim', 'vim-powerline',
-                \   'syntastic', 'my_molokai', 'vim-smartword'
-                \]
+    \   'sudo.vim', 'my_molokai', 'vim-smartword'
+    \]
     " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
     "     let s:plugin_name = matchstr(path, '[^/]\+$')
     "     if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
@@ -505,7 +497,7 @@ endif
 "}}}
 " vim-singleton {{{1
 " ============================================================================
-if neobundle#is_installed('vim-singleton') && has('gui_running')
+if IsInstalled('vim-singleton') && has('gui_running')
     call singleton#enable()
 endif
 
@@ -522,23 +514,6 @@ if IsInstalled('sudo.vim')
     nnoremap <Leader>W :w sudo:%<CR>
 endif
 "}}}
-" vim-powerline{{{
-if IsInstalled('vim-powerline')
-    let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
-    "let g:Powerline_theme = 'skwp'
-    "let g:Powerline_colorscheme = 'skwp'
-    "let g:Powerline_colorscheme = 'default_customized'
-    let g:Powerline_stl_path_style = 'short'
-    "let g:Powerline_symbols = 'fancy'
-    "call Pl#Theme#InsertSegment('charcode', 'after', 'filetype')
-    "call Pl#Theme#InsertSegment('', 'after', 'filetype')
-    "call Pl#Hi#Segments(['SPLIT'], {
-    "		\ 'n': ['white', 'gray2'],
-    "		\ 'N': ['white', 'gray0'],
-    "		\ 'i': ['white', 'gray0'],
-    "		\ }),
-endif
-"}}}
 " vim-smartword {{{
 " ==============================================================================
 if IsInstalled("vim-smartword")
@@ -548,7 +523,7 @@ if IsInstalled("vim-smartword")
     map ge <Plug>(smartword-ge)
 endif
 "}}}
-if !neobundle#is_installed('neobundle.vim')
+if !IsInstalled('neobundle.vim')
     finish
 endif
 " unite.vim {{{1
@@ -586,8 +561,8 @@ if neobundle#is_installed('unite.vim')
     " file_rec {{{2
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
-    " srcのdirectory以下のファイル
-    nnoremap [unite]fs :<C-u>Unite file_rec/async:$SRC_ROOT<CR>
+    " ~/git以下のdirectory以下のファイル
+    nnoremap [unite]fg :<C-u>Unite file_rec/async:~/git<CR>
 
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
@@ -1014,8 +989,9 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-        execute 'inoremap <expr><C-Space>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
-        inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
+        " execute 'inoremap <expr><C-Space> '.s:neocom.'#start_manual_complete()'
+        execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
+        " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
         " 矩形選択して挿入モードに入った時にうまくいかない
         " " <TAB>: completion.
@@ -1517,6 +1493,12 @@ if neobundle#is_installed('foldCC')
     nnoremap <Leader><C-g> :echo FoldCCnavi()<CR>
 endif
 
+" Kwbd.vim {{{1
+" ==============================================================================
+if IsInstalled('Kwbd.vim')
+    nmap <Leader>bd <Plug>Kwbd
+endif
+
 " savevers.vim {{{1
 " ============================================================================
 set backup
@@ -1990,39 +1972,3 @@ if !has('vim_starting')
     " hookの設定より下に書かないとだめ
     call neobundle#call_hook('on_source')
 endif
-
-finish
-
-" minibufexpl.vim {{{
-" ==============================================================================
-if IsInstalled('minibufexpl')
-    " Put new window below current or on the right for vertical split
-    let g:miniBufExplSplitBelow=0
-    "hi MBEVisibleActive guifg=#A6DB29 guibg=fg
-    "hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
-    " hi MBEVisibleActive ctermfg=252 ctermbg=125
-    " hi MBEVisibleChangedActive ctermfg=16 ctermbg=125
-    "hi MBEVisibleChanged guifg=#F1266F guibg=fg
-    "hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
-    "hi MBEChanged guifg=#CD5907 guibg=fg
-    "hi MBENormal guifg=#808080 guibg=fg
-    "hi MBENormal guifg=#CD5907 guibg=fg
-    hi MBENormal ctermfg=252
-
-    "function! Md()
-    "    return expand("%:p")
-    "    "echo "a"
-    "    "set paste
-    "endfunction
-    ""let g:statusLineText = "-MiniBufExplorer-" . Md()
-    "let g:statusLineText = Md()
-endif
-"}}}
-" bclose.vim {{{
-" ==============================================================================
-" バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-" https://github.com/rgarver/Kwbd.vim
-if IsInstalled('bclose')
-    nmap <Leader>bd <Plug>Kwbd
-endif
-" }}}
