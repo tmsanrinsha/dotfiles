@@ -49,12 +49,12 @@ function! IsInstalled(plugin) " {{{
     if exists('*neobundle#is_installed')
         return neobundle#is_installed(a:plugin)
     else
-      " runtimepathにあるか
-      " http://yomi322.hateblo.jp/entry/2012/06/20/225559
-      return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
-      \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
-      \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
-      " return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
+        " runtimepathにあるか
+        " http://yomi322.hateblo.jp/entry/2012/06/20/225559
+        return !empty(globpath(&runtimepath, 'plugin/'   . a:plugin . '.vim'))
+        \   || !empty(globpath(&runtimepath, 'autoload/' . a:plugin . '.vim'))
+        \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
+        " return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
     endif
 endfunction " }}}
 " vimrc全体で使うaugroup {{{
@@ -129,7 +129,7 @@ set whichwrap&
 " " 矩形選択でカーソル位置の制限を解除
 " set virtualedit=block
 
-" 文字コード・改行コード {{{1
+" encode, fileformat {{{1
 " ============================================================================
 " 文字コード
 " set encoding=utf-8 上で設定
@@ -159,6 +159,7 @@ command! EncCp932     edit ++enc=cp932
 command! EncEucjp     edit ++enc=euc-jp
 command! EncIso2022jp edit ++enc=iso-2022-jp
 command! EncUtf8      edit ++enc=uff-8
+command! EncLatin1    edit ++enc=latin1
 " alias
 command! EncJis  EncIso2022jp
 command! EncSjis EncCp932
@@ -732,16 +733,16 @@ set printfont=Andale\ Mono:h12:cUTF8
 " ==============================================================================
 nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>
-noremap [quickfix] <Nop>
-nmap <Leader>q [quickfix]
-noremap [quickfix]o :botright copen<CR>
-noremap [quickfix]q :cclose<CR>
+noremap [*quickfix] <Nop>
+nmap <Leader>q [*quickfix]
+noremap [*quickfix]o :botright copen<CR>
+noremap [*quickfix]q :cclose<CR>
 nnoremap [L :<C-u>lprevious<CR>
 nnoremap ]L :<C-u>lnext<CR>
-noremap [,location] <Nop>
+noremap [*location] <Nop>
 nmap <Leader>l [,location]
-noremap [,location]o :lopen<CR>
-noremap [,location]q :lclose<CR>
+noremap [*location]o :lopen<CR>
+noremap [*location]q :lclose<CR>
 
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
@@ -1152,10 +1153,10 @@ autocmd MyVimrc FileType gitcommit
 " wineで使っているせいか相対パスで実行してやらないとだめなので、lcdする
 autocmd MyVimrc FileType mql4
 \   lcd %:p:h |
-\   setlocal makeprg=wine\ ~/bin/mql.exe\ % |
+\   setlocal makeprg=wine\ ~/bin/mql.exe\ /s\ % |
 \   let &l:errorformat = '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#'
-
-autocmd BufWritePost *.mq4 make
+"
+" autocmd MyVimrc BufWritePost *.mq4 make
 
 " tsv {{{2
 " ----------------------------------------------------------------------------
