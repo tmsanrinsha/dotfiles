@@ -300,7 +300,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \}
         " }}}
 
-        NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload': {'filetypes': 'php'}}
+        NeoBundleLazy 'tmsanrinsha/phpcomplete.vim', {
+        \   'autoload': {
+        \       'filetypes': 'php'
+        \   },
+        \   'rev' : 'mod'
+        \}
         " Composerプロジェクトのルートディレクトリでvimを開く必要があり
         " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
         "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
