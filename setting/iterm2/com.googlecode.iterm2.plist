@@ -972,11 +972,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>681 114 445 270 0 0 1280 778 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>346 175 924 485 0 0 1280 777 </string>
+	<string>366 1140 924 485 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>80 194 592 584 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 20 1277 757 0 0 1280 777 </string>
+	<string>-349 811 1914 1046 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1778,7 +1778,7 @@
 	<key>PromptOnQuit</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
-	<true/>
+	<false/>
 	<key>RightCommand</key>
 	<integer>8</integer>
 	<key>RightOption</key>
@@ -1790,7 +1790,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-11-09T09:10:10Z</date>
+	<date>2014-11-17T14:38:35Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
