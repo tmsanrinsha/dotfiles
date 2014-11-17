@@ -155,6 +155,16 @@ fi
 # jvgrep {{{1
 # ============================================================================
 command_exists jvgrep || ghinst mattn/jvgrep
+
+# PHP {{{1
+# ============================================================================
+if ! command_exists composer; then
+    pushd ~/bin
+    $downloader https://getcomposer.org/installer | php
+    mv composer.phar composer
+    popd
+fi
+
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
@@ -267,12 +277,6 @@ elif [[ `uname` = Darwin ]]; then
     #     # x11のサポートなしだとbuildできる
     #     pushd ~/git/ShiftIt && xcodebuild -target "ShiftIt NoX11" -configuration Release
     #     popd
-    if ! command_exists composer; then
-        pushd ~/bin
-        $downloader https://getcomposer.org/installer | php
-        mv composer.phar composer
-        popd
-    fi
 fi
 
 # remote2local {{{1
