@@ -252,7 +252,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " statuslineにエラーを表示
         NeoBundle "KazuakiM/vim-qfstatusline"
         " signの表示
-        NeoBundle "tomtom/quickfixsigns_vim"
+        " NeoBundle "tomtom/quickfixsigns_vim"
         " NeoBundle 'KazuakiM/vim-qfsigns'
 
         " quickrun {{{2
@@ -972,7 +972,8 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
-        execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        " execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        execute 'inoremap <expr><C-l> ' . s:neocom.'#complete_common_string()'
         " execute 'inoremap <expr><C-Space> '.s:neocom.'#start_manual_complete()'
         execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
         " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
@@ -1020,10 +1021,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             execute 'imap <expr> <C-h> '
                 \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
 
-
             " <CR> でポップアップ中の候補を選択し改行する
-            execute 'imap <expr> <CR> '
-                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+            " execute 'imap <expr> <CR> '
+            "     \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+
             " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
             " ポップアップがないときには改行する
             " imap <expr> <CR> pumvisible() ?
@@ -1037,8 +1038,8 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
             " 補完候補が表示されている場合は確定。そうでない場合は改行
-            " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
-            " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
+            execute 'let g:'.s:neocom_.'enable_auto_select = 1'
+            execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
         endif
         " }}}
     endfunction
@@ -1103,8 +1104,9 @@ if neobundle#is_installed('vim-watchdogs')
     \   'hook/quickfix_status_enable/priority_exit': 1,
     \   "hook/qfstatusline_update/enable_exit":      1,
     \   "hook/qfstatusline_update/priority_exit":    4,
-    \   "outputter/quickfix/open_cmd":               "",
     \}
+    " 自動的にquickfixが開くのが嫌な場合
+    " \   "outputter/quickfix/open_cmd":               "",
 
     let g:quickrun_config["watchdogs_checker/mql"] = {
     \   "hook/cd/directory": '%S:p:h',
