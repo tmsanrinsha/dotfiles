@@ -236,7 +236,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends': 'ingo-library'
             \}
         " ファイルを保存時にシンタックスのチェック
-        " NeoBundleLazy 'scrooloose/syntastic'
+        NeoBundleLazy 'scrooloose/syntastic'
         NeoBundle 'osyo-manga/vim-watchdogs', {
         \   'depends': [
         \       'Shougo/vimproc.vim',
@@ -271,7 +271,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \}
         " }}}
 
-        NeoBundleLazy 'joonty/vdebug'
+        NeoBundleLazy 'joonty/vdebug', {
+        \   'autoload': {
+        \       'filetype': 'php'
+        \   }
+        \}
 
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
@@ -1108,6 +1112,16 @@ if neobundle#is_installed('vim-watchdogs')
     " 自動的にquickfixが開くのが嫌な場合
     " \   "outputter/quickfix/open_cmd":               "",
 
+    let g:quickrun_config['java/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
+    let g:quickrun_config['php/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
+    " mql {{{2
+    " ------------------------------------------------------------------------
     let g:quickrun_config["watchdogs_checker/mql"] = {
     \   "hook/cd/directory": '%S:p:h',
     \   "command":           "wine",
@@ -1118,6 +1132,7 @@ if neobundle#is_installed('vim-watchdogs')
     let g:quickrun_config["mql4/watchdogs_checker"] = {
     \   "type" : "watchdogs_checker/mql"
     \}
+    " }}}
 
     " watchdogs.vim の設定を更新（初回は呼ばれる）
     call watchdogs#setup(g:quickrun_config)

@@ -90,7 +90,8 @@ set visualbell t_vt=
 
 " 不可視文字の表示
 set list
-set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:% ",eol:↲
+" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
+set listchars=tab:»-,trail:_,nbsp:%
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進数と16進数を増減させる。
