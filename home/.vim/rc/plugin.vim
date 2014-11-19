@@ -995,7 +995,14 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
 
         " <TAB>: completion.
-        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        \   <SID>check_back_space() ? "\<TAB>" :
+        \   neocomplete#start_manual_complete()
+        function! s:check_back_space() "{{{
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction"}}}
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
@@ -1006,7 +1013,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
         " [Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf)
-        if neobundle#is_installed('vim-smartinput')
+        if neobundle#is_installed('vim-smartinput') " {{{
             call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
                   \                        '<BS>',
                   \                        '<BS>')
@@ -1033,7 +1040,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " ポップアップがないときには改行する
             " imap <expr> <CR> pumvisible() ?
             "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
-        else
+        else " }}}
             execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
 
             " <C-h> でポップアップを閉じて文字を削除
@@ -1041,9 +1048,12 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
+
+            " これをやるとコピペに改行があるときにポップアップが選択されてしまう
             " 補完候補が表示されている場合は確定。そうでない場合は改行
-            execute 'let g:'.s:neocom_.'enable_auto_select = 1'
-            execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
+            " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
+
+            " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         endif
         " }}}
     endfunction
