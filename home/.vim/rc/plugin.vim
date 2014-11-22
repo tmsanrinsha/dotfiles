@@ -81,12 +81,16 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         "" 補完・入力補助 {{{
         """ 自動補完 {{{
-        if has('lua') && MyHasPatch('patch-7.3.825')
-            NeoBundleLazy "Shougo/neocomplete.vim", {"autoload": {"insert": 1}}
-        else
-            NeoBundleLazy "Shougo/neocomplcache.vim", {"autoload": {"insert": 1}}
-        endif
-        NeoBundleLazy "Shougo/context_filetype.vim", {"autoload": {"insert": 1}}
+        NeoBundleLazy "Shougo/neocomplete.vim", {
+        \   "autoload": {"insert": 1},
+        \   'depends' : 'Shougo/context_filetype.vim',
+        \   "disabled": !has('lua'),
+        \   "vim_version": '7.3.825',
+        \}
+        NeoBundleLazy "Shougo/neocomplcache.vim", {
+        \   "autoload": {"insert": 1},
+        \   "disabled": has('lua'),
+        \}
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
@@ -188,7 +192,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " すでにvimが起動しているときは、そちらで開く
         NeoBundle 'thinca/vim-singleton', {
-            \ 'disable': !has('clientserver'),
+            \ 'disabled': !has('clientserver'),
             \ }
 
         " 一時バッファの制御
@@ -300,7 +304,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \       'filetypes': 'java',
             \   },
             \   'external_commands': 'ant',
-            \   'disables': !exists(g:eclipse_home),
+            \   'disabled': !exists(g:eclipse_home),
             \}
         " }}}
 

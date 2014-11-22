@@ -738,7 +738,7 @@ noremap [*quickfix]q :cclose<CR>
 nnoremap [L :<C-u>lprevious<CR>
 nnoremap ]L :<C-u>lnext<CR>
 noremap [*location] <Nop>
-nmap <Leader>l [,location]
+nmap <Leader>l [*location]
 noremap [*location]o :lopen<CR>
 noremap [*location]q :lclose<CR>
 
