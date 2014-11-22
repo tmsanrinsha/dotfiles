@@ -102,10 +102,10 @@ fi
 
 # antigen {{{2
 # ----------------------------------------------------------------------------
-cd $git_dir
-git subtree pull --prefix=subtrees/antigen antigen master --squash
-antigen selfupdate
-antigen update
+# cd $git_dir
+# git subtree pull --prefix=subtrees/antigen antigen master --squash
+# antigen selfupdate
+# antigen update
 
 # vim {{{1
 # ============================================================================

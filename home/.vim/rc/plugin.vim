@@ -252,6 +252,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " statuslineにエラーを表示
         NeoBundle "KazuakiM/vim-qfstatusline"
         " signの表示
+        " 表示が乱れる
         " NeoBundle "tomtom/quickfixsigns_vim"
         " NeoBundle 'KazuakiM/vim-qfsigns'
 
@@ -261,7 +262,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'autoload' : { 'commands' : [ 'QuickRun' ] },
             \   'depends' : ['karakaram/vim-quickrun-phpunit']
             \}
-        NeoBundleLazy 'karakaram/vim-quickrun-phpunit'
         " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
         "             \   'autoload' : { 'commands' : 'QuickRun' },
         "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
@@ -1122,14 +1122,6 @@ if neobundle#is_installed('vim-watchdogs')
     " 自動的にquickfixが開くのが嫌な場合
     " \   "outputter/quickfix/open_cmd":               "",
 
-    let g:quickrun_config['java/watchdogs_checker'] = {
-    \   'type': ''
-    \}
-
-    let g:quickrun_config['php/watchdogs_checker'] = {
-    \   'type': ''
-    \}
-
     " mql {{{2
     " ------------------------------------------------------------------------
     let g:quickrun_config["watchdogs_checker/mql"] = {
@@ -1143,6 +1135,23 @@ if neobundle#is_installed('vim-watchdogs')
     \   "type" : "watchdogs_checker/mql"
     \}
     " }}}
+
+    let g:quickrun_config['java/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
+    let g:quickrun_config['php/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
+    let g:quickrun_config['sh/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
+    let g:quickrun_config['zsh/watchdogs_checker'] = {
+    \   'type': ''
+    \}
+
 
     " watchdogs.vim の設定を更新（初回は呼ばれる）
     call watchdogs#setup(g:quickrun_config)
@@ -1176,10 +1185,6 @@ if neobundle#is_installed('vim-quickrun')
         \   'outputter'                 : 'multi:buffer:quickfix',
         \   'outputter/buffer/split'    : 'botright'
         \}
-
-        " \   'outputter/multi/targets'   : [ 'buffer', 'quickfix' ],
-        " \   'outputter' : 'my_outputter',
-        " \   'outputter'                 : 'unite_quickfix',
 
         " :QuickRun -outputter my_outputter {{{2
         " --------------------------------------------------------------------
@@ -1283,6 +1288,7 @@ if neobundle#is_installed('vim-quickrun')
         " "
         " set errorformat=debug:\%s
     endfunction
+    unlet s:bundle
 endif
 "}}}
 " operator {{{1
@@ -1597,6 +1603,7 @@ if neobundle#is_installed('syntastic')
         \}
     let g:syntastic_python_checkers = ['flake8']
     let g:syntastic_auto_loc_list = 1
+    let g:syntastic_sh_checkers = ['']
 endif
 " }}}
 " eclim {{{

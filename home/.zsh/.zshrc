@@ -5,8 +5,21 @@ fi
 
 # antigen {{{1
 # ============================================================================
-source $SRC_ROOT/tmsanrinsha/dotfiles/subtrees/antigen/antigen.zsh
-antigen bundle zsh-users/zsh-completions src
+# antigenをsubtreeで管理には以下のコマンド
+# antigenをリモートリポジトリに登録する
+#   git remote add -f antigen https://github.com/zsh-users/antigen
+# subtrees/antigenというディレクトリで管理するするにはリポジトリのルートディレクトリで
+#   git subtree add --prefix=subtrees/antigen antigen master --squash
+
+# source $SRC_ROOT/tmsanrinsha/dotfiles/subtrees/antigen/antigen.zsh
+# antigen bundle zsh-users/zsh-completions src
+# # 自動アップデート
+# ANTIGEN_SYSTEM_RECEIPT_F='.zsh/.cache/antigen_system_lastupdate'
+# ANTIGEN_PLUGIN_RECEIPT_F='.zsh/.cache/antigen_plugin_lastupdate'
+# antigen bundle unixorn/autoupdate-antigen.zshplugin
+
+# Tell antigen that you're done.
+# antigen apply
 
 # path {{{1
 # ============================================================================
@@ -21,7 +34,7 @@ typeset -U path cdpath fpath manpath ld_library_path include
 
 fpath=(~/.zsh/functions ~/.zsh/completions ~/.zsh/zsh-users-slash-zsh-completions $fpath)
 # ghqの補完
-fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)
+# fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)
 
 # 基本設定 {{{1
 # ============================================================================
