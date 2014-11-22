@@ -88,11 +88,6 @@ runtime macros/matchit.vim
 " ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
 set visualbell t_vt=
 
-" 不可視文字の表示
-set list
-" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
-set listchars=tab:»-,trail:_,nbsp:%
-
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
 " 10進数と16進数を増減させる。
 " 0で始まる数字列を8進数とみなさず、10進数として増減させる。
@@ -334,9 +329,14 @@ set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し�
 " set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
                   " スタイルにも対応できる。
 
-" pasteモードのトグル。autoindentをonにしてペーストすると
-" インデントが入った文章が階段状になってしまう。
-" pasteモードではautoindentが解除されそのままペーストできる
+" 不可視文字の表示
+set list
+" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
+set listchars=tab:»\ ,trail:･,nbsp:%
+
+" autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
+" pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
+" pasteモードのトグル
 set pastetoggle=<F11>
 " ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
 

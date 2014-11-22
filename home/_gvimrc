@@ -67,10 +67,10 @@ if has('multi_byte_ime') || has('xim')
   "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 endif
 
-inoremap <M-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-cnoremap <M-v> <C-r>*
-xnoremap <M-c> "*y
-nnoremap <M-a> ggVG
+" inoremap <M-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
+" cnoremap <M-v> <C-r>*
+" xnoremap <M-c> "*y
+" nnoremap <M-a> ggVG
 
 " mouse {{{
 " ==============================================================================

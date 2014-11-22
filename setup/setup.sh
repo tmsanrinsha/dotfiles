@@ -208,7 +208,7 @@ elif [[ `uname` = Darwin ]]; then
     $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
     $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if command_exists brew; then
-        ln -fs $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/completions/_brew
+        ln -fs $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
 
         # すでにinstallされているとエラーが出るため、コマンドがあるかをチェックしてからインストール
         function brew-install {
