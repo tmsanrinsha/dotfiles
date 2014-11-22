@@ -3,7 +3,13 @@ if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi
 
+# antigen {{{1
+# ============================================================================
+source $SRC_ROOT/tmsanrinsha/dotfiles/subtrees/antigen/antigen.zsh
+antigen bundle zsh-users/zsh-completions src
 
+# path {{{1
+# ============================================================================
 # 重複パスの除去
 # http://d.hatena.ne.jp/yascentur/20111111/1321015289
 #LD_LIBRARY_PATH=${HOME}/lib:$LD_LIBRARY_PATH
@@ -12,6 +18,7 @@ fi
 [ -z "$ld_library_path" ] && typeset -T LD_LIBRARY_PATH ld_library_path
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
+
 fpath=(~/.zsh/functions ~/.zsh/completions $fpath)
 # ghqの補完
 fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)

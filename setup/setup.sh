@@ -92,6 +92,12 @@ if [ ! -x ~/.zsh/functions/_pandoc ];then
     $downloader https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/functions/_pandoc
     chmod a+x ~/.zsh/functions/_pandoc
 fi
+# antigen {{{2
+# ----------------------------------------------------------------------------
+cd $git_dir
+git subtree pull --prefix=subtrees/antigen antigen master --squash
+antigen selfupdate
+antigen update
 
 # vim {{{1
 # ============================================================================
