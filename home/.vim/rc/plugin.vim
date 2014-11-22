@@ -241,12 +241,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \}
         " ファイルを保存時にシンタックスのチェック
         NeoBundleLazy 'scrooloose/syntastic'
-        NeoBundle 'osyo-manga/vim-watchdogs', {
-        \   'depends': [
-        \       'Shougo/vimproc.vim',
-        \       'thinca/vim-quickrun',
-        \   ]
-        \}
+        " dependでquickrunを設定するとhookがうまくいかない
+        NeoBundle 'osyo-manga/vim-watchdogs'
         " quickrunのhook設定
         NeoBundle 'osyo-manga/shabadou.vim'
         " quickfixに表示されている行をハイライト
