@@ -879,7 +879,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         endif
         let g:neocomplete#auto_completion_start_length = 3
 
-        execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "\\*ku\\*"'
+        execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "conque_term"'
 
         " 補完候補取得に時間がかかったときにスキップ
         execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.1"'
