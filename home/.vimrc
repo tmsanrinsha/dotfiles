@@ -1042,36 +1042,6 @@ autocmd MyVimrc FileType markdown,html
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
 " }}}
-" PHP {{{
-" ----------------------------------------------------------------------------
-let php_sql_query = 1     " 文字列中のSQLをハイライトする
-let php_htmlInStrings = 1 " 文字列中のHTMLをハイライトする
-let php_noShortTags = 1   " ショートタグ (<?を無効にする→ハイライト除外にする)
-let php_parent_error_close = 1  " for highlighting parent error ] or )
-let php_parent_error_open = 0   " for skipping an php end tag,
-"                                 if there exists an open ( or [ without a closing one
-let PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントする
-"let php_folding = 0 " クラスと関数の折りたたみ(folding)を有効にする (重い)
-" augroup php
-"     autocmd!
-"     au Syntax php set foldmethod=syntax
-" augroup END
-
-autocmd MyVimrc FileType php call s:filetype_php()
-
-function! s:filetype_php()
-    " open_basedirの値をpathに追加
-    if ! exists('g:php_open_basedir')
-        let tmp = system("php -r 'echo ini_get(\"open_basedir\");' | tr ':' ','")
-        let g:php_open_basedir = substitute(tmp, "\<NL>", '', '')
-    endif
-    let &l:path .= g:php_open_basedir
-
-    setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-    " setlocal makeprg=php\ -l\ %
-endfunction
-
-"}}}
 " Java {{{
 " ----------------------------------------------------------------------------
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
