@@ -106,7 +106,7 @@ fg_yellow=$'\e'"[33m"
 fg_red=$'\e'"[31m"
 bg_red=$'\e'"[41m"
 
-PROMPT="${user_color}%n%{${reset_color}%}:${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
+PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
 %0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
 # リポジトリの情報を表示
 test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
@@ -298,7 +298,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     # zstyle ':completion:*:*:cdr:*:*' menu selection
     zstyle ':completion:*' recent-dirs-insert both
     zstyle ':chpwd:*' recent-dirs-default true
-    zstyle ':chpwd:*' recent-dirs-max 500
+    zstyle ':chpwd:*' recent-dirs-max 50
     zstyle ':chpwd:*' recent-dirs-file "${ZDOTDIR}/.cache/chpwd-recent-dirs"
     # zstyle ':chpwd:*' recent-dirs-pushd true
 fi

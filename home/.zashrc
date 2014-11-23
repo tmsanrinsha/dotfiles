@@ -138,7 +138,7 @@ function tm {
         tmux_config=$(cat $HOME/.tmux.conf)"
         $tmux_config
         # シェルのプロンプトをさかのぼる
-        bind @ copy-mode \; send-keys ? C-u "$(whoami)": C-m n
+        bind @ copy-mode \; send-keys ? C-u "$(whoami)"@ C-m n
         "
         tmux -2 -f <(echo "$tmux_config") new-session
     fi

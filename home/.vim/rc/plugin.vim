@@ -1061,6 +1061,9 @@ endif
 if neobundle#is_installed("neocomplete.vim")
     let g:neocomplete#enable_cursor_hold_i=1
     let g:neocomplete#cursor_hold_i_time=100
+
+    imap  <C-X>u <Plug>(neocomplete_start_unite_complete)
+    " imap  <C-X>u <Plug>(neocomplete_start_unite_quick_match)
 endif
 "}}}
 " neosnippet {{{
