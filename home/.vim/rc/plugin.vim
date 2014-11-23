@@ -1758,7 +1758,7 @@ if neobundle#is_installed('vim-fugitive')
 endif
 " }}}
 " gitv {{{
-" --------
+" ----------------------------------------------------------------------------
 if neobundle#is_installed('gitv')
     let s:hooks = neobundle#get_hooks('gitv')
 
@@ -1769,11 +1769,11 @@ if neobundle#is_installed('gitv')
 
         autocmd MyVimrc FileType gitv
             \   setlocal iskeyword+=/,-,.
-            \|  nnoremap <buffer> C :<C-u>Git checkout <C-r><C-w><CR>
-            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase -i <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>rv :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+            \|  nnoremap <buffer> <Space>co :<C-u>Git checkout     <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
     endfunction
 endif
 " }}}
