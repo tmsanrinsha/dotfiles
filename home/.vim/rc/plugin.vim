@@ -1059,13 +1059,18 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
-    autocmd MyVimrc FileType *
-    \   if &filetype == 'php'
-    \|      let g:neocomplete#enable_cursor_hold_i=1
-    \|      let g:neocomplete#cursor_hold_i_time=100
-    \|  else
-    \|      let g:neocomplete#enable_cursor_hold_i=0
-    \|  endif
+    let g:neocomplete#enable_cursor_hold_i=1
+    let g:neocomplete#cursor_hold_i_time=100
+    " autocmd MyVimrc FileType *
+    " \   if &filetype == 'php'
+    " \|      echom 'php'
+    " \|      let g:neocomplete#enable_cursor_hold_i=1
+    " \|      let g:neocomplete#cursor_hold_i_time=100
+    " \|      NeoCompleteEnable
+    " \|  else
+    " \|      let g:neocomplete#enable_cursor_hold_i=0
+    " \|      NeoCompleteEnable
+    " \|  endif
 
     imap  <C-X>u <Plug>(neocomplete_start_unite_complete)
     " imap  <C-X>u <Plug>(neocomplete_start_unite_quick_match)
