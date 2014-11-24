@@ -240,7 +240,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends': 'ingo-library'
             \}
         " ファイルを保存時にシンタックスのチェック
-        NeoBundleLazy 'scrooloose/syntastic'
+        " NeoBundleLazy 'scrooloose/syntastic'
         " dependでquickrunを設定するとhookがうまくいかない
         NeoBundle 'osyo-manga/vim-watchdogs'
         " quickrunのhook設定
@@ -1153,8 +1153,10 @@ if neobundle#is_installed('vim-watchdogs')
     \   'type': ''
     \}
 
-    let g:quickrun_config['php/watchdogs_checker'] = {
-    \   'type': ''
+    let g:quickrun_config['watchdogs_checker/php'] = {
+    \   "command" : "php",
+    \   "exec"    : "%c %o -l %s:p",
+    \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
     \}
 
     let g:quickrun_config['sh/watchdogs_checker'] = {
