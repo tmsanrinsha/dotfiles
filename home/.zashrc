@@ -15,7 +15,7 @@ export LANG='ja_JP.UTF-8'
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
 # shell scriptなどでaliasが実行されないようにする
 if ls --version | grep GNU 1>/dev/null 2>&1; then
-    alias ls='ls --color=auto'
+    alias ls='ls --color=auto -F'
     if [ -f ~/.config/dircolors ]; then
         if type dircolors > /dev/null 2>&1; then
             eval $(dircolors ~/.config/dircolors)
@@ -25,7 +25,7 @@ if ls --version | grep GNU 1>/dev/null 2>&1; then
     fi
 else
     export LSCOLORS=exfxcxdxbxegedabagacad
-    alias ls='ls -G'
+    alias ls='ls -G -F'
 fi
 alias cp='cp -ip'
 alias mv='mv -i'
