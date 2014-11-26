@@ -308,7 +308,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \}
         " }}}
 
-        NeoBundleLazy 'tmsanrinsha/phpcomplete.vim', {
+        NeoBundleLazy 'shawncplus/phpcomplete.vim', {
         \   'autoload': {
         \       'filetypes': 'php'
         \   },
