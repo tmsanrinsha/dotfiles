@@ -188,7 +188,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'LeafCage/yankround.vim'
 
         NeoBundleLazy 'thinca/vim-ft-help_fold', {
-            \   'autoload' : { 'filetypes' : 'help' }
+            \   'autoload' : { 'filetypes' : ['help'] }
             \ }
         NeoBundleLazy 'kannokanno/vim-helpnew', {
             \   'autoload' : { 'commands' : 'HelpNew' }
@@ -277,7 +277,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         NeoBundleLazy 'joonty/vdebug', {
         \   'autoload': {
-        \       'filetype': 'php'
+        \       'filetypes': ['php']
         \   }
         \}
 
@@ -334,11 +334,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " Python {{{2
         " ----------
         NeoBundleLazy 'davidhalter/jedi-vim', {
-            \   'autoload': {'filetypes': 'python'}
+            \   'autoload': {'filetypes': ['python']}
             \}
         " SQL {{{2
         NeoBundleLazy 'vim-scripts/dbext.vim', {
-            \   'autoload': {'filetypes': 'sql'}
+            \   'autoload': {'filetypes': ['sql']}
             \}
         " Markdown {{{2
         " ------------
@@ -350,7 +350,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk_vim-markdown'}
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
-            \   'autoload': {'filetypes': 'markdown'}
+            \   'autoload': {'filetypes': ['markdown']}
             \}
         " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
         " NeoBundleLazy 'teramako/instant-markdown-vim'
@@ -369,25 +369,25 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " tmux {{{
         " tmuxのシンタックスファイル
         NeoBundleLazy 'zaiste/tmux.vim', {
-            \   'autoload' : { 'filetypes' : 'tmux' }
+            \   'autoload' : { 'filetypes' : ['tmux'] }
             \ }
         " }}}
         " vimperator {{{
         " vimperatorのシンタックスファイル
         NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
             \   'type'        : 'raw',
-            \   'autoload'    : { 'filetypes' : 'vimperator' },
+            \   'autoload'    : { 'filetypes' : ['vimperator'] },
             \   'script_type' : 'syntax'
             \}
         " }}}
         " confluence {{{2
         " confluenceのシンタックスファイル
         NeoBundleLazy 'confluencewiki.vim', {
-            \   'autoload' : { 'filetypes' : 'confluencewiki' }
+            \   'autoload' : { 'filetypes' : ['confluencewiki'] }
             \ }
         " mql4 {{{2
         NeoBundleLazy 'vobornik/vim-mql4', {
-            \   'autoload' : { 'filetypes' : 'mql4' }
+            \   'autoload' : { 'filetypes' : ['mql4'] }
             \ }
         " }}}
 
@@ -412,7 +412,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
         NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
         NeoBundleLazy 'syngan/vim-vimlint'
-        NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': 'vim'}}
+        NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': ['vim']}}
 
         " colorscheme
         NeoBundle 'tomasr/molokai'
@@ -461,7 +461,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'autoload': {
         \       'mappings': '<Plug>Vimwiki'
         \   },
-        \   'filetypes': 'vimwiki'
+        \   'filetypes': ['vimwiki']
         \}
 
         " NeoBundleLazy 'glidenote/memolist.vim'
