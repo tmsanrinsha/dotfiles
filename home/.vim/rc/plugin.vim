@@ -301,7 +301,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \                     .' -Dvim.files=' . expand('~/.vim/bundle/eclim'),
             \   },
             \   'autoload': {
-            \       'filetypes': 'java',
+            \       'filetypes': ['java'],
             \   },
             \   'external_commands': 'ant',
             \   'disabled': !exists(g:eclipse_home),
@@ -310,7 +310,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         NeoBundleLazy 'shawncplus/phpcomplete.vim', {
         \   'autoload': {
-        \       'filetypes': 'php'
+        \       'filetypes': ['php']
         \   },
         \   'rev' : 'mod'
         \}
