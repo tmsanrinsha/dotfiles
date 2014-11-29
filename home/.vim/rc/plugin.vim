@@ -50,11 +50,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   }
             \}
         " unite-で始まるプラグインは自動的にunite_sourcesがセットされる
-        NeoBundleLazy 'Shougo/unite-outline', {
-        \   'autoload': {
-        \       'unite_sources': ['outline']
-        \   }
-        \}
+        NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
         " NeoBundleLazy 'sorah/unite-ghq'
