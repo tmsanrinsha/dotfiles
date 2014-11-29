@@ -35,10 +35,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " unite {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy 'Shougo/unite.vim', {
-            \   'autoload': {
-            \       'commands': ['Unite']
-            \   }
-            \}
+        \   'autoload': {
+        \       'commands': ['Unite']
+        \   }
+        \}
         NeoBundleLazy 'Shougo/neomru.vim', {
             \   'autoload': {
             \       'unite_sources': ['file_mru', 'directory_mru']
@@ -308,7 +308,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'autoload': {
         \       'filetypes': ['php']
         \   },
-        \   'rev' : 'mod'
         \}
         " Composerプロジェクトのルートディレクトリでvimを開く必要があり
         " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
