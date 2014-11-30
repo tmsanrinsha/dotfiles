@@ -753,8 +753,9 @@ let g:vimfiler_data_directory = $VIM_CACHE_DIR.'/.vimfiler'
 nnoremap [VIMFILER] <Nop>
 nmap <Leader>f [VIMFILER]
 nnoremap <silent> [VIMFILER]f :VimFiler<CR>
-nnoremap <silent> [VIMFILER]b    :VimFilerBufferDir<CR>
-nnoremap <silent> [VIMFILER]c    :VimFilerCurrentDir<CR>
+nnoremap <silent> [VIMFILER]b :VimFilerBufferDir<CR>
+nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+nnoremap <silent> [VIMFILER]p :execute "VimFilerExplorer ". unite#util#path2project_directory(expand('%'))<CR>
 
 autocmd MyVimrc FileType vimfiler
     \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
