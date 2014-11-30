@@ -332,7 +332,7 @@ set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し�
 " 不可視文字の表示
 set list
 " set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
-set listchars=tab:»\ ,trail:･,nbsp:%
+set listchars=tab:»-,trail:･,nbsp:%
 
 " autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
@@ -997,13 +997,13 @@ autocmd MyVimrc BufRead,BufNewFile *.html
 " }}}
 " filetype {{{
 " ============================================================================
-nnoremap <Leader>fh :<C-u>setlocal filetype=html<CR>
-nnoremap <Leader>fj :<C-u>setlocal filetype=javascript<CR>
-nnoremap <Leader>fm :<C-u>setlocal filetype=markdown<CR>
-nnoremap <Leader>fp :<C-u>setlocal filetype=php<CR>
-nnoremap <Leader>fs :<C-u>setlocal filetype=sql<CR>
-nnoremap <Leader>fv :<C-u>setlocal filetype=vim<CR>
-nnoremap <Leader>fx :<C-u>setlocal filetype=xml<CR>
+nnoremap <Leader>Fh :<C-u>setlocal filetype=html<CR>
+nnoremap <Leader>Fj :<C-u>setlocal filetype=javascript<CR>
+nnoremap <Leader>Fm :<C-u>setlocal filetype=markdown<CR>
+nnoremap <Leader>Fp :<C-u>setlocal filetype=php<CR>
+nnoremap <Leader>Fs :<C-u>setlocal filetype=sql<CR>
+nnoremap <Leader>Fv :<C-u>setlocal filetype=vim<CR>
+nnoremap <Leader>Fx :<C-u>setlocal filetype=xml<CR>
 
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
@@ -1062,11 +1062,6 @@ let g:ftplugin_sql_statements = 'create,alter'
 " }}}
 " Vim {{{2
 " ----------------------------------------------------------------------------
-" カーソル下のキーワードを:helpで開く (:help K)
-autocmd MyVimrc FileType vim
-    \   setlocal keywordprg=:help
-    \|  setlocal path&
-    \|  setlocal path+=$VIMDIR/bundle
 " \を打った時のindentの幅
 " let g:vim_indent_cont = &sw
 let g:vim_indent_cont = 0
@@ -1100,7 +1095,12 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "     \|  endif
 
 " ### help {{{3
-set helplang=en,ja
+" カーソル下のキーワードを:helpで開く (:help K)
+autocmd MyVimrc FileType vim
+    \   setlocal keywordprg=:help
+    \|  setlocal path&
+    \|  setlocal path+=$VIMDIR/bundle
+" set helplang=en,ja
 autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
 
 " Git {{{2

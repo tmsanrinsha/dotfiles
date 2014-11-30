@@ -580,8 +580,6 @@ if neobundle#is_installed('unite.vim')
     " file_rec {{{2
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
-    " ~/git以下のdirectory以下のファイル
-    nnoremap [unite]fg :<C-u>Unite file_rec/async:~/git<CR>
 
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
@@ -603,6 +601,10 @@ if neobundle#is_installed('unite.vim')
         " windowsでドライブのC:をC\:に変更する必要がある
         execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
     endfunction
+
+    nnoremap [unite]fv :<C-u>Unite file_rec:$VIMDIR<CR>
+    " ~/git以下のdirectory以下のファイル
+    nnoremap [unite]fg :<C-u>Unite file_rec/async:~/git<CR>
 
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
@@ -1004,6 +1006,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             return !col || getline('.')[col - 1]  =~ '\s'
         endfunction"}}}
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        " }}}
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
@@ -1059,8 +1062,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
-    let g:neocomplete#enable_cursor_hold_i=1
-    let g:neocomplete#cursor_hold_i_time=100
+    let g:neocomplete#enable_cursor_hold_i = 1
+    let g:neocomplete#cursor_hold_i_time = 100
+    " let g:neocomplete#disable_auto_complete = 1
+    " let g:neocomplete#enable_refresh_always = 1
     " autocmd MyVimrc FileType *
     " \   if &filetype == 'php'
     " \|      echom 'php'
@@ -1160,26 +1165,32 @@ if neobundle#is_installed('vim-watchdogs')
     let g:quickrun_config["mql4/watchdogs_checker"] = {
     \   "type" : "watchdogs_checker/mql"
     \}
-    " }}}
 
+    " java {{{2
+    " ------------------------------------------------------------------------
     let g:quickrun_config['java/watchdogs_checker'] = {
     \   'type': ''
     \}
 
+    " php {{{2
+    " ------------------------------------------------------------------------
     let g:quickrun_config['watchdogs_checker/php'] = {
     \   "command" : "php",
     \   "exec"    : "%c %o -l %s:p",
     \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
     \}
 
-    let g:quickrun_config['sh/watchdogs_checker'] = {
-    \   'type': ''
-    \}
+    " sh {{{2
+    " ------------------------------------------------------------------------
+    " let g:quickrun_config['sh/watchdogs_checker'] = {
+    " \   'type': ''
+    " \}
 
-    let g:quickrun_config['zsh/watchdogs_checker'] = {
-    \   'type': ''
-    \}
-
+    " zsh {{{2
+    " ------------------------------------------------------------------------
+    " let g:quickrun_config['zsh/watchdogs_checker'] = {
+    " \   'type': ''
+    " \}
 
     " watchdogs.vim の設定を更新（初回は呼ばれる）
     call watchdogs#setup(g:quickrun_config)
