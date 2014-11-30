@@ -1134,6 +1134,19 @@ if neobundle#is_installed('vim-watchdogs')
     " 自動的にquickfixが開くのが嫌な場合
     " \   "outputter/quickfix/open_cmd":               "",
 
+    " apaache
+    " ------------------------------------------------------------------------
+    let g:quickrun_config["watchdogs_checker/apache"] = {
+    \   "command":           "apachectl",
+    \   "cmdopt":            "configtest",
+    \   "exec":              "%c %o",
+    \   "errorformat":       "%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#",
+    \}
+
+    let g:quickrun_config["apache/watchdogs_checker"] = {
+    \   "type" : "watchdogs_checker/apache"
+    \}
+
     " mql {{{2
     " ------------------------------------------------------------------------
     let g:quickrun_config["watchdogs_checker/mql"] = {
