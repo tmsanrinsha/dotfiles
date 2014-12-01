@@ -1,8 +1,11 @@
+set encoding=utf-8
+scriptencoding utf-8
+" vimrcでマルチバイト文字を使うためにscriptencodingを設定する。
+" この時、set encodingはscriptencodingより先に宣言する。
+" cf. vimrcアンチパターン - rbtnn雑記
+"     http://rbtnn.hateblo.jp/entry/2014/11/30/174749
 " 初期設定 {{{1
 " ============================================================================
-scriptencoding utf-8 "vimrcの設定でマルチバイト文字を使うときに必要
-set encoding=utf-8 "vimrcのエラーメッセージが文字化けしないように早めに設定
-
 let $VIMDIR = expand('~/.vim')
 let $VIMRC_DIR = $VIMDIR . '/rc'
 let $VIM_CACHE_DIR = expand('~/.cache/vim')
