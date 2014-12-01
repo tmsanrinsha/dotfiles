@@ -176,7 +176,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         endif
 
         " コメント操作
-        " NeoBundle "tyru/caw.vim"
+        NeoBundle "tyru/caw.vim"
         " NeoBundle "tpope/vim-commentary"
         NeoBundle "tomtom/tcomment_vim"
 
