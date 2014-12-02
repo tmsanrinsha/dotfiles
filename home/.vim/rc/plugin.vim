@@ -679,10 +679,23 @@ if neobundle#is_installed('unite.vim')
         \   'direction': 'topleft',
         \   'winheight': 10,
         \   'auto_resize': 1,
-        \   'prompt': '» ',
+        \   'prompt': '> ',
         \ })
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+
+    " argsをuniteのactionに加える
+    let s:args_action = {'description': 'args', 'is_selectable': 1}
+
+    function! s:args_action.func(candidates)
+        silent! argdelete *
+        " TODO: 重複を避ける
+        for candidate in a:candidates
+            execute 'argadd ' . candidate.action__path
+        endfor
+    endfunction
+    call unite#custom#action('file', 'args', s:args_action)
+
 endif
 "}}}
 " neossh.vim {{{1
