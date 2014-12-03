@@ -150,6 +150,9 @@ bindkey "^[[1~" beginning-of-line
 # Endで行末へ
 bindkey "^[[4~" end-of-line
 
+bindkey '^]'  vi-find-next-char
+bindkey '^[]' vi-find-prev-char
+
 # 前方一致ヒストリ履歴検索
 bindkey "^N" history-beginning-search-forward
 bindkey "^P" history-beginning-search-backward
