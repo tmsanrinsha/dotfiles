@@ -172,6 +172,8 @@ set fileformats=unix,dos,mac
 
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
+
+command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval("0x".submatch(1)),1)/g
 "}}}
 " mapping {{{
 " ------------------------------------------------------------------------------
