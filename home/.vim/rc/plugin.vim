@@ -430,6 +430,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \}
 
         " NeoBundle 'luochen1990/rainbow'
+        NeoBundleLazy 't9md/vim-quickhl', {
+        \   'autoload': {'mappings': '<Plug>(quickhl-'}
+        \}
 
         " CSS
         " #000000とかの色付け
@@ -1959,6 +1962,13 @@ endfunction
 function! MyCurrentTag()
   return tagbar#currenttag('%s', '')
 endfunction
+
+" vim-quickhl {{{1
+" ============================================================================
+nmap <Space>m <Plug>(quickhl-manual-this)
+xmap <Space>m <Plug>(quickhl-manual-this)
+nmap <Space>M <Plug>(quickhl-manual-reset)
+xmap <Space>M <Plug>(quickhl-manual-reset)
 
 " rainbow {{{1
 " ============================================================================
