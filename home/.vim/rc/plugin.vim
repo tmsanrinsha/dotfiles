@@ -618,12 +618,14 @@ if neobundle#is_installed('unite.vim')
 
     " unite-grep {{{2
     " ------------------------------------------------------------------------
-    if executable('jvgrep')
-        " Use jvgrep in unite grep source.
-        let g:unite_source_grep_command = 'jvgrep'
-        let g:unite_source_grep_default_opts = '--color=never -i'
-        let g:unite_source_grep_recursive_opt = '-R'
-    elseif executable('ag')
+    " jvgrep, ptは複数PATH指定ができない。
+    " ptの文字コードチェックは512byteまで。
+    " if executable('jvgrep')
+    "     " Use jvgrep in unite grep source.
+    "     let g:unite_source_grep_command = 'jvgrep'
+    "     let g:unite_source_grep_default_opts = '--color=never -i'
+    "     let g:unite_source_grep_recursive_opt = '-R'
+    if executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
@@ -632,7 +634,7 @@ if neobundle#is_installed('unite.vim')
         let g:unite_source_grep_recursive_opt = ''
     elseif executable('grep')
         let g:unite_source_grep_command = 'grep'
-        let g:unite_source_grep_default_opts = '-inH'
+        let g:unite_source_grep_default_opts = '-inHE'
         let g:unite_source_grep_recursive_opt = '-r'
     endif
 
