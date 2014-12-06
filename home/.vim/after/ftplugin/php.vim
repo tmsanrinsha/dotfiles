@@ -29,3 +29,10 @@ let &l:path .= g:php_open_basedir
 " 構文チェック
 setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 " setlocal makeprg=php\ -l\ %
+
+if neobundle#is_installed('phpcomplete-extended') &&
+\   phpcomplete_extended#is_phpcomplete_extended_project()
+  setlocal omnifunc=phpcomplete_extended#CompletePHP
+else
+  setlocal omnifunc=phpcomplete#CompletePHP
+endif

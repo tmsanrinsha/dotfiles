@@ -1134,18 +1134,6 @@ endif
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 " }}}
-" PHP {{{1
-" ============================================================================
-autocmd MyVimrc FileType php call s:setOmniFunc()
-
-function! s:setOmniFunc()
-    if neobundle#is_installed('phpcomplete-extended') &&
-        \   phpcomplete_extended#is_phpcomplete_extended_project()
-        setlocal omnifunc=phpcomplete_extended#CompletePHP
-    else
-        setlocal omnifunc=phpcomplete#CompletePHP
-    endif
-endfunction
 
 " vim-watchdogs {{{1
 " ============================================================================
