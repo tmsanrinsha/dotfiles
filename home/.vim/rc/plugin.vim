@@ -1082,7 +1082,6 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
             " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         endif
-        " }}}
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
@@ -1134,6 +1133,17 @@ endif
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 " }}}
+" C, C++ {{{1
+" ============================================================================
+autocmd MyVimrc Filetype c,cpp
+\   if ! exists('g:c_open_basedir')
+\|      let g:c_open_basedir = substitute(
+\           system("gcc -print-search-dirs | awk -F= '/libraries/ {print $2}'")
+\           , "\<NL>", '', ''
+\       ) . '/include'
+\|  endif
+\|  execute 'setlocal path+='.g:c_open_basedir
+\|  setlocal suffixesadd=.h
 
 " vim-watchdogs {{{1
 " ============================================================================
