@@ -181,7 +181,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle "tomtom/tcomment_vim"
 
         " NeoBundle 'YankRing.vim'
-        NeoBundleLazy 'LeafCage/yankround.vim'
+        NeoBundleLazy 'LeafCage/yankround.vim', {
+        \   'autoload': {
+        \       'mappings': '<Plug>(yankround-',
+        \       'unite_sources' : 'yankround'
+        \   },
+        \   'vim_version': '7.3'
+        \}
 
         NeoBundleLazy 'thinca/vim-ft-help_fold', {
             \   'autoload' : { 'filetypes' : ['help'] }
@@ -1489,13 +1495,6 @@ endif
 " LeafCage/yankround.vim {{{1
 " ============================================================================
 if neobundle#is_installed('yankround.vim')
-    call neobundle#config('yankround.vim', {
-        \   'autoload': {
-        \       'mappings': '<Plug>(yankround-',
-        \       'unite_sources' : 'yankround'
-        \   }
-        \})
-
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
