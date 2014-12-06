@@ -1348,6 +1348,7 @@ if neobundle#is_installed('vim-quickrun')
         "             \}
         " "
         " set errorformat=debug:\%s
+        call SourceRc('quickrun_local.vim')
     endfunction
     unlet s:bundle
 endif
