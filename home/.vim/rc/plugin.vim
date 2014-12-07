@@ -309,7 +309,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'disabled': !exists(g:eclipse_home),
             \}
         " }}}
-
         NeoBundleLazy 'shawncplus/phpcomplete.vim', {
         \   'autoload': {
         \       'filetypes': ['php']
@@ -632,7 +631,7 @@ if neobundle#is_installed('unite.vim')
 
     " unite-grep {{{2
     " ------------------------------------------------------------------------
-    " jvgrep, ptは複数PATH指定ができない。
+    " ptは複数PATH指定ができない。
     " ptの文字コードチェックは512byteまで。
     " if executable('jvgrep')
     "     " Use jvgrep in unite grep source.
@@ -1692,7 +1691,7 @@ if neobundle#is_installed('eclim')
     endfunction
 endif
 " }}}
-" jedi-vim {{{
+" jedi-vim {{{1
 " ============================================================================
 if neobundle#is_installed('jedi-vim')
     let s:hooks = neobundle#get_hooks("jedi-vim")
