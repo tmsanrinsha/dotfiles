@@ -641,6 +641,11 @@ if neobundle#is_installed('unite.vim')
             \   '--line-numbers --nocolor --nogroup --hidden ' .
             \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
+    elseif executable('pt')
+        let g:unite_source_grep_command = 'pt'
+        let g:unite_source_grep_default_opts = '-e -S --nogroup --nocolor'
+        let g:unite_source_grep_recursive_opt = ''
+        let g:unite_source_grep_encoding = 'utf-8'
     elseif executable('grep')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inHE'
