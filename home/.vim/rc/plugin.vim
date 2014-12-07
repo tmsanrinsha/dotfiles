@@ -335,8 +335,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " Python {{{2
         " ----------
         NeoBundleLazy 'davidhalter/jedi-vim', {
-            \   'autoload': {'filetypes': ['python']}
-            \}
+        \   'autoload': {'filetypes': ['python']}
+        \}
+        " C, C++ {{{2
+        " ----------
+        NeoBundleLazy 'osyo-manga/vim-marching', {
+        \   'autoload': {'filetypes': ['c', 'cpp']}
+        \}
         " SQL {{{2
         NeoBundleLazy 'vim-scripts/dbext.vim', {
             \   'autoload': {'filetypes': ['sql']}
@@ -1138,18 +1143,6 @@ endif
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 " }}}
-" C, C++ {{{1
-" ============================================================================
-autocmd MyVimrc Filetype c,cpp
-\   if ! exists('g:c_open_basedir')
-\|      let g:c_open_basedir = substitute(
-\           system("gcc -print-search-dirs | awk -F= '/libraries/ {print $2}'")
-\           , "\<NL>", '', ''
-\       ) . '/include'
-\|  endif
-\|  execute 'setlocal path+='.g:c_open_basedir
-\|  setlocal suffixesadd=.h
-
 " vim-watchdogs {{{1
 " ============================================================================
 if neobundle#is_installed('vim-watchdogs')
@@ -1722,7 +1715,60 @@ if neobundle#is_installed('jedi-vim')
         let g:jedi#rename_command = '<Leader>R'
     endfunction
 endif
-" }}}
+
+" C, C++ {{{1
+" ============================================================================
+function! s:getCPath()
+    if ! exists('g:c_path')
+        let g:c_path = substitute(
+        \   system("gcc -print-search-dirs | awk -F= '/libraries/ {print $2}'")
+        \   , "\<NL>", '', ''
+        \) . '/include'
+    endif
+    return g:c_path
+endfunction
+
+autocmd MyVimrc Filetype c,cpp
+\|  execute 'setlocal path+='.s:getCPath()
+\|  setlocal suffixesadd=.h
+
+if neobundle#is_installed('vim-marching')
+    let s:hooks = neobundle#get_hooks("vim-marching")
+    function! s:hooks.on_source(bundle)
+        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
+        " clang コマンドの設定
+        let g:marching_clang_command = "clang"
+
+        " オプションを追加する
+        " filetype=cpp に対して設定する場合
+        " let g:marching#clang_command#options = {
+        " \   "cpp" : "-std=gnu++1y"
+        " \}
+
+        " インクルードディレクトリのパスを設定
+        let g:marching_include_paths = [
+        \   s:getCPath()
+        \]
+
+        " neocomplete.vim と併用して使用する場合
+        let g:marching_enable_neocomplete = 1
+
+        if !exists('g:neocomplete#force_omni_input_patterns')
+            let g:neocomplete#force_omni_input_patterns = {}
+        endif
+
+        let g:neocomplete#force_omni_input_patterns.cpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+        " オムニ補完時に補完ワードを挿入したくない場合
+        " imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+
+        " キャッシュを削除してからオムに補完を行う
+        imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
+
+    endfunction
+endif
+
 " rcmdnk/vim-markdown {{{1
 " ============================================================================
 if neobundle#is_installed('rcmdnk_vim-markdown')
