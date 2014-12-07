@@ -1172,6 +1172,23 @@ if neobundle#is_installed('vim-watchdogs')
     \   "type" : "watchdogs_checker/apache"
     \}
 
+    " cpp {{{2
+    " ------------------------------------------------------------------------
+    let g:quickrun_config["cpp/watchdogs_checker"] = {
+    \   "type"
+    \       : executable("g++")         ? "watchdogs_checker/g++"
+    \       : executable("clang-check") ? "watchdogs_checker/clang_check"
+    \       : executable("clang++")     ? "watchdogs_checker/clang++"
+    \       : executable("cl")          ? "watchdogs_checker/cl"
+    \       : "",
+    \}
+
+    let g:quickrun_config["watchdogs_checker/g++"] = {
+    \   "command"   : "g++",
+    \   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
+    \   "outputter" : "quickfix",
+    \}
+
     " mql {{{2
     " ------------------------------------------------------------------------
     let g:quickrun_config["watchdogs_checker/mql"] = {
