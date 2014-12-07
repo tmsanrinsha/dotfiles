@@ -153,6 +153,14 @@ bindkey "^[[4~" end-of-line
 bindkey '^]'  vi-find-next-char
 bindkey '^[]' vi-find-prev-char
 
+# zshで直前のコマンドラインの最後の単語を挿入する
+# http://qiita.com/mollifier/items/1a9126b2200bcbaf515f
+autoload -Uz smart-insert-last-word
+# [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
+zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
+zle -N insert-last-word smart-insert-last-word
+# bindkey '^]' insert-last-word
+
 # 前方一致ヒストリ履歴検索
 bindkey "^N" history-beginning-search-forward
 bindkey "^P" history-beginning-search-backward
