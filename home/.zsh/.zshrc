@@ -303,7 +303,6 @@ fi
 # ----------------------------------------------------------------------------
 # zshでcdの履歴管理に標準添付のcdrを使う - @znz blog <http://blog.n-z.jp/blog/2013-11-12-zsh-cdr.html>
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-    mkdir -p ${ZDOTDIR}/.cache
     autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
     add-zsh-hook chpwd chpwd_recent_dirs
     # zstyle ':completion:*:*:cdr:*:*' menu selection
@@ -316,7 +315,7 @@ fi
 # }}}
 # 履歴 {{{
 # =============================================================================
-HISTFILE=${ZDOTDIR}/.cache/history
+HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 ## ヒストリファイルにコマンドラインだけではなく実行時刻と実行時間も保存する。

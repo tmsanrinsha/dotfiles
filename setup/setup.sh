@@ -84,6 +84,7 @@ fi
 
 # zsh {{{1
 # ============================================================================
+test -d ~/.zsh/.cache      || mkdir -p ~/.zsh/.cache
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
 test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
