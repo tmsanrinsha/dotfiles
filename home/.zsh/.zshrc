@@ -213,18 +213,23 @@ autoload -U compinit && compinit
 # compacked complete list display
 setopt list_packed
 
+zstyle ':completion:*' use-cache true
+# 補完対象が2つ以上の時、選択できるようにする
+zstyle ':completion:*:default' menu select=2
+
+# ls
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 else
     zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 fi
 
-# 今いるディレクトリを補完候補から外す
+# cdで今いるディレクトリを補完候補から外す
 # http://qiita.com/items/7916037b1384d253b457
 zstyle ':completion:*' ignore-parents parent pwd ..
-zstyle ':completion:*' use-cache true
-# 補完対象が2つ以上の時、選択できるようにする
-zstyle ':completion:*:default' menu select=2
+
+# killで今のシェル以外のプロセスも補完する
+zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 ## 補完関数を作るための設定
 # http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
