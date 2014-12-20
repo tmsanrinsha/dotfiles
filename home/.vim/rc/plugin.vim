@@ -1652,7 +1652,7 @@ let g:PreserveNoEOL = 1
 " ============================================================================
 if IsInstalled('detectindent')
     " let g:detectindent_verbosity = 0
-    autocmd MyVimrc BufWinEnter *
+    autocmd MyVimrc FileType yml
     \   let g:detectindent_preferred_indent = &shiftwidth
     \|  if &expandtab == 0
     \|      unlet! g:detectindent_preferred_expandtab
