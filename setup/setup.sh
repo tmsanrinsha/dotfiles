@@ -144,21 +144,22 @@ if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
     $ln -fs ~/git/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
 
-# ack {{{1
+# script {{{1
+# ============================================================================
+install 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst'
+install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
+# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
+install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
+
+# grep系 {{{1
 # ============================================================================
 # http://beyondgrep.com
 if ! command_exists ack; then
     $downloader http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
     chmod a+x $HOME/bin/ack
 fi
-
-install 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst'
-install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
-
-# screenshotTable.sh {{{1
-# ============================================================================
-# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
-install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
+command_exists pt     || ghinst monochromegane/the_platinum_searcher
+command_exists jvgrep || ghinst mattn/jvgrep
 
 # peco {{{1
 # ============================================================================
@@ -166,10 +167,6 @@ install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master
 if ! command_exists peco && [ `uname` = Linux ]; then
     ghinst peco/peco
 fi
-
-# jvgrep {{{1
-# ============================================================================
-command_exists jvgrep || ghinst mattn/jvgrep
 
 # PHP {{{1
 # ============================================================================
