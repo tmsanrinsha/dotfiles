@@ -317,14 +317,17 @@ autocmd MyVimrc BufReadPost *
 "}}}
 " tab, indent {{{1
 " ==============================================================================
-"ファイル内の <Tab> が対応する空白の数
+" ハードタブを表示させるときの幅
 set tabstop=4
-"<Tab> の挿入や <BS> の使用等の編集操作をするときに、<Tab> が対応する空白の数
-set softtabstop=4
-"インデントの各段階に使われる空白の数
-set shiftwidth=4
-set shiftround " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+" 挿入モードで<Tab>を押したときにスペースに展開する
 set expandtab
+" タブを展開するときのスペースの数
+set softtabstop=4
+
+" インデントに使われる空白の数
+set shiftwidth=4
+" '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+set shiftround 
 
 " http://vim-jp.org/vimdoc-ja/indent.html
 " 後のものが有効にされると、前のものより優先される
