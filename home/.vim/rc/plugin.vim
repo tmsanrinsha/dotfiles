@@ -619,16 +619,6 @@ if neobundle#is_installed('unite.vim')
     " ~/git以下のdirectory以下のファイル
     nnoremap [unite]fg :<C-u>Unite file_rec/async:~/git<CR>
 
-    let s:hooks = neobundle#get_hooks("unite.vim")
-    function! s:hooks.on_source(bundle)
-        " uniteウィンドウを閉じる
-        nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_exit)
-        call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-        call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-    endfunction
-
-    " }}}
-
     " unite-grep {{{2
     " ------------------------------------------------------------------------
     " ptは複数PATH指定ができない。
@@ -688,21 +678,29 @@ if neobundle#is_installed('unite.vim')
 
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
+    call unite#custom#profile('default', 'context', {
+    \   'start_insert': 1,
+    \   'direction': 'topleft',
+    \   'winheight': 10,
+    \   'auto_resize': 1,
+    \   'prompt': '> ',
+    \   'cursor_line_highlight': 'PmenuSel',
+    \ })
+
+    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+
     " vimfilerがどんどん増えちゃう
     call unite#custom_default_action('directory' , 'vimfiler')
     " vimfiler上ではvimfilerを増やさず、移動するだけ
     autocmd MyVimrc FileType vimfiler
-        \   call unite#custom_default_action('directory', 'lcd')
+    \   call unite#custom_default_action('directory', 'lcd')
 
-    call unite#custom#profile('default', 'context', {
-        \   'start_insert': 1,
-        \   'direction': 'topleft',
-        \   'winheight': 10,
-        \   'auto_resize': 1,
-        \   'prompt': '> ',
-        \ })
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+
+    " uniteウィンドウを閉じる
+    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
 
     " argsをuniteのactionに加える
     let s:args_action = {'description': 'args', 'is_selectable': 1}
@@ -715,7 +713,6 @@ if neobundle#is_installed('unite.vim')
         endfor
     endfunction
     call unite#custom#action('file', 'args', s:args_action)
-
 endif
 "}}}
 " neossh.vim {{{1
