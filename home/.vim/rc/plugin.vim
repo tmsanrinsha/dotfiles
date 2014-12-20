@@ -1196,6 +1196,7 @@ if neobundle#is_installed('vim-watchdogs')
     \   "command":           "wine",
     \   "cmdopt":            "~/bin/mql.exe",
     \   "exec":              "%c %o %S:t",
+    \   "errorformat":       '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#',
     \}
 
     let g:quickrun_config["mql4/watchdogs_checker"] = {
