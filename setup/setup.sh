@@ -262,10 +262,11 @@ elif [[ `uname` = Darwin ]]; then
 
         # brew caskでインストールしたものをalfredから検索可能にする
         brew cask alfred link
-
+        brew-cask install android-studio
         brew-cask-install alfred
+
         brew-cask-install bettertouchtool
-        brew-cask-install eclipse-ide
+        # brew-cask-install eclipse-ide
         # formuraでもinstallできる
         brew-cask-install pandoc
 
