@@ -77,6 +77,8 @@ set showmode "現在のモードを表示
 set showcmd "コマンドを表示
 set cmdheight=2 "コマンドラインの高さを2行にする
 set number
+" 1行が長い場合でも表示
+set display=lastline
 set ruler
 
 set showmatch matchtime=1 "括弧の対応
