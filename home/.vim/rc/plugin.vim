@@ -860,9 +860,13 @@ if neobundle#is_installed('vimshell.vim')
             \|  execute 'setlocal filetype='.matchstr(&filetype, 'int-\zs.*')
     endfunction
 endif
-" }}}
-if neobundle#is_installed('Conque-Shell') " {{{
-    noremap <Leader>C :ConqueTerm zsh<CR>
+
+" Conque-Shell {{{1
+" ============================================================================
+if neobundle#is_installed('Conque-Shell')
+    " 現在のバッファのディレクトリでzshを立ち上げる
+    noremap <Leader>C<CR> :ConqueTerm zsh<CR>
+    noremap <Leader>Cb    :cd %:h | ConqueTerm zsh<CR>
 
     let s:bundle = neobundle#get("Conque-Shell")
     function! s:bundle.hooks.on_source(bundle)
@@ -870,6 +874,7 @@ if neobundle#is_installed('Conque-Shell') " {{{
         let g:ConqueTerm_CloseOnEnd = 1
         let g:ConqueTerm_StartMessages = 0
         let g:ConqueTerm_CWInsert = 0
+        " 通常の<Esc>はonqueTermにEscapeを送って、<C-j>はVimにEscapeを送る
         let g:ConqueTerm_EscKey = '<C-j>'
     endfunction
     unlet s:bundle
