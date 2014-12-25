@@ -925,6 +925,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "conque_term"'
 
+        set pumheight=10
         " 補完候補取得に時間がかかったときにスキップ
         execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.1"'
         " 候補の数を増やす
