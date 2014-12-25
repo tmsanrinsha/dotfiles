@@ -475,8 +475,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
-        " NeoBundle 'jceb/vim-orgmode'
-        " NeoBundle 'utl.vim'
+        " NeoBundle 'jceb/vim-orgmode', {
+        " \   'depends': [
+        " \       'utl.vim', 'tpope/vim-repeat', 'tpope/vim-speeddating', 'chrisbra/NrrwRgn',
+        " \       'calendar.vim', 'SyntaxRange'
+        " \   ]
+        " \}
+        " let g:org_agenda_files = ['~/org/*.org']
 
         " http://d.hatena.ne.jp/itchyny/20140108/1389164688
         " NeoBundleLazy 'itchyny/calendar.vim', {
@@ -582,6 +587,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
     " directory {{{2
+    " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
     "最近使用したディレクトリ一覧
@@ -591,6 +597,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite]dg :<C-u>Unite directory:$HOME/git<CR>
 
     " file_rec {{{2
+    " ------------------------------------------------------------------------
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
 
@@ -800,7 +807,7 @@ autocmd MyVimrc BufLeave vimfiler*
     \   nmap ds <Plug>Dsurround
     \|  nmap cs <Plug>Csurround
 "}}}
-" vimshell {{{
+" vimshell {{{1
 " ============================================================================
 if neobundle#is_installed('vimshell.vim')
     nmap <leader>H [VIMSHELL]
