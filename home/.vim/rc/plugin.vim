@@ -873,8 +873,7 @@ endif
 if neobundle#is_installed('Conque-Shell')
     " 現在のバッファのディレクトリでzshを立ち上げる
     noremap <Leader>C<CR> :ConqueTerm zsh<CR>
-    noremap <Leader>Cb    :cd %:h | ConqueTerm zsh<CR>
-
+    noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
     let s:bundle = neobundle#get("Conque-Shell")
     function! s:bundle.hooks.on_source(bundle)
         let g:ConqueTerm_ReadUnfocused = 1
@@ -933,6 +932,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
 
+        " preview
         set completeopt-=preview
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
         " fugitiveのバッファも閉じてしまうのでコメントアウト
@@ -1104,8 +1104,9 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
-    let g:neocomplete#enable_cursor_hold_i = 1
-    let g:neocomplete#cursor_hold_i_time = 100
+    " let g:neocomplete#enable_cursor_hold_i = 1
+    " let g:neocomplete#cursor_hold_i_time = 100
+
     " let g:neocomplete#disable_auto_complete = 1
     " let g:neocomplete#enable_refresh_always = 1
     " autocmd MyVimrc FileType *
