@@ -1218,6 +1218,11 @@ if neobundle#is_installed('vim-watchdogs')
     \   "type" : "watchdogs_checker/mql"
     \}
 
+    " fugitiveのdiffなどの表示画面ではcheckしない
+    autocmd MyVimrc BufRead fugitive://*.mq4
+    \   let b:watchdogs_checker_type = ''
+
+
     " java {{{2
     " ------------------------------------------------------------------------
     let g:quickrun_config['java/watchdogs_checker'] = {
