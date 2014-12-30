@@ -721,7 +721,11 @@ if neobundle#is_installed('unite.vim')
     endfunction
     call unite#custom#action('file', 'args', s:args_action)
 endif
-"}}}
+
+" neomru {{{1
+" ============================================================================
+let g:neomru#do_validate = 0
+
 " neossh.vim {{{1
 " =========================================================================
 " let g:neossh#ssh_command = 'ftp.sh -p PORT HOSTNAME'
