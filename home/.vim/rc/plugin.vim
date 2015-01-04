@@ -1740,9 +1740,20 @@ endif
 if neobundle#is_installed('jedi-vim')
     let s:hooks = neobundle#get_hooks("jedi-vim")
     function! s:hooks.on_source(bundle)
-        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
-        let g:jedi#completions_enabled = 0
-        let g:jedi#auto_vim_configuration = 0
+
+        autocmd MyVimrc FileType python
+        \   setlocal omnifunc=jedi#completions
+        \|  let &l:path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+
+        " [jedi-vimでanacondaのパッケージを補完させる - 病みつきエンジニアブログ](http://yamitzky.hatenablog.com/entry/2014/05/05/124155)
+        python << EOF
+import os
+import sys
+
+path = "/usr/local/lib/python2.7/site-packages"
+if not path in sys.path:
+  sys.path.insert(0, path)
+EOF
 
         if !exists('g:neocomplete#force_omni_input_patterns')
           let g:neocomplete#force_omni_input_patterns = {}
@@ -1752,7 +1763,10 @@ if neobundle#is_installed('jedi-vim')
         " '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
         " を ^\s* -> ^>*\s* に変更した
         let g:neocomplete#force_omni_input_patterns.python =
-            \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*\s*import \)\w*'
+        \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*import \)\w*'
+
+        let g:jedi#completions_enabled = 0
+        let g:jedi#auto_vim_configuration = 0
 
         " quickrunと被るため大文字に変更
         let g:jedi#rename_command = '<Leader>R'
