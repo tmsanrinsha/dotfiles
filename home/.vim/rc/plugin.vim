@@ -931,7 +931,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         else
             let g:neocomplcache_min_syntax_length = 3
         endif
-        let g:neocomplete#auto_completion_start_length = 3
+        let g:neocomplete#auto_completion_start_length = 2
 
         execute 'let g:'.s:neocom_.'lock_buffer_name_pattern = "conque_term"'
 
@@ -1285,9 +1285,10 @@ if neobundle#is_installed('vim-quickrun')
         let g:quickrun_config['_'] = {
         \   'runner'                    : 'vimproc',
         \   'runner/vimproc/updatetime' : 50,
-        \   'outputter'                 : 'multi:buffer:quickfix',
+        \   'outputter'                 : 'multi:buffer',
         \   'outputter/buffer/split'    : 'botright'
         \}
+        " \   'outputter'                 : 'multi:buffer:quickfix',
 
         " :QuickRun -outputter my_outputter {{{2
         " --------------------------------------------------------------------
@@ -1411,8 +1412,8 @@ if neobundle#is_installed("vim-operator-user")
     map sa <Plug>(operator-surround-append)
     map sd <Plug>(operator-surround-delete)
     map sr <Plug>(operator-surround-replace)
-    " nmap sdb <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-    " nmap srb <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
     " そもそもclipboardはoperator
     " let s:hooks = neobundle#get_hooks("vim-operator-user")
