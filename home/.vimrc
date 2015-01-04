@@ -329,7 +329,7 @@ set softtabstop=4
 " インデントに使われる空白の数
 set shiftwidth=4
 " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
-set shiftround 
+set shiftround
 
 " http://vim-jp.org/vimdoc-ja/indent.html
 " 後のものが有効にされると、前のものより優先される
@@ -342,7 +342,7 @@ set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し�
 " 不可視文字の表示
 set list
 " set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
-set listchars=tab:»-,trail:･,nbsp:%
+set listchars=tab:»･,trail:･,nbsp:%
 
 " autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
@@ -714,11 +714,15 @@ endif
 " cript {{{1
 " ============================================================================
 " [Using VIM as Your Password Manager - Stelfox Athenæum](http://stelfox.net/blog/2013/11/using-vim-as-your-password-manager/)
+" 暗号化して保存するためには
+"   :set cryptmethod=blowfish2 (Vim 7.4.399以前はblowfish)
+"   :X
 " set cryptmethod=blowfishは重いのでkeyがあるときのみ設定
 autocmd MyVimrc BufReadPost *
 \   if &key != ""
-\|      setlocal cryptmethod=blowfish noswapfile nowritebackup noshelltemp secure
+\|      setlocal noswapfile nowritebackup noshelltemp secure
 \|  endif
+" \|      setlocal cryptmethod=blowfish noswapfile nowritebackup noshelltemp secure
 
 " man {{{1
 " ==============================================================================
@@ -1129,10 +1133,10 @@ autocmd MyVimrc FileType gitcommit
 " MQL4 {{{2
 " ----------------------------------------------------------------------------
 " wineで使っているせいか相対パスで実行してやらないとだめなので、lcdする
-autocmd MyVimrc FileType mql4
-\   lcd %:p:h |
-\   setlocal makeprg=wine\ ~/bin/mql.exe\ /s\ % |
-\   let &l:errorformat = '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#'
+" autocmd MyVimrc FileType mql4
+" \   lcd %:p:h |
+" \   setlocal makeprg=wine\ ~/bin/mql.exe\ /s\ % |
+" \   let &l:errorformat = '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#'
 "
 " autocmd MyVimrc BufWritePost *.mq4 make
 
