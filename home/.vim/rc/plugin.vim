@@ -91,6 +91,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   "autoload": {"insert": 1},
         \   "disabled": has('lua'),
         \}
+        NeoBundle "ujihisa/neco-look", {
+        \   'external_commands': 'look'
+        \}
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
