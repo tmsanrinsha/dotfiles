@@ -344,6 +344,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'osyo-manga/vim-marching', {
         \   'autoload': {'filetypes': ['c', 'cpp']}
         \}
+        NeoBundle 'quark-zju/vim-cpp-auto-include', {
+        \   'external_commands': 'ruby'
+        \}
         " SQL {{{2
         NeoBundleLazy 'vim-scripts/dbext.vim', {
             \   'autoload': {'filetypes': ['sql']}
@@ -1807,6 +1810,10 @@ if neobundle#is_installed('vim-marching')
         imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
     endfunction
+endif
+
+if neobundle#is_installed('vim-cpp-auto-include')
+    autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
 
 " rcmdnk/vim-markdown {{{1
