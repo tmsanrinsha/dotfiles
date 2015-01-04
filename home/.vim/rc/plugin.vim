@@ -586,9 +586,6 @@ if neobundle#is_installed('unite.vim')
     " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
     nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap<CR>
 
-    "最近使用したファイル一覧
-    nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
-
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
@@ -596,13 +593,12 @@ if neobundle#is_installed('unite.vim')
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap [unite]dm :<C-u>Unite directory_mru<CR>
     nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR/bundle<CR>
     nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
     nnoremap [unite]dg :<C-u>Unite directory:$HOME/git<CR>
+    nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
-    " file_rec {{{2
+    " file {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
@@ -731,6 +727,11 @@ endif
 " neomru {{{1
 " ============================================================================
 let g:neomru#do_validate = 0
+"最近使用したファイル一覧
+nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
+"最近使用したディレクトリ一覧
+nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
+
 
 " neossh.vim {{{1
 " =========================================================================
