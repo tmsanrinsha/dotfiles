@@ -14,7 +14,7 @@
     ui = auto
 [core]
     pager =
-    editor = vim
+    # editor = vim ここで設定せずに$EDITORに設定されたものを使う
 [diff]
     # external = git_diff_vim
     # 賢いdiff algorithm
