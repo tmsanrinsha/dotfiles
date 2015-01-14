@@ -2,6 +2,12 @@ set encoding=utf-8
 scriptencoding utf-8
 " vimrcでマルチバイト文字を使うためにscriptencodingを設定する。
 " この時、set encodingはscriptencodingより先に宣言する。
+" vimrcやgvimrcがあると自動的にset nocompatibleになるので、set nocompatibleは書かない。
+" 書くとオプションhistoryが初期化され、履歴が削除されてしまう。
+"   vim -u <vimの設定ファイル>
+" のように指定して起動すると、set nocompatibleにならないので、
+"   vim -u <vimの設定ファイル> -N
+" のように-Nオプションを付けて起動する
 " cf. vimrcアンチパターン - rbtnn雑記
 "     http://rbtnn.hateblo.jp/entry/2014/11/30/174749
 " 初期設定 {{{1
