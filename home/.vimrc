@@ -513,7 +513,7 @@ cnoremap <DOWN> <C-N>
 " コマンドラインウィンドウを開きたいときは<Leader><C-F>にする
 cnoremap <C-Space> <C-F>
 
-set history=1000 "保存する履歴の数
+set history=10000 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
