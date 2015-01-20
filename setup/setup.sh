@@ -50,10 +50,12 @@ fi
 cd $home
 # ディレクトリがなければ作る
 # 空白ではなくヌル文字で区切る
-while IFS= read -r -d '' dir; do
-    dir=${dir#./}
-    test -d "$HOME/$dir" || mkdir "$HOME/$dir"
-done < <(find . -mindepth 1 -type d -print0)
+# while IFS= read -r -d '' dir; do
+#     dir=${dir#./}
+#     test -d "$HOME/$dir" || mkdir "$HOME/$dir"
+# done < <(find . -mindepth 1 -type d -print0)
+
+find $home -type d -mindepth 1 -print0 | sed "s,$home,$HOME,g" | xargs -0 -I{} mkdir -p {}
 
 # シンボリックリンクを貼る
 while IFS= read -r -d '' file; do
@@ -261,7 +263,7 @@ elif [[ `uname` = Darwin ]]; then
         brew-install caskroom/cask/brew-cask
 
         # brew caskでインストールしたものをalfredから検索可能にする
-        brew cask alfred link
+        # brew cask alfred link
         brew-cask install android-studio
         brew-cask-install alfred
 
