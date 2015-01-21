@@ -203,6 +203,7 @@ alias fxg='fxg.sh'
 alias version='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
+alias jqq='python -m json.tool | python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(r\"\\\\u[0-9a-f]{4}\", lambda x: unichr(int(\"0x\" + x.group(0)[2:], 16)), sys.stdin.read()))"'
 # }}}
 # Go language {{{1
 # ============================================================================
