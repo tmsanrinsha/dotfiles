@@ -240,6 +240,9 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
+# MacVimでvimの補完を使う
+compdef Vim=vim
+
 # コンテキストの確認
 bindkey "^Xh" _complete_help
 
