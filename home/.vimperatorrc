@@ -176,4 +176,13 @@ set! places.frecency.defaultBucketWeight=3
 
 source ~/.vimperatorrc.local
 
+" vimperatorを自分でビルドしたいとき
+"   cd **SOMEWHERE**
+"   git clone https://github.com/vimperator/vimperator-labs/
+"   cd vimperator-labs
+"   git checkout 3.8.3-a3
+"   make
+"   # to install the created `xpi` file into your firefox type the below into its `command line`
+"   :open file:///**SOMEWHERE**/vimperator-labs/downloads/vimperator-3.8.3.xpi
+
 " vim: set ft=vimperator:
