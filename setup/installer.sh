@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
+##
+# Usage:
 # curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
 # or
 # wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
@@ -8,8 +10,13 @@ set -ex
 SRC_ROOT="$HOME/git"
 if [ ! -d $SRC_ROOT/tmsanrinsha ]; then
     mkdir -p $SRC_ROOT/tmsanrinsha
+fi
+if [ ! -d $SRC_ROOT/tmsanrinsha/dotfiles ]; then
     cd $SRC_ROOT/tmsanrinsha
     git clone git://github.com/tmsanrinsha/dotfiles.git
+else
+    cd $SRC_ROOT/tmsanrinsha/dotfiles
+    git pull
 fi
 bash $SRC_ROOT/tmsanrinsha/dotfiles/setup/setup.sh
 # if ! type ghq; then

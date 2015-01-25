@@ -112,15 +112,18 @@ fi
 
 # vim {{{1
 # ============================================================================
+if [[ `uname` = Darwin ]]; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+fi
+
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    # if which git >/dev/null 2>&1; then
-    #     vim -N -u NONE -i NONE -V1 -e -s --cmd "source ~/.vimrc" --cmd NeoBundleInstall! --cmd qall!
-    # fi
 fi
-if [[ `uname` = Darwin ]]; then
-    ln -fs ~/_gvimrc ~/.gvimrc
+
+# Vimのバージョンチェック。正確には7.2.051以上
+if [ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ];then
+    ~/.vim/bundle/neobundle.vim/bin/neoinstall
 fi
 
 # vimperator {{{1
