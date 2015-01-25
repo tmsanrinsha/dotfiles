@@ -1,0 +1,7 @@
+#!/bin/sh
+
+VIMRC=$HOME/.vim/rc/uninstall.vim
+
+vim -N -u $VIMRC -c "try | NeoBundleClean! $* | finally | qall! | endtry" \
+        -U NONE -i NONE -V1 -e -s
+echo ''
