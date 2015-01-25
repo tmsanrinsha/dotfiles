@@ -2,11 +2,13 @@
 
 set -ex
 
-all=0
-while getopts a OPT
+while getopts bv OPT
 do
   case $OPT in
-    "a" ) all=1 ;;
+    "b")
+        brew=1;;
+    "v")
+        vim=1;;
   esac
 done
 
@@ -122,7 +124,7 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
 fi
 
 # Vimのバージョンチェック。正確には7.2.051以上
-if [ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ];then
+if [[ $vim -eq 1 && $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
     ~/.vim/bundle/neobundle.vim/bin/neoinstall
 fi
 
@@ -235,7 +237,7 @@ elif [[ `uname` = Darwin ]]; then
             brew cask list $1 >/dev/null || brew cask install $1
         }
 
-        if [ $all -eq 1 ]; then
+        if [ $brew -eq 1 ]; then
             brew update  # homebrewの更新
             brew upgrade # packageの更新
             brew cleanup

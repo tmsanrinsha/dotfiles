@@ -3,9 +3,12 @@ set -ex
 
 ##
 # Usage:
-# curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
+# bash <(curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-bv]
 # or
-# wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh | bash
+# bash <(wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-bv]
+# Option:
+#  -b: homebrewの更新を行う
+#  -v: neoinstallする
 
 SRC_ROOT="$HOME/git"
 if [ ! -d $SRC_ROOT/tmsanrinsha ]; then
@@ -18,7 +21,8 @@ else
     cd $SRC_ROOT/tmsanrinsha/dotfiles
     git pull
 fi
-bash $SRC_ROOT/tmsanrinsha/dotfiles/setup/setup.sh
+bash $SRC_ROOT/tmsanrinsha/dotfiles/setup/setup.sh $1
+
 # if ! type ghq; then
 #     test -d ~/bin || mkdir ~/bin
 #     cd /tmp
