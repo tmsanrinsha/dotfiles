@@ -243,6 +243,10 @@ zstyle ':completion:*' group-name ''
 # MacVimでvimの補完を使う
 compdef Vim=vim
 
+# Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
+# http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
+compdef _gnu_generic bc
+
 # コンテキストの確認
 bindkey "^Xh" _complete_help
 
