@@ -46,4 +46,6 @@
 # includeが使えるかはgit config --global --includes -lで確かめる
     path = .gitconfig.local
 
+[prevent-push-master]
+    allow = tmsanrinsha
 # vim:ft=gitconfig
