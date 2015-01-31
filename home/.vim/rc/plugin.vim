@@ -1409,6 +1409,9 @@ if neobundle#is_installed("vim-operator-user")
     map [Space]p <Plug>(operator-replace)
     map [Space]P "+<Plug>(operator-replace)
     map [Space]/ <Plug>(operator-search)
+
+    " surround {{{2
+    " ------------------------------------------------------------------------
     map sa <Plug>(operator-surround-append)
     map sd <Plug>(operator-surround-delete)
     map sr <Plug>(operator-surround-replace)
