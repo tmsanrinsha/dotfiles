@@ -29,7 +29,9 @@
 [pager]
     diff =
 [push]
-    default = matching
+    ; pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
+    default = current
+
 # githubでhttpsのURLを指定してもgitプロトコルやssh経由にする方法 - @znz blog
 # http://blog.n-z.jp/blog/2013-11-28-git-insteadof.html
 [url "git@github.com:"]
