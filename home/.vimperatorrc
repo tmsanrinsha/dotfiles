@@ -117,7 +117,8 @@ set complete+=H
 " plugin_loader {{{1
 " ============================================================================
 let g:plugin_loader_roots = "~/git/vimperator-plugins"
-let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,forcefocuscontent,prevent-pseudo-domain"
+let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
+" forcefocuscontentはタイミングが遅いのでやめる
 
 " copy.js {{{1
 " ============================================================================
