@@ -28,7 +28,7 @@ liberator.execute('highlight Hint font-size:14px; color: white; background: red;
 EOM
 
 " テキストボックスにフォーカスさせない
-set focuscontent
+" set focuscontent
 
 " mapping {{{1
 " ============================================================================
