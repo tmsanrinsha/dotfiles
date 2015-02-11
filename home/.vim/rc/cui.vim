@@ -130,7 +130,7 @@ if has('mouse')
     endif
 endif
 "}}}
-" カーソルの形状の変化 {{{
+" カーソルの形状の変化 {{{1
 " ============================================================================
 "http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html
 
@@ -143,4 +143,27 @@ endif
 "    let &t_SI .= "\e[?25h\e[5 q"
 "    let &t_EI .= "\e[1 q"
 "endif
-" }}}
+
+" Use vsplit mode {{{1
+" ============================================================================
+" [20行でできる、端末版vimの縦分割スクロール高速化設定 - Qiita](http://qiita.com/kefir_/items/c725731d33de4d8fb096)
+if has("vim_starting") && !has('gui_running') && has('vertsplit')
+  function! g:EnableVsplitMode()
+    " enable origin mode and left/right margins
+    let &t_CS = "y"
+    let &t_ti = &t_ti . "\e[?6;69h"
+    let &t_te = "\e[?6;69l" . &t_te
+    let &t_CV = "\e[%i%p1%d;%p2%ds"
+    call writefile([ "\e[?6h\e[?69h" ], "/dev/tty", "a")
+  endfunction
+
+  " old vim does not ignore CPR
+  map <special> <Esc>[3;9R <Nop>
+
+  " new vim can't handle CPR with direct mapping
+  " map <expr> ^[[3;3R g:EnableVsplitMode()
+  execute "set t_F9=\<ESC>[3;3R"
+  map <expr> <t_F9> g:EnableVsplitMode()
+  let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+endif
+
