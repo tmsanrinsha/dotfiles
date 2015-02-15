@@ -98,13 +98,6 @@ if [ ! -x ~/.zsh/functions/_pandoc ];then
     chmod a+x ~/.zsh/functions/_pandoc
 fi
 
-if [ ! -d ~/.zsh/zsh-users-slash-zsh-completions ]; then
-  git clone https://github.com/zsh-users/zsh-completions ~/.zsh/zsh-users-slash-zsh-completions
-else
-  cd ~/.zsh/zsh-users-slash-zsh-completions
-  git pull
-fi
-
 # antigen {{{2
 # ----------------------------------------------------------------------------
 # cd $git_dir
