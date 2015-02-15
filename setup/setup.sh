@@ -50,16 +50,20 @@ else
 fi
 
 cd $home
+
 # ディレクトリがなければ作る
-# 空白ではなくヌル文字で区切る
-# while IFS= read -r -d '' dir; do
-#     dir=${dir#./}
-#     test -d "$HOME/$dir" || mkdir "$HOME/$dir"
-# done < <(find . -mindepth 1 -type d -print0)
+# 空白があるディレクトリに対応するため、ヌル文字で区切ってfindする
+# [delimiter - bash "for in" looping on null delimited string variable - Stack Overflow](http://stackoverflow.com/questions/8677546/bash-for-in-looping-on-null-delimited-string-variable)
+while IFS= read -r -d '' dir; do
+    dir=${dir#./}
+    test -d "$HOME/$dir" || mkdir "$HOME/$dir"
+done < <(find . -mindepth 1 -type d -print0)
 
-find $home -type d -mindepth 1 -print0 | sed "s,$home,$HOME,g" | xargs -0 -I{} mkdir -p {}
+# whileを使わないでxargsを使う方法
+# find $home -type d -mindepth 1 -print0 | sed "s,$home,$HOME,g" | xargs -0 -I{} mkdir -p {}
 
-# シンボリックリンクを貼る
+
+# ファイルに関してはシンボリックリンクを貼る
 while IFS= read -r -d '' file; do
     file=${file#./}
     # 実体ファイルがある場合はバックアップをとる
@@ -90,7 +94,6 @@ fi
 # ============================================================================
 test -d ~/.zsh/.cache      || mkdir -p ~/.zsh/.cache
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
-test -d ~/.zsh/completions || mkdir -p ~/.zsh/completions
 
 if [ ! -x ~/.zsh/functions/_pandoc ];then
     # https://gist.github.com/sky-y/3334048

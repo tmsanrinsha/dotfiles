@@ -675,6 +675,7 @@ if neobundle#is_installed('unite.vim')
         " windowsでドライブのC:をC\:に変更する必要がある
         execute 'Unite' opts 'grep:' . escape(dir, ':')
     endfunction
+    nnoremap [unite]gs :<C-u>Unite grep:$SRC_ROOT<CR>
     "}}}
 
     "レジスタ一覧
