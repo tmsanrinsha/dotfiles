@@ -1246,9 +1246,16 @@ if neobundle#is_installed('vim-watchdogs')
 
     " sh {{{2
     " ------------------------------------------------------------------------
-    " let g:quickrun_config['sh/watchdogs_checker'] = {
-    " \   'type': ''
-    " \}
+    " filetypeがshでも基本的にbashを使うので、bashでチェックする
+    let g:quickrun_config["sh/watchdogs_checker"] = {
+    \   "type": (executable("bash") ? "watchdogs_checker/bash" : "")
+    \}
+
+    let g:quickrun_config["watchdogs_checker/bash"] = {
+    \   "command":     "bash",
+    \   "exec":        "%c -n %o %s:p",
+    \   "errorformat": '%f:\ line\ %l:%m',
+    \}
 
     " zsh {{{2
     " ------------------------------------------------------------------------
