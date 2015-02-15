@@ -406,6 +406,7 @@ fi
 # ============================================================================
 if hash peco 2>/dev/null; then
     # git {{{2
+    # ------------------------------------------------------------------------
     function peco_git_sha1() {
         GIT_COMMIT_HASH=$(git log --oneline --graph --all --decorate | peco | sed -e "s/^\W\+\([0-9A-Fa-f]\+\).*$/\1/")
         BUFFER=${BUFFER}${GIT_COMMIT_HASH}
@@ -413,6 +414,15 @@ if hash peco 2>/dev/null; then
     }
     zle -N peco_git_sha1
     bindkey "^[s" peco_git_sha1
+
+    # kill {{{2
+    # ------------------------------------------------------------------------
+    function peco_kill() {
+        ps aux | peco | awk '{ print $2 }' | xargs kill
+        BUFFER=${BUFFER}${GIT_COMMIT_HASH}
+        CURSOR=$#BUFFER
+    }
+    alias pk=peco_kill
 
     # history {{{2
     function peco_select_history() {
