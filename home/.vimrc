@@ -1101,6 +1101,7 @@ nmap <Leader>v [VIM]
 " execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink ~/_gvimrc'), "\<NL>", '', '') . '<CR>'
 nnoremap [VIM]e :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vimrc<CR>
 nnoremap [VIM]E :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/_gvimrc<CR>
+nnoremap [VIM]p :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vim/rc/plugin.vim<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
