@@ -504,7 +504,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " vim以外のリポジトリ
         NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
-        NeoBundleFetch 'tmsanrinsha/zsh-completions', {'base' : '~/.zsh'}
+        NeoBundleFetch 'tmsanrinsha/zsh-completions', {
+        \   'base': '~/.zsh',
+        \   'rev': 'mod'
+        \}
 
         call SourceRc('neobundle_local.vim')
 
