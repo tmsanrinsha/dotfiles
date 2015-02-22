@@ -251,6 +251,8 @@ inoremap <C-d> <Del>
 " neosnippetにて設定
 " inoremap <C-k> <C-o>D
 
+nnoremap ]h /\vhttps?:\/\/<CR>
+nnoremap [h ?\vhttps\?://<CR>
 " インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
 nnoremap ]gp ]p`]j
 nnoremap ]gP ]P`]j
