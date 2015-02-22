@@ -153,6 +153,7 @@ install 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst'
 install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
+install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 
 # grep系 {{{1
 # ============================================================================
