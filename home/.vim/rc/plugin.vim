@@ -731,7 +731,20 @@ endif
 
 " neomru {{{1
 " ============================================================================
+" ファイルが存在するかチェックしない
 let g:neomru#do_validate = 0
+" ファイルへの書き込みを60秒ごとにする
+let g:neomru#update_interval = 60
+" 
+call unite#custom#source(
+\'neomru/file', 'ignoer_pattern',
+\'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
+\'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+\'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
+\'\|\%(^\%(fugitive\)://\)'.
+\'\|/mnt/'
+\)
+
 "最近使用したファイル一覧
 nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
 "最近使用したディレクトリ一覧
