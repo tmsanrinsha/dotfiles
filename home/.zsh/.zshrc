@@ -413,7 +413,7 @@ if hash peco 2>/dev/null; then
         CURSOR=$#BUFFER
     }
     zle -N peco_git_sha1
-    bindkey "^[s" peco_git_sha1
+    bindkey "^[h" peco_git_sha1
 
     # kill {{{2
     # ------------------------------------------------------------------------
