@@ -444,6 +444,21 @@ if hash peco 2>/dev/null; then
     zle -N peco_select_host
     bindkey '^x^h' peco_select_host
 
+    # ssh {{{2
+    function peco-ssh() {
+        # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
+        # host部分を取り出す
+        # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
+        local selected_host=$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++' | peco --prompt="ssh > ")
+        if [ -n "$selected_host" ]; then
+            BUFFER="ssh ${selected_host}"
+            zle accept-line
+        fi
+        zle clear-screen
+    }
+    zle -N peco-ssh
+    bindkey '^[s' peco-ssh
+
     # cdr {{{2
     function peco-cdr () {
         local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr > ")
