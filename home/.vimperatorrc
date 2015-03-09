@@ -79,8 +79,10 @@ nnoremap ZZ :restart<CR>
 " ============================================================================
 qmark c https://www.google.com/calendar/
 qmark f https://www.facebook.com/
+qmark F http://finance.yahoo.co.jp/
 qmark g https://mail.google.com/
 qmark n http://www.nicovideo.jp/
+qmark q http://qiita.com/
 qmark t https://twitter.com/
 
 " bookmarklet {{{1
