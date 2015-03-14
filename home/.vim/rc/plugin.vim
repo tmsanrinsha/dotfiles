@@ -1767,23 +1767,35 @@ endif
 " }}}
 " jedi-vim {{{1
 " ============================================================================
+" pythonのsys.pathの設定 " {{{
+" [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
+if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
+    let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
+endif
+
+function! s:set_python_path()
+    let s:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+
+    python <<EOT
+import sys
+import vim
+
+python_paths = vim.eval('s:python_path').split(',')
+for path in python_paths:
+    if not path in sys.path:
+        sys.path.insert(0, path)
+EOT
+endfunction
+" }}}
+
 if neobundle#is_installed('jedi-vim')
     let s:hooks = neobundle#get_hooks("jedi-vim")
     function! s:hooks.on_source(bundle)
+        call s:set_python_path()
 
         autocmd MyVimrc FileType python
         \   setlocal omnifunc=jedi#completions
         \|  let &l:path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
-
-        " [jedi-vimでanacondaのパッケージを補完させる - 病みつきエンジニアブログ](http://yamitzky.hatenablog.com/entry/2014/05/05/124155)
-        python << EOF
-import os
-import sys
-
-path = "/usr/local/lib/python2.7/site-packages"
-if not path in sys.path:
-  sys.path.insert(0, path)
-EOF
 
         if !exists('g:neocomplete#force_omni_input_patterns')
           let g:neocomplete#force_omni_input_patterns = {}
@@ -1802,6 +1814,7 @@ EOF
         let g:jedi#rename_command = '<Leader>R'
     endfunction
 endif
+
 
 " C, C++ {{{1
 " ============================================================================
