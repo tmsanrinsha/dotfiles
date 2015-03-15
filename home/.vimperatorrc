@@ -72,7 +72,7 @@ noremap ,B :bmarks<Space>
 noremap ,h :history<Space>
 noremap ,ps :panorama switch<Space>
 
-nnoremap <Leader>vr :source ~/.vimperatorrc<CR>:echo '.vimperatorrc is loaded'<CR>
+nnoremap <Leader>vr :execute 'source ' + io.getRCFile().target<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
 
 " qmark {{{1
@@ -184,7 +184,12 @@ lazy fmaps -u='github\.com' p,k f,t w s ? <Esc>
 " }}}
 " }}}
 
-source ~/.vimperatorrc.local
+javascript <<EOF
+// [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
+if(io.File('~/.vimperatorrc.local').exists()){
+    io.source('~/.vimperatorrc.local', false);
+}
+EOF
 
 " vimperatorを自分でビルドしたいとき
 "   cd **SOMEWHERE**
