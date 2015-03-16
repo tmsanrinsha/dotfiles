@@ -786,6 +786,9 @@ if neobundle#is_installed('unite-outline')
     endfunction
     unlet s:hooks
 endif
+
+autocmd MyVimrc FileType yaml
+\   nnoremap <buffer> [unite]o :<C-u>Unite outline:folding<CR>
 " }}}
 " tacroe/unite-mark {{{
 " =========================================================================
