@@ -344,8 +344,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'osyo-manga/vim-marching', {
         \   'autoload': {'filetypes': ['c', 'cpp']}
         \}
-        NeoBundle 'quark-zju/vim-cpp-auto-include', {
-        \   'external_commands': 'ruby'
+        NeoBundleLazy 'quark-zju/vim-cpp-auto-include', {
+        \   'external_commands': 'ruby',
+        \   'autoload': {'filetypes': ['c', 'cpp']}
         \}
         " SQL {{{2
         NeoBundleLazy 'vim-scripts/dbext.vim', {
@@ -478,6 +479,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'filetypes': ['vimwiki']
         \}
 
+        " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundle 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
@@ -1467,7 +1469,7 @@ endif
 nmap [Space]y "+y
 xmap [Space]y "+y
 nmap [Space]yy "+yy
-nmap [Space]Y "+yy
+nmap [Space]Y "+y$
 
 " vim-fakeclip {{{2
 " ----------------------------------------------------------------------------

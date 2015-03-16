@@ -1082,7 +1082,7 @@ autocmd MyVimrc FileType java
 " ]}, [{ の移動先
 let g:sql_type_default = 'mysql'
 let g:ftplugin_sql_statements = 'create,alter'
-" }}}
+
 " Vim {{{2
 " ----------------------------------------------------------------------------
 " \を打った時のindentの幅
@@ -1153,8 +1153,6 @@ autocmd MyVimrc FileType gitcommit
 " tsv {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
-" }}}
-" }}}
 " その他の設定 {{{1
 if !has('gui_running')
     call SourceRc('cui.vim')
