@@ -481,7 +481,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
-        " NeoBundle 'fuenor/qfixhowm'
+        NeoBundleLazy 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
         " NeoBundle 'jceb/vim-orgmode', {
         " \   'depends': [
@@ -780,13 +780,12 @@ nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 " =========================================================================
 if neobundle#is_installed('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
-    let s:hooks = neobundle#get_hooks("unite-outline")
-    function! s:hooks.on_source(bundle)
+    let bundle = neobundle#get("unite-outline")
+    function! bundle.hooks.on_source(bundle)
         call unite#sources#outline#alias('tmux', 'conf')
         call unite#sources#outline#alias('vimperator', 'conf')
         call unite#sources#outline#alias('zsh', 'conf')
     endfunction
-    unlet s:hooks
 endif
 
 autocmd MyVimrc FileType yaml
@@ -810,8 +809,8 @@ autocmd MyVimrc BufEnter *
 " ============================================================================
 " nnoremap [unite]dg :<C-u>Unite ghq<CR>
 "
-" let s:hooks = neobundle#get_hooks("unite-ghq")
-" function! s:hooks.on_source(bundle)
+" let bundle = neobundle#get("unite-ghq")
+" function! bundle.hooks.on_source(bundle)
 "     call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
 " endfunction
 
@@ -854,8 +853,8 @@ if neobundle#is_installed('vimshell.vim')
     nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
     nnoremap [VIMSHELL]s  :VimShellSendString<CR>
 
-    let s:hooks = neobundle#get_hooks("vimshell.vim")
-    function! s:hooks.on_source(bundle)
+    let bundle = neobundle#get("vimshell.vim")
+    function! bundle.hooks.on_source(bundle)
         nnoremap [VIMSHELL] <Nop>
         " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
         "vmap <silent> <Leader>ss :VimShellSendString<CR>
@@ -908,8 +907,8 @@ if neobundle#is_installed('Conque-Shell')
     " 現在のバッファのディレクトリでzshを立ち上げる
     noremap <Leader>C<CR> :ConqueTerm zsh<CR>
     noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
-    let s:bundle = neobundle#get("Conque-Shell")
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("Conque-Shell")
+    function! bundle.hooks.on_source(bundle)
         let g:ConqueTerm_ReadUnfocused = 1
         let g:ConqueTerm_CloseOnEnd = 1
         let g:ConqueTerm_StartMessages = 0
@@ -917,22 +916,21 @@ if neobundle#is_installed('Conque-Shell')
         " 通常の<Esc>はonqueTermにEscapeを送って、<C-j>はVimにEscapeを送る
         let g:ConqueTerm_EscKey = '<C-j>'
     endfunction
-    unlet s:bundle
 endif "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
 if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocomplete.vim')
     if neobundle#is_installed("neocomplete.vim")
-        let s:hooks = neobundle#get_hooks("neocomplete.vim")
+        let bundle = neobundle#get("neocomplete.vim")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
     else
-        let s:hooks = neobundle#get_hooks("neocomplcache.vim")
+        let bundle = neobundle#get("neocomplcache.vim")
         let s:neocom = 'neocomplcache'
         let s:neocom_ = 'neocomplcache_'
     endif
 
-    function! s:hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         " Disable AutoComplPop.
         let g:acp_enableAtStartup = 0
         " Use neocomplcache.
@@ -1164,9 +1162,9 @@ if neobundle#is_installed('neosnippet')
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
-    let s:hooks = neobundle#get_hooks("neosnippet")
+    let bundle = neobundle#get("neosnippet")
 
-    function! s:hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         " Plugin key-mappings.
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
         smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -1300,8 +1298,8 @@ if neobundle#is_installed('vim-quickrun')
     noremap <Leader>r :QuickRun<CR>
     noremap <Leader>r :QuickRun<CR>
 
-    let s:bundle = neobundle#get("vim-quickrun")
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-quickrun")
+    function! bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
 
@@ -1423,7 +1421,6 @@ if neobundle#is_installed('vim-quickrun')
         " set errorformat=debug:\%s
         call SourceRc('quickrun_local.vim')
     endfunction
-    unlet s:bundle
 endif
 "}}}
 " operator {{{1
@@ -1449,8 +1446,8 @@ if neobundle#is_installed("vim-operator-user")
     nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
     " そもそもclipboardはoperator
-    " let s:hooks = neobundle#get_hooks("vim-operator-user")
-    " function! s:hooks.on_source(bundle)
+    " let bundle = neobundle#get("vim-operator-user")
+    " function! bundle.hooks.on_source(bundle)
     "     " clipboard copyのoperator
     "     " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
     "     function! OperatorYankClipboard(motion_wiseness)
@@ -1461,7 +1458,6 @@ if neobundle#is_installed("vim-operator-user")
     "
     "     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
     " endfunction
-    " unlet s:hooks
     " map [Space]y <Plug>(operator-yank-clipboard)
 endif
 " clipboard copy {{{1
@@ -1513,12 +1509,11 @@ if neobundle#is_installed('vim-easymotion')
     " map T <Plug>(easymotion-Tl)
 
 
-    let s:bundle = neobundle#get("vim-easymotion")
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-easymotion")
+    function! bundle.hooks.on_source(bundle)
         let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
         let g:EasyMotion_do_mapping = 0
     endfunction
-    unlet s:bundle
 endif
 "}}}
 " vim-multiple-cursors {{{
@@ -1534,9 +1529,9 @@ endif
 " vim-ref {{{1
 " ============================================================================
 if neobundle#is_installed('vim-ref')
-    let s:hooks = neobundle#get_hooks("vim-ref")
+    let bundle = neobundle#get("vim-ref")
 
-    function! s:hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         if has('mac')
             let g:ref_man_cmd = "man -P cat"
         endif
@@ -1743,9 +1738,9 @@ if neobundle#is_installed('eclim')
 
     " エラーのマークがずれる場合はエンコーディングが間違っている
     " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
-    let s:hooks = neobundle#get_hooks("eclim")
+    let bundle = neobundle#get("eclim")
 
-    function! s:hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         autocmd MyVimrc FileType java
             \   setlocal omnifunc=eclim#java#complete#CodeComplete
             \|  setlocal completeopt-=preview
@@ -1794,8 +1789,8 @@ endfunction
 " }}}
 
 if neobundle#is_installed('jedi-vim')
-    let s:hooks = neobundle#get_hooks("jedi-vim")
-    function! s:hooks.on_source(bundle)
+    let bundle = neobundle#get("jedi-vim")
+    function! bundle.hooks.on_source(bundle)
         call s:set_python_path()
 
         autocmd MyVimrc FileType python
@@ -1838,8 +1833,8 @@ autocmd MyVimrc Filetype c,cpp
 \|  setlocal suffixesadd=.h
 
 if neobundle#is_installed('vim-marching')
-    let s:hooks = neobundle#get_hooks("vim-marching")
-    function! s:hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-marching")
+    function! bundle.hooks.on_source(bundle)
         autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
         " clang コマンドの設定
         let g:marching_clang_command = "clang"
@@ -1887,8 +1882,8 @@ endif
 " vim-markdown-folding {{{1
 " ============================================================================
 if neobundle#is_installed('vim-markdown-folding')
-    let s:hooks = neobundle#get_hooks("vim-markdown-folding")
-    function! s:hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-markdown-folding")
+    function! bundle.hooks.on_source(bundle)
         let g:markdown_fold_style = 'nested'
     endfunction
 endif
@@ -1916,9 +1911,9 @@ autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPr
 " vim-fugitive {{{
 " ----------------------------------------------------------------------------
 if neobundle#is_installed('vim-fugitive')
-    let s:hooks = neobundle#get_hooks("vim-fugitive")
+    let bundle = neobundle#get("vim-fugitive")
 
-    " function! s:hooks.on_source(bundle)
+    " function! bundle.hooks.on_source(bundle)
         " Gbrowse ではgit config --global web.browserの値は見てない
         let g:netrw_browsex_viewer = 'rfbrowser'
         nnoremap [fugitive] <Nop>
@@ -1967,9 +1962,9 @@ endif
 " gitv {{{
 " ----------------------------------------------------------------------------
 if neobundle#is_installed('gitv')
-    let s:hooks = neobundle#get_hooks('gitv')
+    let bundle = neobundle#get('gitv')
 
-    function! s:hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         function! GitvGetCurrentHash()
             return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
         endfunction
@@ -2176,15 +2171,14 @@ if neobundle#is_installed('vimwiki')
     nmap <Leader>wn  <Plug>VimwikiMakeDiaryNote
     nmap <Leader>wu  <Plug>VimwikiDiaryGenerateLinks
 
-    let s:bundle = neobundle#get('vimwiki')
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get('vimwiki')
+    function! bundle.hooks.on_source(bundle)
         let g:vimwiki_list = [{
             \   'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/',
             \   'syntax': 'markdown', 'ext': '.txt'
             \}]
 
     endfunction
-    unlet s:bundle
 endif
 " }}}
 " memoliset.vim {{{
@@ -2202,20 +2196,19 @@ if neobundle#is_installed('memolist.vim')
 
     let g:memolist_path = expand('~/Dropbox/memo')
 
-    let s:bundle = neobundle#get('memolist.vim')
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get('memolist.vim')
+    function! bundle.hooks.on_source(bundle)
         let g:memolist_memo_suffix = "txt"
         let g:memolist_unite = 1
     endfunction
-    unlet s:bundle
 endif
 " }}}
 " qfixhowm {{{
 " ==============================================================================
 if neobundle#is_installed('qfixhowm')
 
-    let s:bundle = neobundle#get("qfixhown")
-    function! s:bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("qfixhowm")
+    function! bundle.hooks.on_source(bundle)
         " QFixHowm互換を切る
         let g:QFixHowm_Convert = 0
         let g:qfixmemo_mapleader = '\M'
@@ -2252,7 +2245,6 @@ if neobundle#is_installed('qfixhowm')
         " let g:QFixMRU_Title['mkd'] = '^# '
         " let g:QFixMRU_Title['md'] = '^# '
     endfunction
-    unlet s:bundle
 endif
 " }}}
 if !has('vim_starting')
