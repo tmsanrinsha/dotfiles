@@ -2,6 +2,8 @@
 
 set -ex
 
+brew=0
+vim=0
 while getopts bv OPT
 do
   case $OPT in
