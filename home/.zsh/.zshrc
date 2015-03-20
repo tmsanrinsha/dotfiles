@@ -359,34 +359,23 @@ add-zsh-hook precmd set_terminal_title_string
 
 # tmux & screen {{{1
 # ============================================================================
-if [ $TERM = screen ];then
+if [ $TERM = screen ]; then
 # ウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外はディレクトリ名@ホスト名にする {{{2
 # ----------------------------------------------------------------------------
-    function tmux_preexec() {
-        mycmd=(${(s: :)${1}})
-        echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
-    }
+function tmux_preexec() {
+    mycmd=(${(s: :)${1}})
+    echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
+}
 
-    function tmux_precmd() {
-        echo -ne "\ek$(basename "$(pwd)")@${HOST%%.*}\e\\"
-    }
-    add-zsh-hook preexec tmux_preexec
-    add-zsh-hook precmd  tmux_precmd
-    # tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
-    # http://qiita.com/items/c166700393481cb15e0c
-    DISABLE_AUTO_TITLE=true
+function tmux_precmd() {
+    echo -ne "\ek$(basename "$(pwd)")@${HOST%%.*}\e\\"
+}
+add-zsh-hook preexec tmux_preexec
+add-zsh-hook precmd  tmux_precmd
+# tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
+# http://qiita.com/items/c166700393481cb15e0c
+DISABLE_AUTO_TITLE=true
 
-# ssh先でウィンドウ分割・生成した時にssh先に接続する {{{2
-# ----------------------------------------------------------------------------
-    if hash tmux 2>/dev/null; then
-        function tmux_ssh_preexec() {
-            local command=$1
-            if [[ "$command" = *ssh* ]]; then
-                tmux setenv TMUX_SSH_CMD_$(tmux display -p "#I") $command
-            fi
-        }
-        add-zsh-hook preexec tmux_ssh_preexec
-    fi
 fi
 
 # 改行でls {{{1
