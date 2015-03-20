@@ -222,74 +222,78 @@ elif [[ `uname` = Darwin ]]; then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
     fi
-    mkdir -p ~/setting
+    test -d ~/setting || mkdir ~/setting
     $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
     $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
-    if command_exists brew; then
+
+    if ! command_exists brew; then
+        sudo xcodebuild -license
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         ln -fs $(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh ~/.zsh/functions/_brew
-
-        # すでにinstallされているとエラーが出るため、コマンドがあるかをチェックしてからインストール
-        function brew-install {
-            brew list $1 >/dev/null || brew install $1
-        }
-        function brew-cask-install {
-            brew cask list $1 >/dev/null || brew cask install $1
-        }
-
-        if [ $brew -eq 1 ]; then
-            brew update  # homebrewの更新
-            brew upgrade # packageの更新
-            brew cleanup
-            brew cask cleanup
-            brew tap peco/peco
-        fi
-
-        brew-install ag
-        brew-install ant
-        brew-install coreutils
-        brew-install gnu-sed
-        brew-install go
-        brew-install jq
-        brew-install mercurial
-        brew-install nkf
-        brew-install node
-        brew-install php56
-        brew-install php56-yaml
-        brew-install pwgen
-        brew-install python
-        brew install reattach-to-user-namespace
-        brew-install ruby
-        brew-install tmux
-        brew-install tree
-        brew-install zsh
-
-        ## caskroom/cask
-        brew-install caskroom/cask/brew-cask
-
-        # brew caskでインストールしたものをalfredから検索可能にする
-        # brew cask alfred link
-        brew-cask install android-studio
-        brew-cask-install alfred
-
-        brew-cask-install bettertouchtool
-        # brew-cask-install eclipse-ide
-        # formuraでもinstallできる
-        brew-cask-install pandoc
-
-        # peco/peco
-        # formulaがないと言われる
-        # brew install peco
-
-        brew-install matplotlib
-        # brew install pythonでインストールされるpipでインストール
-        # 失敗
-        # pip install numpy
-        # pip install nosy
-        # pip install ipython
-        # pip install six
-
-        # brew cask install playonmac
     fi
+
+    # すでにinstallされているとエラーが出るため、コマンドがあるかをチェックしてからインストール
+    function brew-install {
+        brew list $1 >/dev/null || brew install $1
+    }
+    function brew-cask-install {
+        brew cask list $1 >/dev/null || brew cask install $1
+    }
+
+    if [ $brew -eq 1 ]; then
+        brew update  # homebrewの更新
+        brew upgrade # packageの更新
+        brew cleanup
+        brew cask cleanup
+        brew tap peco/peco
+    fi
+
+    brew-install ag
+    brew-install ant
+    brew-install coreutils
+    brew-install gnu-sed
+    brew-install go
+    brew-install jq
+    brew-install mercurial
+    brew-install nkf
+    brew-install node
+    brew-install php56
+    brew-install php56-yaml
+    brew-install pwgen
+    brew-install python
+    brew install reattach-to-user-namespace
+    brew-install ruby
+    brew-install tmux
+    brew-install tree
+    brew-install zsh
+
+    ## caskroom/cask
+    brew-install caskroom/cask/brew-cask
+
+    # brew caskでインストールしたものをalfredから検索可能にする
+    # brew cask alfred link
+    brew-cask install android-studio
+    brew-cask-install alfred
+
+    brew-cask-install bettertouchtool
+    # brew-cask-install eclipse-ide
+    # formuraでもinstallできる
+    brew-cask-install pandoc
+
+    # peco/peco
+    # formulaがないと言われる
+    # brew install peco
+
+    brew-install matplotlib
+    # brew install pythonでインストールされるpipでインストール
+    # 失敗
+    # pip install numpy
+    # pip install nosy
+    # pip install ipython
+    # pip install six
+
+    # brew cask install playonmac
+
     # ウィンドウの整列
     # if [ ! -d ~/git/ShiftIt ];then
     #     git clone https://github.com/fikovnik/ShiftIt.git ~/git/ShiftIt
