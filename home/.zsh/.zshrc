@@ -449,12 +449,18 @@ if hash peco 2>/dev/null; then
         # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
         # host部分を取り出す
         # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
-        local selected_host=$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++' | peco --prompt="ssh > ")
+        # 改行がはいっているとlocal宣言と代入を一緒にできない？
+        local hosts
+        hosts="$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++')"
+        # know_hostsからもホスト名を取り出す
+        hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
+        # 順番を保持して重複を削除
+        hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
+        local selected_host=$(echo $hosts | peco --prompt="ssh > ")
         if [ -n "$selected_host" ]; then
             BUFFER="ssh ${selected_host}"
             zle accept-line
         fi
-        zle clear-screen
     }
     zle -N peco-ssh
     bindkey '^[s' peco-ssh
