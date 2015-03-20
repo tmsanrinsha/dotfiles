@@ -782,6 +782,7 @@ if neobundle#is_installed('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
     let bundle = neobundle#get("unite-outline")
     function! bundle.hooks.on_source(bundle)
+        call unite#sources#outline#alias('ref-man', 'man')
         call unite#sources#outline#alias('tmux', 'conf')
         call unite#sources#outline#alias('vimperator', 'conf')
         call unite#sources#outline#alias('zsh', 'conf')
@@ -1444,6 +1445,7 @@ if neobundle#is_installed("vim-operator-user")
     map sr <Plug>(operator-surround-replace)
     nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    nmap sd" <Plug>(operator-surround-delete)a"
 
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")
