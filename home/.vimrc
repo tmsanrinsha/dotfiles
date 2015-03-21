@@ -1102,7 +1102,7 @@ nnoremap [VIM]E :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/_gvimrc<CR>
 nnoremap [VIM]p :<C-u>edit ~/git/tmsanrinsha/dotfiles/home/.vim/rc/plugin.vim<CR>
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo 'vimrc reloaded!'<CR>
 nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 
 ""vimrc auto update

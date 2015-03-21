@@ -1602,8 +1602,8 @@ endif
 " ============================================================================
 if neobundle#is_installed('tcomment_vim')
     " コメントアウトしてコピー
-    nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
-    xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
+    nmap <C-_>p yyP<Plug>TComment_<C-_><C-_>j
+    xmap <C-_>p ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
 endif
 
 " vim-jsbeautify {{{
