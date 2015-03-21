@@ -179,7 +179,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 # }}}
 
-alias cdg='cd `ghq list -p | peco || pwd`'
+alias cdg='ghq look'
 
 alias phpunit='phpunit --colors'
 

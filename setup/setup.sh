@@ -155,6 +155,15 @@ install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
+command_exists pt     || ghinst monochromegane/the_platinum_searcher
+command_exists jvgrep || ghinst mattn/jvgrep
+# macの場合はhomebrewでインストールする
+if ! command_exists peco && [ `uname` = Linux ]; then
+    ghinst peco/peco
+fi
+
+ghq get -u motemen/ghq
+ln -fs ~/src/github.com/motemen/ghq/zsh/_ghq ~/.zsh/functions
 
 # grep系 {{{1
 # ============================================================================
@@ -163,24 +172,15 @@ if ! command_exists ack; then
     $downloader http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
     chmod a+x $HOME/bin/ack
 fi
-command_exists pt     || ghinst monochromegane/the_platinum_searcher
-command_exists jvgrep || ghinst mattn/jvgrep
-
-# peco {{{1
-# ============================================================================
-# macの場合はhomebrewでインストールする
-if ! command_exists peco && [ `uname` = Linux ]; then
-    ghinst peco/peco
-fi
 
 # PHP {{{1
 # ============================================================================
-if ! command_exists composer; then
-    pushd ~/bin
-    $downloader https://getcomposer.org/installer | php
-    mv composer.phar composer
-    popd
-fi
+# if ! command_exists composer; then
+#     pushd ~/bin
+#     $downloader https://getcomposer.org/installer | php
+#     mv composer.phar composer
+#     popd
+# fi
 
 # cpanm {{{1
 # ============================================================================
