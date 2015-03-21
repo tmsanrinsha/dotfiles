@@ -445,7 +445,7 @@ if hash peco 2>/dev/null; then
         hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
         # 順番を保持して重複を削除
         hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
-        local selected_host=$(echo $hosts | peco --prompt="ssh > ")
+        local selected_host=$(echo $hosts | peco --prompt="ssh > " --query "$LBUFFER")
         if [ -n "$selected_host" ]; then
             BUFFER="ssh ${selected_host}"
             zle accept-line
@@ -456,15 +456,24 @@ if hash peco 2>/dev/null; then
 
     # cdr {{{2
     function peco-cdr () {
-        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr > ")
+        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr > " --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${selected_dir}"
             zle accept-line
         fi
-        zle clear-screen
     }
     zle -N peco-cdr
     bindkey '^[r' peco-cdr
+
+    function peco-cd-ghq () {
+        local selected_dir=$(ghq list | peco --prompt="cd-ghq > " --query "$LBUFFER")
+        if [ -n "$selected_dir" ]; then
+            BUFFER="cd ${SRC_ROOT}/${selected_dir}"
+            zle accept-line
+        fi
+    }
+    zle -N peco-cd-ghq
+    bindkey '^[g' peco-cd-ghq
 
     # grepしてvimで開く {{{2
     function peco-grep-vim () {

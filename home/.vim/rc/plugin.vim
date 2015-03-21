@@ -53,7 +53,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
-        " NeoBundleLazy 'sorah/unite-ghq'
+        NeoBundleLazy 'sorah/unite-ghq'
         " NeoBundle 'Shougo/unite-sudo'
         " }}}
         " http://archiva.jp/web/tool/vim_grep2.html
@@ -601,7 +601,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
     nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR/bundle<CR>
     nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
-    nnoremap [unite]dg :<C-u>Unite directory:$HOME/git<CR>
+    nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
     " file {{{2
@@ -632,7 +632,7 @@ if neobundle#is_installed('unite.vim')
 
     nnoremap [unite]fv :<C-u>Unite file_rec:$VIMDIR<CR>
     " ~/git以下のdirectory以下のファイル
-    nnoremap [unite]fg :<C-u>Unite file_rec/async:~/git<CR>
+    nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
     " unite-grep {{{2
     " ------------------------------------------------------------------------
@@ -808,12 +808,12 @@ autocmd MyVimrc BufEnter *
 " }}}
 " unite-ghq {{{1
 " ============================================================================
-" nnoremap [unite]dg :<C-u>Unite ghq<CR>
-"
-" let bundle = neobundle#get("unite-ghq")
-" function! bundle.hooks.on_source(bundle)
-"     call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
-" endfunction
+nnoremap [unite]dg :<C-u>Unite ghq<CR>
+
+let bundle = neobundle#get("unite-ghq")
+function! bundle.hooks.on_source(bundle)
+    call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
+endfunction
 
 " vimfiler {{{1
 " ==============================================================================
