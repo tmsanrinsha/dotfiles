@@ -98,7 +98,7 @@ if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 else
     export EDITOR='vim'
 fi
-export SRC_ROOT=$HOME/git
+export SRC_ROOT=$HOME/src
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 # alias {{{1

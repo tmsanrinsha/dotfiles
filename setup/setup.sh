@@ -83,8 +83,8 @@ if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
 cp $git_dir/template/.gitconfig ~/.gitconfig
-# git config --global --remove-section "ghq" || :
-# git config --global "ghq.root" "$SRC_ROOT"
+git config --global --remove-section "ghq" || :
+git config --global "ghq.root" "$SRC_ROOT"
 
 if ctags --version | grep Development; then
     $ln -sfv $git_dir/template/.ctags.dev ~/.ctags
@@ -151,7 +151,6 @@ fi
 
 # script {{{1
 # ============================================================================
-install 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst'
 install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
 # https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
