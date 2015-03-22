@@ -11,6 +11,7 @@ set -ex
 #  -v: neoinstallする
 
 if [[ ! -x ~/bin/ghinst ]]; then
+    test -d ~/bin || mkdir ~/bin
     curl -L 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst' > ~/bin/ghinst
     chmod a+x ~/bin/ghinst
 fi
