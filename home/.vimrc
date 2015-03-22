@@ -243,6 +243,9 @@ inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 inoremap <C-d> <Del>
+" 元々のi_CTRL-Dは左にインデントする処理。
+" 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
+inoremap <M-t> <C-d>
 " neocomplcacheにて設定
 " inoremap <C-h> <BS>
 " inoremap <C-n> <Down>
