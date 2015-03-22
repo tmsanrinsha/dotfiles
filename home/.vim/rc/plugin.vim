@@ -1120,10 +1120,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " imap <expr> <CR> pumvisible() ?
             "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         else " }}}
-            execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            " execute 'inoremap <expr><BS> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
 
             " <C-h> でポップアップを閉じて文字を削除
-            execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            " execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
@@ -1185,7 +1185,45 @@ endif
 " Valloric/Youcompleteme {{{
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
-" }}}
+
+" lexima.vim {{{1
+" ==============================================================================
+" imap <expr><C-f> <SID>check_next_char()
+" " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
+" function! s:check_next_char()
+"     let col = col('.')
+"     let nextchar = getline('.')[col - 1]
+"     if nextchar == ')'
+"         return ')'
+"     elseif nextchar == "}"
+"         return "}"
+"     elseif nextchar == "}"
+"         return "}"
+"     elseif nextchar == "'"
+"         return "'"
+"     elseif nextchar == '"'
+"         return '"'
+"     else
+"         return "\<Right>"
+"     endif
+" endfunction
+
+imap <C-f> <Right>
+call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
+call lexima#add_rule({'char': "<Right>", 'at': '\%#''',   'leave': 1})
+call lexima#add_rule({'char': "<Right>", 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
+call lexima#add_rule({'char': "<Right>", 'at': "\\%#'''", 'leave': 3})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
+
+" neocomplete.vimとの連携
+" imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
+execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+
 " vim-watchdogs {{{1
 " ============================================================================
 if neobundle#is_installed('vim-watchdogs')
