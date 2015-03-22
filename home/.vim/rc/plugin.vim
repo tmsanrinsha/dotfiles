@@ -55,11 +55,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'tsukkee/unite-tag'
         NeoBundleLazy 'sorah/unite-ghq'
         " NeoBundle 'Shougo/unite-sudo'
-        " }}}
+
         " http://archiva.jp/web/tool/vim_grep2.html
         NeoBundle 'thinca/vim-qfreplace'
 
-        " shell {{{
+        " shell, filer {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy 'Shougo/vimshell.vim', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
@@ -75,12 +75,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
                 \   }
                 \}
         " endif
-        " }}}
-
         NeoBundle 'Shougo/vimfiler.vim'
 
-        "" 補完・入力補助 {{{
-        """ 自動補完 {{{
+        " 補完・入力補助 {{{2
+        " --------------------------------------------------------------------
+        "" 自動補完 {{{3
         NeoBundleLazy "Shougo/neocomplete.vim", {
         \   "autoload": {"insert": 1},
         \   'depends' : 'Shougo/context_filetype.vim',
@@ -97,16 +96,18 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
         " endif
-        """ }}}
-        """ スニペット補完 {{{
+
+        "" スニペット補完 {{{3
         NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
         NeoBundleLazy 'Shougo/neosnippet-snippets', {"autoload": {"insert": 1}}
         NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
-        """ }}}
+
+        " 閉じ括弧などの対応するものの補完 {{{3
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
-        " NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
-        "" }}}
-        " operator系 {{{
+        NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
+
+        " operator {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy "kana/vim-operator-user"
         NeoBundleLazy 'kana/vim-operator-replace', {
             \   'depends': 'kana/vim-operator-user',
@@ -116,6 +117,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
             \}
+        NeoBundle 'tpope/vim-surround'
         NeoBundleLazy "rhysd/vim-operator-surround", {
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
@@ -124,16 +126,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends': 'kana/vim-operator-user',
             \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
             \}
-        NeoBundleLazy "tyru/operator-camelize.vim", {
-            \   'depends': 'kana/vim-operator-user',
-            \   'autoload' : { 'mappings' : '<Plug>(operator-camelize-toggle)' }
-            \}
         " clipboardが使えない、もしくはsshで接続している時にvim-fakeclipを使う。
         if !has('clipboard') || $SSH_CLIENT != ''
             NeoBundle 'tmsanrinsha/vim-fakeclip'
         endif
-        " }}}
-        " textobj {{{
+
+        " textobj {{{2
+        " --------------------------------------------------------------------
         NeoBundle 'kana/vim-textobj-user'
         NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(textobj-entire'}}
         NeoBundle 'kana/vim-textobj-function'
@@ -149,7 +148,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         endif
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
         " }}}
-        NeoBundle 'tpope/vim-surround'
+
         NeoBundle 'tpope/vim-repeat'
         NeoBundleLazy 'kana/vim-smartword', {
             \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
@@ -1602,8 +1601,8 @@ endif
 " ============================================================================
 if neobundle#is_installed('tcomment_vim')
     " コメントアウトしてコピー
-    nmap <C-_>p yyP<Plug>TComment_<C-_><C-_>j
-    xmap <C-_>p ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
+    nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
+    xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
 endif
 
 " vim-jsbeautify {{{
