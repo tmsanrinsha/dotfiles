@@ -241,7 +241,7 @@ xnoremap g$ $
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
-inoremap <C-f> <Right>
+" inoremap <C-f> <Right>
 inoremap <C-d> <Del>
 " 元々のi_CTRL-Dは左にインデントする処理。
 " 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
@@ -253,6 +253,26 @@ inoremap <M-t> <C-d>
 " inoremap <C-e> <End>
 " neosnippetにて設定
 " inoremap <C-k> <C-o>D
+
+" * があるときに<Tab>を打つと右にインデントしたい
+" →insertモードで<C-t>打つと右にインデントできる
+" function! s:MyIndent()
+"     if match(getline('.'), '^\s*\*') >= 0
+"         normal! >>A
+"     else
+"         execute "normal! i\<Tab>"
+"     endif
+" endfunction
+" command! MyIndent call s:MyIndent()
+
+" inoremap <Tab> <C-o>:MyIndent<CR>
+
+" インデントしない改行
+" [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
+" [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
+nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>ji
+
+inoremap <silent><C-j> <C-o>o
 
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
@@ -382,25 +402,6 @@ set formatoptions-=t
 set formatoptions-=c
 " o : Normal modeでoまたOを押したら、comment leaderを挿入する
 set formatoptions+=o
-
-" インデントしない改行
-" [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
-" [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
-nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>ji
-inoremap <silent><C-j> <Esc>:<C-u>call append(expand('.'), '')<CR>ji
-
-
-" * があるときに<Tab>を打つと右にインデントしたい
-" function! s:MyIndent()
-"     if match(getline('.'), '^\s*\*') >= 0
-"         normal! >>A
-"     else
-"         execute "normal! i\<Tab>"
-"     endif
-" endfunction
-" command! MyIndent call s:MyIndent()
-
-" inoremap <Tab> <C-o>:MyIndent<CR>
 
 " statusline {{{1
 " ==============================================================================

@@ -78,7 +78,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " }}}
 
         NeoBundle 'Shougo/vimfiler.vim'
-
         "" 補完・入力補助 {{{
         """ 自動補完 {{{
         NeoBundleLazy "Shougo/neocomplete.vim", {
@@ -104,7 +103,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
         """ }}}
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
-        " NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
+        NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
         "" }}}
         " operator系 {{{
         NeoBundleLazy "kana/vim-operator-user"
@@ -808,12 +807,14 @@ autocmd MyVimrc BufEnter *
 " }}}
 " unite-ghq {{{1
 " ============================================================================
-nnoremap [unite]dg :<C-u>Unite ghq<CR>
+if neobundle#is_installed('unite-ghq')
+    nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
-let bundle = neobundle#get("unite-ghq")
-function! bundle.hooks.on_source(bundle)
-    call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
-endfunction
+    let bundle = neobundle#get("unite-ghq")
+    function! bundle.hooks.on_source(bundle)
+        call unite#custom_default_action('source/ghq/directory', 'vimfiler')
+    endfunction
+endif
 
 " vimfiler {{{1
 " ==============================================================================
@@ -1073,16 +1074,15 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
 
         " <TAB>: completion.
-        " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-        \   <SID>check_back_space() ? "\<TAB>" :
-        \   neocomplete#start_manual_complete()
-        function! s:check_back_space() "{{{
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~ '\s'
-        endfunction"}}}
+        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        " \   <SID>check_back_space() ? "\<TAB>" :
+        " \   neocomplete#start_manual_complete()
+        " function! s:check_back_space() "{{{
+        "     let col = col('.') - 1
+        "     return !col || getline('.')[col - 1]  =~ '\s'
+        " endfunction"}}}
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        " }}}
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
@@ -1134,6 +1134,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
             " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         endif
+        " }}}
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
@@ -1182,7 +1183,7 @@ if neobundle#is_installed('neosnippet')
     endfunction
 endif
 " }}}
-" Valloric/Youcompleteme {{{
+" Valloric/Youcompleteme {{{1
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 
@@ -1478,12 +1479,12 @@ if neobundle#is_installed("vim-operator-user")
 
     " surround {{{2
     " ------------------------------------------------------------------------
-    map sa <Plug>(operator-surround-append)
-    map sd <Plug>(operator-surround-delete)
-    map sr <Plug>(operator-surround-replace)
-    nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-    nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
-    nmap sd" <Plug>(operator-surround-delete)a"
+    map :a <Plug>(operator-surround-append)
+    map :d <Plug>(operator-surround-delete)
+    map :r <Plug>(operator-surround-replace)
+    nmap :dd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap :rr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    nmap :d" <Plug>(operator-surround-delete)a"
 
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")
@@ -1640,8 +1641,8 @@ endif
 " ============================================================================
 if neobundle#is_installed('tcomment_vim')
     " コメントアウトしてコピー
-    nmap <C-_>p yyP<Plug>TComment_<C-_><C-_>j
-    xmap <C-_>p ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
+    nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
+    xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
 endif
 
 " vim-jsbeautify {{{
