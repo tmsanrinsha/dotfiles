@@ -807,12 +807,14 @@ autocmd MyVimrc BufEnter *
 " }}}
 " unite-ghq {{{1
 " ============================================================================
-nnoremap [unite]dg :<C-u>Unite ghq<CR>
+if neobundle#is_installed('unite-ghq')
+    nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
-let bundle = neobundle#get("unite-ghq")
-function! bundle.hooks.on_source(bundle)
-    call unite#custom_default_action('source/ghq/directory' , 'vimfiler')
-endfunction
+    let bundle = neobundle#get("unite-ghq")
+    function! bundle.hooks.on_source(bundle)
+        call unite#custom_default_action('source/ghq/directory', 'vimfiler')
+    endfunction
+endif
 
 " vimfiler {{{1
 " ==============================================================================
@@ -1072,16 +1074,15 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
 
         " <TAB>: completion.
-        " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-        \   <SID>check_back_space() ? "\<TAB>" :
-        \   neocomplete#start_manual_complete()
-        function! s:check_back_space() "{{{
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~ '\s'
-        endfunction"}}}
+        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        " \   <SID>check_back_space() ? "\<TAB>" :
+        " \   neocomplete#start_manual_complete()
+        " function! s:check_back_space() "{{{
+        "     let col = col('.') - 1
+        "     return !col || getline('.')[col - 1]  =~ '\s'
+        " endfunction"}}}
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        " }}}
 
         execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
@@ -1119,10 +1120,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " imap <expr> <CR> pumvisible() ?
             "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         else " }}}
-            execute 'inoremap <expr><BS> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            " execute 'inoremap <expr><BS> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
 
             " <C-h> でポップアップを閉じて文字を削除
-            execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            " execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
@@ -1133,6 +1134,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
 
             " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         endif
+        " }}}
     endfunction
 endif
 if neobundle#is_installed("neocomplete.vim")
@@ -1181,10 +1183,48 @@ if neobundle#is_installed('neosnippet')
     endfunction
 endif
 " }}}
-" Valloric/Youcompleteme {{{
+" Valloric/Youcompleteme {{{1
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
-" }}}
+
+" lexima.vim {{{1
+" ==============================================================================
+" imap <expr><C-f> <SID>check_next_char()
+" " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
+" function! s:check_next_char()
+"     let col = col('.')
+"     let nextchar = getline('.')[col - 1]
+"     if nextchar == ')'
+"         return ')'
+"     elseif nextchar == "}"
+"         return "}"
+"     elseif nextchar == "}"
+"         return "}"
+"     elseif nextchar == "'"
+"         return "'"
+"     elseif nextchar == '"'
+"         return '"'
+"     else
+"         return "\<Right>"
+"     endif
+" endfunction
+
+imap <C-f> <Right>
+call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
+call lexima#add_rule({'char': "<Right>", 'at': '\%#''',   'leave': 1})
+call lexima#add_rule({'char': "<Right>", 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
+call lexima#add_rule({'char': "<Right>", 'at': "\\%#'''", 'leave': 3})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
+call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
+
+" neocomplete.vimとの連携
+" imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
+execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+
 " vim-watchdogs {{{1
 " ============================================================================
 if neobundle#is_installed('vim-watchdogs')
@@ -1439,12 +1479,12 @@ if neobundle#is_installed("vim-operator-user")
 
     " surround {{{2
     " ------------------------------------------------------------------------
-    map sa <Plug>(operator-surround-append)
-    map sd <Plug>(operator-surround-delete)
-    map sr <Plug>(operator-surround-replace)
-    nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-    nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
-    nmap sd" <Plug>(operator-surround-delete)a"
+    map :a <Plug>(operator-surround-append)
+    map :d <Plug>(operator-surround-delete)
+    map :r <Plug>(operator-surround-replace)
+    nmap :dd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap :rr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    nmap :d" <Plug>(operator-surround-delete)a"
 
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")
@@ -1813,6 +1853,7 @@ if neobundle#is_installed('jedi-vim')
 
         " quickrunと被るため大文字に変更
         let g:jedi#rename_command = '<Leader>R'
+        let g:jedi#goto_assignments_command = '<C-]>'
     endfunction
 endif
 
