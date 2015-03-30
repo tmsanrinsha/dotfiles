@@ -104,7 +104,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " 閉じ括弧などの対応するものの補完 {{{3
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
-        NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
+        " NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
 
         " operator {{{2
         " --------------------------------------------------------------------
@@ -1189,41 +1189,43 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 
 " lexima.vim {{{1
 " ==============================================================================
-" imap <expr><C-f> <SID>check_next_char()
-" " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
-" function! s:check_next_char()
-"     let col = col('.')
-"     let nextchar = getline('.')[col - 1]
-"     if nextchar == ')'
-"         return ')'
-"     elseif nextchar == "}"
-"         return "}"
-"     elseif nextchar == "}"
-"         return "}"
-"     elseif nextchar == "'"
-"         return "'"
-"     elseif nextchar == '"'
-"         return '"'
-"     else
-"         return "\<Right>"
-"     endif
-" endfunction
+if neobundle#is_installed('lexima')
+    " imap <expr><C-f> <SID>check_next_char()
+    " " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
+    " function! s:check_next_char()
+    "     let col = col('.')
+    "     let nextchar = getline('.')[col - 1]
+    "     if nextchar == ')'
+    "         return ')'
+    "     elseif nextchar == "}"
+    "         return "}"
+    "     elseif nextchar == "}"
+    "         return "}"
+    "     elseif nextchar == "'"
+    "         return "'"
+    "     elseif nextchar == '"'
+    "         return '"'
+    "     else
+    "         return "\<Right>"
+    "     endif
+    " endfunction
 
-imap <C-f> <Right>
-call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
-call lexima#add_rule({'char': "<Right>", 'at': '\%#''',   'leave': 1})
-call lexima#add_rule({'char': "<Right>", 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
-call lexima#add_rule({'char': "<Right>", 'at': "\\%#'''", 'leave': 3})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
-call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
+    imap <C-f> <Right>
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
+    call lexima#add_rule({'char': "<Right>", 'at': '\%#''',   'leave': 1})
+    call lexima#add_rule({'char': "<Right>", 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
+    call lexima#add_rule({'char': "<Right>", 'at': "\\%#'''", 'leave': 3})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
 
-" neocomplete.vimとの連携
-" imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
-execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+    " neocomplete.vimとの連携
+    " imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
+    execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+endif
 
 " vim-watchdogs {{{1
 " ============================================================================
