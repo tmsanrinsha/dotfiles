@@ -1481,12 +1481,12 @@ if neobundle#is_installed("vim-operator-user")
 
     " surround {{{2
     " ------------------------------------------------------------------------
-    map :a <Plug>(operator-surround-append)
-    map :d <Plug>(operator-surround-delete)
-    map :r <Plug>(operator-surround-replace)
-    nmap :dd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-    nmap :rr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
-    nmap :d" <Plug>(operator-surround-delete)a"
+    map sa <Plug>(operator-surround-append)
+    map sd <Plug>(operator-surround-delete)
+    map sr <Plug>(operator-surround-replace)
+    nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+    nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+    nmap sd" <Plug>(operator-surround-delete)a"
 
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")
