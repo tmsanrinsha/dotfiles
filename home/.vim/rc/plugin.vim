@@ -635,16 +635,11 @@ if neobundle#is_installed('unite.vim')
 
     " unite-grep {{{2
     " ------------------------------------------------------------------------
-    if executable('jvgrep')
-        " Use jvgrep in unite grep source.
-        let g:unite_source_grep_command = 'jvgrep'
-        let g:unite_source_grep_default_opts = '--color=never -i'
-        let g:unite_source_grep_recursive_opt = '-R'
-    elseif executable('ag')
+    if executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
-            \   '--line-numbers --nocolor --nogroup --hidden ' .
+            \   '-i --line-numbers --nocolor --nogroup --hidden ' .
             \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
     elseif executable('pt')
@@ -658,6 +653,11 @@ if neobundle#is_installed('unite.vim')
         let g:unite_source_grep_command = 'grep'
         let g:unite_source_grep_default_opts = '-inHE'
         let g:unite_source_grep_recursive_opt = '-r'
+    elseif executable('jvgrep')
+        " jvgrepは遅い
+        let g:unite_source_grep_command = 'jvgrep'
+        let g:unite_source_grep_default_opts = '--color=never -i'
+        let g:unite_source_grep_recursive_opt = '-R'
     endif
 
     let g:unite_source_grep_max_candidates = 1000
