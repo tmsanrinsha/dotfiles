@@ -138,12 +138,13 @@ if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 fi
 
 alias vi='vim'
-alias vie='vim -R' #readonlyで開く。view
+alias view='vim -R' # readonlyで開く
 if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
     alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
 fi
 alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
+alias neobundle_last_updaate_list="find ~/.vim/bundle -type d -maxdepth 1 -mindepth 1 ! -name .neobundle | xargs -I{} sh -c 'cd {} && git log --pretty=format:\"%ad \" --date=short -n 1 && pwd' | sort"
 
 # git {{{2
 # ------------------------------------------------------------------------------
