@@ -1172,6 +1172,17 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration Terminal Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<integer>0</integer>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
 	<dict>
 		<key>TB Is Shown</key>
@@ -1182,11 +1193,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>794 1022 445 136 -349 800 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>206 217 924 485 0 0 1280 777 </string>
+	<string>55 1090 924 485 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>80 194 592 584 0 0 1280 778 </string>
+	<string>-195 1273 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1 12 1278 757 0 0 1280 777 </string>
+	<string>-349 828 1915 1029 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2008,7 +2019,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-03-28T07:43:22Z</date>
+	<date>2015-04-03T18:33:59Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2034,7 +2045,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1410776576</real>
+	<real>1428147840</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>

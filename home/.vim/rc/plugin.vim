@@ -1137,7 +1137,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " execute 'inoremap <expr><BS> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
 
             " <C-h> でポップアップを閉じて文字を削除
-            " execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
