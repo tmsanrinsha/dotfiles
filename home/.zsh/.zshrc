@@ -343,7 +343,7 @@ setopt hist_ignore_space
 ## zshプロセス間でヒストリを共有する。
 setopt share_history
 # }}}
-# set terminal title including current directory {{{1
+# 端末のタイトルを変更する {{{1
 #==============================================================================
 set_terminal_title_string() {
     case "${TERM}" in
@@ -357,11 +357,9 @@ set_terminal_title_string() {
 }
 add-zsh-hook precmd set_terminal_title_string
 
-# tmux & screen {{{1
+# Tmuxのウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外はディレクトリ名@ホスト名にする {{{1
 # ============================================================================
 if [ $TERM = screen ]; then
-# ウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外はディレクトリ名@ホスト名にする {{{2
-# ----------------------------------------------------------------------------
 function tmux_preexec() {
     mycmd=(${(s: :)${1}})
     echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
@@ -377,6 +375,27 @@ add-zsh-hook precmd  tmux_precmd
 DISABLE_AUTO_TITLE=true
 
 fi
+
+# iTerm2のタブのタイトルを変える {{{1
+# ============================================================================
+# https://iterm2.com/faq.html Q: How do I change a tab's title?
+# echo -e "\033];MY_NEW_TITLE\007"
+
+# 通知 {{{1
+# ============================================================================
+# [FAQ - iTerm2 - Mac OS Terminal Replacement](https://iterm2.com/faq.html)
+# Q: How do I use Growl with iTerm2? のリンク先を見ると
+#   echo $'\e]9;Growl Notification\007'
+# の様に制御シーケンスでいけるらしい。ただしGrowlは有料
+#
+# [iTerm2 + zshで時間のかかる処理が終わったらGrowlに通知したりアラートダイアログ出したり音出したりする方法 - Qiita](http://qiita.com/takc923/items/75d67a08edfbaa5fd304)
+# こちらはiTerm2のtriggerを利用した方法
+# 一秒以上たったら処理時間を表示
+REPORTTIME=1
+# TIMEFMTで出力フォーマットを変更可能。see. man zshparam
+#
+# [Macで時間のかかるコマンドが終わったら、自動で通知するzsh設定 - Qiita](http://qiita.com/kei_s/items/96ee6929013f587b5878)
+# backgroundの判定など参考になるかも
 
 # 改行でls {{{1
 ## http://d.hatena.ne.jp/kei_q/20110406/1302091565
