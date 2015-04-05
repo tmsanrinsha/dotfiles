@@ -340,6 +340,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'davidhalter/jedi-vim', {
         \   'autoload': {'filetypes': ['python']}
         \}
+        " NeoBundleLazy 'klen/python-mode', {
+        " \   'autoload': {'filetypes': ['python']}
+        " \}
+        NeoBundleLazy 'hynek/vim-python-pep8-indent', {
+        \   'autoload': {'filetypes': ['python']}
+        \}
         " C, C++ {{{2
         " ----------
         NeoBundleLazy 'osyo-manga/vim-marching', {
