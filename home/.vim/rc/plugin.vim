@@ -156,6 +156,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'thinca/vim-visualstar', {
             \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
             \}
+        " [haya14busa/vim-asterisk](https://github.com/haya14busa/vim-asterisk)
+        NeoBundle 'rhysd/clever-f.vim'
 
         " Vimperatorのクイックヒント風にカーソル移動
         NeoBundleLazy 'Lokaltog/vim-easymotion'
