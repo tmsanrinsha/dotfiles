@@ -1263,8 +1263,8 @@ if neobundle#is_installed('vim-watchdogs')
     \   "hook/qfstatusline_update/enable_exit":      1,
     \   "hook/qfstatusline_update/priority_exit":    4,
     \}
-    " 自動的にquickfixが開くのが嫌な場合
-    " \   "outputter/quickfix/open_cmd":               "",
+    " quickfixを開かない
+    let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
 
     " apaache
     " ------------------------------------------------------------------------
