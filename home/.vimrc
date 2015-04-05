@@ -241,7 +241,7 @@ xnoremap g$ $
 "挿入モードのキーバインドをemacs風に
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
-" inoremap <C-f> <Right>
+inoremap <C-f> <Right>
 inoremap <C-d> <Del>
 " 元々のi_CTRL-Dは左にインデントする処理。
 " 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
@@ -839,7 +839,7 @@ augroup END
 " ----------------------------------------------------------------------------
 " 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
 " <http://d.hatena.ne.jp/thinca/20090530/1243615055>
-set updatetime=500
+set updatetime=100
 set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 augroup MyVimrc
     " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
