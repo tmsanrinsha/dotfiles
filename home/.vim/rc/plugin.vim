@@ -193,13 +193,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'vim_version': '7.3'
         \}
 
-        NeoBundleLazy 'thinca/vim-ft-help_fold', {
-            \   'autoload' : { 'filetypes' : ['help'] }
-            \ }
-        NeoBundleLazy 'kannokanno/vim-helpnew', {
-            \   'autoload' : { 'commands' : 'HelpNew' }
-            \ }
-
         " すでにvimが起動しているときは、そちらで開く
         NeoBundle 'thinca/vim-singleton', {
             \ 'disabled': !has('clientserver'),
@@ -213,6 +206,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " endif
 
         NeoBundle 'LeafCage/foldCC'
+        NeoBundleLazy 'thinca/vim-ft-help_fold', {
+            \   'autoload' : { 'filetypes' : ['help'] }
+            \ }
+
         " sudo権限でファイルを開く・保存
         NeoBundle 'sudo.vim'
         " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
@@ -380,35 +377,44 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " sh {{{2
         " indentの改善
         NeoBundle 'sh.vim--Cla'
-        " yaml {{{2
-        " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
-        "             \   'autoload' : { 'filetypes' : 'yaml' }
-        "             \}
-        " }}}
-        " tmux {{{
+        " tmux {{{2
         " tmuxのシンタックスファイル
         NeoBundleLazy 'zaiste/tmux.vim', {
             \   'autoload' : { 'filetypes' : ['tmux'] }
             \ }
-        " }}}
-        " vimperator {{{
+
+        " Vim {{{2
+        " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
+        NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
+        NeoBundleLazy 'syngan/vim-vimlint'
+        NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': ['vim']}}
+        NeoBundleLazy 'kannokanno/vim-helpnew', {
+        \   'autoload' : { 'commands' : 'HelpNew' }
+        \ }
+
+        " vimperator {{{2
         " vimperatorのシンタックスファイル
         NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
             \   'type'        : 'raw',
             \   'autoload'    : { 'filetypes' : ['vimperator'] },
             \   'script_type' : 'syntax'
             \}
-        " }}}
+
         " confluence {{{2
         " confluenceのシンタックスファイル
         NeoBundleLazy 'confluencewiki.vim', {
             \   'autoload' : { 'filetypes' : ['confluencewiki'] }
             \ }
+
         " mql4 {{{2
         NeoBundleLazy 'vobornik/vim-mql4', {
             \   'autoload' : { 'filetypes' : ['mql4'] }
             \ }
-        " }}}
+
+        " yaml {{{2
+        " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
+        "             \   'autoload' : { 'filetypes' : 'yaml' }
+        "             \}
 
         NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
         NeoBundleLazy 'gregsexton/gitv', {
@@ -428,10 +434,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   }
             \}
 
-        " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
-        NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
-        NeoBundleLazy 'syngan/vim-vimlint'
-        NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': ['vim']}}
 
         " colorscheme
         NeoBundle 'tomasr/molokai'
@@ -1142,10 +1144,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
             " imap <expr> <CR> pumvisible() ?
             "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         else " }}}
-            " execute 'inoremap <expr><BS> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
 
-            " <C-h> でポップアップを閉じて文字を削除
-            execute 'inoremap <expr><C-h> ' . s:neocom . '#smart_close_popup()."\<C-h>"'
+            " <BS>, <C-h> でポップアップを閉じて文字を削除
+            execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>"  : "\<BS>"'
+            execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
@@ -1506,6 +1508,8 @@ if neobundle#is_installed("vim-operator-user")
     map sa <Plug>(operator-surround-append)
     map sd <Plug>(operator-surround-delete)
     map sr <Plug>(operator-surround-replace)
+    nmap saa <Plug>(operator-surround-append)<Plug>(textobj-multiblock-i)
+    nmap saA <Plug>(operator-surround-append)<Plug>(textobj-multiblock-a)
     nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
     nmap sd" <Plug>(operator-surround-delete)a"
@@ -1830,7 +1834,7 @@ if neobundle#is_installed('eclim')
     endfunction
 endif
 " }}}
-" jedi-vim {{{1
+" Python, jedi-vim {{{1
 " ============================================================================
 " pythonのsys.pathの設定 " {{{
 " [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
@@ -1839,13 +1843,15 @@ if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Vers
 endif
 
 function! s:set_python_path()
-    let s:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+    if ! exists('g:python_path')
+        let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+    endif
 
     python <<EOT
 import sys
 import vim
 
-python_paths = vim.eval('s:python_path').split(',')
+python_paths = vim.eval('g:python_path').split(',')
 for path in python_paths:
     if not path in sys.path:
         sys.path.insert(0, path)
@@ -1853,14 +1859,18 @@ EOT
 endfunction
 " }}}
 
+autocmd MyVimrc FileType python
+\   if ! exists('g:python_path')
+\|      let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+\|  endif
+\|  let &l:path = g:python_path
+
 if neobundle#is_installed('jedi-vim')
     let bundle = neobundle#get("jedi-vim")
     function! bundle.hooks.on_source(bundle)
         call s:set_python_path()
 
-        autocmd MyVimrc FileType python
-        \   setlocal omnifunc=jedi#completions
-        \|  let &l:path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
 
         if !exists('g:neocomplete#force_omni_input_patterns')
           let g:neocomplete#force_omni_input_patterns = {}
