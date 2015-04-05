@@ -58,21 +58,23 @@ if v:version > 701
     call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
 endif
 
-
 " paste {{{1
 " ==============================================================================
 "Tera TermなどのBracketed Paste Modeをサポートした端末では
 "以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 if v:version > 603
-    if &term == "screen"
+    if &term =~ "screen"
+        " for tmux >= 1.7
+        let &t_SI = "\e[?2004h"
+        let &t_EI = "\e[?2004l"
         " for tmux
-        let &t_SI = "\ePtmux;\e\e[?2004h\e\\"
-        let &t_EI = "\ePtmux;\e\e[?2004l\e\\"
+        " let &t_SI = "\ePtmux;\e\e[?2004h\e\\"
+        " let &t_EI = "\ePtmux;\e\e[?2004l\e\\"
         "for screen
         " let &t_SI = "\eP\e[?2004h\e\\"
         " let &t_EI = "\eP\e[?2004l\e\\"
-    elseif &term == "xterm"
+    elseif &term =~ "xterm"
         " for xterm
         let &t_SI = "\e[?2004h"
         let &t_EI = "\e[?2004l"
@@ -82,8 +84,8 @@ if v:version > 603
     exec "set <F13>=\e[200~"
     inoremap <F13> <C-o>:set paste<CR>
 endif
-"}}}
-" clipboard {{{
+
+" clipboard {{{1
 " ==============================================================================
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 function! s:Paste64Copy() range
