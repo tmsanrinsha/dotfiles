@@ -53,7 +53,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
-        NeoBundleLazy 'sorah/unite-ghq'
+        NeoBundleLazy 'tmsanrinsha/unite-ghq'
         " NeoBundle 'Shougo/unite-sudo'
 
         " http://archiva.jp/web/tool/vim_grep2.html
