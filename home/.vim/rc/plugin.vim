@@ -14,9 +14,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         set runtimepath+=$VIM/plugins/vimproc
     endif
 
-    if neobundle#has_fresh_cache(expand($VIMDIR.'/rc/plugin.vim'))
-        NeoBundleLoadCache
-    else
+    " キャッシュを使うとUnite.vimの調子が悪いのでやめる
+    " if neobundle#has_fresh_cache(expand($VIMDIR.'/rc/plugin.vim'))
+    "     NeoBundleLoadCache
+    " else
         " Let neobundle manage neobundle
         NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -522,8 +523,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         call SourceRc('neobundle_local.vim')
 
-        NeoBundleSaveCache
-    endif
+    "     NeoBundleSaveCache
+    " endif
 
     call neobundle#end()
 
