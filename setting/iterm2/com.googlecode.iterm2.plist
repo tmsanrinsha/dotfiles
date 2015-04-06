@@ -1136,9 +1136,11 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSColorPanelMode</key>
-	<string>1</string>
+	<string>6</string>
+	<key>NSColorPickerPageableNameListDefaults</key>
+	<string>1Web Safe Colors</string>
 	<key>NSColorPickerSlidersDefaults</key>
-	<string>1</string>
+	<string>3</string>
 	<key>NSFontPanelAttributes</key>
 	<string>1, 9</string>
 	<key>NSFontPanelPreviewHeight</key>
@@ -1193,11 +1195,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>794 1022 445 136 -349 800 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>353 1117 924 485 -349 800 1920 1057 </string>
+	<string>549 1143 924 485 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>-195 1273 592 584 -349 800 1920 1057 </string>
+	<string>259 1205 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-349 828 1915 1029 -349 800 1920 1057 </string>
+	<string>-283 1043 1277 740 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1368,11 +1370,11 @@
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.098682582378387451</real>
+				<real>0.070588238537311554</real>
 				<key>Green Component</key>
-				<real>0.11838251352310181</real>
+				<real>0.070588238537311554</real>
 				<key>Red Component</key>
-				<real>0.11495672911405563</real>
+				<real>0.070588238537311554</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -1408,11 +1410,11 @@
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.37647059559822083</real>
+				<real>0.20000000298023224</real>
 				<key>Green Component</key>
-				<real>0.64705884456634521</real>
+				<real>0.80000001192092896</real>
 				<key>Red Component</key>
-				<real>1</real>
+				<real>0.20000000298023224</real>
 			</dict>
 			<key>Cursor Text Color</key>
 			<dict>
@@ -1821,7 +1823,7 @@
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
-			<false/>
+			<true/>
 			<key>Smart Selection Rules</key>
 			<array>
 				<dict>
@@ -1928,7 +1930,7 @@
 			<key>Terminal Type</key>
 			<string>xterm</string>
 			<key>Transparency</key>
-			<real>0.13365615904331207</real>
+			<real>0.11204234510660172</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1936,7 +1938,7 @@
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
-			<false/>
+			<true/>
 			<key>Use Canonical Parser</key>
 			<false/>
 			<key>Use Italic Font</key>
@@ -2019,7 +2021,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-04-03T18:33:59Z</date>
+	<date>2015-04-05T18:33:58Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2042,12 +2044,21 @@
 	<false/>
 	<key>TmuxDashboardLimit</key>
 	<integer>10</integer>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Profiles</string>
+		<string>Notes</string>
+		<string>Paste History</string>
+		<string>Jobs</string>
+	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1428147840</real>
+	<real>1428324480</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
+	<key>Use background pattern indicator</key>
+	<false/>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseCompactLabel</key>
@@ -2063,7 +2074,7 @@
 	<key>WindowStyle</key>
 	<integer>0</integer>
 	<key>WordCharacters</key>
-	<string>/:._#=-</string>
+	<string>/._#=-</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
 	<key>findRegex_iTerm</key>
