@@ -484,12 +484,13 @@ if hash peco 2>/dev/null; then
     zle -N peco-cdr
     bindkey '^[r' peco-cdr
 
+    # ghq {{{2
     function peco-cd-ghq () {
         # local selected_dir=$(ghq list | peco --prompt="cd-ghq > " --query "$LBUFFER")
         # Gitリポジトリの更新時間でソートしたいので、ghq listを使わない
         local ghq_root=$(git config ghq.root)
         local selected_dir=$(find $ghq_root -type d -mindepth 3 -maxdepth 3 | \
-            xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 && pwd' | \
+            xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 2>/dev/null && pwd' | \
             sort -r | sed -e "s,.*$ghq_root/,," | \
             peco --prompt="cd-ghq > " --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
