@@ -14,6 +14,8 @@ if(liberator.has("MacUnix")) {
 EOM
 
 set complete=l
+set nextpattern=次へ,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
+set previouspattern=前へ,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
