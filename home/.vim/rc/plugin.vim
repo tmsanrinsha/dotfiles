@@ -482,12 +482,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
         "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
         " endif
-        NeoBundleLazy 'vimwiki/vimwiki', {
-        \   'autoload': {
-        \       'mappings': '<Plug>Vimwiki'
-        \   },
-        \   'filetypes': ['vimwiki']
-        \}
+        " NeoBundleLazy 'vimwiki/vimwiki', {
+        " \   'autoload': {
+        " \       'mappings': '<Plug>Vimwiki'
+        " \   },
+        " \   'filetypes': ['vimwiki']
+        " \}
 
         " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
