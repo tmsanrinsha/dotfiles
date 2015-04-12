@@ -605,7 +605,7 @@ if neobundle#is_installed('unite.vim')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
-    " directory {{{2
+    " unite.vim/directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
@@ -614,7 +614,7 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
-    " file {{{2
+    " unite.vim/file {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のファイル
     nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
@@ -640,8 +640,7 @@ if neobundle#is_installed('unite.vim')
         execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
     endfunction
 
-    nnoremap [unite]fv :<C-u>Unite file_rec:$VIMDIR<CR>
-    " ~/git以下のdirectory以下のファイル
+    nnoremap [unite]fv :<C-u>Unite file_rec/async:$VIMDIR<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
     " memo {{{3
@@ -857,7 +856,7 @@ nnoremap <silent> [VIMFILER]p :execute "VimFilerExplorer ". unite#util#path2proj
 
 autocmd MyVimrc FileType vimfiler
     \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
-" vimfilerでsurroundのmapを消す。vimfilerからunite.vimを使った時エラーがでるので
+" vimfilerでvim-surroundのmapを消す。vimfilerからunite.vimを使った時エラーがでるので
 " silentする
 autocmd MyVimrc BufEnter vimfiler*
     \   silent! nunmap ds
@@ -1534,6 +1533,7 @@ if neobundle#is_installed("vim-operator-user")
     nmap sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
     nmap srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
     nmap sd" <Plug>(operator-surround-delete)a"
+    nmap sr" <Plug>(operator-surround-delete)a"
 
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")

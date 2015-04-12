@@ -13,7 +13,14 @@ if(liberator.has("MacUnix")) {
 }
 EOM
 
+" set defsearch=g
+" set complete=lS
 set complete=l
+" list:longestにすると:openの時2回Tabを打たないといけないので面倒だった
+" set wildmode=list:longest,full
+set wildmode=list:full
+" [wildoptionsをトグルするmap - YKMbPP](http://d.hatena.ne.jp/ykmbpp/20090412/1239513076)
+
 set nextpattern=次へ,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
 set previouspattern=前へ,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
@@ -96,9 +103,7 @@ command! -nargs=0 -description="Facebook Object Debugger" bkfbdebug open javascr
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
-" デフォルトの検索エンジンはg(Firefoxの検索バーの管理でGoogleのキーワードをgにしているため)
-" こう設定しておくと、o キーワードでキーワードをGoogle検索する。o g キーワードでGoogleサジェストを表示させる
-"set defsearch=g
+" migemo-hint.js
 " set hintmatching=custom
 
 " はてなブックマーク {{{1

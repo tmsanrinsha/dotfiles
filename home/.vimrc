@@ -75,7 +75,6 @@ augroup MyVimrc
 augroup END
 " }}}
 call SourceRc('local_pre.vim')
-call SourceRc('plugin.vim')
 " }}}
 " 基本設定 {{{
 " ============================================================================
@@ -188,8 +187,9 @@ command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval
 " :h map-modes
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
 
-" key mappingに対しては9000ミリ秒待ち、key codeに対しては10ミリ秒待つ
-set timeout timeoutlen=9000 ttimeoutlen=10
+" key mappingに対しては9000ミリ秒待ち、key codeに対しては20ミリ秒待つ
+" tmuxのescape-timeよりは長くしておく
+set timeout timeoutlen=9000 ttimeoutlen=20
 if exists('+macmeta')
     " MacVimでMETAキーを使えるようにする
     set macmeta
@@ -213,8 +213,6 @@ nnoremap [Colon] :
 inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
-" ファイルのパスをヤンク
-nnoremap yp :let @" = expand("%")<CR>
 
 " カーソルを表示行で移動する
 nnoremap j gj
@@ -630,14 +628,21 @@ onoremap gm :<C-u>normal gm<CR>
 nnoremap <silent><Leader>gc :cd %:h<CR>
 
 " full path of file
-inoremap <C-r>f <C-r>=expand('%:p:r')<CR>
-cnoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+inoremap <C-r>p <C-r>=expand('%:p')<CR>
+cnoremap <C-r>p <C-r>=expand('%:p')<CR>
 " full path of directory
 inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
-" " expand file (not ext)
-" inoremap <C-r>f <C-r>=expand('%:p:r')<CR>
-" cnoremap <C-r>f <C-r>=expand('%:p:r')<CR>
+" file name
+inoremap <C-r>f <C-r>=expand("%:t")<CR>
+cnoremap <C-r>f <C-r>=expand("%:t")<CR>
+
+" yank full path of file
+nnoremap yp :let @" = expand('%:p')<CR>
+" yank full path of directory
+nnoremap yd :let @" = expand('%:p:h')<CR>
+" yank file name
+nnoremap yf :let @" = expand("%:t")<CR>
 
 " =をファイル名に使われる文字から外す
 set isfname-==
@@ -879,15 +884,6 @@ augroup MyVimrc
     endfunction
 augroup END
 " }}}
-
-if isdirectory(expand('~/.vim/bundle/my_molokai'))
-    colorscheme molokai-customized
-else
-    colorscheme default
-endif
-" let g:solarized_termcolors=256
-" let g:solarized_contrast = "high"
-" colorscheme solarized
 
 " color {{{1
 " ============================================================================
@@ -1166,3 +1162,4 @@ if !has('gui_running')
     call SourceRc('cui.vim')
 endif
 call SourceRc('local.vim')
+call SourceRc('plugin.vim')

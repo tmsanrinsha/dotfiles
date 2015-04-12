@@ -321,7 +321,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':completion:*' recent-dirs-insert both
     zstyle ':chpwd:*' recent-dirs-default true
     zstyle ':chpwd:*' recent-dirs-max 50
-    zstyle ':chpwd:*' recent-dirs-file "${ZDOTDIR}/.cache/chpwd-recent-dirs"
+    zstyle ':chpwd:*' recent-dirs-file "$ZDOTDIR/.cache/chpwd-recent-dirs"
     # zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 # }}}

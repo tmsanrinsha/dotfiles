@@ -34,8 +34,8 @@ if command_exists rmtrash; then
 fi
 alias diff='diff -u'
 
-# http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html
-alias sudo='sudo '
+# [su・sudo | SanRin舎](http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html)
+alias sudo='sudo -E '
 
 if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
     alias grep='grep --color=auto'
