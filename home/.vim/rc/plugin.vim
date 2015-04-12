@@ -2018,7 +2018,10 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]d :Gdiff<CR>
         nnoremap [fugitive]s :Gstatus<CR>
         nnoremap [fugitive]l :Glog<CR>
-        nnoremap [fugitive]p :Git pull --rebase origin master<CR>
+        nnoremap [fugitive]p<CR> :Git push
+        nnoremap [fugitive]po :Git push origin
+        nnoremap [fugitive]P :Git pull --rebase origin master
+        nnoremap [fugitive]f :Git fetch origin<CR>
 
         nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
         nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
