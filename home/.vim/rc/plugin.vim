@@ -644,6 +644,19 @@ if neobundle#is_installed('unite.vim')
     " ~/git以下のdirectory以下のファイル
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
+    " memo {{{3
+    " [unite-filters の converter を活用しよう - C++でゲームプログラミング](ttp://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
+    let g:memo_path = expand('~/Dropbox/memo/doc')
+    let g:unite_source_alias_aliases = {
+    \   "memo" : {
+    \       "source" : "file_rec/async",
+    \       "args" : g:memo_path,
+    \   },
+    \}
+    call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+
+    nnoremap [unite]fM :<C-u>Unite memo<CR>
+
     " unite-grep {{{2
     " ------------------------------------------------------------------------
     if executable('ag')
