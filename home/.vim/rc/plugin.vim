@@ -1206,8 +1206,15 @@ if neobundle#is_installed('neosnippet')
 
     function! bundle.hooks.on_source(bundle)
         " Plugin key-mappings.
-        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+        imap <expr><C-k> neosnippet#expandable_or_jumpable() ?
+        \   "\<Plug>(neosnippet_expand_or_jump)" :
+        \   "\<C-o>D"
+        smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
+        \   "\<Plug>(neosnippet_expand_or_jump)" :
+        \   "\<C-o>D"
         xmap <C-k>     <Plug>(neosnippet_expand_target)
 
         " For snippet_complete marker.
