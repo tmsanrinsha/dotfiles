@@ -2104,6 +2104,15 @@ if neobundle#is_installed("open-browser.vim")
     " vmap <2-LeftMouse> <Plug>(openbrowser-open)
 endif
 
+" ColorScheme molokai {{{1
+" ============================================================================
+if neobundle#is_installed("my_molokai")
+    colorscheme molokai-customized
+endif
+" let g:solarized_termcolors=256
+" let g:solarized_contrast = "high"
+" colorscheme solarized
+
 " lightline, statusline {{{1
 " ============================================================================
     " \       'paste': '%{&paste?"PASTE":""}',
