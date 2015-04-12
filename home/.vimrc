@@ -194,7 +194,8 @@ if exists('+macmeta')
     " MacVimでMETAキーを使えるようにする
     set macmeta
 endif
-" let mapleader = "\<space>"
+let mapleader = ";"
+let maplocalleader = "\\"
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
@@ -204,8 +205,8 @@ xnoremap [Space]   <Nop>
 nmap <Space> [Space]
 xmap <Space> [Space]
 
-noremap ; :
-noremap : ;
+" noremap ; :
+" noremap : ;
 
 nnoremap [Colon] :
 
