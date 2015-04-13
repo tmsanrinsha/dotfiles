@@ -278,13 +278,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
         "             \}
         " }}}
-
-        NeoBundleLazy 'joonty/vdebug', {
-        \   'autoload': {
-        \       'filetypes': ['php']
-        \   }
-        \}
-
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
             if has('win32') && isdirectory(expand('~/eclipse'))
@@ -311,6 +304,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'disabled': !exists(g:eclipse_home),
             \}
         " }}}
+        " PHP {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy 'shawncplus/phpcomplete.vim', {
         \   'autoload': {
         \       'filetypes': ['php']
@@ -322,17 +317,27 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "     \   'autoload': {'filetypes': 'php'}
         "     \}
         NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
+        NeoBundleLazy 'joonty/vdebug', {
+        \   'autoload': {
+        \       'filetypes': ['php']
+        \   }
+        \}
+
+        " HTML {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
-        " JavaScript, CSS, HTMLの整形
-        if executable('node')
-            NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload': {'filetypes': ['javascript', 'css', 'html']}}
-        endif
 
         " JavaScript {{{2
         " --------------
         NeoBundle 'pangloss/vim-javascript'
         NeoBundle 'jelera/vim-javascript-syntax'
         NeoBundle 'nono/jquery.vim'
+        " JavaScript, CSS, HTMLの整形
+        NeoBundleLazy 'maksimr/vim-jsbeautify', {
+        \   'autoload': {'filetypes': ['javascript', 'css', 'html']},
+        \   'external_commands': 'node',
+        \}
+
         " Python {{{2
         " ----------
         NeoBundleLazy 'davidhalter/jedi-vim', {
@@ -446,6 +451,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'vim-scripts/rdark-terminal'
         NeoBundle 'jonathanfilip/vim-lucius'
 
+        " カラースキームの色見本
+        " http://cocopon.me/blog/?p=3522
+        NeoBundleLazy 'cocopon/colorswatch.vim', {
+            \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
+            \}
+
         " ステータスラインをカスタマイズ
         " NeoBundle 'Lokaltog/vim-powerline'
         NeoBundle 'itchyny/lightline.vim', {
@@ -468,11 +479,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
         " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
 
-        " カラースキームの色見本
-        " http://cocopon.me/blog/?p=3522
-        NeoBundleLazy 'cocopon/colorswatch.vim', {
-            \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
-            \}
         NeoBundleLazy 'LeafCage/unite-gvimrgb', {
             \ 'autoload' : {
             \   'unite_sources' : 'gvimrgb'
@@ -493,7 +499,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
-        NeoBundleLazy 'fuenor/qfixhowm'
+        " NeoBundleLazy 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
         " NeoBundle 'jceb/vim-orgmode', {
         " \   'depends': [

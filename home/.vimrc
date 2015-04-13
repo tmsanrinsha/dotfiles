@@ -618,7 +618,7 @@ vnoremap gm :<C-u>normal gm<CR>
 onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
-" ディレクトリ・パス {{{
+" diretory, path {{{
 " ==============================================================================
 "augroup CD
 "    autocmd!
@@ -643,6 +643,13 @@ nnoremap yp :let @" = expand('%:p')<CR>
 nnoremap yd :let @" = expand('%:p:h')<CR>
 " yank file name
 nnoremap yf :let @" = expand("%:t")<CR>
+
+" copy full path of file
+nnoremap [Space]yp :let @* = expand('%:p')<CR>
+" copy full path of directory
+nnoremap [Space]yd :let @* = expand('%:p:h')<CR>
+" copy file name
+nnoremap [Space]yf :let @* = expand("%:t")<CR>
 
 " =をファイル名に使われる文字から外す
 set isfname-==
@@ -1157,9 +1164,9 @@ autocmd MyVimrc FileType gitcommit
 " tsv {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
-" その他の設定 {{{1
+"}}}
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif
-call SourceRc('local.vim')
 call SourceRc('plugin.vim')
+call SourceRc('local.vim')
