@@ -3,6 +3,12 @@ if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi
 
+if which tac 1>/dev/null 2>&1;then
+    tac=`which tac`
+else
+    tac='tail -r'
+fi
+
 # antigen {{{1
 # ============================================================================
 # antigenをsubtreeで管理には以下のコマンド
@@ -453,7 +459,24 @@ if hash peco 2>/dev/null; then
     bindkey '^x^h' peco_select_host
 
     # ssh {{{2
-    function peco-ssh() {
+    # function peco-ssh() {
+    #     # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
+    #     # host部分を取り出す
+    #     # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
+    #     # 改行がはいっているとlocal宣言と代入を一緒にできない？
+    #     local hosts
+    #     hosts="$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++')"
+    #     # know_hostsからもホスト名を取り出す
+    #     hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | $tac | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
+    #     # 順番を保持して重複を削除
+    #     hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
+    #     local selected_host=$(echo $hosts | peco --prompt="ssh >" --query "$LBUFFER")
+    #     if [ -n "$selected_host" ]; then
+    #         BUFFER="ssh ${selected_host}"
+    #         zle accept-line
+    #     fi
+    # }
+    function _get_hosts() {
         # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
         # host部分を取り出す
         # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
@@ -461,10 +484,16 @@ if hash peco 2>/dev/null; then
         local hosts
         hosts="$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++')"
         # know_hostsからもホスト名を取り出す
-        hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
+        hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | $tac | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
         # 順番を保持して重複を削除
+        # return $(echo $hosts | perl -ne 'print if!$line{$_}++')
         hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
-        local selected_host=$(echo $hosts | peco --prompt="ssh > " --query "$LBUFFER")
+        echo $hosts
+    }
+
+    function peco-ssh() {
+        hosts=`_get_hosts`
+        local selected_host=$(echo $hosts | peco --prompt="ssh >" --query "$LBUFFER")
         if [ -n "$selected_host" ]; then
             BUFFER="ssh ${selected_host}"
             zle accept-line
@@ -473,9 +502,19 @@ if hash peco 2>/dev/null; then
     zle -N peco-ssh
     bindkey '^[s' peco-ssh
 
+    function peco-host() {
+        hosts=`_get_hosts`
+        local selected_host=$(echo $hosts | peco --prompt="host >")
+        if [ -n "$selected_host" ]; then
+            BUFFER="$LBUFFER ${selected_host}"
+        fi
+    }
+    zle -N peco-host
+    bindkey '^[S' peco-host
+
     # cdr {{{2
     function peco-cdr () {
-        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr > " --query "$LBUFFER")
+        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr >" --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${selected_dir}"
             zle accept-line
@@ -492,7 +531,7 @@ if hash peco 2>/dev/null; then
         local selected_dir=$(find $ghq_root -type d -mindepth 3 -maxdepth 3 | \
             xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 2>/dev/null && pwd' | \
             sort -r | sed -e "s,.*$ghq_root/,," | \
-            peco --prompt="cd-ghq > " --query "$LBUFFER")
+            peco --prompt="cd-ghq >" --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${SRC_ROOT}/${selected_dir}"
             zle accept-line
