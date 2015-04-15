@@ -433,8 +433,6 @@ if hash peco 2>/dev/null; then
     # ------------------------------------------------------------------------
     function peco_kill() {
         ps aux | peco | awk '{ print $2 }' | xargs kill
-        BUFFER=${BUFFER}${GIT_COMMIT_HASH}
-        CURSOR=$#BUFFER
     }
     alias pk=peco_kill
 
