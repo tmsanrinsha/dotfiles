@@ -214,7 +214,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " sudo権限でファイルを開く・保存
         NeoBundle 'sudo.vim'
         " バッファを閉じた時、ウィンドウのレイアウトが崩れないようにする
-        NeoBundle 'rgarver/Kwbd.vim'
+        " 保存してないバッファを閉じちゃうのでコメントアウト
+        " NeoBundle 'rgarver/Kwbd.vim'
         " gundo.vim {{{
         " undo履歴をtreeで見る
         NeoBundleLazy 'sjl/gundo.vim', {
