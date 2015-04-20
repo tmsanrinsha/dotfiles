@@ -35,11 +35,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " unite {{{2
         " --------------------------------------------------------------------
-        NeoBundleLazy 'Shougo/unite.vim', {
-        \   'autoload': {
-        \       'commands': ['Unite']
-        \   }
-        \}
+        " unite.vimはlazyがうまくいかない
+        " NeoBundleLazy 'Shougo/unite.vim', {
+        " \   'autoload': {
+        " \       'commands': ['Unite']
+        " \   }
+        " \}
+        NeoBundle 'Shougo/unite.vim'
         NeoBundleLazy 'Shougo/neomru.vim', {
             \   'autoload': {
             \       'unite_sources': ['file_mru', 'directory_mru']
@@ -656,12 +658,14 @@ if neobundle#is_installed('unite.vim')
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
     " memo {{{3
-    " [unite-filters の converter を活用しよう - C++でゲームプログラミング](ttp://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
-    let g:memo_path = expand('~/Dropbox/memo/doc')
+    " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
+    if !exists('g:memo_directory')
+        let g:memo_directory = expand('~/Dropbox/memo/doc')
+    endif
     let g:unite_source_alias_aliases = {
     \   "memo" : {
     \       "source" : "file_rec/async",
-    \       "args" : g:memo_path,
+    \       "args" : g:memo_directory,
     \   },
     \}
     call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
