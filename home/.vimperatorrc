@@ -67,8 +67,8 @@ noremap : ;
 nnoremap <Esc><Esc> :set hlsearch<CR>
 noremap <C-h> gT
 noremap <C-l> gt
-noremap <S-Left> :tabmove -1<CR>
-noremap <S-Right> :tabmove +1<CR>
+noremap <C-j> :tabmove -1<CR>
+noremap <C-k> :tabmove +1<CR>
 
 " 選択した部分をデフォルトの検索エンジンでサーチ
 noremap gxx cvy<Esc><Esc>P
