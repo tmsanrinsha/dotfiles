@@ -135,19 +135,22 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " textobj {{{2
         " --------------------------------------------------------------------
         NeoBundle 'kana/vim-textobj-user'
-        NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(textobj-entire'}}
         NeoBundle 'kana/vim-textobj-function'
         NeoBundle 'kentaro/vim-textobj-function-php'
         NeoBundle 'kana/vim-textobj-indent'
         NeoBundle 'sgur/vim-textobj-parameter'
         NeoBundle 'thinca/vim-textobj-comment'
-        if !MyHasPatch('patch-7.3.610')
-            NeoBundleLazy 'kana/vim-textobj-lastpat', {
-                \   'depends': 'kana/vim-textobj-user',
-                \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' }
-                \}
-        endif
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
+        NeoBundleLazy 'kana/vim-textobj-lastpat', {
+        \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' },
+        \   'disabled' : !MyHasPatch('patch-7.3.610')
+        \}
+        " Gitでコンフリクトしている部分
+        " lazyはうまくいかない
+        " NeoBundleLazy 'rhysd/vim-textobj-conflict', {'autoload': {'mappings': '<Plug>(textobj-conflict'}}
+        NeoBundle 'rhysd/vim-textobj-conflict'
+        " バッファ全体
+        NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(textobj-entire'}}
         " }}}
 
         NeoBundle 'tpope/vim-repeat'
@@ -1594,6 +1597,7 @@ endif
 " textobj {{{1
 " ============================================================================
 if neobundle#is_installed("vim-textobj-lastpat")
+    let g:textobj_lastpat_no_default_key_mappings = 1
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
 endif
@@ -1607,6 +1611,12 @@ omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
+
+" let g:textobj_conflict_no_default_key_mappings = 1
+" omap ix <Plug>(textobj-conflict-i)
+" omap ax <Plug>(textobj-conflict-a)
+" xmap ix <Plug>(textobj-conflict-i)
+" omap ax <Plug>(textobj-conflict-a)
 " }}}
 " vim-easymotion {{{
 " ============================================================================
