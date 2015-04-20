@@ -749,17 +749,33 @@ if neobundle#is_installed('unite.vim')
     " uniteウィンドウを閉じる
     nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
 
-    " argsをuniteのactionに加える
+    " unite-args {{{2
+    " ------------------------------------------------------------------------
+    function! s:set_arglist(candidates)
+        let argslist = {}
+        for candidate in a:candidates
+            " h unite-kind-file
+            let argslist[candidate.action__path] = 1
+        endfor
+        execute 'argadd' join(map(keys(argslist), 'fnameescape(v:val)'))
+    endfunction
+
+    " arglistにuniteで選択したファイルを設定する
     let s:args_action = {'description': 'args', 'is_selectable': 1}
 
     function! s:args_action.func(candidates)
         silent! argdelete *
-        " TODO: 重複を避ける
-        for candidate in a:candidates
-            execute 'argadd ' . candidate.action__path
-        endfor
+        call s:set_arglist(a:candidates)
     endfunction
     call unite#custom#action('file', 'args', s:args_action)
+
+    " arglistにuniteで選択したファイルを追加する
+    let s:argadd_action = {'description': 'argadd', 'is_selectable': 1}
+
+    function! s:argadd_action.func(candidates)
+        call s:set_arglist(a:candidates)
+    endfunction
+    call unite#custom#action('file', 'argadd', s:argadd_action)
 endif
 
 " neomru {{{1
