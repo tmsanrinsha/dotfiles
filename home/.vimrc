@@ -591,8 +591,8 @@ cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
 cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
-xnoremap \/ <ESC>/\%V
-xnoremap \? <ESC>?\%V
+xnoremap <Leader>/ <ESC>/\%V
+xnoremap <Leader>? <ESC>?\%V
 
 " ビジュアルモード {{{1
 " =============================================================================
