@@ -618,7 +618,7 @@ vnoremap gm :<C-u>normal gm<CR>
 onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
-" diretory, path {{{
+" diretory, path {{{1
 " ==============================================================================
 "augroup CD
 "    autocmd!
@@ -653,19 +653,24 @@ nnoremap [Space]yf :let @* = expand("%:t")<CR>
 
 " =をファイル名に使われる文字から外す
 set isfname-==
-" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{
+
+" カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
+" 通常のgfだとファイルが存在しない時は開かないので、このmapで開く
+nnoremap <Leader>gf :execute "edit ".expand('%:p:h')."/<cfile>"<CR>
+
+" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{2
 " http://vim-users.jp/2009/05/hack17/
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-" }}}
-" Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{
+
+" Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{2
 autocmd MyVimrc BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 function! s:auto_mkdir(dir, force)
     if !isdirectory(a:dir) && (a:force ||
         \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
         call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
     endif
-endfunction  " }}}
-" }}}
+endfunction
+
 " vimdiff {{{1
 " ============================================================================
 set diffopt+=vertical
