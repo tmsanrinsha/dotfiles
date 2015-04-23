@@ -486,12 +486,17 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
 
         NeoBundleLazy 'LeafCage/unite-gvimrgb', {
-            \ 'autoload' : {
-            \   'unite_sources' : 'gvimrgb'
-            \ }}
+        \   'autoload': {
+        \       'unite_sources': 'gvimrgb'
+        \   }
+        \}
 
         " [Vimエディタで線を描画する — 名無しのvim使い](http://nanasi.jp/articles/howto/editing/drawline.html#id4)
-        NeoBundle 'DrawIt'
+        NeoBundleLazy 'DrawIt', {
+        \   'autoload': {
+        \       'commands': 'DrawIt'
+        \   }
+        \}
 
         " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
         "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
