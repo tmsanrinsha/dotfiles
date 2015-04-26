@@ -186,9 +186,14 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         endif
 
         " コメント操作
-        NeoBundle "tyru/caw.vim"
+        " NeoBundle "tyru/caw.vim"
         " NeoBundle "tpope/vim-commentary"
-        NeoBundle "tomtom/tcomment_vim"
+        " NeoBundle "tomtom/tcomment_vim"
+        NeoBundleLazy "tomtom/tcomment_vim", {
+        \   'autoload': {
+        \       'mappings': ['<Plug>TComment_', 'gc'],
+        \   }
+        \}
 
         " NeoBundle 'YankRing.vim'
         NeoBundleLazy 'LeafCage/yankround.vim', {
@@ -371,15 +376,33 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " Markdown {{{2
         " ------------
         " NeoBundleLazy 'tpope/vim-markdown', {
-        "             \   'autoload' : { 'filetypes' : 'markdown' }
-        "             \}
-        " folding
-        " forked from plasticboy/vim-markdown
+        " \   'autoload' : { 'filetypes' : 'markdown' }
+        " \}
+        " fenced code blockで色がつかない
+        " ファイルタイプmkdなのがやだ
+        " インデントがおかしい
+        " [Auto-indentation for lists · Issue #126 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/126)
+        " NeoBundleLazy 'plasticboy/vim-markdown', {
+        " \   'name': 'plasticboy_vim-markdown',
+        " \   'autoload': {'filetypes': ['mkd']},
+        " \}
+        " NeoBundle 'plasticboy/vim-markdown', {
+        " \   'name': 'plasticboy_vim-markdown',
+        " \}
+
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
-        NeoBundle 'rcmdnk/vim-markdown', {'name': 'rcmdnk_vim-markdown'}
+        " forked from plasticboy/vim-markdown
+        " 下のプラグインと組み合わせると色がつく
+        NeoBundleLazy 'rcmdnk/vim-markdown', {
+        \   'name': 'rcmdnk_vim-markdown',
+        \   'autoload': {'filetypes': 'markdown'},
+        \}
+        NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
+        \   'autoload': {'filetypes': 'markdown'},
+        \}
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
-            \   'autoload': {'filetypes': ['markdown']}
-            \}
+        \   'autoload': {'filetypes': ['markdown']}
+        \}
         " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
         " NeoBundleLazy 'teramako/instant-markdown-vim'
         if executable('node') && executable('ruby')
@@ -429,6 +452,16 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \}
 
         NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
+        " lazyはうまくいかない
+        " NeoBundleLazy 'tpope/vim-fugitive', {
+        " \   'augroup' : 'fugitive',
+        " \   'autoload': {
+        " \       'commands': [
+        " \           'Gdiff', 'Gstatus', 'Glog', 'Git'
+        " \       ]
+        " \   }
+        " \}
+
         NeoBundleLazy 'gregsexton/gitv', {
             \   'autoload': {'commands' : ['Gitv']}
             \}
@@ -448,20 +481,20 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
 
         " colorscheme
-        NeoBundle 'tomasr/molokai'
-        NeoBundle 'w0ng/vim-hybrid'
-        NeoBundle 'vim-scripts/wombat256.vim'
-        NeoBundle 'altercation/vim-colors-solarized'
-        NeoBundle 'chriskempson/vim-tomorrow-theme'
-        NeoBundle 'vim-scripts/rdark'
-        NeoBundle 'vim-scripts/rdark-terminal'
-        NeoBundle 'jonathanfilip/vim-lucius'
+        " NeoBundle 'tomasr/molokai'
+        " NeoBundle 'w0ng/vim-hybrid'
+        " NeoBundle 'vim-scripts/wombat256.vim'
+        " NeoBundle 'altercation/vim-colors-solarized'
+        " NeoBundle 'chriskempson/vim-tomorrow-theme'
+        " NeoBundle 'vim-scripts/rdark'
+        " NeoBundle 'vim-scripts/rdark-terminal'
+        " NeoBundle 'jonathanfilip/vim-lucius'
 
         " カラースキームの色見本
         " http://cocopon.me/blog/?p=3522
-        NeoBundleLazy 'cocopon/colorswatch.vim', {
-            \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
-            \}
+        " NeoBundleLazy 'cocopon/colorswatch.vim', {
+        "     \   'autoload': { 'commands' : [ 'ColorSwatchGenerate' ] }
+        "     \}
 
         " ステータスラインをカスタマイズ
         " NeoBundle 'Lokaltog/vim-powerline'
@@ -480,16 +513,16 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " CSS
         " #000000とかの色付け
-        NeoBundleLazy 'skammer/vim-css-color'
+        " NeoBundleLazy 'skammer/vim-css-color'
         " rgb()に対応したやつ
         " http://hail2u.net/blog/software/add-support-for-rgb-func-syntax-to-css-color-preview.html
         " NeoBundle 'gist:hail2u/228147', {'name': 'css.vim', 'script_type': 'plugin'}
 
-        NeoBundleLazy 'LeafCage/unite-gvimrgb', {
-        \   'autoload': {
-        \       'unite_sources': 'gvimrgb'
-        \   }
-        \}
+        " NeoBundleLazy 'LeafCage/unite-gvimrgb', {
+        " \   'autoload': {
+        " \       'unite_sources': 'gvimrgb'
+        " \   }
+        " \}
 
         " [Vimエディタで線を描画する — 名無しのvim使い](http://nanasi.jp/articles/howto/editing/drawline.html#id4)
         NeoBundleLazy 'DrawIt', {
@@ -530,7 +563,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " 自分のリポジトリ
         NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
         " NeoBundle 'tmsanrinsha/vim-colors-solarized'
-        NeoBundle 'tmsanrinsha/vim'
+        " NeoBundle 'tmsanrinsha/vim'
         NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
         " vim以外のリポジトリ
@@ -1131,8 +1164,8 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
         " execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
         execute 'inoremap <expr><C-l> ' . s:neocom.'#complete_common_string()'
-        " execute 'inoremap <expr><C-Space> '.s:neocom.'#start_manual_complete()'
-        execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
+        execute 'inoremap <expr><C-Space> '.s:neocom.'#start_manual_complete()'
+        " execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
         " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
         " 矩形選択して挿入モードに入った時にうまくいかない
@@ -1196,8 +1229,10 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         else " }}}
 
             " <BS>, <C-h> でポップアップを閉じて文字を削除
-            execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>"  : "\<BS>"'
-            execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
+            " execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
+            execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
+            " execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
+            execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#close_popup()."\<C-h>" : "\<C-h>"'
 
             " <CR> でポップアップ中の候補を選択し改行する
             execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
@@ -2012,6 +2047,12 @@ endif
 
 if neobundle#is_installed('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
+endif
+
+" plasticboy/vim-markdown {{{1
+" ============================================================================
+if neobundle#is_installed('plasticboy_vim-markdown')
+    let g:vim_markdown_folding_disabled = 1
 endif
 
 " rcmdnk/vim-markdown {{{1

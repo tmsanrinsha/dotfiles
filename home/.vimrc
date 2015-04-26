@@ -852,7 +852,7 @@ augroup MyVimrc
     autocmd ColorScheme *
     \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
-
+doautocmd ColorScheme _
 " cursorlineは重いので必要なときだけ有効にする {{{2
 " ----------------------------------------------------------------------------
 " 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
@@ -1040,7 +1040,9 @@ nnoremap <Leader>Fx :<C-u>setlocal filetype=xml<CR>
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
 " [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
-autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
+" autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
+autocmd MyVimrc FileType vim,text call s:override_plugin_setting()
+
 
 function! s:override_plugin_setting()
     setlocal textwidth<
@@ -1051,7 +1053,7 @@ endfunction
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 "}}}
-" Markdown {{{
+" Markdown {{{2
 " ----------------------------------------------------------------------------
 " fenced code blocksのコードをハイライト
 " plasticboy/vim-markdownを使っているとハイライトされない
@@ -1064,12 +1066,30 @@ let g:markdown_fenced_languages = [
 \  'sql',
 \  'xml',
 \]
-" イタリックを無効に
-autocmd MyVimrc FileType markdown hi! def link markdownItalic Normal
+let g:markdown_quote_syntax_filetypes = {
+        \ "php" : {
+        \   "start" : "php",
+        \},
+        \ "javascript" : {
+        \   "start" : "javascript",
+        \},
+        \ "css" : {
+        \   "start" : "\\%(css\\|scss\\)",
+        \},
+  \}
 autocmd MyVimrc FileType markdown,html
-\ command! Pandoc :%!pandoc -f html -t markdown
-" }}}
-" JavaScript {{{
+\   command! Pandoc :%!pandoc -f html -t markdown
+
+" [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
+" function! MyAddToFileType(ft)
+"   if index(split(&ft, '\.'), a:ft) == -1
+"     let &ft .= '.'.a:ft
+"   endif
+" endfun
+" au FileType markdown call MyAddToFileType('mkd')
+" au FileType mkd      call MyAddToFileType('markdown')
+
+" JavaScript {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript setlocal syntax=jquery
 " [Vim (with python) で json を整形 - Qiita](http://qiita.com/tomoemon/items/cc29b414a63e08cd4f89#comment-77832dedb32996ec7080)
@@ -1134,14 +1154,23 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 "     \|       source %
 "     \|  endif
 
-" ### help {{{3
 " カーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
     \   setlocal keywordprg=:help
     \|  setlocal path&
     \|  setlocal path+=$VIMDIR/bundle
+
+" help {{{2
+" ----------------------------------------------------------------------------
 " set helplang=en,ja
-autocmd MyVimrc FileType help nnoremap <buffer><silent> q :q<CR>
+autocmd MyVimrc FileType help
+\   nnoremap <buffer><silent> q :q<CR>
+\|  nnoremap <buffer> ]]     /<Bar>.*<Bar><CR>
+\|  nnoremap <buffer> ]<Bar> /<Bar>.*<Bar><CR>
+\|  nnoremap <buffer> [[     ?<Bar>.*<Bar><CR>
+\|  nnoremap <buffer> [<Bar> ?<Bar>.*<Bar><CR>
+\|  nnoremap <buffer> ]' /'.*'<CR>
+\|  nnoremap <buffer> [' /'.*'<CR>
 
 " Git {{{2
 " ----------------------------------------------------------------------------
