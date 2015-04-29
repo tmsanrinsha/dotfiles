@@ -396,8 +396,8 @@ fi
 #
 # [iTerm2 + zshで時間のかかる処理が終わったらGrowlに通知したりアラートダイアログ出したり音出したりする方法 - Qiita](http://qiita.com/takc923/items/75d67a08edfbaa5fd304)
 # こちらはiTerm2のtriggerを利用した方法
-# 一秒以上たったら処理時間を表示
-REPORTTIME=1
+# x秒以上たったら処理時間を表示
+REPORTTIME=10
 # TIMEFMTで出力フォーマットを変更可能。see. man zshparam
 #
 # [Macで時間のかかるコマンドが終わったら、自動で通知するzsh設定 - Qiita](http://qiita.com/kei_s/items/96ee6929013f587b5878)
