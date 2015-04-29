@@ -65,7 +65,7 @@ alias hgr='history 1 | grep -C 3'
 # global alias {{{1
 # ============================================================================
 alias -g A='| awk'
-alias -g G='| grep'
+alias -g G='| grep -i'
 alias -g L='| less -R'
 alias -g P='| peco'
 # Vim: Warning: Input is not from a terminal
