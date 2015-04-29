@@ -397,9 +397,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'name': 'rcmdnk_vim-markdown',
         \   'autoload': {'filetypes': 'markdown'},
         \}
-        NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
-        \   'autoload': {'filetypes': 'markdown'},
-        \}
+        " NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
+        " \   'autoload': {'filetypes': 'markdown'},
+        " \}
+
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
         \   'autoload': {'filetypes': ['markdown']}
         \}
