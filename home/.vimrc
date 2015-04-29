@@ -1015,7 +1015,7 @@ command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
 " ftdetect {{{
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha*,qiita* setlocal filetype=markdown
-" autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
+autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
 " MySQLのEditorの設定
 " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
 autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
@@ -1081,13 +1081,13 @@ autocmd MyVimrc FileType markdown,html
 \   command! Pandoc :%!pandoc -f html -t markdown
 
 " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
-" function! MyAddToFileType(ft)
-"   if index(split(&ft, '\.'), a:ft) == -1
-"     let &ft .= '.'.a:ft
-"   endif
-" endfun
-" au FileType markdown call MyAddToFileType('mkd')
-" au FileType mkd      call MyAddToFileType('markdown')
+function! MyAddToFileType(ft)
+  if index(split(&ft, '\.'), a:ft) == -1
+    let &ft .= '.'.a:ft
+  endif
+endfun
+au FileType markdown call MyAddToFileType('mkd')
+au FileType mkd      call MyAddToFileType('markdown')
 
 " JavaScript {{{2
 " ----------------------------------------------------------------------------

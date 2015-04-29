@@ -1,7 +1,7 @@
 # bash, zsh共通設定
 
 #export PAGER=/usr/local/share/vim/vim73/macros/less.sh
-#export PAGER=less
+export PAGER=less
 # lessで色つきの表示に対応させる
 #export LESS='-R'
 #export LESS='-M'
