@@ -28,6 +28,13 @@ if [ "$brew" == '1' ]; then
     brew upgrade --all # packageの更新
     brew cleanup
     brew cask cleanup
+
+    # for php
+    # https://github.com/Homebrew/homebrew-php
+    brew tap homebrew/dupes
+    brew tap homebrew/versions
+    brew tap homebrew/homebrew-php
+
     brew tap peco/peco
 fi
 
