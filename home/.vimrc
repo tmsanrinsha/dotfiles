@@ -838,7 +838,7 @@ function! s:Ip2host(line1, line2)
 endfunction
 
 command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
-" }}}
+
 " colorscheme {{{1
 " ============================================================================
 set t_Co=256 " 256色
@@ -850,15 +850,17 @@ syntax enable
 augroup MyVimrc
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
     autocmd ColorScheme *
-    \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
+    \   highlight IdeographicSpace cterm=underline ctermfg=59 ctermbg=16 gui=underline guifg=#465457 guibg=#000000
+    " \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
 augroup END
-doautocmd ColorScheme _
+doautocmd ColorScheme
+
 " cursorlineは重いので必要なときだけ有効にする {{{2
 " ----------------------------------------------------------------------------
 " 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
 " <http://d.hatena.ne.jp/thinca/20090530/1243615055>
 set updatetime=100
-set noswapfile " 500ミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
+set noswapfile " updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 augroup MyVimrc
     " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
     " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
@@ -895,7 +897,6 @@ augroup MyVimrc
         endif
     endfunction
 augroup END
-" }}}
 
 " color {{{1
 " ============================================================================
