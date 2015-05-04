@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 brew=0
 vim=0
@@ -83,7 +83,7 @@ if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
 cp $git_dir/template/.gitconfig ~/.gitconfig
-git config --global --remove-section "ghq" || :
+# git config --global --remove-section "ghq" || :
 git config --global "ghq.root" "$SRC_ROOT"
 
 if ctags --version | grep Development; then
@@ -135,18 +135,8 @@ if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
         vimperatordir="$HOME/.vimperator"
     fi
 
-    if [ ! -d ~/git/vimperator-plugins ]; then
-        if [ ! -d "$vimperatordir/plugin" ]; then
-            mkdir -p "$vimperatordir/plugin"
-        fi
-        git clone -b 3.6 git://github.com/vimpr/vimperator-plugins.git ~/git/vimperator-plugins
-    else
-        pushd ~/git/vimperator-plugins
-        git pull
-        popd
-    fi
-
-    $ln -fs ~/git/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
+    ghq get git://github.com/vimpr/vimperator-plugins.git
+    $ln -fs ~/src/github.com/vimpr/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
 
 # script {{{1
