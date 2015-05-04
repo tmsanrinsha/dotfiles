@@ -49,6 +49,7 @@ brew-install nkf
 brew-install node
 brew-install php56
 brew-install php56-yaml
+brew-install php56-stats
 brew-install pwgen
 brew-install python
 brew install reattach-to-user-namespace
