@@ -83,7 +83,7 @@ brew-cask-install pandoc
 # formulaがないと言われる
 # brew install peco
 
-brew-install matplotlib
+# brew-install matplotlib
 # brew install pythonでインストールされるpipでインストール
 # 失敗
 # pip install numpy
