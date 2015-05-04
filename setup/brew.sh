@@ -61,6 +61,7 @@ brew-install zsh
 # [Patched ctags · shawncplus/phpcomplete.vim Wiki](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
 if ! test -f /usr/local/Library/Formula/ctags-better-php.rb; then
     curl https://raw.githubusercontent.com/shawncplus/phpcomplete.vim/master/misc/ctags-better-php.rb > /usr/local/Library/Formula/ctags-better-php.rb
+    echo ctags-better-php.rb >> /usr/local/Library/Formula/.gitignore
     brew install ctags-better-php
 fi
 
