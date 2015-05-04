@@ -41,6 +41,7 @@ EOM
 
 " mapping {{{1
 " ============================================================================
+let mapleader = ';'
 " Emacs like key bindings {{{2
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
@@ -62,8 +63,6 @@ inoremap <C-p> <Up>
 inoremap <C-n> <down>
 " }}}
 
-noremap ; :
-noremap : ;
 nnoremap <Esc><Esc> :set hlsearch<CR>
 noremap <C-h> gT
 noremap <C-l> gt
