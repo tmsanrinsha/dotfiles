@@ -3,8 +3,9 @@ set xfer:clobber on
 # getしたとき、上書きするか聞く
 alias get "eval -f \"shell \\\"test -f $0 && echo -n 'overwrite? [y/n] ' && read answer && case $answer in; y) return 0;; *) return 1;; esac || return 0\\\" && command get $0\""
 
+# version 4.6.2 からeditはコマンドなので変更しなくてよい
 # aliasのgetが使われないようにcommand getにした
-alias edit "eval -f \"command get $0 -o ~/.lftp/edit.tmp.$$ && shell \\\"cp -p ~/.lftp/edit.tmp.$$ ~/.lftp/edit.tmp.$$.orig && $EDITOR ~/.lftp/edit.tmp.$$ && test ~/.lftp/edit.tmp.$$ -nt ~/.lftp/edit.tmp.$$.orig\\\" && put ~/.lftp/edit.tmp.$$ -o $0; shell rm -f ~/.lftp/edit.tmp.$$*\""
+# alias edit "eval -f \"command get $0 -o ~/.lftp/edit.tmp.$$ && shell \\\"cp -p ~/.lftp/edit.tmp.$$ ~/.lftp/edit.tmp.$$.orig && $EDITOR ~/.lftp/edit.tmp.$$ && test ~/.lftp/edit.tmp.$$ -nt ~/.lftp/edit.tmp.$$.orig\\\" && put ~/.lftp/edit.tmp.$$ -o $0; shell rm -f ~/.lftp/edit.tmp.$$*\""
 
 # fileをvimで開く。拡張子付きにしたいのでtmpファイルのファイル名にオリジナルのファイル名を加えた
 alias vim "eval -f \"command get $0 -o ~/.lftp/edit.tmp.$$.$0 && shell \\\"cp -p ~/.lftp/edit.tmp.$$.$0 ~/.lftp/edit.tmp.$$.orig && vim ~/.lftp/edit.tmp.$$.$0 && test ~/.lftp/edit.tmp.$$.$0 -nt ~/.lftp/edit.tmp.$$.orig\\\" && put ~/.lftp/edit.tmp.$$.$0 -o $0; shell rm -f ~/.lftp/edit.tmp.$$*\""
