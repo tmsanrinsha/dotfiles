@@ -1,11 +1,19 @@
 
 " neobundle.vim {{{1
 " ============================================================================
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
 if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051')
     if has('vim_starting')
-      set runtimepath+=$VIMDIR/bundle/neobundle.vim/
+        if &compatible
+            set nocompatible               " Be iMproved
+        endif
+
+        " Required:
+        set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
-    call neobundle#begin(expand($VIMDIR.'/bundle/'))
+
     let g:neobundle#types#git#default_protocol = "git"
     let g:neobundle#install_process_timeout = 2000
 
@@ -13,6 +21,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " kaoriya版Vim同梱のvimprocを使う
         set runtimepath+=$VIM/plugins/vimproc
     endif
+
+    " Required:
+    call neobundle#begin(expand($VIMDIR.'/bundle/'))
 
     " キャッシュを使うとUnite.vimの調子が悪いのでやめる
     " if neobundle#has_fresh_cache(expand($VIMDIR.'/rc/plugin.vim'))
@@ -22,16 +33,15 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleFetch 'Shougo/neobundle.vim'
 
         " recommended to install
-        if ! (has('win32') && has('kaoriya'))
-            NeoBundle 'Shougo/vimproc.vim', {
-                \   'build' : {
-                \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-                \     'cygwin'  : 'make -f make_cygwin.mak',
-                \     'mac'     : 'make -f make_mac.mak',
-                \     'unix'    : 'make -f make_unix.mak',
-                \   },
-                \ }
-        endif
+        NeoBundle 'Shougo/vimproc.vim', {
+        \   'build' : {
+        \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+        \     'cygwin'  : 'make -f make_cygwin.mak',
+        \     'mac'     : 'make -f make_mac.mak',
+        \     'unix'    : 'make -f make_unix.mak',
+        \   },
+        \   'disabled': !has('win32') && !has('kaoriya'),
+        \}
 
         " unite {{{2
         " --------------------------------------------------------------------
@@ -301,19 +311,19 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             endif
         endif
 
-        NeoBundleLazy 'ervandew/eclim', {
-            \   'build' : {
-            \       'windows': 'ant -Declipse.home=' . g:eclipse_home
-            \                     .' -Dvim.files=' . escape(expand('~/.vim/bundle/eclim'), '\'),
-            \       'mac':     'ant -Declipse.home=' . g:eclipse_home
-            \                     .' -Dvim.files=' . expand('~/.vim/bundle/eclim'),
-            \   },
-            \   'autoload': {
-            \       'filetypes': ['java'],
-            \   },
-            \   'external_commands': 'ant',
-            \   'disabled': !exists(g:eclipse_home),
-            \}
+        " NeoBundleLazy 'ervandew/eclim', {
+        "     \   'build' : {
+        "     \       'windows': 'ant -Declipse.home=' . g:eclipse_home
+        "     \                     .' -Dvim.files=' . escape(expand('~/.vim/bundle/eclim'), '\'),
+        "     \       'mac':     'ant -Declipse.home=' . g:eclipse_home
+        "     \                     .' -Dvim.files=' . expand('~/.vim/bundle/eclim'),
+        "     \   },
+        "     \   'autoload': {
+        "     \       'filetypes': ['java'],
+        "     \   },
+        "     \   'external_commands': 'ant',
+        "     \   'disabled': !exists(g:eclipse_home),
+        "     \}
         " }}}
         " PHP {{{2
         " --------------------------------------------------------------------
@@ -606,14 +616,14 @@ else
 
     filetype plugin indent on
 endif
-"}}}
+
 " vim-singleton {{{1
 " ============================================================================
 if IsInstalled('vim-singleton') && has('gui_running')
     call singleton#enable()
 endif
 
-" sudo.vim {{{
+" sudo.vim {{{1
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
@@ -625,8 +635,8 @@ if IsInstalled('sudo.vim')
     endif
     nnoremap <Leader>W :w sudo:%<CR>
 endif
-"}}}
-" vim-smartword {{{
+
+" vim-smartword {{{1
 " ==============================================================================
 if IsInstalled("vim-smartword")
     map w <Plug>(smartword-w)
