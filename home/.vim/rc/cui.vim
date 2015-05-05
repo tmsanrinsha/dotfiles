@@ -60,8 +60,8 @@ endif
 
 " paste {{{1
 " ==============================================================================
-"Tera TermなどのBracketed Paste Modeをサポートした端末では
-"以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
+" Tera TermなどのBracketed Paste Modeをサポートした端末では
+" 以下の設定で、貼り付けるとき自動的にpasteモードに切り替えてくれる。
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 if v:version > 603
     if &term =~ "screen"
@@ -143,14 +143,14 @@ endif
 if v:version > 603
     if &term =~ "screen"
         " for tmux
-        let &t_SI .= "\e[3 q"
+        let &t_SI .= "\e[5 q"
         let &t_EI .= "\e[1 q"
         " for screen
         " " let &t_SI .= "\eP\e[3 q\e\\"
         " let &t_SI .= "\eP\e[?25h\e[5 q\e\\"
         " let &t_EI .= "\eP\e[1 q\e\\"
     elseif &term == "xterm"
-        let &t_SI .= "\e[3 q"
+        let &t_SI .= "\e[5 q"
         " let &t_SI .= "\e[?25h\e[5 q"
         let &t_EI .= "\e[1 q"
     endif
