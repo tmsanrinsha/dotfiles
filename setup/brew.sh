@@ -44,6 +44,7 @@ brew-install coreutils
 brew-install gnu-sed
 brew-install go
 brew-install jq
+brew-install lftp
 # brew-install mercurial
 brew-install nkf
 brew-install node
