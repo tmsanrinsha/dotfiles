@@ -593,8 +593,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
     filetype plugin indent on     " Required!
 
-     " Installation check.
-     NeoBundleCheck
+    " Installation check.
+    NeoBundleCheck
 
 else
     " neobundleが使えない場合
@@ -727,7 +727,7 @@ if neobundle#is_installed('unite.vim')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
-            \   '-i --line-numbers --nocolor --nogroup --hidden ' .
+            \   '-Sf --line-numbers --nocolor --nogroup --hidden ' .
             \   '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
     elseif executable('pt')
