@@ -63,6 +63,8 @@ inoremap <C-p> <Up>
 inoremap <C-n> <down>
 " }}}
 
+nnoremap d D
+nnoremap D d
 nnoremap <Esc><Esc> :set hlsearch<CR>
 noremap <C-h> gT
 noremap <C-l> gt
