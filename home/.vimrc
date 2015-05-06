@@ -753,22 +753,25 @@ autocmd MyVimrc BufReadPost *
 
 " man {{{1
 " ==============================================================================
-" macでのManの調子が悪いのでvim-refの:Ref manを使うことにする
-" ":Man <man>でマニュアルを開く
+" * macでのManの調子が悪い
+" * 補完がきかない
+" のでvim-refの:Ref manを使うことにする (see: .vim/rc/plugin.vim)
+
+" :Man <man>でマニュアルを開く
+" http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
+" [manをVimで見る - rcmdnk's blog](http://rcmdnk.github.io/blog/2014/07/20/computer-vim/)
 " runtime ftplugin/man.vim
 " nmap K <Leader>K
-" " http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
-" " [manをVimで見る - rcmdnk's blog](http://rcmdnk.github.io/blog/2014/07/20/computer-vim/)
 " let $PAGER=''
-" " コマンドラインでmanを使ったとき、vimの:Manで見るようにするためには
-" ".zshrc .bashrc等にも記述が必要
+" コマンドラインでmanを使ったとき、vimの:Manで見るようにするためには
+".zshrc .bashrc等にも記述が必要
 
-"}}}
-" printing {{{
+" printing {{{1
+" ==============================================================================
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
-"}}}
-" Quickfix {{{
+
+" Quickfix {{{1
 " ==============================================================================
 nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>

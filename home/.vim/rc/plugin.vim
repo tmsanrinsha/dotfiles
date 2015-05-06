@@ -1709,14 +1709,14 @@ endif
 " vim-ref {{{1
 " ============================================================================
 if neobundle#is_installed('vim-ref')
-    let bundle = neobundle#get("vim-ref")
+    cabbrev Man Ref man
 
+    let bundle = neobundle#get("vim-ref")
     function! bundle.hooks.on_source(bundle)
         if has('mac')
             let g:ref_man_cmd = "man -P cat"
         endif
         " command! -nargs=* Man Ref man <args>
-        cabbrev Man Ref man
     endfunction
 endif
 
@@ -2115,7 +2115,7 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]d :Gdiff<CR>
         nnoremap [fugitive]s :Gstatus<CR>
         nnoremap [fugitive]l :Glog<CR>
-        nnoremap [fugitive]p<CR> :Git push
+        nnoremap [fugitive]p; :Git push
         nnoremap [fugitive]po :Git push origin
         nnoremap [fugitive]P :Git pull --rebase origin master
         nnoremap [fugitive]f :Git fetch origin<CR>

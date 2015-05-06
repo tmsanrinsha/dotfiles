@@ -77,6 +77,7 @@ brew-cask-install bettertouchtool
 brew-cask-install cheatsheet
 brew-cask-install clipmenu
 # brew-cask-install eclipse-ide
+brew-cask-install evernote
 # formuraでもinstallできる
 brew-cask-install pandoc
 
