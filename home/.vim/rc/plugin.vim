@@ -1715,7 +1715,8 @@ if neobundle#is_installed('vim-ref')
         if has('mac')
             let g:ref_man_cmd = "man -P cat"
         endif
-        command! -nargs=* Man Ref man <args>
+        " command! -nargs=* Man Ref man <args>
+        cabbrev Man Ref man
     endfunction
 endif
 
