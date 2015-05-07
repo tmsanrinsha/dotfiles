@@ -40,7 +40,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \     'mac'     : 'make -f make_mac.mak',
         \     'unix'    : 'make -f make_unix.mak',
         \   },
-        \   'disabled': !has('win32') && !has('kaoriya'),
+        \   'disabled': has('win32') && has('kaoriya'),
         \}
 
         " unite {{{2
@@ -644,8 +644,7 @@ if IsInstalled("vim-smartword")
     map e <Plug>(smartword-e)
     map ge <Plug>(smartword-ge)
 endif
-"}}}
-if !IsInstalled('neobundle.vim')
+if !IsInstalled('neobundle.vim') " {{{1
     finish
 endif
 " unite.vim {{{1
