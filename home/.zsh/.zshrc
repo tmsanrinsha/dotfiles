@@ -156,8 +156,9 @@ bindkey "^[[1~" beginning-of-line
 # Endで行末へ
 bindkey "^[[4~" end-of-line
 
-bindkey '^]'  vi-find-next-char
-bindkey '^[]' vi-find-prev-char
+bindkey '^[' vi-cmd-mode
+# bindkey '^]'  vi-find-next-char
+# bindkey '^[]' vi-find-prev-char
 
 # zshで直前のコマンドラインの最後の単語を挿入する
 # http://qiita.com/mollifier/items/1a9126b2200bcbaf515f
@@ -198,16 +199,8 @@ setopt no_flow_control
 # /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# menuselectのキーバインド
-zmodload -i zsh/complist
-bindkey -M menuselect \
-    '^p' up-line-or-history '^n' down-line-or-history \
-    '^b' backward-char '^f' forward-char \
-    '^o' accept-and-infer-next-history
-bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
-# bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
 # }}}
-# complete {{{
+# complete {{{1
 # ============================================================================
 autoload -U compinit && compinit
 # bash用の補完を使うためには以下の設定をする
@@ -219,11 +212,42 @@ autoload -U compinit && compinit
 # compacked complete list display
 setopt list_packed
 
+# cacheを使う
 zstyle ':completion:*' use-cache true
-# 補完対象が2つ以上の時、選択できるようにする
-zstyle ':completion:*:default' menu select=2
 
-# ls
+# [zshのzstyleでの補完時の挙動について - voidy21の日記](http://voidy21.hatenablog.jp/entry/20090902/1251918174)
+# m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
+# r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[_-]=*'
+
+# _expandはグロブを使ったときファイルが補完対象に入るので使わない
+# _historyも関係ない文脈で補完されるので使わない
+zstyle ':completion:*' completer _match _complete _prefix _approximate _list
+
+# menu complition {{{2
+# [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
+zmodload -i zsh/complist
+zstyle ':completion:*' menu select interactive
+# 上のcompleterで_matchを設定しているとグロブが使えるので良い。
+
+# tab二回でmenuから選択できるようにする
+# zstyle ':completion:*:default' menu select=2
+
+# menuselectのキーバインド
+bindkey -M menuselect \
+    '^p' up-line-or-history \
+    '^n' down-line-or-history \
+    '^b' backward-char \
+    '^f' forward-char \
+    '^o' accept-and-infer-next-history
+bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
+bindkey -M menuselect '^r'   history-incremental-search-forward # 補完候補内インクリメンタルサーチ
+bindkey -M menuselect '^s'   history-incremental-search-backward
+# bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
+# }}}
+
+# ファイル・ディレクトリ補完に色を付ける
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 else
