@@ -218,8 +218,9 @@ zstyle ':completion:*' use-cache true
 # [zshのzstyleでの補完時の挙動について - voidy21の日記](http://voidy21.hatenablog.jp/entry/20090902/1251918174)
 # m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
 # r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+# r:については挙動がおかしくなるのでやめる
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[_-]=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # _expandはグロブを使ったときファイルが補完対象に入るので使わない
 # _historyも関係ない文脈で補完されるので使わない
@@ -270,6 +271,9 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
+# コンテキストの確認
+bindkey "^Xh" _complete_help
+
 # MacVimでvimの補完を使う
 compdef Vim=vim
 
@@ -277,8 +281,6 @@ compdef Vim=vim
 # http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
 compdef _gnu_generic bc
 
-# コンテキストの確認
-bindkey "^Xh" _complete_help
 
 # site-functionsのリロード
 rsf() {
