@@ -76,7 +76,6 @@ alias -g V='| vim -R -'
 alias -g XV="| xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g H='| head'
 alias -g T='| tail -f'
-alias -g R='| tail -r'
 alias -g E='| egrep'
 alias -g GI='| egrep -i'
 alias -g X='-print0 | xargs -0'
@@ -224,7 +223,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # _expandはグロブを使ったときファイルが補完対象に入るので使わない
 # _historyも関係ない文脈で補完されるので使わない
-zstyle ':completion:*' completer _match _complete _prefix _approximate _list
+zstyle ':completion:*' completer _match _complete _prefix _list
 
 # menu complition {{{2
 # [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
