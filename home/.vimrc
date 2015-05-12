@@ -307,7 +307,7 @@ set backupskip+=/home/tmp/*,/private/tmp/*
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
-if ! isdirectory('~/.vim/bundle/savevers.vim')
+if ! isdirectory(expand('~/.vim/bundle/savevers.vim'))
     set backup
     set backupdir=$VIM_CACHE_DIR/backup
 
@@ -315,7 +315,7 @@ if ! isdirectory('~/.vim/bundle/savevers.vim')
         autocmd!
         autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
         function! UpdateBackupFile()
-            let basedir = expand("$VIM_CACHE_DIR/bakup")
+            let basedir = expand("$VIM_CACHE_DIR/backup")
             let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
             if !isdirectory(dir)
                 call mkdir(dir, "p")
