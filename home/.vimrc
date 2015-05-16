@@ -84,11 +84,10 @@ call SourceRc('local_pre.vim')
 " 基本設定 {{{
 " ============================================================================
 set showmode "現在のモードを表示
-set showcmd "コマンドを表示
+set showcmd  "コマンドを表示
 set cmdheight=2 "コマンドラインの高さを2行にする
-set number
-" 1行が長い場合でも表示
-set display=lastline
+set number   " 左側に行数を表示
+set display=lastline " 1行が長い場合でも表示
 set ruler
 
 set showmatch matchtime=1 "括弧の対応
@@ -128,7 +127,7 @@ else
 endif
 
 set mouse=a
-"}}}
+
 " cursor {{{1
 " ============================================================================
 " backspaceキーの挙動を設定する
@@ -138,7 +137,6 @@ set mouse=a
 set backspace=indent,eol,start
 
 " カーソルを行頭、行末で止まらないようにする。
-" http://vimwiki.net/?'whichwrap'
 set whichwrap&
 " set whichwrap=b,s,h,l,<,>,[,],~
 " " 矩形選択でカーソル位置の制限を解除
@@ -190,14 +188,68 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 
 command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval("0x".submatch(1)),1)/g
-"}}}
+
+" tab, indent {{{1
+" ==============================================================================
+" ハードタブを表示させるときの幅
+set tabstop=4
+" 挿入モードで<Tab>を押したときにスペースに展開する
+set expandtab
+" タブを展開するときのスペースの数
+set softtabstop=4
+
+" インデントに使われる空白の数
+set shiftwidth=4
+" '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+set shiftround
+
+" http://vim-jp.org/vimdoc-ja/indent.html
+" 後のものが有効にされると、前のものより優先される
+set autoindent    " 一つ前の行に基づくインデント
+set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
+                  " デントを増減させる。
+" set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
+                  " スタイルにも対応できる。
+
+" 不可視文字の表示
+set list
+" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
+set listchars=tab:»･,trail:･,nbsp:%
+
+" autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
+" pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
+" pasteモードのトグル
+set pastetoggle=<F11>
+" ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
+
+" format {{{1
+" ==============================================================================
+set textwidth=0
+
+" :h fo-table
+set formatoptions&
+" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
+set formatoptions+=r
+" M : マルチバイト文字の連結(J)でスペースを挿入しない
+set formatoptions+=M
+if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
+    " j : コメント行の連結でcomment leaderを取り除く
+    set formatoptions+=j
+endif
+" t : textwidthを使って自動的に折り返す
+set formatoptions-=t
+" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
+
+set formatoptions-=c
+" o : Normal modeでoまたOを押したら、comment leaderを挿入する
+set formatoptions+=o
+
 " mapping {{{
 " ------------------------------------------------------------------------------
 " :h map-modes
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
 
 " key mappingに対しては9000ミリ秒待ち、key codeに対しては20ミリ秒待つ
-" tmuxのescape-timeよりは長くしておく
 set timeout timeoutlen=9000 ttimeoutlen=20
 if exists('+macmeta')
     " MacVimでMETAキーを使えるようにする
@@ -356,61 +408,6 @@ autocmd MyVimrc BufReadPost *
             \   execute "normal! g`\"" |
             \ endif
 "}}}
-" tab, indent {{{1
-" ==============================================================================
-" ハードタブを表示させるときの幅
-set tabstop=4
-" 挿入モードで<Tab>を押したときにスペースに展開する
-set expandtab
-" タブを展開するときのスペースの数
-set softtabstop=4
-
-" インデントに使われる空白の数
-set shiftwidth=4
-" '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
-set shiftround
-
-" http://vim-jp.org/vimdoc-ja/indent.html
-" 後のものが有効にされると、前のものより優先される
-set autoindent    " 一つ前の行に基づくインデント
-set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
-                  " デントを増減させる。
-" set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
-                  " スタイルにも対応できる。
-
-" 不可視文字の表示
-set list
-" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
-set listchars=tab:»･,trail:･,nbsp:%
-
-" autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
-" pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
-" pasteモードのトグル
-set pastetoggle=<F11>
-" ターミナルで自動でpasteモードに変更する設定は.cvimrc参照
-
-" format {{{1
-" ==============================================================================
-set textwidth=0
-
-" :h fo-table
-set formatoptions&
-" r : Insert modeで<Enter>を押したら、comment leaderを挿入する
-set formatoptions+=r
-" M : マルチバイト文字の連結(J)でスペースを挿入しない
-set formatoptions+=M
-if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
-    " j : コメント行の連結でcomment leaderを取り除く
-    set formatoptions+=j
-endif
-" t : textwidthを使って自動的に折り返す
-set formatoptions-=t
-" c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
-
-set formatoptions-=c
-" o : Normal modeでoまたOを押したら、comment leaderを挿入する
-set formatoptions+=o
-
 " statusline {{{1
 " ==============================================================================
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
@@ -425,14 +422,14 @@ set laststatus=2
 
 " titlestring {{{1
 " ============================================================================
+set title
+let &titlestring = "%{expand('%:p')} @" . hostname()
+
 " tmux使用時もtitlestringを変更できるように設定する
 if &term == "screen"
     let &t_ts = "\ePtmux;\e\e]2;"
     let &t_fs = "\007\e\\"
 endif
-
-set title
-let &titlestring = "%{expand('%:p')} @" . hostname() . ""
 
 " window {{{1
 " ==============================================================================

@@ -254,7 +254,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'PreserveNoEOL'
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
         NeoBundle 'ciaranm/detectindent'
-        NeoBundle 'rbtnn/smart-nrformats.vim'
         NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
             \   'autoload' : {
             \       'commands' : {
