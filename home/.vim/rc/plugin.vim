@@ -32,7 +32,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " Let neobundle manage neobundle
         NeoBundleFetch 'Shougo/neobundle.vim'
 
-        " recommended to install
+        " 非同期処理 vimproc {{{2
         NeoBundle 'Shougo/vimproc.vim', {
         \   'build' : {
         \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -42,6 +42,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   },
         \   'disabled': has('win32') && has('kaoriya'),
         \}
+
+        " vital {{{2
+        NeoBundle 'vim-jp/vital.vim'
+        NeoBundle 'osyo-manga/vital-coaster'
 
         " unite {{{2
         " --------------------------------------------------------------------
@@ -250,7 +254,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'PreserveNoEOL'
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
         NeoBundle 'ciaranm/detectindent'
-
+        NeoBundle 'rbtnn/smart-nrformats.vim'
         NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
             \   'autoload' : {
             \       'commands' : {
@@ -1672,7 +1676,48 @@ xmap ib <Plug>(textobj-multiblock-i)
 " xmap ix <Plug>(textobj-conflict-i)
 " omap ax <Plug>(textobj-conflict-a)
 " }}}
-" vim-easymotion {{{
+" CTRL-A, CTRL-X {{{1
+" ============================================================================
+" - の前に空白文字以外があれば <C-x> を、それ以外は <C-a> を呼ぶ {{{2
+" ----------------------------------------------------------------------------
+" Vm で特定の条件でのみ <C-a> でインクリメントしないようにする - Secret Garden(Instrumental)
+" http://secret-garden.hatenablog.com/entry/2015/05/14/180752)
+"
+" -423  ←これは <C-a> される
+" d-423 ←これは <C-x> される
+
+if neobundle#is_installed('vital-coaster')
+    let s:Buffer = vital#of("vital").import("Coaster.Buffer")
+
+    function! s:count(pattern, then, else)
+        let word = s:Buffer.get_text_from_pattern(a:pattern)
+        if word !=# ""
+            return a:then
+        else
+            return a:else
+        endif
+    endfunction
+
+
+    " 第一引数に <C-a> を無視するパターンを設定
+    " 第二引数に無視した場合の代替キーを設定
+    function! s:increment(ignore_pattern, ...)
+        let key = get(a:, 1, "")
+        return s:count(a:ignore_pattern, key, "\<C-a>")
+    endfunction
+
+
+    function! s:decrement(ignore_pattern, ...)
+        let key = get(a:, 1, "")
+        return s:count(a:ignore_pattern, key, "\<C-x>")
+    endfunction
+
+
+    nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
+    nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
+endif
+
+" vim-easymotion {{{1
 " ============================================================================
 if neobundle#is_installed('vim-easymotion')
     call neobundle#config('vim-easymotion', {
