@@ -23,6 +23,8 @@ if has('win32')
     cd ~
 endif
 
+" function {{{1
+" ============================================================================
 function! SourceRc(path) " {{{
     if filereadable(expand("$VIMRC_DIR/".a:path))
         execute "source $VIMRC_DIR/".a:path
@@ -66,7 +68,9 @@ function! IsInstalled(plugin) " {{{
         " return isdirectory(expand($VIMDIR.'/bundle/'.a:plugin))
     endif
 endfunction " }}}
-" vimrc全体で使うaugroup {{{
+
+" vimrc全体で使うaugroup {{{1
+" ============================================================================
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
 " autocmd!の回数を減らすことでVimの起動を早くする
 " ネームスペースを別にしたい場合は別途augroupを作る
@@ -74,8 +78,9 @@ augroup MyVimrc
     autocmd!
 augroup END
 " }}}
+
 call SourceRc('local_pre.vim')
-" }}}
+
 " 基本設定 {{{
 " ============================================================================
 set showmode "現在のモードを表示
@@ -99,13 +104,17 @@ runtime macros/matchit.vim
 set visualbell t_vt=
 
 " CTRL-AやCTRL-Xを使った時の文字の増減の設定
-" 10進数と16進数を増減させる。
-" 0で始まる数字列を8進数とみなさず、10進数として増減させる。
-" アルファベットは増減させない
+" alpha アルファベットの増減
+" octal 8進数の増減
+" hex   16進数の増減
+" * アルファベットは増減させない
+" * 0で始まる数字列を8進数とみなさず、10進数として増減させる。
+" * 10進数と16進数を増減させる。
 set nrformats=hex
 
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
+
 set shellslash
 
 " macに最初から入っているvimはセキュリティの問題からシステムのvimrcでset modelines=0している。
@@ -154,10 +163,10 @@ set fileencoding=utf-8
     " set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 " endif
 
-if ! has('guess_encode')
-    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-else
+if has('guess_encode')
     set fileencodings=guess,ucs-boms,utf-8,euc-jp,cp932
+else
+    set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 endif
 
 " エンコーディングを指定して開き直す
