@@ -419,10 +419,14 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \}
         " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
         " NeoBundleLazy 'teramako/instant-markdown-vim'
-        if executable('node') && executable('ruby')
-            NeoBundle 'suan/vim-instant-markdown'
-        endif
-        " }}}
+        " if executable('node') && executable('ruby')
+        "     NeoBundle 'suan/vim-instant-markdown'
+        " endif
+        NeoBundleLazy 'kannokanno/previm', {
+        \   'autoload': {'commands': ['PrevimOpen']},
+        \   'depends': 'tyru/open-browser.vim'
+        \}
+
         " sh {{{2
         " indentの改善
         NeoBundle 'sh.vim--Cla'
