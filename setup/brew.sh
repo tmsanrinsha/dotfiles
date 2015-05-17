@@ -35,6 +35,8 @@ if [ "$brew" == '1' ]; then
     brew tap homebrew/versions
     brew tap homebrew/homebrew-php
 
+    # for r
+    brew tap homebrew/science
     brew tap peco/peco
 fi
 
@@ -53,6 +55,7 @@ brew-install php56-yaml
 brew-install php56-stats
 brew-install pwgen
 brew-install python
+brew-install r
 brew install reattach-to-user-namespace
 brew-install ruby
 brew-install tmux
