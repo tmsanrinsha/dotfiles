@@ -555,6 +555,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " \   'filetypes': ['vimwiki']
         " \}
 
+        NeoBundleLazy 'Shougo/junkfile.vim', {
+        \   'autoload': {
+        \       'commands': ['Junkfile', 'JunkfileFiletype'],
+        \       'unite_sources': 'junkfile',
+        \   }
+        \}
         " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundleLazy 'fuenor/qfixhowm'
@@ -2399,6 +2405,23 @@ if neobundle#is_installed("rainbow")
     \    }
     \}
 endif " }}}
+" junkfile.vim
+" ============================================================================
+if neobundle#is_installed('junkfile.vim')
+    let g:junkfile#directory = $VIM_CACHE_DIR."/junkfile"
+    let g:junkfile#edit_command = 'new'
+
+    command! -nargs=0 JunkfileFiletype call junkfile#open_immediately(
+    \ strftime('%Y-%m-%d-%H%M%S.') . &filetype)
+
+    nnoremap [:junk] <Nop>
+    nmap <Leader>j [:junk]
+
+    nnoremap [:junk]o :JunkfileOpen<CR>
+    nnoremap [:junk]f :JunkfileFiletype<CR>
+    nnoremap [unite]fj :Unite junkfile<CR>
+endif
+
 " vimrepress {{{
 " ============================================================================
 if neobundle#is_installed('vimrepress')
