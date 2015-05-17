@@ -44,8 +44,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \}
 
         " vital {{{2
-        NeoBundle 'vim-jp/vital.vim'
-        NeoBundle 'osyo-manga/vital-coaster'
+        NeoBundleLazy 'vim-jp/vital.vim'
+        NeoBundle 'osyo-manga/vital-coaster', {
+        \   'autoload': {
+        \       'mappings': ['<C-a>', '<C-x>']
+        \   },
+        \   'depends': ['vim-jp/vital.vim']
+        \}
 
         " unite {{{2
         " --------------------------------------------------------------------
@@ -549,9 +554,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   }
         \}
 
-        " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
-        "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
-        " endif
         " NeoBundleLazy 'vimwiki/vimwiki', {
         " \   'autoload': {
         " \       'mappings': '<Plug>Vimwiki'
@@ -565,7 +567,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \       'unite_sources': 'junkfile',
         \   }
         \}
-        " NeoBundle 'neilagabriel/vim-geeknote'
         " NeoBundleLazy 'glidenote/memolist.vim'
         " NeoBundleLazy 'fuenor/qfixhowm'
         " NeoBundle "osyo-manga/unite-qfixhowm"
@@ -576,6 +577,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " \   ]
         " \}
         " let g:org_agenda_files = ['~/org/*.org']
+        " NeoBundle 'neilagabriel/vim-geeknote'
+        " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
+        "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
+        " endif
 
         " http://d.hatena.ne.jp/itchyny/20140108/1389164688
         " NeoBundleLazy 'itchyny/calendar.vim', {
@@ -1696,6 +1701,9 @@ xmap ib <Plug>(textobj-multiblock-i)
 " d-423 ←これは <C-x> される
 
 if neobundle#is_installed('vital-coaster')
+    nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
+    nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
+
     let s:Buffer = vital#of("vital").import("Coaster.Buffer")
 
     function! s:count(pattern, then, else)
@@ -1707,7 +1715,6 @@ if neobundle#is_installed('vital-coaster')
         endif
     endfunction
 
-
     " 第一引数に <C-a> を無視するパターンを設定
     " 第二引数に無視した場合の代替キーを設定
     function! s:increment(ignore_pattern, ...)
@@ -1715,15 +1722,10 @@ if neobundle#is_installed('vital-coaster')
         return s:count(a:ignore_pattern, key, "\<C-a>")
     endfunction
 
-
     function! s:decrement(ignore_pattern, ...)
         let key = get(a:, 1, "")
         return s:count(a:ignore_pattern, key, "\<C-x>")
     endfunction
-
-
-    nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
-    nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
 endif
 
 " vim-easymotion {{{1
@@ -2426,19 +2428,7 @@ if neobundle#is_installed('junkfile.vim')
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
 
-" vimrepress {{{
-" ============================================================================
-if neobundle#is_installed('vimrepress')
-    call neobundle#config('vimrepress', {
-        \   'autoload' : {
-        \       'commands' : [
-        \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
-        \       ]
-        \   },
-        \})
-endif
-" }}}
-" vimwiki {{{
+" vimwiki {{{1
 " ============================================================================
 if neobundle#is_installed('vimwiki')
 
@@ -2456,8 +2446,8 @@ if neobundle#is_installed('vimwiki')
 
     endfunction
 endif
-" }}}
-" memoliset.vim {{{
+
+" memoliset.vim {{{1
 " ============================================================================
 if neobundle#is_installed('memolist.vim')
     call neobundle#config('memolist.vim', {
@@ -2477,6 +2467,18 @@ if neobundle#is_installed('memolist.vim')
         let g:memolist_memo_suffix = "txt"
         let g:memolist_unite = 1
     endfunction
+endif
+" }}}
+" vimrepress {{{
+" ============================================================================
+if neobundle#is_installed('vimrepress')
+    call neobundle#config('vimrepress', {
+        \   'autoload' : {
+        \       'commands' : [
+        \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+        \       ]
+        \   },
+        \})
 endif
 " }}}
 " qfixhowm {{{
