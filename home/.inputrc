@@ -19,10 +19,13 @@ set output-meta on
 # readlineマクロ
 # http://d.hatena.ne.jp/hirose31/20090531/1243777478
 $if mysql
+    # MySQL 5.6からはlibedit
+
+    ##
+    # MySQLの出力先をVimにする
+    #
     # MySQL pager
     # http://d.hatena.ne.jp/xyk/touch/20110207/1297045517
-    # MySQLの出力先をVimにする
-    "\C-xv": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'\n"
     # http://vim-jp.org/vimdoc-ja/starting.html
     # - 標準入力を読み込む
     # -R readonlyで開く。readonlyにしないと閉じるときに!が必要になるので
@@ -30,9 +33,8 @@ $if mysql
     # --cmd ~/.vimrc ファイルを読み込む前に、コマンドを実行
     # set nowrap テキストを折り返さない
     # set ft=mysql filetypeをMySQLにする
-    #
-    # pagerの設定を解除
-    "\C-xq": "nopager\n"
+    "\C-xv": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'\n"
+    "\C-x\C-v": "\\P vim - -R -c 'set nowrap' -c 'set ft=mysql'\n"
 
     # 文字化け対策
     # 送受信の文字コードをUTF-8にする
@@ -44,5 +46,7 @@ $if mysql
     # を変更する
     # http://www.dbonline.jp/mysql/myini/index3.html]
     # http://d.hatena.ne.jp/ichiro_tanaka/20090305/1236236041 
+
     "\C-xf": "show full columns from "
+    "\C-x\C-f": "show full columns from "
 $endif
