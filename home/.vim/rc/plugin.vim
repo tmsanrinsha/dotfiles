@@ -2374,7 +2374,8 @@ function! MyFileencoding()
 endfunction
 
 function! MyCurrentTag()
-  return tagbar#currenttag('%s', '')
+  " return tagbar#currenttag('%s', '')
+  return ''
 endfunction
 
 " vim-quickhl {{{1
