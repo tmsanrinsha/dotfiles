@@ -1193,15 +1193,15 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1308 1034 222 309 -349 800 1920 1057 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>483 339 445 243 0 0 1280 777 </string>
+	<string>483 339 445 109 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>143 237 924 485 0 0 1280 777 </string>
+	<string>262 179 924 485 0 0 1280 777 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>108 476 384 129 0 0 1280 777 </string>
+	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1205 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-349 811 1914 1046 -349 800 1920 1057 </string>
+	<string>-203 917 1277 757 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1974,6 +1974,10 @@
 	</array>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>454032954.45837098</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>455525992.19598103</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2040,7 +2044,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-05-15T23:52:28Z</date>
+	<date>2015-06-09T06:57:30Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2099,6 +2103,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.1</string>
+	<string>2.1.1</string>
 </dict>
 </plist>

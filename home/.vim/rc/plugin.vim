@@ -2424,7 +2424,7 @@ if neobundle#is_installed('junkfile.vim')
     nnoremap [:junk] <Nop>
     nmap <Leader>j [:junk]
 
-    nnoremap [:junk]o :JunkfileOpen<CR>
+    nnoremap [:junk]e :JunkfileOpen<CR>
     nnoremap [:junk]f :JunkfileFiletype<CR>
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
