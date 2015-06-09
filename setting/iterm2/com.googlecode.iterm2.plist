@@ -1943,6 +1943,14 @@
 					<key>regex</key>
 					<string>Warning</string>
 				</dict>
+				<dict>
+					<key>action</key>
+					<string>ScriptTrigger</string>
+					<key>parameter</key>
+					<string>open \1</string>
+					<key>regex</key>
+					<string>viewer:(http://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z]+(\.[a-z0-9A-Z]+)*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%~?!&amp;@=#\(\)]*)?\.txt)</string>
+				</dict>
 			</array>
 			<key>Unlimited Scrollback</key>
 			<false/>
