@@ -921,10 +921,10 @@ nnoremap [unite]` :<C-u>Unite mark<CR>
 nnoremap [unite]t :<C-u>Unite tag<CR>
 
 " helpやfiletypeがvimのときは使用しない
-autocmd MyVimrc BufEnter *
-    \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
-    \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-    \|  endif
+" autocmd MyVimrc BufEnter *
+"     \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
+"     \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+"     \|  endif
 " }}}
 " unite-ghq {{{1
 " ============================================================================
@@ -2001,6 +2001,15 @@ if neobundle#is_installed('eclim')
     endfunction
 endif
 " }}}
+" phpcomplete.vim {{{1
+" ============================================================================
+let g:phpcomplete_enhance_jump_to_definition = 1
+" let g:phpcomplete_mappings = {
+"    \ 'jump_to_def': '<C-]>',
+"    \ 'jump_to_def_split': '<C-W><C-]>',
+"    \ 'jump_to_def_vsplit': '<C-W><C-\>',
+"    \}
+
 " Python, jedi-vim {{{1
 " ============================================================================
 " pythonのsys.pathの設定 " {{{
