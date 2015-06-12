@@ -1943,14 +1943,6 @@
 					<key>regex</key>
 					<string>Warning</string>
 				</dict>
-				<dict>
-					<key>action</key>
-					<string>ScriptTrigger</string>
-					<key>parameter</key>
-					<string>open \1</string>
-					<key>regex</key>
-					<string>viewer:(http://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z]+(\.[a-z0-9A-Z]+)*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%~?!&amp;@=#\(\)]*)?\.txt)</string>
-				</dict>
 			</array>
 			<key>Unlimited Scrollback</key>
 			<false/>
@@ -1977,7 +1969,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>454032954.45837098</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>455525992.19598103</real>
+	<real>455785230.19723397</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2044,7 +2036,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-06-09T06:57:30Z</date>
+	<date>2015-06-12T06:57:36Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
