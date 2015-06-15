@@ -688,6 +688,8 @@ nnoremap <silent> [VIMDIFF]o :diffoff<CR>
 nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
 nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
+nnoremap          [VIMDIFF]w :set diffopt+=iwhite<CR>
+nnoremap          [VIMDIFF]W :set diffopt-=iwhite<CR>
 
 " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
 " ----------------------------------------------------------------------------
