@@ -337,8 +337,8 @@ inoremap <silent><C-j> <C-o>o
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
 " インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
-nnoremap ]gp ]p`]j
-nnoremap ]gP ]P`]j
+" nnoremap ]gp ]p`]j
+" nnoremap ]gP ]P`]j
 
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>

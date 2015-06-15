@@ -505,10 +505,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " colorscheme
         " NeoBundle 'tomasr/molokai'
-        " NeoBundle 'w0ng/vim-hybrid'
+        NeoBundle 'w0ng/vim-hybrid'
         " NeoBundle 'vim-scripts/wombat256.vim'
         " NeoBundle 'altercation/vim-colors-solarized'
-        " NeoBundle 'chriskempson/vim-tomorrow-theme'
+        NeoBundle 'chriskempson/vim-tomorrow-theme'
         " NeoBundle 'vim-scripts/rdark'
         " NeoBundle 'vim-scripts/rdark-terminal'
         " NeoBundle 'jonathanfilip/vim-lucius'
@@ -1481,8 +1481,8 @@ let g:quickfixsigns_classes = ['qfl']
 " vim-quickrun {{{1
 " ============================================================================
 if neobundle#is_installed('vim-quickrun')
-    noremap <Leader>r :QuickRun<CR>
-    noremap <Leader>r :QuickRun<CR>
+    nnoremap <Leader>r :QuickRun<CR>
+    xnoremap <Leader>r :QuickRun<CR>
 
     let bundle = neobundle#get("vim-quickrun")
     function! bundle.hooks.on_source(bundle)
@@ -1531,8 +1531,13 @@ if neobundle#is_installed('vim-quickrun')
         " quickrun に outputter を登録
         call quickrun#register_outputter("my_outputter", my_outputter)
 
-        " PHPUnit {{{2
+        " PHP {{{2
         " --------------------------------------------------------------------
+        let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
+        let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
+
+        " PHPUnit {{{3
+        "
         " [VimでPHPUnitの実行結果をシンプルに表示するプラグインを書いた | karakaram-blog](http://www.karakaram.com/phpunit-location-list)
         if !exists("g:quickrun_config['php.phpunit']")
             let g:quickrun_config['php.phpunit'] = {
@@ -2179,8 +2184,8 @@ if neobundle#is_installed('vim-fugitive')
         nnoremap [fugitive]d :Gdiff<CR>
         nnoremap [fugitive]s :Gstatus<CR>
         nnoremap [fugitive]l :Glog<CR>
-        nnoremap [fugitive]p; :Git push
-        nnoremap [fugitive]po :Git push origin
+        nnoremap [fugitive]p<CR> :Git push
+        nnoremap [fugitive]po    :Git push origin
         nnoremap [fugitive]P :Git pull --rebase origin master
         nnoremap [fugitive]f :Git fetch origin<CR>
 
@@ -2371,15 +2376,15 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 100 ? &fileformat : ''
+  return winwidth(0) > 50 ? &fileformat : ''
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) >100 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth(0) > 100 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 50 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! MyCurrentTag()

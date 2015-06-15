@@ -226,13 +226,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' completer _match _complete _prefix _list
 
 # menu complition {{{2
-# [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
 zmodload -i zsh/complist
-zstyle ':completion:*' menu select interactive
-# 上のcompleterで_matchを設定しているとグロブが使えるので良い。
 
 # tab二回でmenuから選択できるようにする
-# zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*:default' menu select=2
+
+# [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
+# zstyle ':completion:*' menu select interactive
+# 上のcompleterで_matchを設定しているとグロブが使えるので良い。
+# しかしinteractiveを設定するとtabでmenuを選択できなくなるので、やめる
 
 # menuselectのキーバインド
 bindkey -M menuselect \
