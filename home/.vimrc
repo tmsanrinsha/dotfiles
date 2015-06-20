@@ -1014,7 +1014,7 @@ function! s:Rgb2xterm(color)
     let b = eval('0x'.a:color[5].a:color[6])
     for c in range(0,254)
         let d = s:pow(s:colortable[c][0]-r,2) + s:pow(s:colortable[c][1]-g,2) + s:pow(s:colortable[c][2]-b,2)
-        if d<smallest_distance
+        if d < smallest_distance
             let smallest_distance = d
             let best_match = c
         endif
@@ -1022,6 +1022,11 @@ function! s:Rgb2xterm(color)
     return best_match
 endfunction
 command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
+
+" その他の参考になりそうな変換
+" [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
+" .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
+" [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
 "" }}}
 " }}}
 " ftdetect {{{
