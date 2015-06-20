@@ -474,6 +474,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \   'autoload' : { 'filetypes' : 'yaml' }
         "             \}
 
+        " Git {{{2
         NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
         " lazyはうまくいかない
         " NeoBundleLazy 'tpope/vim-fugitive', {
@@ -494,6 +495,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'depends'  : 'mattn/webapi-vim'
             \}
 
+        " }}}
         NeoBundleLazy 'tyru/open-browser.vim', {
             \   'autoload':{
             \       'mappings':[
@@ -513,6 +515,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundle 'vim-scripts/rdark-terminal'
         " NeoBundle 'jonathanfilip/vim-lucius'
 
+        " NeoBundle 'godlygeek/csapprox'
         " カラースキームの色見本
         " http://cocopon.me/blog/?p=3522
         " NeoBundleLazy 'cocopon/colorswatch.vim', {
