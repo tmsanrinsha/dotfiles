@@ -16,11 +16,13 @@ EOM
 " set defsearch=g
 " set complete=lS
 set complete=l
+set wildmode=list:full
 " list:longestにすると:openの時2回Tabを打たないといけないので面倒だった
 " set wildmode=list:longest,full
-set wildmode=list:full
 " [wildoptionsをトグルするmap - YKMbPP](http://d.hatena.ne.jp/ykmbpp/20090412/1239513076)
 
+" beep音を消す
+set visualbell
 set nextpattern=次へ,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
 set previouspattern=前へ,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
