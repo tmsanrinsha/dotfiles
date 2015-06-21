@@ -134,18 +134,16 @@ endif
 " ----------------------------------------------------------------------------
 " [「vim からの制御シーケンスの使用例」をScreen上でも使えるようにする | SanRin舎](http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html)
 if v:version > 603
-    if &term =~ "screen"
-        " for tmux
-        let &t_SI .= "\e[5 q"
-        let &t_EI .= "\e[1 q"
+    if &term =~ 'screen' || &term =~ 'xterm'
+        " for tmux and xterm
+        " let &t_SI .= "\e[5 q" 縦線点滅
+        let &t_SI .= "\e[6 q" " 縦線点灯
+        " let &t_EI .= "\e[1 q" " 箱型点滅
+        let &t_EI .= "\e[2 q" " 箱型点灯
+
         " for screen
         " let &t_SI .= "\eP\e[3 q\e\\"
-        " " let &t_SI = "\eP\e[?25h\e[5 q\e\\"
         " let &t_EI = "\eP\e[1 q\e\\"
-    elseif &term == "xterm"
-        let &t_SI .= "\e[5 q"
-        " let &t_SI .= "\e[?25h\e[5 q"
-        let &t_EI .= "\e[1 q"
     endif
 endif
 
