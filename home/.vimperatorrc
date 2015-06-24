@@ -96,6 +96,7 @@ qmark g https://mail.google.com/
 qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
 qmark t https://twitter.com/
+qmark T http://tv.yahoo.co.jp/listings/realtime/
 
 " bookmarklet {{{1
 " ============================================================================
