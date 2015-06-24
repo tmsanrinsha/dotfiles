@@ -1676,7 +1676,7 @@ endif
 
 " textobj {{{1
 " ============================================================================
-if neobundle#is_installed("vim-textobj-lastpat") && !MyHasPatch('7.3.610')
+if neobundle#is_installed("vim-textobj-lastpat") && !MyHasPatch('patch-7.3.610')
     let g:textobj_lastpat_no_default_key_mappings = 1
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
@@ -1810,7 +1810,7 @@ endif
 " }}}
 " LeafCage/yankround.vim {{{1
 " ============================================================================
-if neobundle#is_installed('yankround.vim') && MyHasPatch('7.3')
+if neobundle#is_installed('yankround.vim') && v:version >= 703
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
