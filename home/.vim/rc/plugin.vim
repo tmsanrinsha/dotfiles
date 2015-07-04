@@ -227,6 +227,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'thinca/vim-singleton', {
             \ 'disabled': !has('clientserver'),
             \ }
+        NeoBundleLazy 'kana/vim-gf-user' 
+        NeoBundleLazy 'kana/vim-gf-diff', {
+        \   'depends': 'kana/vim-gf-user',
+        \   'autoload': {
+        \       'mappings': '<Plug>(gf-user-',
+        \   }
+        \}
 
         " 一時バッファの制御
         " if v:version >= 704 || (v:version == 703 && has('patch462'))
@@ -1827,6 +1834,24 @@ if neobundle#is_installed('yankround.vim') && v:version >= 703
     nmap gP <Plug>(yankround-gP)
     nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
     nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
+endif
+
+" vim-gf-user {{{1
+" ============================================================================
+if IsInstalled("vim-gf-user")
+    nmap gf         <Plug>(gf-user-gf)
+    xmap gf         <Plug>(gf-user-gf)
+    nmap gF         <Plug>(gf-user-gF)
+    xmap gF         <Plug>(gf-user-gF)
+    nmap <C-w>f     <Plug>(gf-user-<C-w>f)
+    xmap <C-w>f     <Plug>(gf-user-<C-w>f)
+    nmap <C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    xmap <C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    nmap <C-w>F     <Plug>(gf-user-<C-w>F)
+    xmap <C-w>F     <Plug>(gf-user-<C-w>F)
+    nmap <C-w>gf    <Plug>(gf-user-<C-w>gf)
+    xmap <C-w>gf    <Plug>(gf-user-<C-w>gf)
+    nmap <C-w>gF    <Plug>(gf-user-<C-w>gF)
 endif
 
 " caw {{{1
