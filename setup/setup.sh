@@ -3,14 +3,14 @@
 set -ex
 
 brew=0
-vim=0
+link=0
 while getopts bv OPT
 do
   case $OPT in
     "b")
         brew=1;;
-    "v")
-        vim=1;;
+    "l")
+        link=1;;
   esac
 done
 
@@ -38,6 +38,7 @@ function install() {
     chmod a+x $HOME/bin/$file
   fi
 }
+
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* ]]; then
@@ -64,7 +65,6 @@ done < <(find . -mindepth 1 -type d -print0)
 # whileを使わないでxargsを使う方法
 # find $home -type d -mindepth 1 -print0 | sed "s,$home,$HOME,g" | xargs -0 -I{} mkdir -p {}
 
-
 # ファイルに関してはシンボリックリンクを貼る
 while IFS= read -r -d '' file; do
     file=${file#./}
@@ -79,6 +79,8 @@ while IFS= read -r -d '' file; do
     $ln -sv "$home/$file" "$HOME/$file"
 done < <(find . -type f ! -regex '.*swp.*' -print0)
 
+# .gitconfigの設定 {{{2
+# ----------------------------------------------------------------------------
 if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
@@ -86,10 +88,16 @@ cp $git_dir/template/.gitconfig ~/.gitconfig
 # git config --global --remove-section "ghq" || :
 git config --global "ghq.root" "$SRC_ROOT"
 
+# .ctagsの設定 {{{2
+# ----------------------------------------------------------------------------
 if ctags --version | grep Development; then
     $ln -sfv $git_dir/template/.ctags.dev ~/.ctags
 else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
+fi
+
+if [ $link -eq 1 ]; then
+    exit
 fi
 
 # zsh {{{1
@@ -122,7 +130,7 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
 fi
 
 # Vimのバージョンチェック。正確には7.2.051以上
-if [[ $vim -eq 1 && $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
+if [[ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
     ~/.vim/bundle/neobundle.vim/bin/neoinstall
 fi
 

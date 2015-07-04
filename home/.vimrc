@@ -634,8 +634,7 @@ onoremap gm :<C-u>normal gm<CR>
 nnoremap <silent><Leader>gc :cd %:h<CR>
 
 " full path of file
-inoremap <C-r>p <C-r>=expand('%:p')<CR>
-cnoremap <C-r>p <C-r>=expand('%:p')<CR>
+" <C-r>%で入力できる
 " full path of directory
 inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
@@ -666,7 +665,14 @@ nnoremap <Leader>gf :execute "edit ".expand('%:p:h')."/<cfile>"<CR>
 
 " Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{2
 " http://vim-users.jp/2009/05/hack17/
-command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+" command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+" 上のコマンドだとパーミッションは引き継がれないので、mvで処理するようにする。
+command! -nargs=1 -complete=file Rename call s:move(expand('%'), '<args>')
+function! s:move(src, dest)
+    execute 'f '.a:dest
+    call system('mv '.a:src.' '.a:dest)
+endfunction
+
 
 " Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{2
 autocmd MyVimrc BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
@@ -690,37 +696,6 @@ nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
 nnoremap          [VIMDIFF]s :vertical diffsplit<space>
 nnoremap          [VIMDIFF]w :set diffopt+=iwhite<CR>
 nnoremap          [VIMDIFF]W :set diffopt-=iwhite<CR>
-
-" vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
-" ----------------------------------------------------------------------------
-" http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
-" https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
-" gitのバージョンが1.7だと使えなかった
-let s:git_diff_normal="git-diff-normal"
-let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
-
-function! GitDiffNormal()
-    let args=[s:git_diff_normal]
-    if &diffopt =~ "iwhite"
-        call add(args, "--ignore-all-space")
-    endif
-    call extend(args, s:git_diff_normal_opts)
-    call extend(args, [v:fname_in, v:fname_new])
-    let cmd=join(args, " ") . ">" . v:fname_out
-    call system(cmd)
-endfunction
-
-autocmd MyVimrc FilterWritePre *
-\   if &diff && !exists('g:my_check_diff')
-\|      let g:my_check_diff = 1
-\|      if executable(s:git_diff_normal) && executable('git')
-\|          " --diff-algorithm optionが使えるかのチェック
-\|          call system('git ' . s:git_diff_normal_opts[0] . '>/dev/null 2>&1')
-\|          if v:shell_error != 255
-\|              set diffexpr=GitDiffNormal()
-\|          endif
-\|      endif
-\|  endif
 
 " diffchar.vim {{{2
 " ----------------------------------------------------------------------------
@@ -1046,6 +1021,7 @@ autocmd MyVimrc BufRead,BufNewFile *.html
 " }}}
 " filetype {{{
 " ============================================================================
+nnoremap <Leader>Fd :<C-u>setlocal filetype=diff<CR>
 nnoremap <Leader>Fh :<C-u>setlocal filetype=html<CR>
 nnoremap <Leader>Fj :<C-u>setlocal filetype=javascript<CR>
 nnoremap <Leader>Fm :<C-u>setlocal filetype=markdown<CR>
@@ -1059,7 +1035,6 @@ nnoremap <Leader>Fx :<C-u>setlocal filetype=xml<CR>
 " [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
 " autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
 autocmd MyVimrc FileType vim,text call s:override_plugin_setting()
-
 
 function! s:override_plugin_setting()
     setlocal textwidth<

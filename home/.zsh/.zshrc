@@ -159,15 +159,17 @@ bindkey '^[' vi-cmd-mode
 # bindkey '^]'  vi-find-next-char
 # bindkey '^[]' vi-find-prev-char
 
+# M-.を賢くする {{{2
+# ----------------------------------------------------------------------------
 # zshで直前のコマンドラインの最後の単語を挿入する
 # http://qiita.com/mollifier/items/1a9126b2200bcbaf515f
 autoload -Uz smart-insert-last-word
 # [a-zA-Z], /, \ のうち少なくとも1文字を含む長さ2以上の単語
 zstyle :insert-last-word match '*([[:alpha:]/\\]?|?[[:alpha:]/\\])*'
 zle -N insert-last-word smart-insert-last-word
-# bindkey '^]' insert-last-word
 
-# 前方一致ヒストリ履歴検索
+# 前方一致ヒストリ履歴検索 {{{2
+# ----------------------------------------------------------------------------
 bindkey "^N" history-beginning-search-forward
 bindkey "^P" history-beginning-search-backward
 
@@ -188,17 +190,21 @@ bindkey "^P" history-beginning-search-backward
 # bindkey "^N" down-line-or-beginning-search
 # Zsh - コード片置き場 <https://sites.google.com/site/codehen/environment/zsh>
 
+# incremental search {{{2
+# ----------------------------------------------------------------------------
+# :peco:も参照
 # グロブ(*)が使えるインクリメンタルサーチ
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 ## C-sでのヒストリ検索が潰されてしまうため、出力停止・開始用にC-s/C-qを使わない。
 setopt no_flow_control
 
-# 単語境界とみなさない記号の設定
+# C-w {{{2
+# ----------------------------------------------------------------------------
+# 単語を構成する文字とみなす記号の設定
 # /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# }}}
 # complete {{{1
 # ============================================================================
 autoload -U compinit && compinit

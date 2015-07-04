@@ -1,11 +1,11 @@
 if has('win32')
     set guifont=Consolas:h10
     set guifontwide=MS_Gothic
+elseif has('gui_macvim')
+    let macvim_skip_colorscheme=1
+    set transparency=15
 endif
 
-if has('gui_macvim')
-    let macvim_skip_colorscheme=1
-endif
 if IsInstalled('my_molokai')
     "let g:rehash256 = 1
     set background=dark

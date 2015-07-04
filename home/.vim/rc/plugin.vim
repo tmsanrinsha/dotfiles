@@ -223,10 +223,14 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'vim_version': '7.3'
         \}
 
+        " open, gf {{{2
+        " --------------------------------------------------------------------
         " すでにvimが起動しているときは、そちらで開く
         NeoBundle 'thinca/vim-singleton', {
             \ 'disabled': !has('clientserver'),
             \ }
+        " vim path/to/file.ext:12:3 こういうに行と列を指定して開く
+        " NeoBundle 'kopischke/vim-fetch'
         NeoBundleLazy 'kana/vim-gf-user' 
         NeoBundleLazy 'kana/vim-gf-diff', {
         \   'depends': 'kana/vim-gf-user',
@@ -234,6 +238,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \       'mappings': '<Plug>(gf-user-',
         \   }
         \}
+        " }}}
 
         " 一時バッファの制御
         " if v:version >= 704 || (v:version == 703 && has('patch462'))
@@ -264,8 +269,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'savevers.vim'
         " noeol, eolを保ったまま保存
         NeoBundle 'PreserveNoEOL'
-        " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出
+        " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出 :space:tab:indent
+        " [tpope/vim-sleuth](https://github.com/tpope/vim-sleuth) こっちも似たようなもの
         NeoBundle 'ciaranm/detectindent'
+
+        " diff {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
             \   'autoload' : {
             \       'commands' : {
@@ -275,6 +284,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   }
             \}
         NeoBundle 'tmsanrinsha/diffchar.vim'
+        " NeoBundle 'chrisbra/vim-diff-enhanced'
 
         " quickfix, syntax check {{{2
         " -------------------------------------------------------------------
@@ -314,6 +324,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
         "             \}
         " }}}
+        " NeoBundle 'tpope/vim-dispatch'
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
             if has('win32') && isdirectory(expand('~/eclipse'))
@@ -349,7 +360,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \}
         " Composerプロジェクトのルートディレクトリでvimを開く必要があり
         " NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-        "     \   'depends': ['Shougo/vimproc', 'Shougo/unite.vim'],
+        "     \   'depends': ['Shougo/vimproc.vim', 'Shougo/unite.vim'],
         "     \   'autoload': {'filetypes': 'php'}
         "     \}
         NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
@@ -449,9 +460,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \ }
 
         " Vim {{{2
+        " --------------------------------------------------------------------
         " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
         NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
         NeoBundleLazy 'syngan/vim-vimlint'
+        " NeoBundle 'dsummersl/vimunit'
         NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': ['vim']}}
         NeoBundleLazy 'kannokanno/vim-helpnew', {
         \   'autoload' : { 'commands' : 'HelpNew' }
@@ -672,12 +685,10 @@ if IsInstalled("vim-smartword")
     map e <Plug>(smartword-e)
     map ge <Plug>(smartword-ge)
 endif
-if !IsInstalled('neobundle.vim') " {{{1
-    finish
-endif
+
 " unite.vim {{{1
 " ============================================================================
-if neobundle#is_installed('unite.vim')
+if IsInstalled('unite.vim')
     let g:unite_data_directory = $VIM_CACHE_DIR.'/unite'
     let g:unite_enable_start_insert = 1
     " let g:unite_source_find_max_candidates = 1000
@@ -699,8 +710,8 @@ if neobundle#is_installed('unite.vim')
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR/bundle<CR>
-    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
+    nnoremap [unite]dV :<C-u>Unite directory:$VIMDIR/bundle<CR>
+    " nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
@@ -908,7 +919,7 @@ nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 
 " unite-outline {{{
 " =========================================================================
-if neobundle#is_installed('unite-outline')
+if IsInstalled('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
     let bundle = neobundle#get("unite-outline")
     function! bundle.hooks.on_source(bundle)
@@ -926,19 +937,23 @@ autocmd MyVimrc FileType yaml
 " =========================================================================
 nnoremap [unite]` :<C-u>Unite mark<CR>
 " }}}
-" tsukkee/unite-tag {{{
+" tsukkee/unite-tag {{{1
 " =========================================================================
 nnoremap [unite]t :<C-u>Unite tag<CR>
 
-" helpやfiletypeがvimのときは使用しない
-" autocmd MyVimrc BufEnter *
-"     \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
-"     \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-"     \|  endif
-" }}}
+" helpやfiletypeがjavaのときは使用しない
+autocmd MyVimrc BufEnter *
+    \   if empty(&buftype) && &filetype != 'java'
+    \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+    \|  endif
+    " \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
+let g:unite_source_tag_max_fname_length = 1000
+let g:unite_source_tag_max_name_length = 100
+let g:unite_source_tag_strict_truncate_string = 0
+
 " unite-ghq {{{1
 " ============================================================================
-if neobundle#is_installed('unite-ghq')
+if IsInstalled('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
     let bundle = neobundle#get("unite-ghq")
@@ -975,7 +990,7 @@ autocmd MyVimrc BufLeave vimfiler*
 "}}}
 " vimshell {{{1
 " ============================================================================
-if neobundle#is_installed('vimshell.vim')
+if IsInstalled('vimshell.vim')
     nmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H  :VimShellPop<CR>
     nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
@@ -1036,7 +1051,7 @@ endif
 
 " Conque-Shell {{{1
 " ============================================================================
-if neobundle#is_installed('Conque-Shell')
+if IsInstalled('Conque-Shell')
     " 現在のバッファのディレクトリでzshを立ち上げる
     noremap <Leader>C<CR> :ConqueTerm zsh<CR>
     noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
@@ -1068,8 +1083,8 @@ if neobundle#is_installed('Conque-Shell')
 endif "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
-if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocomplete.vim')
-    if neobundle#is_installed("neocomplete.vim")
+if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
+    if IsInstalled("neocomplete.vim")
         let bundle = neobundle#get("neocomplete.vim")
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
@@ -1096,7 +1111,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         let g:neocomplete#enable_camel_case = 0
 
         " Set minimum syntax keyword length.
-        if neobundle#is_installed('neocomplete.vim')
+        if IsInstalled('neocomplete.vim')
             let g:neocomplete#sources#syntax#min_syntax_length = 3
         else
             let g:neocomplcache_min_syntax_length = 3
@@ -1140,7 +1155,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         let g:neocomplcache_sources_list.php  = ['tags_complete', 'snippets_complete', 'dictionary_complete', 'omni_complete', 'member_complete', 'include_complete', 'buffer_complete', 'filename_complete', 'filename_include']
 
         " 補完候補の順番
-        if neobundle#is_installed("neocomplete.vim")
+        if IsInstalled("neocomplete.vim")
             " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
             call neocomplete#custom#source('file'        , 'rank', 450)
             call neocomplete#custom#source('file/include', 'rank', 400)
@@ -1149,7 +1164,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         endif
 
 
-        if neobundle#is_installed('neocomplete.vim')
+        if IsInstalled('neocomplete.vim')
             let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
         else
             let g:neocomplcache_temporary_dir = $VIM_CACHE_DIR . '/neocomplcache'
@@ -1237,7 +1252,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
         " [Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf)
-        if neobundle#is_installed('vim-smartinput') " {{{
+        if IsInstalled('vim-smartinput') " {{{
             call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
                   \                        '<BS>',
                   \                        '<BS>')
@@ -1284,7 +1299,7 @@ if neobundle#is_installed('neocomplcache.vim') || neobundle#is_installed('neocom
         " }}}
     endfunction
 endif
-if neobundle#is_installed("neocomplete.vim")
+if IsInstalled("neocomplete.vim")
     " let g:neocomplete#enable_cursor_hold_i = 1
     " let g:neocomplete#cursor_hold_i_time = 100
 
@@ -1307,7 +1322,7 @@ endif
 "}}}
 " neosnippet {{{
 " ==============================================================================
-if neobundle#is_installed('neosnippet')
+if IsInstalled('neosnippet')
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
@@ -1343,7 +1358,7 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 
 " lexima.vim {{{1
 " ==============================================================================
-if neobundle#is_installed('lexima')
+if IsInstalled('lexima')
     " imap <expr><C-f> <SID>check_next_char()
     " " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
     " function! s:check_next_char()
@@ -1383,7 +1398,7 @@ endif
 
 " vim-watchdogs {{{1
 " ============================================================================
-if neobundle#is_installed('vim-watchdogs')
+if IsInstalled('vim-watchdogs')
     let g:watchdogs_check_BufWritePost_enable = 1
     if !exists("g:quickrun_config")
         let g:quickrun_config = {}
@@ -1490,7 +1505,7 @@ let g:quickfixsigns_classes = ['qfl']
 
 " vim-quickrun {{{1
 " ============================================================================
-if neobundle#is_installed('vim-quickrun')
+if IsInstalled('vim-quickrun')
     nnoremap <Leader>r :QuickRun<CR>
     xnoremap <Leader>r :QuickRun<CR>
 
@@ -1626,7 +1641,7 @@ endif
 "}}}
 " operator {{{1
 " ============================================================================
-if neobundle#is_installed("vim-operator-user")
+if IsInstalled("vim-operator-user")
     call neobundle#config('vim-operator-user', {
         \   'autoload': {
         \       'mappings': '<Plug>(operator-'
@@ -1674,7 +1689,7 @@ nmap [Space]Y "+y$
 
 " vim-fakeclip {{{2
 " ----------------------------------------------------------------------------
-if neobundle#is_installed('vim-fakeclip')
+if IsInstalled('vim-fakeclip')
     " +clipboardでもfakeclipのキーマッピングを使う
     let g:fakeclip_provide_provide_key_mapping = 1
     " クリップボードコピーのコマンドにrfpbcopyを使う
@@ -1683,7 +1698,7 @@ endif
 
 " textobj {{{1
 " ============================================================================
-if neobundle#is_installed("vim-textobj-lastpat") && !MyHasPatch('patch-7.3.610')
+if IsInstalled("vim-textobj-lastpat") && !MyHasPatch('patch-7.3.610')
     let g:textobj_lastpat_no_default_key_mappings = 1
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
@@ -1715,7 +1730,7 @@ xmap ib <Plug>(textobj-multiblock-i)
 " -423  ←これは <C-a> される
 " d-423 ←これは <C-x> される
 
-if neobundle#is_installed('vital-coaster')
+if IsInstalled('vital-coaster')
     nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
     nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
 
@@ -1745,7 +1760,7 @@ endif
 
 " vim-easymotion {{{1
 " ============================================================================
-if neobundle#is_installed('vim-easymotion')
+if IsInstalled('vim-easymotion')
     call neobundle#config('vim-easymotion', {
         \   'autoload': {
         \       'mappings': '<Plug>(easymotion-'
@@ -1770,7 +1785,7 @@ endif
 "}}}
 " vim-multiple-cursors {{{
 " ============================================================================
-if neobundle#is_installed('vim-multiple-cursors')
+if IsInstalled('vim-multiple-cursors')
     let g:multi_cursor_use_default_mapping = 0
     let g:multi_cursor_next_key='+'
     let g:multi_cursor_prev_key="-"
@@ -1780,7 +1795,7 @@ endif
 " }}}
 " vim-ref {{{1
 " ============================================================================
-if neobundle#is_installed('vim-ref')
+if IsInstalled('vim-ref')
     cabbrev Man Ref man
 
     let bundle = neobundle#get("vim-ref")
@@ -1794,19 +1809,19 @@ endif
 
 " vim-partedit {{{1
 " ============================================================================
-if neobundle#is_installed('vim-partedit')
+if IsInstalled('vim-partedit')
     let g:partedit#auto_prefix = 0
 endif
 "}}}
 " vim-visualstar {{{
 " ==============================================================================
-if neobundle#is_installed('vim-visualstar')
+if IsInstalled('vim-visualstar')
     map * <Plug>(visualstar-*)N
     map # <Plug>(visualstar-g*)N
 endif "}}}
 " vim-alignta {{{
 " ==============================================================================
-if neobundle#is_installed('vim-alignta')
+if IsInstalled('vim-alignta')
     xnoremap [ALIGNTA] <Nop>
     xmap <Leader>a [ALIGNTA]
     xnoremap [ALIGNTA]s :Alignta \S\+<CR>
@@ -1817,7 +1832,10 @@ endif
 " }}}
 " LeafCage/yankround.vim {{{1
 " ============================================================================
-if neobundle#is_installed('yankround.vim') && v:version >= 703
+nnoremap <C-p> gT
+nnoremap <C-n> gt
+
+if IsInstalled('yankround.vim') && v:version >= 703
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
     " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
@@ -1857,7 +1875,7 @@ endif
 " caw {{{1
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
-if neobundle#is_installed('caw.vim')
+if IsInstalled('caw.vim')
     " コメントアウトのトグル
     nmap <Leader>cc <Plug>(caw:i:toggle)
     xmap <Leader>cc <Plug>(caw:i:toggle)
@@ -1869,7 +1887,7 @@ endif
 
 " tcomment_vim {{{1
 " ============================================================================
-if neobundle#is_installed('tcomment_vim')
+if IsInstalled('tcomment_vim')
     " コメントアウトしてコピー
     nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
     xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
@@ -1877,7 +1895,7 @@ endif
 
 " vim-jsbeautify {{{
 " ==============================================================================
-if neobundle#is_installed('vim-jsbeautify')
+if IsInstalled('vim-jsbeautify')
     autocmd MyVimrc FileType javascript setlocal formatexpr=JsBeautify()
     autocmd MyVimrc FileType css        setlocal formatexpr=CSSBeautify()
     autocmd MyVimrc FileType html       setlocal formatexpr=HtmlBeautify()
@@ -1932,7 +1950,7 @@ autocmd MyVimrc InsertLeave *
 nnoremap z- zMzv
 nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 
-if neobundle#is_installed('foldCC')
+if IsInstalled('foldCC')
     set foldtext=FoldCCtext()
     set foldcolumn=1
     set fillchars=vert:\|
@@ -1990,9 +2008,52 @@ if IsInstalled('detectindent')
     \|  DetectIndent
 endif
 
+" diff {{{1
+" ----------------------------------------------------------------------------
+if IsInstalled('vim-diff-enhanced')
+    " うまくいかない
+     autocmd MyVimrc FilterWritePre *
+     \   if &diff && !exists('g:is_diff_argorithm_changed')
+     \|      let g:is_diff_argorithm_changed = 1
+     \|      call system('git --diff-algorithm=histogram >/dev/null 2>&1')
+     \|      if v:shell_error != 255
+     \|          EnhancedDiff histogram
+     \|      endif
+     \|  endif
+else
+    " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
+    " http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
+    " https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
+    " gitのバージョンが1.7だと使えなかった
+    let s:git_diff_normal="git-diff-normal"
+    let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
+
+    function! GitDiffNormal()
+        let args=[s:git_diff_normal]
+        if &diffopt =~ "iwhite"
+            call add(args, "--ignore-all-space")
+        endif
+        call extend(args, s:git_diff_normal_opts)
+        call extend(args, [v:fname_in, v:fname_new])
+        let cmd=join(args, " ") . ">" . v:fname_out
+        call system(cmd)
+    endfunction
+
+    autocmd MyVimrc FilterWritePre *
+    \   if &diff && !exists('g:my_check_diff')
+    \|      let g:my_check_diff = 1
+    \|      if executable(s:git_diff_normal) && executable('git')
+    \|          call system('git ' . s:git_diff_normal_opts[0] . ' >/dev/null 2>&1')
+    \|          if v:shell_error != 255
+    \|              set diffexpr=GitDiffNormal()
+    \|          endif
+    \|      endif
+    \|  endif
+endif
+
 " scrooloose/syntastic {{{1
 " ============================================================================
-if neobundle#is_installed('syntastic')
+if IsInstalled('syntastic')
     autocmd MyVimrc BufWrite * NeoBundleSource syntastic
     let g:syntastic_mode_map = {
         \   'mode': 'active',
@@ -2005,7 +2066,7 @@ endif
 " }}}
 " eclim {{{
 " ============================================================================
-if neobundle#is_installed('eclim')
+if IsInstalled('eclim')
 
     " エラーのマークがずれる場合はエンコーディングが間違っている
     " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
@@ -2076,7 +2137,7 @@ autocmd MyVimrc FileType python
 \|  endif
 \|  let &l:path = g:python_path
 
-if neobundle#is_installed('jedi-vim')
+if IsInstalled('jedi-vim')
     let bundle = neobundle#get("jedi-vim")
     function! bundle.hooks.on_source(bundle)
         call s:set_python_path()
@@ -2119,7 +2180,7 @@ autocmd MyVimrc Filetype c,cpp
 \|  execute 'setlocal path+='.s:getCPath()
 \|  setlocal suffixesadd=.h
 
-if neobundle#is_installed('vim-marching')
+if IsInstalled('vim-marching')
     let bundle = neobundle#get("vim-marching")
     function! bundle.hooks.on_source(bundle)
         autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
@@ -2156,25 +2217,25 @@ if neobundle#is_installed('vim-marching')
     endfunction
 endif
 
-if neobundle#is_installed('vim-cpp-auto-include')
+if IsInstalled('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
 
 " plasticboy/vim-markdown {{{1
 " ============================================================================
-if neobundle#is_installed('plasticboy_vim-markdown')
+if IsInstalled('plasticboy_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
 endif
 
 " rcmdnk/vim-markdown {{{1
 " ============================================================================
-if neobundle#is_installed('rcmdnk_vim-markdown')
+if IsInstalled('rcmdnk_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
 endif
 
 " vim-markdown-folding {{{1
 " ============================================================================
-if neobundle#is_installed('vim-markdown-folding')
+if IsInstalled('vim-markdown-folding')
     let bundle = neobundle#get("vim-markdown-folding")
     function! bundle.hooks.on_source(bundle)
         let g:markdown_fold_style = 'nested'
@@ -2183,7 +2244,7 @@ endif
 
 " vimconsole.vim {{{1
 " ==============================================================================
-if neobundle#is_installed('vimconsole.vim')
+if IsInstalled('vimconsole.vim')
     let g:vimconsole#auto_redraw = 1
     augroup MyVimrc
         autocmd FileType vim,vimconsole
@@ -2199,11 +2260,11 @@ let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
 autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
-" Git {{{
+" Git {{{1
 " ============================================================================
-" vim-fugitive {{{
+" vim-fugitive {{{2
 " ----------------------------------------------------------------------------
-if neobundle#is_installed('vim-fugitive')
+if IsInstalled('vim-fugitive')
     let bundle = neobundle#get("vim-fugitive")
 
     " function! bundle.hooks.on_source(bundle)
@@ -2237,7 +2298,7 @@ if neobundle#is_installed('vim-fugitive')
 
         autocmd MyVimrc FileType gitcommit call s:gitcommitRm()
 
-        " Gitリポジトリ以下のときに、Ctagsを実行 {{{
+        " Gitリポジトリ以下のときに、Ctagsを実行 {{{3
         " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
         autocmd MyVimrc BufWritePost *
             \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
@@ -2254,10 +2315,10 @@ if neobundle#is_installed('vim-fugitive')
         " }}}
     " endfunction
 endif
-" }}}
-" gitv {{{
+
+" gitv {{{2
 " ----------------------------------------------------------------------------
-if neobundle#is_installed('gitv')
+if IsInstalled('gitv')
     let bundle = neobundle#get('gitv')
 
     function! bundle.hooks.on_source(bundle)
@@ -2267,17 +2328,16 @@ if neobundle#is_installed('gitv')
 
         autocmd MyVimrc FileType gitv
             \   setlocal iskeyword+=/,-,.
-            \|  nnoremap <buffer> <Space>co :<C-u>Git checkout     <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <LocalLeader>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <LocalLeader>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
+            \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
     endfunction
 endif
-" }}}
+
 " open-browser.vim {{{1
 " ============================================================================
-if neobundle#is_installed("open-browser.vim")
+if IsInstalled("open-browser.vim")
 
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
     let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
@@ -2302,7 +2362,7 @@ endif
 
 " ColorScheme molokai {{{1
 " ============================================================================
-if neobundle#is_installed("my_molokai")
+if IsInstalled("my_molokai")
     colorscheme molokai-customized
 endif
 " let g:solarized_termcolors=256
@@ -2431,7 +2491,7 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 
 " rainbow {{{1
 " ============================================================================
-if neobundle#is_installed("rainbow")
+if IsInstalled("rainbow")
     let g:rainbow_active = 1
     let g:rainbow_conf = {
     \    'guifgs':   ['#FA248F', '#FA8F24', '#8FFA24', '#24FA8F', '#248FFA', '#8F24FA', '#FA2424', '#FAFA24', '#24FA24', '#24FAFA', '#2424FA', '#FA24FA'],
@@ -2458,7 +2518,7 @@ if neobundle#is_installed("rainbow")
 endif " }}}
 " junkfile.vim
 " ============================================================================
-if neobundle#is_installed('junkfile.vim')
+if IsInstalled('junkfile.vim')
     let g:junkfile#directory = $VIM_CACHE_DIR."/junkfile"
     let g:junkfile#edit_command = 'new'
 
@@ -2475,7 +2535,7 @@ endif
 
 " vimwiki {{{1
 " ============================================================================
-if neobundle#is_installed('vimwiki')
+if IsInstalled('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
     nmap <Leader>w<Leader>d  <Plug>VimwikiDiaryIndex
@@ -2494,7 +2554,7 @@ endif
 
 " memoliset.vim {{{1
 " ============================================================================
-if neobundle#is_installed('memolist.vim')
+if IsInstalled('memolist.vim')
     call neobundle#config('memolist.vim', {
         \   'autoload': {
         \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
@@ -2516,7 +2576,7 @@ endif
 " }}}
 " vimrepress {{{
 " ============================================================================
-if neobundle#is_installed('vimrepress')
+if IsInstalled('vimrepress')
     call neobundle#config('vimrepress', {
         \   'autoload' : {
         \       'commands' : [
@@ -2528,7 +2588,7 @@ endif
 " }}}
 " qfixhowm {{{
 " ==============================================================================
-if neobundle#is_installed('qfixhowm')
+if IsInstalled('qfixhowm')
 
     let bundle = neobundle#get("qfixhowm")
     function! bundle.hooks.on_source(bundle)
