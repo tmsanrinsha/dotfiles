@@ -205,6 +205,22 @@ setopt no_flow_control
 # /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# fg {{{2
+# ----------------------------------------------------------------------------
+# ctrl-zでfgする
+# [Vimの生産性を高める12の方法 | 開発手法・プロジェクト管理 | POSTD](http://postd.cc/how-to-boost-your-vim-productivity/)
+fancy-ctrl-z () {
+    if [[ $#BUFFER -eq 0 ]]; then
+        BUFFER="fg"
+        zle accept-line
+    else
+        zle push-input
+        zle clear-screen
+    fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 # complete {{{1
 # ============================================================================
 autoload -U compinit && compinit
