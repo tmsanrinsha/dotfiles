@@ -75,6 +75,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'Shougo/unite-outline'
         NeoBundleLazy 'tacroe/unite-mark'
         NeoBundleLazy 'tsukkee/unite-tag'
+        NeoBundleLazy 'thinca/vim-unite-history', {
+        \   'autoload': {
+        \       'unite_sources': ['history/command', 'history/search']
+        \   }
+        \}
         NeoBundleLazy 'tmsanrinsha/unite-ghq'
         " NeoBundle 'Shougo/unite-sudo'
 
@@ -951,6 +956,14 @@ autocmd MyVimrc BufEnter *
 let g:unite_source_tag_max_fname_length = 1000
 let g:unite_source_tag_max_name_length = 100
 let g:unite_source_tag_strict_truncate_string = 0
+
+" vim-unite-history {{{1
+" =========================================================================
+if IsInstalled('vim-unite-history')
+    nnoremap [unite]hc :<C-u>Unite history/command<CR>
+    nnoremap [unite]hs :<C-u>Unite history/search<CR>
+    cnoremap <M-r> :<C-u>Unite history/command -start-insert -default-action=edit<CR>
+endif
 
 " unite-ghq {{{1
 " ============================================================================
