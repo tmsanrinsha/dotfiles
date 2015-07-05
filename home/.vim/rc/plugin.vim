@@ -702,6 +702,31 @@ if IsInstalled('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
+    call unite#custom#profile('default', 'context', {
+    \   'start_insert': 1,
+    \   'direction': 'topleft',
+    \   'winheight': 10,
+    \   'auto_resize': 1,
+    \   'prompt': '> ',
+    \   'cursor_line_highlight': 'PmenuSel',
+    \ })
+
+    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+
+    " vimfilerがどんどん増えちゃう
+    call unite#custom_default_action('directory' , 'vimfiler')
+    " vimfiler上ではvimfilerを増やさず、移動するだけ
+    autocmd MyVimrc FileType vimfiler
+    \   call unite#custom_default_action('directory', 'lcd')
+
+    " dでファイルの削除
+    call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+
+    " uniteウィンドウを閉じる
+    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
+    nnoremap [unite], :<C-u>Unite -toggle<CR>
+
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 
@@ -825,29 +850,6 @@ if IsInstalled('unite.vim')
 
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
-    call unite#custom#profile('default', 'context', {
-    \   'start_insert': 1,
-    \   'direction': 'topleft',
-    \   'winheight': 10,
-    \   'auto_resize': 1,
-    \   'prompt': '> ',
-    \   'cursor_line_highlight': 'PmenuSel',
-    \ })
-
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-
-    " vimfilerがどんどん増えちゃう
-    call unite#custom_default_action('directory' , 'vimfiler')
-    " vimfiler上ではvimfilerを増やさず、移動するだけ
-    autocmd MyVimrc FileType vimfiler
-    \   call unite#custom_default_action('directory', 'lcd')
-
-    " dでファイルの削除
-    call unite#custom#alias('file', 'delete', 'vimfiler__delete')
-
-    " uniteウィンドウを閉じる
-    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
 
     " unite-args {{{2
     " ------------------------------------------------------------------------
@@ -879,7 +881,7 @@ if IsInstalled('unite.vim')
 endif
 
 " neomru {{{1
-" ============================================================================
+" ----------------------------------------------------------------------------
 " ファイルが存在するかチェックしない
 let g:neomru#do_validate = 0
 " ファイルへの書き込みを60秒ごとにする
@@ -923,7 +925,7 @@ nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 
 " let g:unite_source_ssh_enable_debug = 1
 
-" unite-outline {{{
+" unite-outline {{{1
 " =========================================================================
 if IsInstalled('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
@@ -939,11 +941,11 @@ endif
 
 autocmd MyVimrc FileType yaml
 \   nnoremap <buffer> [unite]o :<C-u>Unite outline:folding<CR>
-" }}}
-" tacroe/unite-mark {{{
+
+" tacroe/unite-mark {{{1
 " =========================================================================
 nnoremap [unite]` :<C-u>Unite mark<CR>
-" }}}
+
 " tsukkee/unite-tag {{{1
 " =========================================================================
 nnoremap [unite]t :<C-u>Unite tag<CR>
@@ -967,7 +969,7 @@ if IsInstalled('vim-unite-history')
 endif
 
 " unite-ghq {{{1
-" ============================================================================
+" =========================================================================
 if IsInstalled('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
