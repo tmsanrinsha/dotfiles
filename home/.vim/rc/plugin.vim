@@ -927,6 +927,7 @@ nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 " =========================================================================
 if IsInstalled('unite-outline')
     nnoremap [unite]o :<C-u>Unite outline<CR>
+    nnoremap [unite]O :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
     let bundle = neobundle#get("unite-outline")
     function! bundle.hooks.on_source(bundle)
         call unite#sources#outline#alias('ref-man', 'man')
