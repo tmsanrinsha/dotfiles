@@ -7,9 +7,14 @@ cmapclear
 
 js<<EOM
 if(liberator.has("MacUnix")) {
-  liberator.execute('"editor=/Applications/MacVim.app/Contents/MacOS/MacVim -f --remote-tab-silent"');
+  // どれも最初にMacVimを起動している必要あり
+  liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/Vim -f --remote-tab"'); // 複数起動しない
+  // liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/MacVim -f --remote-tab"'); // 複数起動
+  // liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/Vim -f"'); // 複数起動
+
+  // liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/MacVim -f"'); // 起動しない
 } else {
-  liberator.execute('"editor=~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"');
+  liberator.execute('set\ editor="~/vim73-kaoriya-win64/gvim.exe -f --remote-tab-silent"');
 }
 EOM
 
