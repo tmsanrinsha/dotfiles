@@ -29,7 +29,7 @@
 [pager]
     diff =
 [push]
-    ; pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
+    # pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
     default = current
 
 # githubでhttpsのURLを指定してもgitプロトコルやssh経由にする方法 - @znz blog
@@ -43,9 +43,11 @@
     templatedir = ~/.git_template
 
 [include]
-# includeが使えるかはgit config --global --includes -lで確かめる
+    # 環境ごとに違う設定は別ファイルでやる
+    # includeが使えるかはgit config --global --includes -lで確かめる
+    # 使わない場合はGIT_AUTHOR_EMAILなどの環境変数で設定する方法がある。
+    # see man git
     path = .gitconfig.local
 
 [prevent-push-master]
     allow = tmsanrinsha
-# vim:ft=gitconfig

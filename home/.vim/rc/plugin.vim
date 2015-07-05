@@ -432,6 +432,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'rcmdnk/vim-markdown', {
         \   'name': 'rcmdnk_vim-markdown',
         \   'autoload': {'filetypes': 'markdown'},
+        \   'depends': 'godlygeek/tabular',
         \}
         " NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
         " \   'autoload': {'filetypes': 'markdown'},
@@ -1796,7 +1797,7 @@ endif
 " vim-ref {{{1
 " ============================================================================
 if IsInstalled('vim-ref')
-    cabbrev Man Ref man
+    cabbrev man Ref man
 
     let bundle = neobundle#get("vim-ref")
     function! bundle.hooks.on_source(bundle)

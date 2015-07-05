@@ -4,7 +4,7 @@ set -ex
 
 brew=0
 link=0
-while getopts bv OPT
+while getopts bl OPT
 do
   case $OPT in
     "b")
@@ -85,7 +85,9 @@ if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
 cp $git_dir/template/.gitconfig ~/.gitconfig
+# 消し方
 # git config --global --remove-section "ghq" || :
+# git config --global --unset ghq.root
 git config --global "ghq.root" "$SRC_ROOT"
 
 # .ctagsの設定 {{{2
