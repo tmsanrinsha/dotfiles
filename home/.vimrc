@@ -633,21 +633,23 @@ onoremap gm :<C-u>normal gm<CR>
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
 
-" full path of file
-" <C-r>%で入力できる
-" full path of directory
-inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
-cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
+" <C-r>%で%の内容を挿入できる
 " file name
 inoremap <C-r>f <C-r>=expand("%:t")<CR>
 cnoremap <C-r>f <C-r>=expand("%:t")<CR>
+" full path of file
+inoremap <C-r>F <C-r>=expand('%:p')<CR>
+cnoremap <C-r>F <C-r>=expand('%:p')<CR>
+" full path of directory
+inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
+cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 
-" yank full path of file
-nnoremap yp :let @" = expand('%:p')<CR>
-" yank full path of directory
-nnoremap yd :let @" = expand('%:p:h')<CR>
 " yank file name
 nnoremap yf :let @" = expand("%:t")<CR>
+" yank full path of file
+nnoremap yF :let @" = expand('%:p')<CR>
+" yank full path of directory
+nnoremap yd :let @" = expand('%:p:h')<CR>
 
 " copy full path of file
 nnoremap [Space]yp :let @* = expand('%:p')<CR>
