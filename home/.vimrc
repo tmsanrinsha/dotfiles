@@ -457,7 +457,7 @@ set scrolloff=1
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
 "nnoremap <F12> :set scrollbind!<CR>
 "}}}
-" タブ {{{
+" tab {{{
 " ==============================================================================
 "  いつタブページのラベルを表示するかを指定する。
 "  0: 表示しない
@@ -466,10 +466,11 @@ set scrolloff=1
 set showtabline=1
 
 nnoremap [TAB] <Nop>
-nmap <C-@> [TAB]
+nmap <Leader>t [TAB]
 " 一番右にタブを作る
-" nnoremap <A-t> :tablast <Bar> tabnew<CR>
-nnoremap <A-t> :tabnew<CR>
+" nnoremap <M-t> :tablast <Bar> tabnew<CR>
+nnoremap <M-t> :tabnew<CR>
+nnoremap <M-T> :tabnew %<CR>
 nnoremap [TAB]q :tabclose<CR>
 
 nnoremap <C-Tab> :tabn<CR>
