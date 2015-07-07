@@ -2027,17 +2027,17 @@ endif
 
 " diff {{{1
 " ----------------------------------------------------------------------------
-if IsInstalled('vim-diff-enhanced')
-    " うまくいかない
-     autocmd MyVimrc FilterWritePre *
-     \   if &diff && !exists('g:is_diff_argorithm_changed')
-     \|      let g:is_diff_argorithm_changed = 1
-     \|      call system('git --diff-algorithm=histogram >/dev/null 2>&1')
-     \|      if v:shell_error != 255
-     \|          EnhancedDiff histogram
-     \|      endif
-     \|  endif
-else
+" if IsInstalled('vim-diff-enhanced')
+"     " うまくいかない
+"      autocmd MyVimrc FilterWritePre *
+"      \   if &diff && !exists('g:is_diff_argorithm_changed')
+"      \|      let g:is_diff_argorithm_changed = 1
+"      \|      call system('git --diff-algorithm=histogram >/dev/null 2>&1')
+"      \|      if v:shell_error != 255
+"      \|          EnhancedDiff histogram
+"      \|      endif
+"      \|  endif
+" else
     " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
     " http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
     " https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
@@ -2066,7 +2066,7 @@ else
     \|          endif
     \|      endif
     \|  endif
-endif
+" endif
 
 " scrooloose/syntastic {{{1
 " ============================================================================
