@@ -861,17 +861,22 @@ augroup MyVimrc
 
     let s:cursorline_lock = 0
     function! s:auto_cursorline(event)
-        if &filetype == 'qf'
-            return
+        if &filetype == 'qf' || &diff
+            if &cursorline
+                setlocal nocursorline
+                return
+            else
+                return
+            endif
         endif
         if a:event ==# 'WinEnter'
             setlocal cursorline
             let s:cursorline_lock = 2
-        elseif a:event ==# 'WinLeave' && &filetype != 'qf'
+        elseif a:event ==# 'WinLeave'
             setlocal cursorline
         elseif a:event ==# 'CursorMoved'
             if s:cursorline_lock
-                if 1 < s:cursorline_lock
+                if s:cursorline_lock > 1
                     let s:cursorline_lock = 1
                 else
                     setlocal nocursorline
