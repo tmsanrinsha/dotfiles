@@ -774,7 +774,7 @@ if IsInstalled('unite.vim')
         execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
     endfunction
 
-    nnoremap [unite]fv :<C-u>Unite file_rec/async:$VIMDIR<CR>
+    nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
     " memo {{{3
@@ -929,7 +929,8 @@ nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 " unite-outline {{{1
 " =========================================================================
 if IsInstalled('unite-outline')
-    nnoremap [unite]o :<C-u>Unite outline<CR>
+    nnoremap [unite]oo :<C-u>Unite outline<CR>
+    nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]O :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
     let bundle = neobundle#get("unite-outline")
     function! bundle.hooks.on_source(bundle)
@@ -1872,7 +1873,7 @@ if IsInstalled('yankround.vim') && v:version >= 703
     nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
 endif
 
-" vim-gf-user {{{1
+" gf {{{1
 " ============================================================================
 " =をファイル名に使われる文字から外す
 set isfname-==
