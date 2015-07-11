@@ -20,9 +20,9 @@ let s:Util = unite#sources#outline#import('Util')
 "-----------------------------------------------------------------------------
 " Outline Info
 
-      " \ 'heading'  : '^\%(augroup\s\+\%(END\>\)\@!\|\s*fu\%[nction]!\= \)\|\s*NeoBundle',
 let s:outline_info = {
       \ 'heading+1': '^\s*"\s*[-=]\{10,}\s*$',
+      \ 'heading'  : '^\%(augroup\s\+\%(END\>\)\@!\|\s*fu\%[nction]!\= \)',
       \
       \ 'skip': { 'header': '^"' },
       \
