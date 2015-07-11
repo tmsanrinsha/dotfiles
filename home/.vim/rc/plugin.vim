@@ -236,13 +236,15 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \ }
         " vim path/to/file.ext:12:3 こういうに行と列を指定して開く
         " NeoBundle 'kopischke/vim-fetch'
-        NeoBundleLazy 'kana/vim-gf-user' 
-        NeoBundleLazy 'kana/vim-gf-diff', {
-        \   'depends': 'kana/vim-gf-user',
-        \   'autoload': {
-        \       'mappings': '<Plug>(gf-user-',
-        \   }
-        \}
+        NeoBundle 'kana/vim-gf-user' 
+        NeoBundle 'kana/vim-gf-diff'
+        " lazyにするとGitvでの挙動がおかしくなる
+        " NeoBundleLazy 'kana/vim-gf-diff', {
+        " \   'depends': 'kana/vim-gf-user',
+        " \   'autoload': {
+        " \       'mappings': '<Plug>(gf-user-',
+        " \   }
+        " \}
         " }}}
 
         " 一時バッファの制御
@@ -883,7 +885,6 @@ endif
 " neomru {{{1
 " ----------------------------------------------------------------------------
 " ファイルが存在するかチェックしない
-let g:neomru#do_validate = 0
 " ファイルへの書き込みを60秒ごとにする
 let g:neomru#update_interval = 60
 " 
@@ -1873,21 +1874,49 @@ endif
 
 " vim-gf-user {{{1
 " ============================================================================
+" =をファイル名に使われる文字から外す
+set isfname-==
+
+" カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
+" 通常のgfだとファイルが存在しない時は開かないので、このmapで開く
+" .vim/aaa
+" vim-gf-user {{{2
+" ----------------------------------------------------------------------------
 if IsInstalled("vim-gf-user")
-    nmap gf         <Plug>(gf-user-gf)
-    xmap gf         <Plug>(gf-user-gf)
-    nmap gF         <Plug>(gf-user-gF)
-    xmap gF         <Plug>(gf-user-gF)
-    nmap <C-w>f     <Plug>(gf-user-<C-w>f)
-    xmap <C-w>f     <Plug>(gf-user-<C-w>f)
-    nmap <C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    xmap <C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    nmap <C-w>F     <Plug>(gf-user-<C-w>F)
-    xmap <C-w>F     <Plug>(gf-user-<C-w>F)
-    nmap <C-w>gf    <Plug>(gf-user-<C-w>gf)
-    xmap <C-w>gf    <Plug>(gf-user-<C-w>gf)
-    nmap <C-w>gF    <Plug>(gf-user-<C-w>gF)
+    let g:gf_user_no_default_key_mappings = 1
+    " ディレクトリの場合にうまくvimfilerが開かない
+    " gf#user#doのtryを外すと開く。エラーではないのかcatchはできない
+    " :eで開き直すとvimfilerが起動する
+    nmap <Leader>gf         <Plug>(gf-user-gf)
+    xmap <Leader>gf         <Plug>(gf-user-gf)
+    nmap <Leader>gF         <Plug>(gf-user-gF)
+    xmap <Leader>gF         <Plug>(gf-user-gF)
+    nmap <Leader><C-w>f     <Plug>(gf-user-<C-w>f)
+    xmap <Leader><C-w>f     <Plug>(gf-user-<C-w>f)
+    nmap <Leader><C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    xmap <Leader><C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    nmap <Leader><C-w>F     <Plug>(gf-user-<C-w>F)
+    xmap <Leader><C-w>F     <Plug>(gf-user-<C-w>F)
+    nmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
+    xmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
+    nmap <Leader><C-w>gF    <Plug>(gf-user-<C-w>gF)
 endif
+
+" カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
+function! GfNewFile()
+  let path = expand('%:p:h').'/'.expand('<cfile>')
+  let line = 0
+  if path =~# ':\d\+:\?$'
+    let line = matchstr(path, '\d\+:\?$')
+    let path = matchstr(path, '.*\ze:\d\+:\?$')
+  endif
+  return {
+  \   'path': path,
+  \   'line': line,
+  \   'col': 0,
+  \ }
+endfunction
+call gf#user#extend('GfNewFile', 3000)
 
 " caw {{{1
 " ==============================================================================
