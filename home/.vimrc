@@ -410,6 +410,10 @@ autocmd MyVimrc BufReadPost *
             \ if line("`\"") > 1 && line("`\"") <= line("$") |
             \   execute "normal! g`\"" |
             \ endif
+
+" optionsを設定するとおかしくなる
+set sessionoptions-=options
+autocmd MyVimrc VimLeavePre * mksession! $VIM_CACHE_DIR/session.vim
 "}}}
 " statusline {{{1
 " ==============================================================================
