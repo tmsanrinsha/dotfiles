@@ -15,6 +15,9 @@ scriptencoding utf-8
 let $VIMDIR = expand('~/.vim')
 let $VIMRC_DIR = $VIMDIR . '/rc'
 let $VIM_CACHE_DIR = expand('~/.cache/vim')
+if !isdirectory($VIM_CACHE_DIR)
+    call mkdir($VIM_CACHE_DIR, "p")
+endif
 
 if has('win32')
     set runtimepath&
