@@ -49,4 +49,7 @@ $if mysql
 
     "\C-xf": "show full columns from "
     "\C-x\C-f": "show full columns from "
+
+    # pecoでhistoryをしぼりこく
+    "\C-xp": "\\! cat ~/.mysql_history | perl -ne 'print if!$line{$_}++' | peco\n"
 $endif
