@@ -1878,9 +1878,6 @@ endif
 " =をファイル名に使われる文字から外す
 set isfname-==
 
-" カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
-" 通常のgfだとファイルが存在しない時は開かないので、このmapで開く
-" .vim/aaa
 " vim-gf-user {{{2
 " ----------------------------------------------------------------------------
 if IsInstalled("vim-gf-user")
@@ -2312,25 +2309,29 @@ autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPr
 " vim-fugitive {{{2
 " ----------------------------------------------------------------------------
 if IsInstalled('vim-fugitive')
+
+    nnoremap [fugitive] <Nop>
+    nmap <Leader>g [fugitive]
+    nnoremap [fugitive]d :Gdiff<CR>
+    nnoremap [fugitive]s :Gstatus<CR>
+    nnoremap [fugitive]l :Glog<CR>
+    nnoremap [fugitive]p<CR> :Git push
+    nnoremap [fugitive]po    :Git push origin
+    nnoremap [fugitive]P :Git pull --rebase origin master
+    nnoremap [fugitive]f :Git fetch origin<CR>
+
+    nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
+    nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
+
     let bundle = neobundle#get("vim-fugitive")
 
-    " function! bundle.hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         " Gbrowse ではgit config --global web.browserの値は見てない
-        let g:netrw_browsex_viewer = 'rfbrowser'
-        nnoremap [fugitive] <Nop>
-        nmap <Leader>g [fugitive]
-        nnoremap [fugitive]d :Gdiff<CR>
-        nnoremap [fugitive]s :Gstatus<CR>
-        nnoremap [fugitive]l :Glog<CR>
-        nnoremap [fugitive]p<CR> :Git push
-        nnoremap [fugitive]po    :Git push origin
-        nnoremap [fugitive]P :Git pull --rebase origin master
-        nnoremap [fugitive]f :Git fetch origin<CR>
+        " ~/.vim/bundle/vim-fugitive/plugin/fugitive.vim
+        if !has('gui_running')
+            let g:netrw_browsex_viewer = 'rfbrowser'
+        endif
 
-        nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
-        nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
-
-        ""
         " gitcommitでカーソル行のファイルをrmする
         function! s:gitcommitRm()
             if executable('rmtrash')
@@ -2360,7 +2361,7 @@ if IsInstalled('vim-fugitive')
         endfunction
         command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
         " }}}
-    " endfunction
+    endfunction
 endif
 
 " gitv {{{2
