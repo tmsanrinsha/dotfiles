@@ -187,6 +187,11 @@ set fileformats=unix,dos,mac
 "  :e ++ff=dos
 " などとする
 
+" 最後に改行が無いテキストファイルに改行を付加しない
+if exists('&fixeol')
+    set nofixeol
+endif
+
 "□や○の文字があってもカーソル位置がずれないようにする
 set ambiwidth=double
 

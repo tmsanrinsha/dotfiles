@@ -275,7 +275,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " backup
         NeoBundle 'savevers.vim'
         " noeol, eolを保ったまま保存
-        NeoBundle 'PreserveNoEOL'
+        NeoBundle 'PreserveNoEOL', {
+        \   'disabled': exists('&fixeol'),
+        \}
+
         " ファイルのインデントがスペースかタブか、インデント幅はいくつかを自動検出 :space:tab:indent
         " [tpope/vim-sleuth](https://github.com/tpope/vim-sleuth) こっちも似たようなもの
         NeoBundle 'ciaranm/detectindent'
