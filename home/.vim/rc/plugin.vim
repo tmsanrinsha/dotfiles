@@ -169,7 +169,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
         NeoBundleLazy 'kana/vim-textobj-lastpat', {
         \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' },
-        \   'disabled' : !MyHasPatch('patch-7.3.610')
+        \   'disabled' : MyHasPatch('patch-7.3.610')
         \}
         " Gitでコンフリクトしている部分
         " lazyはうまくいかない
