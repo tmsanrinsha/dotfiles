@@ -723,11 +723,16 @@ if IsInstalled('diffchar.vim')
     " \   endif
 endif
 
-" tag {{{1
+" ctags {{{1
 " ============================================================================
 if has('path_extra')
     set tags+=~/tags
 endif
+
+function! s:ctags(dir)
+    call system('ctags -R -f ~/tags "'.fnamemodify(a:dir, ':p').'" &')
+endfunction
+command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
 
 " cript {{{1
 " ============================================================================
