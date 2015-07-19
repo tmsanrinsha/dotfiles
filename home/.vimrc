@@ -984,14 +984,6 @@ function! s:Xterm2rgb(color)
     return rgb
 endfunction
 
-function! s:pow(x, n)
-    let x = a:x
-    for i in range(a:n-1)
-        let x = x*a:x
-        return x
-    endfor
-endfunction
-
 " selects the nearest xterm color for a rgb value like #FF0000
 function! s:Rgb2xterm(color)
     let s:colortable=[]
@@ -1002,11 +994,11 @@ function! s:Rgb2xterm(color)
 
     let best_match=0
     let smallest_distance = 10000000000
-    let r = eval('0x'.a:color[1].a:color[2])
-    let g = eval('0x'.a:color[3].a:color[4])
-    let b = eval('0x'.a:color[5].a:color[6])
+    let r = eval('0x'.a:color[0].a:color[1])
+    let g = eval('0x'.a:color[2].a:color[3])
+    let b = eval('0x'.a:color[4].a:color[5])
     for c in range(0,254)
-        let d = s:pow(s:colortable[c][0]-r,2) + s:pow(s:colortable[c][1]-g,2) + s:pow(s:colortable[c][2]-b,2)
+        let d = pow(s:colortable[c][0] - r, 2) + pow(s:colortable[c][1] - g, 2) + pow(s:colortable[c][2] - b, 2)
         if d < smallest_distance
             let smallest_distance = d
             let best_match = c
@@ -1015,8 +1007,10 @@ function! s:Rgb2xterm(color)
     return best_match
 endfunction
 command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
+command! -nargs=1 Xterm2rgb echo s:Xterm2rgb(<f-args>)
 
 " その他の参考になりそうな変換
+" [xterm - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Xterm)
 " [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
 " .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
 " [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
