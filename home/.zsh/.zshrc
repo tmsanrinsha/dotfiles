@@ -561,7 +561,7 @@ if hash peco 2>/dev/null; then
 
     # cdr {{{2
     function peco-cdr () {
-        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco --prompt="cdr >" --query "$LBUFFER")
+        local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${selected_dir}"
             zle accept-line
