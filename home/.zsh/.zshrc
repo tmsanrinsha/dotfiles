@@ -574,13 +574,13 @@ if hash peco 2>/dev/null; then
     function peco-cd-ghq () {
         # local selected_dir=$(ghq list | peco --prompt="cd-ghq > " --query "$LBUFFER")
         # Gitリポジトリの更新時間でソートしたいので、ghq listを使わない
-        local ghq_root=$(git config ghq.root)
-        local selected_dir=$(find $ghq_root -type d -mindepth 3 -maxdepth 3 | \
+        local ghq_roots="$(git config --path --get-all ghq.root)"
+        local selected_dir=$(ghq list --full-path | \
             xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 2>/dev/null && pwd' | \
-            sort -r | sed -e "s,.*$ghq_root/,," | \
+            sort -r | sed -e "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             peco --prompt="cd-ghq >" --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
-            BUFFER="cd ${SRC_ROOT}/${selected_dir}"
+            BUFFER="cd $(ghq list --full-path | grep $selected_dir)"
             zle accept-line
         fi
     }
