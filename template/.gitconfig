@@ -1,38 +1,38 @@
 [alias]
-    br = branch
-    co = checkout
-    ci = commit
-    # 外部エディタを起動せず、diffを単語単位で
-    di = diff --no-ext-diff
-    hist = "log --pretty=format:\"%h %ad %s%d by %an\" --graph --date=short"
-    st = status
-    rt = remote -v
-    # Githubのpushのurlをsshに変更
-    rtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
-    ctags = !.git/hooks/ctags
+	br = branch
+	co = checkout
+	ci = commit
+	# 外部エディタを起動せず、diffを単語単位で
+	di = diff --no-ext-diff
+	hist = "log --pretty=format:\"%h %ad %s%d by %an\" --graph --date=short"
+	st = status
+	rt = remote -v
+	# Githubのpushのurlをsshに変更
+	rtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
+	ctags = !.git/hooks/ctags
 [color]
-    ui = auto
+	ui = auto
 [core]
-    pager =
-    # editor = vim ここで設定せずに$EDITORに設定されたものを使う
+	pager =
+	# editor = vim ここで設定せずに$EDITORに設定されたものを使う
 	# グローバルなgitignore
 	excludesfile = ~/.config/git/.gitignore
 [diff]
-    # external = git_diff_vim
-    # 賢いdiff algorithm
-    # http://www.justinleegrant.com/?p=339
-    algorithm = patience
+	# external = git_diff_vim
+	# 賢いdiff algorithm
+	# http://www.justinleegrant.com/?p=339
+	algorithm = patience
 [merge]
-    # tool = git_mergetool_vim
+	# tool = git_mergetool_vim
 [mergetool "git_mergetool_vim"]
-    # cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
-    # trustExitCode = true
-    # keepBackup = false
+	# cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
+	# trustExitCode = true
+	# keepBackup = false
 [pager]
-    diff =
+	diff =
 [push]
-    # pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
-    default = current
+	# pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
+	default = current
 
 # githubでhttpsのURLを指定してもgitプロトコルやssh経由にする方法 - @znz blog
 # http://blog.n-z.jp/blog/2013-11-28-git-insteadof.html
@@ -42,14 +42,16 @@
 [url "git://github.com/"]
   insteadOf = https://github.com/
 [init]
-    templatedir = ~/.git_template
+	templatedir = ~/.git_template
 
 [include]
-    # 環境ごとに違う設定は別ファイルでやる
-    # includeが使えるかはgit config --global --includes -lで確かめる
-    # 使わない場合はGIT_AUTHOR_EMAILなどの環境変数で設定する方法がある。
-    # see man git
-    path = .gitconfig.local
+	# 環境ごとに違う設定は別ファイルでやる
+	# includeが使えるかはgit config --global --includes -lで確かめる
+	# 使わない場合はGIT_AUTHOR_EMAILなどの環境変数で設定する方法がある。
+	# see man git
+	path = .gitconfig.local
 
 [prevent-push-master]
-    allow = tmsanrinsha
+	allow = tmsanrinsha
+
+# vim: noexpandtab
