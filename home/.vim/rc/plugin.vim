@@ -1470,10 +1470,15 @@ if IsInstalled('vim-watchdogs')
     let g:quickrun_config["watchdogs_checker/mql"] = {
     \   "hook/cd/directory": '%S:p:h',
     \   "command":           "wine",
-    \   "cmdopt":            "~/bin/mql.exe",
+    \   "cmdopt":            '~/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/mql.exe',
     \   "exec":              "%c %o %S:t",
     \   "errorformat":       '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#',
     \}
+    " シングルクォートの中でシングルクォートを表すには''、
+    " さらにvimprocでシングルクォートを表すために''''、
+    " さらにwineの引数でシングルクォートを表すために''''''''
+    " また、Program FilesのMetaTraderのdirctoryにmql.exeを入れておかないと#include <stderror.mqh>が読み込めず
+    " コンパイルに失敗する
 
     let g:quickrun_config["mql4/watchdogs_checker"] = {
     \   "type" : "watchdogs_checker/mql"
