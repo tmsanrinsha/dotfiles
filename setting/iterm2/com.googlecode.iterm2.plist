@@ -1195,13 +1195,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>483 339 445 109 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>314 172 924 485 0 0 1280 777 </string>
+	<string>529 1137 924 485 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1205 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-349 811 1914 1046 -349 800 1920 1057 </string>
+	<string>-347 1391 570 451 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1934,16 +1934,7 @@
 			<key>Transparency</key>
 			<real>0.12851794064044952</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>HighlightTrigger</string>
-					<key>parameter</key>
-					<integer>2</integer>
-					<key>regex</key>
-					<string>Warning</string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -1969,7 +1960,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>454032954.45837098</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>456405912.89012402</real>
+	<real>459449616.953991</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2036,7 +2027,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-06-19T06:56:51Z</date>
+	<date>2015-07-24T15:35:05Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
