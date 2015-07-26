@@ -18,9 +18,6 @@ if(liberator.has("MacUnix")) {
 }
 EOM
 
-" set defsearch=g
-" set complete=lS
-set complete=l
 set wildmode=list:full
 " list:longestにすると:openの時2回Tabを打たないといけないので面倒だった
 " set wildmode=list:longest,full
@@ -48,7 +45,7 @@ EOM
 
 " mapping {{{1
 " ============================================================================
-let mapleader = ';'
+let mapleader = ','
 " Emacs like key bindings {{{2
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
@@ -130,7 +127,22 @@ liberator.globalVariables.hBookmark_shortcuts = {
 };
 EOF
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
-set complete+=H
+
+set complete=lH
+set defsearch=g
+set suggestengines=g
+
+nnoremap o :set complete=lH<CR>:open<Space>
+nnoremap t :set complete=lH<CR>:tabopen<Space>
+nnoremap <Leader>ob :set complete=b<CR>:open<Space>
+nnoremap <Leader>tb :set complete=b<CR>:tabopen<Space>
+nnoremap <Leader>oh :set complete=h<CR>:open<Space>
+nnoremap <Leader>th :set complete=h<CR>:tabopen<Space>
+nnoremap <Leader>os :set complete=S<CR>:open<Space>
+nnoremap <Leader>ts :set complete=S<CR>:tabopen<Space>
+nnoremap <Leader>oH :set complete=H<CR>:open<Space>
+nnoremap <Leader>tH :set complete=H<CR>:tabopen<Space>
+
 
 " plugin_loader {{{1
 " ============================================================================
