@@ -890,7 +890,7 @@ endif
 " ファイルが存在するかチェックしない
 " ファイルへの書き込みを60秒ごとにする
 let g:neomru#update_interval = 60
-" 
+let g:neomru#do_validate = 0
 call unite#custom#source(
 \'neomru/file', 'ignoer_pattern',
 \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
@@ -1435,7 +1435,7 @@ if IsInstalled('vim-watchdogs')
     " quickfixを開かない
     let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
 
-    " apaache
+    " apaache {{{2
     " ------------------------------------------------------------------------
     let g:quickrun_config["watchdogs_checker/apache"] = {
     \   "command":           "apachectl",
@@ -1472,7 +1472,7 @@ if IsInstalled('vim-watchdogs')
     \   "command":           "wine",
     \   "cmdopt":            '~/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/mql.exe',
     \   "exec":              "%c %o %S:t",
-    \   "errorformat":       '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#',
+    \   "errorformat":       '%f(%l\,%c) : %m',
     \}
     " シングルクォートの中でシングルクォートを表すには''、
     " さらにvimprocでシングルクォートを表すために''''、
