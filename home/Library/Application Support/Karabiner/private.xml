@@ -29,6 +29,15 @@
     </replacementdef>
     <item>
         <name>My Setting</name>
+        <!-- <item> -->
+        <!--     <name>Change Command_R to Option_R</name> -->
+        <!--     <appendix>(+ When you type Command_R only, send KANA)</appendix> -->
+        <!--     <identifier>myremap.commandR2OptionR</identifier> -->
+        <!--     <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R, -->
+        <!--         KeyCode::OPTION_R, -->
+        <!--         KeyCode::ESCAPE -->
+        <!--     </autogen> -->
+        <!-- </item> -->
         <item>
             <name>Change Command_R to Option_R</name>
             <appendix>(+ When you type Command_R only, send KANA)</appendix>
@@ -54,7 +63,41 @@
                 KeyCode::COMMAND_L,
                 KeyCode::JIS_EISUU</autogen>
         </item>
-        <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/include/checkbox/emacs_mode.xml -->
+        <!-- <item> -->
+        <!--     <name>ctrl&#45;' to KANA</name> -->
+        <!--     <not>VMWARE_FUSION</not> -->
+        <!--     <identifier>myremap.ctrl&#45;;_to_KANA</identifier> -->
+        <!--     <autogen>__KeyToKey__ -->
+        <!--         KeyCode::QUOTE, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, -->
+        <!--         KeyCode::JIS_KANA</autogen> -->
+        <!-- </item> -->
+        <!-- <item> -->
+        <!--     <name>ctrl&#45;; to EISUU</name> -->
+        <!--     <not>VMWARE_FUSION</not> -->
+        <!--     <identifier>myremap.ctrl&#45;;_to_Eisuu</identifier> -->
+        <!--     <autogen>__KeyToKey__ -->
+        <!--         KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, -->
+        <!--         KeyCode::JIS_EISUU -->
+        <!--     </autogen> -->
+        <!-- </item> -->
+        <item>
+            <name>Control+; to Escape+EISUU</name>
+            <appendix>(not vmware)</appendix>
+            <not>VMWARE_FUSION</not>
+            <identifier>myremap.cotrolSemicolon2EscapeAndEisuu</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+        </item>
+        <item>
+            <name>Control+; to Escape</name>
+            <appendix>(only vmware)</appendix>
+            <only>VMWARE_FUSION</only>
+            <identifier>myremap.cotrolSemicolon2Escape</identifier>
+            <autogen>__KeyToKey__
+                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
+                KeyCode::ESCAPE</autogen>
+        </item>
         <item>
             <name>Control+[ to Escape+EISUU</name>
             <not>VMWARE_FUSION</not>
@@ -79,12 +122,13 @@
                 KeyCode::RETURN</autogen>
         </item>
         <item>
-            <name>Control+M to Return</name>
+            <name>Ctrl-M to Ctrl-J</name>
             <identifier>myremap.cotrolM2Return</identifier>
             <autogen>__KeyToKey__
                 KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::RETURN</autogen>
+                KeyCode::J, ModifierFlag::CONTROL_L</autogen>
         </item>
+        <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/include/checkbox/emacs_mode.xml -->
         <item>
             <name>Control+PNBF to Up/Down/Left/Right</name>
             <identifier>myremap.emacsmode_controlPNBF</identifier>
@@ -170,24 +214,6 @@
                 <only>DICTIONARY</only>
                 <autogen>__KeyToKey__ KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::NONE, KeyCode::A, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::SHIFT_L, KeyCode::X, ModifierFlag::COMMAND_L, Option::NOREPEAT</autogen>
             </block>
-        </item>
-        <item>
-            <name>Control+; to Escape+EISUU</name>
-            <appendix>(not vmware)</appendix>
-            <not>VMWARE_FUSION</not>
-            <identifier>myremap.cotrolSemicolon2EscapeAndEisuu</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
-        </item>
-        <item>
-            <name>Control+; to Escape</name>
-            <appendix>(only vmware)</appendix>
-            <only>VMWARE_FUSION</only>
-            <identifier>myremap.cotrolSemicolon2Escape</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::SEMICOLON, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::ESCAPE</autogen>
         </item>
         <!--
         <item>
