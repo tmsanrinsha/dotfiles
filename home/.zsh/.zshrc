@@ -576,11 +576,11 @@ if hash peco 2>/dev/null; then
         # Gitリポジトリの更新時間でソートしたいので、ghq listを使わない
         local ghq_roots="$(git config --path --get-all ghq.root)"
         local selected_dir=$(ghq list --full-path | \
-            xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 2>/dev/null && pwd' | \
+            xargs -I{} sh -c 'git -C {} log --pretty=format:"%ad " --date=short -n 1 && echo {}' | \
             sort -r | sed -e "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             peco --prompt="cd-ghq >" --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
-            BUFFER="cd $(ghq list --full-path | grep $selected_dir)"
+            BUFFER="cd $(ghq list --full-path | grep -E "\b$selected_dir\b")"
             zle accept-line
         fi
     }
