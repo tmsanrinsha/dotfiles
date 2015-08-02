@@ -109,7 +109,10 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "" 自動補完 {{{3
         NeoBundleLazy "Shougo/neocomplete.vim", {
         \   "autoload": {"insert": 1},
-        \   'depends' : 'Shougo/context_filetype.vim',
+        \   'depends' : [
+        \       'Shougo/context_filetype.vim',
+        \       'Shougo/neoinclude.vim'
+        \   ],
         \   "disabled": !has('lua'),
         \   "vim_version": '7.3.825',
         \}
