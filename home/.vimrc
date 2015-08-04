@@ -645,6 +645,8 @@ onoremap gm :<C-u>normal gm<CR>
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
+command! Shell lcd %:h <Bar> shell
+cabbrev sh Shell
 
 " <C-r>%で%の内容を挿入できる
 " file name
