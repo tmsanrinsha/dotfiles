@@ -2328,7 +2328,7 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]d :Gdiff<CR>
     nnoremap [fugitive]s :Gstatus<CR>
     nnoremap [fugitive]l :Glog<CR>
-    nnoremap [fugitive]p<CR> :Git push
+    nnoremap [fugitive]p :Git push
     nnoremap [fugitive]po    :Git push origin
     nnoremap [fugitive]P :Git pull --rebase origin master
     nnoremap [fugitive]f :Git fetch origin<CR>
@@ -2336,38 +2336,34 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
     nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
 
-    let bundle = neobundle#get("vim-fugitive")
+    " Gbrowse ではgit config --global web.browserの値は見てない
+    " ~/.vim/bundle/vim-fugitive/plugin/fugitive.vim
+    if !has('gui_running')
+        let g:netrw_browsex_viewer = 'rfbrowser'
+    endif
 
-    function! bundle.hooks.on_source(bundle)
-        " Gbrowse ではgit config --global web.browserの値は見てない
-        " ~/.vim/bundle/vim-fugitive/plugin/fugitive.vim
-        if !has('gui_running')
-            let g:netrw_browsex_viewer = 'rfbrowser'
+    " gitcommitでカーソル行のファイルをrmする
+    function! s:gitcommit_rm()
+        if executable('rmtrash')
+            let s:my_rm_commant = 'rmtrash'
+        else
+            let s:my_rm_commant = 'rm -r'
         endif
-
-        " gitcommitでカーソル行のファイルをrmする
-        function! s:gitcommitRm()
-            if executable('rmtrash')
-                let s:my_rm_commant = 'rmtrash'
-            else
-                let s:my_rm_commant = 'rm -r'
-            endif
-            " nnoremapだと<C-r><C-g>とrのremapができないのでnmap
-            " nmapだと:が;になってしまうので[Colon]を使う
-            execute   "nmap <buffer> [Space]r [Colon]call system('" . s:my_rm_commant . " \"' . expand('%:h:h') . '/<C-r><C-g>\"')<CR>r"
-        endfunction
-
-        autocmd MyVimrc FileType gitcommit call s:gitcommitRm()
-
-        " Gitリポジトリ以下のときに、Ctagsを実行 {{{3
-        " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
-        autocmd MyVimrc BufWritePost *
-            \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
-            \   call system('"'.b:git_dir.'/hooks/ctags" &') |
-            \ endif
-
-        " }}}
+        " nnoremapだと<C-r><C-g>とrのremapができないのでnmap
+        " nmapだと:が;になってしまうので[Colon]を使う
+        execute   "nmap <buffer> <LocalLeader>r [Colon]call system('" . s:my_rm_commant . " \"' . expand('%:h:h') . '/<C-r><C-g>\"')<CR>r"
     endfunction
+
+    autocmd MyVimrc FileType gitcommit call s:gitcommit_rm()
+
+    " Gitリポジトリ以下のときに、Ctagsを実行 {{{3
+    " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
+    autocmd MyVimrc BufWritePost *
+    \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
+    \   call system('"'.b:git_dir.'/hooks/ctags" &') |
+    \ endif
+
+    " }}}
 endif
 
 " gitv {{{2
