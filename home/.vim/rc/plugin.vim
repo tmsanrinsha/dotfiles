@@ -2066,47 +2066,33 @@ if IsInstalled('detectindent')
 endif
 
 " diff {{{1
-" ----------------------------------------------------------------------------
-" if IsInstalled('vim-diff-enhanced')
-"     " うまくいかない
-"      autocmd MyVimrc FilterWritePre *
-"      \   if &diff && !exists('g:is_diff_argorithm_changed')
-"      \|      let g:is_diff_argorithm_changed = 1
-"      \|      call system('git --diff-algorithm=histogram >/dev/null 2>&1')
-"      \|      if v:shell_error != 255
-"      \|          EnhancedDiff histogram
-"      \|      endif
-"      \|  endif
-" else
-    " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
-    " http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
-    " https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
-    " gitのバージョンが1.7だと使えなかった
-    let s:git_diff_normal="git-diff-normal"
-    let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
+" ============================================================================
+" vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
+" http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
+" https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
+let s:git_diff_normal="git-diff-normal"
+" let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
+" gitのバージョンが1.7だと--diff-algorithmが使えなかった
+let s:git_diff_normal_opts=["--patience"]
 
-    function! GitDiffNormal()
-        let args=[s:git_diff_normal]
-        if &diffopt =~ "iwhite"
-            call add(args, "--ignore-all-space")
-        endif
-        call extend(args, s:git_diff_normal_opts)
-        call extend(args, [v:fname_in, v:fname_new])
-        let cmd=join(args, " ") . ">" . v:fname_out
-        call system(cmd)
-    endfunction
+function! GitDiffNormal()
+    let args=[s:git_diff_normal]
+    if &diffopt =~ "iwhite"
+        call add(args, "--ignore-all-space")
+    endif
+    call extend(args, s:git_diff_normal_opts)
+    call extend(args, [v:fname_in, v:fname_new])
+    let cmd=join(args, " ") . ">" . v:fname_out
+    call system(cmd)
+endfunction
 
-    autocmd MyVimrc FilterWritePre *
-    \   if &diff && !exists('g:my_check_diff')
-    \|      let g:my_check_diff = 1
-    \|      if executable(s:git_diff_normal) && executable('git')
-    \|          call system('git ' . s:git_diff_normal_opts[0] . ' >/dev/null 2>&1')
-    \|          if v:shell_error != 255
-    \|              set diffexpr=GitDiffNormal()
-    \|          endif
-    \|      endif
-    \|  endif
-" endif
+autocmd MyVimrc FilterWritePre *
+\   if &diff && !exists('g:my_check_diff')
+\|      if executable(s:git_diff_normal) && executable('git')
+\|          set diffexpr=GitDiffNormal()
+\|      endif
+\|      let g:my_check_diff = 1
+\|  endif
 
 " scrooloose/syntastic {{{1
 " ============================================================================
