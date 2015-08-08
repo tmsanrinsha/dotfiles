@@ -422,6 +422,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'vim-scripts/dbext.vim', {
             \   'autoload': {'filetypes': ['sql']}
             \}
+        NeoBundleLazy 'autowitch/hive.vim', {
+            \   'autoload': {'filetypes': ['sql']}
+            \}
         " Markdown {{{2
         " ------------
         " NeoBundleLazy 'tpope/vim-markdown', {
@@ -1170,6 +1173,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         if !exists('g:neocomplete#sources')
           let g:neocomplete#sources = {}
         endif
+        " let g:neocomplete#sources._  = ['file', 'file/include', 'dictionary', 'member', 'buffer', 'syntax', 'neosnippet', 'omni', 'tag']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
         let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
 
@@ -2264,6 +2268,12 @@ if IsInstalled('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
 
+" autowitch/hive.vim {{{1
+" ============================================================================
+autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
+\   let b:sql_type_overrride = 'hive'
+\|  setlocal filetype=sql
+
 " plasticboy/vim-markdown {{{1
 " ============================================================================
 if IsInstalled('plasticboy_vim-markdown')
@@ -2401,6 +2411,7 @@ endif
 if IsInstalled("my_molokai")
     colorscheme molokai-customized
 endif
+
 " let g:solarized_termcolors=256
 " let g:solarized_contrast = "high"
 " colorscheme solarized
@@ -2552,7 +2563,7 @@ if IsInstalled("rainbow")
     \    }
     \}
 endif " }}}
-" junkfile.vim
+" junkfile.vim {{{1
 " ============================================================================
 if IsInstalled('junkfile.vim')
     let g:junkfile#directory = $VIM_CACHE_DIR."/junkfile"
