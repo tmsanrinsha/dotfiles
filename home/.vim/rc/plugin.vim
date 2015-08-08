@@ -1477,15 +1477,19 @@ if IsInstalled('vim-watchdogs')
     let g:quickrun_config["watchdogs_checker/mql"] = {
     \   "hook/cd/directory": '%S:p:h',
     \   "command":           "wine",
-    \   "cmdopt":            '~/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/mql.exe',
+    \   "cmdopt":            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
     \   "exec":              "%c %o %S:t",
     \   "errorformat":       '%f(%l\,%c) : %m',
     \}
+    " hook/cd/directoryでファイルのあるディレクトリに移動して、execでファイル名を指定して実行。
+    " ディレクトリを移動しない場合、wine側で認識させるためにz:をファイルパスにつけル必要があり、つけた結果エラー結果にz:がついてしまい、Vimで開くことができなくなる
+    " cmdoptでmql.exeをwineに渡す。#includeを読み込むためにはProgram FilesのMetaTraderディレクトリにmql.exeを置いておくか、/i:オプションでworking directoryを指定する
+    " MetaTraderディレクトリにmql.exeを置いておくと、MetaTraderの再起動時にファイルが消えてしまうので後者の方法を取る
+    " シングルクォートが非常に多いが
     " シングルクォートの中でシングルクォートを表すには''、
     " さらにvimprocでシングルクォートを表すために''''、
     " さらにwineの引数でシングルクォートを表すために''''''''
-    " また、Program FilesのMetaTraderのdirctoryにmql.exeを入れておかないと#include <stderror.mqh>が読み込めず
-    " コンパイルに失敗する
+    " となっている
 
     let g:quickrun_config["mql4/watchdogs_checker"] = {
     \   "type" : "watchdogs_checker/mql"
