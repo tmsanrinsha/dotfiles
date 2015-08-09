@@ -1190,6 +1190,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " let g:neocomplete#sources._  = ['file', 'file/include', 'dictionary', 'member', 'buffer', 'syntax', 'neosnippet', 'omni', 'tag']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
         let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources.vim  = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
 
         if !exists('g:neocomplcache_sources_list')
           let g:neocomplcache_sources_list = {}
