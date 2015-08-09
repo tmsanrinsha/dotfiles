@@ -537,12 +537,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " }}}
         NeoBundleLazy 'tyru/open-browser.vim', {
-            \   'autoload':{
-            \       'mappings':[
-            \            '<Plug>(openbrowser-'
-            \        ]
-            \   }
-            \}
+        \   'autoload': {
+        \       'mappings': '<Plug>(openbrowser-',
+        \       'functions': 'openbrowser#search'
+        \   }
+        \}
 
 
         " colorscheme
@@ -2391,26 +2390,47 @@ endif
 " open-browser.vim {{{1
 " ============================================================================
 if IsInstalled("open-browser.vim")
+    nmap gx <Plug>(openbrowser-smart-search)
+    vmap gx <Plug>(openbrowser-smart-search)
+    nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
+    vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
-    let g:netrw_nogx = 1 " disable netrw's gx mapping.
-    let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
-    if $SSH_CLIENT != ''
-        let g:openbrowser_browser_commands = [
+    autocmd MyVimrc FileType * call s:search_web_document()
+
+    function! s:search_web_document()
+        if &filetype !~ 'vim\|help\|man\|ref'
+            nnoremap <buffer> K :<C-u>call openbrowser#search(expand('<cword>'), &filetype)<CR>
+            vnoremap <buffer> K :<C-u>
+                \| let tmp = @@
+                \| silent normal gvy
+                \| let selected = @@
+                \| let @@ = tmp
+                \| call openbrowser#search(selected, &filetype)<CR>
+        endif
+    endfunction
+
+    let bundle = neobundle#get("open-browser.vim")
+    function! bundle.hooks.on_source(bundle)
+        let g:netrw_nogx = 1 " disable netrw's gx mapping.
+        let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
+
+        if !exists('g:openbrowser_search_engines')
+            let g:openbrowser_search_engines = {}
+        endif
+        let g:openbrowser_search_engines.php =
+        \   'http://www.php.net/search.php?show=quickref&=&pattern={query}'
+        let g:openbrowser_search_engines.mql4 =
+        \   'http://www.mql4.com/search#!keyword={query}'
+
+        if $SSH_CLIENT != ''
+            let g:openbrowser_browser_commands = [
             \   {
             \       "name": "rfbrowser",
             \       "args": "rfbrowser {uri}"
             \   }
             \]
-    endif
-
-    nmap gx <Plug>(openbrowser-smart-search)
-    vmap gx <Plug>(openbrowser-smart-search)
-    nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
-    vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
-    " nmap gx <Plug>(openbrowser-open)
-    " vmap gx <Plug>(openbrowser-open)
-    " nmap <2-LeftMouse> <Plug>(openbrowser-open)
-    " vmap <2-LeftMouse> <Plug>(openbrowser-open)
+        endif
+    endfunction
 endif
 
 " ColorScheme molokai {{{1
