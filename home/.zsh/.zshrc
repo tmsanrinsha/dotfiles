@@ -245,7 +245,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # _expandはグロブを使ったときファイルが補完対象に入るので使わない
 # _historyも関係ない文脈で補完されるので使わない
-zstyle ':completion:*' completer _match _complete _prefix _list
+# _matchはファイルパスに空白があるとうまくいかないので使わない
+zstyle ':completion:*' completer _complete _prefix _list
 
 # menu complition {{{2
 zmodload -i zsh/complist
