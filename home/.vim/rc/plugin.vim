@@ -1187,9 +1187,9 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         if !exists('g:neocomplete#sources')
           let g:neocomplete#sources = {}
         endif
-        " let g:neocomplete#sources._  = ['file', 'file/include', 'dictionary', 'member', 'buffer', 'syntax', 'neosnippet', 'omni', 'tag']
+        " let g:neocomplete#sources._    = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'include', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources.vim  = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
 
         if !exists('g:neocomplcache_sources_list')
@@ -2571,10 +2571,10 @@ endfunction
 
 " vim-quickhl {{{1
 " ============================================================================
-nmap <Space>m <Plug>(quickhl-manual-this)
-xmap <Space>m <Plug>(quickhl-manual-this)
-nmap <Space>M <Plug>(quickhl-manual-reset)
-xmap <Space>M <Plug>(quickhl-manual-reset)
+nmap [Space]m <Plug>(quickhl-manual-this)
+xmap [Space]m <Plug>(quickhl-manual-this)
+nmap [Space]M <Plug>(quickhl-manual-reset)
+xmap [Space]M <Plug>(quickhl-manual-reset)
 
 " rainbow {{{1
 " ============================================================================

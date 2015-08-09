@@ -1092,14 +1092,19 @@ autocmd MyVimrc BufRead,BufNewFile *.html
 " }}}
 " filetype {{{
 " ============================================================================
-nnoremap <Leader>Fd :<C-u>setlocal filetype=diff<CR>
-nnoremap <Leader>Fh :<C-u>setlocal filetype=html<CR>
-nnoremap <Leader>Fj :<C-u>setlocal filetype=javascript<CR>
-nnoremap <Leader>Fm :<C-u>setlocal filetype=markdown<CR>
-nnoremap <Leader>Fp :<C-u>setlocal filetype=php<CR>
-nnoremap <Leader>Fs :<C-u>setlocal filetype=sql<CR>
-nnoremap <Leader>Fv :<C-u>setlocal filetype=vim<CR>
-nnoremap <Leader>Fx :<C-u>setlocal filetype=xml<CR>
+nnoremap [FILETYPE] <Nop>
+nmap <Leader>F [FILETYPE]
+
+nnoremap [FILETYPE]d :<C-u>setlocal filetype=diff<CR>
+nnoremap [FILETYPE]h :<C-u>setlocal filetype=html<CR>
+nnoremap [FILETYPE]j :<C-u>setlocal filetype=javascript<CR>
+nnoremap [FILETYPE]m :<C-u>setlocal filetype=markdown<CR>
+nnoremap [FILETYPE]p :<C-u>setlocal filetype=php<CR>
+nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
+nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
+nnoremap [FILETYPE]sh :<C-u>let b:sql_type_overrride = 'hive' <Bar> setlocal filetype=sql<CR>
+nnoremap [FILETYPE]v :<C-u>setlocal filetype=vim<CR>
+nnoremap [FILETYPE]x :<C-u>setlocal filetype=xml<CR>
 
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
@@ -1175,8 +1180,8 @@ autocmd MyVimrc FileType java
 "}}}
 " MySQL {{{
 " ----------------------------------------------------------------------------
-" ]}, [{ の移動先
 let g:sql_type_default = 'mysql'
+" ]}, [{ の移動先
 let g:ftplugin_sql_statements = 'create,alter'
 
 " Vim {{{2

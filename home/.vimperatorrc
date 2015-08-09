@@ -45,7 +45,7 @@ EOM
 
 " mapping {{{1
 " ============================================================================
-let mapleader = ','
+let mapleader = ';'
 " Emacs like key bindings {{{2
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
@@ -99,6 +99,7 @@ qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
 qmark t https://twitter.com/
 qmark T http://tv.yahoo.co.jp/listings/realtime/
+qmark y http://www.yahoo.co.jp/
 
 " bookmarklet {{{1
 " ============================================================================
