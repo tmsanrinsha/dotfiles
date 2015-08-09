@@ -81,6 +81,11 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   }
         \}
         NeoBundleLazy 'tmsanrinsha/unite-ghq'
+        NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
+        \   'autoload': {
+        \       'unite_sources': ['zsh-cdr']
+        \   }
+        \}
         " NeoBundle 'Shougo/unite-sudo'
 
         " http://archiva.jp/web/tool/vim_grep2.html
@@ -992,6 +997,13 @@ if IsInstalled('unite-ghq')
     endfunction
 endif
 
+" unite-zsh-cdr.vim {{{1
+" =========================================================================
+if IsInstalled('unite-zsh-cdr.vim')
+    nnoremap [unite]dr :<C-u>Unite zsh-cdr<CR>
+
+    let g:unite_zsh_cdr_chpwd_recent_dirs = g:recent_dirs_file
+endif
 " vimfiler {{{1
 " ==============================================================================
 let g:vimfiler_as_default_explorer = 1
