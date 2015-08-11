@@ -2424,7 +2424,7 @@ if IsInstalled("open-browser.vim")
     function! s:search_web_document()
         if &filetype !~ 'vim\|help\|man\|ref'
             nnoremap <buffer> K :<C-u>call openbrowser#search(expand('<cword>'), &filetype)<CR>
-            vnoremap <buffer> K :<C-u>
+            xnoremap <buffer> K :<C-u>
                 \| let tmp = @@
                 \| silent normal gvy
                 \| let selected = @@
