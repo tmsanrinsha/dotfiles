@@ -116,20 +116,26 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   "autoload": {"insert": 1},
         \   'depends' : [
         \       'Shougo/context_filetype.vim',
-        \       'Shougo/neoinclude.vim'
+        \       'Shougo/neoinclude.vim',
+        \       'Shougo/neco-syntax',
         \   ],
+        \   "disabled": !has('lua'),
+        \   "vim_version": '7.3.825',
+        \}
+        NeoBundleLazy "Shougo/neco-vim", {
+        \   'autoload': {'filetypes': 'vim'},
+        \   "disabled": !has('lua'),
+        \   "vim_version": '7.3.825',
+        \}
+        NeoBundleLazy "ujihisa/neco-look", {
+        \   "autoload": {"insert": 1},
+        \   'external_commands': 'look',
         \   "disabled": !has('lua'),
         \   "vim_version": '7.3.825',
         \}
         NeoBundleLazy "Shougo/neocomplcache.vim", {
         \   "autoload": {"insert": 1},
         \   "disabled": has('lua'),
-        \}
-        NeoBundle "ujihisa/neco-look", {
-        \   'external_commands': 'look'
-        \}
-        NeoBundleLazy "Shougo/neco-vim", {
-        \   'autoload': {'filetypes': 'vim'}
         \}
         " if has('python') && (v:version >= 704 || v:version == 703 && has('patch584'))
         "     NeoBundle "Valloric/YouCompleteMe"
@@ -1187,10 +1193,11 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         if !exists('g:neocomplete#sources')
           let g:neocomplete#sources = {}
         endif
-        " let g:neocomplete#sources._    = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
         let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources.vim  = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
+        let g:neocomplete#sources.vimshell  = ['buffer', 'vimshell']
 
         if !exists('g:neocomplcache_sources_list')
           let g:neocomplcache_sources_list = {}
@@ -1256,6 +1263,10 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             let g:neocomplete#sources#omni#input_patterns = {}
         endif
         let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+        " 日本語も補完させたい場合は
+        " g:neocomplete#enable_multibyte_completionをnon-0にして
+        " g:neocomplete#keyword_patternsも変更する必要あり
 
         " key mappings {{{
         execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
