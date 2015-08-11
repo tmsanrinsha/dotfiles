@@ -82,9 +82,9 @@ noremap gxa cvy:tabopen<Space>http://eow.alc.co.jp/search?q=<M-v><CR>
 " Yahoo!ファイナンスでサーチ
 noremap gxf cvy:tabopen<Space>http://info.finance.yahoo.co.jp/search/?query=<M-v><CR>
 
-noremap ,B :bmarks<Space>
-noremap ,h :history<Space>
-noremap ,ps :panorama switch<Space>
+noremap <Leader>B :bmarks<Space>
+noremap <Leader>h :history<Space>
+noremap <Leader>ps :panorama switch<Space>
 
 nnoremap <Leader>vr :execute 'source ' + io.getRCFile().target<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
@@ -166,10 +166,10 @@ liberator.globalVariables.copy_templates = [
 EOM
 
 " mapを上で設定すると不安定なので、ここで設定
-nnoremap ,yt :copy title<CR>
-nnoremap ,yp :copy plain<CR>
-nnoremap ,ym :copy markdown<CR>
-nnoremap ,ya :copy anchor<CR>
+nnoremap <Leader>yt :copy title<CR>
+nnoremap <Leader>yp :copy plain<CR>
+nnoremap <Leader>ym :copy markdown<CR>
+nnoremap <Leader>ya :copy anchor<CR>
 
 " feedsomekeys_3.js {{{1
 " ============================================================================
@@ -179,7 +179,7 @@ nnoremap ,ya :copy anchor<CR>
 " (「"」の場合、エスケープを \\ のように二重にしなくてはいけなくなります。)
 
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
-" ?でショートカットキーを見れるようにする
+" ?の無効化。ショートカットを見たいときはi?とうつ
 lazy fmaps -u='.*' ?
 " gmailでnとj、pとjを入れ替える。
 lazy fmaps -u='mail\.google\.com/mail' n,j p,k
