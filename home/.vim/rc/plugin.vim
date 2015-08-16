@@ -150,6 +150,52 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
         " NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
 
+        " quickrun {{{2
+        " --------------------------------------------------------------------
+        NeoBundleLazy 'thinca/vim-quickrun', {
+            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
+            \   'depends' : ['karakaram/vim-quickrun-phpunit']
+            \}
+        " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
+        "             \   'autoload' : { 'commands' : 'QuickRun' },
+        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+        "             \}
+        " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
+        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
+        "             \}
+
+        " syntax check, quickfix {{{2
+        " -------------------------------------------------------------------
+        " ファイルを保存時にシンタックスのチェック
+        " 同期処理なのでwatchldogsを使う
+        " NeoBundleLazy 'scrooloose/syntastic'
+
+        " dependsでquickrunを設定するとhookがうまくいかない
+        NeoBundleLazy 'osyo-manga/vim-watchdogs'
+
+        " quickrunのhook設定
+        NeoBundle 'osyo-manga/shabadou.vim'
+
+        " quickfixに表示されている行をハイライト
+        NeoBundle "cohama/vim-hier"
+
+        " カレント行のquickfixメッセージを画面下部に表示
+        NeoBundle "dannyob/quickfixstatus"
+
+        " statuslineにエラーを表示
+        NeoBundle "KazuakiM/vim-qfstatusline"
+
+        " signの表示
+        " 表示が乱れる
+        " NeoBundle "tomtom/quickfixsigns_vim"
+        " NeoBundle 'KazuakiM/vim-qfsigns'
+
+        " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
+        " http://www.vim.org/scripts/script.php?script_id=4449
+        NeoBundle 'QuickFixCurrentNumber', {
+            \   'depends': 'ingo-library'
+            \}
+
         " operator {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy "kana/vim-operator-user"
@@ -313,45 +359,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'tmsanrinsha/diffchar.vim'
         " NeoBundle 'chrisbra/vim-diff-enhanced'
 
-        " quickfix, syntax check {{{2
-        " -------------------------------------------------------------------
-        " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
-        " http://www.vim.org/scripts/script.php?script_id=4449
-        NeoBundle 'QuickFixCurrentNumber', {
-            \   'depends': 'ingo-library'
-            \}
-        " ファイルを保存時にシンタックスのチェック
-        " NeoBundleLazy 'scrooloose/syntastic'
-        " dependでquickrunを設定するとhookがうまくいかない
-        NeoBundle 'osyo-manga/vim-watchdogs'
-        " quickrunのhook設定
-        NeoBundle 'osyo-manga/shabadou.vim'
-        " quickfixに表示されている行をハイライト
-        NeoBundle "cohama/vim-hier"
-        " カレント行のquickfixメッセージを画面下部に表示
-        NeoBundle "dannyob/quickfixstatus"
-        " statuslineにエラーを表示
-        NeoBundle "KazuakiM/vim-qfstatusline"
-        " signの表示
-        " 表示が乱れる
-        " NeoBundle "tomtom/quickfixsigns_vim"
-        " NeoBundle 'KazuakiM/vim-qfsigns'
-
-        " quickrun {{{2
-        " --------------------------------------------------------------------
-        NeoBundleLazy 'thinca/vim-quickrun', {
-            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
-            \   'depends' : ['karakaram/vim-quickrun-phpunit']
-            \}
-        " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'autoload' : { 'commands' : 'QuickRun' },
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
-        " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
-        " }}}
-        " NeoBundle 'tpope/vim-dispatch'
         " eclipseと連携 {{{2
         if ! exists('g:eclipse_home')
             if has('win32') && isdirectory(expand('~/eclipse'))
@@ -1451,122 +1458,6 @@ if IsInstalled('lexima')
     execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
 endif
 
-" vim-watchdogs {{{1
-" ============================================================================
-if IsInstalled('vim-watchdogs')
-    let g:watchdogs_check_BufWritePost_enable = 1
-    if !exists("g:quickrun_config")
-        let g:quickrun_config = {}
-    endif
-
-    let g:quickrun_config['watchdogs_checker/_'] = {
-    \   'hook/quickfix_status_enable/enable_exit':   1,
-    \   'hook/quickfix_status_enable/priority_exit': 1,
-    \   "hook/qfstatusline_update/enable_exit":      1,
-    \   "hook/qfstatusline_update/priority_exit":    4,
-    \}
-    " quickfixを開かない
-    let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
-
-    " apaache {{{2
-    " ------------------------------------------------------------------------
-    let g:quickrun_config["watchdogs_checker/apache"] = {
-    \   "command":           "apachectl",
-    \   "cmdopt":            "configtest",
-    \   "exec":              "%c %o",
-    \   "errorformat":       "%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#",
-    \}
-
-    let g:quickrun_config["apache/watchdogs_checker"] = {
-    \   "type" : "watchdogs_checker/apache"
-    \}
-
-    " cpp {{{2
-    " ------------------------------------------------------------------------
-    let g:quickrun_config["cpp/watchdogs_checker"] = {
-    \   "type"
-    \       : executable("g++")         ? "watchdogs_checker/g++"
-    \       : executable("clang-check") ? "watchdogs_checker/clang_check"
-    \       : executable("clang++")     ? "watchdogs_checker/clang++"
-    \       : executable("cl")          ? "watchdogs_checker/cl"
-    \       : "",
-    \}
-
-    let g:quickrun_config["watchdogs_checker/g++"] = {
-    \   "command"   : "g++",
-    \   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
-    \   "outputter" : "quickfix",
-    \}
-
-    " mql {{{2
-    " ------------------------------------------------------------------------
-    let g:quickrun_config["watchdogs_checker/mql"] = {
-    \   "hook/cd/directory": '%S:p:h',
-    \   "command":           "wine",
-    \   "cmdopt":            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
-    \   "exec":              "%c %o %S:t",
-    \   "errorformat":       '%f(%l\,%c) : %m',
-    \}
-    " hook/cd/directoryでファイルのあるディレクトリに移動して、execでファイル名を指定して実行。
-    " ディレクトリを移動しない場合、wine側で認識させるためにz:をファイルパスにつけル必要があり、つけた結果エラー結果にz:がついてしまい、Vimで開くことができなくなる
-    " cmdoptでmql.exeをwineに渡す。#includeを読み込むためにはProgram FilesのMetaTraderディレクトリにmql.exeを置いておくか、/i:オプションでworking directoryを指定する
-    " MetaTraderディレクトリにmql.exeを置いておくと、MetaTraderの再起動時にファイルが消えてしまうので後者の方法を取る
-    " シングルクォートが非常に多いが
-    " シングルクォートの中でシングルクォートを表すには''、
-    " さらにvimprocでシングルクォートを表すために''''、
-    " さらにwineの引数でシングルクォートを表すために''''''''
-    " となっている
-
-    let g:quickrun_config["mql4/watchdogs_checker"] = {
-    \   "type" : "watchdogs_checker/mql"
-    \}
-
-    " fugitiveのdiffなどの表示画面ではcheckしない
-    autocmd MyVimrc BufRead fugitive://*.mq4
-    \   let b:watchdogs_checker_type = ''
-
-
-    " java {{{2
-    " ------------------------------------------------------------------------
-    let g:quickrun_config['java/watchdogs_checker'] = {
-    \   'type': ''
-    \}
-
-    " php {{{2
-    " ------------------------------------------------------------------------
-    let g:quickrun_config['watchdogs_checker/php'] = {
-    \   "command" : "php",
-    \   "exec"    : "%c %o -l %s:p",
-    \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
-    \}
-
-    " sh {{{2
-    " ------------------------------------------------------------------------
-    " filetypeがshでも基本的にbashを使うので、bashでチェックする
-    let g:quickrun_config["sh/watchdogs_checker"] = {
-    \   "type": (executable("bash") ? "watchdogs_checker/bash" : "")
-    \}
-
-    let g:quickrun_config["watchdogs_checker/bash"] = {
-    \   "command":     "bash",
-    \   "exec":        "%c -n %o %s:p",
-    \   "errorformat": '%f:\ line\ %l:%m',
-    \}
-
-    " zsh {{{2
-    " ------------------------------------------------------------------------
-    " let g:quickrun_config['zsh/watchdogs_checker'] = {
-    " \   'type': ''
-    " \}
-
-    " watchdogs.vim の設定を更新（初回は呼ばれる）
-    call watchdogs#setup(g:quickrun_config)
-endif
-
-" quickfixsign_vim {{{1
-" ============================================================================
-let g:quickfixsigns_classes = ['qfl']
-
 " vim-quickrun {{{1
 " ============================================================================
 if IsInstalled('vim-quickrun')
@@ -1703,6 +1594,133 @@ if IsInstalled('vim-quickrun')
     endfunction
 endif
 "}}}
+" vim-watchdogs {{{1
+" ============================================================================
+if IsInstalled('vim-watchdogs')
+    augroup WatchdogsSetting
+        autocmd!
+        autocmd BufWritePre
+        \   NeoBundleSource vim-watchdogs |
+        \   autocmd! WatchdogsSetting
+    augroup END
+
+    let bundle = neobundle#get("vim-watchdogs")
+    function! bundle.hooks.on_source(bundle)
+        let g:watchdogs_check_BufWritePost_enable = 1
+
+        if !exists("g:quickrun_config")
+            let g:quickrun_config = {}
+        endif
+
+        let g:quickrun_config['watchdogs_checker/_'] = {
+        \   'hook/quickfix_status_enable/enable_exit':   1,
+        \   'hook/quickfix_status_enable/priority_exit': 1,
+        \   "hook/qfstatusline_update/enable_exit":      1,
+        \   "hook/qfstatusline_update/priority_exit":    4,
+        \}
+        " quickfixを開かない
+        " let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
+
+        " apaache {{{2
+        " ------------------------------------------------------------------------
+        let g:quickrun_config["watchdogs_checker/apache"] = {
+        \   "command":           "apachectl",
+        \   "cmdopt":            "configtest",
+        \   "exec":              "%c %o",
+        \   "errorformat":       "%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#",
+        \}
+
+        let g:quickrun_config["apache/watchdogs_checker"] = {
+        \   "type" : "watchdogs_checker/apache"
+        \}
+
+        " cpp {{{2
+        " ------------------------------------------------------------------------
+        let g:quickrun_config["cpp/watchdogs_checker"] = {
+        \   "type"
+        \       : executable("g++")         ? "watchdogs_checker/g++"
+        \       : executable("clang-check") ? "watchdogs_checker/clang_check"
+        \       : executable("clang++")     ? "watchdogs_checker/clang++"
+        \       : executable("cl")          ? "watchdogs_checker/cl"
+        \       : "",
+        \}
+
+        let g:quickrun_config["watchdogs_checker/g++"] = {
+        \   "command"   : "g++",
+        \   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
+        \   "outputter" : "quickfix",
+        \}
+
+        " mql {{{2
+        " ------------------------------------------------------------------------
+        let g:quickrun_config["watchdogs_checker/mql"] = {
+        \   "hook/cd/directory": '%S:p:h',
+        \   "command":           "wine",
+        \   "cmdopt":            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
+        \   "exec":              "%c %o %S:t",
+        \   "errorformat":       '%f(%l\,%c) : %m',
+        \}
+        " hook/cd/directoryでファイルのあるディレクトリに移動して、execでファイル名を指定して実行。
+        " ディレクトリを移動しない場合、wine側で認識させるためにz:をファイルパスにつけル必要があり、つけた結果エラー結果にz:がついてしまい、Vimで開くことができなくなる
+        " cmdoptでmql.exeをwineに渡す。#includeを読み込むためにはProgram FilesのMetaTraderディレクトリにmql.exeを置いておくか、/i:オプションでworking directoryを指定する
+        " MetaTraderディレクトリにmql.exeを置いておくと、MetaTraderの再起動時にファイルが消えてしまうので後者の方法を取る
+        " シングルクォートが非常に多いが
+        " シングルクォートの中でシングルクォートを表すには''、
+        " さらにvimprocでシングルクォートを表すために''''、
+        " さらにwineの引数でシングルクォートを表すために''''''''
+        " となっている
+
+        let g:quickrun_config["mql4/watchdogs_checker"] = {
+        \   "type" : "watchdogs_checker/mql"
+        \}
+
+        " fugitiveのdiffなどの表示画面ではcheckしない
+        autocmd MyVimrc BufRead fugitive://*.mq4
+        \   let b:watchdogs_checker_type = ''
+
+
+        " java {{{2
+        " ------------------------------------------------------------------------
+        let g:quickrun_config['java/watchdogs_checker'] = {
+        \   'type': ''
+        \}
+
+        " php {{{2
+        " ------------------------------------------------------------------------
+        let g:quickrun_config['watchdogs_checker/php'] = {
+        \   "command" : "php",
+        \   "exec"    : "%c %o -l %s:p",
+        \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
+        \}
+
+        " sh {{{2
+        " ------------------------------------------------------------------------
+        " filetypeがshでも基本的にbashを使うので、bashでチェックする
+        let g:quickrun_config["sh/watchdogs_checker"] = {
+        \   "type": (executable("bash") ? "watchdogs_checker/bash" : "")
+        \}
+
+        let g:quickrun_config["watchdogs_checker/bash"] = {
+        \   "command":     "bash",
+        \   "exec":        "%c -n %o %s:p",
+        \   "errorformat": '%f:\ line\ %l:%m',
+        \}
+
+        " zsh {{{2
+        " ------------------------------------------------------------------------
+        " let g:quickrun_config['zsh/watchdogs_checker'] = {
+        " \   'type': ''
+        " \}
+
+        " watchdogs.vim の設定を更新（初回は呼ばれる）
+        call watchdogs#setup(g:quickrun_config)
+
+    endfunction
+endif
+" quickfixsign_vim {{{1
+" ============================================================================
+let g:quickfixsigns_classes = ['qfl']
+
 " operator {{{1
 " ============================================================================
 if IsInstalled("vim-operator-user")
@@ -2420,18 +2438,25 @@ if IsInstalled("open-browser.vim")
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
-    autocmd MyVimrc FileType * call s:search_web_document()
+    " autocmd MyVimrc FileType * call s:search_web_document()
 
     function! s:search_web_document()
         if &filetype !~ 'vim\|help\|man\|ref'
-            nnoremap <buffer> K :<C-u>call openbrowser#search(expand('<cword>'), &filetype)<CR>
-            xnoremap <buffer> K :<C-u>
-                \| let tmp = @@
-                \| silent normal gvy
-                \| let selected = @@
-                \| let @@ = tmp
-                \| call openbrowser#search(selected, &filetype)<CR>
+            nnoremap <buffer> K :<C-u>call MyOpenbrowserSearch('n')<CR>
+            xnoremap <buffer> K :<C-u>call MyOpenbrowserSearch('v')<CR>
         endif
+    endfunction
+
+    function! MyOpenbrowserSearch(mode)
+        if a:mode ==# 'n'
+            let search_text = expand('<cword>')
+        elseif a:mode ==# 'v'
+            let V = vital#of('vital')
+            let Buffer = V.import('Vim.Buffer')
+            let search_text = Buffer.get_last_selected()
+        endif
+
+        call openbrowser#search(search_text, &filetype)
     endfunction
 
     let bundle = neobundle#get("open-browser.vim")
