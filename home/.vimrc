@@ -793,7 +793,44 @@ function! s:ctags(dir)
 endfunction
 command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
 
-" cript {{{1
+" Gitリポジトリ以下のときに、保存するたびにctagsを実行 {{{2
+" ----------------------------------------------------------------------------
+" http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
+autocmd MyVimrc BufWritePost *
+\ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
+\   call system('"'.b:git_dir.'/hooks/ctags" &') |
+\ endif
+
+" tsukkee/unite-tag {{{2
+" ----------------------------------------------------------------------------
+nnoremap [unite]t :<C-u>Unite tag<CR>
+
+let g:unite_source_tag_max_fname_length = 1000
+let g:unite_source_tag_max_name_length = 100
+let g:unite_source_tag_strict_truncate_string = 0
+
+" helpやfiletypeがjavaのとき以外
+autocmd MyVimrc FileType *
+\   if empty(&buftype) && &filetype != 'java'
+\|      nnoremap <buffer> <C-]> :<C-u>MyUniteTag<CR>
+\|  endif
+
+function! s:unite_tag()
+    if &filetype == 'vim'
+        " quickrun#is_runnig()などの上で<C-]>したときにquickrunリポジトリ
+        " の.git/tagsをtagsに追加する。
+        " .git/tagsはgitのhookで生成しておくようにしておく
+        " [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
+        let plugin_name = matchstr(expand('<cword>'), '[^#]\+\ze#')
+        if plugin_name != ''
+            execute 'setlocal tags+='.substitute(globpath(&runtimepath, 'autoload/'.plugin_name.'.vim'), 'autoload/'.plugin_name.'.vim', '.git/tags', '')
+        endif
+    endif
+    UniteWithCursorWord -immediately tag
+endfunction
+command! MyUniteTag call s:unite_tag()
+
+" crypt {{{1
 " ============================================================================
 " [Using VIM as Your Password Manager - Stelfox Athenæum](http://stelfox.net/blog/2013/11/using-vim-as-your-password-manager/)
 " 暗号化して保存するためには

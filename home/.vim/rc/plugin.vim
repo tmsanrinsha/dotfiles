@@ -977,20 +977,6 @@ autocmd MyVimrc FileType yaml
 " =========================================================================
 nnoremap [unite]` :<C-u>Unite mark<CR>
 
-" tsukkee/unite-tag {{{1
-" =========================================================================
-nnoremap [unite]t :<C-u>Unite tag<CR>
-
-" helpやfiletypeがjavaのときは使用しない
-autocmd MyVimrc BufEnter *
-    \   if empty(&buftype) && &filetype != 'java'
-    \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-    \|  endif
-    " \   if empty(&buftype) && &filetype != 'vim' && &filetype != 'java'
-let g:unite_source_tag_max_fname_length = 1000
-let g:unite_source_tag_max_name_length = 100
-let g:unite_source_tag_strict_truncate_string = 0
-
 " vim-unite-history {{{1
 " =========================================================================
 if IsInstalled('vim-unite-history')
@@ -2400,15 +2386,6 @@ if IsInstalled('vim-fugitive')
     endfunction
 
     autocmd MyVimrc FileType gitcommit call s:gitcommit_rm()
-
-    " Gitリポジトリ以下のときに、Ctagsを実行 {{{3
-    " http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
-    autocmd MyVimrc BufWritePost *
-    \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
-    \   call system('"'.b:git_dir.'/hooks/ctags" &') |
-    \ endif
-
-    " }}}
 endif
 
 " gitv {{{2
