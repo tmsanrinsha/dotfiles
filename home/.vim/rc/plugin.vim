@@ -42,6 +42,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   },
         \   'disabled': has('win32') && has('kaoriya'),
         \}
+        " NeoBundle 'tpope/vim-dispatch'
 
         " vital {{{2
         NeoBundleLazy 'vim-jp/vital.vim'
@@ -360,16 +361,17 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundle 'chrisbra/vim-diff-enhanced'
 
         " eclipseと連携 {{{2
-        if ! exists('g:eclipse_home')
-            if has('win32') && isdirectory(expand('~/eclipse'))
-                let g:eclipse_home = escape(expand('~/eclipse'), '\')
-            elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
-                " caskでインストールした場合、設定するディレクトリはEclipse.appの実体の一つ上のディレクトリ
-                let g:eclipse_home = resolve(expand('~/Applications/Eclipse.app/..'))
-            else
-                let g:eclipse_home = ''
-            endif
-        endif
+        " --------------------------------------------------------------------
+        " if ! exists('g:eclipse_home')
+        "     if has('win32') && isdirectory(expand('~/eclipse'))
+        "         let g:eclipse_home = escape(expand('~/eclipse'), '\')
+        "     elseif has('mac') && isdirectory(expand('~/Applications/Eclipse.app'))
+        "         " caskでインストールした場合、設定するディレクトリはEclipse.appの実体の一つ上のディレクトリ
+        "         let g:eclipse_home = resolve(expand('~/Applications/Eclipse.app/..'))
+        "     else
+        "         let g:eclipse_home = ''
+        "     endif
+        " endif
 
         " NeoBundleLazy 'ervandew/eclim', {
         "     \   'build' : {
@@ -384,7 +386,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "     \   'external_commands': 'ant',
         "     \   'disabled': !exists(g:eclipse_home),
         "     \}
-        " }}}
+
         " PHP {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy 'shawncplus/phpcomplete.vim', {
@@ -2415,7 +2417,7 @@ if IsInstalled("open-browser.vim")
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
-    " autocmd MyVimrc FileType * call s:search_web_document()
+    autocmd MyVimrc FileType * call s:search_web_document()
 
     function! s:search_web_document()
         if &filetype !~ 'vim\|help\|man\|ref'

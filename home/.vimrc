@@ -702,52 +702,19 @@ augroup cdr
 augroup END
 
 function! s:update_cdr(dir)
+    " gitなどのdirは書き込まない
+    if !isdirectory(a:dir)
+        return
+    end
+
     if filereadable(g:recent_dirs_file)
         let recent_dirs = readfile(g:recent_dirs_file)
         call insert(recent_dirs, "$'".a:dir."'", 0)
-        " echo recent_dirs
         let V = vital#of('vital')
         let List = V.import('Data.List')
         let recent_dirs = List.uniq(recent_dirs)
         call writefile(recent_dirs, g:recent_dirs_file)
     endif
-
-    " function! s:uniq_by(list, f) "{{{
-    "     let list = map(copy(a:list), printf('[v:val, %s]', a:f))
-    "     let i = 0
-    "     let seen = {}
-    "     while i < len(list)
-    "         let key = string(list[i][1])
-    "         if has_key(seen, key)
-    "             call remove(list, i)
-    "         else
-    "             let seen[key] = 1
-    "             let i += 1
-    "         endif
-    "     endwhile
-    "     return map(list, 'v:val[0]')
-    " endfunction "}}}
-    "
-    " call writefile(a:list, path)
-    " let self.candidates = s:uniq(self.candidates)
-    " if len(self.candidates) > self.limit
-    "     let self.candidates = self.candidates[: self.limit - 1]
-    " endif
-    "
-    " if get(opts, 'event') ==# 'VimLeavePre'
-    "     call self.validate()
-    " endif
-    "
-    " call s:writefile(self.mru_file,
-    " \ [self.version] + self.candidates)
-    " function! s:writefile(path, list) "{{{
-    "     let path = fnamemodify(a:path, ':p')
-    "     if !isdirectory(fnamemodify(path, ':h'))
-    "         call mkdir(fnamemodify(path, ':h'), 'p')
-    "     endif
-    "
-    "     call writefile(a:list, path)
-    " endfunction "}}}
 endfunction
 
 " vimdiff {{{1
