@@ -777,29 +777,43 @@ let g:unite_source_tag_max_name_length = 100
 let g:unite_source_tag_strict_truncate_string = 0
 
 " helpやfiletypeがjavaのとき以外
-autocmd MyVimrc FileType *
-\   if empty(&buftype) && &filetype != 'java'
-\|      nnoremap <buffer> <C-]> :<C-u>MyUniteTag<CR>
-\|  endif
+" gitのhookで.git/tagsが生成されるように設定しておく
+" [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
+autocmd MyVimrc FileType * call s:configure_tag()
 
-function! s:unite_tag()
-    if &filetype == 'vim'
-        " gitのhookで.git/tagsが生成されるように設定しておく
-        " [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
-        execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
-
-        " その都度個別に追加する版。
-        " 全部tagsに追加しても遅くないのと#使ってないものが検索できないのでやめて、上のようにした
-        " " quickrun#is_runnig()などの上で<C-]>したときにquickrunリポジトリ
-        " " の.git/tagsをtagsに追加する。
-        " " let plugin_name = matchstr(expand('<cword>'), '[^#]\+\ze#')
-        " " if plugin_name != ''
-          "   " execute 'setlocal tags+='.substitute(globpath(&runtimepath, 'autoload/'.plugin_name.'.vim'), 'autoload/'.plugin_name.'.vim', '.git/tags', '')
-        " " endif
+function! s:configure_tag()
+    if !empty(&buftype) || &filetype == 'java'
+        return
     endif
-    UniteWithCursorWord -immediately tag
+
+    if &filetype == 'vim'
+        execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
+    endif
+
+    nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
 endfunction
-command! MyUniteTag call s:unite_tag()
+
+" tagsにその都度個別に追加する版 {{{3
+" 全部tagsに追加しても遅くないのと#使ってないものが検索できないのでやめた
+" " helpやfiletypeがjavaのとき以外
+" " autocmd MyVimrc FileType *
+" \   if empty(&buftype) && &filetype != 'java'
+" \|      nnoremap <buffer> <C-]> :<C-u>MyUniteTag<CR>
+" \|  endif
+"
+" function! s:
+"     if &filetype == 'vim'
+"         " quickrun#is_runnig()などの上で<C-]>したときにquickrunリポジトリ
+"         " の.git/tagsをtagsに追加する。
+"         let plugin_name = matchstr(expand('<cword>'), '[^#]\+\ze#')
+"         if plugin_name != ''
+"           " execute 'setlocal tags+='.substitute(globpath(&runtimepath, 'autoload/'.plugin_name.'.vim'), 'autoload/'.plugin_name.'.vim', '.git/tags', '')
+"         endif
+"     endif
+"     UniteWithCursorWord -immediately tag
+" endfunction
+" command! MyUniteTag call s:
+" }}}
 
 " crypt {{{1
 " ============================================================================

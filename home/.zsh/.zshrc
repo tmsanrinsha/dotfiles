@@ -78,7 +78,7 @@ alias -g H='| head'
 alias -g T='| tail -f'
 alias -g E='| egrep'
 alias -g GI='| egrep -i'
-alias -g X='-print0 | xargs -0'
+alias -g X='| xmllint --format -'
 alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 # }}}

@@ -49,13 +49,15 @@ elif [[ $OSTYPE == darwin* ]]; then
     # Mac用のコマンドを置くディレクトリ
     pathmungeR $HOME/script/mac
 
+    export PATH="/usr/local/sbin:$PATH"
+
     # coreutils
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
     # gnu-sed
-    PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-    MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
     # wine
     if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
