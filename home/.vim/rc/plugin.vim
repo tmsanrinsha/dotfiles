@@ -2417,16 +2417,13 @@ if IsInstalled("open-browser.vim")
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
-    autocmd MyVimrc FileType * call s:search_web_document()
+    autocmd MyVimrc FileType *
+    \|  if &filetype !~ 'vim\|help\|man\|ref'
+    \       nnoremap <buffer> K :<C-u>MyOpenbrowserSearch n<CR>
+    \       xnoremap <buffer> K :<C-u>MyOpenbrowserSearch v<CR>
+    \   endif
 
-    function! s:search_web_document()
-        if &filetype !~ 'vim\|help\|man\|ref'
-            nnoremap <buffer> K :<C-u>call MyOpenbrowserSearch('n')<CR>
-            xnoremap <buffer> K :<C-u>call MyOpenbrowserSearch('v')<CR>
-        endif
-    endfunction
-
-    function! MyOpenbrowserSearch(mode)
+    function! s:my_openbrowser_search(mode)
         if a:mode ==# 'n'
             let search_text = expand('<cword>')
         elseif a:mode ==# 'v'
@@ -2437,6 +2434,7 @@ if IsInstalled("open-browser.vim")
 
         call openbrowser#search(search_text, &filetype)
     endfunction
+    command! -nargs=1 MyOpenbrowserSearch call s:my_openbrowser_search('<args>')
 
     let bundle = neobundle#get("open-browser.vim")
     function! bundle.hooks.on_source(bundle)
