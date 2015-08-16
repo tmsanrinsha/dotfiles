@@ -441,13 +441,22 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'external_commands': 'ruby',
         \   'autoload': {'filetypes': ['c', 'cpp']}
         \}
+
+        " R {{{2
+        " --------------------------------------------------------------------
+        NeoBundleLazy 'vim-scripts/Vim-R-plugin', {
+        \   'autoload': {'filetypes': 'r'}
+        \}
+
         " SQL {{{2
+        " --------------------------------------------------------------------
         NeoBundleLazy 'vim-scripts/dbext.vim', {
             \   'autoload': {'filetypes': ['sql']}
             \}
         NeoBundleLazy 'autowitch/hive.vim', {
             \   'autoload': {'filetypes': ['sql']}
             \}
+
         " Markdown {{{2
         " ------------
         " NeoBundleLazy 'tpope/vim-markdown', {
@@ -1207,6 +1216,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             call neocomplete#custom#source('file/include', 'rank', 400)
             call neocomplete#custom#source('omni'        , 'rank', 400)
             call neocomplete#custom#source('member'      , 'rank', 350)
+            call neocomplete#custom#source('syntax'      , 'rank', 300)
         endif
 
 
@@ -1257,7 +1267,16 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         if !exists('g:neocomplete#sources#omni#input_patterns')
             let g:neocomplete#sources#omni#input_patterns = {}
         endif
+
+        if !exists('g:neocomplete#sources#omni#functions')
+            let g:neocomplete#sources#omni#functions = {}
+        endif
+
         let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+        " R (plugin: vim-R-plugin)
+        let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\]\+'
+        let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
 
         " 日本語も補完させたい場合は
         " g:neocomplete#enable_multibyte_completionをnon-0にして
