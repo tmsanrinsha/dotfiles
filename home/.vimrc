@@ -784,14 +784,18 @@ autocmd MyVimrc FileType *
 
 function! s:unite_tag()
     if &filetype == 'vim'
-        " quickrun#is_runnig()などの上で<C-]>したときにquickrunリポジトリ
-        " の.git/tagsをtagsに追加する。
-        " .git/tagsはgitのhookで生成しておくようにしておく
+        " gitのhookで.git/tagsが生成されるように設定しておく
         " [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
-        let plugin_name = matchstr(expand('<cword>'), '[^#]\+\ze#')
-        if plugin_name != ''
-            execute 'setlocal tags+='.substitute(globpath(&runtimepath, 'autoload/'.plugin_name.'.vim'), 'autoload/'.plugin_name.'.vim', '.git/tags', '')
-        endif
+        execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
+
+        " その都度個別に追加する版。
+        " 全部tagsに追加しても遅くないのと#使ってないものが検索できないのでやめて、上のようにした
+        " " quickrun#is_runnig()などの上で<C-]>したときにquickrunリポジトリ
+        " " の.git/tagsをtagsに追加する。
+        " " let plugin_name = matchstr(expand('<cword>'), '[^#]\+\ze#')
+        " " if plugin_name != ''
+          "   " execute 'setlocal tags+='.substitute(globpath(&runtimepath, 'autoload/'.plugin_name.'.vim'), 'autoload/'.plugin_name.'.vim', '.git/tags', '')
+        " " endif
     endif
     UniteWithCursorWord -immediately tag
 endfunction
