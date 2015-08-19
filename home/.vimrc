@@ -787,7 +787,10 @@ function! s:configure_tag()
     endif
 
     if &filetype == 'vim'
-        execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
+        " 引数が4つまでになるのは7.4.279以上
+        " [Vim script言語仕様の変更 · rbtnn/vimscript Wiki](https://github.com/rbtnn/vimscript/wiki/Vim-script%E8%A8%80%E8%AA%9E%E4%BB%95%E6%A7%98%E3%81%AE%E5%A4%89%E6%9B%B4)
+        " execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
+        execute 'setlocal tags+='.substitute(globpath(&runtimepath, '.git/tags', 0), "\<NL>", ',', 'g')
     endif
 
     nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
