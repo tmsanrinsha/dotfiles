@@ -450,9 +450,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " SQL {{{2
         " --------------------------------------------------------------------
-        NeoBundleLazy 'vim-scripts/dbext.vim', {
-            \   'autoload': {'filetypes': ['sql']}
-            \}
+        " NeoBundleLazy 'vim-scripts/dbext.vim', {
+        "     \   'autoload': {'filetypes': ['sql']}
+        "     \}
         NeoBundleLazy 'autowitch/hive.vim', {
             \   'autoload': {'filetypes': ['sql']}
             \}
@@ -470,18 +470,18 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " \   'name': 'plasticboy_vim-markdown',
         " \   'autoload': {'filetypes': ['mkd']},
         " \}
-        " NeoBundle 'plasticboy/vim-markdown', {
-        " \   'name': 'plasticboy_vim-markdown',
-        " \}
+        NeoBundle 'plasticboy/vim-markdown', {
+        \   'name': 'plasticboy_vim-markdown',
+        \}
 
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         " forked from plasticboy/vim-markdown
         " 下のプラグインと組み合わせると色がつく
-        NeoBundleLazy 'rcmdnk/vim-markdown', {
-        \   'name': 'rcmdnk_vim-markdown',
-        \   'autoload': {'filetypes': 'markdown'},
-        \   'depends': 'godlygeek/tabular',
-        \}
+        " NeoBundleLazy 'rcmdnk/vim-markdown', {
+        " \   'name': 'rcmdnk_vim-markdown',
+        " \   'autoload': {'filetypes': 'markdown'},
+        " \   'depends': 'godlygeek/tabular',
+        " \}
         " NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
         " \   'autoload': {'filetypes': 'markdown'},
         " \}
@@ -2334,6 +2334,8 @@ autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 " ============================================================================
 if IsInstalled('plasticboy_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
+    " macでgxを使いたい場合
+    let g:netrw_browsex_viewer= "open"
 endif
 
 " rcmdnk/vim-markdown {{{1
