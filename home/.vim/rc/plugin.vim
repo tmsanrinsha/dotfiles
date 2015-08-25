@@ -2336,6 +2336,7 @@ if IsInstalled('plasticboy_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= "open"
+    let g:vim_markdown_no_default_key_mappings=1
 endif
 
 " rcmdnk/vim-markdown {{{1
