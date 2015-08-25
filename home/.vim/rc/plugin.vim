@@ -442,9 +442,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'autoload': {'filetypes': ['c', 'cpp']}
         \}
 
-        " R {{{2
+        " R lang {{{2
         " --------------------------------------------------------------------
-        NeoBundleLazy 'vim-scripts/Vim-R-plugin', {
+        NeoBundleLazy 'jcfaria/Vim-R-plugin', {
         \   'autoload': {'filetypes': 'r'}
         \}
 
