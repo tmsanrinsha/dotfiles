@@ -922,12 +922,16 @@ endfunction
 
 command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 
-" colorscheme {{{1
+" syntax highlight, colorscheme {{{1
 " ============================================================================
 set t_Co=256 " 256色
 syntax enable
+
 " :h :syn-sync-maxlines
-" syntax sync minlines=500 maxlines=1000
+syntax sync minlines=500 maxlines=1000
+
+" :h doxygen-syntax
+" let g:load_dosygen_syntax=1
 
 " 全角スペースをハイライト （Vimテクニックバイブル1-11）{{{2
 " ----------------------------------------------------------------------------
