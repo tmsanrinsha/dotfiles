@@ -1173,7 +1173,7 @@ let g:markdown_quote_syntax_filetypes = {
         \},
   \}
 autocmd MyVimrc FileType markdown,html
-\   command! Pandoc :%!pandoc -f html -t markdown --no-wrap
+\   command! Pandoc :%!pandoc -f html -t markdown_phpextra --no-wrap
 
 " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
 function! MyAddToFileType(ft)
