@@ -16,6 +16,8 @@ done
 
 # http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532
 git_dir="$(cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../; pwd)"
+cd $git_dir
+git pull
 home=$git_dir/home
 setup_dir=$git_dir/setup
 
@@ -85,10 +87,11 @@ if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
 cp $git_dir/template/.gitconfig ~/.gitconfig
+
 # 消し方
 # git config --global --remove-section "ghq" || :
 # git config --global --unset ghq.root
-git config --global "ghq.root" "$SRC_ROOT"
+# git config --global "ghq.root" "$SRC_ROOT"
 
 # .ctagsの設定 {{{2
 # ----------------------------------------------------------------------------
@@ -97,10 +100,19 @@ if ctags --version | grep Development; then
 else
     $ln -sfv $git_dir/template/.ctags.old ~/.ctags
 fi
+# }}}
 
 if [ $link -eq 1 ]; then
     exit
 fi
+
+if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/ghinst/.git ]; then
+    cd $SRC_ROOT/github.com/tmsanrinsha
+    git clone https://github.com/tmsanrinsha/ghinst.git
+    ln -sf $SRC_ROOT/github.com/tmsanrinsha/ghinst/ghinst ~/bin/
+fi
+
+command_exists ghq || ghinst motemen/ghq
 
 # zsh {{{1
 # ============================================================================
@@ -148,7 +160,7 @@ if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
         vimperatordir="$HOME/.vimperator"
     fi
 
-    ghq get git://github.com/vimpr/vimperator-plugins.git
+    ghq get -u vimpr/vimperator-plugins
     $ln -fs ~/src/github.com/vimpr/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
 
