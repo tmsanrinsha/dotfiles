@@ -10,29 +10,24 @@ set -ex
 #  -b: homebrewの更新を行う
 #  -v: neoinstallする
 
-if [[ ! -x ~/bin/ghinst ]]; then
-    test -d ~/bin || mkdir ~/bin
-    curl -L 'https://raw.githubusercontent.com/tmsanrinsha/ghinst/master/ghinst' > ~/bin/ghinst
-    chmod a+x ~/bin/ghinst
+export SRC_ROOT="$HOME/src"
+if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/dotfiles/.git ]; then
+    mkdir -p $SRC_ROOT/github.com/tmsanrinsha
+    cd $SRC_ROOT/github.com/tmsanrinsha
+    git clone https://github.com/tmsanrinsha/dotfiles.git
 fi
-PATH=${HOME}/bin:$PATH
-
-ghinst motemen/ghq
-
-# if [ ! -d $SRC_ROOT/github.com/tmsanrinsha ]; then
-#     mkdir -p $SRC_ROOT/tmsanrinsha
-# fi
-# if [ ! -d $SRC_ROOT/tmsanrinsha/dotfiles ]; then
-#     cd $SRC_ROOT/tmsanrinsha
-#     git clone git://github.com/tmsanrinsha/dotfiles.git
-# else
-#     cd $SRC_ROOT/tmsanrinsha/dotfiles
-#     git pull
-# fi
-
-SRC_ROOT="$HOME/src"
-git config --global --remove-section "ghq" || :
-git config --global "ghq.root" "$SRC_ROOT"
-
-ghq get -u tmsanrinsha/dotfiles
 bash $SRC_ROOT/github.com/tmsanrinsha/dotfiles/setup/setup.sh $1
+
+# if ! which ghinst; then
+#     test -d ~/bin || mkdir ~/bin
+#     git clone https://github.com/tmsanrinsha/ghinst.git $SRC_ROOT/github.com/tmsanrinsha
+#     chmod a+x ~/bin/ghinst
+# fi
+# PATH=${HOME}/bin:$PATH
+
+# SRC_ROOT="$HOME/src"
+# git config --global --remove-section "ghq" || :
+# git config --global "ghq.root" "$SRC_ROOT"
+#
+# ghq get -u tmsanrinsha/dotfiles
+# bash $SRC_ROOT/github.com/tmsanrinsha/dotfiles/setup/setup.sh $1
