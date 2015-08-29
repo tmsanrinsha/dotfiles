@@ -113,6 +113,7 @@ if [ ! -x ~/.zsh/functions/_pandoc ];then
     chmod a+x ~/.zsh/functions/_pandoc
 fi
 
+ghq get -u zsh-users/zsh-completions
 # antigen {{{2
 # ----------------------------------------------------------------------------
 # cd $git_dir
