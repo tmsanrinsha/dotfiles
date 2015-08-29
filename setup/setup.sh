@@ -114,6 +114,8 @@ if [ ! -x ~/.zsh/functions/_pandoc ];then
 fi
 
 ghq get -u zsh-users/zsh-completions
+ghq get -u Valodim/zsh-curl-completion
+
 # antigen {{{2
 # ----------------------------------------------------------------------------
 # cd $git_dir

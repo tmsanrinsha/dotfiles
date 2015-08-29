@@ -38,7 +38,13 @@ fi
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
 
-fpath=(~/.zsh/functions ~/.zsh/zsh-completions/src $fpath)
+fpath=(
+    ~/.zsh/functions
+    $SRC_ROOT/github.com/zsh-users/zsh-completions/src
+    $SRC_ROOT/github.com/Valodim/zsh-curl-completion
+    $fpath
+)
+
 # ghqの補完
 # fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)
 
