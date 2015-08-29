@@ -38,6 +38,14 @@ _brew_installed_taps() {
   installed_taps=(${(f)"$(_call_program formulae brew tap 2>/dev/null)"})
 }
 
+_brew_official_taps() {
+  official_taps=(${(f)"$(_call_program formulae brew tap --list-official 2>/dev/null)"})
+}
+
+_brew_pinned_taps() {
+  pinned_taps=(${(f)"$(_call_program formulae brew tap --list-pinned 2>/dev/null)"})
+}
+
 _brew_outdated_formulae() {
   outdated_formulae=(${(f)"$(_call_program formulae brew outdated 2>/dev/null)"})
 }
@@ -64,17 +72,22 @@ _1st_arguments=(
   'doctor:audits your installation for common issues'
   'diy:automatically determine the installation prefix for non-Homebrew software'
   'edit:edit a formula'
-  'fetch:download the source packages for the given formulae'
+  'fetch:download formula resources to the cache'
+  'gist-logs:generate a gist of the full build logs'
   'home:visit the homepage of a formula or the brew project'
   'info:information about a formula'
   'install:install a formula'
+  'reinstall:install a formula anew; re-using its current options'
+  'leaves:show installed formulae that are not dependencies of another installed formula'
   'link:link a formula'
   'list:list files in a formula or not-installed formulae'
   'log:git commit log for a formula'
   'missing:check all installed formulae for missing dependencies.'
+  'migrate:migrate renamed formula to new name'
   'options:display install options specific to formula'
   'outdated:list formulae for which a newer version is available'
   'pin:pin specified formulae'
+  'postinstall:perform post_install for a given formula'
   'prune:remove dead links'
   'reinstall:install a formula anew; re-using its current options'
   'remove:remove a formula'
@@ -83,14 +96,21 @@ _1st_arguments=(
   'services:manage background services via launchctl'
   'switch:switch between different versions of a formula'
   'tap:tap a new formula repository from GitHub, or list existing taps'
+  'tap-info:information about a tap'
+  'tap-pin:pin a tap'
+  'tap-unpin:unpin a tap'
   'test:a few formulae provide a test method'
+  'test-bot:test a formula and build a bottle'
+  'uninstall:uninstall a formula'
   'unlink:unlink a formula'
   'untap:remove a tapped repository'
   'unpin:unpin specified formulae'
-  'update:freshen up links'
+  'untap:remove a tapped repository'
+  'update:fetch latest version of Homebrew and all formulae'
   'upgrade:upgrade outdated formulae'
   'uses:show formulae which depend on a formula'
   'versions:list previous versions of formulae'
+  `brew commands --quiet --include-aliases`
 )
 
 local -a cask _cask_arguments
@@ -116,7 +136,7 @@ _alfred_arguments=(
 )
 
 local expl
-local -a formulae installed_formulae installed_taps outdated_formulae casks installed_casks
+local -a formulae installed_formulae installed_taps official_taps outdated_formulae casks installed_casks
 
 _arguments \
   '(-v)-v[verbose]' \
@@ -165,7 +185,7 @@ case "$words[1]" in
       '(--unbrewed)--unbrewed[files in brew --prefix not controlled by brew]' \
       '(--pinned)--pinned[list all versions of pinned formulae]' \
       '(--versions)--versions[list all installed versions of a formula]' \
-      '1: :->forms' &&  return 0
+      '1: :->forms' && return 0
 
       if [[ "$state" == forms ]]; then
         _brew_installed_formulae
@@ -182,7 +202,7 @@ case "$words[1]" in
       '(--use-gcc)--use-gcc[attempt to compile using GCC]' \
       '(--use-llvm)--use-llvm[attempt to compile using the LLVM front-end to GCC]' \
       '1: :->forms' && return 0
-    
+
       if [[ "$state" == forms ]]; then
         _brew_all_formulae
         _wanted formulae expl 'all formulae' compadd -a formulae
@@ -195,11 +215,17 @@ case "$words[1]" in
     _wanted installed_formulae expl 'installed formulae' compadd -a installed_formulae ;;
   tap)
     _arguments \
-      '(--repair)--repair[repair all tap formula, i.e. symlinks and dead formula]' && return 0 ;;
+      '(--repair)--repair[repair all tap formula, i.e. symlinks and dead formula]' \
+      '1: :->forms' && return 0
+
+      if [[ "$state" == forms ]]; then
+        _brew_official_taps
+        _wanted official_taps expl 'official taps' compadd -a official_taps
+      fi ;;
   upgrade)
     _brew_outdated_formulae
     _wanted outdated_formulae expl 'outdated formulae' compadd -a outdated_formulae ;;
-  untap)
+  untap|tap-info|tap-pin)
     _brew_installed_taps
     _wanted installed_taps expl 'installed taps' compadd -a installed_taps ;;
   cask)
