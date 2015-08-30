@@ -1,5 +1,10 @@
 options(repos = "http://cran.ism.ac.jp/")
 # options(repos = "https://cran.r-project.org/")
 if (interactive()) {
+    library(colorout)
+    library(setwidth)
+    options(vimcom.verbose = 1) # optional
     library(vimcom)
 }
+
+# vim: ft=r
