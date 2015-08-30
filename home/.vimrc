@@ -679,8 +679,9 @@ nnoremap [Space]yf :let @* = expand("%:t")<CR>
 " 上のコマンドだとパーミッションは引き継がれないので、mvで処理するようにする。
 command! -nargs=1 -complete=file Rename call s:move(expand('%'), '<args>')
 function! s:move(src, dest)
-    execute 'f '.a:dest
     call system('mv '.a:src.' '.a:dest)
+    execute 'e '.a:dest
+    bdelete #
 endfunction
 
 
