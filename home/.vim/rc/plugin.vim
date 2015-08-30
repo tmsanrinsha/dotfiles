@@ -154,9 +154,14 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " quickrun {{{2
         " --------------------------------------------------------------------
         NeoBundleLazy 'thinca/vim-quickrun', {
-            \   'autoload' : { 'commands' : [ 'QuickRun' ] },
-            \   'depends' : ['karakaram/vim-quickrun-phpunit']
-            \}
+        \   'autoload': {
+        \       'commands': [{
+        \           'name': 'QuickRun',
+        \           'complete': 'customlist,quickrun#complete',
+        \       }]
+        \   },
+        \   'depends': ['karakaram/vim-quickrun-phpunit']
+        \}
         " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
         "             \   'autoload' : { 'commands' : 'QuickRun' },
         "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
