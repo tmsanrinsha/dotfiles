@@ -19,6 +19,7 @@ if v:version > 701
             exec "set <M-".c.">=\<Esc>".c
         endif
     endfor
+    exec "set <M-CR>=\<Esc>\<CR>"
 
     " cuiのvimで<C-Space>を使う設定 {{{2
     " ------------------------------------------------------------------------
