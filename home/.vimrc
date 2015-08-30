@@ -1132,6 +1132,7 @@ nnoremap [FILETYPE]h :<C-u>setlocal filetype=html<CR>
 nnoremap [FILETYPE]j :<C-u>setlocal filetype=javascript<CR>
 nnoremap [FILETYPE]m :<C-u>setlocal filetype=markdown<CR>
 nnoremap [FILETYPE]p :<C-u>setlocal filetype=php<CR>
+nnoremap [FILETYPE]r :<C-u>setlocal filetype=r<CR>
 nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
 nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
 nnoremap [FILETYPE]sh :<C-u>let b:sql_type_overrride = 'hive' <Bar> setlocal filetype=sql<CR>
