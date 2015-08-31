@@ -177,7 +177,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundleLazy 'scrooloose/syntastic'
 
         " dependsでquickrunを設定するとhookがうまくいかない
-        NeoBundleLazy 'osyo-manga/vim-watchdogs'
+        " NeoBundleLazy 'osyo-manga/vim-watchdogs'
+        NeoBundle 'osyo-manga/vim-watchdogs'
 
         " quickrunのhook設定
         NeoBundle 'osyo-manga/shabadou.vim'
@@ -1605,15 +1606,15 @@ endif
 " vim-watchdogs {{{1
 " ============================================================================
 if IsInstalled('vim-watchdogs')
-    augroup WatchdogsSetting
-        autocmd!
-        autocmd BufWritePre
-        \   NeoBundleSource vim-watchdogs |
-        \   autocmd! WatchdogsSetting
-    augroup END
+    " augroup WatchdogsSetting
+    "     autocmd!
+    "     autocmd BufWritePre
+    "     \   NeoBundleSource vim-watchdogs |
+    "     \   autocmd! WatchdogsSetting
+    " augroup END
 
-    let bundle = neobundle#get("vim-watchdogs")
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get("vim-watchdogs")
+    " function! bundle.hooks.on_source(bundle)
         let g:watchdogs_check_BufWritePost_enable = 1
 
         if !exists("g:quickrun_config")
@@ -1723,7 +1724,7 @@ if IsInstalled('vim-watchdogs')
         " watchdogs.vim の設定を更新（初回は呼ばれる）
         call watchdogs#setup(g:quickrun_config)
 
-    endfunction
+    " endfunction
 endif
 " quickfixsign_vim {{{1
 " ============================================================================
