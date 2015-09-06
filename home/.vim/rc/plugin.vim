@@ -2325,11 +2325,11 @@ if IsInstalled('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
 
-" jcfaria/Vim-R-plugin {{{1
+" R lang, jcfaria/Vim-R-plugin {{{1
 " ============================================================================
 nnoremap [FILETYPE]R :<C-u>setlocal filetype=r <Bar> normal <LocalLeader>rf<CR>
-autocmd MyVimrc FileType r
-\   imap <buffer> <CR> <Plug>RSendLine<C-o>o
+" autocmd MyVimrc FileType r
+" \   imap <buffer> <CR> <Plug>RSendLine<C-o>o
 " \   imap <buffer> <M-CR> <Plug>RSendLine<CR>
 
 " autowitch/hive.vim {{{1

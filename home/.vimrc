@@ -349,7 +349,7 @@ nnoremap [h ?\vhttps\?://<CR>
 " nnoremap ]gP ]P`]j
 
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
-inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+" inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " }}}
 " swap, backup, undo {{{
 " ==============================================================================
@@ -646,7 +646,6 @@ onoremap gm :<C-u>normal gm<CR>
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap <silent><Leader>gc :cd %:h<CR>
 command! Shell lcd %:h <Bar> shell
-cabbrev sh Shell
 
 " <C-r>%で%の内容を挿入できる
 " file name
