@@ -1191,7 +1191,15 @@ au FileType mkd      call MyAddToFileType('markdown')
 
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
-autocmd MyVimrc FileType javascript setlocal syntax=jquery
+autocmd MyVimrc FileType javascript call s:configure_javascript()
+
+function! s:configure_javascript()
+    setlocal syntax=jquery
+    " .を入れたほうがneocompleteの補完がうまくいく
+    setlocal iskeyword+=.
+endfunction
+
+
 " [Vim (with python) で json を整形 - Qiita](http://qiita.com/tomoemon/items/cc29b414a63e08cd4f89#comment-77832dedb32996ec7080)
 command! FormatJson
 \   :execute '%!python -m json.tool'
