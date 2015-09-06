@@ -807,7 +807,9 @@ if IsInstalled('unite.vim')
     endfunction
 
     " プロジェクトディレクトリ以下のファイル
+    " こちらのコマンドだと、カレントディレクトリがあるプロジェクトディレクトリ以下
     " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+    " こちらのコマンドだと、カレントバッファのファイルがあるプロジェクトディレクトリ以下
     nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
     function! s:unite_file_project(...)
         let opts = (a:0 ? join(a:000, ' ') : '')
@@ -1053,6 +1055,7 @@ if IsInstalled('vimshell.vim')
     nnoremap [VIMSHELL]py :VimShellInteractive python<CR>
     nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
     nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
+    nnoremap [VIMSHELL]r  :VimShellInteractive r<CR>
     nnoremap [VIMSHELL]s  :VimShellSendString<CR>
 
     let bundle = neobundle#get("vimshell.vim")
