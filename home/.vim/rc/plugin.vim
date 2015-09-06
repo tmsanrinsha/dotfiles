@@ -2418,6 +2418,11 @@ if IsInstalled('vim-fugitive')
     endfunction
 
     autocmd MyVimrc FileType gitcommit call s:gitcommit_rm()
+
+    " vimfiler上でfugitiveのコマンドを使う
+    autocmd MyVimrc FileType vimfiler
+    \   autocmd CursorMoved <buffer> let b:git_dir = '' | call fugitive#detect(vimfiler#get_filename())
+
 endif
 
 " gitv {{{2
