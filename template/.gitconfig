@@ -48,7 +48,7 @@
 	allow = tmsanrinsha
 
 [ghq]
-	root = /Users/tmsanrinsha/src
+	root = ~/src
 
 [include]
 	# 環境ごとに違う設定は別ファイルでやる
