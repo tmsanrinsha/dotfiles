@@ -1048,15 +1048,15 @@ autocmd MyVimrc BufLeave vimfiler*
 " ============================================================================
 if IsInstalled('vimshell.vim')
     nmap <leader>H [VIMSHELL]
-    nnoremap [VIMSHELL]H  :VimShellPop<CR>
-    nnoremap [VIMSHELL]b  :VimShellBufferDir -popup<CR>
-    nnoremap [VIMSHELL]c  :VimShellCurrentDir -popup<CR>
-    nnoremap [VIMSHELL]i  :VimShellInteractive<Space>
-    nnoremap [VIMSHELL]py :VimShellInteractive python<CR>
-    nnoremap [VIMSHELL]ph :VimShellInteractive php<CR>
-    nnoremap [VIMSHELL]rb :VimShellInteractive irb<CR>
-    nnoremap [VIMSHELL]r  :VimShellInteractive r<CR>
-    nnoremap [VIMSHELL]s  :VimShellSendString<CR>
+    nnoremap [VIMSHELL]H   :VimShellPop<CR>
+    nnoremap [VIMSHELL]b   :VimShellBufferDir -popup<CR>
+    nnoremap [VIMSHELL]c   :VimShellCurrentDir -popup<CR>
+    nnoremap [VIMSHELL]i   :VimShellInteractive
+    nnoremap [VIMSHELL]ipy :VimShellInteractive python<CR>
+    nnoremap [VIMSHELL]iph :VimShellInteractive php<CR>
+    nnoremap [VIMSHELL]irb :VimShellInteractive irb<CR>
+    nnoremap [VIMSHELL]ir  :VimShellInteractive r
+    nnoremap [VIMSHELL]s   :VimShellSendString<CR>
 
     let bundle = neobundle#get("vimshell.vim")
     function! bundle.hooks.on_source(bundle)
@@ -2396,6 +2396,7 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]l :Glog<CR>
     nnoremap [fugitive]p :Git push
     nnoremap [fugitive]po    :Git push origin
+    nnoremap [fugitive]ps    :execute 'Git push origin '.fugitive#head()<CR>
     nnoremap [fugitive]P :Git pull --rebase origin master
     nnoremap [fugitive]f :Git fetch origin<CR>
 

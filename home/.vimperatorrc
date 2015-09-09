@@ -92,8 +92,8 @@ nnoremap ZZ :restart<CR>
 " qmark {{{1
 " ============================================================================
 qmark c https://www.google.com/calendar/
-qmark f https://www.facebook.com/
-qmark F http://finance.yahoo.co.jp/
+qmark F https://www.facebook.com/
+qmark f http://finance.yahoo.co.jp/
 qmark g https://mail.google.com/
 qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
