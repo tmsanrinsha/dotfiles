@@ -95,6 +95,9 @@ cp $git_dir/template/.gitconfig ~/.gitconfig
 
 # .ctagsの設定 {{{2
 # ----------------------------------------------------------------------------
+if [ -L "$HOME/.ctags" ]; then
+    rm "$HOME/.ctags"
+fi
 if ctags --version | grep Development; then
     $setup_dir/make_.ctags.sh --new > ~/.ctags
 else
