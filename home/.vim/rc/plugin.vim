@@ -2118,12 +2118,13 @@ function! s:updateSaveversDirs()
     let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
 endfunction
 
-autocmd MyVimrc BufWrite * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
 function! s:existOrMakeSaveversDirs()
     if !isdirectory(g:savevers_dirs)
         call mkdir(g:savevers_dirs, "p")
     endif
 endfunction
+
+autocmd MyVimrc BufWrite * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
 
 " PreserveNoEOL {{{1
 " ============================================================================

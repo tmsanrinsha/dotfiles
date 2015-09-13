@@ -156,12 +156,13 @@ test -f ~/.vvm/etc/login && source ~/.vvm/etc/login
 # svn {{{
 alias svnvd='svn diff --diff-cmd ~/bin/svn_diff_vim'
 # }}}
-# perl {{{
+# perl {{{1
 # ==============================================================================
 # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
 alias pl="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
-#}}}
-# gisty {{{
+
+# gisty {{{1
+# ==============================================================================
 export GISTY_DIR="$HOME/gists"
 export GISTY_SSL_VERIFY="NONE"
 # }}}
