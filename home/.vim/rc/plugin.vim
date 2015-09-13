@@ -160,7 +160,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \           'complete': 'customlist,quickrun#complete',
         \       }]
         \   },
-        \   'depends': ['karakaram/vim-quickrun-phpunit']
         \}
         " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
         "             \   'autoload' : { 'commands' : 'QuickRun' },
@@ -1488,13 +1487,18 @@ if IsInstalled('vim-quickrun')
         if !exists("g:quickrun_config")
             let g:quickrun_config = {}
         endif
+        " 共通の設定
+        " [shabadou.vim を使って quickrun.vim をカスタマイズしよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20120919/1348054752)
         let g:quickrun_config['_'] = {
-        \   'runner'                    : 'vimproc',
-        \   'runner/vimproc/updatetime' : 50,
-        \   'outputter'                 : 'multi:buffer',
-        \   'outputter/buffer/split'    : 'botright'
+        \ 'runner'                                 : 'vimproc',
+        \ 'runner/vimproc/updatetime'              : 50,
+        \ 'outputter'                              : 'multi:buffer:quickfix',
+        \ 'outputter/buffer/split'                 : 'botright 8sp',
+        \ 'hook/close_quickfix/enable_hook_loaded' : 1,
+        \ 'hook/close_quickfix/enable_success'     : 1,
+        \ 'hook/close_buffer/enable_failure'       : 1,
+        \ 'hook/close_buffer/enable_empty_data'    : 1,
         \}
-        " \   'outputter'                 : 'multi:buffer:quickfix',
 
         " :QuickRun -outputter my_outputter {{{2
         " --------------------------------------------------------------------
@@ -1529,16 +1533,17 @@ if IsInstalled('vim-quickrun')
         let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
 
         " PHPUnit {{{3
-        "
+        let g:quickrun_config['php.phpunit'] = {
+        \ 'hook/cd/directory'              : '%S:p:h',
+        \ 'command'                        : 'phpunit.sh',
+        \ 'cmdopt'                         : '',
+        \ 'exec'                           : '%c %o %s',
+        \ 'outputter/quickfix/errorformat' : '%f:%l',
+        \}
+        " 一行のerrorformat
+        " \ 'outputter/quickfix/errorformat' : '%E%n)\ %m,%Z%f:%l,%C%m,%-G%.%#',
         " [VimでPHPUnitの実行結果をシンプルに表示するプラグインを書いた | karakaram-blog](http://www.karakaram.com/phpunit-location-list)
-        if !exists("g:quickrun_config['php.phpunit']")
-            let g:quickrun_config['php.phpunit'] = {
-            \   'command'   : 'phpunit',
-            \   'cmdopt'    : '',
-            \   'exec'      : '%c %o %s',
-            \   'outputter' : 'phpunit'
-            \}
-        endif
+        " let g:quickrun_config['php.phpunit']['outputter'] = 'phpunit'
         " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
 
         " composer.json {{{3
