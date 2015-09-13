@@ -310,7 +310,8 @@ compdef Vim=vim
 # Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
 # http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
 compdef _gnu_generic bc
-
+compdef _gnu_generic phpunit
+compdef _gnu_generic phpunit.sh
 
 # site-functionsのリロード
 rsf() {
