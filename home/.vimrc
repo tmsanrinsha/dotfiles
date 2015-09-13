@@ -1106,7 +1106,7 @@ command! -nargs=1 Xterm2rgb echo s:Xterm2rgb(<f-args>)
 " [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
 "" }}}
 " }}}
-" ftdetect {{{
+" ftdetect {{{1
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha*,qiita* setlocal filetype=markdown
 autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
@@ -1120,7 +1120,12 @@ autocmd MyVimrc BufRead,BufNewFile *.html
 \   if getline(1) =~ '<?php'
 \|      setlocal filetype=php
 \|  endif
-" }}}
+
+autocmd MyVimrc BufRead,BufNewFile composer.json
+\   setlocal filetype=composer.json
+\ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
+\ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
+
 " filetype {{{
 " ============================================================================
 nnoremap [FILETYPE] <Nop>
