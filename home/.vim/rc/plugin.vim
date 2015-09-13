@@ -1497,35 +1497,9 @@ if IsInstalled('vim-quickrun')
         \ 'hook/close_quickfix/enable_hook_loaded' : 1,
         \ 'hook/close_quickfix/enable_success'     : 1,
         \ 'hook/close_buffer/enable_failure'       : 1,
-        \ 'hook/close_buffer/enable_empty_data'    : 1,
         \}
+        " \ 'hook/close_buffer/enable_empty_data'    : 1,
 
-        " :QuickRun -outputter my_outputter {{{2
-        " --------------------------------------------------------------------
-        " プロセスの実行中は、buffer に出力し、
-        " プロセスが終了したら、quickfix へ出力を行う
-
-        " 既存の outputter をコピーして拡張
-        let my_outputter = quickrun#outputter#multi#new()
-        let my_outputter.config.targets = ["buffer", "quickfix"]
-
-        function! my_outputter.init(session)
-            " quickfix を閉じる
-            :cclose
-            " 元の処理を呼び出す
-            call call(quickrun#outputter#multi#new().init, [a:session], self)
-        endfunction
-
-        function! my_outputter.finish(session)
-            call call(quickrun#outputter#multi#new().finish, [a:session], self)
-            " 出力バッファの削除
-            bwipeout [quickrun
-            " vim-hier を使用している場合は、ハイライトを更新したりとか
-            " :HierUpdate
-        endfunction
-
-        " quickrun に outputter を登録
-        call quickrun#register_outputter("my_outputter", my_outputter)
 
         " PHP {{{2
         " --------------------------------------------------------------------
