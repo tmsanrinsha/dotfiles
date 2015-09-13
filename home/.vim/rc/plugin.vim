@@ -34,14 +34,15 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " 非同期処理 vimproc {{{2
         NeoBundle 'Shougo/vimproc.vim', {
-        \   'build' : {
-        \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-        \     'cygwin'  : 'make -f make_cygwin.mak',
-        \     'mac'     : 'make -f make_mac.mak',
-        \     'unix'    : 'make -f make_unix.mak',
-        \   },
-        \   'disabled': has('win32') && has('kaoriya'),
-        \}
+        \ 'build' : {
+        \     'windows' : 'tools\\update-dll-mingw',
+        \     'cygwin' : 'make -f make_cygwin.mak',
+        \     'mac' : 'make -f make_mac.mak',
+        \     'linux' : 'make',
+        \     'unix' : 'gmake',
+        \    },
+        \ 'disabled': has('win32') && has('kaoriya'),
+        \ }
         " NeoBundle 'tpope/vim-dispatch'
 
         " vital {{{2
