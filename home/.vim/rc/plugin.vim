@@ -1541,6 +1541,14 @@ if IsInstalled('vim-quickrun')
         endif
         " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
 
+        " composer.json {{{3
+        let g:quickrun_config['composer.json'] = {
+        \   "hook/cd/directory": '%S:p:h',
+        \   'command'   : 'composer',
+        \   'cmdopt'    : '',
+        \   'exec'      : '%c %a',
+        \}
+
         " Android Dev {{{2
         " --------------------------------------------------------------------------
         function! s:QuickRunAndroidProject()
