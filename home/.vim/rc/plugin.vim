@@ -525,6 +525,12 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'autoload' : { 'commands' : 'HelpNew' }
         \ }
 
+        NeoBundleLazy 'wannesm/wmgraphviz.vim', {
+        \   'autoload': {
+        \       'filetypes': 'dot',
+        \   }
+        \}
+
         " vimperator {{{2
         " vimperatorのシンタックスファイル
         NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
@@ -1254,6 +1260,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType dot           setlocal omnifunc=GraphvizComplete
         augroup END
         " let g:neocomplete#sources#omni#functions.sql =
         " \ 'sqlcomplete#Complete'
@@ -1497,9 +1504,9 @@ if IsInstalled('vim-quickrun')
         \ 'outputter/buffer/split'                 : 'botright 8sp',
         \ 'hook/close_quickfix/enable_hook_loaded' : 1,
         \ 'hook/close_quickfix/enable_success'     : 1,
+        \ 'hook/close_buffer/enable_empty_data'    : 1,
         \ 'hook/close_buffer/enable_failure'       : 1,
         \}
-        " \ 'hook/close_buffer/enable_empty_data'    : 1,
 
 
         " PHP {{{2
@@ -1523,14 +1530,24 @@ if IsInstalled('vim-quickrun')
 
         " composer.json {{{3
         let g:quickrun_config['composer.json'] = {
-        \   "hook/cd/directory": '%S:p:h',
-        \   'command'   : 'composer',
-        \   'cmdopt'    : '',
-        \   'exec'      : '%c %a',
+        \ 'hook/cd/directory' : '%S:p:h',
+        \ 'command'           : 'composer',
+        \ 'cmdopt'            : '',
+        \ 'exec'              : '%c %a',
+        \}
+
+        " dot {{{2
+        " --------------------------------------------------------------------
+        let g:quickrun_config['dot'] = {
+        \ 'hook/cd/directory'              : '%S:p:h',
+        \ 'command'                        : 'dot',
+        \ 'cmdopt'                         : '',
+        \ 'exec'                           : ['%c -Tpng %s -o %s:r.png', 'open %s:r.png'],
+        \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#'
         \}
 
         " Android Dev {{{2
-        " --------------------------------------------------------------------------
+        " --------------------------------------------------------------------
         function! s:QuickRunAndroidProject()
             let l:project_dir = unite#util#path2project_directory(expand('%'))
 
@@ -1618,6 +1635,12 @@ if IsInstalled('vim-watchdogs')
         \   "hook/qfstatusline_update/enable_exit":      1,
         \   "hook/qfstatusline_update/priority_exit":    4,
         \}
+
+        " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
+        " watchdogsの場合は出力が無いので、これを1にしておくと
+        " quickrunでなんらかのプログラムを実行したあと保存をすると
+        " その出力結果が消えてしまうので、0にする
+        let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
         " quickfixを開かない
         " let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
 

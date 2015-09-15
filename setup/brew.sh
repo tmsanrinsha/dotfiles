@@ -45,6 +45,7 @@ brew-install ant
 brew-install coreutils
 brew-install gnu-sed
 brew-install go
+brew-install graphviz
 brew-install jq
 brew-install lftp
 # brew-install mercurial
