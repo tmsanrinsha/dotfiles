@@ -1,0 +1,3 @@
+setlocal textwidth<
+setlocal formatoptions<
+
