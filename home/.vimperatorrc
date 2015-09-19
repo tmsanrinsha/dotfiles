@@ -184,7 +184,7 @@ command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 " ?の無効化。ショートカットを見たいときはi?とうつ
 lazy fmaps -u='.*' ?
 " gmailでnとj、pとjを入れ替える。
-lazy fmaps -u='mail\.google\.com/mail' n,j p,k
+lazy fmaps -u='mail\.google\.com/mail' <C-a>,j <C-x>,k
 " うまくいかない
 lazy fmaps -u='github\.com' p,k f,t w s ? <Esc>
 
