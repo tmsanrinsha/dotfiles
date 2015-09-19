@@ -487,7 +487,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         " forked from plasticboy/vim-markdown
         " 下のプラグインと組み合わせると色がつく
-        NeoBundle 'rcmdnk/vim-markdown', {
+        NeoBundleLazy 'rcmdnk/vim-markdown', {
         \   'name': 'rcmdnk_vim-markdown',
         \   'rev': 'mod',
         \   'autoload': {'filetypes': ['markdown']},
