@@ -1408,7 +1408,10 @@ endif
 " ==============================================================================
 if IsInstalled('neosnippet')
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+    let g:neosnippet#snippets_directory= [
+    \   '~/.vim/bundle/vim-snippets/snippets',
+    \   '~/.vim/bundle/wmgraphviz.vim/snippets',
+    \]
 
     let bundle = neobundle#get("neosnippet")
 
