@@ -1285,6 +1285,8 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             let g:neocomplete#sources#omni#functions = {}
         endif
 
+        let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
+
         let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
         " R (plugin: vim-R-plugin)
