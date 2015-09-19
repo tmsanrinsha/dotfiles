@@ -1147,10 +1147,11 @@ nnoremap [FILETYPE]x :<C-u>setlocal filetype=xml<CR>
 " *.txtでtextwidth=78されちゃう
 " [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
 " autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
-autocmd MyVimrc FileType vim,text call s:override_plugin_setting()
+" autocmd MyVimrc FileType vim,text call s:override_plugin_setting()
 
 function! s:override_plugin_setting()
     setlocal textwidth<
+    setlocal textwidth=0
     setlocal formatoptions<
 endfunction
 
@@ -1191,8 +1192,8 @@ function! MyAddToFileType(ft)
     let &ft .= '.'.a:ft
   endif
 endfun
-au FileType markdown call MyAddToFileType('mkd')
-au FileType mkd      call MyAddToFileType('markdown')
+" au FileType markdown call MyAddToFileType('mkd')
+" au FileType mkd      call MyAddToFileType('markdown')
 
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
@@ -1247,8 +1248,6 @@ let s:src_home = "$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home"
 execute 'nnoremap [VIM]e :<C-u>edit '.s:src_home.'/.vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/_gvimrc<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:src_home.'/.vim/rc/plugin.vim<CR>'
-
-
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo 'vimrc reloaded!'<CR>

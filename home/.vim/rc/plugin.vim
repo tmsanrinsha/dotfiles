@@ -119,10 +119,14 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'depends' : [
         \       'Shougo/neoinclude.vim',
         \       'Shougo/neco-syntax',
+        \       'Shougo/neosnippet',
+        \       'Shougo/neosnippet-snippets',
+        \       'honza/vim-snippets',
         \   ],
         \   "disabled": !has('lua'),
         \   "vim_version": '7.3.825',
         \}
+        " \       'SirVer/ultisnips',
         NeoBundle 'Shougo/context_filetype.vim'
         NeoBundleLazy "Shougo/neco-vim", {
         \   'autoload': {'filetypes': 'vim'},
@@ -144,9 +148,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " endif
 
         "" スニペット補完 {{{3
-        NeoBundleLazy 'Shougo/neosnippet', {"autoload": {"insert": 1}}
-        NeoBundleLazy 'Shougo/neosnippet-snippets', {"autoload": {"insert": 1}}
-        NeoBundleLazy 'honza/vim-snippets', {"autoload": {"insert": 1}}
 
         " 閉じ括弧などの対応するものの補完 {{{3
         " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
@@ -505,15 +506,21 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   'autoload': {'commands': ['PrevimOpen']},
         \   'depends': 'tyru/open-browser.vim'
         \}
+        " NeoBundleLazy 'teramako/instant-markdown-vim'
+        " if executable('node') && executable('ruby')
+        "     NeoBundle 'suan/vim-instant-markdown'
+        " endif
 
         " sh {{{2
         " indentの改善
-        NeoBundle 'sh.vim--Cla'
+        NeoBundleLazy 'sh.vim--Cla', {
+        \   'autoload': {'filetypes': 'sh'}
+        \}
         " tmux {{{2
         " tmuxのシンタックスファイル
         NeoBundleLazy 'zaiste/tmux.vim', {
-            \   'autoload' : { 'filetypes' : ['tmux'] }
-            \ }
+        \   'autoload' : { 'filetypes' : ['tmux'] }
+        \ }
 
         " Vim {{{2
         " --------------------------------------------------------------------
@@ -1159,8 +1166,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
     endif
 
     function! bundle.hooks.on_source(bundle)
-        " Disable AutoComplPop.
-        let g:acp_enableAtStartup = 0
         " Use neocomplcache.
         execute 'let g:'.s:neocom_.'enable_at_startup = 1'
         " Use smartcase.
@@ -1185,10 +1190,17 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         set pumheight=10
         " 補完候補取得に時間がかかったときにスキップ
         execute 'let g:'.s:neocom_.'skip_auto_completion_time = "0.1"'
+        " let g:neocomplete#skip_auto_completion_time = '1'
         " 候補の数を増やす
         " execute 'let g:'.s:neocom_.'max_list = 3000'
 
         " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
+
+        " if !exists('g:neocomplete#same_filetypes')
+        "   let g:neocomplete#same_filetypes = {}
+        " endif
+        " " In default, completes from all buffers.
+        " let g:neocomplete#same_filetypes._ = '_'
 
         " preview
         set completeopt-=preview
@@ -1209,13 +1221,14 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         if !exists('g:neocomplete#sources')
           let g:neocomplete#sources = {}
         endif
+        " let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'ultisnips', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
         let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-        let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
-        let g:neocomplete#sources.vim  = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
-        let g:neocomplete#sources.vimshell  = ['buffer', 'vimshell']
+        let g:neocomplete#sources.php      = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
+        let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
         if !exists('g:neocomplcache_sources_list')
           let g:neocomplcache_sources_list = {}
@@ -1226,11 +1239,12 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " 補完候補の順番
         if IsInstalled("neocomplete.vim")
             " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
-            call neocomplete#custom#source('file'        , 'rank', 450)
+            call neocomplete#custom#source('file',         'rank', 450)
             call neocomplete#custom#source('file/include', 'rank', 400)
-            call neocomplete#custom#source('omni'        , 'rank', 400)
-            call neocomplete#custom#source('member'      , 'rank', 350)
-            call neocomplete#custom#source('syntax'      , 'rank', 300)
+            call neocomplete#custom#source('omni',         'rank', 400)
+            call neocomplete#custom#source('member',       'rank', 350)
+            call neocomplete#custom#source('syntax',       'rank', 300)
+            " call neocomplete#custom#source('ultisnips',    'rank', 400)
         endif
 
 
@@ -1281,6 +1295,10 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " Enable heavy omni completion.
         if !exists('g:neocomplete#sources#omni#input_patterns')
             let g:neocomplete#sources#omni#input_patterns = {}
+        endif
+
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
         endif
 
         if !exists('g:neocomplete#sources#omni#functions')
@@ -1419,9 +1437,6 @@ if IsInstalled('neosnippet')
 
     function! bundle.hooks.on_source(bundle)
         " Plugin key-mappings.
-        " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
         imap <expr><C-k> neosnippet#expandable_or_jumpable() ?
         \   "\<Plug>(neosnippet_expand_or_jump)" :
         \   "\<C-o>D"
@@ -1432,7 +1447,7 @@ if IsInstalled('neosnippet')
 
         " For snippet_complete marker.
         if has('conceal')
-            set conceallevel=2 concealcursor=i
+            set conceallevel=2 concealcursor=niv
         endif
 
         " Enable snipMate compatibility feature.
@@ -1441,6 +1456,17 @@ if IsInstalled('neosnippet')
     endfunction
 endif
 " }}}
+" SirVer/ultisnips {{{1
+" ==============================================================================
+" let g:UltiSnipsUsePythonVersion = 2
+" " let g:UltiSnipsSnippetsDir=$HOME.'/.vim/bundle/vim-snippets/UltiSnips'
+" let g:UltiSnipsExpandTrigger="<c-f>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
 " Valloric/Youcompleteme {{{1
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
@@ -2262,6 +2288,7 @@ EOT
 endfunction
 " }}}
 
+" call s:set_python_path()
 autocmd MyVimrc FileType python
 \   if ! exists('g:python_path')
 \|      let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')

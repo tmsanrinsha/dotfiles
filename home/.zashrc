@@ -214,4 +214,4 @@ if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
 # }}}
-# vim:ft=zsh
+# vim:ft=sh
