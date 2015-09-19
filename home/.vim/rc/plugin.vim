@@ -117,13 +117,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy "Shougo/neocomplete.vim", {
         \   "autoload": {"insert": 1},
         \   'depends' : [
-        \       'Shougo/context_filetype.vim',
         \       'Shougo/neoinclude.vim',
         \       'Shougo/neco-syntax',
         \   ],
         \   "disabled": !has('lua'),
         \   "vim_version": '7.3.825',
         \}
+        NeoBundle 'Shougo/context_filetype.vim'
         NeoBundleLazy "Shougo/neco-vim", {
         \   'autoload': {'filetypes': 'vim'},
         \   "disabled": !has('lua'),
@@ -236,6 +236,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'kana/vim-textobj-indent'
         NeoBundle 'sgur/vim-textobj-parameter'
         NeoBundle 'thinca/vim-textobj-comment'
+        NeoBundleLazy "osyo-manga/vim-textobj-context", {
+        \   'autoload': {'mappings': '<Plug>(textobj-context-'}
+        \}
         NeoBundle 'osyo-manga/vim-textobj-multiblock'
         NeoBundleLazy 'kana/vim-textobj-lastpat', {
         \   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' },
@@ -1807,15 +1810,18 @@ if IsInstalled("vim-textobj-lastpat") && !MyHasPatch('patch-7.3.610')
     nmap gN <Plug>(textobj-lastpat-N)
 endif
 
-omap ae <Plug>(textobj-entire-a)
-omap ie <Plug>(textobj-entire-i)
-xmap ae <Plug>(textobj-entire-a)
-xmap ie <Plug>(textobj-entire-i)
-
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
+
+omap ic <Plug>(textobj-context-i)
+xmap ic <Plug>(textobj-context-i)
+
+omap ae <Plug>(textobj-entire-a)
+omap ie <Plug>(textobj-entire-i)
+xmap ae <Plug>(textobj-entire-a)
+xmap ie <Plug>(textobj-entire-i)
 
 " let g:textobj_conflict_no_default_key_mappings = 1
 " omap ix <Plug>(textobj-conflict-i)
