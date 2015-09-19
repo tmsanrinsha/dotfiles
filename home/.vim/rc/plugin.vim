@@ -1210,6 +1210,8 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
           let g:neocomplete#sources = {}
         endif
         let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
+        " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
+        let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
         let g:neocomplete#sources.php  = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources.vim  = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
