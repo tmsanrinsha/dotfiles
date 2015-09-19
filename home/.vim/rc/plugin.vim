@@ -476,30 +476,28 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " \   'name': 'plasticboy_vim-markdown',
         " \   'autoload': {'filetypes': ['mkd']},
         " \}
-        NeoBundle 'plasticboy/vim-markdown', {
-        \   'name': 'plasticboy_vim-markdown',
-        \}
+        " NeoBundle 'plasticboy/vim-markdown', {
+        " \   'name': 'plasticboy_vim-markdown',
+        " \}
 
         " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
         " forked from plasticboy/vim-markdown
         " 下のプラグインと組み合わせると色がつく
-        " NeoBundleLazy 'rcmdnk/vim-markdown', {
-        " \   'name': 'rcmdnk_vim-markdown',
-        " \   'autoload': {'filetypes': 'markdown'},
-        " \   'depends': 'godlygeek/tabular',
-        " \}
-        " NeoBundleLazy 'joker1007/vim-markdown-quote-syntax', {
-        " \   'autoload': {'filetypes': 'markdown'},
-        " \}
+        NeoBundle 'rcmdnk/vim-markdown', {
+        \   'name': 'rcmdnk_vim-markdown',
+        \   'rev': 'mod',
+        \   'autoload': {'filetypes': ['markdown']},
+        \   'depends': [
+        \       'godlygeek/tabular',
+        \       'joker1007/vim-markdown-quote-syntax',
+        \   ]
+        \}
 
         NeoBundleLazy 'nelstrom/vim-markdown-folding', {
-        \   'autoload': {'filetypes': ['markdown']}
-        \}
-        " NeoBundle 'gabrielelana/vim-markdown', {'name': 'gabrielelana/vim-markdown'} 
-        " NeoBundleLazy 'teramako/instant-markdown-vim'
-        " if executable('node') && executable('ruby')
-        "     NeoBundle 'suan/vim-instant-markdown'
-        " endif
+            \   'autoload': {'filetypes': ['markdown']}
+            \}
+
+        " preview {{{3
         NeoBundleLazy 'kannokanno/previm', {
         \   'autoload': {'commands': ['PrevimOpen']},
         \   'depends': 'tyru/open-browser.vim'
