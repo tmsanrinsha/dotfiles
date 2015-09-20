@@ -1952,7 +1952,20 @@ endif
 " vim-partedit {{{1
 " ============================================================================
 if IsInstalled('vim-partedit')
-    let g:partedit#auto_prefix = 0
+    " let g:partedit#auto_prefix = 0
+
+    nnoremap <Leader>pe :<C-u>MyParteditContext<CR>
+    xnoremap <Leader>pe :Partedit -opener split<CR>
+    nnoremap <Leader>pq :<C-u>ParteditEnd<CR>
+    function! s:partedit_context()
+        let context = context_filetype#get()
+        let startline = context['range'][0][0] ? context['range'][0][0] : 1
+        let endline   = context['range'][1][0] ? context['range'][1][0] : '$'
+        let filetype  = context['filetype']
+        call partedit#start(startline, endline, {'filetype': filetype, 'opener': 'split'})
+    endf
+    command! MyParteditContext call s:partedit_context()
+
 endif
 "}}}
 " vim-visualstar {{{
