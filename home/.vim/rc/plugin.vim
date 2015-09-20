@@ -117,6 +117,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy "Shougo/neocomplete.vim", {
         \   "autoload": {"insert": 1},
         \   'depends' : [
+        \       'Shougo/context_filetype.vim',
         \       'Shougo/neoinclude.vim',
         \       'Shougo/neco-syntax',
         \       'Shougo/neosnippet',
@@ -127,7 +128,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \   "vim_version": '7.3.825',
         \}
         " \       'SirVer/ultisnips',
-        NeoBundle 'Shougo/context_filetype.vim'
         NeoBundleLazy "Shougo/neco-vim", {
         \   'autoload': {'filetypes': 'vim'},
         \   "disabled": !has('lua'),
@@ -155,6 +155,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " quickrun {{{2
         " --------------------------------------------------------------------
+        " NeoBundle 'thinca/vim-quickrun'
         NeoBundleLazy 'thinca/vim-quickrun', {
         \   'autoload': {
         \       'commands': [{
@@ -163,13 +164,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \       }]
         \   },
         \}
-        " NeoBundleLazy 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'autoload' : { 'commands' : 'QuickRun' },
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
-        " NeoBundle 'rhysd/quickrun-unite-quickfix-outputter', {
-        "             \   'depends'  : [ 'thinca/vim-quickrun', 'osyo-manga/unite-quickfix' ]
-        "             \}
 
         " syntax check, quickfix {{{2
         " -------------------------------------------------------------------
@@ -196,7 +190,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " signの表示
         " 表示が乱れる
         " NeoBundle "tomtom/quickfixsigns_vim"
-        " NeoBundle 'KazuakiM/vim-qfsigns'
+        NeoBundle 'KazuakiM/vim-qfsigns'
 
         " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
         " http://www.vim.org/scripts/script.php?script_id=4449
@@ -271,6 +265,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundleLazy 'thinca/vim-ref', {
             \   'autoload': {'commands': ['Ref', 'Man']}
             \}
+
+        " カーソル位置のfiletypeを文脈から判断
+        NeoBundle 'Shougo/context_filetype.vim'
         " 部分的に編集
         NeoBundleLazy 'thinca/vim-partedit', {
             \   'autoload': {'commands': 'Partedit'}
@@ -595,6 +592,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
 
         " colorscheme
         " NeoBundle 'tomasr/molokai'
+        NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
         NeoBundle 'w0ng/vim-hybrid'
         " NeoBundle 'vim-scripts/wombat256.vim'
         " NeoBundle 'altercation/vim-colors-solarized'
@@ -681,7 +679,6 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         "             \}
 
         " 自分のリポジトリ
-        NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
         " NeoBundle 'tmsanrinsha/vim-colors-solarized'
         " NeoBundle 'tmsanrinsha/vim'
         NeoBundle 'tmsanrinsha/vim-emacscommandline'
@@ -1277,7 +1274,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType dot           setlocal omnifunc=GraphvizComplete
         augroup END
         " let g:neocomplete#sources#omni#functions.sql =
         " \ 'sqlcomplete#Complete'
@@ -1305,7 +1301,11 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             let g:neocomplete#sources#omni#functions = {}
         endif
 
+        let g:neocomplete#sources#omni#functions.dot = 'GraphvizComplete'
         let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
+        " forceで設定しているとmarkdownのコードブロックでも探そうとするらしく
+        "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
+        " が表示される
 
         let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
@@ -1325,13 +1325,13 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
         " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
 
-        " 矩形選択して挿入モードに入った時にうまくいかない
         " " <TAB>: completion.
         " " ポップアップが出ていたら下を選択
         " " 出てなくて、
         " "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
         " "   空白が消えてしまうので
         " "   それ以外は普通のタブ
+        " " 矩形選択して挿入モードに入った時にうまくいかない
         " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
         "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
         " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
@@ -1355,51 +1355,52 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
-        " [Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita](http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf)
-        if IsInstalled('vim-smartinput') " {{{
-            call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
-                  \                        '<BS>',
-                  \                        '<BS>')
-            call smartinput#map_to_trigger('i', '<Plug>(smartinput_C-h)',
-                  \                        '<BS>',
-                  \                        '<C-h>')
-            call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
-                  \                        '<Enter>',
-                  \                        '<Enter>')
+        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{
+        " <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
+        " if IsInstalled('vim-smartinput')
+        "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
+        "           \                        '<BS>',
+        "           \                        '<BS>')
+        "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_C-h)',
+        "           \                        '<BS>',
+        "           \                        '<C-h>')
+        "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
+        "           \                        '<Enter>',
+        "           \                        '<Enter>')
+        "
+        "     " <BS> でポップアップを閉じて文字を削除
+        "     execute 'imap <expr> <BS> '
+        "         \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_BS)"'
+        "
+        "     " <C-h> でポップアップを閉じて文字を削除
+        "     execute 'imap <expr> <C-h> '
+        "         \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
+        "
+        "     " <CR> でポップアップ中の候補を選択し改行する
+        "     " execute 'imap <expr> <CR> '
+        "     "     \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+        "
+        "     " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
+        "     " ポップアップがないときには改行する
+        "     " imap <expr> <CR> pumvisible() ?
+        "     "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
+        " else }}}
 
-            " <BS> でポップアップを閉じて文字を削除
-            execute 'imap <expr> <BS> '
-                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_BS)"'
+        " <BS>, <C-h> でポップアップを閉じて文字を削除
+        " execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
+        execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
+        " execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
+        execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#close_popup()."\<C-h>" : "\<C-h>"'
 
-            " <C-h> でポップアップを閉じて文字を削除
-            execute 'imap <expr> <C-h> '
-                \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_C-h)"'
+        " <CR> でポップアップ中の候補を選択し改行する
+        execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
 
-            " <CR> でポップアップ中の候補を選択し改行する
-            " execute 'imap <expr> <CR> '
-            "     \ . s:neocom . '#smart_close_popup() . "\<Plug>(smartinput_CR)"'
+        " これをやるとコピペに改行があるときにポップアップが選択されてしまう
+        " 補完候補が表示されている場合は確定。そうでない場合は改行
+        " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
 
-            " <CR> でポップアップ中の候補を選択するだけで、改行はしないバージョン
-            " ポップアップがないときには改行する
-            " imap <expr> <CR> pumvisible() ?
-            "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
-        else " }}}
-
-            " <BS>, <C-h> でポップアップを閉じて文字を削除
-            " execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
-            execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
-            " execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
-            execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#close_popup()."\<C-h>" : "\<C-h>"'
-
-            " <CR> でポップアップ中の候補を選択し改行する
-            execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
-
-            " これをやるとコピペに改行があるときにポップアップが選択されてしまう
-            " 補完候補が表示されている場合は確定。そうでない場合は改行
-            " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
-
-            " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
-        endif
+        " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
+        " endif
         " }}}
     endfunction
 endif
@@ -1420,8 +1421,14 @@ if IsInstalled("neocomplete.vim")
     " \|      NeoCompleteEnable
     " \|  endif
 
-    imap  <C-X>u <Plug>(neocomplete_start_unite_complete)
-    " imap  <C-X>u <Plug>(neocomplete_start_unite_quick_match)
+    " ?
+    " let g:neocomplete#fallback_mappings =
+    " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+
+    inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('file')
+    " inoremap <expr><C-x><C-n>  neocomplete#start_manual_complete('buffer')
+    imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
+    " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
 endif
 "}}}
 " neosnippet {{{
@@ -1517,8 +1524,8 @@ if IsInstalled('vim-quickrun')
     nnoremap <Leader>r :QuickRun<CR>
     xnoremap <Leader>r :QuickRun<CR>
 
-    let bundle = neobundle#get("vim-quickrun")
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get("vim-quickrun")
+    " function! bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
 
@@ -1642,7 +1649,7 @@ if IsInstalled('vim-quickrun')
         " "
         " set errorformat=debug:\%s
         call SourceRc('quickrun_local.vim')
-    endfunction
+    " endfunction
 endif
 "}}}
 " vim-watchdogs {{{1
@@ -1664,11 +1671,16 @@ if IsInstalled('vim-watchdogs')
         endif
 
         let g:quickrun_config['watchdogs_checker/_'] = {
-        \   'hook/quickfix_status_enable/enable_exit':   1,
-        \   'hook/quickfix_status_enable/priority_exit': 1,
-        \   "hook/qfstatusline_update/enable_exit":      1,
-        \   "hook/qfstatusline_update/priority_exit":    4,
+        \ 'hook/quickfix_status_enable/enable_exit':   1,
+        \ 'hook/quickfix_status_enable/priority_exit': 1,
+        \ 'hook/hier_update/enable_exit':   1,
+        \ 'hook/hier_update/priority_exit': 2,
+        \ "hook/qfstatusline_update/enable_exit":      1,
+        \ "hook/qfstatusline_update/priority_exit":    4,
         \}
+        " \ "hook/qfsigns_update/enable_exit":           1,
+        " \ 'hook/qfsigns_update/priority_exit':         3,
+        let g:qfsigns#AutoJump = 1
 
         " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
         " watchdogsの場合は出力が無いので、これを1にしておくと
@@ -1848,8 +1860,8 @@ omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
 
-omap ic <Plug>(textobj-context-i)
-xmap ic <Plug>(textobj-context-i)
+omap iC <Plug>(textobj-context-i)
+xmap iC <Plug>(textobj-context-i)
 
 omap ae <Plug>(textobj-entire-a)
 omap ie <Plug>(textobj-entire-i)
@@ -2565,8 +2577,11 @@ endif
 " ColorScheme molokai {{{1
 " ============================================================================
 if IsInstalled("my_molokai")
+    " let g:molokai_original = 1
+    " let g:rehash256 = 1
     colorscheme molokai-customized
 endif
+" colorscheme molokai
 
 " let g:solarized_termcolors=256
 " let g:solarized_contrast = "high"
@@ -2632,6 +2647,10 @@ let g:lightline = {
     \}
 " :WatchdogsRun後にlightline.vimを更新
 let g:Qfstatusline#UpdateCmd = function('lightline#update')
+
+" 資料
+" vim-qfstatusline を作ってみた - mabulog
+" http://kazuomabuo.hatenablog.jp/entry/2014/06/11/211947
 
 " 途中で色変更をするとInsert modeがおかしくなる
 " autocmd MyVimrc ColorScheme *
