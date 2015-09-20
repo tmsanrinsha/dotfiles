@@ -1126,7 +1126,7 @@ autocmd MyVimrc BufRead,BufNewFile composer.json
 \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
 \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
 
-" filetype {{{
+" filetype {{{1
 " ============================================================================
 nnoremap [FILETYPE] <Nop>
 nmap <Leader>F [FILETYPE]
@@ -1162,36 +1162,48 @@ autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 " Markdown {{{2
 " ----------------------------------------------------------------------------
 " fenced code blocksのコードをハイライト
-" plasticboy/vim-markdownを使っているとハイライトされない
-let g:markdown_fenced_languages = [
-\  'css',
-\  'javascript',
-\  'js=javascript',
-\  'json=javascript',
-\  'php',
-\  'sql',
-\  'xml',
-\]
+" デフォルトで入っているプラグインに対する設定
+" let g:markdown_fenced_languages = [
+" \  'css',
+" \  'javascript',
+" \  'js=javascript',
+" \  'json=javascript',
+" \  'php',
+" \  'sql',
+" \  'xml',
+" \]
+
 let g:markdown_quote_syntax_filetypes = {
-        \ "php" : {
-        \   "start" : "php",
-        \},
-        \ "javascript" : {
-        \   "start" : "javascript",
-        \},
-        \ "css" : {
-        \   "start" : "\\%(css\\|scss\\)",
-        \},
-  \}
+\   "css" : {
+\       "start" : "\\%(css\\|scss\\)",
+\   },
+\   "dot" : {
+\       "start" : "dot",
+\   },
+\   "javascript" : {
+\       "start" : "javascript",
+\   },
+\   "php" : {
+\       "start" : "php",
+\   },
+\   "sh" : {
+\       "start" : "sh",
+\   },
+\}
+" let g:markdown_quote_syntax_filetypes = {
+" \   "dot" : {
+" \   "start" : "dot",
+" \   },
+" \}
 autocmd MyVimrc FileType markdown,html
 \   command! Pandoc :%!pandoc -f html -t markdown_phpextra --no-wrap
 
 " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
-function! MyAddToFileType(ft)
-  if index(split(&ft, '\.'), a:ft) == -1
-    let &ft .= '.'.a:ft
-  endif
-endfun
+" function! MyAddToFileType(ft)
+"   if index(split(&ft, '\.'), a:ft) == -1
+"     let &ft .= '.'.a:ft
+"   endif
+" endfun
 " au FileType markdown call MyAddToFileType('mkd')
 " au FileType mkd      call MyAddToFileType('markdown')
 
