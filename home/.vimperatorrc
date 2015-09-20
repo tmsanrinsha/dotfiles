@@ -95,6 +95,7 @@ qmark c https://www.google.com/calendar/
 qmark F https://www.facebook.com/
 qmark f http://finance.yahoo.co.jp/
 qmark g https://mail.google.com/
+qmark h http://b.hatena.ne.jp/tmsanrinsha/bookmark
 qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
 qmark t https://twitter.com/
@@ -175,7 +176,7 @@ nnoremap <Leader>ya :copy anchor<CR>
 
 " feedsomekeys_3.js {{{1
 " ============================================================================
-" feedSomeKeys_3.jsで無効化するキーを設定する
+" feedSomeKeys_3.jsでVimperatorのキーバインドの無効化するキーを設定する
 " http://vimperator.g.hatena.ne.jp/nokturnalmortum/20100302/1267531921
 " URLの正規表現を「"」でなくて、「'」で括るのが密かなポイントです。
 " (「"」の場合、エスケープを \\ のように二重にしなくてはいけなくなります。)
