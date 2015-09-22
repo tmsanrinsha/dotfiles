@@ -163,6 +163,13 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         \           'complete': 'customlist,quickrun#complete',
         \       }]
         \   },
+        \   'depends': [
+        \       'osyo-manga/shabadou.vim',
+        \       'cohama/vim-hier',
+        \       'dannyob/quickfixstatus',
+        \       'KazuakiM/vim-qfsigns',
+        \       'KazuakiM/vim-qfstatusline'
+        \   ]
         \}
 
         " syntax check, quickfix {{{2
@@ -172,25 +179,16 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " NeoBundleLazy 'scrooloose/syntastic'
 
         " dependsでquickrunを設定するとhookがうまくいかない
-        " NeoBundleLazy 'osyo-manga/vim-watchdogs'
-        NeoBundle 'osyo-manga/vim-watchdogs'
+        NeoBundleLazy 'osyo-manga/vim-watchdogs', {
+        \   'depends': [
+        \       'osyo-manga/shabadou.vim',
+        \       'cohama/vim-hier',
+        \       'dannyob/quickfixstatus',
+        \       'KazuakiM/vim-qfsigns',
+        \       'KazuakiM/vim-qfstatusline'
+        \   ]
+        \}
 
-        " quickrunのhook設定
-        NeoBundle 'osyo-manga/shabadou.vim'
-
-        " quickfixに表示されている行をハイライト
-        NeoBundle "cohama/vim-hier"
-
-        " カレント行のquickfixメッセージを画面下部に表示
-        NeoBundle "dannyob/quickfixstatus"
-
-        " statuslineにエラーを表示
-        NeoBundle "KazuakiM/vim-qfstatusline"
-
-        " signの表示
-        " 表示が乱れる
-        " NeoBundle "tomtom/quickfixsigns_vim"
-        NeoBundle 'KazuakiM/vim-qfsigns'
 
         " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
         " http://www.vim.org/scripts/script.php?script_id=4449
@@ -255,6 +253,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
             \}
         " [haya14busa/vim-asterisk](https://github.com/haya14busa/vim-asterisk)
+
         NeoBundle 'rhysd/clever-f.vim'
 
         " Vimperatorのクイックヒント風にカーソル移動
@@ -270,8 +269,8 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         NeoBundle 'Shougo/context_filetype.vim'
         " 部分的に編集
         NeoBundleLazy 'thinca/vim-partedit', {
-            \   'autoload': {'commands': 'Partedit'}
-            \}
+        \   'autoload': {'commands': 'Partedit'}
+        \}
 
         " 整形
         if v:version >= 701
@@ -1524,8 +1523,8 @@ if IsInstalled('vim-quickrun')
     nnoremap <Leader>r :QuickRun<CR>
     xnoremap <Leader>r :QuickRun<CR>
 
-    " let bundle = neobundle#get("vim-quickrun")
-    " function! bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-quickrun")
+    function! bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
 
@@ -1547,8 +1546,15 @@ if IsInstalled('vim-quickrun')
         \ 'hook/close_quickfix/enable_success'     : 1,
         \ 'hook/close_buffer/enable_empty_data'    : 1,
         \ 'hook/close_buffer/enable_failure'       : 1,
+        \ 'hook/hier_update/enable_exit':              1,
+        \ 'hook/hier_update/priority_exit':            2,
+        \ "hook/qfsigns_update/enable_exit":           1,
+        \ 'hook/qfsigns_update/priority_exit':         2,
+        \ "hook/qfstatusline_update/enable_exit":      1,
+        \ "hook/qfstatusline_update/priority_exit":    2,
+        \ 'hook/quickfix_status_enable/enable_exit':   1,
+        \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
-
 
         " PHP {{{2
         " --------------------------------------------------------------------
@@ -1584,7 +1590,7 @@ if IsInstalled('vim-quickrun')
         \ 'command'                        : 'dot',
         \ 'cmdopt'                         : '',
         \ 'exec'                           : ['%c -Tpng %s -o %s:r.png', 'open %s:r.png'],
-        \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#'
+        \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#,%EError: %m,%C%m,%Z%m'
         \}
 
         " Android Dev {{{2
@@ -1649,21 +1655,21 @@ if IsInstalled('vim-quickrun')
         " "
         " set errorformat=debug:\%s
         call SourceRc('quickrun_local.vim')
-    " endfunction
+    endfunction
 endif
 "}}}
 " vim-watchdogs {{{1
 " ============================================================================
 if IsInstalled('vim-watchdogs')
-    " augroup WatchdogsSetting
-    "     autocmd!
-    "     autocmd BufWritePre
-    "     \   NeoBundleSource vim-watchdogs |
-    "     \   autocmd! WatchdogsSetting
-    " augroup END
+    augroup WatchdogsSetting
+        autocmd!
+        autocmd BufWritePre *
+        \   NeoBundleSource vim-watchdogs |
+        \   autocmd! WatchdogsSetting
+    augroup END
 
-    " let bundle = neobundle#get("vim-watchdogs")
-    " function! bundle.hooks.on_source(bundle)
+    let bundle = neobundle#get("vim-watchdogs")
+    function! bundle.hooks.on_source(bundle)
         let g:watchdogs_check_BufWritePost_enable = 1
 
         if !exists("g:quickrun_config")
@@ -1671,24 +1677,26 @@ if IsInstalled('vim-watchdogs')
         endif
 
         let g:quickrun_config['watchdogs_checker/_'] = {
-        \ 'hook/quickfix_status_enable/enable_exit':   1,
-        \ 'hook/quickfix_status_enable/priority_exit': 1,
-        \ 'hook/hier_update/enable_exit':   1,
-        \ 'hook/hier_update/priority_exit': 2,
+        \ 'hook/hier_update/enable_exit':              1,
+        \ 'hook/hier_update/priority_exit':            2,
+        \ "hook/qfsigns_update/enable_exit":           1,
+        \ 'hook/qfsigns_update/priority_exit':         2,
         \ "hook/qfstatusline_update/enable_exit":      1,
-        \ "hook/qfstatusline_update/priority_exit":    4,
+        \ "hook/qfstatusline_update/priority_exit":    2,
+        \ 'hook/quickfix_status_enable/enable_exit':   1,
+        \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
-        " \ "hook/qfsigns_update/enable_exit":           1,
-        " \ 'hook/qfsigns_update/priority_exit':         3,
-        let g:qfsigns#AutoJump = 1
 
         " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
         " watchdogsの場合は出力が無いので、これを1にしておくと
         " quickrunでなんらかのプログラムを実行したあと保存をすると
         " その出力結果が消えてしまうので、0にする
         let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
-        " quickfixを開かない
-        " let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ""
+
+        " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
+        " let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+        " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
+        " windo HierUpdateなどを行う
 
         " apaache {{{2
         " ------------------------------------------------------------------------
@@ -1784,11 +1792,26 @@ if IsInstalled('vim-watchdogs')
         " watchdogs.vim の設定を更新（初回は呼ばれる）
         call watchdogs#setup(g:quickrun_config)
 
-    " endfunction
+    endfunction
 endif
+
+" qf系プラグインのアップデート {{{1
+" ============================================================================
+" quickfixを開いてHierUpdateなどをしたい場合は以下のようにする
+autocmd MyVimrc FileType qf call s:qf_update()
+function! s:qf_update()
+    windo HierUpdate
+    windo QfsignsUpdate
+    windo QuickfixStatusEnable
+endfunction
+
+" qfsigns {{{1
+" ============================================================================
+let g:qfsigns#AutoJump = 1
+
 " quickfixsign_vim {{{1
 " ============================================================================
-let g:quickfixsigns_classes = ['qfl']
+" let g:quickfixsigns_classes = ['qfl']
 
 " operator {{{1
 " ============================================================================
@@ -2415,30 +2438,6 @@ nnoremap [FILETYPE]R :<C-u>setlocal filetype=r <Bar> normal <LocalLeader>rf<CR>
 autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 \   let b:sql_type_overrride = 'hive'
 \|  setlocal filetype=sql
-
-" plasticboy/vim-markdown {{{1
-" ============================================================================
-if IsInstalled('plasticboy_vim-markdown')
-    let g:vim_markdown_folding_disabled = 1
-    " macでgxを使いたい場合
-    let g:netrw_browsex_viewer= "open"
-    let g:vim_markdown_no_default_key_mappings=1
-endif
-
-" rcmdnk/vim-markdown {{{1
-" ============================================================================
-if IsInstalled('rcmdnk_vim-markdown')
-    let g:vim_markdown_folding_disabled = 1
-endif
-
-" vim-markdown-folding {{{1
-" ============================================================================
-if IsInstalled('vim-markdown-folding')
-    let bundle = neobundle#get("vim-markdown-folding")
-    function! bundle.hooks.on_source(bundle)
-        let g:markdown_fold_style = 'nested'
-    endfunction
-endif
 
 " vimconsole.vim {{{1
 " ==============================================================================

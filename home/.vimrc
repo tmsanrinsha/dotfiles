@@ -869,14 +869,17 @@ noremap [*location]q :lclose<CR>
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
 
-" show quickfix automatically
+" show quickfix automatically {{{2
+" ----------------------------------------------------------------------------
 " これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
 " autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | botright cwindow | botright lwindow | endif
 
+" quickfixの高さを最初にする {{{2
+" ----------------------------------------------------------------------------
 " Automatically fitting a quickfix window height - Vim Tips Wiki
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-autocmd MyVimrc FileType qf call s:AdjustWindowHeight(1, 10)
-function! s:AdjustWindowHeight(minheight, maxheight)
+autocmd MyVimrc FileType qf call s:adjust_window_height(1, 10)
+function! s:adjust_window_height(minheight, maxheight)
     let l = 1
     let n_lines = 0
     let w_width = winwidth(0)
@@ -890,8 +893,10 @@ function! s:AdjustWindowHeight(minheight, maxheight)
     exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-" errorformatの確認のための関数
-" [Vim - errorformatについて(入門編) - Qiita](http://qiita.com/rbtnn/items/92f80d53803ce756b4b8)
+" errorformatの確認のための関数 {{{2
+" ----------------------------------------------------------------------------
+" Vim - errorformatについて(入門編) - Qiita
+" <http://qiita.com/rbtnn/items/92f80d53803ce756b4b8>
 function! TestErrFmt(errfmt,lines)
     let temp_errorfomat = &errorformat
     try
@@ -906,8 +911,7 @@ function! TestErrFmt(errfmt,lines)
     endtry
 endfunction
 
-"}}}
-" Ip2host {{{
+" Ip2host {{{1
 " ==============================================================================
 function! s:Ip2host(line1, line2)
     for linenum in range(a:line1, a:line2)
@@ -927,8 +931,13 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 set t_Co=256 " 256色
 syntax enable
 
+" syntaxの遡る行数を上げる
+" グローバルな設定では無いらしく、autocmd FileTypeで設定
+autocmd MyVimrc FileType html,markdown,php syntax sync minlines=500 maxlines=1000
+" :syntax syncでminmalとmaximalの値を確認できる
+" 参考
+" [Big Sky :: 意外と知られていないvimのtips(開発に便利な設定)](http://mattn.kaoriya.net/software/vim/20070821175457.htm)
 " :h :syn-sync-maxlines
-syntax sync minlines=500 maxlines=1000
 
 " :h doxygen-syntax
 " let g:load_dosygen_syntax=1
@@ -1155,14 +1164,13 @@ function! s:override_plugin_setting()
     setlocal formatoptions<
 endfunction
 
-" shell {{{
+" shell {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
-"}}}
+
 " Markdown {{{2
 " ----------------------------------------------------------------------------
-" fenced code blocksのコードをハイライト
-" デフォルトで入っているプラグインに対する設定
+" デフォルトで入っているプラグインでfenced code blocksのコードをハイライト {{{3
 " let g:markdown_fenced_languages = [
 " \  'css',
 " \  'javascript',
@@ -1173,6 +1181,25 @@ autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 " \  'xml',
 " \]
 
+" plasticboy/vim-markdownでfiletypeをmkd.markdownにする {{{3
+" [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
+" function! MyAddToFileType(ft)
+"   if index(split(&ft, '\.'), a:ft) == -1
+"     let &ft .= '.'.a:ft
+"   endif
+" endfun
+" au FileType markdown call MyAddToFileType('mkd')
+" au FileType mkd      call MyAddToFileType('markdown')
+
+" rcmdnk/vim-markdown {{{3
+if IsInstalled('rcmdnk_vim-markdown')
+    let g:vim_markdown_folding_disabled = 1
+    " macでgxを使いたい場合
+    let g:netrw_browsex_viewer= "open"
+    let g:vim_markdown_no_default_key_mappings=1
+endif
+
+" joker1007/vim-markdown-quote-syntax {{{3
 let g:markdown_quote_syntax_filetypes = {
 \   "css" : {
 \       "start" : "\\%(css\\|scss\\)",
@@ -1190,22 +1217,18 @@ let g:markdown_quote_syntax_filetypes = {
 \       "start" : "sh",
 \   },
 \}
-" let g:markdown_quote_syntax_filetypes = {
-" \   "dot" : {
-" \   "start" : "dot",
-" \   },
-" \}
+
+" nelstrom/vim-markdown-folding {{{3
+if IsInstalled('vim-markdown-folding')
+    let bundle = neobundle#get("vim-markdown-folding")
+    function! bundle.hooks.on_source(bundle)
+        let g:markdown_fold_style = 'nested'
+    endfunction
+endif
+
+" pandocでhtmlからmarkdownに変換 {{{3
 autocmd MyVimrc FileType markdown,html
 \   command! Pandoc :%!pandoc -f html -t markdown_phpextra --no-wrap
-
-" [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
-" function! MyAddToFileType(ft)
-"   if index(split(&ft, '\.'), a:ft) == -1
-"     let &ft .= '.'.a:ft
-"   endif
-" endfun
-" au FileType markdown call MyAddToFileType('mkd')
-" au FileType mkd      call MyAddToFileType('markdown')
 
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
