@@ -238,6 +238,7 @@ autoload -U compinit && compinit
 
 # compacked complete list display
 setopt list_packed
+setopt complete_in_word      # 語の途中でもカーソル位置で補完
 
 # cacheを使う
 zstyle ':completion:*' use-cache true
@@ -313,7 +314,25 @@ compdef _gnu_generic bc
 compdef _gnu_generic phpunit
 compdef _gnu_generic phpunit.sh
 
-# site-functionsのリロード
+# zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
+# <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
+
+dabbrev-complete () {
+  local hardcopy reply lines=80
+
+  tmux capture-pane
+  hardcopy=$(tmux save-buffer -b 0 -)
+  tmux delete-buffer -b 0
+  reply=($(echo $hardcopy | sed '/^$/d' | sed '$ d' | tail -$lines))
+  # 空白業を消す。最後の行は消す
+
+  compadd -Q - "${reply[@]%[*/=@|]}"
+}
+
+zle -C dabbrev-complete complete-word dabbrev-complete
+bindkey '^O' dabbrev-complete
+
+# site-functionsのリロード {{{2
 rsf() {
   local f
   f=(~/local/share/zsh/site-functions/*(.))
@@ -321,13 +340,13 @@ rsf() {
   autoload -U $f:t
 }
 
-# Incremental completion on zsh
+# Incremental completion on zsh {{{2
 # http://mimosa-pudica.net/zsh-incremental.html
 if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
     . ~/.zsh/plugin/incr-0.2.zsh
 fi
 
-# ディレクトリ関連 {{{
+# ディレクトリ関連 {{{1
 # ==============================================================================
 # auto change directory
 setopt auto_cd
