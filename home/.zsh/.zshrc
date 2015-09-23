@@ -323,9 +323,19 @@ dabbrev-complete () {
   tmux capture-pane
   hardcopy=$(tmux save-buffer -b 0 -)
   tmux delete-buffer -b 0
-  reply=($(echo $hardcopy | sed '/^$/d' | sed '$ d' | tail -$lines))
-  # 空白業を消す。最後の行は消す
+  reply=($(
+    echo $hardcopy |
+    # 空白行の削除
+    sed '/^$/d' |
+    # 最後の2行（プロンプト行と補完候補行が一行と仮定）は消す
+    sed '$d' | sed '$d' |
+    # いらない文字を空白に変換
+    sed 's/[<>]/ /g' |
+    # 最後の$lines行だけ取得
+    tail -$lines
+  ))
 
+  # 文字列の最後の*/=@|については削除
   compadd -Q - "${reply[@]%[*/=@|]}"
 }
 
