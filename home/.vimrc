@@ -83,6 +83,7 @@ augroup END
 " }}}
 
 call SourceRc('local_pre.vim')
+call SourceRc('bundle.vim')
 
 " 基本設定 {{{
 " ============================================================================
