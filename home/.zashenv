@@ -196,7 +196,7 @@ fi
 
 alias cdg='ghq look'
 
-alias phpunit='phpunit.sh --colors'
+alias phpunit='phpunit.sh --colors=auto'
 
 # svnとtreeの文字化け対策
 alias lcc="export LC_CTYPE='C'"
