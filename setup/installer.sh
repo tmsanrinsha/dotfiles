@@ -15,6 +15,9 @@ if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/dotfiles/.git ]; then
     mkdir -p $SRC_ROOT/github.com/tmsanrinsha
     cd $SRC_ROOT/github.com/tmsanrinsha
     git clone https://github.com/tmsanrinsha/dotfiles.git
+else
+    cd $SRC_ROOT/github.com/tmsanrinsha/dotfiles
+    git pull
 fi
 bash $SRC_ROOT/github.com/tmsanrinsha/dotfiles/setup/setup.sh $1
 
