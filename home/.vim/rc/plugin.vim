@@ -1050,6 +1050,10 @@ if IsInstalled('vim-watchdogs')
         \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
         \}
 
+        let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
+        \   'type': 'watchdogs_checker/php'
+        \}
+
         " sh {{{2
         " ------------------------------------------------------------------------
         " filetypeがshでも基本的にbashを使うので、bashでチェックする
@@ -1733,9 +1737,9 @@ endif
 " }}}
 " instant-markdown-vim {{{
 " ============================================================================
-let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
-autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
+" let g:instant_markdown_slow = 1
+" let g:instant_markdown_autostart = 0
+" autocmd MyVimrc FileType markdown nnoremap <buffer> <Leader>r :InstantMarkdownPreview<CR>
 " }}}
 " Git {{{1
 " ============================================================================
