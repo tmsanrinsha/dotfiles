@@ -495,7 +495,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
             \}
 
         " preview {{{3
-        NeoBundleLazy 'kannokanno/previm', {
+        NeoBundleLazy 'tmsanrinsha/previm', {
         \   'autoload': {'commands': ['PrevimOpen']},
         \   'depends': 'tyru/open-browser.vim'
         \}

@@ -34,14 +34,14 @@ setlocal path+=./;/
 " |\'       |'        |'    |OS-dependent close or vertical single quote
 " |\<Space> |&nbsp;   |     |non-breaking space
 " |---------------------------------------------------------------------
-inoremap <buffer> \\ \
-inoremap <buffer> \& &amp;
-inoremap <buffer> \< &lt;
-inoremap <buffer> \> &gt;
-inoremap <buffer> \. ・
-inoremap <buffer> \- &#8212;
-inoremap <buffer> \<Space> &nbsp;
-inoremap <buffer> \` &#8216;
-inoremap <buffer> \' &#8217;
-inoremap <buffer> \2 &#8220;
-inoremap <buffer> \" &#8221;
+" inoremap <buffer> \\ \
+" inoremap <buffer> \& &amp;
+" inoremap <buffer> \< &lt;
+" inoremap <buffer> \> &gt;
+" inoremap <buffer> \. ・
+" inoremap <buffer> \- &#8212;
+" inoremap <buffer> \<Space> &nbsp;
+" inoremap <buffer> \` &#8216;
+" inoremap <buffer> \' &#8217;
+" inoremap <buffer> \2 &#8220;
+" inoremap <buffer> \" &#8221;

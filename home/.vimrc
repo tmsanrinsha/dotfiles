@@ -1231,6 +1231,9 @@ endif
 autocmd MyVimrc FileType markdown,html
 \   command! Pandoc :%!pandoc -f html -t markdown_phpextra --no-wrap
 
+autocmd MyVimrc FileType markdown
+\   nnoremap <buffer> <Leader>r :<C-u>PrevimOpen<CR>
+
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript call s:configure_javascript()
@@ -1283,6 +1286,7 @@ nmap <Leader>v [VIM]
 let s:src_home = "$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home"
 execute 'nnoremap [VIM]e :<C-u>edit '.s:src_home.'/.vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/_gvimrc<CR>'
+execute 'nnoremap [VIM]b :<C-u>edit '.s:src_home.'/.vim/rc/bundle.vim<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:src_home.'/.vim/rc/plugin.vim<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
