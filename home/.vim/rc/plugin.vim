@@ -1,7 +1,8 @@
+scriptencoding utf-8
 " vim-singleton {{{1
 " ============================================================================
-if IsInstalled('vim-singleton') && has('gui_running')
-    call singleton#enable()
+if g:IsInstalled('vim-singleton') && has('gui_running')
+    call g:singleton#enable()
 endif
 
 " sudo.vim {{{1
@@ -940,7 +941,7 @@ endif
 "}}}
 " vim-watchdogs {{{1
 " ============================================================================
-if IsInstalled('vim-watchdogs')
+if g:IsInstalled('vim-watchdogs')
     augroup WatchdogsSetting
         autocmd!
         autocmd BufWritePre *
@@ -948,21 +949,21 @@ if IsInstalled('vim-watchdogs')
         \   autocmd! WatchdogsSetting
     augroup END
 
-    let bundle = neobundle#get("vim-watchdogs")
-    function! bundle.hooks.on_source(bundle)
+    let g:bundle = g:neobundle#get('vim-watchdogs')
+    function! g:bundle.hooks.on_source(bundle)
         let g:watchdogs_check_BufWritePost_enable = 1
 
-        if !exists("g:quickrun_config")
+        if !exists('g:quickrun_config')
             let g:quickrun_config = {}
         endif
 
         let g:quickrun_config['watchdogs_checker/_'] = {
         \ 'hook/hier_update/enable_exit':              1,
         \ 'hook/hier_update/priority_exit':            2,
-        \ "hook/qfsigns_update/enable_exit":           1,
+        \ 'hook/qfsigns_update/enable_exit':           1,
         \ 'hook/qfsigns_update/priority_exit':         2,
-        \ "hook/qfstatusline_update/enable_exit":      1,
-        \ "hook/qfstatusline_update/priority_exit":    2,
+        \ 'hook/qfstatusline_update/enable_exit':      1,
+        \ 'hook/qfstatusline_update/priority_exit':    2,
         \ 'hook/quickfix_status_enable/enable_exit':   1,
         \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
@@ -1082,8 +1083,9 @@ if IsInstalled('vim-watchdogs')
         " \   'type': ''
         " \}
 
+        call g:SourceRc('watchdogs_local.vim')
         " watchdogs.vim の設定を更新（初回は呼ばれる）
-        call watchdogs#setup(g:quickrun_config)
+        call g:watchdogs#setup(g:quickrun_config)
 
     endfunction
 endif
