@@ -16,7 +16,7 @@ let $VIMDIR = expand('~/.vim')
 let $VIMRC_DIR = $VIMDIR . '/rc'
 let $VIM_CACHE_DIR = expand('~/.cache/vim')
 if !isdirectory($VIM_CACHE_DIR)
-    call mkdir($VIM_CACHE_DIR, "p")
+    call mkdir($VIM_CACHE_DIR, 'p')
 endif
 
 if has('win32')
@@ -28,40 +28,40 @@ endif
 
 " function {{{1
 " ============================================================================
-function! SourceRc(path) " {{{
-    if filereadable(expand("$VIMRC_DIR/".a:path))
-        execute "source $VIMRC_DIR/".a:path
+function! g:SourceRc(path) " {{{
+    if filereadable(expand('$VIMRC_DIR/'.a:path))
+        execute 'source $VIMRC_DIR/'.a:path
     endif
 endfunction " }}}
-function! MyHasPatch(str) " {{{
+function! g:MyHasPatch(str) " {{{
     if has('patch-7.4.237')
         return has(a:str)
     else
-        let patches =  split(matchstr(a:str, '\v(\d|\.)+'), '\.')
-        return v:version >  patches[0] . 0 . patches[1] ||
-            \  v:version == patches[0] . 0 . patches[1] && has('patch' . patches[2])
+        let l:patches =  split(matchstr(a:str, '\v(\d|\.)+'), '\.')
+        return v:version >  l:patches[0] . 0 . l:patches[1] ||
+            \  v:version == l:patches[0] . 0 . l:patches[1] && has('patch' . l:patches[2])
     endif
 endfunction " }}}
-function! MyIsRuning(str) " {{{
+function! g:MyIsRuning(str) " {{{
     if executable('pgrep')
         return system('pgrep '.a:str) || 0
     endif
     return 0
 endfunction " }}}
 "" バッファ名nameを持つウィンドウに移動する {{{
-function! GotoWin(name)
-    let nr = bufwinnr(a:name)
-    if nr > 0
-        execute nr . 'wincmd w'
+function! g:GotoWin(name)
+    let l:nr = bufwinnr(a:name)
+    if l:nr > 0
+        execute l:nr . 'wincmd w'
     endif
-    return nr
+    return l:nr
 endfunction " }}}
-function! IsInstalled(plugin) " {{{
+function! g:IsInstalled(plugin) " {{{
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
     " runtimepathのチェックでプラグインがインストールされているかをチェックできない
     " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
     if exists('*neobundle#is_installed')
-        return neobundle#is_installed(a:plugin)
+        return g:neobundle#is_installed(a:plugin)
     else
         " runtimepathにあるか
         " http://yomi322.hateblo.jp/entry/2012/06/20/225559
@@ -82,8 +82,8 @@ augroup MyVimrc
 augroup END
 " }}}
 
-call SourceRc('local_pre.vim')
-call SourceRc('bundle.vim')
+call g:SourceRc('local_pre.vim')
+call g:SourceRc('bundle.vim')
 
 " 基本設定 {{{
 " ============================================================================
@@ -97,7 +97,7 @@ set ruler
 set showmatch matchtime=1 "括弧の対応
 set matchpairs& matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
-if MyHasPatch('patch-7.3.769')
+if g:MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
 
@@ -124,7 +124,7 @@ set shellslash
 " http://unix.stackexchange.com/questions/19875/setting-vim-filetype-with-modeline-not-working-as-expected
 " この問題は7.0.234と7.0.235のパッチで修正された
 " https://bugzilla.redhat.com/show_bug.cgi?id=cve-2007-2438
-if MyHasPatch('patch-7.0.234') && MyHasPatch('patch-7.0.235')
+if g:MyHasPatch('patch-7.0.234') && g:MyHasPatch('patch-7.0.235')
     set modelines&
 else
     set modelines=0
@@ -241,7 +241,7 @@ set formatoptions&
 set formatoptions+=r
 " M : マルチバイト文字の連結(J)でスペースを挿入しない
 set formatoptions+=M
-if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
+if g:MyHasPatch('patch-7.3.541') && g:MyHasPatch('patch-7.3.550')
     " j : コメント行の連結でcomment leaderを取り除く
     set formatoptions+=j
 endif
@@ -264,8 +264,8 @@ if exists('+macmeta')
     " MacVimでMETAキーを使えるようにする
     set macmeta
 endif
-let mapleader = ";"
-let maplocalleader = "\\"
+let g:mapleader = ';'
+let g:maplocalleader = '\\'
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
@@ -384,18 +384,18 @@ if ! isdirectory(expand('~/.vim/bundle/savevers.vim'))
     augroup backup
         autocmd!
         autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
-        function! UpdateBackupFile()
-            let basedir = expand("$VIM_CACHE_DIR/backup")
-            let dir = strftime(basedir."/%Y%m/%d", localtime()).substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
-            if !isdirectory(dir)
-                call mkdir(dir, "p")
+        function! g:UpdateBackupFile()
+            let l:basedir = expand('$VIM_CACHE_DIR/backup')
+            let l:dir = strftime(l:basedir.'/%Y%m/%d', localtime()).substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
+            if !isdirectory(l:dir)
+                call mkdir(l:dir, 'p')
             endif
 
-            let dir = escape(dir, ' ')
-            exe "set backupdir=".dir
-            let time = strftime("%H-%M", localtime())
+            let l:dir = escape(l:dir, ' ')
+            exe 'set backupdir='.l:dir
+            let l:time = strftime('%H-%M', localtime())
 
-            exe "set backupext=.".time
+            execute 'set backupext=.'.l:time
         endfunction
     augroup END
 endif
@@ -405,7 +405,7 @@ endif
 if has('persistent_undo')
     set undofile
     if !isdirectory($VIM_CACHE_DIR.'/undo')
-        call mkdir($VIM_CACHE_DIR.'/undo', "p")
+        call mkdir($VIM_CACHE_DIR.'/undo', 'p')
     endif
     set undodir=$VIM_CACHE_DIR/undo
 endif
@@ -439,9 +439,9 @@ set title
 let &titlestring = "%{expand('%:p')} @" . hostname()
 
 " tmux使用時もtitlestringを変更できるように設定する
-if &term == "screen"
-    let &t_ts = "\ePtmux;\e\e]2;"
-    let &t_fs = "\007\e\\"
+if &term ==# 'screen'
+    let &t_ts = '\ePtmux;\e\e]2;'
+    let &t_fs = '\007\e\\'
 endif
 
 " window {{{1
@@ -696,7 +696,7 @@ endfunction
 
 " cdr {{{2
 " ----------------------------------------------------------------------------
-let g:recent_dirs_file = $ZDOTDIR."/.cache/chpwd-recent-dirs"
+let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
 augroup cdr
     autocmd!
     autocmd BufEnter * call s:update_cdr(expand('%:p:h'))
@@ -709,12 +709,12 @@ function! s:update_cdr(dir)
     end
 
     if filereadable(g:recent_dirs_file)
-        let recent_dirs = readfile(g:recent_dirs_file)
-        call insert(recent_dirs, "$'".a:dir."'", 0)
-        let V = vital#of('vital')
-        let List = V.import('Data.List')
-        let recent_dirs = List.uniq(recent_dirs)
-        call writefile(recent_dirs, g:recent_dirs_file)
+        let l:recent_dirs = readfile(g:recent_dirs_file)
+        call insert(l:recent_dirs, "$'".a:dir."'", 0)
+        let l:V = g:vital#of('vital')
+        let l:List = l:V.import('Data.List')
+        let l:recent_dirs = l:List.uniq(l:recent_dirs)
+        call writefile(l:recent_dirs, g:recent_dirs_file)
     endif
 endfunction
 
@@ -736,7 +736,7 @@ nnoremap          [VIMDIFF]W :set diffopt-=iwhite<CR>
 " ----------------------------------------------------------------------------
 " vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
 " http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
-if IsInstalled('diffchar.vim')
+if g:IsInstalled('diffchar.vim')
     let g:DiffUnit='Word3'
     " vimdiffで起動した時にdiffcharを有効にする
     if &diff
@@ -783,11 +783,11 @@ let g:unite_source_tag_strict_truncate_string = 0
 autocmd MyVimrc FileType * call s:configure_tag()
 
 function! s:configure_tag()
-    if !empty(&buftype) || &filetype == 'java'
+    if !empty(&buftype) || &filetype ==# 'java'
         return
     endif
 
-    if &filetype == 'vim'
+    if &filetype ==# 'vim'
         " 引数が4つまでになるのは7.4.279以上
         " [Vim script言語仕様の変更 · rbtnn/vimscript Wiki](https://github.com/rbtnn/vimscript/wiki/Vim-script%E8%A8%80%E8%AA%9E%E4%BB%95%E6%A7%98%E3%81%AE%E5%A4%89%E6%9B%B4)
         " execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
@@ -881,25 +881,25 @@ noremap [*location]q :lclose<CR>
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 autocmd MyVimrc FileType qf call s:adjust_window_height(1, 10)
 function! s:adjust_window_height(minheight, maxheight)
-    let l = 1
-    let n_lines = 0
-    let w_width = winwidth(0)
-    while l <= line('$')
+    let l:l = 1
+    let l:n_lines = 0
+    let l:w_width = winwidth(0)
+    while l:l <= line('$')
         " number to float for division
-        let l_len = strlen(getline(l)) + 0.0
-        let line_width = l_len/w_width
-        let n_lines += float2nr(ceil(line_width))
-        let l += 1
+        let l:l_len = strlen(getline(l:l)) + 0.0
+        let l:line_width = l:l_len/l:w_width
+        let l:n_lines += float2nr(ceil(l:line_width))
+        let l:l += 1
     endw
-    exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+    exe max([min([l:n_lines, a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
 " errorformatの確認のための関数 {{{2
 " ----------------------------------------------------------------------------
 " Vim - errorformatについて(入門編) - Qiita
 " <http://qiita.com/rbtnn/items/92f80d53803ce756b4b8>
-function! TestErrFmt(errfmt,lines)
-    let temp_errorfomat = &errorformat
+function! g:TestErrFmt(errfmt,lines)
+    let l:temp_errorfomat = &errorformat
     try
         let &errorformat = a:errfmt
         cexpr join(a:lines,"\n")
@@ -908,20 +908,20 @@ function! TestErrFmt(errfmt,lines)
         echo v:exception
         echo v:throwpoint
     finally
-        let &errorformat = temp_errorfomat
+        let &errorformat = l:temp_errorfomat
     endtry
 endfunction
 
 " Ip2host {{{1
 " ==============================================================================
 function! s:Ip2host(line1, line2)
-    for linenum in range(a:line1, a:line2)
-        let oldline = getline(linenum)
-        let newline = substitute(oldline,
+    for l:linenum in range(a:line1, a:line2)
+        let l:oldline = getline(l:linenum)
+        let l:newline = substitute(l:oldline,
                     \   '\v((%(2%([0-4]\d|5[0-5])|1\d\d|[1-9]?\d)\.){3}%(2%([0-4]\d|5[0-5])|1\d\d|[1-9]?\d))',
                     \   '\=substitute(system("nslookup ".submatch(1)), "\\v.*%(name = |:    )([0-9a-z-.]+).*", "\\1","")',
                     \   '')
-        call setline(linenum, newline)
+        call setline(l:linenum, l:newline)
     endfor
 endfunction
 
@@ -971,7 +971,7 @@ augroup MyVimrc
 
     let s:cursorline_lock = 0
     function! s:auto_cursorline(event)
-        if &filetype == 'qf' || &diff
+        if &filetype ==# 'qf' || &diff
             if &cursorline
                 setlocal nocursorline
                 return
@@ -1008,40 +1008,41 @@ augroup END
 " ----------------------------------------------------------------------------
 " http://cohama.hateblo.jp/entry/2013/08/11/020849
 function! s:get_syn_id(transparent)
-    let synid = synID(line("."), col("."), 1)
+    let l:synid = synID(line('.'), col('.'), 1)
     if a:transparent
-        return synIDtrans(synid)
+        return synIDtrans(l:synid)
     else
-        return synid
+        return l:synid
     endif
 endfunction
 function! s:get_syn_attr(synid)
-    let name = synIDattr(a:synid, "name")
-    let ctermfg = synIDattr(a:synid, "fg", "cterm")
-    let ctermbg = synIDattr(a:synid, "bg", "cterm")
-    let guifg = synIDattr(a:synid, "fg", "gui")
-    let guibg = synIDattr(a:synid, "bg", "gui")
+    let l:name = synIDattr(a:synid, 'name')
+    let l:ctermfg = synIDattr(a:synid, 'fg', 'cterm')
+    let l:ctermbg = synIDattr(a:synid, 'bg', 'cterm')
+    let l:guifg = synIDattr(a:synid, 'fg', 'gui')
+    let l:guibg = synIDattr(a:synid, 'bg', 'gui')
     return {
-        \ "name": name,
-        \ "ctermfg": ctermfg,
-        \ "ctermbg": ctermbg,
-        \ "guifg": guifg,
-        \ "guibg": guibg}
+    \   'name': l:name,
+    \   'ctermfg': l:ctermfg,
+    \   'ctermbg': l:ctermbg,
+    \   'guifg': l:guifg,
+    \   'guibg': l:guibg
+    \}
 endfunction
 function! s:get_syn_info()
-    let baseSyn = s:get_syn_attr(s:get_syn_id(0))
-    echo "name: " . baseSyn.name .
-      \ " ctermfg: " . baseSyn.ctermfg .
-      \ " ctermbg: " . baseSyn.ctermbg .
-      \ " guifg: " . baseSyn.guifg .
-      \ " guibg: " . baseSyn.guibg
-    let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
-    echo "link to"
-    echo "name: " . linkedSyn.name .
-      \ " ctermfg: " . linkedSyn.ctermfg .
-      \ " ctermbg: " . linkedSyn.ctermbg .
-      \ " guifg: " . linkedSyn.guifg .
-      \ " guibg: " . linkedSyn.guibg
+    let l:baseSyn = s:get_syn_attr(s:get_syn_id(0))
+    echo 'name: ' . l:baseSyn.name .
+    \   ' ctermfg: ' . l:baseSyn.ctermfg .
+    \   ' ctermbg: ' . l:baseSyn.ctermbg .
+    \   ' guifg: '   . l:baseSyn.guifg .
+    \   ' guibg: '   . l:baseSyn.guibg
+    let l:linkedSyn = s:get_syn_attr(s:get_syn_id(1))
+    echo 'link to'
+    echo 'name: ' . l:linkedSyn.name .
+    \ ' ctermfg: ' . l:linkedSyn.ctermfg .
+    \ ' ctermbg: ' . l:linkedSyn.ctermbg .
+    \ ' guifg: '   . l:linkedSyn.guifg .
+    \ ' guibg: '   . l:linkedSyn.guibg
 endfunction
 command! SyntaxInfo call s:get_syn_info()
 " }}}
@@ -1057,54 +1058,54 @@ let s:basic16 = [ [ 0x00, 0x00, 0x00 ], [ 0xCD, 0x00, 0x00 ], [ 0x00, 0xCD, 0x00
 
 function! s:Xterm2rgb(color)
     " 16 basic colors
-    let r=0
-    let g=0
-    let b=0
+    let l:r=0
+    let l:g=0
+    let l:b=0
     if a:color<16
-        let r = s:basic16[a:color][0]
-        let g = s:basic16[a:color][1]
-        let b = s:basic16[a:color][2]
+        let l:r = s:basic16[a:color][0]
+        let l:g = s:basic16[a:color][1]
+        let l:b = s:basic16[a:color][2]
     endif
 
     " color cube color
     if a:color>=16 && a:color<=232
-        let color=a:color-16
-        let r = s:valuerange[(color/36)%6]
-        let g = s:valuerange[(color/6)%6]
-        let b = s:valuerange[color%6]
+        let l:color=a:color-16
+        let l:r = s:valuerange[(l:color/36)%6]
+        let l:g = s:valuerange[(l:color/6)%6]
+        let l:b = s:valuerange[l:color%6]
     endif
 
     " gray tone
     if a:color>=233 && a:color<=253
-        let r=8+(a:color-232)*0x0a
-        let g=r
-        let b=r
+        let l:r=8+(a:color-232)*0x0a
+        let l:g=l:r
+        let l:b=l:r
     endif
-    let rgb=[r,g,b]
-    return rgb
+    let l:rgb=[l:r,l:g,l:b]
+    return l:rgb
 endfunction
 
 " selects the nearest xterm color for a rgb value like #FF0000
 function! s:Rgb2xterm(color)
     let s:colortable=[]
-    for c in range(0, 254)
-        let color = s:Xterm2rgb(c)
-        call add(s:colortable, color)
+    for l:c in range(0, 254)
+        let l:color = s:Xterm2rgb(l:c)
+        call add(s:colortable, l:color)
     endfor
 
-    let best_match=0
-    let smallest_distance = 10000000000
-    let r = eval('0x'.a:color[0].a:color[1])
-    let g = eval('0x'.a:color[2].a:color[3])
-    let b = eval('0x'.a:color[4].a:color[5])
-    for c in range(0,254)
-        let d = pow(s:colortable[c][0] - r, 2) + pow(s:colortable[c][1] - g, 2) + pow(s:colortable[c][2] - b, 2)
-        if d < smallest_distance
-            let smallest_distance = d
-            let best_match = c
+    let l:best_match=0
+    let l:smallest_distance = 10000000000
+    let l:r = eval('0x'.a:color[0].a:color[1])
+    let l:g = eval('0x'.a:color[2].a:color[3])
+    let l:b = eval('0x'.a:color[4].a:color[5])
+    for l:c in range(0,254)
+        let l:d = pow(s:colortable[l:c][0] - l:r, 2) + pow(s:colortable[l:c][1] - l:g, 2) + pow(s:colortable[l:c][2] - l:b, 2)
+        if l:d < l:smallest_distance
+            let l:smallest_distance = l:d
+            let l:best_match = l:c
         endif
     endfor
-    return best_match
+    return l:best_match
 endfunction
 command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
 command! -nargs=1 Xterm2rgb echo s:Xterm2rgb(<f-args>)
@@ -1193,36 +1194,36 @@ autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 " au FileType mkd      call MyAddToFileType('markdown')
 
 " rcmdnk/vim-markdown {{{3
-if IsInstalled('rcmdnk_vim-markdown')
+if g:IsInstalled('rcmdnk_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
     " macでgxを使いたい場合
-    let g:netrw_browsex_viewer= "open"
+    let g:netrw_browsex_viewer= 'open'
     let g:vim_markdown_no_default_key_mappings=1
 endif
 
 " joker1007/vim-markdown-quote-syntax {{{3
 let g:markdown_quote_syntax_filetypes = {
-\   "css" : {
-\       "start" : "\\%(css\\|scss\\)",
+\   'css' : {
+\       'start' : "\\%(css\\|scss\\)",
 \   },
-\   "dot" : {
-\       "start" : "dot",
+\   'dot' : {
+\       'start' : 'dot',
 \   },
-\   "javascript" : {
-\       "start" : "javascript",
+\   'javascript' : {
+\       'start' : 'javascript',
 \   },
-\   "php" : {
-\       "start" : "php",
+\   'php' : {
+\       'start' : 'php',
 \   },
-\   "sh" : {
-\       "start" : "sh",
+\   'sh' : {
+\       'start' : 'sh',
 \   },
 \}
 
 " nelstrom/vim-markdown-folding {{{3
-if IsInstalled('vim-markdown-folding')
-    let bundle = neobundle#get("vim-markdown-folding")
-    function! bundle.hooks.on_source(bundle)
+if g:IsInstalled('vim-markdown-folding')
+    let g:bundle = g:neobundle#get('vim-markdown-folding')
+    function! g:bundle.hooks.on_source(bundle)
         let g:markdown_fold_style = 'nested'
     endfunction
 endif
@@ -1283,7 +1284,7 @@ nmap <Leader>v [VIM]
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
 " execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
 " execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink $MYGVIMRC'), "\<NL>", '', '') . '<CR>'
-let s:src_home = "$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home"
+let s:src_home = '$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home'
 execute 'nnoremap [VIM]e :<C-u>edit '.s:src_home.'/.vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/_gvimrc<CR>'
 execute 'nnoremap [VIM]b :<C-u>edit '.s:src_home.'/.vim/rc/bundle.vim<CR>'
@@ -1352,7 +1353,7 @@ autocmd MyVimrc FileType gitcommit
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 "}}}
 if !has('gui_running')
-    call SourceRc('cui.vim')
+    call g:SourceRc('cui.vim')
 endif
-call SourceRc('plugin.vim')
-call SourceRc('local.vim')
+call g:SourceRc('plugin.vim')
+call g:SourceRc('local.vim')
