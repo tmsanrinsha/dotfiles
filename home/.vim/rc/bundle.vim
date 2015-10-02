@@ -256,6 +256,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " Vimperatorのクイックヒント風にカーソル移動
         NeoBundleLazy 'Lokaltog/vim-easymotion'
 
+        " https://github.com/dahu/Severalections
         NeoBundle 'terryma/vim-multiple-cursors'
 
         NeoBundleLazy 'thinca/vim-ref', {
