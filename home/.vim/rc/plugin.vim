@@ -975,7 +975,7 @@ if g:IsInstalled('vim-watchdogs')
         let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
 
         " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
-        " let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+        let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
         " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
         " windo HierUpdateなどを行う
 
@@ -1102,7 +1102,7 @@ endfunction
 
 " qfsigns {{{1
 " ============================================================================
-let g:qfsigns#AutoJump = 1
+" let g:qfsigns#AutoJump = 1
 
 " quickfixsign_vim {{{1
 " ============================================================================
