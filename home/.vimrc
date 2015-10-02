@@ -440,8 +440,8 @@ let &titlestring = "%{expand('%:p')} @" . hostname()
 
 " tmux使用時もtitlestringを変更できるように設定する
 if &term ==# 'screen'
-    let &t_ts = '\ePtmux;\e\e]2;'
-    let &t_fs = '\007\e\\'
+    let &t_ts = "\ePtmux;\e\e]2;"
+    let &t_fs = "\007\e\\"
 endif
 
 " window {{{1
