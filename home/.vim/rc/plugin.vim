@@ -1067,6 +1067,15 @@ if IsInstalled('vim-watchdogs')
         \   "errorformat": '%f:\ line\ %l:%m',
         \}
 
+        let g:quickrun_config['vim/watchdogs_checker'] = {
+        \   'type': executable('vint') ? 'watchdogs_checker/vint' : '',
+        \}
+
+        let g:quickrun_config["watchdogs_checker/vint"] = {
+        \       "command"   : "vint",
+        \       "exec"      : "%c %o %s:p ",
+        \}
+
         " zsh {{{2
         " ------------------------------------------------------------------------
         " let g:quickrun_config['zsh/watchdogs_checker'] = {
