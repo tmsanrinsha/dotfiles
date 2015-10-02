@@ -1918,12 +1918,6 @@ let g:lightline = {
     \       'anzu': 'anzu#search_status',
     \       'currenttag': 'MyCurrentTag',
     \   },
-    \   'component_expand': {
-    \       'syntaxcheck': 'qfstatusline#Update',
-    \   },
-    \   'component_type': {
-    \       'syntaxcheck': 'error',
-    \   },
     \   'separator': { 'left': '', 'right': '' },
     \   'subseparator': { 'left': '|', 'right': '|' },
     \   'mode_map': {
@@ -1939,6 +1933,13 @@ let g:lightline = {
     \       "\<C-s>": 'SB',
     \       '?': '' }
     \}
+    " \   'component_expand': {
+    " \       'syntaxcheck': 'qfstatusline#Update',
+    " \   },
+    " \   'component_type': {
+    " \       'syntaxcheck': 'error',
+    " \   },
+
 " :WatchdogsRun後にlightline.vimを更新
 let g:Qfstatusline#UpdateCmd = function('lightline#update')
 
