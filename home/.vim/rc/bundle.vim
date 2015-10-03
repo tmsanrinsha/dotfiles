@@ -11,7 +11,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
 
-    let g:neobundle#types#git#default_protocol = "git"
+    let g:neobundle#types#git#default_protocol = 'git'
     let g:neobundle#install_process_timeout = 2000
 
     if has('win32') && has('kaoriya')
@@ -342,6 +342,9 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " }}}
         " backup
         NeoBundle 'savevers.vim'
+
+        " https://github.com/zenbro/mirror.vim
+
         " noeol, eolを保ったまま保存
         NeoBundle 'PreserveNoEOL', {
         \   'disabled': exists('&fixeol'),
@@ -683,7 +686,7 @@ if isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'
         " vim以外のリポジトリ
         NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
-        call SourceRc('neobundle_local.vim')
+        call SourceRc('bundle_local.vim')
 
     "     NeoBundleSaveCache
     " endif
