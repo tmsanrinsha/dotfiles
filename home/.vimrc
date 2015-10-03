@@ -82,8 +82,8 @@ augroup MyVimrc
 augroup END
 " }}}
 
-call g:SourceRc('local_pre.vim')
-call g:SourceRc('bundle.vim')
+call SourceRc('local_pre.vim')
+call SourceRc('bundle.vim')
 
 " 基本設定 {{{
 " ============================================================================
