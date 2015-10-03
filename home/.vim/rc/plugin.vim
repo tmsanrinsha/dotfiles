@@ -1,7 +1,7 @@
 scriptencoding utf-8
 " vim-singleton {{{1
 " ============================================================================
-if g:IsInstalled('vim-singleton') && has('gui_running')
+if IsInstalled('vim-singleton') && has('gui_running')
     call g:singleton#enable()
 endif
 
@@ -1068,13 +1068,15 @@ if g:IsInstalled('vim-watchdogs')
         \   "errorformat": '%f:\ line\ %l:%m',
         \}
 
+        " vim {{{2
+        " ------------------------------------------------------------------------
         let g:quickrun_config['vim/watchdogs_checker'] = {
         \   'type': executable('vint') ? 'watchdogs_checker/vint' : '',
         \}
 
-        let g:quickrun_config["watchdogs_checker/vint"] = {
-        \       "command"   : "vint",
-        \       "exec"      : "%c %o %s:p ",
+        let g:quickrun_config['watchdogs_checker/vint'] = {
+        \       'command'   : 'vint',
+        \       'exec'      : '%c %o %s:p',
         \}
 
         " zsh {{{2
