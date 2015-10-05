@@ -403,7 +403,7 @@ if [[ `uname` != Darwin ]]; then
     add-zsh-hook precmd  share_dirs_precmd
 fi
 # }}} }}}
-# cdr
+# cdr {{{2
 # ----------------------------------------------------------------------------
 # zshでcdの履歴管理に標準添付のcdrを使う - @znz blog http://blog.n-z.jp/blog/2013-11-12-zsh-cdr.html
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
@@ -606,6 +606,29 @@ if hash peco 2>/dev/null; then
     }
     zle -N peco_cdr
     bindkey '^[r' peco_cdr
+
+    # fd {{{2
+    # ------------------------------------------------------------------------
+    function fd () {
+        local find_result selected_dir
+        find_result="$(find . -type d -mindepth 1 \( -name '.svn' -o -name '.git' -o -name 'vendor' \) -prune -o -type d -name "*$1*" -print | sed 's@./@@')"
+
+        if [ -z $find_result ]; then
+            return 1
+        fi
+
+        if [ $(echo $find_result | wc -l) -eq 1 ]; then
+            echo ${find_result}
+            pwd
+            cd ${find_result}
+            return
+        fi
+
+        selected_dir="$(echo $find_result | peco --prompt="fd >" --query "$1")"
+        if [ -n "$selected_dir" ]; then
+            cd ${selected_dir}
+        fi
+    }
 
     # ghq {{{2
     function peco_ghq () {
