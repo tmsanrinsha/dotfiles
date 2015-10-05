@@ -345,6 +345,10 @@ inoremap <silent><C-j> <C-o>o
 
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
+
+nnoremap ]p p`[v`]=
+nnoremap ]P P`[v`]=
+
 " インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
 " nnoremap ]gp ]p`]j
 " nnoremap ]gP ]P`]j
@@ -1338,16 +1342,6 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
 " ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
 autocmd MyVimrc FileType gitcommit
     \  setlocal formatoptions<
-
-" MQL4 {{{2
-" ----------------------------------------------------------------------------
-" wineで使っているせいか相対パスで実行してやらないとだめなので、lcdする
-" autocmd MyVimrc FileType mql4
-" \   lcd %:p:h |
-" \   setlocal makeprg=wine\ ~/bin/mql.exe\ /s\ % |
-" \   let &l:errorformat = '%f(%l\,%c) : error %.%#: %m,%Z%m,%-G%.%#'
-"
-" autocmd MyVimrc BufWritePost *.mq4 make
 
 " tsv {{{2
 " ----------------------------------------------------------------------------

@@ -1821,17 +1821,17 @@ endif
 
 " open-browser.vim {{{1
 " ============================================================================
-if IsInstalled("open-browser.vim")
+if IsInstalled('open-browser.vim')
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
     autocmd MyVimrc FileType *
-    \|  if &filetype !~ 'vim\|help\|man\|ref'
-    \       nnoremap <buffer> K :<C-u>MyOpenbrowserSearch n<CR>
-    \       xnoremap <buffer> K :<C-u>MyOpenbrowserSearch v<CR>
-    \   endif
+    \    if &filetype !~ 'vim\|help\|man\|ref'
+    \|      nnoremap <buffer> K :<C-u>MyOpenbrowserSearch n<CR>
+    \|      xnoremap <buffer> K :<C-u>MyOpenbrowserSearch v<CR>
+    \|  endif
 
     function! s:my_openbrowser_search(mode)
         if a:mode ==# 'n'
@@ -1846,7 +1846,7 @@ if IsInstalled("open-browser.vim")
     endfunction
     command! -nargs=1 MyOpenbrowserSearch call s:my_openbrowser_search('<args>')
 
-    let bundle = neobundle#get("open-browser.vim")
+    let bundle = neobundle#get('open-browser.vim')
     function! bundle.hooks.on_source(bundle)
         let g:netrw_nogx = 1 " disable netrw's gx mapping.
         let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
