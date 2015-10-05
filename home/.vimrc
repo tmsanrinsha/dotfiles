@@ -1227,7 +1227,7 @@ let g:markdown_quote_syntax_filetypes = {
 
 " nelstrom/vim-markdown-folding {{{3
 if IsInstalled('vim-markdown-folding')
-    let g:bundle = g:neobundle#get('vim-markdown-folding')
+    let g:bundle = neobundle#get('vim-markdown-folding')
     function! bundle.hooks.on_source(bundle)
         let g:markdown_fold_style = 'nested'
     endfunction

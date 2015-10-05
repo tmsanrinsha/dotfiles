@@ -941,7 +941,7 @@ endif
 "}}}
 " vim-watchdogs {{{1
 " ============================================================================
-if g:IsInstalled('vim-watchdogs')
+if IsInstalled('vim-watchdogs')
     augroup WatchdogsSetting
         autocmd!
         autocmd BufWritePre *
@@ -949,7 +949,7 @@ if g:IsInstalled('vim-watchdogs')
         \   autocmd! WatchdogsSetting
     augroup END
 
-    let g:bundle = g:neobundle#get('vim-watchdogs')
+    let g:bundle = neobundle#get('vim-watchdogs')
     function! g:bundle.hooks.on_source(bundle)
         let g:watchdogs_check_BufWritePost_enable = 1
 
@@ -1085,9 +1085,9 @@ if g:IsInstalled('vim-watchdogs')
         " \   'type': ''
         " \}
 
-        call g:SourceRc('watchdogs_local.vim')
+        call SourceRc('watchdogs_local.vim')
         " watchdogs.vim の設定を更新（初回は呼ばれる）
-        call g:watchdogs#setup(g:quickrun_config)
+        call watchdogs#setup(g:quickrun_config)
 
     endfunction
 endif
