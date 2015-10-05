@@ -2,7 +2,7 @@ scriptencoding utf-8
 " vim-singleton {{{1
 " ============================================================================
 if IsInstalled('vim-singleton') && has('gui_running')
-    call g:singleton#enable()
+    call singleton#enable()
 endif
 
 " sudo.vim {{{1

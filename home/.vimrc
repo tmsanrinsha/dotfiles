@@ -28,12 +28,12 @@ endif
 
 " function {{{1
 " ============================================================================
-function! g:SourceRc(path) " {{{
+function! SourceRc(path) " {{{
     if filereadable(expand('$VIMRC_DIR/'.a:path))
         execute 'source $VIMRC_DIR/'.a:path
     endif
 endfunction " }}}
-function! g:MyHasPatch(str) " {{{
+function! MyHasPatch(str) " {{{
     if has('patch-7.4.237')
         return has(a:str)
     else
@@ -42,26 +42,26 @@ function! g:MyHasPatch(str) " {{{
             \  v:version == l:patches[0] . 0 . l:patches[1] && has('patch' . l:patches[2])
     endif
 endfunction " }}}
-function! g:MyIsRuning(str) " {{{
+function! MyIsRuning(str) " {{{
     if executable('pgrep')
         return system('pgrep '.a:str) || 0
     endif
     return 0
 endfunction " }}}
 "" バッファ名nameを持つウィンドウに移動する {{{
-function! g:GotoWin(name)
+function! GotoWin(name)
     let l:nr = bufwinnr(a:name)
     if l:nr > 0
         execute l:nr . 'wincmd w'
     endif
     return l:nr
 endfunction " }}}
-function! g:IsInstalled(plugin) " {{{
+function! IsInstalled(plugin) " {{{
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
     " runtimepathのチェックでプラグインがインストールされているかをチェックできない
     " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
     if exists('*neobundle#is_installed')
-        return g:neobundle#is_installed(a:plugin)
+        return neobundle#is_installed(a:plugin)
     else
         " runtimepathにあるか
         " http://yomi322.hateblo.jp/entry/2012/06/20/225559
@@ -97,7 +97,7 @@ set ruler
 set showmatch matchtime=1 "括弧の対応
 set matchpairs& matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
-if g:MyHasPatch('patch-7.3.769')
+if MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
 
@@ -124,7 +124,7 @@ set shellslash
 " http://unix.stackexchange.com/questions/19875/setting-vim-filetype-with-modeline-not-working-as-expected
 " この問題は7.0.234と7.0.235のパッチで修正された
 " https://bugzilla.redhat.com/show_bug.cgi?id=cve-2007-2438
-if g:MyHasPatch('patch-7.0.234') && g:MyHasPatch('patch-7.0.235')
+if MyHasPatch('patch-7.0.234') && MyHasPatch('patch-7.0.235')
     set modelines&
 else
     set modelines=0
@@ -241,7 +241,7 @@ set formatoptions&
 set formatoptions+=r
 " M : マルチバイト文字の連結(J)でスペースを挿入しない
 set formatoptions+=M
-if g:MyHasPatch('patch-7.3.541') && g:MyHasPatch('patch-7.3.550')
+if MyHasPatch('patch-7.3.541') && MyHasPatch('patch-7.3.550')
     " j : コメント行の連結でcomment leaderを取り除く
     set formatoptions+=j
 endif
@@ -388,7 +388,7 @@ if ! isdirectory(expand('~/.vim/bundle/savevers.vim'))
     augroup backup
         autocmd!
         autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
-        function! g:UpdateBackupFile()
+        function! UpdateBackupFile()
             let l:basedir = expand('$VIM_CACHE_DIR/backup')
             let l:dir = strftime(l:basedir.'/%Y%m/%d', localtime()).substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
             if !isdirectory(l:dir)
@@ -715,7 +715,7 @@ function! s:update_cdr(dir)
     if filereadable(g:recent_dirs_file)
         let l:recent_dirs = readfile(g:recent_dirs_file)
         call insert(l:recent_dirs, "$'".a:dir."'", 0)
-        let l:V = g:vital#of('vital')
+        let l:V = vital#of('vital')
         let l:List = l:V.import('Data.List')
         let l:recent_dirs = l:List.uniq(l:recent_dirs)
         call writefile(l:recent_dirs, g:recent_dirs_file)
@@ -740,7 +740,7 @@ nnoremap          [VIMDIFF]W :set diffopt-=iwhite<CR>
 " ----------------------------------------------------------------------------
 " vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
 " http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
-if g:IsInstalled('diffchar.vim')
+if IsInstalled('diffchar.vim')
     let g:DiffUnit='Word3'
     " vimdiffで起動した時にdiffcharを有効にする
     if &diff
@@ -902,7 +902,7 @@ endfunction
 " ----------------------------------------------------------------------------
 " Vim - errorformatについて(入門編) - Qiita
 " <http://qiita.com/rbtnn/items/92f80d53803ce756b4b8>
-function! g:TestErrFmt(errfmt,lines)
+function! TestErrFmt(errfmt,lines)
     let l:temp_errorfomat = &errorformat
     try
         let &errorformat = a:errfmt
@@ -1199,7 +1199,7 @@ autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 " au FileType mkd      call MyAddToFileType('markdown')
 
 " rcmdnk/vim-markdown {{{3
-if g:IsInstalled('rcmdnk_vim-markdown')
+if IsInstalled('rcmdnk_vim-markdown')
     let g:vim_markdown_folding_disabled = 1
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= 'open'
@@ -1226,9 +1226,9 @@ let g:markdown_quote_syntax_filetypes = {
 \}
 
 " nelstrom/vim-markdown-folding {{{3
-if g:IsInstalled('vim-markdown-folding')
+if IsInstalled('vim-markdown-folding')
     let g:bundle = g:neobundle#get('vim-markdown-folding')
-    function! g:bundle.hooks.on_source(bundle)
+    function! bundle.hooks.on_source(bundle)
         let g:markdown_fold_style = 'nested'
     endfunction
 endif
@@ -1348,7 +1348,7 @@ autocmd MyVimrc FileType gitcommit
 autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
 "}}}
 if !has('gui_running')
-    call g:SourceRc('cui.vim')
+    call SourceRc('cui.vim')
 endif
-call g:SourceRc('plugin.vim')
-call g:SourceRc('local.vim')
+call SourceRc('plugin.vim')
+call SourceRc('local.vim')
