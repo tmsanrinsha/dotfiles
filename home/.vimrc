@@ -939,7 +939,7 @@ syntax enable
 " syntaxの遡る行数を上げる
 " グローバルな設定では無いらしく、autocmd FileTypeで設定
 " autocmd MyVimrc FileType html,markdown,php syntax sync minlines=500 maxlines=5000
-autocmd MyVimrc FileType * syntax sync minlines=500 maxlines=5000
+autocmd MyVimrc FileType markdown syntax sync minlines=500 maxlines=5000
 " :syntax syncでminmalとmaximalの値を確認できる
 " 参考
 " [Big Sky :: 意外と知られていないvimのtips(開発に便利な設定)](http://mattn.kaoriya.net/software/vim/20070821175457.htm)
