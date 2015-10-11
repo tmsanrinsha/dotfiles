@@ -52,7 +52,7 @@ call neobundle#begin(expand($VIMDIR.'/bundle/'))
 " Let neobundle manage neobundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" 非同期処理 vimproc {{{2
+" 非同期処理 vimproc {{{1
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw',
@@ -65,7 +65,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 \ }
 " NeoBundle 'tpope/vim-dispatch'
 
-" vital {{{2
+" vital {{{1
 NeoBundleLazy 'vim-jp/vital.vim'
 NeoBundle 'osyo-manga/vital-coaster', {
 \   'autoload': {
@@ -74,8 +74,8 @@ NeoBundle 'osyo-manga/vital-coaster', {
 \   'depends': ['vim-jp/vital.vim']
 \}
 
-" unite {{{2
-" --------------------------------------------------------------------
+" unite {{{1
+" ============================================================================
 " unite.vimはlazyがうまくいかない
 " NeoBundleLazy 'Shougo/unite.vim', {
 " \   'autoload': {
@@ -113,8 +113,8 @@ NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
 " http://archiva.jp/web/tool/vim_grep2.html
 NeoBundle 'thinca/vim-qfreplace'
 
-" shell, filer {{{2
-" --------------------------------------------------------------------
+" shell, filer {{{1
+" ============================================================================
 NeoBundleLazy 'Shougo/vimshell.vim', {
 \   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
 \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
@@ -131,9 +131,9 @@ NeoBundleLazy 'oplatek/Conque-Shell', {
 " endif
 NeoBundle 'Shougo/vimfiler.vim'
 
-" 補完・入力補助 {{{2
-" --------------------------------------------------------------------
-"" 自動補完 {{{3
+" 補完・入力補助 {{{1
+" ============================================================================
+"" 自動補完 {{{2
 NeoBundleLazy "Shougo/neocomplete.vim", {
 \   "autoload": {"insert": 1},
 \   'depends' : [
@@ -167,14 +167,14 @@ NeoBundleLazy "Shougo/neocomplcache.vim", {
 "     NeoBundle "Valloric/YouCompleteMe"
 " endif
 
-"" スニペット補完 {{{3
+"" スニペット補完 {{{2
 
-" 閉じ括弧などの対応するものの補完 {{{3
+" 閉じ括弧などの対応するものの補完 {{{2
 " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
 " NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
 
-" quickrun {{{2
-" --------------------------------------------------------------------
+" quickrun {{{1
+" ============================================================================
 " NeoBundle 'thinca/vim-quickrun'
 NeoBundleLazy 'thinca/vim-quickrun', {
 \   'autoload': {
@@ -192,8 +192,8 @@ NeoBundleLazy 'thinca/vim-quickrun', {
 \   ]
 \}
 
-" syntax check, quickfix {{{2
-" -------------------------------------------------------------------
+" syntax check, quickfix {{{1
+" ============================================================================
 " ファイルを保存時にシンタックスのチェック
 " 同期処理なのでwatchldogsを使う
 " NeoBundleLazy 'scrooloose/syntastic'
@@ -216,8 +216,8 @@ NeoBundle 'QuickFixCurrentNumber', {
 \   'depends': 'ingo-library'
 \}
 
-" operator {{{2
-" --------------------------------------------------------------------
+" operator {{{1
+" ============================================================================
 NeoBundleLazy "kana/vim-operator-user"
 NeoBundleLazy 'kana/vim-operator-replace', {
 \   'depends': 'kana/vim-operator-user',
@@ -241,8 +241,8 @@ if !has('clipboard') || $SSH_CLIENT != ''
     NeoBundle 'tmsanrinsha/vim-fakeclip'
 endif
 
-" textobj {{{2
-" --------------------------------------------------------------------
+" textobj {{{1
+" ============================================================================
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-function'
 NeoBundle 'kentaro/vim-textobj-function-php'
@@ -327,8 +327,8 @@ NeoBundleLazy 'LeafCage/yankround.vim', {
 \   'vim_version': '7.3'
 \}
 
-" open, gf {{{2
-" --------------------------------------------------------------------
+" open, gf {{{1
+" ============================================================================
 " すでにvimが起動しているときは、そちらで開く
 NeoBundle 'thinca/vim-singleton', {
 \ 'disabled': !has('clientserver'),
@@ -385,8 +385,8 @@ NeoBundle 'PreserveNoEOL', {
 " [tpope/vim-sleuth](https://github.com/tpope/vim-sleuth) こっちも似たようなもの
 NeoBundle 'ciaranm/detectindent'
 
-" diff {{{2
-" --------------------------------------------------------------------
+" diff {{{1
+" ============================================================================
 NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
 \   'autoload' : {
 \       'commands' : {
@@ -398,8 +398,8 @@ NeoBundleLazy 'tmsanrinsha/DirDiff.vim', {
 NeoBundle 'tmsanrinsha/diffchar.vim'
 " NeoBundle 'chrisbra/vim-diff-enhanced'
 
-" eclipseと連携 {{{2
-" --------------------------------------------------------------------
+" eclipseと連携 {{{1
+" ============================================================================
 " if ! exists('g:eclipse_home')
 "     if has('win32') && isdirectory(expand('~/eclipse'))
 "         let g:eclipse_home = escape(expand('~/eclipse'), '\')
@@ -425,8 +425,8 @@ NeoBundle 'tmsanrinsha/diffchar.vim'
 "     \   'disabled': !exists(g:eclipse_home),
 "     \}
 
-" PHP {{{2
-" --------------------------------------------------------------------
+" PHP {{{1
+" ============================================================================
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
 \   'autoload': {
 \       'filetypes': ['php']
@@ -445,12 +445,12 @@ NeoBundleLazy 'joonty/vdebug', {
 \   }
 \}
 
-" HTML {{{2
-" --------------------------------------------------------------------
+" HTML {{{1
+" ============================================================================
 NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
 
-" JavaScript {{{2
-" --------------
+" JavaScript {{{1
+" ============================================================================
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'nono/jquery.vim'
@@ -460,8 +460,8 @@ NeoBundleLazy 'maksimr/vim-jsbeautify', {
 \   'external_commands': 'node',
 \}
 
-" Python {{{2
-" ----------
+" Python {{{1
+" ============================================================================
 NeoBundleLazy 'davidhalter/jedi-vim', {
 \   'autoload': {'filetypes': ['python']}
 \}
@@ -471,8 +471,8 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 NeoBundleLazy 'hynek/vim-python-pep8-indent', {
 \   'autoload': {'filetypes': ['python']}
 \}
-" C, C++ {{{2
-" ----------
+" C, C++ {{{1
+" ============================================================================
 NeoBundleLazy 'osyo-manga/vim-marching', {
 \   'autoload': {'filetypes': ['c', 'cpp']}
 \}
@@ -481,14 +481,14 @@ NeoBundleLazy 'quark-zju/vim-cpp-auto-include', {
 \   'autoload': {'filetypes': ['c', 'cpp']}
 \}
 
-" R lang {{{2
-" --------------------------------------------------------------------
+" R lang {{{1
+" ============================================================================
 NeoBundleLazy 'jcfaria/Vim-R-plugin', {
 \   'autoload': {'filetypes': 'r'}
 \}
 
-" SQL {{{2
-" --------------------------------------------------------------------
+" SQL {{{1
+" ============================================================================
 " NeoBundleLazy 'vim-scripts/dbext.vim', {
 "     \   'autoload': {'filetypes': ['sql']}
 "     \}
@@ -496,8 +496,8 @@ NeoBundleLazy 'autowitch/hive.vim', {
 \   'autoload': {'filetypes': ['sql']}
 \}
 
-" Markdown {{{2
-" ------------
+" Markdown {{{1
+" ============================================================================
 " NeoBundleLazy 'tpope/vim-markdown', {
 " \   'autoload' : { 'filetypes' : 'markdown' }
 " \}
@@ -530,7 +530,7 @@ NeoBundleLazy 'nelstrom/vim-markdown-folding', {
 \   'autoload': {'filetypes': ['markdown']}
 \}
 
-" preview {{{3
+" preview {{{2
 NeoBundleLazy 'tmsanrinsha/previm', {
 \   'autoload': {'commands': ['PrevimOpen']},
 \   'depends': 'tyru/open-browser.vim'
@@ -540,19 +540,19 @@ NeoBundleLazy 'tmsanrinsha/previm', {
 "     NeoBundle 'suan/vim-instant-markdown'
 " endif
 
-" sh {{{2
+" sh {{{1
 " indentの改善
 NeoBundleLazy 'sh.vim--Cla', {
 \   'autoload': {'filetypes': 'sh'}
 \}
-" tmux {{{2
+" tmux {{{1
 " tmuxのシンタックスファイル
 NeoBundleLazy 'zaiste/tmux.vim', {
 \   'autoload' : { 'filetypes' : ['tmux'] }
 \ }
 
-" Vim {{{2
-" --------------------------------------------------------------------
+" Vim {{{1
+" ============================================================================
 " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
 NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
 NeoBundleLazy 'syngan/vim-vimlint'
@@ -568,7 +568,7 @@ NeoBundleLazy 'wannesm/wmgraphviz.vim', {
 \   }
 \}
 
-" vimperator {{{2
+" vimperator {{{1
 " vimperatorのシンタックスファイル
 NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
 \   'type'        : 'raw',
@@ -576,23 +576,23 @@ NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/s
 \   'script_type' : 'syntax'
 \}
 
-" confluence {{{2
+" confluence {{{1
 " confluenceのシンタックスファイル
 NeoBundleLazy 'confluencewiki.vim', {
 \   'autoload' : { 'filetypes' : ['confluencewiki'] }
 \ }
 
-" mql4 {{{2
+" mql4 {{{1
 NeoBundleLazy 'vobornik/vim-mql4', {
 \   'autoload' : { 'filetypes' : ['mql4'] }
 \ }
 
-" yaml {{{2
+" yaml {{{1
 " NeoBundleLazy 'tmsanrinsha/yaml.vim', {
 "             \   'autoload' : { 'filetypes' : 'yaml' }
 "             \}
 
-" Git {{{2
+" Git {{{1
 NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
 " lazyはうまくいかない
 " NeoBundleLazy 'tpope/vim-fugitive', {
@@ -622,13 +622,15 @@ NeoBundleLazy 'tyru/open-browser.vim', {
 \}
 
 
-" colorscheme
+" colorscheme {{{1
+" ============================================================================
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
-NeoBundle 'w0ng/vim-hybrid'
+" NeoBundle 'w0ng/vim-hybrid'
+" NeoBundle 'reedes/vim-colors-pencil'
 " NeoBundle 'vim-scripts/wombat256.vim'
 " NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
+" NeoBundle 'chriskempson/vim-tomorrow-theme'
 " NeoBundle 'vim-scripts/rdark'
 " NeoBundle 'vim-scripts/rdark-terminal'
 " NeoBundle 'jonathanfilip/vim-lucius'
