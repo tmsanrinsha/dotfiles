@@ -219,23 +219,25 @@ endif
 
 " neomru {{{1
 " ----------------------------------------------------------------------------
-" ファイルが存在するかチェックしない
-" ファイルへの書き込みを60秒ごとにする
-let g:neomru#update_interval = 60
-let g:neomru#do_validate = 0
-call unite#custom#source(
-\'neomru/file', 'ignoer_pattern',
-\'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
-\'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-\'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-\'\|\%(^\%(fugitive\)://\)'.
-\'\|/mnt/'
-\)
+if IsInstalled('neomru.vim')
+    " ファイルが存在するかチェックしない
+    " ファイルへの書き込みを60秒ごとにする
+    let g:neomru#update_interval = 60
+    let g:neomru#do_validate = 0
+    call unite#custom#source(
+    \'neomru/file', 'ignoer_pattern',
+    \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
+    \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+    \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
+    \'\|\%(^\%(fugitive\)://\)'.
+    \'\|/mnt/'
+    \)
 
-"最近使用したファイル一覧
-nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
-"最近使用したディレクトリ一覧
-nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
+    "最近使用したファイル一覧
+    nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
+endif
 
 
 " neossh.vim {{{1
@@ -514,7 +516,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         let g:neocomplcache_sources_list.php  = ['tags_complete', 'snippets_complete', 'dictionary_complete', 'omni_complete', 'member_complete', 'include_complete', 'buffer_complete', 'filename_complete', 'filename_include']
 
         " 補完候補の順番
-        if IsInstalled("neocomplete.vim")
+        if IsInstalled('neocomplete.vim')
             " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
             call neocomplete#custom#source('file',         'rank', 450)
             call neocomplete#custom#source('file/include', 'rank', 400)
@@ -1093,7 +1095,7 @@ if IsInstalled('vim-watchdogs')
     endfunction
 endif
 
-" qf系プラグインのアップデート {{{1
+" quickfix系プラグインのアップデート {{{1
 " ============================================================================
 " quickfixを開いてHierUpdateなどをしたい場合は以下のようにする
 autocmd MyVimrc FileType qf call s:qf_update()
@@ -1114,7 +1116,7 @@ sign define qfsign texthl=SignColumn text=>>
 
 " operator {{{1
 " ============================================================================
-if IsInstalled("vim-operator-user")
+if IsInstalled('vim-operator-user')
     call neobundle#config('vim-operator-user', {
         \   'autoload': {
         \       'mappings': '<Plug>(operator-'
@@ -1171,7 +1173,7 @@ endif
 
 " textobj {{{1
 " ============================================================================
-if IsInstalled("vim-textobj-lastpat") && !MyHasPatch('patch-7.3.610')
+if IsInstalled('vim-textobj-lastpat') && !MyHasPatch('patch-7.3.610')
     let g:textobj_lastpat_no_default_key_mappings = 1
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
@@ -1217,11 +1219,11 @@ if IsInstalled('vital-coaster')
     nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
     nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
 
-    let s:Buffer = vital#of("vital").import("Coaster.Buffer")
+    let s:Buffer = vital#of('vital').import('Coaster.Buffer')
 
     function! s:count(pattern, then, else)
         let word = s:Buffer.get_text_from_pattern(a:pattern)
-        if word !=# ""
+        if word !=# ''
             return a:then
         else
             return a:else
@@ -1231,12 +1233,12 @@ if IsInstalled('vital-coaster')
     " 第一引数に <C-a> を無視するパターンを設定
     " 第二引数に無視した場合の代替キーを設定
     function! s:increment(ignore_pattern, ...)
-        let key = get(a:, 1, "")
+        let key = get(a:, 1, '')
         return s:count(a:ignore_pattern, key, "\<C-a>")
     endfunction
 
     function! s:decrement(ignore_pattern, ...)
-        let key = get(a:, 1, "")
+        let key = get(a:, 1, '')
         return s:count(a:ignore_pattern, key, "\<C-x>")
     endfunction
 endif
@@ -1282,7 +1284,7 @@ endif
 if IsInstalled('vim-multiple-cursors')
     let g:multi_cursor_use_default_mapping = 0
     let g:multi_cursor_next_key='+'
-    let g:multi_cursor_prev_key="-"
+    let g:multi_cursor_prev_key='-'
     let g:multi_cursor_skip_key='&'
     let g:multi_cursor_quit_key='<Esc>'
 endif
@@ -1346,11 +1348,10 @@ nnoremap <C-n> gt
 if IsInstalled('yankround.vim') && v:version >= 703
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
-    " 貼り付けた文字列をハイライト。colorschemeを呼ぶ前に設定する。
     let g:yankround_use_region_hl = 1
     autocmd MyVimrc ColorScheme *
         \   highlight! YankRoundRegion ctermfg=16 ctermbg=187
-        " \   highlight! link YankRoundRegion IncSearch
+    doautocmd MyVimrc ColorScheme
 
     nmap p  <Plug>(yankround-p)
     xmap p  <Plug>(yankround-p)
@@ -1390,23 +1391,24 @@ if IsInstalled("vim-gf-user")
     nmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
     xmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
     nmap <Leader><C-w>gF    <Plug>(gf-user-<C-w>gF)
+
+    " カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
+    function! GfNewFile()
+        let path = expand('%:p:h').'/'.expand('<cfile>')
+        let line = 0
+        if path =~# ':\d\+:\?$'
+            let line = matchstr(path, '\d\+:\?$')
+            let path = matchstr(path, '.*\ze:\d\+:\?$')
+        endif
+        return {
+        \   'path': path,
+        \   'line': line,
+        \   'col': 0,
+        \ }
+    endfunction
+    call gf#user#extend('GfNewFile', 3000)
 endif
 
-" カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
-function! GfNewFile()
-  let path = expand('%:p:h').'/'.expand('<cfile>')
-  let line = 0
-  if path =~# ':\d\+:\?$'
-    let line = matchstr(path, '\d\+:\?$')
-    let path = matchstr(path, '.*\ze:\d\+:\?$')
-  endif
-  return {
-  \   'path': path,
-  \   'line': line,
-  \   'col': 0,
-  \ }
-endfunction
-call gf#user#extend('GfNewFile', 3000)
 
 " caw {{{1
 " ==============================================================================
@@ -1427,6 +1429,8 @@ if IsInstalled('tcomment_vim')
     " コメントアウトしてコピー
     nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
     xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
+
+    let g:tcommentTextObjectInlineComment = ''
 endif
 
 " vim-jsbeautify {{{
@@ -1891,18 +1895,6 @@ if IsInstalled('open-browser.vim')
     endfunction
 endif
 
-" ColorScheme molokai {{{1
-" ============================================================================
-if IsInstalled("my_molokai")
-    " let g:molokai_original = 1
-    " let g:rehash256 = 1
-    colorscheme molokai-customized
-endif
-" colorscheme molokai
-
-" let g:solarized_termcolors=256
-" let g:solarized_contrast = "high"
-" colorscheme solarized
 
 " lightline, statusline {{{1
 " ============================================================================
@@ -2059,7 +2051,7 @@ endif " }}}
 " junkfile.vim {{{1
 " ============================================================================
 if IsInstalled('junkfile.vim')
-    let g:junkfile#directory = $VIM_CACHE_DIR."/junkfile"
+    let g:junkfile#directory = $VIM_CACHE_DIR.'/junkfile'
     let g:junkfile#edit_command = 'new'
 
     command! -nargs=0 JunkfileFiletype call junkfile#open_immediately(
@@ -2068,7 +2060,7 @@ if IsInstalled('junkfile.vim')
     nnoremap [:junk] <Nop>
     nmap <Leader>j [:junk]
 
-    nnoremap [:junk]e :JunkfileOpen<CR>
+    nnoremap [:junk]o :JunkfileOpen<CR>
     nnoremap [:junk]f :JunkfileFiletype<CR>
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
