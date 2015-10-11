@@ -1048,11 +1048,25 @@ if IsInstalled('vim-watchdogs')
 
         " php {{{2
         " ------------------------------------------------------------------------
-        let g:quickrun_config['watchdogs_checker/php'] = {
-        \   "command" : "php",
-        \   "exec"    : "%c %o -l %s:p",
-        \   "errorformat" : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
-        \}
+        if executable('phpcs')
+            let g:quickrun_config['watchdogs_checker/php'] = {
+            \   'exec' : ['php -l %s:p', 'phpcs --standard=PSR2 --report=csv %s:p'],
+            \   'errorformat' :
+            \       '%m\ in\ %f\ on\ line\ %l,'.
+            \       '%-GNo syntax errors detected in %.%#,'.
+            \       '%-GErrors parsing %.%#,'.
+            \       '%-G,'.
+            \       '"%f"\,%l\,%c\,%t%*[^\,]\,"%m"\,%.%#,'.
+            \       '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity\,Fixable'
+            \}
+        else
+            let g:quickrun_config['watchdogs_checker/php'] = {
+            \   'command' : 'php',
+            \   'exec'    : '%c %o -l %s:p',
+            \   'errorformat' : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
+            \}
+        endif
+
 
         let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
         \   'type': 'watchdogs_checker/php'
