@@ -1241,6 +1241,17 @@ if IsInstalled('vital-coaster')
     endfunction
 endif
 
+" vim-asterisk {{{1
+" ============================================================================
+if IsInstalled('vim-asterisk')
+    map *  <Plug>(asterisk-z*)
+    " map #  <Plug>(asterisk-z#)
+    map #  <Plug>(asterisk-gz#)
+    " map g* <Plug>(asterisk-gz*)
+    " map g# <Plug>(asterisk-gz#)
+    let g:asterisk#keeppos = 1
+endif
+
 " vim-easymotion {{{1
 " ============================================================================
 if IsInstalled('vim-easymotion')
@@ -1309,13 +1320,14 @@ if IsInstalled('vim-partedit')
 
 endif
 "}}}
-" vim-visualstar {{{
+" vim-visualstar {{{1
 " ==============================================================================
-if IsInstalled('vim-visualstar')
-    map * <Plug>(visualstar-*)N
-    map # <Plug>(visualstar-g*)N
-endif "}}}
-" vim-alignta {{{
+" if IsInstalled('vim-visualstar')
+"     map * <Plug>(visualstar-*)N
+"     map # <Plug>(visualstar-g*)N
+" endif
+
+" vim-alignta {{{1
 " ==============================================================================
 if IsInstalled('vim-alignta')
     xnoremap [ALIGNTA] <Nop>
