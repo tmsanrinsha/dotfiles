@@ -248,7 +248,10 @@ NeoBundle 'kana/vim-textobj-function'
 NeoBundle 'kentaro/vim-textobj-function-php'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'sgur/vim-textobj-parameter'
-NeoBundle 'thinca/vim-textobj-comment'
+" NeoBundle 'thinca/vim-textobj-comment'
+NeoBundleLazy 'glts/vim-textobj-comment', {
+\   'autoload': {'mappings': '<Plug>(textobj-comment-'}
+\}
 NeoBundleLazy 'osyo-manga/vim-textobj-context', {
 \   'autoload': {'mappings': '<Plug>(textobj-context-'}
 \}
