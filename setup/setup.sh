@@ -191,15 +191,6 @@ if ! command_exists ack; then
     chmod a+x $HOME/bin/ack
 fi
 
-# PHP {{{1
-# ============================================================================
-# if ! command_exists composer; then
-#     pushd ~/bin
-#     $downloader https://getcomposer.org/installer | php
-#     mv composer.phar composer
-#     popd
-# fi
-
 # cpanm {{{1
 # ============================================================================
 # command_exists cpanm || source $setup_dir/cpanm.sh
