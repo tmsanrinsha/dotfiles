@@ -1182,6 +1182,13 @@ omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
 
+omap ic <Plug>(textobj-comment-i)
+xmap ic <Plug>(textobj-comment-i)
+omap ac <Plug>(textobj-comment-a)
+xmap ac <Plug>(textobj-comment-a)
+omap aC <Plug>(textobj-comment-big-a)
+xmap aC <Plug>(textobj-comment-big-a)
+
 omap iC <Plug>(textobj-context-i)
 xmap iC <Plug>(textobj-context-i)
 
