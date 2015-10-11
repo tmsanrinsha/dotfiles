@@ -938,6 +938,135 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 set t_Co=256 " 256色
 syntax enable
 
+if IsInstalled('my_molokai')
+    " let g:molokai_original = 1
+    " let g:rehash256 = 1
+    colorscheme molokai-customized
+endif
+" colorscheme molokai
+
+" let g:solarized_termcolors=256
+" let g:solarized_contrast = "high"
+" colorscheme solarized
+
+" 16色の色見本
+" :so $VIMRUNTIME/syntax/colortest.vim 
+" 新しいウィンドウを開き、全てのハイライトグループ名をそれぞれの色を使って表示
+" :so $VIMRUNTIME/syntax/hitest.vim
+
+" カーソル以下のカラースキームの情報の取得 {{{
+" ----------------------------------------------------------------------------
+" http://cohama.hateblo.jp/entry/2013/08/11/020849
+function! s:get_syn_id(transparent)
+    let l:synid = synID(line('.'), col('.'), 1)
+    if a:transparent
+        return synIDtrans(l:synid)
+    else
+        return l:synid
+    endif
+endfunction
+function! s:get_syn_attr(synid)
+    let l:name = synIDattr(a:synid, 'name')
+    let l:ctermfg = synIDattr(a:synid, 'fg', 'cterm')
+    let l:ctermbg = synIDattr(a:synid, 'bg', 'cterm')
+    let l:guifg = synIDattr(a:synid, 'fg', 'gui')
+    let l:guibg = synIDattr(a:synid, 'bg', 'gui')
+    return {
+    \   'name': l:name,
+    \   'ctermfg': l:ctermfg,
+    \   'ctermbg': l:ctermbg,
+    \   'guifg': l:guifg,
+    \   'guibg': l:guibg
+    \}
+endfunction
+function! s:get_syn_info()
+    let l:baseSyn = s:get_syn_attr(s:get_syn_id(0))
+    echo 'name: ' . l:baseSyn.name .
+    \   ' ctermfg: ' . l:baseSyn.ctermfg .
+    \   ' ctermbg: ' . l:baseSyn.ctermbg .
+    \   ' guifg: '   . l:baseSyn.guifg .
+    \   ' guibg: '   . l:baseSyn.guibg
+    let l:linkedSyn = s:get_syn_attr(s:get_syn_id(1))
+    echo 'link to'
+    echo 'name: ' . l:linkedSyn.name .
+    \ ' ctermfg: ' . l:linkedSyn.ctermfg .
+    \ ' ctermbg: ' . l:linkedSyn.ctermbg .
+    \ ' guifg: '   . l:linkedSyn.guifg .
+    \ ' guibg: '   . l:linkedSyn.guibg
+endfunction
+command! SyntaxInfo call s:get_syn_info()
+" }}}
+" Rgb2xterm {{{1
+" ----------------------------------------------------------------------------
+" true color(#FF0000など)を一番近い256色の番号に変換する
+" http://d.hatena.ne.jp/y_yanbe/20080611
+"" the 6 value iterations in the xterm color cube
+let s:valuerange = [ 0x00, 0x5F, 0x87, 0xAF, 0xD7, 0xFF ]
+
+"" 16 basic colors
+let s:basic16 = [ [ 0x00, 0x00, 0x00 ], [ 0xCD, 0x00, 0x00 ], [ 0x00, 0xCD, 0x00 ], [ 0xCD, 0xCD, 0x00 ], [ 0x00, 0x00, 0xEE ], [ 0xCD, 0x00, 0xCD ], [ 0x00, 0xCD, 0xCD ], [ 0xE5, 0xE5, 0xE5 ], [ 0x7F, 0x7F, 0x7F ], [ 0xFF, 0x00, 0x00 ], [ 0x00, 0xFF, 0x00 ], [ 0xFF, 0xFF, 0x00 ], [ 0x5C, 0x5C, 0xFF ], [ 0xFF, 0x00, 0xFF ], [ 0x00, 0xFF, 0xFF ], [ 0xFF, 0xFF, 0xFF ] ]
+
+function! s:xterm2rgb(color)
+    " 16 basic colors
+    let l:r=0
+    let l:g=0
+    let l:b=0
+    if a:color<16
+        let l:r = s:basic16[a:color][0]
+        let l:g = s:basic16[a:color][1]
+        let l:b = s:basic16[a:color][2]
+    endif
+
+    " color cube color
+    if a:color>=16 && a:color<=232
+        let l:color=a:color-16
+        let l:r = s:valuerange[(l:color/36)%6]
+        let l:g = s:valuerange[(l:color/6)%6]
+        let l:b = s:valuerange[l:color%6]
+    endif
+
+    " gray tone
+    if a:color>=233 && a:color<=253
+        let l:r=8+(a:color-232)*0x0a
+        let l:g=l:r
+        let l:b=l:r
+    endif
+    let l:rgb=[l:r,l:g,l:b]
+    return l:rgb
+endfunction
+
+" selects the nearest xterm color for a rgb value like #FF0000
+function! s:rgb2xterm(color)
+    let s:colortable=[]
+    for l:c in range(0, 254)
+        let l:color = s:xterm2rgb(l:c)
+        call add(s:colortable, l:color)
+    endfor
+
+    let l:best_match=0
+    let l:smallest_distance = 10000000000
+    let l:r = eval('0x'.a:color[0].a:color[1])
+    let l:g = eval('0x'.a:color[2].a:color[3])
+    let l:b = eval('0x'.a:color[4].a:color[5])
+    for l:c in range(0,254)
+        let l:d = pow(s:colortable[l:c][0] - l:r, 2) + pow(s:colortable[l:c][1] - l:g, 2) + pow(s:colortable[l:c][2] - l:b, 2)
+        if l:d < l:smallest_distance
+            let l:smallest_distance = l:d
+            let l:best_match = l:c
+        endif
+    endfor
+    return l:best_match
+endfunction
+command! -nargs=1 Rgb2xterm echo s:rgb2xterm(<f-args>)
+command! -nargs=1 Xterm2rgb echo s:xterm2rgb(<f-args>)
+
+" その他の参考になりそうな変換
+" [xterm - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Xterm)
+" [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
+" .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
+" [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
+"" }}}
+
 " syntaxの遡る行数を上げる
 " グローバルな設定では無いらしく、autocmd FileTypeで設定
 " autocmd MyVimrc FileType html,markdown,php syntax sync minlines=500 maxlines=5000
@@ -1009,121 +1138,6 @@ augroup MyVimrc
     endfunction
 augroup END
 
-" color {{{1
-" ============================================================================
-" カーソル以下のカラースキームの情報の取得 {{{
-" ----------------------------------------------------------------------------
-" http://cohama.hateblo.jp/entry/2013/08/11/020849
-function! s:get_syn_id(transparent)
-    let l:synid = synID(line('.'), col('.'), 1)
-    if a:transparent
-        return synIDtrans(l:synid)
-    else
-        return l:synid
-    endif
-endfunction
-function! s:get_syn_attr(synid)
-    let l:name = synIDattr(a:synid, 'name')
-    let l:ctermfg = synIDattr(a:synid, 'fg', 'cterm')
-    let l:ctermbg = synIDattr(a:synid, 'bg', 'cterm')
-    let l:guifg = synIDattr(a:synid, 'fg', 'gui')
-    let l:guibg = synIDattr(a:synid, 'bg', 'gui')
-    return {
-    \   'name': l:name,
-    \   'ctermfg': l:ctermfg,
-    \   'ctermbg': l:ctermbg,
-    \   'guifg': l:guifg,
-    \   'guibg': l:guibg
-    \}
-endfunction
-function! s:get_syn_info()
-    let l:baseSyn = s:get_syn_attr(s:get_syn_id(0))
-    echo 'name: ' . l:baseSyn.name .
-    \   ' ctermfg: ' . l:baseSyn.ctermfg .
-    \   ' ctermbg: ' . l:baseSyn.ctermbg .
-    \   ' guifg: '   . l:baseSyn.guifg .
-    \   ' guibg: '   . l:baseSyn.guibg
-    let l:linkedSyn = s:get_syn_attr(s:get_syn_id(1))
-    echo 'link to'
-    echo 'name: ' . l:linkedSyn.name .
-    \ ' ctermfg: ' . l:linkedSyn.ctermfg .
-    \ ' ctermbg: ' . l:linkedSyn.ctermbg .
-    \ ' guifg: '   . l:linkedSyn.guifg .
-    \ ' guibg: '   . l:linkedSyn.guibg
-endfunction
-command! SyntaxInfo call s:get_syn_info()
-" }}}
-" Rgb2xterm {{{
-" ----------------------------------------------------------------------------
-" true color(#FF0000など)を一番近い256色の番号に変換する
-" http://d.hatena.ne.jp/y_yanbe/20080611
-"" the 6 value iterations in the xterm color cube
-let s:valuerange = [ 0x00, 0x5F, 0x87, 0xAF, 0xD7, 0xFF ]
-
-"" 16 basic colors
-let s:basic16 = [ [ 0x00, 0x00, 0x00 ], [ 0xCD, 0x00, 0x00 ], [ 0x00, 0xCD, 0x00 ], [ 0xCD, 0xCD, 0x00 ], [ 0x00, 0x00, 0xEE ], [ 0xCD, 0x00, 0xCD ], [ 0x00, 0xCD, 0xCD ], [ 0xE5, 0xE5, 0xE5 ], [ 0x7F, 0x7F, 0x7F ], [ 0xFF, 0x00, 0x00 ], [ 0x00, 0xFF, 0x00 ], [ 0xFF, 0xFF, 0x00 ], [ 0x5C, 0x5C, 0xFF ], [ 0xFF, 0x00, 0xFF ], [ 0x00, 0xFF, 0xFF ], [ 0xFF, 0xFF, 0xFF ] ]
-
-function! s:Xterm2rgb(color)
-    " 16 basic colors
-    let l:r=0
-    let l:g=0
-    let l:b=0
-    if a:color<16
-        let l:r = s:basic16[a:color][0]
-        let l:g = s:basic16[a:color][1]
-        let l:b = s:basic16[a:color][2]
-    endif
-
-    " color cube color
-    if a:color>=16 && a:color<=232
-        let l:color=a:color-16
-        let l:r = s:valuerange[(l:color/36)%6]
-        let l:g = s:valuerange[(l:color/6)%6]
-        let l:b = s:valuerange[l:color%6]
-    endif
-
-    " gray tone
-    if a:color>=233 && a:color<=253
-        let l:r=8+(a:color-232)*0x0a
-        let l:g=l:r
-        let l:b=l:r
-    endif
-    let l:rgb=[l:r,l:g,l:b]
-    return l:rgb
-endfunction
-
-" selects the nearest xterm color for a rgb value like #FF0000
-function! s:Rgb2xterm(color)
-    let s:colortable=[]
-    for l:c in range(0, 254)
-        let l:color = s:Xterm2rgb(l:c)
-        call add(s:colortable, l:color)
-    endfor
-
-    let l:best_match=0
-    let l:smallest_distance = 10000000000
-    let l:r = eval('0x'.a:color[0].a:color[1])
-    let l:g = eval('0x'.a:color[2].a:color[3])
-    let l:b = eval('0x'.a:color[4].a:color[5])
-    for l:c in range(0,254)
-        let l:d = pow(s:colortable[l:c][0] - l:r, 2) + pow(s:colortable[l:c][1] - l:g, 2) + pow(s:colortable[l:c][2] - l:b, 2)
-        if l:d < l:smallest_distance
-            let l:smallest_distance = l:d
-            let l:best_match = l:c
-        endif
-    endfor
-    return l:best_match
-endfunction
-command! -nargs=1 Rgb2xterm echo s:Rgb2xterm(<f-args>)
-command! -nargs=1 Xterm2rgb echo s:Xterm2rgb(<f-args>)
-
-" その他の参考になりそうな変換
-" [xterm - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Xterm)
-" [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
-" .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
-" [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
-"" }}}
-" }}}
 " ftdetect {{{1
 " ==============================================================================
 autocmd MyVimrc BufRead sanrinsha*,qiita* setlocal filetype=markdown
