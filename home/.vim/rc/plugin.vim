@@ -1106,7 +1106,8 @@ endfunction
 " qfsigns {{{1
 " ============================================================================
 " let g:qfsigns#AutoJump = 1
-
+let g:qfsigns#Config = {"id": '5050', 'name': 'qfsign'}
+sign define qfsign texthl=SignColumn text=>>
 " quickfixsign_vim {{{1
 " ============================================================================
 " let g:quickfixsigns_classes = ['qfl']
