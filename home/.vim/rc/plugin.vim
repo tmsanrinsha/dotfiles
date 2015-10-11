@@ -520,6 +520,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
             call neocomplete#custom#source('file/include', 'rank', 400)
             call neocomplete#custom#source('omni',         'rank', 400)
             call neocomplete#custom#source('member',       'rank', 350)
+            call neocomplete#custom#source('buffer',       'rank', 320)
             call neocomplete#custom#source('syntax',       'rank', 300)
             " call neocomplete#custom#source('ultisnips',    'rank', 400)
         endif
