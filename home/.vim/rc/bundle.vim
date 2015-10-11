@@ -272,10 +272,15 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'kana/vim-smartword', {
 \   'autoload' : { 'mappings' : '<Plug>(smartword-' }
 \}
-NeoBundleLazy 'thinca/vim-visualstar', {
-\   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
-\}
-" [haya14busa/vim-asterisk](https://github.com/haya14busa/vim-asterisk)
+" NeoBundleLazy 'thinca/vim-visualstar', {
+" \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
+" \}
+NeoBundleLazy 'haya14busa/vim-asterisk', {
+\   'autoload' : {
+\     'mappings' : ['<Plug>(asterisk-']
+\   }
+\ }
+
 
 NeoBundle 'rhysd/clever-f.vim'
 
