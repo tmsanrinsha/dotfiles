@@ -218,7 +218,12 @@ NeoBundle 'QuickFixCurrentNumber', {
 
 " operator {{{1
 " ============================================================================
-NeoBundleLazy "kana/vim-operator-user"
+NeoBundleLazy "kana/vim-operator-user", {
+\   'autoload': {
+\       'mappings': '<Plug>(operator-'
+\   }
+\}
+
 NeoBundleLazy 'kana/vim-operator-replace', {
 \   'depends': 'kana/vim-operator-user',
 \   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }

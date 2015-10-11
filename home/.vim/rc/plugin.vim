@@ -1131,11 +1131,6 @@ sign define qfsign texthl=SignColumn text=>>
 " operator {{{1
 " ============================================================================
 if IsInstalled('vim-operator-user')
-    call neobundle#config('vim-operator-user', {
-        \   'autoload': {
-        \       'mappings': '<Plug>(operator-'
-        \   }
-        \})
 
     map [Space]c <Plug>(operator-camelize-toggle)
     map [Space]p <Plug>(operator-replace)
