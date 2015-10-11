@@ -265,7 +265,7 @@ if exists('+macmeta')
     set macmeta
 endif
 let g:mapleader = ';'
-let g:maplocalleader = '\\'
+let g:maplocalleader = '\'
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
