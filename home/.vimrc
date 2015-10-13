@@ -701,25 +701,28 @@ endfunction
 " cdr {{{2
 " ----------------------------------------------------------------------------
 if IsInstalled('vital.vim')
-    let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
     augroup cdr
         autocmd!
         autocmd BufEnter * call s:update_cdr(expand('%:p:h'))
     augroup END
 
     function! s:update_cdr(dir)
-        " gitなどのdirは書き込まない
-        if !isdirectory(a:dir)
+        let l:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
+        " .gitなどのdirectoryは書き込まない
+        let l:ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+        \   '\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'
+
+        if !isdirectory(a:dir) || a:dir =~ l:ignore_pattern
             return
         end
 
-        if filereadable(g:recent_dirs_file)
-            let l:recent_dirs = readfile(g:recent_dirs_file)
+        if filereadable(l:recent_dirs_file)
+            let l:recent_dirs = readfile(l:recent_dirs_file)
             call insert(l:recent_dirs, "$'".a:dir."'", 0)
             let l:V = vital#of('vital')
             let l:List = l:V.import('Data.List')
             let l:recent_dirs = l:List.uniq(l:recent_dirs)
-            call writefile(l:recent_dirs, g:recent_dirs_file)
+            call writefile(l:recent_dirs, l:recent_dirs_file)
         endif
     endfunction
 endif
