@@ -100,7 +100,7 @@ if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 else
     export EDITOR='vim'
 fi
-export SRC_ROOT=$HOME/src
+
 export PAGER=less
 
 # lessのオプションの設定
@@ -123,6 +123,9 @@ export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
 test -d $XDG_CACHE_HOME/R || mkdir -p $XDG_CACHE_HOME/R
 export R_HISTFILE="$XDG_CACHE_HOME/R/Rhistory"
 export R_HISTSIZE="5000"
+
+# 独自設定
+export SRC_ROOT=$HOME/src
 
 # alias {{{1
 # ============================================================================
