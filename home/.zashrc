@@ -1,15 +1,8 @@
 # bash, zsh共通設定
 
-#export PAGER=/usr/local/share/vim/vim73/macros/less.sh
-export PAGER=less
-# lessで色つきの表示に対応させる
-#export LESS='-R'
-#export LESS='-M'
-#export LESSOPEN="| /usr/bin/lesspipe.sh %s"
-#export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
-
 # .zashenvに設定するとDirDiff.vimでのLANG設定(https://github.com/tmsanrinsha/DirDiff.vim/commit/84f11927ae9a915cd7a0d330a1abba26a9982e32)を上書きしてしまうのでここに書く
 export LANG='ja_JP.UTF-8'
+
 # alias {{{
 # ============================================================================
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
@@ -40,7 +33,7 @@ alias sudo='sudo -E '
 if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
-# }}}
+
 # PATHの設定 {{{1
 # ------------------------------------------------------------------------------
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数

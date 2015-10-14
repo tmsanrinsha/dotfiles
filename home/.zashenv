@@ -101,6 +101,16 @@ else
     export EDITOR='vim'
 fi
 export SRC_ROOT=$HOME/src
+export PAGER=less
+
+# lessのオプションの設定
+# i: 検索をsmartcassにする
+# R: カラーシーケンスを色に変換して表示する
+export LESS='-iR'
+
+# export PAGER=/usr/local/share/vim/vim73/macros/less.sh
+# export LESSOPEN="| /usr/bin/lesspipe.sh %s"
+# export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
