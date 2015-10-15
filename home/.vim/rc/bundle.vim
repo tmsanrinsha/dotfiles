@@ -66,7 +66,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 " NeoBundle 'tpope/vim-dispatch'
 
 " vital {{{1
-NeoBundleLazy 'vim-jp/vital.vim'
+NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'osyo-manga/vital-coaster', {
 \   'autoload': {
 \       'mappings': ['<C-a>', '<C-x>']
