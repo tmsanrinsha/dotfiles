@@ -1761,6 +1761,9 @@ endif
 " R lang, jcfaria/Vim-R-plugin {{{1
 " ============================================================================
 nnoremap [FILETYPE]R :<C-u>setlocal filetype=r <Bar> normal <LocalLeader>rf<CR>
+autocmd MyVimrc FileType r
+\ imap <M-CR> <C-o>:VimShellSendString<CR>o
+let vimrplugin_assign = 0
 " autocmd MyVimrc FileType r
 " \   imap <buffer> <CR> <Plug>RSendLine<C-o>o
 " \   imap <buffer> <M-CR> <Plug>RSendLine<CR>
