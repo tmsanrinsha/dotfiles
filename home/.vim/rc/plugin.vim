@@ -341,17 +341,20 @@ autocmd MyVimrc BufLeave vimfiler*
 " ============================================================================
 if IsInstalled('vimshell.vim')
     nmap <leader>H [VIMSHELL]
+    xmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H   :VimShellPop<CR>
     nnoremap [VIMSHELL]b   :VimShellBufferDir -popup<CR>
     nnoremap [VIMSHELL]c   :VimShellCurrentDir -popup<CR>
+
     nnoremap [VIMSHELL]i   :VimShellInteractive
     nnoremap [VIMSHELL]ipy :VimShellInteractive python<CR>
     nnoremap [VIMSHELL]iph :VimShellInteractive php<CR>
     nnoremap [VIMSHELL]irb :VimShellInteractive irb<CR>
     nnoremap [VIMSHELL]ir  :VimShellInteractive r
     nnoremap [VIMSHELL]s   :VimShellSendString<CR>
+    xnoremap [VIMSHELL]s   :VimShellSendString<CR>
 
-    let bundle = neobundle#get("vimshell.vim")
+    let bundle = neobundle#get('vimshell.vim')
     function! bundle.hooks.on_source(bundle)
         nnoremap [VIMSHELL] <Nop>
         " <Leader>ss: 非同期で開いたインタプリタに現在の行を評価させる
@@ -390,12 +393,10 @@ if IsInstalled('vimshell.vim')
         "    call vimshell#execute('ls')
         "endfunction
 
-        " 参考
-        " http://d.hatena.ne.jp/joker1007/20111018/1318950377
-
         autocmd MyVimrc FileType int-*
             \   inoremap <buffer> <expr> <C-p> pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
-            \|  execute 'setlocal filetype='.matchstr(&filetype, 'int-\zs.*')
+            " \|  execute 'setlocal filetype='.matchstr(&filetype, 'int-\zs.*')
+        let g:vimshell_split_command = 'split'
     endfunction
 endif
 
@@ -807,7 +808,7 @@ if IsInstalled('vim-quickrun')
     nnoremap <Leader>r :QuickRun<CR>
     xnoremap <Leader>r :QuickRun<CR>
 
-    let bundle = neobundle#get("vim-quickrun")
+    let bundle = neobundle#get('vim-quickrun')
     function! bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
@@ -816,7 +817,7 @@ if IsInstalled('vim-quickrun')
         " quickrun.vim が実行していない場合には <C-c> を呼び出す
         nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
-        if !exists("g:quickrun_config")
+        if !exists('g:quickrun_config')
             let g:quickrun_config = {}
         endif
         " 共通の設定
