@@ -318,11 +318,14 @@ compdef _gnu_generic phpunit.sh
 # <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
 
 dabbrev-complete () {
-  local hardcopy reply lines=80
+  local hardcopy buffername reply lines=80
 
   tmux capture-pane
-  hardcopy=$(tmux save-buffer -b 0 -)
-  tmux delete-buffer -b 0
+  # tmuxのバージョンによって違う？
+  # hardcopy=$(tmux save-buffer -b 0 -)
+  buffername=$(tmux list-buffers | head -1 | cut -d':' -f1)
+  hardcopy=$(tmux save-buffer -b $buffername -)
+  tmux delete-buffer -b $buffername
   reply=($(
     echo $hardcopy |
     # 空白行の削除
@@ -340,7 +343,7 @@ dabbrev-complete () {
 }
 
 zle -C dabbrev-complete complete-word dabbrev-complete
-bindkey '^O' dabbrev-complete
+bindkey '^o' dabbrev-complete
 
 # site-functionsのリロード {{{2
 rsf() {
