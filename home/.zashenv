@@ -161,6 +161,8 @@ alias tree='tree -FCl'
 # ----------------------------------------------------------------------------
 if [ -d /Applications/MacVim.app/Contents/MacOS ]; then
     pathmunge /Applications/MacVim.app/Contents/MacOS
+    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+    alias gvim=/Applications/MacVim.app/Contents/MacOS/mvim
 fi
 
 alias vi='vim'
