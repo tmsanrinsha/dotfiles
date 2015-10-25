@@ -876,6 +876,9 @@ nmap <Leader>l [*location]
 noremap [*location]o :lopen<CR>
 noremap [*location]q :lclose<CR>
 
+autocmd MyVimrc FileType qf
+\   nnoremap <buffer> q :q<CR>
+
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
 
