@@ -109,11 +109,15 @@ if [ $link -eq 1 ]; then
     exit
 fi
 
+# GitHubのreleaseパッケージのインストールスクリプト
 if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/ghinst/.git ]; then
     cd $SRC_ROOT/github.com/tmsanrinsha
     git clone https://github.com/tmsanrinsha/ghinst.git
     ln -sf $SRC_ROOT/github.com/tmsanrinsha/ghinst/ghinst ~/bin/
 fi
+# こういうのもある
+# b4b4r07/cli
+# https://github.com/b4b4r07/cli
 
 command_exists ghq || ghinst motemen/ghq
 
