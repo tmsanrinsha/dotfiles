@@ -1086,6 +1086,22 @@ if IsInstalled('vim-watchdogs')
         \   "errorformat": '%f:\ line\ %l:%m',
         \}
 
+        " sql {{{2
+        " ------------------------------------------------------------------------
+        " filetypeがshでも基本的にbashを使うので、bashでチェックする
+        let g:quickrun_config['sql/watchdogs_checker'] = {
+        \   'type': 'watchdogs_checker/sql'
+        \}
+
+        " https://sql.treasuredata.com/
+        let g:quickrun_config['watchdogs_checker/sql'] = {
+        \   'command':     'curl',
+        \   'exec':        '%c -s "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=`cat %s | perl -pe ''s/\n/%%0A/''`"',
+        \   'errorformat': '%f:\ line\ %l:%m',
+        \}
+
+        " \   'exec':        "%c -v \"https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\\&engine=hive\\&query=`cat %s`\"",
+        " \   'exec':        '%c -v "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=\$(cat %s)"',
         " vim {{{2
         " ------------------------------------------------------------------------
         let g:quickrun_config['vim/watchdogs_checker'] = {
@@ -1803,11 +1819,11 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]d :Gdiff<CR>
     nnoremap [fugitive]s :Gstatus<CR>
     nnoremap [fugitive]l :Glog<CR>
-    nnoremap [fugitive]p :Git push
-    nnoremap [fugitive]po    :Git push origin
-    nnoremap [fugitive]ps    :execute 'Git push origin '.fugitive#head()<CR>
-    nnoremap [fugitive]P :Git pull --rebase origin master
-    nnoremap [fugitive]f :Git fetch origin<CR>
+    nnoremap [fugitive]ps  :Git push
+    nnoremap [fugitive]pso :Git push origin
+    nnoremap [fugitive]pl  :Git pull --rebase origin master
+    nnoremap [fugitive]f   :Git fetch origin<CR>
+    nnoremap [fugitive]fr  :Git fetch origin<CR>:Git rebase origin/master<CR>
 
     nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
     nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
