@@ -1149,10 +1149,10 @@ sign define qfsign texthl=SignColumn text=>>
 " ============================================================================
 if IsInstalled('vim-operator-user')
 
-    map [Space]c <Plug>(operator-camelize-toggle)
-    map [Space]p <Plug>(operator-replace)
-    map [Space]P "+<Plug>(operator-replace)
-    map [Space]/ <Plug>(operator-search)
+    map [:space:]c <Plug>(operator-camelize-toggle)
+    map [:space:]p <Plug>(operator-replace)
+    map [:space:]P "+<Plug>(operator-replace)
+    map [:space:]/ <Plug>(operator-search)
 
     " surround {{{2
     " ------------------------------------------------------------------------
@@ -1179,14 +1179,14 @@ if IsInstalled('vim-operator-user')
     "
     "     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
     " endfunction
-    " map [Space]y <Plug>(operator-yank-clipboard)
+    " map [:space:]y <Plug>(operator-yank-clipboard)
 endif
 " clipboard copy {{{1
 " ============================================================================
-nmap [Space]y "+y
-xmap [Space]y "+y
-nmap [Space]yy "+yy
-nmap [Space]Y "+y$
+nmap [:space:]y "+y
+xmap [:space:]y "+y
+nmap [:space:]yy "+yy
+nmap [:space:]Y "+y$
 
 " vim-fakeclip {{{2
 " ----------------------------------------------------------------------------
@@ -1399,24 +1399,24 @@ set isfname-==
 
 " vim-gf-user {{{2
 " ----------------------------------------------------------------------------
-if IsInstalled("vim-gf-user")
+if IsInstalled('vim-gf-user')
     let g:gf_user_no_default_key_mappings = 1
     " ディレクトリの場合にうまくvimfilerが開かない
     " gf#user#doのtryを外すと開く。エラーではないのかcatchはできない
     " :eで開き直すとvimfilerが起動する
-    nmap <Leader>gf         <Plug>(gf-user-gf)
-    xmap <Leader>gf         <Plug>(gf-user-gf)
-    nmap <Leader>gF         <Plug>(gf-user-gF)
-    xmap <Leader>gF         <Plug>(gf-user-gF)
-    nmap <Leader><C-w>f     <Plug>(gf-user-<C-w>f)
-    xmap <Leader><C-w>f     <Plug>(gf-user-<C-w>f)
-    nmap <Leader><C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    xmap <Leader><C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    nmap <Leader><C-w>F     <Plug>(gf-user-<C-w>F)
-    xmap <Leader><C-w>F     <Plug>(gf-user-<C-w>F)
-    nmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
-    xmap <Leader><C-w>gf    <Plug>(gf-user-<C-w>gf)
-    nmap <Leader><C-w>gF    <Plug>(gf-user-<C-w>gF)
+    nmap [:space:]gf         <Plug>(gf-user-gf)
+    xmap [:space:]gf         <Plug>(gf-user-gf)
+    nmap [:space:]gF         <Plug>(gf-user-gF)
+    xmap [:space:]gF         <Plug>(gf-user-gF)
+    nmap [:space:]<C-w>f     <Plug>(gf-user-<C-w>f)
+    xmap [:space:]<C-w>f     <Plug>(gf-user-<C-w>f)
+    nmap [:space:]<C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    xmap [:space:]<C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
+    nmap [:space:]<C-w>F     <Plug>(gf-user-<C-w>F)
+    xmap [:space:]<C-w>F     <Plug>(gf-user-<C-w>F)
+    nmap [:space:]<C-w>gf    <Plug>(gf-user-<C-w>gf)
+    xmap [:space:]<C-w>gf    <Plug>(gf-user-<C-w>gf)
+    nmap [:space:]<C-w>gF    <Plug>(gf-user-<C-w>gF)
 
     " カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
     function! GfNewFile()
@@ -1822,8 +1822,8 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]ps  :Git push
     nnoremap [fugitive]pso :Git push origin
     nnoremap [fugitive]pl  :Git pull --rebase origin master
-    nnoremap [fugitive]f   :Git fetch origin<CR>
-    nnoremap [fugitive]fr  :Git fetch origin<CR>:Git rebase origin/master<CR>
+    nnoremap [fugitive]fo   :Git fetch origin<CR>
+    nnoremap [fugitive]for  :Git fetch origin<CR>:Git rebase origin/master<CR>
 
     nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
     nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
@@ -2045,10 +2045,10 @@ endfunction
 
 " vim-quickhl {{{1
 " ============================================================================
-nmap [Space]m <Plug>(quickhl-manual-this)
-xmap [Space]m <Plug>(quickhl-manual-this)
-nmap [Space]M <Plug>(quickhl-manual-reset)
-xmap [Space]M <Plug>(quickhl-manual-reset)
+nmap [:space:]m <Plug>(quickhl-manual-this)
+xmap [:space:]m <Plug>(quickhl-manual-this)
+nmap [:space:]M <Plug>(quickhl-manual-reset)
+xmap [:space:]M <Plug>(quickhl-manual-reset)
 
 " rainbow {{{1
 " ============================================================================

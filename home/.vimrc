@@ -269,11 +269,11 @@ let g:maplocalleader = '\'
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
-" [Space]でmapするようにするとVimFilerのスペースキーでキー待ちが発生しなくなる
-nnoremap [Space]   <Nop>
-xnoremap [Space]   <Nop>
-nmap <Space> [Space]
-xmap <Space> [Space]
+" [:space:]でmapするようにするとVimFilerのスペースキーでキー待ちが発生しなくなる
+nnoremap [:space:]   <Nop>
+xnoremap [:space:]   <Nop>
+nmap <Space> [:space:]
+xmap <Space> [:space:]
 
 " noremap ; :
 " noremap : ;
@@ -671,11 +671,11 @@ nnoremap yF :let @" = expand('%:p')<CR>
 nnoremap yd :let @" = expand('%:p:h')<CR>
 
 " copy full path of file
-nnoremap [Space]yp :let @* = expand('%:p')<CR>
+nnoremap [:space:]yp :let @* = expand('%:p')<CR>
 " copy full path of directory
-nnoremap [Space]yd :let @* = expand('%:p:h')<CR>
+nnoremap [:space:]yd :let @* = expand('%:p:h')<CR>
 " copy file name
-nnoremap [Space]yf :let @* = expand("%:t")<CR>
+nnoremap [:space:]yf :let @* = expand("%:t")<CR>
 
 " Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{2
 " http://vim-users.jp/2009/05/hack17/
