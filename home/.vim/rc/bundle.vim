@@ -97,6 +97,11 @@ NeoBundleLazy 'Shougo/neossh.vim', {
 NeoBundleLazy 'Shougo/unite-outline'
 NeoBundleLazy 'tacroe/unite-mark'
 NeoBundleLazy 'tsukkee/unite-tag'
+NeoBundleLazy 'Shougo/neoyank.vim', {
+\   'autoload': {
+\       'unite_sources': ['history/yank']
+\   }
+\}
 NeoBundleLazy 'thinca/vim-unite-history', {
 \   'autoload': {
 \       'unite_sources': ['history/command', 'history/search']

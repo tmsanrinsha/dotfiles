@@ -285,6 +285,13 @@ autocmd MyVimrc FileType yaml
 " =========================================================================
 nnoremap [unite]` :<C-u>Unite mark<CR>
 
+" neoyank.vim {{{1
+" =========================================================================
+if IsInstalled('neoyank.vim')
+    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    let g:neoyank#file = $VIM_CACHE_DIR.'/yankring.txt'
+endif
+
 " vim-unite-history {{{1
 " =========================================================================
 if IsInstalled('vim-unite-history')
