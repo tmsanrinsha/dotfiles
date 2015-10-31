@@ -179,9 +179,13 @@ install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master
 install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 command_exists pt     || ghinst monochromegane/the_platinum_searcher
 command_exists jvgrep || ghinst mattn/jvgrep
-# macの場合はhomebrewでインストールする
-if ! command_exists peco && [ `uname` = Linux ]; then
+
+if ! command_exists peco; then
     ghinst peco/peco
+fi
+
+if ! command_exists migemogrep; then
+    ghinst peco/migemogrep
 fi
 
 ghq get -u motemen/ghq

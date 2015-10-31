@@ -5,5 +5,11 @@
         "Selected": ["on_blue", "white", "bold"],
         "Query": ["yellow"],
         "Matched": ["green", "bold"]
+    },
+    "CustomFilter": {
+        "Migemo": {
+            "Cmd": "migemogrep",
+            "Args": [ "$QUERY" ]
+        }
     }
 }
