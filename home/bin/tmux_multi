@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -e
+
+# http://tech.naviplus.co.jp/2014/01/09/tmux%E3%81%A7%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E5%90%8C%E6%99%82%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/
+
+usage_exit() {
+    cat <<EOT
+Usage:
+    $0 -c command [arg ... | -f file]
+EOT
+    if [ -z "$1" ]; then
+        exit 1
+    else
+        exit $1
+    fi
+}
+
+while getopts c:f:h OPT
+do
+    case $OPT in
+        c)  cmd=$OPTARG
+            ;;
+        f)  file=$OPTARG
+            ;;
+        h)  usage_exit 0
+            ;;
+        *)  usage_exit
+            ;;
+    esac
+done
+
+if [ -z "$cmd" ]; then
+    usage_exit
+fi
+
+if [ -n "$file" -a ! -f "$file" ]; then
+    echo "no such file: $file"
+    exit 1
+fi
+
+shift $((OPTIND - 1))
+
+window_name=multi-ssh-`date +%s`
+if [ -n "$TMUX" ];then
+    # tmux内にいる時は新しいウィンドウを作る
+    tmux new-window -n $window_name
+    session_name=$(tmux display-message -p "#{session_name}")
+else
+    # 新しいセッションを作ってデタッチ
+    session_name=multi-ssh-`date +%s`
+    tmux new-session -d -n $window_name -s $session_name
+fi
+
+is_first=1
+for i in $*;do
+    if [ $is_first -ne 1 ]; then
+        tmux split-window -t ${session_name}:${window_name}
+        tmux select-layout -t ${session_name}:${window_name} tiled
+    fi
+    tmux send-keys -t ${session_name}:${window_name} "$(echo $cmd | sed "s/{}/$i/")"
+    is_first=0
+done
+
+# paneの同期モードを設定
+tmux set-window-option -t ${session_name}:${window_name} synchronize-panes on
+
+# 分割したペインをセレクト
+if [ -n "$TMUX" ]; then
+    tmux select-pane -t ${session_name}:${window_name}
+else
+    tmux -2 attach-session -t ${session_name}:${window_name}
+fi
