@@ -9,7 +9,9 @@
     "CustomFilter": {
         "Migemo": {
             "Cmd": "migemogrep",
+            "BufferThreshold": 10,
             "Args": [ "$QUERY" ]
         }
-    }
+    },
+    "StickySelection": true
 }
