@@ -491,6 +491,11 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
 
         " preview
         set completeopt-=preview
+        if MyHasPatch('patch-7.4.775')
+            " insert,selectしない
+            set completeopt+=noinsert,noselect
+        endif
+
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
         " fugitiveのバッファも閉じてしまうのでコメントアウト
         " autocmd MyVimrc InsertLeave *.* pclose
