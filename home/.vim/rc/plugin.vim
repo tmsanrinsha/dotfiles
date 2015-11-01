@@ -442,12 +442,12 @@ endif "}}}
 " neocomplcache & neocomplete {{{
 " ============================================================================
 if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
-    if IsInstalled("neocomplete.vim")
-        let bundle = neobundle#get("neocomplete.vim")
+    if IsInstalled('neocomplete.vim')
+        let bundle = neobundle#get('neocomplete.vim')
         let s:neocom = 'neocomplete'
         let s:neocom_ = 'neocomplete#'
     else
-        let bundle = neobundle#get("neocomplcache.vim")
+        let bundle = neobundle#get('neocomplcache.vim')
         let s:neocom = 'neocomplcache'
         let s:neocom_ = 'neocomplcache_'
     endif
@@ -489,7 +489,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " " In default, completes from all buffers.
         " let g:neocomplete#same_filetypes._ = '_'
 
-        " preview
+        " previewしない
         set completeopt-=preview
         if MyHasPatch('patch-7.4.775')
             " insert,selectしない
@@ -651,7 +651,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
-        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{
+        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{1
         " <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
         " if IsInstalled('vim-smartinput')
         "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
@@ -700,7 +700,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " }}}
     endfunction
 endif
-if IsInstalled("neocomplete.vim")
+if IsInstalled('neocomplete.vim')
     " let g:neocomplete#enable_cursor_hold_i = 1
     " let g:neocomplete#cursor_hold_i_time = 100
 
@@ -736,7 +736,7 @@ if IsInstalled('neosnippet')
     \   '~/.vim/bundle/wmgraphviz.vim/snippets',
     \]
 
-    let bundle = neobundle#get("neosnippet")
+    let bundle = neobundle#get('neosnippet')
 
     function! bundle.hooks.on_source(bundle)
         " Plugin key-mappings.
@@ -1821,11 +1821,10 @@ endif
 " ============================================================================
 nnoremap [FILETYPE]R :<C-u>setlocal filetype=r <Bar> normal <LocalLeader>rf<CR>
 autocmd MyVimrc FileType r
-\ imap <M-CR> <C-o>:VimShellSendString<CR>o
+\   nmap <buffer> <LocalLeader>s <Plug>RSendLine
+\|  vmap <buffer> <LocalLeader>s <Plug>RSendSelection
+\|  imap <M-CR> <C-o><Plug>RSendLine<CR>
 let vimrplugin_assign = 0
-" autocmd MyVimrc FileType r
-" \   imap <buffer> <CR> <Plug>RSendLine<C-o>o
-" \   imap <buffer> <M-CR> <Plug>RSendLine<CR>
 
 " autowitch/hive.vim {{{1
 " ============================================================================

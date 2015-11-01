@@ -311,17 +311,23 @@ xnoremap g$ $
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-inoremap <C-d> <Del>
+if !IsInstalled('lexima.vim')
+    noremap <C-d> <Del>
+endif
+
 " 元々のi_CTRL-Dは左にインデントする処理。
 " 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
 inoremap <M-t> <C-d>
+
 " neocomplcacheにて設定
 " inoremap <C-h> <BS>
 " inoremap <C-n> <Down>
 " inoremap <C-p> <Up>
 " inoremap <C-e> <End>
-" neosnippetにて設定
-" inoremap <C-k> <C-o>D
+
+if !IsInstalled('neosnippet.vim')
+    inoremap <C-k> <C-o>D
+endif
 
 " * があるときに<Tab>を打つと右にインデントしたい
 " →insertモードで<C-t>打つと右にインデントできる
@@ -356,7 +362,7 @@ nnoremap ]P P`[v`]=
 " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 " inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " }}}
-" swap, backup, undo {{{
+" swap, backup, undo {{{1
 " ==============================================================================
 " updatetimeを短くして、CursorHoldに使うので
 " swap fileがupdatetimeごとに作成されないようにする
@@ -423,8 +429,14 @@ autocmd MyVimrc BufReadPost *
 
 " optionsを設定するとおかしくなる
 set sessionoptions-=options
-autocmd MyVimrc VimLeavePre * mksession! $VIM_CACHE_DIR/session.vim
-"}}}
+autocmd MyVimrc VimLeavePre * call s:save_session()
+
+function! s:save_session()
+    if !empty(expand('%'))
+        mksession! $VIM_CACHE_DIR/session.vim 
+    endif
+endfunction
+
 " statusline {{{1
 " ==============================================================================
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
@@ -960,7 +972,7 @@ endif
 " 新しいウィンドウを開き、全てのハイライトグループ名をそれぞれの色を使って表示
 " :so $VIMRUNTIME/syntax/hitest.vim
 
-" カーソル以下のカラースキームの情報の取得 {{{
+" カーソル以下のカラースキームの情報の取得 {{{2
 " ----------------------------------------------------------------------------
 " http://cohama.hateblo.jp/entry/2013/08/11/020849
 function! s:get_syn_id(transparent)
@@ -1002,7 +1014,7 @@ function! s:get_syn_info()
 endfunction
 command! SyntaxInfo call s:get_syn_info()
 " }}}
-" Rgb2xterm {{{1
+" Rgb2xterm {{{2
 " ----------------------------------------------------------------------------
 " true color(#FF0000など)を一番近い256色の番号に変換する
 " http://d.hatena.ne.jp/y_yanbe/20080611
@@ -1071,9 +1083,9 @@ command! -nargs=1 Xterm2rgb echo s:xterm2rgb(<f-args>)
 " [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
 " .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
 " [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
-"" }}}
 
-" syntaxの遡る行数を上げる
+" syntaxの遡る行数を上げる {{{2
+" ----------------------------------------------------------------------------
 " グローバルな設定では無いらしく、autocmd FileTypeで設定
 " autocmd MyVimrc FileType html,markdown,php syntax sync minlines=500 maxlines=5000
 autocmd MyVimrc FileType markdown syntax sync minlines=500 maxlines=5000
@@ -1343,14 +1355,18 @@ autocmd MyVimrc FileType vim
 " help {{{2
 " ----------------------------------------------------------------------------
 " set helplang=en,ja
-autocmd MyVimrc FileType help
-\   nnoremap <buffer><silent> q :q<CR>
-\|  nnoremap <buffer> ]]     /<Bar>.*<Bar><CR>
-\|  nnoremap <buffer> ]<Bar> /<Bar>.*<Bar><CR>
-\|  nnoremap <buffer> [[     ?<Bar>.*<Bar><CR>
-\|  nnoremap <buffer> [<Bar> ?<Bar>.*<Bar><CR>
-\|  nnoremap <buffer> ]' /'.*'<CR>
-\|  nnoremap <buffer> [' /'.*'<CR>
+autocmd MyVimrc FileType help call s:setting_help()
+
+function! s:setting_help()
+    nnoremap <buffer><silent> q :q<CR>
+    nnoremap <buffer> ]]     /<Bar>.*<Bar><CR>
+    nnoremap <buffer> ]<Bar> /<Bar>.*<Bar><CR>
+    nnoremap <buffer> [[     ?<Bar>.*<Bar><CR>
+    nnoremap <buffer> [<Bar> ?<Bar>.*<Bar><CR>
+    nnoremap <buffer> ]' /'.*'<CR>
+    nnoremap <buffer> [' /'.*'<CR> |
+    setlocal iskeyword+=-
+endfunction
 
 " Git {{{2
 " ----------------------------------------------------------------------------

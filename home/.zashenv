@@ -141,6 +141,8 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
+alias j='cdr'
+
 alias egrep='egrep --color=auto'
 if [ `uname` = FreeBSD ];then
     alias find='find -E'
