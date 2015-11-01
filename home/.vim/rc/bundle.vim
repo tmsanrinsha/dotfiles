@@ -176,7 +176,7 @@ NeoBundleLazy "Shougo/neocomplcache.vim", {
 
 " 閉じ括弧などの対応するものの補完 {{{2
 " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
-" NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
+NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
 
 " quickrun {{{1
 " ============================================================================

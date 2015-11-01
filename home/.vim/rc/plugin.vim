@@ -682,14 +682,14 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         "     "     \ neocomplcache#close_popup() : "\<Plug>(smartinput_CR)"
         " else }}}
 
-        " <BS>, <C-h> でポップアップを閉じて文字を削除
-        " execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
-        execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#close_popup()."\<BS>"  : "\<BS>"'
+        " <BS>, <C-h> でポップアップを閉じて文字を削除。ポップアップを選択していたときはそれがキャンセルされた後に削除される。
+        " 例) fuとタイプして、補完候補のfunctionを選択していた時に<BS>するとfになる
+        " lexima.vimと競合するのでコメントアウト
+        " execute 'inoremap <expr><BS>  pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>"  : "\<BS>"'
         " execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<C-h>" : "\<C-h>"'
-        execute 'inoremap <expr><C-h> pumvisible() ? ' . s:neocom . '#close_popup()."\<C-h>" : "\<C-h>"'
 
         " <CR> でポップアップ中の候補を選択し改行する
-        execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
+        " execute 'inoremap <expr><CR> ' . s:neocom . '#close_popup()."\<CR>"'
 
         " これをやるとコピペに改行があるときにポップアップが選択されてしまう
         " 補完候補が表示されている場合は確定。そうでない場合は改行
@@ -776,7 +776,13 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 
 " lexima.vim {{{1
 " ==============================================================================
-if IsInstalled('lexima')
+if IsInstalled('lexima.vim')
+    " reloadble
+    let bundle = neobundle#get('lexima.vim')
+    function! bundle.hooks.on_source(bundle)
+    let g:lexima_no_default_rules = 1
+    call lexima#set_default_rules()
+
     " imap <expr><C-f> <SID>check_next_char()
     " " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
     " function! s:check_next_char()
@@ -797,21 +803,46 @@ if IsInstalled('lexima')
     "     endif
     " endfunction
 
+    imap <C-h> <BS>
     imap <C-f> <Right>
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
+    call lexima#add_rule({'char': '<Right>', 'leave': 1})
+    " dot repeatableな<C-d>
+    call lexima#add_rule({'char': '<C-d>', 'delete': 1})
+
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
     call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
-    call lexima#add_rule({'char': "<Right>", 'at': '\%#''',   'leave': 1})
-    call lexima#add_rule({'char': "<Right>", 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
-    call lexima#add_rule({'char': "<Right>", 'at': "\\%#'''", 'leave': 3})
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#''',   'leave': 1})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
+    call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
+    " call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
     call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
+
+    call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
+    call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
+    call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
+
+    " <!-- | -->
+    call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
+
+    " call lexima#add_rule({'char': '=', 'input': ' = '})
+    " call lexima#add_rule({'char': '=', 'input': '=', 'syntax': 'vimSet'})
+    " call lexima#add_rule({'char': '+', 'input': ' + '})
+    " call lexima#add_rule({'char': '+', 'input': '+', 'syntax': 'vimOption'})
+    " call lexima#add_rule({'char': '-', 'input': ' - '})
+    " call lexima#add_rule({'char': '-', 'input': '-', 'syntax': 'vimSetEqual'})
+    " call lexima#add_rule({'char': '*', 'input': ' * '})
+    " call lexima#add_rule({'char': '/', 'input': ' / '})
+    " call lexima#add_rule({'char': '/', 'input': '/', 'syntax': ['String', 'shQuote']})
+    " call lexima#add_rule({'char': ',', 'input': ', '})
+
 
     " neocomplete.vimとの連携
     " imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
-    execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+    " execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+endfunction
 endif
 
 " vim-quickrun {{{1
