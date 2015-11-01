@@ -14,6 +14,13 @@
     </appdef>
     <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/replacementdef.xml の定義の上書き -->
     <replacementdef>
+        <replacementname>TERMINAL_APPS</replacementname>
+        <replacementvalue>
+            EMACS,
+            TERMINAL,
+            VI,
+            X11,
+        </replacementvalue>
         <replacementname>EMACS_MODE_IGNORE_APPS</replacementname>
         <replacementvalue>
             ECLIPSE,
@@ -38,6 +45,7 @@
         <!--         KeyCode::ESCAPE -->
         <!--     </autogen> -->
         <!-- </item> -->
+        <!-- COMMAND_RをOPTION_Rに、単独でかな入力、COMMAND_L単独で直接入力 (((1 -->
         <item>
             <name>Change Command_R to Option_R</name>
             <appendix>(+ When you type Command_R only, send KANA)</appendix>
@@ -49,19 +57,20 @@
         </item>
         <item>
             <name>Command_L to Command_L</name>
-            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
-            <identifier>myremap.commandL2commandL_vimode</identifier>
-            <autogen>__KeyOverlaidModifier__
-                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
-                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
-        </item>
-        <item>
-            <name>Command_L to Command_L</name>
             <appendix>(+ When you type Command_L only, send EISUU)</appendix>
             <identifier>myremap.commandL2eisuu</identifier>
             <autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L,
                 KeyCode::COMMAND_L,
                 KeyCode::JIS_EISUU</autogen>
+        </item>
+        <!-- ))) -->
+        <item>
+            <name>Command_L to Command_L</name>
+            <appendix>(+ When you type Option_R+Command_L only, toggle Complete Vi Mode)</appendix>
+            <identifier>myremap.commandL2commandL_vimode</identifier>
+            <autogen>__KeyOverlaidModifier__
+                KeyCode::COMMAND_L, ModifierFlag::OPTION_R,
+                KeyCode::VK_CONFIG_TOGGLE_notsave_complete_vimode</autogen>
         </item>
         <!-- <item> -->
         <!--     <name>ctrl&#45;' to KANA</name> -->
@@ -80,6 +89,7 @@
         <!--         KeyCode::JIS_EISUU -->
         <!--     </autogen> -->
         <!-- </item> -->
+        <!-- Escape (((1 -->
         <item>
             <name>Control+; to Escape+EISUU</name>
             <appendix>(not vmware)</appendix>
@@ -114,6 +124,7 @@
                 KeyCode::BRACKET_LEFT, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
                 KeyCode::ESCAPE</autogen>
         </item>
+        <!-- ))) -->
         <item>
             <name>Control+J to Return</name>
             <identifier>myremap.cotrolJ2Return</identifier>
@@ -173,7 +184,7 @@
         <item>
             <name>Control+W to Option+Delete</name>
             <identifier>myremap.emacsmode_controlW</identifier>
-            <not>{{EMACS_MODE_IGNORE_APPS}}</not>
+            <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX</not>
             <autogen>__KeyToKey__ KeyCode::W, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::DELETE, ModifierFlag::OPTION_L</autogen>
         </item>
         <item>
@@ -207,7 +218,7 @@
                 </autogen>
             </block>
             <block>
-                <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX, GOOGLE_CHROME,  DICTIONARY</not>
+                <not>{{EMACS_MODE_IGNORE_APPS}}, FIREFOX, GOOGLE_CHROME, DICTIONARY</not>
                 <autogen>__KeyToKey__ KeyCode::U, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL | ModifierFlag::NONE, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L, KeyCode::X, ModifierFlag::COMMAND_L, Option::NOREPEAT</autogen>
             </block>
             <block>
@@ -295,3 +306,6 @@
         -->
     </item>
 </root>
+<!--
+     vim: foldmarker=(((,)))
+-->
