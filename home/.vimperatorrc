@@ -198,6 +198,16 @@ lazy fmaps -u='github\.com' p,k f,t w s ? <Esc>
 " ignorekeysがなかった頃
 " autocmd LocationChange .* js modes.passAllKeys = /google\.co\.jp/.test(buffer.URL)
 
+" Tile Tab {{{1
+" ============================================================================
+" Tile Tabs :: Add-ons for Firefox
+" https://addons.mozilla.org/ja/firefox/addon/tile-tabs/
+command! -nargs=0 -description="Tile Tabs..." sp emenu Tile.Tile New Tab.Below
+command! -nargs=0 -description="Tile Tabs..." vs emenu Tile.Tile New Tab.Right
+nnoremap <C-w>s :emenu Tile.Tile Duplicate Tab.Below<CR>
+nnoremap <C-w>v :emenu Tile.Tile Duplicate Tab.Right<CR>
+
+
 " config {{{1
 " ============================================================================
 " frecency {{{
