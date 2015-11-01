@@ -6,7 +6,7 @@ set -e
 usage_exit() {
     cat <<EOT
 Usage:
-    $0 -c command [arg ... | -f file]
+    $0 -c command [arg ... | -f file ...]
 EOT
     if [ -z "$1" ]; then
         exit 1
@@ -15,12 +15,21 @@ EOT
     fi
 }
 
-while getopts c:f:h OPT
+split_window() {
+    if [ $is_first -ne 1 ]; then
+        tmux split-window -t ${session_name}:${window_name}
+        tmux select-layout -t ${session_name}:${window_name} tiled
+    fi
+    escaped=$(echo $1 | sed -e 's,\\,\\\\\\\\,g' -e 's,/,\\/,g')
+    tmux send-keys -t ${session_name}:${window_name} "$(echo $cmd | sed "s/{}/$escaped/")"
+}
+
+while getopts c:fh OPT
 do
     case $OPT in
         c)  cmd=$OPTARG
             ;;
-        f)  file=$OPTARG
+        f)  file_flag=1
             ;;
         h)  usage_exit 0
             ;;
@@ -31,11 +40,6 @@ done
 
 if [ -z "$cmd" ]; then
     usage_exit
-fi
-
-if [ -n "$file" -a ! -f "$file" ]; then
-    echo "no such file: $file"
-    exit 1
 fi
 
 shift $((OPTIND - 1))
@@ -52,14 +56,26 @@ else
 fi
 
 is_first=1
-for i in $*;do
-    if [ $is_first -ne 1 ]; then
-        tmux split-window -t ${session_name}:${window_name}
-        tmux select-layout -t ${session_name}:${window_name} tiled
-    fi
-    tmux send-keys -t ${session_name}:${window_name} "$(echo $cmd | sed "s/{}/$i/")"
-    is_first=0
-done
+if [ "$file_flag" == "1" ]; then
+    for file in $*; do
+        if [ ! -f "$file" ]; then
+            echo "no such file: $file"
+            tmux kill-window -t ${session_name}:${window_name}
+            exit 1
+        fi
+        while read line; do
+            # #で始まる行はスキップ
+            echo $line | grep -E '^\s*#' 1> /dev/null 2>&1 && continue
+            split_window "$line"
+            is_first=0
+        done < $file
+    done
+else
+    for i in $*; do
+        split_window "$i"
+        is_first=0
+    done
+fi
 
 # paneの同期モードを設定
 tmux set-window-option -t ${session_name}:${window_name} synchronize-panes on
