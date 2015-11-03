@@ -114,6 +114,12 @@ if has('gui_macvim')
 
     " GUIのMacVimでsudoを使うための設定
     " http://sanrinsha.lolipop.jp/blog/2014/03/gui_macvim_sudo.html
-    let $SUDO_ASKPASS="/Applications/MacVim.app/Contents/MacOS/macvim-askpass"
-    let $DISPLAY=":0"
+    let $SUDO_ASKPASS='/Applications/MacVim.app/Contents/MacOS/macvim-askpass'
+    let $DISPLAY=':0'
+
+    " Readme · splhack/macvim-kaoriya Wiki
+    " https://github.com/splhack/macvim-kaoriya/wiki/Readme#%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9Bim%E8%87%AA%E5%8B%95%E3%82%AA%E3%83%B3%E3%82%AA%E3%83%95
+    " insert modeから抜けるときに自動的にIMをオフにしない
+    " これをしないとinsert modeで動くプラグインで勝手にオフになってしまう
+    set imdisable
 endif
