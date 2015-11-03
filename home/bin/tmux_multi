@@ -1,88 +1,110 @@
 #!/usr/bin/env bash
 set -e
 
-# http://tech.naviplus.co.jp/2014/01/09/tmux%E3%81%A7%E8%A4%87%E6%95%B0%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E5%90%8C%E6%99%82%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/
+progname=$(basename $0)
 
-usage_exit() {
+usage() {
     cat <<EOT
 Usage:
-    $0 -c command [arg ... | -f file ...]
+    $progname command \; [arg ... | -f file ...]
 EOT
-    if [ -z "$1" ]; then
-        exit 1
-    else
-        exit $1
-    fi
 }
 
 split_window() {
     if [ $is_first -ne 1 ]; then
-        tmux split-window -t ${session_name}:${window_name}
-        tmux select-layout -t ${session_name}:${window_name} tiled
+        tmux split-window
+        tmux select-layout tiled
     fi
-    escaped=$(echo $1 | sed -e 's,\\,\\\\\\\\,g' -e 's,/,\\/,g')
-    tmux send-keys -t ${session_name}:${window_name} "$(echo $cmd | sed "s/{}/$escaped/")"
+    tmux send-keys "${cmd//\{\}/$1}"
 }
 
-while getopts c:fh OPT
-do
-    case $OPT in
-        c)  cmd=$OPTARG
+before_semicolon=1
+while [ -n "$1" ]; do
+    case "$1" in
+        '-h'|'--help')
+            usage
+            exit 1
             ;;
-        f)  file_flag=1
+        '-f'|'--file')
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            shift
+            while [[ -n "$1" ]] && [[ ! "$1" =~ ^-+ ]]; do
+                files+=( "$1" )
+                shift
+            done
+            continue
             ;;
-        h)  usage_exit 0
+        -*)
+            echo "illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
+            exit 1
             ;;
-        *)  usage_exit
+        *)
+            if [ $before_semicolon -eq 1 ]; then
+                while [[ "$1" != ';' ]]; do
+                    cmd+=( "$1" )
+                    shift
+                done
+                shift
+                before_semicolon=0
+            else
+                while [[ -n "$1" ]] && [[ ! "$1" =~ ^-+ ]]; do
+                    args+=( "$1" )
+                    shift
+                done
+            fi
             ;;
     esac
 done
 
-if [ -z "$cmd" ]; then
-    usage_exit
+if [ -z "$args" -a -z "$files" ]; then
+    echo 'args or files are required.'
+    usage
+    exit 1
 fi
 
-shift $((OPTIND - 1))
+cmd="${cmd[@]}"
 
-window_name=multi-ssh-`date +%s`
 if [ -n "$TMUX" ];then
     # tmux内にいる時は新しいウィンドウを作る
-    tmux new-window -n $window_name
-    session_name=$(tmux display-message -p "#{session_name}")
+    tmux new-window
 else
     # 新しいセッションを作ってデタッチ
     session_name=multi-ssh-`date +%s`
-    tmux new-session -d -n $window_name -s $session_name
+    tmux new-session -d -s $session_name
 fi
 
 is_first=1
-if [ "$file_flag" == "1" ]; then
-    for file in $*; do
+if [ ! -z "$files" ]; then
+    file_num=${#files[@]}
+    for ((i = 0; i < $file_num; i++)) {
+        file="${files[$i]}"
         if [ ! -f "$file" ]; then
             echo "no such file: $file"
-            tmux kill-window -t ${session_name}:${window_name}
+            tmux kill-window
             exit 1
         fi
         while read line; do
             # #で始まる行はスキップ
-            echo $line | grep -E '^\s*#' 1> /dev/null 2>&1 && continue
+            echo "$line" | grep -E '^\s*#' 1> /dev/null 2>&1 && continue
             split_window "$line"
             is_first=0
-        done < $file
-    done
+        done < "$file"
+    }
 else
-    for i in $*; do
-        split_window "$i"
+    arg_num=${#args[@]}
+    for ((i = 0; i < $arg_num; i++)) {
+        split_window "${args[i]}"
         is_first=0
-    done
+    }
 fi
 
 # paneの同期モードを設定
-tmux set-window-option -t ${session_name}:${window_name} synchronize-panes on
+tmux set-window-option synchronize-panes on
 
 # 分割したペインをセレクト
-if [ -n "$TMUX" ]; then
-    tmux select-pane -t ${session_name}:${window_name}
-else
-    tmux -2 attach-session -t ${session_name}:${window_name}
+if [ -z "$TMUX" ]; then
+    tmux -2 attach-session
 fi
