@@ -125,20 +125,20 @@
                 KeyCode::ESCAPE</autogen>
         </item>
         <!-- ))) -->
-        <item>
-            <name>Control+J to Return</name>
-            <identifier>myremap.cotrolJ2Return</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::J, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::RETURN</autogen>
-        </item>
-        <item>
-            <name>Ctrl-M to Ctrl-J</name>
-            <identifier>myremap.cotrolM2Return</identifier>
-            <autogen>__KeyToKey__
-                KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL,
-                KeyCode::J, ModifierFlag::CONTROL_L</autogen>
-        </item>
+        <!-- <item> -->
+        <!--     <name>Control+J to Return</name> -->
+        <!--     <identifier>myremap.cotrolJ2Return</identifier> -->
+        <!--     <autogen>__KeyToKey__ -->
+        <!--         KeyCode::J, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, -->
+        <!--         KeyCode::RETURN</autogen> -->
+        <!-- </item> -->
+        <!-- <item> -->
+        <!--     <name>Ctrl&#45;M to Ctrl&#45;J</name> -->
+        <!--     <identifier>myremap.cotrolM2Return</identifier> -->
+        <!--     <autogen>__KeyToKey__ -->
+        <!--         KeyCode::M, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, -->
+        <!--         KeyCode::J, ModifierFlag::CONTROL_L</autogen> -->
+        <!-- </item> -->
         <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/include/checkbox/emacs_mode.xml -->
         <item>
             <name>Control+PNBF to Up/Down/Left/Right</name>
