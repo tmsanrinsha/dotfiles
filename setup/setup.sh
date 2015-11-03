@@ -121,6 +121,9 @@ fi
 
 command_exists ghq || ghinst motemen/ghq
 
+ghq get -u tmsanrinsha/tmux_multi
+$ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
+
 # zsh {{{1
 # ============================================================================
 test -d ~/.zsh/.cache      || mkdir -p ~/.zsh/.cache
