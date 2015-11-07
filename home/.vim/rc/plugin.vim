@@ -218,7 +218,7 @@ if IsInstalled('unite.vim')
 endif
 
 " neomru {{{1
-" ----------------------------------------------------------------------------
+" ============================================================================
 if IsInstalled('neomru.vim')
     " ファイルが存在するかチェックしない
     " ファイルへの書き込みを60秒ごとにする
@@ -783,46 +783,30 @@ if IsInstalled('lexima.vim')
     let g:lexima_no_default_rules = 1
     call lexima#set_default_rules()
 
-    " imap <expr><C-f> <SID>check_next_char()
-    " " imap <C-f> <C-R>=<SID>check_next_char()<CR> これだとさらにマップされない
-    " function! s:check_next_char()
-    "     let col = col('.')
-    "     let nextchar = getline('.')[col - 1]
-    "     if nextchar == ')'
-    "         return ')'
-    "     elseif nextchar == "}"
-    "         return "}"
-    "     elseif nextchar == "}"
-    "         return "}"
-    "     elseif nextchar == "'"
-    "         return "'"
-    "     elseif nextchar == '"'
-    "         return '"'
-    "     else
-    "         return "\<Right>"
-    "     endif
-    " endfunction
-
     imap <C-h> <BS>
+
+    " <C-f>に右に移動
     imap <C-f> <Right>
     call lexima#add_rule({'char': '<Right>', 'leave': 1})
+
     " dot repeatableな<C-d>
     call lexima#add_rule({'char': '<C-d>', 'delete': 1})
 
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#)',    'leave': 1})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#}',    'leave': 1})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#]',    'leave': 1})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#"',    'leave': 1})
+    call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
+
+    " Markdownのリストでなんにも書いてない場合に開業した場合はリストを消す
+    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<BS><BS><CR>'})
+
     call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#''',   'leave': 1})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\\\%#',   'leave': 1,  'filetype': ['vim', 'sh', 'csh', 'ruby', 'tcsh', 'zsh']})
     call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
-    " call lexima#add_rule({'char': '<Right>', 'at': '\%#`',    'leave': 1})
     call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
 
+    " ｛｛｛1などの入力
     call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
     call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
     call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
+
+    call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
 
     " <!-- | -->
     call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
