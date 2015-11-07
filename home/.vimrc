@@ -1348,9 +1348,10 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 
 " カーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
-    \   setlocal keywordprg=:help
-    \|  setlocal path&
-    \|  setlocal path+=$VIMDIR/bundle
+\   setlocal keywordprg=:help
+\|  setlocal path&
+\|  setlocal path+=$VIMDIR/bundle
+\|  setlocal comments=:\"
 
 " help {{{2
 " ----------------------------------------------------------------------------
