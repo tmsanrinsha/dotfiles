@@ -56,6 +56,7 @@ brew-install homebrew/php/composer
 # brew-install php56-yaml
 # brew-install php56-stats
 brew-install pwgen
+brew-install pyenv
 brew-install python
 brew-install r
 brew install reattach-to-user-namespace
