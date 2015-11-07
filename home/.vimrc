@@ -1370,7 +1370,9 @@ function! s:setting_help()
     nnoremap <buffer> [<Bar> ?<Bar>.*<Bar><CR>
     nnoremap <buffer> ]' /'.*'<CR>
     nnoremap <buffer> [' /'.*'<CR> |
-    setlocal iskeyword+=-
+    " デフォルトは!-~,^*,^|,^",192-255だが()を外したい。
+    " -=()が効かない?
+    setlocal iskeyword=!-39,42-~,^*,^\|,^\",192-255
 endfunction
 
 " Git {{{2
