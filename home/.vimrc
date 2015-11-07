@@ -963,7 +963,7 @@ if IsInstalled('my_molokai')
 endif
 " colorscheme molokai
 
-" let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 " let g:solarized_contrast = "high"
 " colorscheme solarized
 

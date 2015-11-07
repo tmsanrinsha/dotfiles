@@ -639,7 +639,7 @@ NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
 " NeoBundle 'w0ng/vim-hybrid'
 " NeoBundle 'reedes/vim-colors-pencil'
 " NeoBundle 'vim-scripts/wombat256.vim'
-" NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 " NeoBundle 'chriskempson/vim-tomorrow-theme'
 " NeoBundle 'vim-scripts/rdark'
 " NeoBundle 'vim-scripts/rdark-terminal'

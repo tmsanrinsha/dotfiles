@@ -36,42 +36,14 @@ fi
 
 # PATHの設定 {{{1
 # ------------------------------------------------------------------------------
-# CentOS 6.3の/etc/profileにあるPATHを追加する関数
-pathmunge () {
-    case ":${PATH}:" in
-        *:"$1":*)
-            ;;
-        *)
-            if [ "$2" = "after" ] ; then
-                PATH=$PATH:$1
-            else
-                PATH=$1:$PATH
-            fi
-    esac
-}
-
-# 実行ファイルがあるディレクトリに再帰的にPATHを通す
-pathmungeR () {
-    if [ -d $1 ]; then
-        for i in `find -L $1 -type d \( -name .git -o -name .svn -o -name .hg \) -prune -o -type f -perm -u+x -exec dirname {} \; | uniq`
-        do
-            pathmunge $i $2
-        done
-    fi
-}
-
-# if [ -d ~/vim ];then
-#     pathmunge ~/vim/`ls ~/vim | tail -n1`/bin
+# if [[ `uname` = Darwin ]]; then
+#     # homebrewでインストールしたものを優先
+#     # .zashenvで設定するとvimのpythonの参照先がhomebrewでインストールしたものになり
+#     # エラーが出るのでここで設定
+#     export PATH=/usr/local/bin:$PATH
+#     # さらに自分でビルドしたものを優先
+#     export PATH=$HOME/local/bin:$PATH
 # fi
-
-if [[ `uname` = Darwin ]]; then
-    # homebrewでインストールしたものを優先
-    # .zashenvで設定するとvimのpythonの参照先がhomebrewでインストールしたものになり
-    # エラーが出るのでここで設定
-    export PATH=/usr/local/bin:$PATH
-    # さらに自分でビルドしたものを優先
-    export PATH=$HOME/local/bin:$PATH
-fi
 
 # Man {{{1
 # ============================================================================
