@@ -10,7 +10,7 @@ function hosts {
     host $(hostname) | awk '{print $4"	#"$1}'
 }
 
-# PATHの設定 {{{1
+# Environment Variables 環境変数 {{{1
 # ============================================================================
 # CentOS 6.3の/etc/profileにあるPATHを追加する関数
 pathmunge () {
@@ -36,32 +36,34 @@ pathmungeR () {
     fi
 }
 
-# シェルスクリプトなどを置くディレクトリ
-pathmunge ${HOME}/bin
-# makeで作った実行ファイルなどを置くディレクトリ
-# MacVimで!でコマンド実行をするとPATHの先頭に /etc/pathsとMacVimのPATHを追加するようなので
-# さらに先頭に$HOME/local/binを追加する
+# macでtmuxを起動したり、vimで!でコマンド実行をすると
+# PATHの先頭に /etc/paths, /etc/paths.d以下のPATHが追加された後に
+# .zshenvなどが読み込まれるよう。
 # pathmungeだと、すでにPATHにあるため追加できないのでexportで追加
-export PATH=$HOME/local/bin:$PATH
 
-pathmunge ${HOME}/.composer/vendor/bin
+# シェルスクリプトなどを置くディレクトリ
+pathmunge "$HOME/bin"
+# makeで作った実行ファイルなどを置くディレクトリ
+export PATH="$HOME/local/bin:$PATH"
+
+pathmunge "$HOME/.composer/vendor/bin"
 
 # neobundleで管理するスクリプト
 pathmungeR ~/.vim/fetchBundle
 
-pathmungeR ${HOME}/script/common
+pathmungeR "$HOME/script/common"
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
-pathmungeR $HOME/script/pseudo after
+pathmungeR "$HOME/script/pseudo" after
 
 
 if [[ `uname` = CYGWIN* ]]; then
     # Cygwin用のコマンドを置くディレクトリ
-    pathmungeR $HOME/script/cygwin
+    pathmungeR "$HOME/script/cygwin"
 elif [[ $OSTYPE == darwin* ]]; then
     # Mac用のコマンドを置くディレクトリ
-    pathmungeR $HOME/script/mac
+    pathmungeR "$HOME/script/mac"
 
-    export PATH="/usr/local/sbin:$PATH"
+    pathmunge '/usr/local/sbin'
 
     # coreutils
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -75,6 +77,9 @@ elif [[ $OSTYPE == darwin* ]]; then
     if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
         pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
     fi
+
+    # ruby
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
 
@@ -88,13 +93,6 @@ fi
 #     pathmungeR ${script_dir}/cygwin
 # fi
 
-if [[ `uname` = Darwin ]]; then
-    # ruby
-    export PATH=/usr/local/opt/ruby/bin:$PATH
-fi
-
-# Environment Variables {{{1
-# ============================================================================
 if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
     export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
 else
@@ -103,17 +101,17 @@ fi
 
 export PAGER=less
 
-# lessのオプションの設定
+## lessのオプションの設定
 # i: 検索をsmartcassにする
 # R: カラーシーケンスを色に変換して表示する
 export LESS='-iR'
 
-# export PAGER=/usr/local/share/vim/vim73/macros/less.sh
-# export LESSOPEN="| /usr/bin/lesspipe.sh %s"
-# export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
+
+## Go language
+export GOPATH=$HOME/.go
+pathmunge $GOPATH/bin
 
 ## Java
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
@@ -243,11 +241,6 @@ alias version='cat /etc/`ls /etc -F | grep "release$\|version$"`'
 
 alias decode_html_entity='php -r '\''echo html_entity_decode($argv[1], ENT_NOQUOTES, "UTF-8")."\n";'\';
 alias jqq='python -m json.tool | python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(r\"\\\\u[0-9a-f]{4}\", lambda x: unichr(int(\"0x\" + x.group(0)[2:], 16)), sys.stdin.read()))"'
-# }}}
-# Go language {{{1
-# ============================================================================
-export GOPATH=$HOME/.go
-pathmunge $GOPATH/bin
 # }}}
 
 if [ -f ~/.zashenv.local ]; then
