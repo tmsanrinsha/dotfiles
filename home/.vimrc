@@ -143,8 +143,8 @@ set backspace=indent,eol,start
 " カーソルを行頭、行末で止まらないようにする。
 set whichwrap&
 " set whichwrap=b,s,h,l,<,>,[,],~
-" " 矩形選択でカーソル位置の制限を解除
-" set virtualedit=block
+" 矩形選択でカーソル位置の制限を解除
+set virtualedit=block
 
 " encode, fileformat {{{1
 " ============================================================================
