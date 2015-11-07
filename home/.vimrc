@@ -1353,6 +1353,10 @@ autocmd MyVimrc FileType vim
 \|  setlocal path+=$VIMDIR/bundle
 \|  setlocal comments=:\"
 
+" vimperator {{{2
+" ----------------------------------------------------------------------------
+autocmd MyVimrc FileType vimperator
+\   setlocal comments=:\"
 " help {{{2
 " ----------------------------------------------------------------------------
 " set helplang=en,ja
