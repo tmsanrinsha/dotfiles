@@ -1692,9 +1692,15 @@ let g:phpcomplete_enhance_jump_to_definition = 1
 " ============================================================================
 " pythonのsys.pathの設定 " {{{
 " [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
-if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
-    let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
+" python2は$PYTHON_DLLを設定しなくてもうまくいく
+if filereadable('/usr/local/Frameworks/Python.framework/Python')
+    let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
 endif
+
+if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
+    let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
+endif
+
 
 function! s:set_python_path()
     if ! exists('g:python_path')
