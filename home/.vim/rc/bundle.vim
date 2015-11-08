@@ -580,12 +580,14 @@ NeoBundleLazy 'wannesm/wmgraphviz.vim', {
 
 " vimperator {{{1
 " vimperatorのシンタックスファイル
-NeoBundleLazy 'http://vimperator-labs.googlecode.com/hg/vimperator/contrib/vim/syntax/vimperator.vim', {
-\   'type'        : 'raw',
+NeoBundleLazy 'https://github.com/superbrothers/vim-vimperator', {
 \   'autoload'    : { 'filetypes' : ['vimperator'] },
-\   'script_type' : 'syntax'
 \}
-
+" script_typeにsyntaxを使うとうまくいかない
+" NeoBundleLazy 'https://raw.githubusercontent.com/vimperator/vimperator-labs/master/vimperator/contrib/vim/syntax/vimperator.vim', {
+" \   'autoload'    : { 'filetypes' : ['vimperator'] },
+" \   'script_type' : 'syntax'
+" \}
 " confluence {{{1
 " confluenceのシンタックスファイル
 NeoBundleLazy 'confluencewiki.vim', {
