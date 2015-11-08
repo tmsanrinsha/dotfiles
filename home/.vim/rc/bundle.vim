@@ -729,8 +729,6 @@ NeoBundleLazy 'Shougo/junkfile.vim', {
 " NeoBundle 'tmsanrinsha/vim'
 NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
-" vim以外のリポジトリ
-NeoBundleFetch 'mla/ip2host', {'base' : '~/.vim/fetchBundle'}
 
 call SourceRc('bundle_local.vim')
 

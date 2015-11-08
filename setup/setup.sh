@@ -177,9 +177,10 @@ fi
 # script {{{1
 # ============================================================================
 install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
-# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/tools/screenshotTable.sh
-install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
+install 'https://raw.githubusercontent.com/mla/ip2host/master/ip2host'
+install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
+
 command_exists pt     || ghinst monochromegane/the_platinum_searcher
 command_exists jvgrep || ghinst mattn/jvgrep
 
