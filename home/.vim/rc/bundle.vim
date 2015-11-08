@@ -527,7 +527,6 @@ NeoBundleLazy 'autowitch/hive.vim', {
 " 下のプラグインと組み合わせると色がつく
 NeoBundleLazy 'rcmdnk/vim-markdown', {
 \   'name': 'rcmdnk_vim-markdown',
-\   'rev': 'mod',
 \   'autoload': {'filetypes': ['markdown']},
 \   'depends': [
 \       'godlygeek/tabular',
