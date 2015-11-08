@@ -45,10 +45,9 @@ endif
 " Required:
 call neobundle#begin(expand($VIMDIR.'/bundle/'))
 
-" キャッシュを使うとUnite.vimの調子が悪いのでやめる
-" if neobundle#has_fresh_cache(expand($VIMDIR.'/rc/plugin.vim'))
-"     NeoBundleLoadCache
-" else
+" キャッシュを使うとUnite.vimの調子が悪い気がしたが、オッケーそうなので使う
+if neobundle#load_cache(expand($VIMDIR.'/rc/bundle.vim'))
+
 " Let neobundle manage neobundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -634,7 +633,7 @@ NeoBundleLazy 'tyru/open-browser.vim', {
 \}
 
 
-" colorscheme {{{1
+" color {{{1
 " ============================================================================
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'tmsanrinsha/molokai', {'name': 'my_molokai'}
@@ -681,7 +680,7 @@ NeoBundleLazy 't9md/vim-quickhl', {
 " \       'unite_sources': 'gvimrgb'
 " \   }
 " \}
-
+"}}}
 " [Vimエディタで線を描画する — 名無しのvim使い](http://nanasi.jp/articles/howto/editing/drawline.html#id4)
 NeoBundleLazy 'DrawIt', {
 \   'autoload': {
@@ -729,11 +728,11 @@ NeoBundleLazy 'Shougo/junkfile.vim', {
 " NeoBundle 'tmsanrinsha/vim'
 NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
+NeoBundleSaveCache
+
+endif
 
 call SourceRc('bundle_local.vim')
-
-"     NeoBundleSaveCache
-" endif
 
 call neobundle#end()
 
