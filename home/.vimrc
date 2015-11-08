@@ -10,6 +10,7 @@ scriptencoding utf-8
 " のように-Nオプションを付けて起動する
 " cf. vimrcアンチパターン - rbtnn雑記
 "     http://rbtnn.hateblo.jp/entry/2014/11/30/174749
+
 " 初期設定 {{{1
 " ============================================================================
 let $VIMDIR = expand('~/.vim')
@@ -25,6 +26,15 @@ if has('win32')
     set runtimepath+=$HOME/.vim/after
     cd ~
 endif
+
+" vimrc全体で使うaugroup {{{1
+" ============================================================================
+" http://rhysd.hatenablog.com/entry/2012/12/19/001145
+" autocmd!の回数を減らすことでVimの起動を早くする
+" ネームスペースを別にしたい場合は別途augroupを作る
+augroup MyVimrc
+    autocmd!
+augroup END
 
 " function {{{1
 " ============================================================================
@@ -71,21 +81,12 @@ function! IsInstalled(plugin) " {{{
         return match(&runtimepath, a:plugin) >= 0
     endif
 endfunction " }}}
-
-" vimrc全体で使うaugroup {{{1
-" ============================================================================
-" http://rhysd.hatenablog.com/entry/2012/12/19/001145
-" autocmd!の回数を減らすことでVimの起動を早くする
-" ネームスペースを別にしたい場合は別途augroupを作る
-augroup MyVimrc
-    autocmd!
-augroup END
 " }}}
 
 call SourceRc('local_pre.vim')
 call SourceRc('bundle.vim')
 
-" 基本設定 {{{
+" 基本設定 {{{1
 " ============================================================================
 set showmode "現在のモードを表示
 set showcmd  "コマンドを表示
@@ -214,10 +215,10 @@ set shiftround
 
 " http://vim-jp.org/vimdoc-ja/indent.html
 " 後のものが有効にされると、前のものより優先される
-set autoindent    " 一つ前の行に基づくインデント
-set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
-                  " デントを増減させる。
-" set cindent     " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
+" set autoindent    " 一つ前の行に基づくインデント
+" set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
+"                   " デントを増減させる。
+set cindent       " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
                   " スタイルにも対応できる。
 
 " 不可視文字の表示
@@ -661,7 +662,7 @@ onoremap gm :<C-u>normal gm<CR>
 "    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
-nnoremap <silent><Leader>gc :cd %:h<CR>
+nnoremap [:space:]gc :cd %:h<CR>
 command! Shell lcd %:h <Bar> shell
 
 " <C-r>%で%の内容を挿入できる
@@ -1181,17 +1182,18 @@ autocmd MyVimrc BufRead,BufNewFile composer.json
 nnoremap [FILETYPE] <Nop>
 nmap <Leader>F [FILETYPE]
 
-nnoremap [FILETYPE]d :<C-u>setlocal filetype=diff<CR>
-nnoremap [FILETYPE]h :<C-u>setlocal filetype=html<CR>
-nnoremap [FILETYPE]j :<C-u>setlocal filetype=javascript<CR>
-nnoremap [FILETYPE]m :<C-u>setlocal filetype=markdown<CR>
-nnoremap [FILETYPE]p :<C-u>setlocal filetype=php<CR>
-nnoremap [FILETYPE]r :<C-u>setlocal filetype=r<CR>
-nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
-nnoremap [FILETYPE]s :<C-u>setlocal filetype=sql<CR>
-nnoremap [FILETYPE]sh :<C-u>let b:sql_type_overrride = 'hive' <Bar> setlocal filetype=sql<CR>
-nnoremap [FILETYPE]v :<C-u>setlocal filetype=vim<CR>
-nnoremap [FILETYPE]x :<C-u>setlocal filetype=xml<CR>
+nnoremap [FILETYPE]d  :<C-u>setlocal filetype=diff<CR>
+nnoremap [FILETYPE]h  :<C-u>setlocal filetype=html<CR>
+nnoremap [FILETYPE]j  :<C-u>setlocal filetype=javascript<CR>
+nnoremap [FILETYPE]m  :<C-u>setlocal filetype=markdown<CR>
+nnoremap [FILETYPE]ph :<C-u>setlocal filetype=php<CR>
+nnoremap [FILETYPE]py :<C-u>setlocal filetype=python<CR>
+nnoremap [FILETYPE]R  :<C-u>setlocal filetype=r<CR>
+nnoremap [FILETYPE]s  :<C-u>setlocal filetype=sql<CR>
+nnoremap [FILETYPE]s  :<C-u>setlocal filetype=sql<CR>
+nnoremap [FILETYPE]sh :<C-u>let      b:sql_type_overrride    = 'hive' <Bar> setlocal filetype=sql<CR>
+nnoremap [FILETYPE]v  :<C-u>setlocal filetype=vim<CR>
+nnoremap [FILETYPE]x  :<C-u>setlocal filetype=xml<CR>
 
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
