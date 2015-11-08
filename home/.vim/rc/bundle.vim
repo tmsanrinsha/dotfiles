@@ -477,6 +477,15 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 " NeoBundleLazy 'klen/python-mode', {
 " \   'autoload': {'filetypes': ['python']}
 " \}
+" Do not load vim-pyenv until *.py is opened and
+" make sure that it is loaded after jedi-vim is loaded.
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+\   'depends': ['davidhalter/jedi-vim'],
+\   'autoload': {
+\     'filetypes': ['python', 'python3'],
+\   }
+\}
+
 NeoBundleLazy 'hynek/vim-python-pep8-indent', {
 \   'autoload': {'filetypes': ['python']}
 \}
