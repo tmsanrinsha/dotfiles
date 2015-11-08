@@ -93,12 +93,6 @@ fi
 #     pathmungeR ${script_dir}/cygwin
 # fi
 
-if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-    export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
-else
-    export EDITOR='vim'
-fi
-
 export PAGER=less
 
 ## lessのオプションの設定
@@ -109,28 +103,61 @@ export LESS='-iR'
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-## Go language
+# 独自設定
+export SRC_ROOT=$HOME/src
+
+# Go language {{{1
+# ============================================================================
 export GOPATH=$HOME/.go
 pathmunge $GOPATH/bin
 
-## Java
+# Java {{{1
+# ============================================================================
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
-## Python
+# Python {{{1
+# ============================================================================
 if which python 1>/dev/null 2>&1; then
     export PYENV_ROOT="$HOME/.pyenv"
     pathmunge "$PYENV_ROOT/bin"
     eval "$(pyenv init -)"
 fi
 
-## R lang
+# R lang {{{1
+# ============================================================================
 export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
 test -d $XDG_CACHE_HOME/R || mkdir -p $XDG_CACHE_HOME/R
 export R_HISTFILE="$XDG_CACHE_HOME/R/Rhistory"
 export R_HISTSIZE="5000"
 
-# 独自設定
-export SRC_ROOT=$HOME/src
+# Vim {{{1
+# ============================================================================
+if [ -d /usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS ]; then
+    macvim_dir=/usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS
+elif [ -d /Applications/MacVim.app/Contents/MacOS ]; then
+    macvim_dir=/Applications/MacVim.app/Contents/MacOS
+fi
+
+if [ -x "$macvim_dir/Vim" ]; then
+    export EDITOR="$macvim_dir/Vim"
+    pathmunge $macvim_dir
+    alias vim="$macvim_dir/Vim"
+    alias gvim="$macvim_dir/mvim"
+    unset macvim_dir
+else
+    export EDITOR='vim'
+fi
+
+alias vi='vim'
+alias view='vim -R' # readonlyで開く
+alias vis="vim -S ~/.cache/vim/session.vim"
+alias vsh="vim -c 'VimShell'"
+alias vf="vim -c 'VimFiler'"
+alias neobundle_last_updaate_list="find ~/.vim/bundle -type d -maxdepth 1 -mindepth 1 ! -name .neobundle | xargs -I{} sh -c 'cd {} && git log --pretty=format:\"%ad \" --date=short -n 1 && pwd' | sort"
+
+# if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
+#     alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
+# fi
 
 # alias {{{1
 # ============================================================================
@@ -164,23 +191,6 @@ alias pk='pkill -f'
 # -l:ディレクトリのシンボリックリンクを追う
 alias tree='tree -FCl'
 
-# vim {{{2
-# ----------------------------------------------------------------------------
-if [ -d /Applications/MacVim.app/Contents/MacOS ]; then
-    pathmunge /Applications/MacVim.app/Contents/MacOS
-    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-    alias gvim=/Applications/MacVim.app/Contents/MacOS/mvim
-fi
-
-alias vi='vim'
-alias view='vim -R' # readonlyで開く
-if [ -x $HOME/local/share/vim/vim73/macros/less.sh ]; then
-    alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
-fi
-alias vis="vim -S ~/.cache/vim/session.vim"
-alias vsh="vim -c 'VimShell'"
-alias vf="vim -c 'VimFiler'"
-alias neobundle_last_updaate_list="find ~/.vim/bundle -type d -maxdepth 1 -mindepth 1 ! -name .neobundle | xargs -I{} sh -c 'cd {} && git log --pretty=format:\"%ad \" --date=short -n 1 && pwd' | sort"
 
 # git {{{2
 # ------------------------------------------------------------------------------
