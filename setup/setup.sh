@@ -209,10 +209,8 @@ fi
 # cpanm --skip-installed MIME::Base64
 # cpanm --skip-installed App::Ack
 
-# install {{{1
+# CYGWIN {{{1
 # ============================================================================
-# CYGWIN {{{2
-# ----------------------------------------------------------------------------
 if [[ `uname` = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         $downloader https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
@@ -235,8 +233,9 @@ if [[ `uname` = CYGWIN* ]]; then
         cp ssh-pageant.1 /usr/share/man/man1/
         popd
     fi
-# Darwin {{{2
-# ----------------------------------------------------------------------------
+
+# Darwin {{{1
+# ============================================================================
 elif [[ `uname` = Darwin ]]; then
     if [ ! -x ~/bin/rmtrash ];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
@@ -250,6 +249,13 @@ elif [[ `uname` = Darwin ]]; then
         ./brew.sh -b
     fi
 fi
+
+# python {{{1
+# ============================================================================
+# pip3 install numpy
+# pip3 install scipy
+# pip3 install matplotlib
+# pip3 install scikit-lern
 
 # remote2local {{{1
 # ============================================================================
