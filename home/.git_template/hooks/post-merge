@@ -1,2 +1,4 @@
 #!/bin/sh
-.git/hooks/ctags
+if [ -x .git/hooks/ctags ]; then
+    .git/hooks/ctags
+fi

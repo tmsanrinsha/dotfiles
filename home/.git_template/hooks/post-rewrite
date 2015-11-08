@@ -1,4 +1,8 @@
 #!/bin/sh
 case "$1" in
-  rebase) exec .git/hooks/post-merge ;;
+  rebase)
+      if [ -x .git/hooks/ctags ]; then
+          exec .git/hooks/ctags
+      fi
+      ;;
 esac
