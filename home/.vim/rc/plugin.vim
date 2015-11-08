@@ -76,8 +76,9 @@ if IsInstalled('unite.vim')
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    nnoremap [unite]dV :<C-u>Unite directory:$VIMDIR/bundle<CR>
-    " nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
+    nnoremap [unite]db :<C-u>Unite directory:$VIMDIR/bundle<CR>
+    nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR<CR>
+    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
@@ -89,7 +90,7 @@ if IsInstalled('unite.vim')
     " カレントバッファのディレクトリ以下のファイル
     nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
     function! s:unite_file_buffer()
-        if &filetype == 'vimfiler'
+        if &filetype ==# 'vimfiler'
             normal gc
         endif
         let dir = expand('%:p:h')
@@ -357,7 +358,7 @@ if IsInstalled('vimshell.vim')
     nnoremap [VIMSHELL]ipy :VimShellInteractive python<CR>
     nnoremap [VIMSHELL]iph :VimShellInteractive php<CR>
     nnoremap [VIMSHELL]irb :VimShellInteractive irb<CR>
-    nnoremap [VIMSHELL]ir  :VimShellInteractive r
+    nnoremap [VIMSHELL]iR  :VimShellInteractive R<CR>
     nnoremap [VIMSHELL]s   :VimShellSendString<CR>
     xnoremap [VIMSHELL]s   :VimShellSendString<CR>
 
@@ -802,9 +803,10 @@ if IsInstalled('lexima.vim')
     call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
 
     " ｛｛｛1などの入力
-    call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
-    call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
-    call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3, 'filetype': ['vim']})
+    " call lexima#add_rule({'char': '{', 'at': '{{\%#}}', 'delete': 2})
+    call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3})
+    call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3})
+    call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3})
 
     call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
 
@@ -1709,9 +1711,9 @@ for path in python_paths:
         sys.path.insert(0, path)
 EOT
 endfunction
+" call s:set_python_path()
 " }}}
 
-" call s:set_python_path()
 autocmd MyVimrc FileType python
 \   if ! exists('g:python_path')
 \|      let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
@@ -1719,7 +1721,7 @@ autocmd MyVimrc FileType python
 \|  let &l:path = g:python_path
 
 if IsInstalled('jedi-vim')
-    let bundle = neobundle#get("jedi-vim")
+    let bundle = neobundle#get('jedi-vim')
     function! bundle.hooks.on_source(bundle)
         call s:set_python_path()
 
@@ -1736,6 +1738,7 @@ if IsInstalled('jedi-vim')
         \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*import \)\w*'
 
         let g:jedi#completions_enabled = 0
+        " completeopt, <C-c>の変更をしない
         let g:jedi#auto_vim_configuration = 0
 
         " quickrunと被るため大文字に変更
@@ -1842,14 +1845,15 @@ if IsInstalled('vim-fugitive')
 
     nnoremap [fugitive] <Nop>
     nmap <Leader>g [fugitive]
-    nnoremap [fugitive]d :Gdiff<CR>
-    nnoremap [fugitive]s :Gstatus<CR>
-    nnoremap [fugitive]l :Glog<CR>
+    nnoremap [fugitive]ci  :Gcommit<CR>
+    nnoremap [fugitive]d   :Gdiff<CR>
+    nnoremap [fugitive]s   :Gstatus<CR>
+    nnoremap [fugitive]l   :Glog<CR>
     nnoremap [fugitive]ps  :Git push
     nnoremap [fugitive]pso :Git push origin
     nnoremap [fugitive]pl  :Git pull --rebase origin master
-    nnoremap [fugitive]fo   :Git fetch origin<CR>
-    nnoremap [fugitive]for  :Git fetch origin<CR>:Git rebase origin/master<CR>
+    nnoremap [fugitive]fo  :Git fetch origin<CR>
+    nnoremap [fugitive]for :Git fetch origin<CR>:Git rebase origin/master<CR>
 
     nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
     nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
