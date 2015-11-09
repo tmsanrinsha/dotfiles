@@ -117,7 +117,7 @@ export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 
 # Python {{{1
 # ============================================================================
-if which python 1>/dev/null 2>&1; then
+if which pyenv 1>/dev/null 2>&1; then
     export PYENV_ROOT="$HOME/.pyenv"
     pathmunge "$PYENV_ROOT/bin"
     eval "$(pyenv init -)"
