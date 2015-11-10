@@ -57,6 +57,7 @@ if IsInstalled('unite.vim')
 
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+    call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
 
     " uniteウィンドウを閉じる
     nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
