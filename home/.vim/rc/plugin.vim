@@ -46,14 +46,14 @@ if IsInstalled('unite.vim')
     \   'cursor_line_highlight': 'PmenuSel',
     \ })
 
+    call unite#custom_default_action('directory' , 'vimfiler')
+    " vimfiler上ではvimfilerを増やさず、移動するだけ
+    " autocmd MyVimrc FileType vimfiler
+    " \   call unite#custom_default_action('directory', 'lcd')
+
     call unite#custom_default_action('source/directory/directory' , 'vimfiler')
     call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 
-    " vimfilerがどんどん増えちゃう
-    call unite#custom_default_action('directory' , 'vimfiler')
-    " vimfiler上ではvimfilerを増やさず、移動するだけ
-    autocmd MyVimrc FileType vimfiler
-    \   call unite#custom_default_action('directory', 'lcd')
 
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
