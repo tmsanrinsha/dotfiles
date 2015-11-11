@@ -329,6 +329,7 @@ inoremap <M-t> <C-d>
 if !IsInstalled('neosnippet.vim')
     inoremap <C-k> <C-o>D
 endif
+inoremap <C-_> <C-o>u
 
 " * があるときに<Tab>を打つと右にインデントしたい
 " →insertモードで<C-t>打つと右にインデントできる
