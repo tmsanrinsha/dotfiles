@@ -294,7 +294,11 @@ NeoBundleLazy 'haya14busa/vim-asterisk', {
 NeoBundle 'rhysd/clever-f.vim'
 
 " Vimperatorのクイックヒント風にカーソル移動
-NeoBundleLazy 'Lokaltog/vim-easymotion'
+NeoBundleLazy 'Lokaltog/vim-easymotion', {
+\   'autoload': {
+\       'mappings': '<Plug>(easymotion-'
+\   }
+\}
 
 " https://github.com/dahu/Severalections
 NeoBundle 'terryma/vim-multiple-cursors'

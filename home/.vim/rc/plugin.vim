@@ -1314,23 +1314,16 @@ endif
 " vim-easymotion {{{1
 " ============================================================================
 if IsInstalled('vim-easymotion')
-    call neobundle#config('vim-easymotion', {
-        \   'autoload': {
-        \       'mappings': '<Plug>(easymotion-'
-        \   }
-        \})
-
     map ' <Plug>(easymotion-s2)
-    let g:EasyMotion_smartcase = 1
     " map ' <Plug>(easymotion-bd-jk)
     " map f <Plug>(easymotion-fl)
     " map t <Plug>(easymotion-tl)
     " map F <Plug>(easymotion-Fl)
     " map T <Plug>(easymotion-Tl)
 
-
-    let bundle = neobundle#get("vim-easymotion")
+    let bundle = neobundle#get('vim-easymotion')
     function! bundle.hooks.on_source(bundle)
+        let g:EasyMotion_smartcase = 1
         let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
         let g:EasyMotion_do_mapping = 0
     endfunction
@@ -1702,7 +1695,6 @@ endif
 if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
     let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
 endif
-
 
 function! s:set_python_path()
     if ! exists('g:python_path')
@@ -2154,11 +2146,11 @@ endif
 " memoliset.vim {{{1
 " ============================================================================
 if IsInstalled('memolist.vim')
-    call neobundle#config('memolist.vim', {
-        \   'autoload': {
-        \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
-        \   }
-        \})
+    " call neobundle#config('memolist.vim', {
+    "     \   'autoload': {
+    "     \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
+    "     \   }
+    "     \})
 
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :MemoList<CR>
@@ -2176,13 +2168,13 @@ endif
 " vimrepress {{{
 " ============================================================================
 if IsInstalled('vimrepress')
-    call neobundle#config('vimrepress', {
-        \   'autoload' : {
-        \       'commands' : [
-        \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
-        \       ]
-        \   },
-        \})
+    " call neobundle#config('vimrepress', {
+    "     \   'autoload' : {
+    "     \       'commands' : [
+    "     \           'BlogList', 'BlogNew', 'BlogSave', 'BlogPreview'
+    "     \       ]
+    "     \   },
+    "     \})
 endif
 " }}}
 " qfixhowm {{{
