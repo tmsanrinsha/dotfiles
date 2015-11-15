@@ -1,6 +1,11 @@
 scriptencoding utf-8
+
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
+
+if has('mac') && has('kaoriya')
+    set runtimepath-=$VIM/plugins/vimproc
+endif
 
 " neobundleが使えない環境用
 if !(isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'))
@@ -34,12 +39,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-let g:neobundle#types#git#default_protocol = 'git'
 let g:neobundle#install_process_timeout = 2000
-
-if has('mac') && has('kaoriya')
-    set runtimepath-=$VIM/plugins/vimproc
-endif
 
 " Required:
 call neobundle#begin(expand($VIMDIR.'/bundle/'))
@@ -204,6 +204,7 @@ NeoBundleLazy 'thinca/vim-quickrun', {
 " dependsでquickrunを設定するとhookがうまくいかない
 NeoBundleLazy 'osyo-manga/vim-watchdogs', {
 \   'depends': [
+\       'thinca/vim-quickrun',
 \       'osyo-manga/shabadou.vim',
 \       'cohama/vim-hier',
 \       'dannyob/quickfixstatus',
@@ -211,7 +212,6 @@ NeoBundleLazy 'osyo-manga/vim-watchdogs', {
 \       'KazuakiM/vim-qfstatusline'
 \   ]
 \}
-
 
 " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
 " http://www.vim.org/scripts/script.php?script_id=4449
@@ -590,7 +590,7 @@ NeoBundleLazy 'wannesm/wmgraphviz.vim', {
 
 " vimperator {{{1
 " vimperatorのシンタックスファイル
-NeoBundleLazy 'https://github.com/superbrothers/vim-vimperator', {
+NeoBundleLazy 'superbrothers/vim-vimperator', {
 \   'autoload'    : { 'filetypes' : ['vimperator'] },
 \}
 " script_typeにsyntaxを使うとうまくいかない
