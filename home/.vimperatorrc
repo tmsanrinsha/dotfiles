@@ -190,7 +190,7 @@ lazy fmaps -u='.*' ?
 " gmailでnとj、pとjを入れ替える。
 lazy fmaps -u='mail\.google\.com/mail' <C-a>,j <C-x>,k
 " うまくいかない
-lazy fmaps -u='github\.com' p,k f,t w s ? <Esc>
+" lazy fmaps -u='github\.com' p,k f,t w s ? <Esc>
 
 " ignorekeysはvimperatorで標準で出来る設定
 " http://vimperator.g.hatena.ne.jp/teramako/20120527/1338101792
