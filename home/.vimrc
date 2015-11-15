@@ -88,20 +88,28 @@ call SourceRc('bundle.vim')
 
 " 基本設定 {{{1
 " ============================================================================
-set showmode "現在のモードを表示
-set showcmd  "コマンドを表示
-set cmdheight=2 "コマンドラインの高さを2行にする
-set number   " 左側に行数を表示
-set display=lastline " 1行が長い場合でも表示
-set ruler
-
-set showmatch matchtime=1 "括弧の対応
-set matchpairs& matchpairs+=<:>
+" 現在のモードを表示
+set showmode
+" コマンドを表示
+set showcmd
+" コマンドラインの高さを2行にする
+set cmdheight=2
+" 行番号を表示する
+set number
+" 1行が長い場合でも表示
+set display=lastline
+" set ruler
+" 閉じ括弧が入力されたとき、対応する開き括弧にわずかの間ジャンプする
+set showmatch
+" マッチを表示する時間を0.1秒にする
+set matchtime=1
+set matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
 if MyHasPatch('patch-7.3.769')
     set matchpairs+=（:）,「:」
 endif
 
+" %の拡張する。%で開始タグ、終了タグを移動、ifとendifを移動など
 runtime macros/matchit.vim
 
 " ビジュアルベルにして、設定を空にすることで、ビープ音もビジュアルベルも無効化
@@ -131,14 +139,17 @@ else
     set modelines=0
 endif
 
+" マウスを使えるようにする
+" altやoptionを押しながら、マウスを使うと、set mouseを設定しない時の動きになる。
 set mouse=a
 
 " cursor {{{1
 " ============================================================================
-" backspaceキーの挙動を設定する
-"   indent        : 行頭の空白の削除を許す
-"   eol           : 改行の削除を許す
-"   start         : 挿入モードの開始位置での削除を許す
+" 挿入モードでの <BS>, <Del>, CTRL-W, CTRL-U の働きの設定
+" indent  autoindent を超えてバックスペースを働かせる
+" eol     改行を超えてバックスペースを働かせる (行を連結する)
+" start   挿入区間の始めでバックスペースを働かせるが CTRL-W と CTRL-U は
+"         挿入区間の始めでいったん止まる
 set backspace=indent,eol,start
 
 " カーソルを行頭、行末で止まらないようにする。
@@ -151,39 +162,36 @@ set virtualedit=block
 " ============================================================================
 " 文字コード
 " set encoding=utf-8 上で設定
+" カレントバッファのファイルの文字エンコーディングをUTF-8にする。新規にファイルを作った時などに影響する
 set fileencoding=utf-8
 
-" ファイルのエンコードの判定を前から順番にする
-" ファイルを読み込むときに 'fileencodings' が "ucs-bom" で始まるならば、
-" BOM が存在するかどうかが調べられ、その結果に従って 'bomb' が設定される。
-" http://vim-jp.org/vimdoc-ja/options.html#%27fileencoding%27
-" 以下はVimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
-" ただし2つあるeuc-jpの2番目を消した
-" if has("win32")
-    " set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
-" else
-    " 上の設定はたまに誤判定をするので、UNIX上で開く可能性があるファイルのエンコードに限定
-    " set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-" endif
-
+" ファイルの読み込み時に文字エンコーディングを判定する順番
+" kaoriya版ではguess_encodeというものがあるので、それを使う
 if has('guess_encode')
     set fileencodings=guess,ucs-boms,utf-8,euc-jp,cp932
 else
     set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 endif
+" Vimテクニックバイブル「2-7ファイルの文字コードを変換する」に書いてあるfileencodings。
+" ただし2つあるeuc-jpの2番目を消した
+" if has("win32")
+"     set fileencodings=iso-2222-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932
+" endif
+
 
 " エンコーディングを指定して開き直す
 command! EncCp932     edit ++enc=cp932
 command! EncEucjp     edit ++enc=euc-jp
 command! EncIso2022jp edit ++enc=iso-2022-jp
-command! EncUtf8      edit ++enc=uff-8
+command! EncUtf8      edit ++enc=utf-8
 command! EncLatin1    edit ++enc=latin1
 " alias
 command! EncJis  EncIso2022jp
 command! EncSjis EncCp932
 
-" 改行
+" 改行コードの設定
 set fileformat=unix
+" 改行コードを判定する順番
 set fileformats=unix,dos,mac
 " 改行コードを指定して開き直すには
 "  :e ++ff=dos
@@ -195,25 +203,27 @@ if exists('&fixeol')
 endif
 
 "□や○の文字があってもカーソル位置がずれないようにする
+" singleに設定しておいたほうがいい場合もあるかも
 set ambiwidth=double
 
 command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval("0x".submatch(1)),1)/g
 
 " tab, indent {{{1
 " ==============================================================================
-" ハードタブを表示させるときの幅
+" 画面上でタブ文字が占める幅
 set tabstop=4
-" 挿入モードで<Tab>を押したときにスペースに展開する
+" 挿入モードで<Tab>を押したときにスペースに展開する。タブそのものを使いたいときはコメントアウト
 set expandtab
-" タブを展開するときのスペースの数
-set softtabstop=4
-
-" インデントに使われる空白の数
-set shiftwidth=4
-" '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+" <Tab>を挿入したり、<BS>を使った時の幅をtabstopの値と同じにする
+" letを使うとtabstopの値を参照できる
+" <BS>を使った時に1スペース削除したい場合はコメントアウト
+let &softtabstop = &tabstop
+" 自動インデントやコマンド<と>などに使われる空白の数。0の場合は'tabstop'と同じ値が使われる
+set shiftwidth=0
+" コマンド<や>でインデントする際に'shiftwidth'の倍数に丸める
 set shiftround
 
-" http://vim-jp.org/vimdoc-ja/indent.html
+" :h indent.txt
 " 後のものが有効にされると、前のものより優先される
 " set autoindent    " 一つ前の行に基づくインデント
 " set smartindent   " 'autoindent' と同様だが幾つかのC構文を認識し、適切な箇所のイン
@@ -221,10 +231,19 @@ set shiftround
 set cindent       " 他の2つの方法よりも賢く動作し、設定することで異なるインデント
                   " スタイルにも対応できる。
 
+" :h 'smartindent'
+"   新しく作った行の最初の文字が '#' のとき、その行のインデントは取り除か
+"   れ、'#' は最前列に置かれる。次の行のインデントは '#' の行の前と同じに
+"   なる。こうしてほしくないなら、次のマッピングを使うこと。
+"      ":inoremap # X^H#"
+"   ここで ^H は CTRL-V CTRL-H と打ち込むと入力される。
+"   コマンド ">>" を使ったとき、'#' で始まる行は右に移動しない。
+
 " 不可視文字の表示
 set list
-" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
+" tabに»･、行末の空白に･、ノーブレークスペース文字に%を使う
 set listchars=tab:»･,trail:･,nbsp:%
+" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
 
 " autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
 " pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
@@ -249,7 +268,6 @@ endif
 " t : textwidthを使って自動的に折り返す
 set formatoptions-=t
 " c : textwidthを使って、コマントを自動的に折り返しcomment leaderを挿入する
-
 set formatoptions-=c
 " o : Normal modeでoまたOを押したら、comment leaderを挿入する
 set formatoptions+=o
@@ -260,6 +278,7 @@ set formatoptions+=o
 " gvimにAltのmappingをしたい場合は先にset encoding=...をしておく
 
 " key mappingに対しては9000ミリ秒待ち、key codeに対しては20ミリ秒待つ
+" コマンドラインモードで<Esc>を押した時に消えるのが早くなるなど。
 set timeout timeoutlen=9000 ttimeoutlen=20
 if exists('+macmeta')
     " MacVimでMETAキーを使えるようにする
@@ -285,24 +304,24 @@ inoremap jj <ESC>
 "cnoremap jj <ESC>
 nnoremap Y y$
 
-" カーソルを表示行で移動する
+" カーソルを表示行で移動するようにする
 nnoremap j gj
 xnoremap j gj
-nnoremap k gk
-xnoremap k gk
 nnoremap <down> gj
 xnoremap <down> gj
+nnoremap k gk
+xnoremap k gk
 nnoremap <up> gk
 xnoremap <up> gk
-nnoremap 0 g0
-xnoremap 0 g0
-nnoremap $ g$
-" これをやると<C-V>$Aできなくなる
-" xnoremap $ g$
 nnoremap gj j
 xnoremap gj j
 nnoremap gk k
 xnoremap gk k
+nnoremap 0 g0
+xnoremap 0 g0
+nnoremap $ g$
+" ヴィジュアルモード時は$で論理的行末まで行きたいのでコメントアウト
+" xnoremap $ g$
 nnoremap g0 0
 xnoremap g0 0
 nnoremap g$ $
@@ -313,7 +332,7 @@ inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 if !IsInstalled('lexima.vim')
-    noremap <C-d> <Del>
+    inoremap <C-d> <Del>
 endif
 
 " 元々のi_CTRL-Dは左にインデントする処理。
@@ -447,9 +466,27 @@ endfunction
 " 2: 常に表示
 set laststatus=2
 
-" lightline.vimで設定
-" set statusline=%f%=%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l]\ %P
-" set statusline=%f%=%<%m%r[%{(&fenc!=''?&fenc:&enc)}][%{&ff}][%Y][%v,%l/%L]
+" 最下ウィンドウにいつステータス行が表示されるかを設定する。
+" 0: 全く表示しない
+" 1: ウィンドウの数が2以上のときのみ表示
+" 2: 常に表示
+set laststatus=2
+" statuslineの設定。lightline.vimなどのプラグインを使うとかっこよくできる
+" :help 'statusline'
+" f     バッファ内のファイルのパス(入力された通り、またはカレントディレクトリに対する相対パス)
+" m     修正フラグ
+" =     ここから右寄せ
+" r     読み込み専用フラグ
+" fenc  ファイルエンコード
+" enc   Vim内部で使うエンコード
+" ff    ファイルフォーマット（改行コード）
+" Y     ファイルタイプ
+" P     現在の行がファイル内の何%の位置にあるか
+" %v    何列目
+" %l    何行目
+" set statuslineで設定するとスペースを入れるために'\ '、縦線を入れるために'\|'のようにエスケープしなくてはならないので
+" let &statuslineで設定する
+" let &statusline = '%f%m%=%r%{(&fenc!=""?&fenc:&enc)} | %{&ff} | %Y | %P | %v:%l'
 
 " titlestring {{{1
 " ============================================================================
@@ -478,7 +515,7 @@ nnoremap <C-w><C-w> <C-w>p
 set splitbelow
 set splitright
 
-" 常にカーソル行を真ん中にする場合は999など
+" カーソルの上下に最低でも1行は表示させる。常にカーソル行を真ん中にする場合は999など
 set scrolloff=1
 
 "縦分割されたウィンドウのスクロールを同期させる
@@ -533,18 +570,18 @@ nnoremap [TAB]8 :8tabn<CR>
 nnoremap [TAB]9 :9tabn<CR>
 nnoremap [TAB]0 :10tabn<CR>
 "}}}
-" Command-line mode {{{
+" Command-line mode {{{1
 " ==============================================================================
-" 補完 {{{
-" ------------------------------------------------------------------------------
-set wildmenu "コマンド入力時にTabを押すと補完メニューを表示する
-
-" コマンドモードの補完をシェルコマンドの補完のようにする
-" http://vim-jp.org/vimdoc-ja/options.html#%27wildmode%27
+"コマンド入力時にTabを押すと補完メニューを表示する。決定したい時は文字を打つか、ctrl-eなど。
+set wildmenu
+" コマンドモードの補完をシェルの補完のような動きにする
 " <TAB>で共通する最長の文字列まで補完して一覧表示
 " 再度<Tab>を打つと候補を選択。<S-Tab>で逆
+" 決定したい時は文字を打つか、ctrl-eなど。
 set wildmode=list:longest,full
-"}}}
+
+" 保存する履歴の数
+set history=10000
 
 "前方一致をCtrl+PとCtrl+Nで
 cnoremap <C-P> <UP>
@@ -555,8 +592,6 @@ cnoremap <DOWN> <C-N>
 " vim-emacscommandlineで<C-F>は右に進むになっているので、
 " コマンドラインウィンドウを開きたいときは<C-Space>にする
 cnoremap <C-Space> <C-F>
-
-set history=10000 "保存する履歴の数
 
 " 外部コマンド実行でエイリアスを使うための設定
 " http://sanrinsha.lolipop.jp/blog/2013/09/vim-alias.html
@@ -592,13 +627,16 @@ endfunction
 " }}}
 " search/substitute {{{1
 " ==============================================================================
+" インクリメンタルサーチ
 set incsearch
-set ignorecase "検索パターンの大文字小文字を区別しない
-set smartcase  "検索パターンに大文字を含んでいたら大文字小文字を区別する
+" 検索パターンの大文字小文字を区別しない
+set ignorecase
+" 検索パターンに大文字が含まれていたら、大文字小文字を区別する。
+set smartcase
 set hlsearch   "検索結果をハイライト
 
 " ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :set hlsearch!<CR>
+nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
 
 nnoremap * *N
 nnoremap # g*N
@@ -955,7 +993,9 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 
 " syntax highlight, colorscheme {{{1
 " ============================================================================
-set t_Co=256 " 256色
+" 256色を使えるようにする
+set t_Co=256
+" シンタックスハイライトを効かせる
 syntax enable
 
 if IsInstalled('my_molokai')
