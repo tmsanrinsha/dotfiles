@@ -86,7 +86,7 @@ done < <(find . -type f ! -regex '.*swp.*' -print0)
 if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
-cp $git_dir/template/.gitconfig ~/.gitconfig
+cp $git_dir/sample/.gitconfig ~/.gitconfig
 
 # 消し方
 # git config --global --remove-section "ghq" || :
@@ -256,6 +256,9 @@ fi
 # pip3 install scipy
 # pip3 install matplotlib
 # pip3 install scikit-lern
+
+# R lang {{{1
+# ============================================================================
 
 # remote2local {{{1
 # ============================================================================
