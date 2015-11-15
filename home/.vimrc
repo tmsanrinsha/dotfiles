@@ -218,8 +218,8 @@ set expandtab
 " letを使うとtabstopの値を参照できる
 " <BS>を使った時に1スペース削除したい場合はコメントアウト
 let &softtabstop = &tabstop
-" 自動インデントやコマンド<と>などに使われる空白の数。0の場合は'tabstop'と同じ値が使われる
-set shiftwidth=0
+" 自動インデントやコマンド<と>などに使われる空白の数
+let &shiftwidth = &tabstop
 " コマンド<や>でインデントする際に'shiftwidth'の倍数に丸める
 set shiftround
 
