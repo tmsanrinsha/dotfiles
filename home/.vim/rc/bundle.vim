@@ -37,9 +37,8 @@ endif
 let g:neobundle#types#git#default_protocol = 'git'
 let g:neobundle#install_process_timeout = 2000
 
-if has('win32') && has('kaoriya')
-    " kaoriya版Vim同梱のvimprocを使う
-    set runtimepath+=$VIM/plugins/vimproc
+if has('mac') && has('kaoriya')
+    set runtimepath-=$VIM/plugins/vimproc
 endif
 
 " Required:
