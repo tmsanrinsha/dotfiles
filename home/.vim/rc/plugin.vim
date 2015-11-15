@@ -271,7 +271,7 @@ if IsInstalled('unite-outline')
     nnoremap [unite]oo :<C-u>Unite outline<CR>
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]O :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
-    let bundle = neobundle#get("unite-outline")
+    let bundle = neobundle#get('unite-outline')
     function! bundle.hooks.on_source(bundle)
         call unite#sources#outline#alias('ref-man', 'man')
         call unite#sources#outline#alias('tmux', 'conf')
@@ -475,6 +475,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         else
             let g:neocomplcache_min_syntax_length = 3
         endif
+        " for keyword
         let g:neocomplete#auto_completion_start_length = 2
 
         set pumheight=10
@@ -608,9 +609,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
 
         let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-        " R (plugin: vim-R-plugin)
-        let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\]\+'
-        let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
 
         " 日本語も補完させたい場合は
         " g:neocomplete#enable_multibyte_completionをnon-0にして
@@ -729,8 +727,8 @@ if IsInstalled('neocomplete.vim')
     imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
     " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
 endif
-"}}}
-" neosnippet {{{
+
+" neosnippet {{{1
 " ==============================================================================
 if IsInstalled('neosnippet')
     " Tell Neosnippet about the other snippets
@@ -786,14 +784,18 @@ if IsInstalled('lexima.vim')
     let g:lexima_no_default_rules = 1
     call lexima#set_default_rules()
 
+    " <C-h>でlexima.vimの<BS>の動きをさせる
     imap <C-h> <BS>
 
-    " <C-f>に右に移動
+    " <C-f>で右に移動
     imap <C-f> <Right>
     call lexima#add_rule({'char': '<Right>', 'leave': 1})
 
-    " dot repeatableな<C-d>
-    call lexima#add_rule({'char': '<C-d>', 'delete': 1})
+    " dot repeatableな<C-d>。lexima.vimによって追加された文字以外は
+    " 消してくれないので、コメント
+    " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
+    inoremap <C-d> <Del>
+
 
     call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
@@ -854,20 +856,21 @@ if IsInstalled('vim-quickrun')
         " 共通の設定
         " [shabadou.vim を使って quickrun.vim をカスタマイズしよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20120919/1348054752)
         let g:quickrun_config['_'] = {
-        \ 'runner'                                 : 'vimproc',
-        \ 'runner/vimproc/updatetime'              : 50,
-        \ 'outputter'                              : 'multi:buffer:quickfix',
-        \ 'outputter/buffer/split'                 : 'botright 8sp',
-        \ 'hook/close_quickfix/enable_hook_loaded' : 1,
-        \ 'hook/close_quickfix/enable_success'     : 1,
-        \ 'hook/close_buffer/enable_empty_data'    : 1,
-        \ 'hook/close_buffer/enable_failure'       : 1,
+        \ 'runner':                                    'vimproc',
+        \ 'runner/vimproc/updatetime':                 50,
+        \ 'outputter':                                 'multi:buffer:quickfix',
+        \ 'outputter/buffer/split':                    'botright 8sp',
+        \ 'hook/cd/directory':                         '%S:p:h',
+        \ 'hook/close_quickfix/enable_hook_loaded':    1,
+        \ 'hook/close_quickfix/enable_success':        1,
+        \ 'hook/close_buffer/enable_empty_data':       1,
+        \ 'hook/close_buffer/enable_failure':          1,
         \ 'hook/hier_update/enable_exit':              1,
         \ 'hook/hier_update/priority_exit':            2,
-        \ "hook/qfsigns_update/enable_exit":           1,
+        \ 'hook/qfsigns_update/enable_exit':           1,
         \ 'hook/qfsigns_update/priority_exit':         2,
-        \ "hook/qfstatusline_update/enable_exit":      1,
-        \ "hook/qfstatusline_update/priority_exit":    2,
+        \ 'hook/qfstatusline_update/enable_exit':      1,
+        \ 'hook/qfstatusline_update/priority_exit':    2,
         \ 'hook/quickfix_status_enable/enable_exit':   1,
         \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
@@ -1806,12 +1809,38 @@ endif
 
 " R lang, jcfaria/Vim-R-plugin {{{1
 " ============================================================================
-nnoremap [FILETYPE]R :<C-u>setlocal filetype=r <Bar> normal <LocalLeader>rf<CR>
 autocmd MyVimrc FileType r
-\   nmap <buffer> <LocalLeader>s <Plug>RSendLine
+\   nmap <buffer> <LocalLeader>ss <Plug>RSendLine
 \|  vmap <buffer> <LocalLeader>s <Plug>RSendSelection
-\|  imap <M-CR> <C-o><Plug>RSendLine<CR>
+\|  imap <M-CR> <Esc><Plug>RSendLineo
+
+" _で->などのマッピングをしない
 let vimrplugin_assign = 0
+
+" result <- fun(
+"               par1 = "abc",
+"               par2 = "def",
+"               par3 = 3
+"               )
+" を
+" result <- fun(
+"     par1 = "abc",
+"     par2 = "def",
+"     par3 = 3
+"     )
+" にする。最後の括弧がにならない
+" let r_indent_align_args = 0
+
+if IsInstalled('neocomplete.vim')
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    if !exists('g:neocomplete#sources#omni#functions')
+        let g:neocomplete#sources#omni#functions = {}
+    endif
+    let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\\$]\+'
+    let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
+endif
 
 " autowitch/hive.vim {{{1
 " ============================================================================
