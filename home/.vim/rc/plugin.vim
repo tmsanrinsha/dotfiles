@@ -838,11 +838,11 @@ endif
 " vim-quickrun {{{1
 " ============================================================================
 if IsInstalled('vim-quickrun')
-    nnoremap <Leader>r :QuickRun<CR>
-    xnoremap <Leader>r :QuickRun<CR>
+    nnoremap <Leader>r :QuickRun -mode n<CR>
+    xnoremap <Leader>r :QuickRun -mode v<CR>
 
-    let bundle = neobundle#get('vim-quickrun')
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get('vim-quickrun')
+    " function! bundle.hooks.on_source(bundle)
         " let g:quickrun_no_default_key_mappings = 1
         " map <Leader>r <Plug>(quickrun)
 
@@ -877,30 +877,7 @@ if IsInstalled('vim-quickrun')
 
         " PHP {{{2
         " --------------------------------------------------------------------
-        let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
-        let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
-        let g:quickrun_config['phpv'] = {
-        \   'exec': [
-        \       'php %s'
-        \   ],
-        \   'hook/eval/enable': 1,
-        \   'hook/eval/template': '<?php %s'
-        \}
-        xnoremap <Leader>r :QuickRun -type phpv -mode v<CR>
-
-        " PHPUnit {{{3
-        let g:quickrun_config['php.phpunit'] = {
-        \ 'hook/cd/directory'              : '%S:p:h',
-        \ 'command'                        : 'phpunit.sh',
-        \ 'cmdopt'                         : '',
-        \ 'exec'                           : '%c %o %s',
-        \ 'outputter/quickfix/errorformat' : '%f:%l',
-        \}
-        " 一行のerrorformat
-        " \ 'outputter/quickfix/errorformat' : '%E%n)\ %m,%Z%f:%l,%C%m,%-G%.%#',
-        " [VimでPHPUnitの実行結果をシンプルに表示するプラグインを書いた | karakaram-blog](http://www.karakaram.com/phpunit-location-list)
-        " let g:quickrun_config['php.phpunit']['outputter'] = 'phpunit'
-        " [NingNing TechBlog: neocomplcache phpunit snippetつくった & TDDBC 1.7 LT内容補足](http://nishigori.blogspot.jp/2011/08/neocomplcache-phpunit-snippet-tddbc-17.html)
+        " see ../after/ftplugin/php.vim
 
         " composer.json {{{3
         let g:quickrun_config['composer.json'] = {
@@ -965,7 +942,7 @@ if IsInstalled('vim-quickrun')
             \}
 
             QuickRun androidProject
-        endfunction
+        " endfunction
 
         command! QuickRunAndroidProject call s:QuickRunAndroidProject()
         autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>

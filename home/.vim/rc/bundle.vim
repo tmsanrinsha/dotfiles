@@ -178,14 +178,22 @@ NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
 
 " quickrun {{{1
 " ============================================================================
-" NeoBundle 'thinca/vim-quickrun'
-NeoBundleLazy 'thinca/vim-quickrun', {
-\   'autoload': {
-\       'commands': [{
-\           'name': 'QuickRun',
-\           'complete': 'customlist,quickrun#complete',
-\       }]
-\   },
+" NeoBundleLazy 'thinca/vim-quickrun', {
+" \   'autoload': {
+" \       'commands': [{
+" \           'name': 'QuickRun',
+" \           'complete': 'customlist,quickrun#complete',
+" \       }]
+" \   },
+" \   'depends': [
+" \       'osyo-manga/shabadou.vim',
+" \       'cohama/vim-hier',
+" \       'dannyob/quickfixstatus',
+" \       'KazuakiM/vim-qfsigns',
+" \       'KazuakiM/vim-qfstatusline'
+" \   ]
+" \}
+NeoBundle 'thinca/vim-quickrun', {
 \   'depends': [
 \       'osyo-manga/shabadou.vim',
 \       'cohama/vim-hier',
