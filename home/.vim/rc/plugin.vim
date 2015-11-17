@@ -879,6 +879,14 @@ if IsInstalled('vim-quickrun')
         " --------------------------------------------------------------------
         let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
         let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
+        let g:quickrun_config['phpv'] = {
+        \   'exec': [
+        \       'php %s'
+        \   ],
+        \   'hook/eval/enable': 1,
+        \   'hook/eval/template': '<?php %s'
+        \}
+        xnoremap <Leader>r :QuickRun -type phpv -mode v<CR>
 
         " PHPUnit {{{3
         let g:quickrun_config['php.phpunit'] = {
