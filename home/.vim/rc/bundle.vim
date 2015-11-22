@@ -479,7 +479,9 @@ NeoBundleLazy 'maksimr/vim-jsbeautify', {
 \   'autoload': {'filetypes': ['javascript', 'css', 'html']},
 \   'external_commands': 'node',
 \}
-
+NeoBundleLazy 'elzr/vim-json', {
+\   'autoload': {'filetypes': ['json']}
+\}
 " Python {{{1
 " ============================================================================
 NeoBundleLazy 'davidhalter/jedi-vim', {
