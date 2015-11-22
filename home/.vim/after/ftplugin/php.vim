@@ -22,7 +22,7 @@ let PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントす�
 
 " open_basedirの値をpathに追加
 if !exists('g:php_open_basedir')
-  let tmp = substitute(system("php -r 'echo ini_get(\"open_basedir\");'"), ':', '**,', 'g')
+  let tmp = substitute(system("php -r 'echo ini_get(\"open_basedir\");'"), ':', ',', 'g')
   let g:php_open_basedir = substitute(tmp, "\<NL>", '', '')
 endif
 let &l:path .= g:php_open_basedir
