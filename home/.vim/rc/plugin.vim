@@ -800,7 +800,7 @@ if IsInstalled('lexima.vim')
     call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
     " Markdownのリストでなんにも書いてない場合に開業した場合はリストを消す
-    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<BS><BS><CR>'})
+    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<BS><BS><CR>', 'filetype': 'markdown'})
 
     call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
     call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
