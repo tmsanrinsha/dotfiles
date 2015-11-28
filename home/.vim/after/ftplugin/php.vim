@@ -30,7 +30,7 @@ let &l:path .= g:php_open_basedir
 setlocal includeexpr=substitute(v:fname,'^/','','')
 
 " 構文チェック
-setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+" setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 setlocal makeprg=php\ -l\ %
 
 let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
@@ -48,7 +48,7 @@ let g:quickrun_config['php.phpunit'] = {
 \ 'command'                        : 'phpunit.sh',
 \ 'cmdopt'                         : '',
 \ 'exec'                           : '%c %o %s',
-\ 'outputter/quickfix/errorformat' : '%f:%l',
+\ 'outputter/quickfix/errorformat' : '%f:%l,%m in %f on line %l',
 \}
 
 if neobundle#is_installed('phpcomplete-extended') &&
