@@ -43,8 +43,13 @@ if IsInstalled('unite.vim')
     \   'winheight': 10,
     \   'auto_resize': 1,
     \   'prompt': '> ',
-    \   'cursor_line_highlight': 'PmenuSel',
     \ })
+
+    " uniteの選択のカラーをPmenuSelにする。uniteバッファ以外もCursorLineの色がPmenuSelになってしまう
+    " augroup MyVimrc
+    "     autocmd Filetype unite hi! link CursorLine PmenuSel
+    "     autocmd BufLeave \[unite\]* highlight! link CursorLine NONE
+    " augroup END
 
     call unite#custom_default_action('directory' , 'vimfiler')
     " vimfiler上ではvimfilerを増やさず、移動するだけ
@@ -137,6 +142,9 @@ if IsInstalled('unite.vim')
     " unite-grep {{{2
     " ------------------------------------------------------------------------
     " :h unite-source-grep
+    " grepの結果のファイル名を短くするのはこの辺を見ればできるかも
+    " :h unite#custom#profile()
+    " [:Unite file でどこにいるのかわからなくなる問題を解決する - basyura's blog](http://blog.basyura.org/entry/2013/05/08/210536)
     if executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
