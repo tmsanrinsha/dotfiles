@@ -125,9 +125,9 @@ if IsInstalled('unite.vim')
         let g:memo_directory = expand('~/Dropbox/memo/doc')
     endif
     let g:unite_source_alias_aliases = {
-    \   "memo" : {
-    \       "source" : "file_rec/async",
-    \       "args" : g:memo_directory,
+    \   'memo' : {
+    \       'source' : 'file_rec/async',
+    \       'args' : g:memo_directory,
     \   },
     \}
     call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
