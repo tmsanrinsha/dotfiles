@@ -361,7 +361,7 @@ inoremap <M-t> <C-d>
 " inoremap <C-h> <BS>
 " inoremap <C-n> <Down>
 " inoremap <C-p> <Up>
-" inoremap <C-e> <End>
+inoremap <C-e> <End>
 
 if !IsInstalled('neosnippet.vim')
     inoremap <C-k> <C-o>D
