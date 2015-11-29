@@ -1871,6 +1871,7 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive] <Nop>
     nmap <Leader>g [fugitive]
     nnoremap [fugitive]ci  :Gcommit<CR>
+    nnoremap [fugitive]co  :Git checkout %<CR>
     nnoremap [fugitive]d   :Gdiff<CR>
     nnoremap [fugitive]s   :Gstatus<CR>
     nnoremap [fugitive]l   :Glog<CR>
@@ -1901,7 +1902,9 @@ if IsInstalled('vim-fugitive')
         execute   "nmap <buffer> <LocalLeader>r [Colon]call system('" . s:my_rm_commant . " \"' . expand('%:h:h') . '/<C-r><C-g>\"')<CR>r"
     endfunction
 
-    autocmd MyVimrc FileType gitcommit call s:gitcommit_rm()
+    autocmd MyVimrc FileType gitcommit
+    \   call s:gitcommit_rm()
+    \|  nmap <buffer> <LocalLeader>co [Colon]Git checkout <C-r><C-g><CR>
 
     " vimfiler上でfugitiveのコマンドを使う
     autocmd MyVimrc FileType vimfiler
