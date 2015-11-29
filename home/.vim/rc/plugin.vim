@@ -534,7 +534,8 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
 
         " 補完候補の順番
         if IsInstalled('neocomplete.vim')
-            " defaultの値は ~/.vim/bundle/neocomplete/autoload/neocomplete/sources/ 以下で確認
+            " defaultの値は ~/.vim/bundle/neocomplete.vim/autoload/neocomplete/sources/ 以下で確認
+            call neocomplete#custom#source('neosnippet',         'rank', 450)
             call neocomplete#custom#source('file',         'rank', 450)
             call neocomplete#custom#source('file/include', 'rank', 400)
             call neocomplete#custom#source('omni',         'rank', 400)
@@ -730,14 +731,14 @@ endif
 
 " neosnippet {{{1
 " ==============================================================================
-if IsInstalled('neosnippet')
+if IsInstalled('neosnippet.vim')
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory= [
     \   '~/.vim/bundle/vim-snippets/snippets',
     \   '~/.vim/bundle/wmgraphviz.vim/snippets',
     \]
 
-    let bundle = neobundle#get('neosnippet')
+    let bundle = neobundle#get('neosnippet.vim')
 
     function! bundle.hooks.on_source(bundle)
         " Plugin key-mappings.

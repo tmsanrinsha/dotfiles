@@ -143,7 +143,7 @@ NeoBundleLazy "Shougo/neocomplete.vim", {
 \       'Shougo/context_filetype.vim',
 \       'Shougo/neoinclude.vim',
 \       'Shougo/neco-syntax',
-\       'Shougo/neosnippet',
+\       'Shougo/neosnippet.vim',
 \       'Shougo/neosnippet-snippets',
 \       'honza/vim-snippets',
 \   ],
