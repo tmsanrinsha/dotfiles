@@ -86,6 +86,24 @@ endfunction " }}}
 call SourceRc('local_pre.vim')
 call SourceRc('bundle.vim')
 
+function! GetProjectDir() abort " {{{1
+    if exists('b:vimfiler.current_dir')
+        let l:buffer_dir = b:vimfiler.current_dir
+    else
+        let l:buffer_dir = expand('%:p:h')
+    endif
+
+    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir)
+    if empty(l:project_dir) && exists('g:project_dir_pattern')
+        let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
+    endif
+
+    " windowsでドライブのC:をC\:に変更する必要がある
+    " let l:project_dir = escape(l:project_dir, ':')
+
+    return l:project_dir
+endfunction " }}}
+
 " 基本設定 {{{1
 " ============================================================================
 " 現在のモードを表示

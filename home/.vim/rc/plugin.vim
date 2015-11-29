@@ -105,10 +105,15 @@ if IsInstalled('unite.vim')
     " こちらのコマンドだと、カレントバッファのファイルがあるプロジェクトディレクトリ以下
     nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
     function! s:unite_file_project(...)
-        let opts = (a:0 ? join(a:000, ' ') : '')
-        let dir = unite#util#path2project_directory(expand('%'))
-        " windowsでドライブのC:をC\:に変更する必要がある
-        execute 'Unite' opts 'file_rec/async:' . escape(dir, ':')
+        let l:opts = (a:0 ? join(a:000, ' ') : '')
+        let l:project_dir = GetProjectDir()
+
+        if isdirectory(l:project_dir.'/.git')
+            execute 'lcd '.l:project_dir
+            execute 'Unite '.opts.' file_rec/git:--cached:--others:--exclude-standard'
+        else
+            execute 'Unite '.opts.' file_rec/async:'.l:project_dir
+        endif
     endfunction
 
     nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
@@ -131,6 +136,7 @@ if IsInstalled('unite.vim')
 
     " unite-grep {{{2
     " ------------------------------------------------------------------------
+    " :h unite-source-grep
     if executable('ag')
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
@@ -171,9 +177,12 @@ if IsInstalled('unite.vim')
     nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
     function! s:unite_grep_project(...)
         let opts = (a:0 ? join(a:000, ' ') : '')
-        let dir = unite#util#path2project_directory(expand('%'))
-        " windowsでドライブのC:をC\:に変更する必要がある
-        execute 'Unite' opts 'grep:' . escape(dir, ':')
+        let l:project_dir = GetProjectDir()
+        if !executable('ag') && isdirectory(l:project_dir.'/.git')
+            execute 'Unite '.opts.' grep/git:/:--untracked'
+        else
+            execute 'Unite '.opts.' grep:'.l:project_dir
+        endif
     endfunction
     nnoremap [unite]gs :<C-u>Unite grep:$SRC_ROOT<CR>
     "}}}
