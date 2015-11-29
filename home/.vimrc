@@ -93,15 +93,18 @@ function! GetProjectDir() abort " {{{1
         let l:buffer_dir = expand('%:p:h')
     endif
 
-    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir)
+    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir, 1)
     if empty(l:project_dir) && exists('g:project_dir_pattern')
         let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
     endif
 
+    if empty(l:project_dir)
+        return l:buffer_dir
+    else
+        return l:project_dir
+    endif
     " windowsでドライブのC:をC\:に変更する必要がある
     " let l:project_dir = escape(l:project_dir, ':')
-
-    return l:project_dir
 endfunction " }}}
 
 " 基本設定 {{{1
