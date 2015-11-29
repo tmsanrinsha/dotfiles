@@ -1380,15 +1380,14 @@ let g:vim_indent_cont = 0
 " .vimrcと.gvimrcの編集
 nnoremap [VIM] <Nop>
 nmap <Leader>v [VIM]
-" executeは重いのでやめる
-" vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
-" execute 'nnoremap [VIM]e :<C-u>edit ' . substitute(system('readlink $MYVIMRC'),  "\<NL>", '', '') . '<CR>'
-" execute 'nnoremap [VIM]E :<C-u>edit ' . substitute(system('readlink $MYGVIMRC'), "\<NL>", '', '') . '<CR>'
+
 let s:src_home = '$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home'
 execute 'nnoremap [VIM]e :<C-u>edit '.s:src_home.'/.vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/_gvimrc<CR>'
 execute 'nnoremap [VIM]b :<C-u>edit '.s:src_home.'/.vim/rc/bundle.vim<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:src_home.'/.vim/rc/plugin.vim<CR>'
+" vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
+execute 'nnoremap [VIM]l :<C-u>edit ' . substitute(system('readlink ~/.vim/rc/local.vim'),  "\<NL>", '', '')
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo 'vimrc reloaded!'<CR>
