@@ -10,7 +10,7 @@ scriptencoding utf-8
 " let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 " \ . 'setlocal includeexpr< path<'
 
-let php_sql_query = 1           " 文字列中のSQLをハイライトする
+let php_sql_query = 0           " 文字列中のSQLをハイライトする
 let php_htmlInStrings = 1       " 文字列中のHTMLをハイライトする
 let php_noShortTags = 1         " ショートタグ (<?を無効にする→ハイライト除外にする)
 let php_parent_error_close = 1  " for highlighting parent error ] or )
