@@ -1878,6 +1878,7 @@ if IsInstalled('vim-fugitive')
 
     nnoremap [fugitive] <Nop>
     nmap <Leader>g [fugitive]
+    nnoremap [fugitive]a   :Gwrite<CR>
     nnoremap [fugitive]ci  :Gcommit<CR>
     nnoremap [fugitive]co  :Git checkout %<CR>
     nnoremap [fugitive]d   :Gdiff<CR>
