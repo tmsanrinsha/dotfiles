@@ -1390,7 +1390,8 @@ execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/_gvimrc<CR>'
 execute 'nnoremap [VIM]b :<C-u>edit '.s:src_home.'/.vim/rc/bundle.vim<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:src_home.'/.vim/rc/plugin.vim<CR>'
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
-execute 'nnoremap [VIM]l :<C-u>edit '.substitute(system('readlink ~/.vim/rc/local.vim'),  "\<NL>", '', '').'<CR>'
+" execute 'nnoremap [VIM]l :<C-u>edit '.substitute(system('readlink ~/.vim/rc/local.vim'),  "\<NL>", '', '').'<CR>'
+execute 'nnoremap [VIM]l :<C-u>edit '.resolve(expand('~/.vim/rc/local.vim')).'<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
 nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo 'vimrc reloaded!'<CR>
