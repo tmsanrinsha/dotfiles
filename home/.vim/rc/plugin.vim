@@ -193,6 +193,9 @@ if IsInstalled('unite.vim')
         endif
     endfunction
     nnoremap [unite]gs :<C-u>Unite grep:$SRC_ROOT<CR>
+    nnoremap [unite]gd :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    nnoremap [unite]gv :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
     "}}}
 
     "レジスタ一覧
