@@ -8,7 +8,7 @@ if has('mac') && has('kaoriya')
 endif
 
 " neobundleが使えない環境用
-if !(isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'))
+if !(isdirectory($HOME.'/.vim/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'))
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
@@ -21,8 +21,8 @@ if !(isdirectory($VIMDIR . '/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.05
     "     end
     " endfor
     for s:plugin in s:load_plugin_list
-        if isdirectory($VIMDIR . '/bundle/' . s:plugin)
-            let &runtimepath = &runtimepath . ',' . $VIMDIR . '/bundle/' . s:plugin
+        if isdirectory($HOME.'/.vim/bundle/'.s:plugin)
+            let &runtimepath = &runtimepath.','.$HOME.'/.vim/bundle/'.s:plugin
         endif
     endfor
 
@@ -42,10 +42,10 @@ endif
 let g:neobundle#install_process_timeout = 2000
 
 " Required:
-call neobundle#begin(expand($VIMDIR.'/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " キャッシュを使うとUnite.vimの調子が悪い気がしたが、オッケーそうなので使う
-if neobundle#load_cache(expand($VIMDIR.'/rc/bundle.vim'))
+if neobundle#load_cache(expand('~/.vim/rc/bundle.vim'))
 
 " Let neobundle manage neobundle
 NeoBundleFetch 'Shougo/neobundle.vim'

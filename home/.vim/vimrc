@@ -13,8 +13,7 @@ scriptencoding utf-8
 
 " 初期設定 {{{1
 " ============================================================================
-let $VIMDIR = expand('~/.vim')
-let $VIMRC_DIR = $VIMDIR . '/rc'
+let $VIMRC_DIR = $HOME.'/.vim/rc'
 let $VIM_CACHE_DIR = expand('~/.cache/vim')
 if !isdirectory($VIM_CACHE_DIR)
     call mkdir($VIM_CACHE_DIR, 'p')
@@ -1414,7 +1413,7 @@ nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
 autocmd MyVimrc FileType vim
 \   setlocal keywordprg=:help
 \|  setlocal path&
-\|  setlocal path+=$VIMDIR/bundle
+\|  setlocal path+=$HOME/.vim/bundle
 \|  setlocal comments=:\"
 
 " vimperator {{{2

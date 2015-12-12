@@ -1,8 +1,8 @@
-let $VIMDIR = expand('~/.vim')
+let $HOME.'/.vim' = expand('~/.vim')
 if has('vim_starting')
-    set runtimepath+=$VIMDIR/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-call neobundle#begin(expand($VIMDIR.'/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 call neobundle#end()
 

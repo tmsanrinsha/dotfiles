@@ -82,8 +82,8 @@ if IsInstalled('unite.vim')
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    nnoremap [unite]db :<C-u>Unite directory:$VIMDIR/bundle<CR>
-    nnoremap [unite]dv :<C-u>Unite directory:$VIMDIR<CR>
+    nnoremap [unite]db :<C-u>Unite directory:$HOME/.vim/bundle<CR>
+    nnoremap [unite]dv :<C-u>Unite directory:$HOME/.vim<CR>
     nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
