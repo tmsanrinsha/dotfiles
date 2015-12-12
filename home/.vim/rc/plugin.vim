@@ -1695,6 +1695,9 @@ let g:phpcomplete_enhance_jump_to_definition = 1
 "    \ 'jump_to_def_vsplit': '<C-W><C-\>',
 "    \}
 
+" JSON {{{1
+let g:vim_json_syntax_conceal = 0
+
 " Python, jedi-vim {{{1
 " ============================================================================
 " pythonのsys.pathの設定 " {{{
