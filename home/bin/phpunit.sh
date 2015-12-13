@@ -6,7 +6,7 @@
 
 function func_phpunit
 {
-    local cmd="phpunit"
+    local cmd=$(which phpunit)
     local dir="${PWD}"
 
     while [ -n "${dir}" ]; do
@@ -17,19 +17,24 @@ function func_phpunit
         dir="${dir%/*}"
     done
 
+    if [ -z "$cmd" ]; then
+        return 1
+    fi
+
     dir="${PWD}"
     while [ -n "${dir}" ]; do
-        if [ -f "${dir}/phpunit.xml" ]; then
-            cmd="${cmd} --configuration=${dir}/phpunit.xml"
-            break
-        elif [ -f "${dir}/phpunit.xml.dist" ]; then
-            cmd="${cmd} --configuration=${dir}/phpunit.xml.dist"
-            break
-        fi
+        for testdir in "tests" "test" "" ; do
+            for xml in "phpunit.xml.dist" "phpunit.xml"; do
+                if [ -f "${dir}/${testdir}/${xml}" ]; then
+                    cmd="${cmd} --configuration=${dir}/${testdir}/${xml}"
+                    break 2
+                fi
+            done
+        done
         dir="${dir%/*}"
     done
 
-    $cmd $@ | cat
+    php -d open_basedir= $cmd $@
     return ${PIPESTATUS[0]}
 }
 
