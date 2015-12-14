@@ -47,9 +47,13 @@ let g:quickrun_config['php.phpunit'] = {
 \ 'hook/cd/directory'              : '%S:p:h',
 \ 'command'                        : 'phpunit.sh',
 \ 'cmdopt'                         : '',
-\ 'exec'                           : '%c %o %s',
+\ 'exec'                           : '%c -d open_basedir= %o %s',
 \ 'outputter/quickfix/errorformat' : '%f:%l,%m in %f on line %l',
 \}
+
+autocmd MyVimrc FileType php.phpunit
+\   nnoremap <buffer> <Leader>rr :<C-u>QuickRun -mode n<CR>
+\ | nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
 
 if neobundle#is_installed('phpcomplete-extended') &&
 \   phpcomplete_extended#is_phpcomplete_extended_project()
