@@ -6,7 +6,7 @@
 
 function func_phpunit
 {
-    local cmd=$(which phpunit)
+    local cmd=$(which phpunit 2>/dev/null)
     local dir="${PWD}"
 
     while [ -n "${dir}" ]; do
