@@ -6,7 +6,7 @@
 
 function func_phpunit
 {
-    local cmd='phpunit'
+    local cmd=$(which phpunit 2>/dev/null)
     local dir="${PWD}"
 
     while [ -n "${dir}" ]; do
@@ -34,7 +34,7 @@ function func_phpunit
         dir="${dir%/*}"
     done
 
-    $cmd $@
+    php -d open_basedir= $cmd $@
     return ${PIPESTATUS[0]}
 }
 
