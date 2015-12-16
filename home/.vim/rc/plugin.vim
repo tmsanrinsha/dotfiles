@@ -668,8 +668,8 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " endfunction"}}}
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-        " execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<C-e>"'
-        inoremap <expr><C-g><C-g> neocomplete#cancel_popup()
+        execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
+        " inoremap <expr><C-g><C-g> neocomplete#cancel_popup()
         " <C-u>, <C-w>した文字列をアンドゥできるようにする
         " http://vim-users.jp/2009/10/hack81/
         " C-uでポップアップを消したいがうまくいかない
