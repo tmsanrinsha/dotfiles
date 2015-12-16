@@ -45,7 +45,10 @@ let g:neobundle#install_process_timeout = 2000
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " キャッシュを使うとUnite.vimの調子が悪い気がしたが、オッケーそうなので使う
-if neobundle#load_cache(expand('~/.vim/rc/bundle.vim'))
+if neobundle#load_cache(
+\  expand('~/.vim/rc/bundle.vim'),
+\  expand('~/.vim/rc/bundle_local.vim')
+\)
 
 " Let neobundle manage neobundle
 NeoBundleFetch 'Shougo/neobundle.vim'
