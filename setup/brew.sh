@@ -51,7 +51,6 @@ brew-install lftp
 brew-install nkf
 brew-install node
 brew install peco
-brew-install homebrew/php/composer
 # brew-install php56
 # brew-install php56-yaml
 # brew-install php56-stats
