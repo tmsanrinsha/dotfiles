@@ -73,6 +73,9 @@ fi
 
 ## caskroom/cask
 brew-install caskroom/cask/brew-cask
+# 上はこの2行と同じ
+# brew tap caskroom/cask
+# brew install brew-cask
 
 # brew-cask-install android-studio
 brew-cask-install alfred
