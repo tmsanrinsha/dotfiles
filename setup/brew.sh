@@ -75,8 +75,6 @@ fi
 ## caskroom/cask
 brew-install caskroom/cask/brew-cask
 
-# brew caskでインストールしたものをalfredから検索可能にする
-# brew cask alfred link
 # brew-cask-install android-studio
 brew-cask-install alfred
 brew-cask-install bettertouchtool
