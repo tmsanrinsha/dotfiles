@@ -37,7 +37,6 @@ if [ "$brew" == '1' ]; then
 
     # for r
     brew tap homebrew/science
-    brew tap peco/peco
 fi
 
 brew-install ag
@@ -51,6 +50,7 @@ brew-install lftp
 # brew-install mercurial
 brew-install nkf
 brew-install node
+brew install peco
 brew-install homebrew/php/composer
 # brew-install php56
 # brew-install php56-yaml
@@ -85,9 +85,6 @@ brew-cask-install evernote
 # formuraでもinstallできる
 brew-cask-install pandoc
 
-# peco/peco
-# formulaがないと言われる
-# brew install peco
 
 # brew-install matplotlib
 # brew install pythonでインストールされるpipでインストール
