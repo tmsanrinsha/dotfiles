@@ -77,16 +77,21 @@ brew-install caskroom/cask/brew-cask
 # brew tap caskroom/cask
 # brew install brew-cask
 
-# brew-cask-install android-studio
 brew-cask-install alfred
 brew-cask-install bettertouchtool
-brew-cask-install cheatsheet
 brew-cask-install clipmenu
-# brew-cask-install eclipse-ide
-brew-cask-install evernote
+brew cask install firefox
+brew cask install google-chrome
+brew cask install google-japanese-ime
+brew cask install karabiner
 # formuraでもinstallできる
 brew-cask-install pandoc
 
+# brew-cask-install evernote
+
+# brew-cask-install android-studio
+# brew-cask-install cheatsheet
+# brew-cask-install eclipse-ide
 
 # brew-install matplotlib
 # brew install pythonでインストールされるpipでインストール
