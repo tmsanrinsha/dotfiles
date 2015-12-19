@@ -42,7 +42,8 @@ pathmungeR () {
 # pathmungeだと、すでにPATHにあるため追加できないのでexportで追加
 
 # シェルスクリプトなどを置くディレクトリ
-pathmunge "$HOME/bin"
+# pathmunge "$HOME/bin"
+export PATH="$HOME/bin:$PATH"
 # makeで作った実行ファイルなどを置くディレクトリ
 export PATH="$HOME/local/bin:$PATH"
 
