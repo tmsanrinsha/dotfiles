@@ -820,6 +820,7 @@ if IsInstalled('lexima.vim')
     " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
     inoremap <C-d> <Del>
 
+    " call lexima#add_rule({'char': '(', 'except': '\%#.\+', 'input_after': ')'})
 
     call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
@@ -1242,7 +1243,8 @@ if IsInstalled('vim-fakeclip')
     " +clipboardでもfakeclipのキーマッピングを使う
     let g:fakeclip_provide_provide_key_mapping = 1
     " クリップボードコピーのコマンドにrfpbcopyを使う
-    let g:fakeclip_write_clipboard_command = 'rfpbcopy'
+    " let g:fakeclip_write_clipboard_command = 'rfpbcopy'
+    let g:fakeclip_write_clipboard_command = 'paste64.mac'
 endif
 
 " textobj {{{1
@@ -1708,10 +1710,15 @@ let g:vim_json_syntax_conceal = 0
 " pythonのsys.pathの設定 " {{{
 " [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
 " python2は$PYTHON_DLLを設定しなくてもうまくいく
-if filereadable('/usr/local/Frameworks/Python.framework/Python')
-    let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
-endif
-
+" if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
+"     let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
+" if filereadable('/usr/local/Frameworks/Python.framework/Python')
+"     let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
+" endif
+" let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
+" let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
+" let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python'
+let $PYTHON_DLL = '/usr/local/Framewrks/Python.framework/Python'
 if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
     let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
 endif
@@ -1743,7 +1750,7 @@ autocmd MyVimrc FileType python
 if IsInstalled('jedi-vim')
     let bundle = neobundle#get('jedi-vim')
     function! bundle.hooks.on_source(bundle)
-        call s:set_python_path()
+        " call s:set_python_path()
 
         autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
 
@@ -1764,6 +1771,18 @@ if IsInstalled('jedi-vim')
         " quickrunと被るため大文字に変更
         let g:jedi#rename_command = '<Leader>R'
         let g:jedi#goto_assignments_command = '<C-]>'
+
+        if jedi#init_python()
+            function! s:jedi_auto_force_py_version() abort
+                let major_version = pyenv#python#get_internal_major_version()
+                call jedi#force_py_version(major_version)
+            endfunction
+            augroup vim-pyenv-custom-augroup
+                autocmd! *
+                autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+                autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+            augroup END
+        endif
     endfunction
 endif
 
@@ -1828,7 +1847,7 @@ endif
 " ============================================================================
 autocmd MyVimrc FileType r
 \   nmap <buffer> <LocalLeader>ss <Plug>RSendLine
-\|  vmap <buffer> <LocalLeader>s <Plug>RSendSelection
+\|  vmap <buffer> <LocalLeader>ss <Plug>RESendSelection<Esc>
 \|  imap <M-CR> <Esc><Plug>RSendLineo
 
 " _で->などのマッピングをしない
