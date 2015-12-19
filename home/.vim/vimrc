@@ -1233,11 +1233,6 @@ autocmd MyVimrc BufRead,BufNewFile *.html
 \|      setlocal filetype=php
 \|  endif
 
-autocmd MyVimrc BufRead,BufNewFile composer.json
-\   setlocal filetype=composer.json
-\ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
-\ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
-
 " filetype {{{1
 " ============================================================================
 nnoremap [FILETYPE] <Nop>

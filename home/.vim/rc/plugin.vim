@@ -911,6 +911,11 @@ if IsInstalled('vim-quickrun')
         \ 'exec'              : '%c %a',
         \}
 
+        autocmd MyVimrc BufRead,BufNewFile composer.json
+        \   setlocal filetype=composer.json
+        \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
+        \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
+
         " dot {{{2
         " --------------------------------------------------------------------
         let g:quickrun_config['dot'] = {
