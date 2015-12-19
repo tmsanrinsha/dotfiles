@@ -79,6 +79,7 @@ alias -g P='| peco'
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
 alias -g PXV="| peco | xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g V='| vim -R -'
+alias -g VT='| tovim'
 alias -g XV="| xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g H='| head'
 alias -g T='| tail -f'
