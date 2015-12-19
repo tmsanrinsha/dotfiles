@@ -462,7 +462,7 @@ if IsInstalled('Conque-Shell')
         " autocmd! my_conque BufWinLeave zsh\s-\s? call <SID>delete_ConqueTerm(expand('%'))
     endfunction
 endif "}}}
-" neocomplcache & neocomplete {{{
+" neocomplcache & neocomplete {{{1
 " ============================================================================
 if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
     if IsInstalled('neocomplete.vim')
@@ -676,7 +676,7 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
         execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
-        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{1
+        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{2
         " <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
         " if IsInstalled('vim-smartinput')
         "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
@@ -722,7 +722,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
 
         " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         " endif
-        " }}}
     endfunction
 endif
 if IsInstalled('neocomplete.vim')
