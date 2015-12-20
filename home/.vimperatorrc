@@ -208,8 +208,8 @@ lazy fmaps -u='mail\.google\.com/mail' <C-a>,j <C-x>,k
 " https://addons.mozilla.org/ja/firefox/addon/tile-tabs/
 command! -nargs=0 -description="Tile Tabs..." sp emenu Tile.Tile New Tab.Below
 command! -nargs=0 -description="Tile Tabs..." vs emenu Tile.Tile New Tab.Right
-nnoremap <C-w>s :emenu Tile.Tile Duplicate Tab.Below<CR>
-nnoremap <C-w>v :emenu Tile.Tile Duplicate Tab.Right<CR>
+nnoremap <C-w>s :emenu タイル.複製したタブをタイル表示.下<CR>
+nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 
 
 " config {{{1
