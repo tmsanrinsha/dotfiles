@@ -162,6 +162,7 @@ let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
     { label: 'title',     value: '%TITLE%'},
+    { label: 'image',     value: '![](%URL%)'},
     { label: 'n',         value: '%TITLE%\n%URL%'},
     { label: 'line',      value: '%TITLE% - %URL%'},
     { label: 'markdown',  value: '[%TITLE%](%URL%)'},
@@ -172,6 +173,7 @@ EOM
 
 " mapを上で設定すると不安定なので、ここで設定
 nnoremap <Leader>yt :copy title<CR>
+nnoremap <Leader>yi :copy image<CR>
 nnoremap <Leader>yn :copy n<CR>
 nnoremap <Leader>yl :copy line<CR>
 nnoremap <Leader>ym :copy markdown<CR>
