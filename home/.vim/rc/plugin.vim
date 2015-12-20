@@ -1362,10 +1362,10 @@ endif
 if IsInstalled('vim-ref')
     cabbrev man Ref man
 
-    let bundle = neobundle#get("vim-ref")
+    let bundle = neobundle#get('vim-ref')
     function! bundle.hooks.on_source(bundle)
         if has('mac')
-            let g:ref_man_cmd = "man -P cat"
+            let g:ref_man_cmd = 'man -P cat'
         endif
         " command! -nargs=* Man Ref man <args>
     endfunction
@@ -2249,7 +2249,7 @@ endif
 " ==============================================================================
 if IsInstalled('qfixhowm')
 
-    let bundle = neobundle#get("qfixhowm")
+    let bundle = neobundleget('qfixhowm')
     function! bundle.hooks.on_source(bundle)
         " QFixHowm互換を切る
         let g:QFixHowm_Convert = 0
