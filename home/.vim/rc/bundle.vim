@@ -537,9 +537,7 @@ NeoBundleLazy 'autowitch/hive.vim', {
 " \   'autoload' : { 'filetypes' : 'markdown' }
 " \}
 " fenced code blockで色がつかない
-" ファイルタイプmkdなのがやだ
 " インデントがおかしい
-" [Auto-indentation for lists · Issue #126 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/126)
 " NeoBundleLazy 'plasticboy/vim-markdown', {
 " \   'name': 'plasticboy_vim-markdown',
 " \   'autoload': {'filetypes': ['mkd']},
