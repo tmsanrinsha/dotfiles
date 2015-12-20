@@ -76,16 +76,15 @@ noremap <C-j> :tabmove -1<CR>
 noremap <C-k> :tabmove +1<CR>
 
 " 選択した部分をデフォルトの検索エンジンでサーチ
-" noremap gxx cvy<Esc><Esc>P
-noremap gxx cvy:tabopen<Space>https://www.google.co.jp/search?q=<M-v><CR>
+noremap gxx <C-c>P
 " alcでサーチ Firefox 3.9から<S-Insert>で貼り付け出来きなくなったらしいので、<M-v>を使用する
 noremap gxa cvy:tabopen<Space>http://eow.alc.co.jp/search?q=<M-v><CR>
 " Yahoo!ファイナンスでサーチ
 noremap gxf cvy:tabopen<Space>http://info.finance.yahoo.co.jp/search/?query=<M-v><CR>
 
-noremap <Leader>B :bmarks<Space>
-noremap <Leader>h :history<Space>
-noremap <Leader>ps :panorama switch<Space>
+noremap ,B :bmarks<Space>
+noremap ,h :history<Space>
+noremap ,ps :panorama switch<Space>
 
 nnoremap <Leader>vr :execute 'source ' + io.getRCFile().target<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
@@ -115,7 +114,7 @@ style! -name=commandline-ime chrome://* #liberator-commandline-command input {im
 " migemo-hint.js
 " set hintmatching=custom
 
-" hatena bookmark {{{1
+" open, hatena bookmark {{{1
 " ============================================================================
 " https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-%E3%81%A7%E3%81%AF%E3%81%A6%E3%81%AA%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E6%8B%A1%E5%BC%B5%E3%82%92%E4%BD%BF%E3%81%86
 javascript <<EOF
@@ -148,11 +147,12 @@ nnoremap <Leader>ts :set complete=S<CR>:tabopen<Space>
 nnoremap <Leader>oH :set complete=H<CR>:open<Space>
 nnoremap <Leader>tH :set complete=H<CR>:tabopen<Space>
 
-
 " plugin_loader {{{1
 " ============================================================================
 let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins"
-let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain,migemo_completion"
+" let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain,migemo_completion"
+" errorが出るのでmigemo_completionを削除
+let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 " forcefocuscontentはタイミングが遅いのでやめる
 
 " copy.js {{{1
