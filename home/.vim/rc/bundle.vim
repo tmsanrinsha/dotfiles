@@ -449,6 +449,14 @@ NeoBundle 'tmsanrinsha/diffchar.vim'
 "     \   'disabled': !exists(g:eclipse_home),
 "     \}
 
+" arduino
+" ============================================================================
+NeoBundleLazy '4Evergreen4/vim-hardy', {
+\   'autoload': {
+\       'filetypes': ['arduino']
+\   },
+\}
+
 " PHP {{{1
 " ============================================================================
 NeoBundleLazy 'shawncplus/phpcomplete.vim', {
