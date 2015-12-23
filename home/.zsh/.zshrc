@@ -421,24 +421,26 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     # zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 # }}}
-# 履歴 {{{
+# history {{{1
 # =============================================================================
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-## ヒストリファイルにコマンドラインだけではなく実行時刻と実行時間も保存する。
+# ヒストリファイルにコマンドラインだけではなく実行時刻と実行時間も保存する。
 setopt extended_history
-## 同じコマンドラインを連続で実行した場合はヒストリに登録しない。
+# 同じコマンドラインを連続で実行した場合はヒストリに登録しない。
 setopt hist_ignore_dups
-## スペースで始まるコマンドラインはヒストリに追加しない。
+# スペースで始まるコマンドラインはヒストリに追加しない。
 setopt hist_ignore_space
-## すぐにヒストリファイルに追記する。
-#setopt inc_append_history
+# 余分な空白は詰めて記録
+setopt hist_reduce_blanks
+# zshプロセス間でヒストリを共有する。
+setopt share_history
+# # すぐにヒストリファイルに追記する。
+# setopt inc_append_history
 # share_historyをしていれば必要ない
 # http://www.ayu.ics.keio.ac.jp/~mukai/translate/zshoptions.html#SHARE_HISTORY
-## zshプロセス間でヒストリを共有する。
-setopt share_history
-# }}}
+
 # 端末のタイトルを変更する {{{1
 #==============================================================================
 set_terminal_title_string() {
