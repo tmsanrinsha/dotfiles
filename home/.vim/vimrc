@@ -1353,14 +1353,6 @@ function! s:configure_javascript()
     setlocal iskeyword+=.
 endfunction
 
-" JSON {{{2
-" ----------------------------------------------------------------------------
-" [Vim (with python) で json を整形 - Qiita](http://qiita.com/tomoemon/items/cc29b414a63e08cd4f89#comment-77832dedb32996ec7080)
-command! FormatJson
-\   :execute '%!python -m json.tool'
-\|  :execute '%!python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(r\"\\\\u[0-9a-f]{4}\", lambda x: chr(int(\"0x\" + x.group(0)[2:], 16)).encode(\"utf-8\"), sys.stdin.read()))"'
-\|  :setlocal filetype=json
-
 " Java {{{1
 " ----------------------------------------------------------------------------
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
