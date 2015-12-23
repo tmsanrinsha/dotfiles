@@ -1360,12 +1360,6 @@ autocmd MyVimrc FileType java
             \   setlocal foldmethod=syntax
             \|  nnoremap <buffer>  [[ [m
             \|  nnoremap <buffer>  ]] ]m
-"}}}
-" MySQL {{{
-" ----------------------------------------------------------------------------
-let g:sql_type_default = 'mysql'
-" ]}, [{ の移動先
-let g:ftplugin_sql_statements = 'create,alter'
 
 " Vim {{{2
 " ----------------------------------------------------------------------------
