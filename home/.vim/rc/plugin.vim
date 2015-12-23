@@ -1501,7 +1501,7 @@ if IsInstalled('tcomment_vim')
     let g:tcommentTextObjectInlineComment = ''
 endif
 
-" vim-jsbeautify {{{
+" vim-jsbeautify {{{1
 " ==============================================================================
 if IsInstalled('vim-jsbeautify')
     autocmd MyVimrc FileType javascript setlocal formatexpr=JsBeautify()
@@ -1513,17 +1513,6 @@ else
         \|  xnoremap <buffer> gq  :s/></>\r</ge<CR>gg=G
 endif
 
-if executable('xmllint')
-    " formatexprの方が優先されるので、消しておく必要がある
-    autocmd MyVimrc FileType xml
-    \   setlocal formatprg=xmllint\ --format\ --encode\ utf-8\ -
-    \|  setlocal formatexpr=
-else
-    autocmd MyVimrc FileType xml
-    \   nnoremap <buffer> gq :%s/></>\r</ge<CR>gg=G
-    \|  xnoremap <buffer> gq  :s/></>\r</ge<CR>gg=G
-endif
-"}}}
 " automatic {{{
 " ==============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20130812/1376314945
