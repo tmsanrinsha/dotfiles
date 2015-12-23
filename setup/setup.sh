@@ -158,7 +158,7 @@ fi
 
 if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
     mkdir -p ~/.vim/bundle
-    git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
 # Vimのバージョンチェック。正確には7.2.051以上
