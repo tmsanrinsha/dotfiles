@@ -42,8 +42,7 @@ function install() {
   local url=$1
   local file=`basename $url`
   if ! type $file 1>/dev/null 2>&1; then
-    $downloader $url > $HOME/bin/$file
-    chmod a+x $HOME/bin/$file
+    $downloader $url > $HOME/bin/$file && chmod a+x !#:3
   fi
 }
 
