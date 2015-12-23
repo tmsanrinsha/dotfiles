@@ -513,13 +513,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " " In default, completes from all buffers.
         " let g:neocomplete#same_filetypes._ = '_'
 
-        " previewしない
-        set completeopt-=preview
-        if MyHasPatch('patch-7.4.775')
-            " insert,selectしない
-            set completeopt+=noinsert,noselect
-        endif
-
         execute 'let g:'.s:neocom_.'enable_auto_close_preview=0'
         " fugitiveのバッファも閉じてしまうのでコメントアウト
         " autocmd MyVimrc InsertLeave *.* pclose
@@ -637,13 +630,36 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " g:neocomplete#enable_multibyte_completionをnon-0にして
         " g:neocomplete#keyword_patternsも変更する必要あり
 
-        " key mappings {{{
-        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
-        " execute 'inoremap <expr><C-l>  pumvisible() ? '.s:neocom.'#complete_common_string() : '.s:neocom.'#start_manual_complete()'
+        " key mappings {{{2
+        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
         execute 'inoremap <expr><C-l> ' . s:neocom.'#complete_common_string()'
         execute 'inoremap <expr><C-Space> '.s:neocom.'#start_manual_complete()'
         " execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : '.s:neocom. '#start_manual_complete()'
         " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
+        execute 'inoremap <expr><C-g>  pumvisible() ? '.s:neocom.'#undo_completion() : "\<C-g>"'
+
+        " <C-u>, <C-w>した文字列をアンドゥできるようにする
+        " http://vim-users.jp/2009/10/hack81/
+        " C-uでポップアップを消したいがうまくいかない
+        execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
+        execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
+
+        " previewしない
+        set completeopt-=preview
+        if MyHasPatch('patch-7.4.775')
+            " insert,selectしない
+            set completeopt+=noinsert,noselect
+        endif
+
+        " auto_selectするとsnippetの方でうまくいかない
+        " let g:neocomplete#enable_auto_select = 1
+        " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        " function! s:my_cr_function()
+        "     " For no inserting <CR> key.
+        "     return pumvisible() ? "\<C-y>" : "\<CR>"
+        "     " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+        " endfunction
 
         " " <TAB>: completion.
         " " ポップアップが出ていたら下を選択
@@ -657,26 +673,16 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
         "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
 
-        " <TAB>: completion.
-        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+        " ポップアップが出てない時に、カーソルの左側がスペースならばタブ、そうでない場合は手動補完
         " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
         " \   <SID>check_back_space() ? "\<TAB>" :
         " \   neocomplete#start_manual_complete()
-        " function! s:check_back_space() "{{{
+        " function! s:check_back_space()
         "     let col = col('.') - 1
         "     return !col || getline('.')[col - 1]  =~ '\s'
-        " endfunction"}}}
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        " endfunction
 
-        execute 'inoremap <expr><C-e>  pumvisible() ? '.s:neocom.'#cancel_popup() : "\<End>"'
-        " inoremap <expr><C-g><C-g> neocomplete#cancel_popup()
-        " <C-u>, <C-w>した文字列をアンドゥできるようにする
-        " http://vim-users.jp/2009/10/hack81/
-        " C-uでポップアップを消したいがうまくいかない
-        execute 'inoremap <expr><C-u>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
-        execute 'inoremap <expr><C-w>  pumvisible() ? '.s:neocom.'#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
-
-        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{2
+        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita {{{3
         " <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
         " if IsInstalled('vim-smartinput')
         "     call smartinput#map_to_trigger('i', '<Plug>(smartinput_BS)',
@@ -720,7 +726,6 @@ if IsInstalled('neocomplcache.vim') || IsInstalled('neocomplete.vim')
         " 補完候補が表示されている場合は確定。そうでない場合は改行
         " execute 'inoremap <expr><CR>  pumvisible() ? ' . s:neocom . '#close_popup() : "<CR>"'
 
-        " execute 'let g:'.s:neocom_.'enable_auto_select = 1'
         " endif
     endfunction
 endif
