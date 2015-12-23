@@ -1,6 +1,7 @@
-if exists('b:did_ftplugin_xml')
+if exists('b:did_my_ftplugin_xml')
   finish
 endif
+let b:did_my_ftplugin_xml = 1
 
 if executable('xmllint')
     setlocal formatprg=xmllint\ --format\ --encode\ utf-8\ -
