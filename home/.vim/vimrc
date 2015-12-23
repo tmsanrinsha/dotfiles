@@ -26,6 +26,8 @@ if has('win32')
     cd ~
 endif
 
+let s:dotfiles_home = $SRC_ROOT.'/github.com/tmsanrinsha/dotfiles/home'
+
 " vimrc全体で使うaugroup {{{1
 " ============================================================================
 " http://rhysd.hatenablog.com/entry/2012/12/19/001145
@@ -80,12 +82,8 @@ function! IsInstalled(plugin) " {{{
         return match(&runtimepath, a:plugin) >= 0
     endif
 endfunction " }}}
-" }}}
 
-call SourceRc('local_pre.vim')
-call SourceRc('bundle.vim')
-
-function! GetProjectDir() abort " {{{1
+function! GetProjectDir() abort " {{{
     if exists('b:vimfiler.current_dir')
         let l:buffer_dir = b:vimfiler.current_dir
     else
@@ -105,6 +103,17 @@ function! GetProjectDir() abort " {{{1
     " windowsでドライブのC:をC\:に変更する必要がある
     " let l:project_dir = escape(l:project_dir, ':')
 endfunction " }}}
+
+function! s:makelink() abort " {{{
+    let l:real_path = expand('%:p')
+    let l:symlink_path = substitute(l:real_path, s:dotfiles_home, $HOME, '')
+    call system('ln -s '.l:real_path.' '.l:symlink_path)
+endfunction " }}}
+
+command! Makelink call s:makelink()
+
+call SourceRc('local_pre.vim')
+call SourceRc('bundle.vim')
 
 " 基本設定 {{{1
 " ============================================================================
@@ -291,6 +300,8 @@ set formatoptions-=t
 set formatoptions-=c
 " o : Normal modeでoまたOを押したら、comment leaderを挿入する
 set formatoptions+=o
+
+set formatexpr=
 
 " mapping {{{
 " ------------------------------------------------------------------------------
@@ -1342,14 +1353,15 @@ function! s:configure_javascript()
     setlocal iskeyword+=.
 endfunction
 
-
+" JSON {{{2
+" ----------------------------------------------------------------------------
 " [Vim (with python) で json を整形 - Qiita](http://qiita.com/tomoemon/items/cc29b414a63e08cd4f89#comment-77832dedb32996ec7080)
 command! FormatJson
 \   :execute '%!python -m json.tool'
 \|  :execute '%!python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(r\"\\\\u[0-9a-f]{4}\", lambda x: chr(int(\"0x\" + x.group(0)[2:], 16)).encode(\"utf-8\"), sys.stdin.read()))"'
-\|  :set ft=javascript
-" }}}
-" Java {{{
+\|  :setlocal filetype=json
+
+" Java {{{1
 " ----------------------------------------------------------------------------
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
@@ -1372,11 +1384,10 @@ let g:vim_indent_cont = 0
 nnoremap [VIM] <Nop>
 nmap <Leader>v [VIM]
 
-let s:src_home = '$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home'
-execute 'nnoremap [VIM]e :<C-u>edit '.s:src_home.'/.vim/vimrc<CR>'
-execute 'nnoremap [VIM]E :<C-u>edit '.s:src_home.'/.vim/gvimrc<CR>'
-execute 'nnoremap [VIM]b :<C-u>edit '.s:src_home.'/.vim/rc/bundle.vim<CR>'
-execute 'nnoremap [VIM]p :<C-u>edit '.s:src_home.'/.vim/rc/plugin.vim<CR>'
+execute 'nnoremap [VIM]e :<C-u>edit '.s:dotfiles_home.'/.vim/vimrc<CR>'
+execute 'nnoremap [VIM]E :<C-u>edit '.s:dotfiles_home.'/.vim/gvimrc<CR>'
+execute 'nnoremap [VIM]b :<C-u>edit '.s:dotfiles_home.'/.vim/rc/bundle.vim<CR>'
+execute 'nnoremap [VIM]p :<C-u>edit '.s:dotfiles_home.'/.vim/rc/plugin.vim<CR>'
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
 " execute 'nnoremap [VIM]l :<C-u>edit '.substitute(system('readlink ~/.vim/rc/local.vim'),  "\<NL>", '', '').'<CR>'
 execute 'nnoremap [VIM]l :<C-u>edit '.resolve(expand('~/.vim/rc/local.vim')).'<CR>'
