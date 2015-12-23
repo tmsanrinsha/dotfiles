@@ -186,6 +186,15 @@ install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 install 'https://raw.githubusercontent.com/mla/ip2host/master/ip2host'
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 
+if ! which jq ; then
+    if [ $os = osx ]; then
+        url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
+    elif [ $os = linux ]; then
+        url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
+    fi
+    curl $url > ~/bin/jq && chmod a+x !#:3
+fi
+
 command_exists pt     || ghinst monochromegane/the_platinum_searcher
 command_exists jvgrep || ghinst mattn/jvgrep
 
