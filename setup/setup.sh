@@ -40,9 +40,16 @@ source $home/.zashenv
 
 function install() {
   local url=$1
-  local file=`basename $url`
+  local file
+  if [ -z "$2" ]; then
+      file=`basename $url`
+  else
+      file=$2
+  fi
+
   if ! type $file 1>/dev/null 2>&1; then
-    $downloader $url > $HOME/bin/$file && chmod a+x !#:3
+    $downloader $url > $HOME/bin/$file
+    chmod a+x $HOME/bin/$file
   fi
 }
 
@@ -150,22 +157,6 @@ ghq get -u Valodim/zsh-curl-completion
 # antigen selfupdate
 # antigen update
 
-# vim {{{1
-# ============================================================================
-if [[ `uname` = Darwin ]]; then
-    ln -fs ~/_gvimrc ~/.gvimrc
-fi
-
-if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
-    mkdir -p ~/.vim/bundle
-    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-fi
-
-# Vimのバージョンチェック。正確には7.2.051以上
-if [[ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
-    ~/.vim/bundle/neobundle.vim/bin/neoinstall
-fi
-
 # vimperator {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
@@ -181,19 +172,16 @@ fi
 
 # script {{{1
 # ============================================================================
-install 'https://raw.githubusercontent.com/fumiyas/home-commands/master/git-diff-normal'
 install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 install 'https://raw.githubusercontent.com/mla/ip2host/master/ip2host'
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 
-if ! which jq ; then
-    if [ $os = osx ]; then
-        url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
-    elif [ $os = linux ]; then
-        url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
-    fi
-    curl $url > ~/bin/jq && chmod a+x !#:3
+if [ $os = osx ]; then
+    url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
+elif [ $os = linux ]; then
+    url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
 fi
+install $url jq
 
 command_exists pt     || ghinst monochromegane/the_platinum_searcher
 command_exists jvgrep || ghinst mattn/jvgrep
@@ -250,18 +238,31 @@ if [[ `uname` = CYGWIN* ]]; then
 
 # Darwin {{{1
 # ============================================================================
-elif [[ `uname` = Darwin ]]; then
+elif [ $os = osx ]; then
     if [ ! -x ~/bin/rmtrash ];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
     fi
-    test -d ~/setting || mkdir ~/setting
-    # $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors > ~/setting/Solarized_Dark.itermcolors
-    # $downloader https://raw2.github.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Light.itermcolors > ~/setting/Solarized_Light.itermcolors
     if [ $brew -eq 1 ]; then
         cd $setup_dir
         ./brew.sh -b
     fi
+fi
+
+# vim {{{1
+# ============================================================================
+if [ $os = osx ]; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+fi
+
+if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
+    mkdir -p ~/.vim/bundle
+    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+fi
+
+# Vimのバージョンチェック。正確には7.2.051以上
+if [[ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
+    ~/.vim/bundle/neobundle.vim/bin/neoinstall
 fi
 
 # python {{{1
@@ -270,9 +271,6 @@ fi
 # pip3 install scipy
 # pip3 install matplotlib
 # pip3 install scikit-lern
-
-# R lang {{{1
-# ============================================================================
 
 # remote2local {{{1
 # ============================================================================
