@@ -1413,10 +1413,21 @@ if IsInstalled('vim-alignta')
     xnoremap [ALIGNTA]: :Alignta :<CR>
 endif
 " }}}
-" LeafCage/yankround.vim {{{1
+" LeafCage/yankround.vim :paste:yank: {{{1
 " ============================================================================
 nnoremap <C-p> gT
 nnoremap <C-n> gt
+
+nnoremap ]p p`[v`]=
+nnoremap ]P P`[v`]=
+xnoremap ]p p`[v`]=
+xnoremap ]P P`[v`]=
+
+" インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
+nnoremap ]gp p`[v`]=`]
+nnoremap ]gP P`[v`]=`]
+xnoremap ]gp p`[v`]=`]
+xnoremap ]gP P`[v`]=`]
 
 if IsInstalled('yankround.vim') && v:version >= 703
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'

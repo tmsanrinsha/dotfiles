@@ -406,6 +406,8 @@ nnoremap [h ?\vhttps\?://<CR>
 
 nnoremap ]p p`[v`]=
 nnoremap ]P P`[v`]=
+xnoremap ]p p`[v`]=
+xnoremap ]P P`[v`]=
 
 " インデントを考慮したペースト]p,]Pとペーストしたテキストの最後に行くペーストgp,gPを合わせたようなもの
 " nnoremap ]gp ]p`]j
