@@ -12,14 +12,16 @@ caption always "%{= wk} %-w%?%F%{=b kr}%:%{= kW}%? %n %t %{-}%+w"
 #caption always "%{= WY} %-w%?%F%{= mw}%:%{= kW}%? %n %t %{-}%+w"
 #hardstatus alwayslastline "%{=b GK} %H[%n]: %l %{.b} %Y/%m/%d %c:%s"
 
-escape ^Qq
+# シリアル通信のときに^Qのプリフィックスはダメらしい
+# escape ^Qq
 
 #bind l windowlist
 
 #256色対応
-defbce on 
-term xterm-256color
-termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
+# defbce on
+# term xterm-256color
+# term screen-256color
+# termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
 
 #-------------------------------------------------------------------------------
 # 文字エンコーディング
