@@ -30,12 +30,6 @@ else
     exit 1
 fi
 
-case "$(uname)" in
-    Linux)   os='linux'   ;;
-    Darwin)  os='osx'     ;;
-    CYGWIN*) os='cygwin'  ;;
-esac
-
 source $home/.zashenv
 
 function install() {

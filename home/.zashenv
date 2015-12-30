@@ -1,4 +1,13 @@
+# osの判定 {{{1
+# ============================================================================
+case "$(uname)" in
+    Linux)   os='linux'   ;;
+    Darwin)  os='osx'     ;;
+    CYGWIN*) os='cygwin'  ;;
+esac
+
 # コマンドの存在チェック {{{1
+# ============================================================================
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
 #      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
 function command_exists {
@@ -221,11 +230,16 @@ alias cdt='cd `git rev-parse --show-toplevel`'
 
 # tail {{{2
 # ----------------------------------------------------------------------------
-if [[ "$OSTYPE" == darwin* ]]; then
+if [ "$os" = osx ]; then
   alias taa='tail -f /var/log/apache2/access_log'
   alias tae='tail -f /var/log/apache2/error_log'
+elif [ "$os" = linux ]; then
+  alias taa='tail -f /var/log/httpd/access_log'
+  alias tae='tail -f /var/log/httpd/error_log'
 fi
-# }}}
+
+alias apache_check='apachectl configtest'
+alias apache_restart='sudo apachectl restart'
 
 alias cdg='ghq look'
 
