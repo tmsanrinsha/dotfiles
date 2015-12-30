@@ -3,12 +3,11 @@ set -ex
 
 ##
 # Usage:
-# bash <(curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-bv]
+# bash <(curl -kL https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-b]
 # or
-# bash <(wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-bv]
+# bash <(wget --no-check-certificate -O -  https://raw.github.com/tmsanrinsha/dotfiles/master/setup/installer.sh) [-b]
 # Option:
 #  -b: homebrewの更新を行う
-#  -v: neoinstallする
 
 export SRC_ROOT="$HOME/src"
 if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/dotfiles/.git ]; then
