@@ -715,7 +715,8 @@ NeoBundleLazy 't9md/vim-quickhl', {
 " [Vimエディタで線を描画する — 名無しのvim使い](http://nanasi.jp/articles/howto/editing/drawline.html#id4)
 NeoBundleLazy 'DrawIt', {
 \   'autoload': {
-\       'commands': 'DrawIt'
+\       'commands': 'DrawIt',
+\       'mappings': ';di',
 \   }
 \}
 
@@ -742,7 +743,13 @@ NeoBundleLazy 'Shougo/junkfile.vim', {
 " \   ]
 " \}
 " let g:org_agenda_files = ['~/org/*.org']
-" NeoBundle 'neilagabriel/vim-geeknote'
+NeoBundleLazy 'neilagabriel/vim-geeknote', {
+\   'autoload': {
+\       'commands': [
+\           'Geeknote'
+\       ]
+\   }
+\}
 " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
 "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
 " endif
