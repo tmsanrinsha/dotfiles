@@ -803,38 +803,6 @@ if IsInstalled('vital.vim')
     endfunction
 endif
 
-" vimdiff {{{1
-" ============================================================================
-set diffopt+=vertical
-nnoremap [VIMDIFF] <Nop>
-nmap <Leader>d [VIMDIFF]
-nnoremap <silent> [VIMDIFF]t :diffthis<CR>
-nnoremap <silent> [VIMDIFF]u :diffupdate<CR>
-nnoremap <silent> [VIMDIFF]o :diffoff<CR>
-nnoremap <silent> [VIMDIFF]T :windo diffthis<CR>
-nnoremap <silent> [VIMDIFF]O :windo diffoff<CR>
-nnoremap          [VIMDIFF]s :vertical diffsplit<space>
-nnoremap          [VIMDIFF]w :set diffopt+=iwhite<CR>
-nnoremap          [VIMDIFF]W :set diffopt-=iwhite<CR>
-
-" diffchar.vim {{{2
-" ----------------------------------------------------------------------------
-" vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
-" http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
-if IsInstalled('diffchar.vim')
-    let g:DiffUnit='Word3'
-    " vimdiffで起動した時にdiffcharを有効にする
-    if &diff
-        autocmd MyVimrc VimEnter * %SDChar
-    endif
-
-    " Gdiff使った時に自動的にdiffcharを有効にしたかったが、エラーが出るため断念
-    " autocmd MyVimrc BufEnter *
-    " \   if &diff |
-    " \       execute '%SDChar' |
-    " \   endif
-endif
-
 " ctags {{{1
 " ============================================================================
 if has('path_extra')

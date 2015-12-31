@@ -828,8 +828,8 @@ if IsInstalled('lexima.vim')
 
     call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
-    " Markdownのリストでなんにも書いてない場合に開業した場合はリストを消す
-    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<BS><BS><CR>', 'filetype': 'markdown'})
+    " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
+    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<C-u><CR>', 'filetype': 'markdown'})
 
     call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
     call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
@@ -1624,22 +1624,35 @@ endif
 
 " diff {{{1
 " ============================================================================
+set diffopt+=vertical
+nnoremap [VIMDIFF] <Nop>
+nmap [:space:]d [VIMDIFF]
+nnoremap [VIMDIFF]t :diffthis<CR>
+nnoremap [VIMDIFF]u :diffupdate<CR>
+nnoremap [VIMDIFF]o :diffoff<CR>
+nnoremap [VIMDIFF]T :windo diffthis<CR>
+nnoremap [VIMDIFF]O :windo diffoff<CR>
+nnoremap [VIMDIFF]s :vertical diffsplit<space>
+nnoremap [VIMDIFF]w :set diffopt+=iwhite<CR>
+nnoremap [VIMDIFF]W :set diffopt-=iwhite<CR>
+
 " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
+" ----------------------------------------------------------------------------
 " http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
 " https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
-let s:git_diff_normal="git-diff-normal"
+let s:git_diff_normal='git-diff-normal'
 " let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
 " gitのバージョンが1.7だと--diff-algorithmが使えなかった
-let s:git_diff_normal_opts=["--patience"]
+let s:git_diff_normal_opts=['--patience']
 
 function! GitDiffNormal()
     let args=[s:git_diff_normal]
-    if &diffopt =~ "iwhite"
-        call add(args, "--ignore-all-space")
+    if &diffopt =~# 'iwhite'
+        call add(args, '--ignore-all-space')
     endif
     call extend(args, s:git_diff_normal_opts)
     call extend(args, [v:fname_in, v:fname_new])
-    let cmd=join(args, " ") . ">" . v:fname_out
+    let cmd=join(args, ' ') . '>' . v:fname_out
     call system(cmd)
 endfunction
 
@@ -1651,6 +1664,23 @@ autocmd MyVimrc FilterWritePre *
 \|      let g:my_check_diff = 1
 \|  endif
 
+" diffchar.vim {{{2
+" ----------------------------------------------------------------------------
+" vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
+" http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
+if IsInstalled('diffchar.vim')
+    let g:DiffUnit='Word3'
+    " vimdiffで起動した時にdiffcharを有効にする
+    if &diff
+        autocmd MyVimrc VimEnter * %SDChar
+    endif
+
+    " Gdiff使った時に自動的にdiffcharを有効にしたかったが、エラーが出るため断念
+    " autocmd MyVimrc BufEnter *
+    " \   if &diff |
+    " \       execute '%SDChar' |
+    " \   endif
+endif
 " scrooloose/syntastic {{{1
 " ============================================================================
 if IsInstalled('syntastic')

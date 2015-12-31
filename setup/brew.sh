@@ -60,6 +60,8 @@ brew-install python
 brew-install r
 brew install reattach-to-user-namespace
 brew-install ruby
+brew-install screen
+brew-install ssh-copy-id
 brew-install tmux
 brew-install tree
 brew-install zsh
