@@ -1741,18 +1741,21 @@ let g:vim_json_syntax_conceal = 0
 
 " Python, jedi-vim {{{1
 " ============================================================================
-" pythonのsys.pathの設定 " {{{
+" pythonのsys.pathの設定 " {{{2
+" ----------------------------------------------------------------------------
 " [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
 " python2は$PYTHON_DLLを設定しなくてもうまくいく
-" if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
-"     let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
-" if filereadable('/usr/local/Frameworks/Python.framework/Python')
+" /usr/local/Frameworks/Python.framework/Python -> ../../Cellar/python/2.7.10_2/Frameworks/Python.framework/Python
+" とりあえずこう設定しておく
+let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
+" if filereadable('/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib')
+"     let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
+" elseif filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
+"     let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python'
+" elseif filereadable('/usr/local/Frameworks/Python.framework/Python')
 "     let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
 " endif
-" let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
-" let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
-" let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python'
-let $PYTHON_DLL = '/usr/local/Framewrks/Python.framework/Python'
+
 if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
     let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
 endif
@@ -1961,7 +1964,7 @@ if IsInstalled('vim-fugitive')
 
     " Gbrowse ではgit config --global web.browserの値は見てない
     " ~/.vim/bundle/vim-fugitive/plugin/fugitive.vim
-    if !has('gui_running')
+    if !has('gui_running') && $SSH_CLIENT != ''
         let g:netrw_browsex_viewer = 'rfbrowser'
     endif
 
@@ -2225,6 +2228,16 @@ if IsInstalled('junkfile.vim')
     nnoremap [:junk]o :JunkfileOpen<CR>
     nnoremap [:junk]f :JunkfileFiletype<CR>
     nnoremap [unite]fj :Unite junkfile<CR>
+endif
+
+" vim-geeknote {{{1
+" ============================================================================
+if IsInstalled('vim-geeknote')
+    let bundle = neobundle#get('vim-geeknote')
+
+    function! bundle.hooks.on_source(bundle)
+        call s:set_python_path()
+    endfunction
 endif
 
 " vimwiki {{{1

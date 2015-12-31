@@ -720,6 +720,21 @@ NeoBundleLazy 'DrawIt', {
 \   }
 \}
 
+NeoBundleLazy 'Shougo/junkfile.vim', {
+\   'autoload': {
+\       'commands': ['Junkfile', 'JunkfileFiletype'],
+\       'unite_sources': 'junkfile',
+\   }
+\}
+
+NeoBundleLazy 'neilagabriel/vim-geeknote', {
+\   'autoload': {
+\       'commands': [
+\           'Geeknote'
+\       ]
+\   }
+\}
+
 " NeoBundleLazy 'vimwiki/vimwiki', {
 " \   'autoload': {
 " \       'mappings': '<Plug>Vimwiki'
@@ -727,12 +742,6 @@ NeoBundleLazy 'DrawIt', {
 " \   'filetypes': ['vimwiki']
 " \}
 
-NeoBundleLazy 'Shougo/junkfile.vim', {
-\   'autoload': {
-\       'commands': ['Junkfile', 'JunkfileFiletype'],
-\       'unite_sources': 'junkfile',
-\   }
-\}
 " NeoBundleLazy 'glidenote/memolist.vim'
 " NeoBundleLazy 'fuenor/qfixhowm'
 " NeoBundle "osyo-manga/unite-qfixhowm"
@@ -743,13 +752,6 @@ NeoBundleLazy 'Shougo/junkfile.vim', {
 " \   ]
 " \}
 " let g:org_agenda_files = ['~/org/*.org']
-NeoBundleLazy 'neilagabriel/vim-geeknote', {
-\   'autoload': {
-\       'commands': [
-\           'Geeknote'
-\       ]
-\   }
-\}
 " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
 "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
 " endif
