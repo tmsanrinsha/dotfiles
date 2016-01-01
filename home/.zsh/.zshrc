@@ -639,11 +639,11 @@ if hash peco 2>/dev/null; then
     }
 
     # ghq {{{2
+    # ------------------------------------------------------------------------
     function peco_ghq () {
         # Gitリポジトリを.gitの更新時間でソートする
         local ghq_roots="$(git config --path --get-all ghq.root)"
         local selected_dir=$(ghq list --full-path | \
-            # xargs -I{} sh -c 'cd {} && git log --pretty=format:"%ad " --date=short -n 1 2>/dev/null && pwd' | \
             xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
             sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             sed 's/\/.git//' | \
