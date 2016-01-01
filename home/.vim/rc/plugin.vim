@@ -830,12 +830,78 @@ if IsInstalled('lexima.vim')
     " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
     inoremap <C-d> <Del>
 
-    " call lexima#add_rule({'char': '(', 'except': '\%#.\+', 'input_after': ')'})
+        " matchparisで設定したもの(「,」:（,）など)をルールに追加
+        for s:val in split(&matchpairs, ',')
+            let s:pair = split(s:val, ':')
+            execute "call lexima#add_rule({'char': '".s:pair[0]."', 'input_after': '". s:pair[1]."'})"
+            execute "call lexima#add_rule({'char': '".s:pair[1]."', 'at': '\\%#".s:pair[1]."', 'leave': 1})"
+            execute "call lexima#add_rule({'char': '<BS>', 'at': '".s:pair[0].'\%#'.s:pair[1]."', 'delete': 1})"
+        endfor
 
     call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
     " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
     call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<C-w><C-w><CR>', 'filetype': 'markdown'})
+
+        " Vim script {{{2
+        " --------------------------------------------------------------------
+        " Vim scriptで以下のようなインデントをする
+        " NeoBundleLazy "cohama/lexima.vim", {
+        " \   "autoload": {
+        " \       "insert": 1
+        " \   }
+        " \}
+        for s:val in ['{:}', '\[:\]']
+            let s:pair = split(s:val, ':')
+
+            " {\%#}
+            " ↓
+            " {
+            " \   \%%
+            " \}
+            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': '''.s:pair[0].'\%#'.s:pair[1].''', ''input'': ''<CR>\   '', ''input_after'': ''<CR>\'', ''filetype'': ''vim''})'
+            " \   {\%#}
+            " ^^^^ shiftwidthの倍数 - 1の長さ
+            " ↓
+            " \   {
+            " \       \%#
+            " \   }
+            let s:indent = &l:shiftwidth
+            " indent 5つ分まで設定
+            for s:i in range(1, 5)
+                let s:space_num = s:indent * s:i - 1
+                let s:space = ''
+                for s:j in range(s:space_num + s:indent)
+                    let s:space = s:space . ' '
+                endfor
+                let s:space_after = ''
+                for s:j in range(s:space_num)
+                    let s:space_after = s:space_after . ' '
+                endfor
+
+                execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*\\\s\{'.s:space_num.'\}.*'.s:pair[0].'\%#'.s:pair[1].''', ''input'': ''<CR>\'.s:space.''', ''input_after'': ''<CR>\'.s:space_after.''', ''filetype'': ''vim''})'
+            endfor
+        endfor
+
+        " \   {
+        " \       'hoge': 'fuga',\%#
+        " \   }
+        " ↓
+        " \   {
+        " \       'hoge': 'fuga',
+        " \       \%#
+        " \   }
+        let s:indent = &l:shiftwidth
+        " indent 5つ分まで設定
+        for s:i in range(1, 5)
+            let s:space_num = s:indent * s:i - 1
+            let s:space = ''
+            for s:j in range(s:space_num)
+                let s:space = s:space . ' '
+            endfor
+            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*\\\s\{'.s:space_num.'\}.*,\%#'', ''input'': ''<CR>\'.s:space.''', ''filetype'': ''vim''})'
+        endfor
+        " }}}
 
     call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
     call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
@@ -2343,6 +2409,7 @@ if IsInstalled('qfixhowm')
     endfunction
 endif
 " }}}
+
 if !has('vim_starting')
     " Call on_source hook when reloading .vimrc.
     " hookの設定より下に書かないとだめ
