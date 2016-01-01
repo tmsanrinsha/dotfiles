@@ -78,6 +78,12 @@ if IsInstalled('unite.vim')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
+    " Unite output:message {{{2
+    " ------------------------------------------------------------------------
+    " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
+    " :messagesの最後をunite.vimで表示する
+    nnoremap [unite]M :<C-u>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
+
     " unite.vim/directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
