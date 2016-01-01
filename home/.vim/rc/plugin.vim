@@ -334,7 +334,7 @@ endif
 if IsInstalled('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
-    let bundle = neobundle#get("unite-ghq")
+    let bundle = neobundle#get('unite-ghq')
     function! bundle.hooks.on_source(bundle)
         call unite#custom_default_action('source/ghq/directory', 'vimfiler')
     endfunction
