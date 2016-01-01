@@ -815,20 +815,20 @@ if IsInstalled('lexima.vim')
     " reloadble
     let bundle = neobundle#get('lexima.vim')
     function! bundle.hooks.on_source(bundle)
-    let g:lexima_no_default_rules = 1
-    call lexima#set_default_rules()
+        let g:lexima_no_default_rules = 1
+        call lexima#set_default_rules()
 
-    " <C-h>でlexima.vimの<BS>の動きをさせる
-    imap <C-h> <BS>
+        " <C-h>でlexima.vimの<BS>の動きをさせる
+        imap <C-h> <BS>
 
-    " <C-f>で右に移動
-    imap <C-f> <Right>
-    call lexima#add_rule({'char': '<Right>', 'leave': 1})
+        " <C-f>で右に移動
+        imap <C-f> <Right>
+        call lexima#add_rule({'char': '<Right>', 'leave': 1})
 
-    " dot repeatableな<C-d>。lexima.vimによって追加された文字以外は
-    " 消してくれないので、コメント
-    " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
-    inoremap <C-d> <Del>
+        " dot repeatableな<C-d>。lexima.vimによって追加された文字以外は
+        " 消してくれないので、コメント
+        " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
+        inoremap <C-d> <Del>
 
         " matchparisで設定したもの(「,」:（,）など)をルールに追加
         for s:val in split(&matchpairs, ',')
@@ -838,10 +838,10 @@ if IsInstalled('lexima.vim')
             execute "call lexima#add_rule({'char': '<BS>', 'at': '".s:pair[0].'\%#'.s:pair[1]."', 'delete': 1})"
         endfor
 
-    call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
+        call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
-    " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
-    call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<C-w><C-w><CR>', 'filetype': 'markdown'})
+        " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
+        call lexima#add_rule({'char': '<CR>', 'at': '^\s*\*\s*\%#',  'input': '<C-w><C-w><CR>', 'filetype': 'markdown'})
 
         " Vim script {{{2
         " --------------------------------------------------------------------
@@ -903,36 +903,36 @@ if IsInstalled('lexima.vim')
         endfor
         " }}}
 
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
-    call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
-    call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
+        call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
+        call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
+        call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
 
-    " ｛｛｛1などの入力
-    " call lexima#add_rule({'char': '{', 'at': '{{\%#}}', 'delete': 2})
-    call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3})
-    call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3})
-    call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3})
+        " ｛｛｛1などの入力
+        " call lexima#add_rule({'char': '{', 'at': '{{\%#}}', 'delete': 2})
+        call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3})
+        call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3})
+        call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3})
 
-    call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
+        call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
 
-    " <!-- | -->
-    call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
+        " <!-- | -->
+        call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
 
-    " call lexima#add_rule({'char': '=', 'input': ' = '})
-    " call lexima#add_rule({'char': '=', 'input': '=', 'syntax': 'vimSet'})
-    " call lexima#add_rule({'char': '+', 'input': ' + '})
-    " call lexima#add_rule({'char': '+', 'input': '+', 'syntax': 'vimOption'})
-    " call lexima#add_rule({'char': '-', 'input': ' - '})
-    " call lexima#add_rule({'char': '-', 'input': '-', 'syntax': 'vimSetEqual'})
-    " call lexima#add_rule({'char': '*', 'input': ' * '})
-    " call lexima#add_rule({'char': '/', 'input': ' / '})
-    " call lexima#add_rule({'char': '/', 'input': '/', 'syntax': ['String', 'shQuote']})
-    " call lexima#add_rule({'char': ',', 'input': ', '})
+        " call lexima#add_rule({'char': '=', 'input': ' = '})
+        " call lexima#add_rule({'char': '=', 'input': '=', 'syntax': 'vimSet'})
+        " call lexima#add_rule({'char': '+', 'input': ' + '})
+        " call lexima#add_rule({'char': '+', 'input': '+', 'syntax': 'vimOption'})
+        " call lexima#add_rule({'char': '-', 'input': ' - '})
+        " call lexima#add_rule({'char': '-', 'input': '-', 'syntax': 'vimSetEqual'})
+        " call lexima#add_rule({'char': '*', 'input': ' * '})
+        " call lexima#add_rule({'char': '/', 'input': ' / '})
+        " call lexima#add_rule({'char': '/', 'input': '/', 'syntax': ['String', 'shQuote']})
+        " call lexima#add_rule({'char': ',', 'input': ', '})
 
 
-    " neocomplete.vimとの連携
-    " imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
-    " execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+        " neocomplete.vimとの連携
+        " imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
+        " execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
 endfunction
 endif
 
