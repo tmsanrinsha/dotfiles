@@ -640,7 +640,7 @@ if hash peco 2>/dev/null; then
 
     # ghq {{{2
     # ------------------------------------------------------------------------
-    function peco_ghq () {
+    function peco_ghq-cd () {
         # Gitリポジトリを.gitの更新時間でソートする
         local ghq_roots="$(git config --path --get-all ghq.root)"
         local selected_dir=$(ghq list --full-path | \
@@ -653,8 +653,25 @@ if hash peco 2>/dev/null; then
             zle accept-line
         fi
     }
+    zle -N peco_ghq-cd
+    bindkey '^[g' peco_ghq-cd
+
+    function peco_ghq () {
+        # Gitリポジトリを.gitの更新時間でソートする
+        local ghq_roots="$(git config --path --get-all ghq.root)"
+        local selected_dir=$(ghq list --full-path | \
+            xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
+            sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
+            sed 's/\/.git//' | \
+            peco --prompt="cd-ghq >")
+        if [ -n "$selected_dir" ]; then
+            BUFFER="$LBUFFER $(ghq list --full-path | grep -E "/$selected_dir$")"
+            CURSOR=$#BUFFER
+        fi
+    }
     zle -N peco_ghq
-    bindkey '^[g' peco_ghq
+    bindkey '^xg' peco_ghq
+
 
     # grepしてvimで開く {{{2
     function peco-grep-vim () {
