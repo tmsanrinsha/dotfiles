@@ -556,10 +556,11 @@ NeoBundleLazy 'autowitch/hive.vim', {
 
 " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
 " forked from plasticboy/vim-markdown
-" 下のプラグインと組み合わせると色がつく
+" vim-markdown-quote-syntaxを使うと色がつく
+" rmdでも使いたいのでautoloadに設定する
 NeoBundleLazy 'rcmdnk/vim-markdown', {
 \   'name': 'rcmdnk_vim-markdown',
-\   'autoload': {'filetypes': ['markdown']},
+\   'autoload': {'filetypes': ['markdown', 'rmd']},
 \   'depends': [
 \       'godlygeek/tabular',
 \       'joker1007/vim-markdown-quote-syntax',

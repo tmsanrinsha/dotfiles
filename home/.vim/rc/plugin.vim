@@ -832,6 +832,7 @@ if IsInstalled('lexima.vim')
 
         " matchparisで設定したもの(「,」:（,）など)をルールに追加
         for s:val in split(&matchpairs, ',')
+            let s:val = escape(s:val, '[]')
             let s:pair = split(s:val, ':')
             execute "call lexima#add_rule({'char': '".s:pair[0]."', 'input_after': '". s:pair[1]."'})"
             execute "call lexima#add_rule({'char': '".s:pair[1]."', 'at': '\\%#".s:pair[1]."', 'leave': 1})"
@@ -993,13 +994,24 @@ if IsInstalled('vim-quickrun')
         \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
         \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
 
+        " R lang {{{2
+        " --------------------------------------------------------------------
+        let g:quickrun_config['rmd'] = {
+        \ 'command'                        : 'Rscript',
+        \ 'cmdopt'                         : '-e',
+        \ 'exec'                           : ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"'],
+        \ 'outputter'                      : 'quickfix',
+        \}
+
+        autocmd MyVimrc FileType rmd command! Preview execute '!open '.expand('%:p:r').'.html'
+
         " dot {{{2
         " --------------------------------------------------------------------
         let g:quickrun_config['dot'] = {
         \ 'hook/cd/directory'              : '%S:p:h',
         \ 'command'                        : 'dot',
         \ 'cmdopt'                         : '',
-        \ 'exec'                           : ['%c -Tpng %s -o %s:r.png', 'open %s:r.png'],
+        \ 'exec'                           : ['%c -Tpng %s -o %s:r.png', 'open -a Firefox %s:r.png'],
         \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#,%EError: %m,%C%m,%Z%m'
         \}
 
@@ -1198,17 +1210,30 @@ if IsInstalled('vim-watchdogs')
         \   'type': 'watchdogs_checker/php'
         \}
 
-        " sh {{{2
-        " ------------------------------------------------------------------------
-        " filetypeがshでも基本的にbashを使うので、bashでチェックする
-        let g:quickrun_config["sh/watchdogs_checker"] = {
-        \   "type": (executable("bash") ? "watchdogs_checker/bash" : "")
+        " R {{{2
+        " --------------------------------------------------------------------
+        " Rmd {{{3
+        let g:quickrun_config['rmd/watchdogs_checker'] = {
+        \   'type': 'watchdogs_checker/rmd'
         \}
 
-        let g:quickrun_config["watchdogs_checker/bash"] = {
-        \   "command":     "bash",
-        \   "exec":        "%c -n %o %s:p",
-        \   "errorformat": '%f:\ line\ %l:%m',
+        let g:quickrun_config['watchdogs_checker/rmd'] = {
+        \   'command': 'Rscript',
+        \   'cmdopt': '-e',
+        \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"'],
+        \}
+
+        " sh {{{2
+        " --------------------------------------------------------------------
+        " filetypeがshでも基本的にbashを使うので、bashでチェックする
+        let g:quickrun_config['sh/watchdogs_checker'] = {
+        \   'type': (executable('bash') ? 'watchdogs_checker/bash' : '')
+        \}
+
+        let g:quickrun_config['watchdogs_checker/bash'] = {
+        \   'command':     'bash',
+        \   'exec':        '%c -n %o %s:p',
+        \   'errorformat': '%f:\ line\ %l:%m',
         \}
 
         " sql {{{2
@@ -1956,8 +1981,8 @@ endif
 " ============================================================================
 autocmd MyVimrc FileType r
 \   nmap <buffer> <LocalLeader>ss <Plug>RSendLine
-\|  vmap <buffer> <LocalLeader>ss <Plug>RESendSelection<Esc>
-\|  imap <M-CR> <Esc><Plug>RSendLineo
+\ |  vmap <buffer> <LocalLeader>ss <Plug>RESendSelection<Esc>
+\ |  imap <M-CR> <Esc><Plug>RSendLineo
 
 " _で->などのマッピングをしない
 let vimrplugin_assign = 0

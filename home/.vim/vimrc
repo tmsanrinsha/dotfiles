@@ -399,7 +399,7 @@ inoremap <C-_> <C-o>u
 " [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
 nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>ji
 
-inoremap <silent><C-j> <C-o>o
+imap <silent><C-j> <End><CR>
 
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
