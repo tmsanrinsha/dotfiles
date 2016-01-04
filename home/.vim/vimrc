@@ -1190,21 +1190,6 @@ augroup MyVimrc
     endfunction
 augroup END
 
-" ftdetect {{{1
-" ==============================================================================
-autocmd MyVimrc BufRead sanrinsha*,qiita* setlocal filetype=markdown
-autocmd MyVimrc BufRead,BufNewFile *.md setlocal filetype=markdown
-" MySQLのEditorの設定
-" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-autocmd MyVimrc BufRead /var/tmp/sql* setlocal filetype=sql
-autocmd MyVimrc BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
-
-" *.htmlのファイルの1行目に<?phpがあるときにfiletypeをphpにする
-autocmd MyVimrc BufRead,BufNewFile *.html
-\   if getline(1) =~ '<?php'
-\|      setlocal filetype=php
-\|  endif
-
 " filetype {{{1
 " ============================================================================
 nnoremap [FILETYPE] <Nop>
@@ -1404,11 +1389,8 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
 " ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
 autocmd MyVimrc FileType gitcommit
     \  setlocal formatoptions<
-
-" tsv {{{2
-" ----------------------------------------------------------------------------
-autocmd MyVimrc BufRead,BufNewFile *.tsv setlocal noexpandtab
-"}}}
+" }}}
+" }}}
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif
