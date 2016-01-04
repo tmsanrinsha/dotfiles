@@ -2167,58 +2167,56 @@ endif
     " \       'readonly': '%2*%{&filetype=="help"?"":&readonly?"RO":""}%*',
     " \       'paste': '%{&paste?"PASTE":""}%R%H%W%q',
 let g:lightline = {
-    \   'colorscheme': 'my_powerline',
-    \   'active': {
-    \       'left': [
-    \           ['mode'],
-    \           ['flag_red'],
-    \           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
-    \       ],
-    \       'right': [
-    \           ['syntaxcheck', 'lineinfo'],
-    \           ['percent'],
-    \           ['fileformat', 'fileencoding', 'filetype']
-    \       ]
-    \   },
-    \   'component': {
-    \       'flag_red': '%{&paste?"PASTE":""}%R%W%<',
-    \       'flag': '%H%q',
-    \       'lineinfo': '%3l:%-2v',
-    \   },
-    \   'component_visible_condition': {
-    \       'flag': '(&filetype == "help" || &filetype == "qf")',
-    \   },
-    \   'component_function': {
-    \       'mode': 'lightline#mode',
-    \       'fugitive': 'MyFugitive',
-    \       'filename': 'MyFilename',
-    \       'fileformat': 'MyFileformat',
-    \       'filetype': 'MyFiletype',
-    \       'fileencoding': 'MyFileencoding',
-    \       'anzu': 'anzu#search_status',
-    \       'currenttag': 'MyCurrentTag',
-    \   },
-    \   'separator': { 'left': '', 'right': '' },
-    \   'subseparator': { 'left': '|', 'right': '|' },
-    \   'mode_map': {
-    \       'n' : 'N',
-    \       'i' : 'I',
-    \       'R' : 'R',
-    \       'v' : 'V',
-    \       'V' : 'VL',
-    \       'c' : 'C',
-    \       "\<C-v>": 'VB',
-    \       's' : 'S',
-    \       'S' : 'SL',
-    \       "\<C-s>": 'SB',
-    \       '?': '' }
-    \}
-    " \   'component_expand': {
-    " \       'syntaxcheck': 'qfstatusline#Update',
-    " \   },
-    " \   'component_type': {
-    " \       'syntaxcheck': 'error',
-    " \   },
+\   'colorscheme': 'my_powerline',
+\   'active': {
+\       'left': [
+\           ['mode'],
+\           ['flag_red'],
+\           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
+\       ],
+\       'right': [
+\           ['column', 'lineinfo'],
+\           ['percent'],
+\           ['fileformat', 'fileencoding', 'filetype']
+\       ]
+\   },
+\   'component': {
+\       'flag_red': '%{&paste?"PASTE":""}%R%W%<',
+\       'flag': '%H%q',
+\       'lineinfo': '%3l:%-2v',
+\   },
+\   'component_visible_condition': {
+\       'flag': '(&filetype == "help" || &filetype == "qf")',
+\   }
+\}
+
+let g:lightline['component_function'] = {
+\   'mode': 'lightline#mode',
+\   'fugitive': 'MyFugitive',
+\   'filename': 'MyFilename',
+\   'fileformat': 'MyFileformat',
+\   'filetype': 'MyFiletype',
+\   'fileencoding': 'MyFileencoding',
+\   'anzu': 'anzu#search_status',
+\   'currenttag': 'MyCurrentTag',
+\   'column': 'GetCurrentColumn',
+\}
+
+let g:lightline['separator'] = { 'left': '', 'right': '' }
+let g:lightline['subseparator'] = { 'left': '|', 'right': '|' }
+let g:lightline['mode_map']  = {
+\   'n' : 'N',
+\   'i' : 'I',
+\   'R' : 'R',
+\   'v' : 'V',
+\   'V' : 'VL',
+\   'c' : 'C',
+\   "\<C-v>": 'VB',
+\   's' : 'S',
+\   'S' : 'SL',
+\   "\<C-s>": 'SB',
+\   '?': ''
+\}
 
 " [vim-qfstatusline を作ってみた - mabulog](http://kazuomabuo.hatenablog.jp/entry/2014/06/11/211947) {{{
 " :WatchdogsRun後にlightline.vimを更新
@@ -2284,6 +2282,18 @@ endfunction
 function! MyCurrentTag()
   " return tagbar#currenttag('%s', '')
   return ''
+endfunction
+
+" [vimでCSVの特定カラムでハイライトを行う - Qiita](http://qiita.com/rita_cano_bika/items/e447c042e70327014609)
+" を参考にした
+function! GetCurrentColumn()
+    if &filetype ==# 'tsv'
+        return 'c'.(strlen(substitute(getline('.')[0:col('.')-1], '[^\t]', '', 'g')) + 1)
+    elseif &filetype ==# 'csv'
+        return 'c'.(strlen(substitute(getline('.')[0:col('.')-1], '[^,]', '', 'g')) + 1)
+    else
+        return ''
+    endif
 endfunction
 
 " vim-quickhl {{{1
