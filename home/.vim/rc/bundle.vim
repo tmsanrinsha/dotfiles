@@ -203,9 +203,9 @@ NeoBundle 'thinca/vim-quickrun', {
 \       'cohama/vim-hier',
 \       'dannyob/quickfixstatus',
 \       'KazuakiM/vim-qfsigns',
-\       'KazuakiM/vim-qfstatusline'
 \   ]
 \}
+" \       'KazuakiM/vim-qfstatusline'
 
 " syntax check, quickfix {{{1
 " ============================================================================
@@ -221,9 +221,9 @@ NeoBundleLazy 'osyo-manga/vim-watchdogs', {
 \       'cohama/vim-hier',
 \       'dannyob/quickfixstatus',
 \       'KazuakiM/vim-qfsigns',
-\       'KazuakiM/vim-qfstatusline'
 \   ]
 \}
+" \       'KazuakiM/vim-qfstatusline'
 
 " 現在のカーソル位置から見て次/前のquickfix/location listに飛ぶ
 " http://www.vim.org/scripts/script.php?script_id=4449

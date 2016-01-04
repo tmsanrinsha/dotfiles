@@ -87,11 +87,11 @@ if IsInstalled('unite.vim')
     " unite.vim/directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
-    nnoremap [unite]d<CR> :<C-u>Unite directory<CR>
-    nnoremap [unite]db :<C-u>Unite directory:$HOME/.vim/bundle<CR>
-    nnoremap [unite]dv :<C-u>Unite directory:$HOME/.vim<CR>
-    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
+    nnoremap [unite]dc :<C-u>Unite directory<CR>
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    nnoremap [unite]dv :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
+    nnoremap [unite]db :<C-u>Unite directory:$HOME/.vim/bundle<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
     " unite.vim/file {{{2
@@ -184,7 +184,7 @@ if IsInstalled('unite.vim')
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
     " カレントバッファのディレクトリ以下に対してgrep
-    nnoremap [unite]gb :<C-u>execute "Unite grep:".expand('%:p:h')<CR>
+    nnoremap [unite]g. :<C-u>execute "Unite grep:".expand('%:p:h')<CR>
     " 全バッファに対してgrep
     nnoremap [unite]gB :<C-u>Unite grep:$buffers<CR>
     " プロジェクト内のファイルに対してgrep
@@ -198,9 +198,11 @@ if IsInstalled('unite.vim')
             execute 'Unite '.opts.' grep:'.l:project_dir
         endif
     endfunction
-    nnoremap [unite]gs :<C-u>Unite grep:$SRC_ROOT<CR>
+
     nnoremap [unite]gd :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]gv :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]gV :<C-u>Unite grep:$VIM<CR>
+    nnoremap [unite]gb :<C-u>Unite grep:$HOME/.vim/bundle<CR>
     execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
     "}}}
 
@@ -971,11 +973,11 @@ if IsInstalled('vim-quickrun')
         \ 'hook/hier_update/priority_exit':            2,
         \ 'hook/qfsigns_update/enable_exit':           1,
         \ 'hook/qfsigns_update/priority_exit':         2,
-        \ 'hook/qfstatusline_update/enable_exit':      1,
-        \ 'hook/qfstatusline_update/priority_exit':    2,
         \ 'hook/quickfix_status_enable/enable_exit':   1,
         \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
+        " \ 'hook/qfstatusline_update/enable_exit':      1,
+        " \ 'hook/qfstatusline_update/priority_exit':    2,
 
         " PHP {{{2
         " --------------------------------------------------------------------
@@ -1103,11 +1105,11 @@ if IsInstalled('vim-watchdogs')
         \ 'hook/hier_update/priority_exit':            2,
         \ 'hook/qfsigns_update/enable_exit':           1,
         \ 'hook/qfsigns_update/priority_exit':         2,
-        \ 'hook/qfstatusline_update/enable_exit':      1,
-        \ 'hook/qfstatusline_update/priority_exit':    2,
         \ 'hook/quickfix_status_enable/enable_exit':   1,
         \ 'hook/quickfix_status_enable/priority_exit': 2,
         \}
+        " \ 'hook/qfstatusline_update/enable_exit':      1,
+        " \ 'hook/qfstatusline_update/priority_exit':    2,
 
         " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
         " watchdogsの場合は出力が無いので、これを1にしておくと
@@ -1218,6 +1220,7 @@ if IsInstalled('vim-watchdogs')
         \}
 
         let g:quickrun_config['watchdogs_checker/rmd'] = {
+        \   "hook/cd/directory": '%S:p:h',
         \   'command': 'Rscript',
         \   'cmdopt': '-e',
         \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"'],
@@ -2217,41 +2220,48 @@ let g:lightline = {
     " \       'syntaxcheck': 'error',
     " \   },
 
+" [vim-qfstatusline を作ってみた - mabulog](http://kazuomabuo.hatenablog.jp/entry/2014/06/11/211947) {{{
 " :WatchdogsRun後にlightline.vimを更新
-let g:Qfstatusline#UpdateCmd = function('lightline#update')
+" \       'right': [
+" \           ['syntaxcheck', 'lineinfo'],
+" \   'component_expand': {
+" \       'syntaxcheck': 'qfstatusline#Update',
+" \   },
+" \   'component_type': {
+" \       'syntaxcheck': 'error',
+" \   },
 
-" 資料
-" vim-qfstatusline を作ってみた - mabulog
-" http://kazuomabuo.hatenablog.jp/entry/2014/06/11/211947
+" let g:Qfstatusline#UpdateCmd = function('lightline#update')
+" }}}
 
 " 途中で色変更をするとInsert modeがおかしくなる
 " autocmd MyVimrc ColorScheme *
 "     \   hi User1 ctermfg=red guifg=red
 
 function! MyModified()
-  return &ft =~ 'help\|qf\|gitcommit\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  return &filetype =~# 'help\|qf\|gitcommit\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'RO' : ''
+  return &filetype !~? 'help\|vimfiler\|gundo' && &readonly ? 'RO' : ''
 endfunction
 
 function! MyFilename()
     return (
-    \   &ft == 'vimfiler' ? vimfiler#get_status_string() :
-    \   &ft == 'unite' ? unite#get_status_string() :
-    \   &ft == 'vimshell' ? vimshell#get_status_string() :
-    \   &ft == 'help' ? expand('%:t') :
-    \   &ft == 'qf' ? '' :
-    \   &ft == 'gitcommit' ? '' :
-    \   '' != expand('%:~:.') ? expand('%:~:.') : '[No Name]'
+    \   &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
+    \   &filetype ==# 'unite' ? unite#get_status_string() :
+    \   &filetype ==# 'vimshell' ? vimshell#get_status_string() :
+    \   &filetype ==# 'help' ? expand('%:t') :
+    \   &filetype ==# 'qf' ? '' :
+    \   &filetype ==# 'gitcommit' ? '' :
+    \   '' !=# expand('%:~:.') ? expand('%:~:.') : '[No Name]'
     \) .
-    \('' != MyModified() ? ' ' . MyModified() : '')
+    \('' !=# MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
   try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
       return fugitive#head()
     endif
   catch
@@ -2268,7 +2278,7 @@ function! MyFiletype()
 endfunction
 
 function! MyFileencoding()
-  return winwidth(0) > 50 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 50 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 function! MyCurrentTag()
