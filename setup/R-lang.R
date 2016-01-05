@@ -18,6 +18,7 @@ my_install("rmarkdown")
 my_install("dygraphs")
 my_install("data.table")
 my_install("DT")
+my_install('DiagrammeR')
 
 # # vimcom関連
 # devtools::install_github("jalvesaq/VimCom")

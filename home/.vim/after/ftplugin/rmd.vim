@@ -8,3 +8,5 @@ setlocal comments=b:*,b:+,b:-,b:1.
 
 " Automatically continue blockquote on line break
 setlocal comments+=bn:>
+
+command! Preview execute '!open '.expand('%:p:r').'.html'

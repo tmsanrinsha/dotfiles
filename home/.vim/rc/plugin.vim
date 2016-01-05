@@ -1009,8 +1009,6 @@ if IsInstalled('vim-quickrun')
         \ 'outputter'                      : 'quickfix',
         \}
 
-        autocmd MyVimrc FileType rmd command! Preview execute '!open '.expand('%:p:r').'.html'
-
         " dot {{{2
         " --------------------------------------------------------------------
         let g:quickrun_config['dot'] = {
