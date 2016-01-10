@@ -155,7 +155,7 @@ let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins"
 let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 " forcefocuscontentはタイミングが遅いのでやめる
 
-" copy.js {{{1
+" copy.js, link {{{1
 " ============================================================================
 " http://chroju89.hatenablog.jp/entry/2014/02/09/102914
 " titleないときどうにかしたい
@@ -166,6 +166,7 @@ liberator.globalVariables.copy_templates = [
     { label: 'n',         value: '%TITLE%\n%URL%'},
     { label: 'line',      value: '%TITLE% - %URL%'},
     { label: 'markdown',  value: '[%TITLE%](%URL%)'},
+    { label: 'textile',   value: '%TITLE%:%URL%'},
     { label: 'anchor',    value: '<a href="%URL%">%TITLE%</a>'},
     { label: 'selanchor', value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
 ];
@@ -177,6 +178,7 @@ nnoremap <Leader>yi :copy image<CR>
 nnoremap <Leader>yn :copy n<CR>
 nnoremap <Leader>yl :copy line<CR>
 nnoremap <Leader>ym :copy markdown<CR>
+nnoremap <Leader>yT :copy textile<CR>
 nnoremap <Leader>ya :copy anchor<CR>
 
 " feedsomekeys_3.js {{{1
