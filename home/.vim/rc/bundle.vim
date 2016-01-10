@@ -68,12 +68,12 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 " vital {{{1
 NeoBundle 'vim-jp/vital.vim'
-" NeoBundle 'osyo-manga/vital-coaster', {
-" \   'autoload': {
-" \       'mappings': ['<C-a>', '<C-x>']
-" \   },
-" \   'depends': ['vim-jp/vital.vim']
-" \}
+NeoBundleLazy 'osyo-manga/vital-coaster', {
+\   'autoload': {
+\       'mappings': ['<Plug>(my-increment)', '<Plug>(my-decriment)']
+\   },
+\   'depends': ['vim-jp/vital.vim']
+\}
 
 " unite {{{1
 " ============================================================================

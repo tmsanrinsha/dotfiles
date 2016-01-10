@@ -78,13 +78,17 @@ if IsInstalled('unite.vim')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
-    " Unite output:message {{{2
+    " Unite output {{{2
     " ------------------------------------------------------------------------
+    " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
     " :messagesの最後をunite.vimで表示する
-    nnoremap [unite]M :<C-u>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
+    nnoremap [unite]Om :<C-u>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
 
-    " unite.vim/directory {{{2
+    " Unite outputでruntimpathを出力する {{{3
+    nnoremap [unite]Or :<C-u>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
+
+    " Unite.vim directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]dc :<C-u>Unite directory<CR>
@@ -94,22 +98,8 @@ if IsInstalled('unite.vim')
     nnoremap [unite]db :<C-u>Unite directory:$HOME/.vim/bundle<CR>
     nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
 
-    " unite.vim/file {{{2
+    " Unite file(_rec) {{{2
     " ------------------------------------------------------------------------
-    " カレントディレクトリ以下のファイル
-    nnoremap [unite]fc :<C-u>Unite file_rec/async<CR>
-
-    " カレントバッファのディレクトリ以下のファイル
-    nnoremap [unite]fb :<C-u>call <SID>unite_file_buffer()<CR>
-    function! s:unite_file_buffer()
-        if &filetype ==# 'vimfiler'
-            normal gc
-        endif
-        let dir = expand('%:p:h')
-        " windowsでドライブのC:をC\:に変更する必要がある
-        execute 'Unite file_rec/async:' . escape(dir, ':')
-    endfunction
-
     " プロジェクトディレクトリ以下のファイル
     " こちらのコマンドだと、カレントディレクトリがあるプロジェクトディレクトリ以下
     " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
@@ -1387,41 +1377,43 @@ xmap ie <Plug>(textobj-entire-i)
 " xmap ix <Plug>(textobj-conflict-i)
 " omap ax <Plug>(textobj-conflict-a)
 " }}}
-" CTRL-A, CTRL-X {{{1
+" vital-coaster, CTRL-A, CTRL-X {{{1
 " ============================================================================
-" - の前に空白文字以外があれば <C-x> を、それ以外は <C-a> を呼ぶ {{{2
-" ----------------------------------------------------------------------------
-" Vm で特定の条件でのみ <C-a> でインクリメントしないようにする - Secret Garden(Instrumental)
-" http://secret-garden.hatenablog.com/entry/2015/05/14/180752)
-"
+" - の前に空白文字以外があれば <C-x> を、それ以外は <C-a> を呼ぶ
+" "Vim で特定の条件でのみ <C-a> でインクリメントしないようにする - Secret Garden(Instrumental":http://secret-garden.hatenablog.com/entry/2015/05/14/180752
 " -423  ←これは <C-a> される
 " d-423 ←これは <C-x> される
 
 if IsInstalled('vital-coaster')
-    nnoremap <expr> <C-a> <SID>increment('\S-\d\+', "\<C-x>")
-    nnoremap <expr> <C-x> <SID>decrement('\S-\d\+', "\<C-a>")
+    nmap <C-a> <Plug>(my-increment)
+    nmap <C-x> <Plug>(my-decriment)
 
-    let s:Buffer = vital#of('vital').import('Coaster.Buffer')
+    let bundle = neobundle#get('vital-coaster')
+    function! bundle.hooks.on_source(bundle)
+        nnoremap <expr> <Plug>(my-increment) <SID>increment('\S-\d\+', "\<C-x>")
+        nnoremap <expr> <Plug>(my-decriment) <SID>decrement('\S-\d\+', "\<C-a>")
+        let s:Buffer = vital#of('vital').import('Coaster.Buffer')
 
-    function! s:count(pattern, then, else)
-        let word = s:Buffer.get_text_from_pattern(a:pattern)
-        if word !=# ''
-            return a:then
-        else
-            return a:else
-        endif
-    endfunction
+        function! s:count(pattern, then, else)
+            let word = s:Buffer.get_text_from_pattern(a:pattern)
+            if word !=# ''
+                return a:then
+            else
+                return a:else
+            endif
+        endfunction
 
-    " 第一引数に <C-a> を無視するパターンを設定
-    " 第二引数に無視した場合の代替キーを設定
-    function! s:increment(ignore_pattern, ...)
-        let key = get(a:, 1, '')
-        return s:count(a:ignore_pattern, key, "\<C-a>")
-    endfunction
+        " 第一引数に <C-a> を無視するパターンを設定
+        " 第二引数に無視した場合の代替キーを設定
+        function! s:increment(ignore_pattern, ...)
+            let key = get(a:, 1, '')
+            return s:count(a:ignore_pattern, key, "\<C-a>")
+        endfunction
 
-    function! s:decrement(ignore_pattern, ...)
-        let key = get(a:, 1, '')
-        return s:count(a:ignore_pattern, key, "\<C-x>")
+        function! s:decrement(ignore_pattern, ...)
+            let key = get(a:, 1, '')
+            return s:count(a:ignore_pattern, key, "\<C-x>")
+        endfunction
     endfunction
 endif
 
