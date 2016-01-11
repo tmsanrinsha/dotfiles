@@ -660,7 +660,7 @@ NeoBundleLazy 'mattn/gist-vim', {
 NeoBundleLazy 'tyru/open-browser.vim', {
 \   'autoload': {
 \       'mappings': '<Plug>(openbrowser-',
-\       'functions': 'openbrowser#search'
+\       'functions': ['openbrowser#search', 'OpenBrowser']
 \   }
 \}
 
