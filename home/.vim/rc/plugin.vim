@@ -2391,8 +2391,8 @@ if IsInstalled('memolist.vim')
         let g:memolist_unite = 1
     endfunction
 endif
-" }}}
-" vimrepress {{{
+
+" vimrepress {{{1
 " ============================================================================
 if IsInstalled('vimrepress')
     " call neobundle#config('vimrepress', {

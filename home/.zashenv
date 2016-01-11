@@ -161,6 +161,8 @@ fi
 alias vi='vim'
 alias view='vim -R' # readonlyで開く
 alias vis="vim -S ~/.cache/vim/session.vim"
+# 最小限の構成
+alias vimm='vim -N -U NONE -i NONE --noplugin'
 alias vsh="vim -c 'VimShell'"
 alias vf="vim -c 'VimFiler'"
 alias neobundle_last_updaate_list="find ~/.vim/bundle -type d -maxdepth 1 -mindepth 1 ! -name .neobundle | xargs -I{} sh -c 'cd {} && git log --pretty=format:\"%ad \" --date=short -n 1 && pwd' | sort"

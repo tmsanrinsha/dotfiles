@@ -35,7 +35,7 @@ function func_phpunit
         dir="${dir%/*}"
     done
 
-    php -d open_basedir= $cmd $@
+    php -d open_basedir= $cmd $@ | cat
     return ${PIPESTATUS[0]}
 }
 
