@@ -335,7 +335,6 @@ endif
 " コメント操作
 " NeoBundle "tyru/caw.vim"
 " NeoBundle "tpope/vim-commentary"
-" NeoBundle "tomtom/tcomment_vim"
 NeoBundleLazy "tomtom/tcomment_vim", {
 \   'autoload': {
 \       'mappings': ['<Plug>TComment_', 'gc'],
