@@ -753,7 +753,9 @@ nnoremap [:space:]yd :let @* = expand('%:p:h')<CR>
 " copy file name
 nnoremap [:space:]yf :let @* = expand("%:t")<CR>
 
-" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する {{{2
+" Rename {{{2
+" ----------------------------------------------------------------------------
+" Vim-users.jp - Hack #17: Vimを終了することなく編集中ファイルのファイル名を変更する
 " http://vim-users.jp/2009/05/hack17/
 " command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 " 上のコマンドだとパーミッションは引き継がれないので、mvで処理するようにする。
@@ -764,6 +766,16 @@ function! s:move(src, dest)
     bdelete #
 endfunction
 
+" Resolve {{{2
+" ----------------------------------------------------------------------------
+" リンクの実体で開き直す
+command! Resolve call s:resolve_edit()
+function! s:resolve_edit() abort
+    let l:file = resolve(expand('%'))
+    new
+    bwipeout #
+    execute 'edit '.l:file
+endfunction
 
 " Vim-users.jp - Hack #202: 自動的にディレクトリを作成する <http://vim-users.jp/2011/02/hack202/> {{{2
 autocmd MyVimrc BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
