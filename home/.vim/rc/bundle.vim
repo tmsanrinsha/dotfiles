@@ -469,7 +469,6 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
 "     \   'autoload': {'filetypes': 'php'}
 "     \}
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
-NeoBundle 'stephpy/vim-php-cs-fixer'
 NeoBundleLazy 'joonty/vdebug', {
 \   'autoload': {
 \       'filetypes': ['php']
