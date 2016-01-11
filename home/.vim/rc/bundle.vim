@@ -595,7 +595,8 @@ NeoBundleLazy 'zaiste/tmux.vim', {
 " ============================================================================
 " http://qiita.com/rbtnn/items/89c78baf3556e33c880f
 NeoBundleLazy 'rbtnn/vimconsole.vim', {'autoload': {'commands': 'VimConsoleToggle'}}
-NeoBundleLazy 'syngan/vim-vimlint'
+NeoBundle 'thinca/vim-prettyprint'
+" NeoBundleLazy 'syngan/vim-vimlint'
 " NeoBundle 'dsummersl/vimunit'
 NeoBundleLazy 'ynkdir/vim-vimlparser', {'autoload': {'filetypes': ['vim']}}
 NeoBundleLazy 'kannokanno/vim-helpnew', {
