@@ -106,7 +106,7 @@ endfunction " }}}
 
 function! s:makelink() abort " {{{
     let l:real_path = expand('%:p')
-    let l:symlink_path = substitute(l:real_path, s:dotfiles_home, $HOME, '')
+    let l:symlink_path = substitute(l:real_path, '.*/home', $HOME, '')
     call system('ln -s '.l:real_path.' '.l:symlink_path)
 endfunction " }}}
 
