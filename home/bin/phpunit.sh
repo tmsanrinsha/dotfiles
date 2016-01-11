@@ -18,16 +18,17 @@ function func_phpunit
     done
 
     if [ -z "$cmd" ]; then
+        echo 'command not found: phpunit'
         return 1
     fi
 
     dir="${PWD}"
     while [ -n "${dir}" ]; do
         for testdir in "tests" "test" "" ; do
-            for xml in "phpunit.xml.dist" "phpunit.xml"; do
+            for xml in "phpunit.xml" "phpunit.xml.dist"; do
                 if [ -f "${dir}/${testdir}/${xml}" ]; then
                     cmd="${cmd} --configuration=${dir}/${testdir}/${xml}"
-                    break 2
+                    break 3
                 fi
             done
         done
