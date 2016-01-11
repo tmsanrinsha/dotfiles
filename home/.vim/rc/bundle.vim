@@ -753,6 +753,16 @@ NeoBundleLazy 'neilagabriel/vim-geeknote', {
 " \   ]
 " \}
 " let g:org_agenda_files = ['~/org/*.org']
+
+" NeoBundle 'joker1007/vim-metarw-qiita'
+" NeoBundle 'kana/vim-metarw'
+NeoBundleLazy 'mattn/qiita-vim', {
+\   'autoload': {
+\       'command': ['Qiita'],
+\       'unite_sources': ['qiita']
+\   }
+\}
+
 " if executable('hg') " external_commandsの設定だけだと毎回チェックがかかる
 "     NeoBundleLazy 'https://bitbucket.org/pentie/vimrepress'
 " endif
