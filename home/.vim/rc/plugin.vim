@@ -933,6 +933,14 @@ if IsInstalled('lexima.vim')
 endfunction
 endif
 
+" thinca/vim-template {{{1
+" ============================================================================
+autocmd MyVimrc User plugin-template-loaded
+\   if search('<+CURSOR+>')
+\ |     execute 'normal! "_da>'
+\ |     startinsert
+\ | endif
+
 " vim-quickrun {{{1
 " ============================================================================
 if IsInstalled('vim-quickrun')

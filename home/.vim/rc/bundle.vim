@@ -174,12 +174,14 @@ NeoBundleLazy "Shougo/neocomplcache.vim", {
 "     NeoBundle "Valloric/YouCompleteMe"
 " endif
 
-"" スニペット補完 {{{2
-
 " 閉じ括弧などの対応するものの補完 {{{2
 " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
 NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
-
+" }}}
+" }}}
+" templete {{{1
+" ============================================================================
+NeoBundle 'thinca/vim-template'
 " quickrun {{{1
 " ============================================================================
 " NeoBundleLazy 'thinca/vim-quickrun', {
