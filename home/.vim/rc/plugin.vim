@@ -944,8 +944,8 @@ autocmd MyVimrc User plugin-template-loaded
 " vim-quickrun {{{1
 " ============================================================================
 if IsInstalled('vim-quickrun')
-    nnoremap <Leader>r :QuickRun -mode n<CR>
-    xnoremap <Leader>r :QuickRun -mode v<CR>
+    nnoremap <Leader>r<CR> :QuickRun -mode n<CR>
+    xnoremap <Leader>r<CR> :QuickRun -mode v<CR>
 
     " let bundle = neobundle#get('vim-quickrun')
     " function! bundle.hooks.on_source(bundle)
