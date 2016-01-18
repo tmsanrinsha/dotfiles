@@ -47,13 +47,18 @@ let g:quickrun_config['php.phpunit'] = {
 \ 'hook/cd/directory'              : '%S:p:h',
 \ 'command'                        : 'phpunit.sh',
 \ 'cmdopt'                         : '',
-\ 'exec'                           : '%c -d open_basedir= %o %s',
+\ 'exec'                           : '%c %o %s',
 \ 'outputter/quickfix/errorformat' : '%f:%l,%m in %f on line %l',
 \}
 
+let g:quickrun_config['sudo_phpunit'] = deepcopy(g:quickrun_config['php.phpunit'])
+let g:quickrun_config['sudo_phpunit']['exec'] = 'echo %{GetPassword()} | sudo -S %c %o %s'
+
 autocmd MyVimrc FileType php.phpunit
-\   nnoremap <buffer> <Leader>rr :<C-u>QuickRun -mode n<CR>
-\ | nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
+\   nnoremap <buffer> <Leader>r<CR> :<C-u>QuickRun -mode n<CR>
+\|  nnoremap <buffer> <Leader>RR :<C-u>QuickRun -type sudo_phpunit -mode n<CR>
+\|  nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
+\|  nnoremap <buffer> <Leader>Rm :<C-u>execute 'QuickRun -type sudo_phpunit -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
 
 if neobundle#is_installed('phpcomplete-extended') &&
 \   phpcomplete_extended#is_phpcomplete_extended_project()

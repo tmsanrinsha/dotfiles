@@ -82,8 +82,7 @@ function! IsInstalled(plugin) " {{{
         return match(&runtimepath, a:plugin) >= 0
     endif
 endfunction " }}}
-
-function! GetProjectDir() abort " {{{
+function! GetProjectDir() abort " {{{2
     if exists('b:vimfiler.current_dir')
         let l:buffer_dir = b:vimfiler.current_dir
     else
@@ -102,15 +101,21 @@ function! GetProjectDir() abort " {{{
     endif
     " windowsでドライブのC:をC\:に変更する必要がある
     " let l:project_dir = escape(l:project_dir, ':')
-endfunction " }}}
+endfunction
 
+function! GetPassword() abort
+    if !exists('g:password')
+        let g:password = inputsecret('password: ')
+    endif
+    return g:password
+endfunction
+
+command! Makelink call s:makelink() " {{{2
 function! s:makelink() abort " {{{
     let l:real_path = expand('%:p')
     let l:symlink_path = substitute(l:real_path, '.*/home', $HOME, '')
     call system('ln -s '.l:real_path.' '.l:symlink_path)
 endfunction " }}}
-
-command! Makelink call s:makelink()
 
 call SourceRc('local_pre.vim')
 call SourceRc('bundle.vim')
@@ -943,7 +948,7 @@ autocmd MyVimrc FileType qf
 " これをやるとneocomlcacheの補完時にquickfix winodow（中身はtags）が開くのでコメントアウト
 " autocmd MyVimrc QuickfixCmdPost * if !empty(getqflist()) | botright cwindow | botright lwindow | endif
 
-" quickfixの高さを最初にする {{{2
+" quickfixの高さを最小にする {{{2
 " ----------------------------------------------------------------------------
 " Automatically fitting a quickfix window height - Vim Tips Wiki
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
