@@ -56,7 +56,7 @@ let g:quickrun_config['sudo_phpunit']['exec'] = 'echo %{GetPassword()} | sudo -S
 
 autocmd MyVimrc FileType php.phpunit
 \   nnoremap <buffer> <Leader>r<CR> :<C-u>QuickRun -mode n<CR>
-\|  nnoremap <buffer> <Leader>RR :<C-u>QuickRun -type sudo_phpunit -mode n<CR>
+\|  nnoremap <buffer> <Leader>R<CR> :<C-u>QuickRun -type sudo_phpunit -mode n<CR>
 \|  nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
 \|  nnoremap <buffer> <Leader>Rm :<C-u>execute 'QuickRun -type sudo_phpunit -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
 
