@@ -246,6 +246,7 @@ alias apache_restart='sudo apachectl restart'
 alias cdg='ghq look'
 
 alias phpunit='phpunit.sh --colors'
+alias php-cs-fixer='php-cs-fixer.sh'
 
 # svnとtreeの文字化け対策
 alias lcc="export LC_CTYPE='C'"
