@@ -14,3 +14,7 @@ R:
 	R --vanilla --slave < $(dir $(realpath Makefile))../setup/R-lang.R
 
 endif
+
+.PHONY: php
+php:
+	$(dir $(realpath Makefile))../setup/php.sh
