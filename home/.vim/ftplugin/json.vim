@@ -5,6 +5,7 @@ if exists('b:did_my_ftplugin_json')
 endif
 let b:did_my_ftplugin_json = 1
 
+setlocal formatexpr=
 setlocal formatprg=jq\ .
 " [Vim (with python) で json を整形 - Qiita](http://qiita.com/tomoemon/items/cc29b414a63e08cd4f89#comment-77832dedb32996ec7080)
 command! FormatJson
