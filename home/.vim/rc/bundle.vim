@@ -687,7 +687,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 "     \}
 
 " ステータスラインをカスタマイズ
-" NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'itchyny/lightline.vim', {
 \   'depends': [
 \       'tpope/vim-fugitive',
@@ -699,6 +698,12 @@ NeoBundle 'itchyny/lightline.vim', {
 " NeoBundle 'luochen1990/rainbow'
 NeoBundleLazy 't9md/vim-quickhl', {
 \   'autoload': {'mappings': '<Plug>(quickhl-'}
+\}
+
+NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
+\   'autoload': {
+\       'commands': ['AnsiEsc']
+\   }
 \}
 
 " CSS
@@ -759,7 +764,7 @@ NeoBundleLazy 'neilagabriel/vim-geeknote', {
 " NeoBundle 'kana/vim-metarw'
 NeoBundleLazy 'mattn/qiita-vim', {
 \   'autoload': {
-\       'command': ['Qiita'],
+\       'commands': ['Qiita'],
 \       'unite_sources': ['qiita']
 \   }
 \}

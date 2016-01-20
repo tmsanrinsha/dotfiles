@@ -2324,6 +2324,15 @@ xmap [:space:]m <Plug>(quickhl-manual-this)
 nmap [:space:]M <Plug>(quickhl-manual-reset)
 xmap [:space:]M <Plug>(quickhl-manual-reset)
 
+" vim-scripts/AnsiEsc.vim {{{1
+" ============================================================================
+autocmd MyVimrc FileType quickrun AnsiEsc
+autocmd MyVimrc FileType qf call s:call_ansi_esc()
+function! s:call_ansi_esc() abort
+    AnsiEsc
+    runtime syntax/qf.vim
+endfunction
+
 " rainbow {{{1
 " ============================================================================
 if IsInstalled("rainbow")
