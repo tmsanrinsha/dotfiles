@@ -136,7 +136,11 @@ NeoBundleLazy 'oplatek/Conque-Shell', {
 \   }
 \}
 " endif
-NeoBundle 'Shougo/vimfiler.vim'
+NeoBundleLazy 'Shougo/vimfiler.vim', {
+\   'autoload': {
+\       'command': ['VimFiler', 'VimFilerBufferDir', 'VimFilerCurrentDir', 'VimFilerExplorer']
+\   }
+\}
 
 " 補完・入力補助 {{{1
 " ============================================================================
@@ -483,9 +487,21 @@ NeoBundleLazy 'mattn/emmet-vim', {'autoload': {'filetypes': ['html', 'php']}}
 
 " JavaScript {{{1
 " ============================================================================
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'nono/jquery.vim'
+NeoBundleLazy 'pangloss/vim-javascript', {
+\   'autoload': {
+\       'filetypes': ['javascript', 'html', 'php']
+\   }
+\}
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+\   'autoload': {
+\       'filetypes': ['javascript', 'html', 'php']
+\   }
+\}
+NeoBundleLazy 'nono/jquery.vim', {
+\   'autoload': {
+\       'filetypes': ['javascript', 'html', 'php']
+\   }
+\}
 " JavaScript, CSS, HTMLの整形
 NeoBundleLazy 'maksimr/vim-jsbeautify', {
 \   'autoload': {'filetypes': ['javascript', 'css', 'html']},
