@@ -120,6 +120,10 @@ bg_red=$'\e'"[41m"
 
 PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
 %0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
+
+# %?: 直前のコマンドの終了ステータスコード
+# [zshの設定 - wasabi0522's blog](http://aircastle.hatenablog.com/entry/20080428/1209313162)
+
 # リポジトリの情報を表示
 test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
 
@@ -345,6 +349,13 @@ dabbrev-complete () {
 
 zle -C dabbrev-complete complete-word dabbrev-complete
 bindkey '^o' dabbrev-complete
+
+## file completion {{{2
+complete_files () {
+    compadd - $PREFIX*
+}
+zle -C complete-files complete-word complete_files
+bindkey '^x^f' complete-files
 
 # site-functionsのリロード {{{2
 rsf() {
