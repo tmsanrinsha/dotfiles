@@ -146,6 +146,8 @@ if [ -f ~/.nvm/nvm.sh ]; then
 fi
 # }}}
 
+# ssh agent {{{1
+# ============================================================================
 # if [[ `hostname` == *ua.sakura.ne.jp ]]; then
 #     export PACKAGESITE=ftp://ftp.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-8-stable/Latest/
 #
@@ -168,7 +170,13 @@ fi
 #     fi
 # fi
 
-# .zashrc.cygwin {{{
+if which pyenv 1>/dev/null 2>&1; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    pathmunge "$PYENV_ROOT/bin"
+    eval "$(pyenv init -)"
+fi
+
+# .zashrc.cygwin {{{1
 if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
     . ~/.zashrc.cygwin
 fi
