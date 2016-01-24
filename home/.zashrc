@@ -145,7 +145,6 @@ if [ -f ~/.nvm/nvm.sh ]; then
     nvm alias default v0.6.11 > /dev/null
 fi
 # }}}
-
 # ssh agent {{{1
 # ============================================================================
 # if [[ `hostname` == *ua.sakura.ne.jp ]]; then
@@ -181,7 +180,6 @@ if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
     . ~/.zashrc.cygwin
 fi
 # }}}
-
 # .zashrc.local {{{
 if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
