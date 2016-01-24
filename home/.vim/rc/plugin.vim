@@ -37,32 +37,11 @@ if IsInstalled('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    call unite#custom#profile('default', 'context', {
-    \   'start_insert': 1,
-    \   'direction': 'topleft',
-    \   'winheight': 10,
-    \   'auto_resize': 1,
-    \   'prompt': '> ',
-    \ })
-
     " uniteの選択のカラーをPmenuSelにする。uniteバッファ以外もCursorLineの色がPmenuSelになってしまう
     " augroup MyVimrc
     "     autocmd Filetype unite hi! link CursorLine PmenuSel
     "     autocmd BufLeave \[unite\]* highlight! link CursorLine NONE
     " augroup END
-
-    call unite#custom_default_action('directory' , 'vimfiler')
-    " vimfiler上ではvimfilerを増やさず、移動するだけ
-    " autocmd MyVimrc FileType vimfiler
-    " \   call unite#custom_default_action('directory', 'lcd')
-
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-
-
-    " dでファイルの削除
-    call unite#custom#alias('file', 'delete', 'vimfiler__delete')
-    call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
 
     " uniteウィンドウを閉じる
     nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
@@ -71,15 +50,16 @@ if IsInstalled('unite.vim')
     " バッファ
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 
-    " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
-    " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
-    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap<CR>
-
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-u>Unite line<CR>
 
     " Unite output {{{2
     " ------------------------------------------------------------------------
+    " Unite output:map
+    " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
+    " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
+    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=verbose<CR>
+
     " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
     " :messagesの最後をunite.vimで表示する
@@ -120,57 +100,12 @@ if IsInstalled('unite.vim')
     nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
-    " memo {{{3
-    " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
-    if !exists('g:memo_directory')
-        let g:memo_directory = expand('~/Dropbox/memo/doc')
-    endif
-    let g:unite_source_alias_aliases = {
-    \   'memo' : {
-    \       'source' : 'file_rec/async',
-    \       'args' : g:memo_directory,
-    \   },
-    \}
-    call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
-
+    " unite memo {{{2
+    " ------------------------------------------------------------------------
     nnoremap [unite]fM :<C-u>Unite memo<CR>
 
-    " unite-grep {{{2
+    " map unite grep {{{2
     " ------------------------------------------------------------------------
-    " :h unite-source-grep
-    " grepの結果のファイル名を短くするのはこの辺を見ればできるかも
-    " :h unite#custom#profile()
-    " [:Unite file でどこにいるのかわからなくなる問題を解決する - basyura's blog](http://blog.basyura.org/entry/2013/05/08/210536)
-    if executable('ag')
-        " Use ag in unite grep source.
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_default_opts =
-        \ '-f --vimgrep --hidden --ignore ' .
-        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-        let g:unite_source_grep_recursive_opt = ''
-    elseif executable('pt')
-        " ptは複数PATH指定ができない。
-        " ptの文字コードチェックは512byteまで。
-        let g:unite_source_grep_command = 'pt'
-        let g:unite_source_grep_default_opts = '-e -S --nogroup --nocolor'
-        let g:unite_source_grep_recursive_opt = ''
-        let g:unite_source_grep_encoding = 'utf-8'
-    elseif executable('grep')
-        let g:unite_source_grep_command = 'grep'
-        let g:unite_source_grep_default_opts = '-inHE'
-        let g:unite_source_grep_recursive_opt = '-r'
-    elseif executable('jvgrep')
-        " jvgrepは遅い
-        let g:unite_source_grep_command = 'jvgrep'
-        let g:unite_source_grep_default_opts = '--color=never -i'
-        let g:unite_source_grep_recursive_opt = '-R'
-    endif
-
-    let g:unite_source_grep_max_candidates = 1000
-    " Set "-no-quit" automatically in grep unite source.
-    call unite#custom#profile('source/grep', 'context',
-        \ {'no_quit' : 1})
-
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
     " カレントバッファのディレクトリ以下に対してgrep
@@ -193,7 +128,6 @@ if IsInstalled('unite.vim')
     nnoremap [unite]gv :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]gV :<C-u>Unite grep:$VIM<CR>
     nnoremap [unite]gb :<C-u>Unite grep:$HOME/.vim/bundle<CR>
-    execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
     "}}}
 
     "レジスタ一覧
@@ -203,60 +137,154 @@ if IsInstalled('unite.vim')
     nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
     " ブックマーク
     nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
+    let bundle = neobundle#get('unite.vim')
+    function! bundle.hooks.on_source(bundle)
+        call unite#custom#profile('default', 'context', {
+        \   'start_insert': 1,
+        \   'direction': 'topleft',
+        \   'winheight': 10,
+        \   'auto_resize': 1,
+        \   'prompt': '> ',
+        \ })
 
-    " unite-args {{{2
-    " ------------------------------------------------------------------------
-    function! s:set_arglist(candidates)
-        let argslist = {}
-        for candidate in a:candidates
-            " h unite-kind-file
-            let argslist[candidate.action__path] = 1
-        endfor
-        execute 'argadd' join(map(keys(argslist), 'fnameescape(v:val)'))
+        call unite#custom_default_action('directory' , 'vimfiler')
+        " vimfiler上ではvimfilerを増やさず、移動するだけ
+        " autocmd MyVimrc FileType vimfiler
+        " \   call unite#custom_default_action('directory', 'lcd')
+
+        call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+        call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+
+        " dでファイルの削除
+        call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+        call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
+
+        " verbose mapするアクションの定義
+        " [unite.vim の action について理解する - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131004/1380890539)
+        let s:action = {
+        \   'description' : 'verbose',
+        \   'is_selectable' : 1,
+        \}
+
+        function! s:action.func(candidates)
+            for candidate in a:candidates
+                execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+            endfor
+        endfunction
+
+        call unite#custom#action('source/output/*', 'verbose', s:action)
+
+        " unit memo {{{3
+        " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
+        if !exists('g:memo_directory')
+            let g:memo_directory = expand('~/Dropbox/memo/doc')
+        endif
+        let g:unite_source_alias_aliases = {
+        \   'memo' : {
+        \       'source' : 'file_rec/async',
+        \       'args' : g:memo_directory,
+        \   },
+        \}
+        call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+        execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
+        " unite-grep {{{2
+        " ------------------------------------------------------------------------
+        " :h unite-source-grep
+        " grepの結果のファイル名を短くするのはこの辺を見ればできるかも
+        " :h unite#custom#profile()
+        " [:Unite file でどこにいるのかわからなくなる問題を解決する - basyura's blog](http://blog.basyura.org/entry/2013/05/08/210536)
+        if executable('ag')
+            " Use ag in unite grep source.
+            let g:unite_source_grep_command = 'ag'
+            let g:unite_source_grep_default_opts =
+            \ '-f --vimgrep --hidden --ignore ' .
+            \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+            let g:unite_source_grep_recursive_opt = ''
+        elseif executable('pt')
+            " ptは複数PATH指定ができない。
+            " ptの文字コードチェックは512byteまで。
+            let g:unite_source_grep_command = 'pt'
+            let g:unite_source_grep_default_opts = '-e -S --nogroup --nocolor'
+            let g:unite_source_grep_recursive_opt = ''
+            let g:unite_source_grep_encoding = 'utf-8'
+        elseif executable('grep')
+            let g:unite_source_grep_command = 'grep'
+            let g:unite_source_grep_default_opts = '-inHE'
+            let g:unite_source_grep_recursive_opt = '-r'
+        elseif executable('jvgrep')
+            " jvgrepは遅い
+            let g:unite_source_grep_command = 'jvgrep'
+            let g:unite_source_grep_default_opts = '--color=never -i'
+            let g:unite_source_grep_recursive_opt = '-R'
+        endif
+
+        let g:unite_source_grep_max_candidates = 1000
+        " Set "-no-quit" automatically in grep unite source.
+        call unite#custom#profile('source/grep', 'context',
+        \ {'no_quit' : 1})
+
+
+        " unit bookmark {{{2
+        " -------------------------------------------------------------------
+        call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+        " unite-args {{{2
+        " ------------------------------------------------------------------------
+        function! s:set_arglist(candidates)
+            let argslist = {}
+            for candidate in a:candidates
+                " h unite-kind-file
+                let argslist[candidate.action__path] = 1
+            endfor
+            execute 'argadd' join(map(keys(argslist), 'fnameescape(v:val)'))
+        endfunction
+
+        " arglistにuniteで選択したファイルを設定する
+        let s:args_action = {'description': 'args', 'is_selectable': 1}
+
+        function! s:args_action.func(candidates)
+            silent! argdelete *
+            call s:set_arglist(a:candidates)
+        endfunction
+        call unite#custom#action('file', 'args', s:args_action)
+
+        " arglistにuniteで選択したファイルを追加する
+        let s:argadd_action = {'description': 'argadd', 'is_selectable': 1}
+
+        function! s:argadd_action.func(candidates)
+            call s:set_arglist(a:candidates)
+        endfunction
+        call unite#custom#action('file', 'argadd', s:argadd_action)
     endfunction
-
-    " arglistにuniteで選択したファイルを設定する
-    let s:args_action = {'description': 'args', 'is_selectable': 1}
-
-    function! s:args_action.func(candidates)
-        silent! argdelete *
-        call s:set_arglist(a:candidates)
-    endfunction
-    call unite#custom#action('file', 'args', s:args_action)
-
-    " arglistにuniteで選択したファイルを追加する
-    let s:argadd_action = {'description': 'argadd', 'is_selectable': 1}
-
-    function! s:argadd_action.func(candidates)
-        call s:set_arglist(a:candidates)
-    endfunction
-    call unite#custom#action('file', 'argadd', s:argadd_action)
 endif
 
 " neomru {{{1
 " ============================================================================
 if IsInstalled('neomru.vim')
-    " ファイルが存在するかチェックしない
-    " ファイルへの書き込みを60秒ごとにする
-    let g:neomru#update_interval = 60
-    let g:neomru#do_validate = 0
-    call unite#custom#source(
-    \'neomru/file', 'ignoer_pattern',
-    \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
-    \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-    \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-    \'\|\%(^\%(fugitive\)://\)'.
-    \'\|/mnt/'
-    \)
-
     "最近使用したファイル一覧
     nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
     "最近使用したディレクトリ一覧
     nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
+
+    let bundle = neobundle#get('neomru.vim')
+    function! bundle.hooks.on_source(bundle)
+        " ファイルが存在するかチェックしない
+        " ファイルへの書き込みを60秒ごとにする
+        let g:neomru#update_interval = 60
+        let g:neomru#do_validate = 0
+        call unite#custom#source(
+        \'neomru/file', 'ignoer_pattern',
+        \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
+        \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+        \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
+        \'\|\%(^\%(fugitive\)://\)'.
+        \'\|/mnt/'
+        \)
+    endfunction
+
 endif
 
 
@@ -286,9 +314,9 @@ endif
 " unite-outline {{{1
 " =========================================================================
 if IsInstalled('unite-outline')
-    nnoremap [unite]oo :<C-u>Unite outline<CR>
+    nnoremap [unite]o<CR> :<C-u>Unite outline<CR>
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
-    nnoremap [unite]O :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
+    nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
     let bundle = neobundle#get('unite-outline')
     function! bundle.hooks.on_source(bundle)
         call unite#sources#outline#alias('ref-man', 'man')
@@ -944,6 +972,7 @@ autocmd MyVimrc User plugin-template-loaded
 " vim-quickrun {{{1
 " ============================================================================
 if IsInstalled('vim-quickrun')
+    let g:quickrun_no_default_key_mappings = 1
     nnoremap <Leader>r<CR> :QuickRun -mode n<CR>
     xnoremap <Leader>r<CR> :QuickRun -mode v<CR>
 
@@ -2327,11 +2356,11 @@ xmap [:space:]M <Plug>(quickhl-manual-reset)
 " vim-scripts/AnsiEsc.vim {{{1
 " ============================================================================
 autocmd MyVimrc FileType quickrun AnsiEsc
-autocmd MyVimrc FileType qf call s:call_ansi_esc()
-function! s:call_ansi_esc() abort
-    AnsiEsc
-    runtime syntax/qf.vim
-endfunction
+" autocmd MyVimrc FileType qf call s:call_ansi_esc()
+" function! s:call_ansi_esc() abort
+"     AnsiEsc
+"     runtime syntax/qf.vim
+" endfunction
 
 " rainbow {{{1
 " ============================================================================
