@@ -189,7 +189,7 @@ alias .......='cd ../../../../../..'
 alias j='cdr'
 
 alias egrep='egrep --color=auto'
-if [ "$os" == freebsd ];then
+if [ "$os" = freebsd ];then
     alias find='find -E'
 fi
 
