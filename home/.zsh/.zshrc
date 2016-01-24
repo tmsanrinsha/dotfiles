@@ -52,9 +52,10 @@ fpath=(
 # ============================================================================
 # ファイルがある場合のリダイレクト(>)の防止したい場合は>!を使う
 setopt noclobber
-
 # 対話シェルでコメントを使えるようにする
 setopt interactive_comments
+# 終了ステータスコードを表示する
+setopt print_exit_value
 # zmv
 # http://ref.layer8.sh/ja/entry/show/id/2694
 # http://d.hatena.ne.jp/mollifier/20101227/p1

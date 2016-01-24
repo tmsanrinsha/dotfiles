@@ -3,6 +3,7 @@
 case "$(uname)" in
     Linux)   os='linux'   ;;
     Darwin)  os='osx'     ;;
+    FreeBSD) os='freebsd' ;;
     CYGWIN*) os='cygwin'  ;;
 esac
 
@@ -188,7 +189,7 @@ alias .......='cd ../../../../../..'
 alias j='cdr'
 
 alias egrep='egrep --color=auto'
-if [ `uname` = FreeBSD ];then
+if [ "$os" == freebsd ];then
     alias find='find -E'
 fi
 
@@ -214,6 +215,7 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gdn='git diff --no-ext-diff'
 alias gdr='git diff remotes/origin/master'
+alias gfo='git fetch origin'
 alias gi='git init'
 alias gl='git hist -n 10'
 alias gla='git hist'
@@ -224,6 +226,7 @@ alias gplr='git pull --rebase origin master'
 alias gps='git push'
 alias gmt='git mergetool'
 alias grbi='git rebase -i'
+alias grbom='git rebase origin/master'
 alias grv='git remote -v'
 alias gs='git status'
 
@@ -239,6 +242,11 @@ elif [ "$os" = linux ]; then
   alias taa='tail -f /var/log/httpd/access_log'
   alias tae='tail -f /var/log/httpd/error_log'
 fi
+
+# open {{{2
+# ----------------------------------------------------------------------------
+alias excel='open -a Microsoft\ Excel'
+# }}}
 
 alias apache_check='apachectl configtest'
 alias apache_restart='sudo apachectl restart'

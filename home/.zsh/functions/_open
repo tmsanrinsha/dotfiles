@@ -31,6 +31,7 @@ _open() {
       fi
       if [[ -n "$app" ]]; then
         _wanted files expl "file for $app" _mac_files_for_application "$app"
+        _files
       else
         _webbrowser
       fi
