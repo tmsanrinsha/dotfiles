@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
-if [[ `uname` = CYGWIN* ]]; then
+home=${1%/}
+
+if [[ "$OSTYPE" =~ cygwin ]];then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
     # なぜか英語になっちゃう
     cmd /c chcp 65001
-
-    # lnコマンドをmklinkに変換するスクリプトを使う
-    ln=$home/script/cygwin/ln
-else
-    ln=ln
+    # [Chapter 3. Using Cygwin](https://cygwin.com/cygwin-ug-net/using.html#pathnames-symlinks)
+    export CYGWIN="winsymlinks $CYGWIN"
 fi
 
-cd ..
-home=$(pwd)
+
+cd $home
 
 # ディレクトリがなければ作る
 # 空白があるディレクトリに対応するため、ヌル文字で区切ってfindする
@@ -37,5 +36,5 @@ while IFS= read -r -d '' file; do
     if [ -L "$HOME/$file" ]; then
         rm "$HOME/$file"
     fi
-    $ln -sv "$home/$file" "$HOME/$file"
+    ln -sv "$home/$file" "$HOME/$file"
 done < <(find . -type f ! -regex '.*swp.*' -print0)

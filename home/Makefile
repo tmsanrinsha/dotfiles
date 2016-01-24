@@ -1,5 +1,6 @@
 UNAME = ${shell uname}
-SETUP_DIR = $(dir $(realpath Makefile))..
+HOME_DIR = $(dir $(realpath Makefile))
+SETUP_DIR = $(HOME_DIR)setup/
 ifeq ($(UNAME),Darwin)
 # for MacOSX
 
@@ -8,14 +9,18 @@ all: brew R
 
 .PHONY: brew
 brew:
-	$(SETUP_DIR)/setup/brew.sh
+	$(SETUP_DIR)brew.sh
 
 .PHONY: R
 R:
-	R --vanilla --slave < $(SETUP_DIR)/setup/R-lang.R
+	R --vanilla --slave < $(SETUP_DIR)R-lang.R
 
 endif
 
+.PHONY: link
+link:
+	$(HOME_DIR)bin/makelink.sh $(HOME_DIR)
+
 .PHONY: php
 php:
-	$(SETUP_DIR)/setup/php.sh
+	$(SETUP_DIR)php.sh
