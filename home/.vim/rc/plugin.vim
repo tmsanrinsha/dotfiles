@@ -1867,6 +1867,15 @@ let g:phpcomplete_enhance_jump_to_definition = 1
 "    \ 'jump_to_def_vsplit': '<C-W><C-\>',
 "    \}
 
+" stephpy/vim-php-cs-fixer {{{1
+" ============================================================================
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+let g:php_cs_fixer_dry_run = 1
+let g:php_cs_fixer_verbose = 1
+let g:php_cs_fixer_level = 'all'
+" let g:php_cs_fixer_path = '~/sample/vendor/bin/php-cs-fixer'
+
 " joonty/vdebug
 " ============================================================================
 let g:vdebug_options = {
