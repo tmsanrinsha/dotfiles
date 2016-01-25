@@ -130,20 +130,13 @@ NeoBundleLazy 'Shougo/vimshell.vim', {
 \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
 \}
 NeoBundle 'ujihisa/vimshell-ssh'
-" if executable('svn')
-"     NeoBundleLazy 'http://conque.googlecode.com/svn/trunk/', {'name': 'Conque-Shell'}
-" else
 NeoBundleLazy 'oplatek/Conque-Shell', {
 \   'autoload': {
 \       'commands': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
 \   }
 \}
-" endif
-NeoBundleLazy 'Shougo/vimfiler.vim', {
-\   'autoload': {
-\       'command': ['VimFiler', 'VimFilerBufferDir', 'VimFilerCurrentDir', 'VimFilerExplorer']
-\   }
-\}
+" Lazyにすると$ vim .でVimFilerが開かないのでやらない
+NeoBundle 'Shougo/vimfiler.vim'
 
 " 補完・入力補助 {{{1
 " ============================================================================
@@ -366,7 +359,7 @@ NeoBundle 'thinca/vim-singleton', {
 \ 'disabled': !has('clientserver'),
 \ }
 " vim path/to/file.ext:12:3 こういうに行と列を指定して開く
-" NeoBundle 'kopischke/vim-fetch'
+NeoBundle 'kopischke/vim-fetch'
 NeoBundle 'kana/vim-gf-user' 
 NeoBundle 'kana/vim-gf-diff'
 " lazyにするとGitvでの挙動がおかしくなる
@@ -478,6 +471,11 @@ NeoBundleLazy 'shawncplus/phpcomplete.vim', {
 "     \   'autoload': {'filetypes': 'php'}
 "     \}
 NeoBundleLazy 'StanAngeloff/php.vim', {'autoload': {'filetypes': ['php']}}
+NeoBundleLazy 'stephpy/vim-php-cs-fixer', {
+\   'autoload': {
+\       'functions': ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
+\   }
+\}
 NeoBundleLazy 'joonty/vdebug', {
 \   'autoload': {
 \       'filetypes': ['php']
