@@ -54,11 +54,28 @@ let g:quickrun_config['php.phpunit'] = {
 let g:quickrun_config['sudo_phpunit'] = deepcopy(g:quickrun_config['php.phpunit'])
 let g:quickrun_config['sudo_phpunit']['exec'] = 'echo %{GetPassword()} | sudo -S '.g:quickrun_config['sudo_phpunit']['exec']
 
+let g:quickrun_config['php-cs-fixer'] = {
+\   'hook/cd/directory'              : '%S:p:h',
+\   'outputter'                     : 'buffer',
+\   'hook/close_buffer/enable_failure':          0,
+\   'command'                        : 'php-cs-fixer.sh',
+\   'cmdopt'                         : '',
+\   'exec'                           : '%c --diff %o %a',
+\}
+" \   'exec'                           : '%c fix --diff %o %a',
+" \   'outputter'                     : 'message',
+
 autocmd MyVimrc FileType php.phpunit
 \   nnoremap <buffer> <Leader>r<CR> :<C-u>QuickRun -mode n<CR>
 \|  nnoremap <buffer> <Leader>R<CR> :<C-u>QuickRun -type sudo_phpunit -mode n<CR>
 \|  nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
 \|  nnoremap <buffer> <Leader>Rm :<C-u>execute 'QuickRun -type sudo_phpunit -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
+\|  nnoremap <buffer> <Leader>rcf :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' expand('%:p')<CR>
+\|  nnoremap <buffer> <Leader>rcF :<C-u>execute 'QuickRun -type php-cs-fixer -args' expand('%:p')<CR>
+\|  nnoremap <buffer> <Leader>rcd :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' expand('%:p:h')<CR>
+\|  nnoremap <buffer> <Leader>rcD :<C-u>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h')<CR>
+\|  nnoremap <buffer> <Leader>rcp :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' GetProjectDir()<CR>
+\|  nnoremap <buffer> <Leader>rcP :<C-u>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h') GetProjectDir()<CR>
 
 if neobundle#is_installed('phpcomplete-extended') &&
 \   phpcomplete_extended#is_phpcomplete_extended_project()
