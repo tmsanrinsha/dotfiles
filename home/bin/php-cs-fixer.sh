@@ -9,6 +9,7 @@ function func_php-cs-fixer
         return 1
     fi
 
+    cmd="${cmd} fix"
     local dir="${PWD}"
 
     while [ -n "${dir}" ]; do
@@ -19,7 +20,7 @@ function func_php-cs-fixer
         dir="${dir%/*}"
     done
 
-    php -d open_basedir= $cmd fix --diff $@
+    php -d open_basedir= $cmd $@
 }
 
 func_php-cs-fixer $@
