@@ -864,7 +864,7 @@ function! s:configure_tag()
         execute 'setlocal tags+='.substitute(globpath(&runtimepath, '.git/tags', 0), "\<NL>", ',', 'g')
     endif
 
-    nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
+    " nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
 endfunction
 
 " tagsにその都度個別に追加する版 {{{3
