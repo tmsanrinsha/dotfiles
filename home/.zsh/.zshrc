@@ -72,6 +72,7 @@ alias hgr='history 1 | grep -C 3'
 # global alias {{{1
 # ============================================================================
 alias -g A='| awk'
+alias -g C='| column -t'
 alias -g G='| grep -i'
 alias -g L='| less -R'
 alias -g P='| peco'
@@ -87,7 +88,7 @@ alias -g T='| tail -f'
 alias -g E='| egrep'
 alias -g GI='| egrep -i'
 alias -g X='| xmllint --format -'
-alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
+# alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 # }}}
 # prompt {{{
@@ -317,8 +318,38 @@ compdef Vim=vim
 # Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
 # http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
 compdef _gnu_generic bc
+# compdef _gnu_generic composer
 compdef _gnu_generic phpunit
 compdef _gnu_generic phpunit.sh
+
+# Composer basic command completion
+_composer_get_command_list () {
+    $_comp_command1 --no-ansi 2>/dev/null | sed "1,/Available commands/d" | awk '/^[ \t]*[a-z]+/ { print $1 }'
+}
+
+_composer_get_required_list () {
+    $_comp_command1 show -s --no-ansi 2>/dev/null | sed '1,/requires/d' | awk 'NF > 0 && !/^requires \(dev\)/{ print $1 }'
+}
+
+_composer () {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+  _arguments \
+    '1: :->command'\
+    '*: :->args'
+
+  case $state in
+    command)
+      compadd $(_composer_get_command_list)
+      ;;
+    *)
+      compadd $(_composer_get_required_list)
+      ;;
+  esac
+}
+
+compdef _composer composer
+compdef _composer composer.phar
 
 # zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
 # <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
