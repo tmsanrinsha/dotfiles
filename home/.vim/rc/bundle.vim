@@ -88,35 +88,35 @@ NeoBundleLazy 'Shougo/unite.vim', {
 \}
 " NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'Shougo/neomru.vim', {
-\   'autoload': {
-\       'unite_sources': ['file_mru', 'directory_mru']
-\   }
+\   'on_unite': ['file_mru', 'directory_mru']
 \}
 NeoBundleLazy 'Shougo/neossh.vim', {
-\   'autoload': {
-\       'unite_sources': ['ssh']
-\   }
+\   'on_unite': ['ssh']
 \}
 " unite-で始まるプラグインは自動的にunite_sourcesがセットされる
-NeoBundleLazy 'Shougo/unite-outline'
-NeoBundleLazy 'tacroe/unite-mark'
-NeoBundleLazy 'tsukkee/unite-tag'
-NeoBundle 'ujihisa/unite-locate'
+NeoBundleLazy 'Shougo/unite-outline', {
+\   'on_unite': 'outline'
+\}
+NeoBundleLazy 'tacroe/unite-mark', {
+\   'on_unite': 'mark'
+\}
+NeoBundleLazy 'tsukkee/unite-tag', {
+\   'on_unite': 'tag'
+\}
+NeoBundle 'ujihisa/unite-locate', {
+\   'on_unite': 'locate'
+\}
 NeoBundleLazy 'Shougo/neoyank.vim', {
-\   'autoload': {
-\       'unite_sources': ['history/yank']
 \   }
 \}
 NeoBundleLazy 'thinca/vim-unite-history', {
-\   'autoload': {
-\       'unite_sources': ['history/command', 'history/search']
-\   }
+\   'on_unite': ['history/command', 'history/search']
 \}
-NeoBundleLazy 'tmsanrinsha/unite-ghq'
+NeoBundleLazy 'tmsanrinsha/unite-ghq', {
+\   'on_unite': 'ghq'
+\}
 NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
-\   'autoload': {
-\       'unite_sources': ['zsh-cdr']
-\   }
+\   'on_unite': ['zsh-cdr']
 \}
 " NeoBundle 'Shougo/unite-sudo'
 
