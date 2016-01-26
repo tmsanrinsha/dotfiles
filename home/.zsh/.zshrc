@@ -687,7 +687,7 @@ if hash peco 2>/dev/null; then
         # Gitリポジトリを.gitの更新時間でソートする
         local ghq_roots="$(git config --path --get-all ghq.root)"
         local selected_dir=$(ghq list --full-path | \
-            xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
+            xargs -I{} ls -dl --time-style=+%s {}/.git | sed 's/.*\([0-9]\{10\}\)/\1/' | sort -nr | \
             sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             sed 's/\/.git//' | \
             peco --prompt="cd-ghq >" --query "$LBUFFER")
