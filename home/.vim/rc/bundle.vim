@@ -107,7 +107,7 @@ NeoBundle 'ujihisa/unite-locate', {
 \   'on_unite': 'locate'
 \}
 NeoBundleLazy 'Shougo/neoyank.vim', {
-\   }
+\   'on_unite': ['history/yank']
 \}
 NeoBundleLazy 'thinca/vim-unite-history', {
 \   'on_unite': ['history/command', 'history/search']
