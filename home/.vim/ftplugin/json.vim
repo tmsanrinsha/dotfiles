@@ -1,9 +1,9 @@
 scriptencoding utf-8
 
-if exists('b:did_my_ftplugin_json')
-  finish
-endif
-let b:did_my_ftplugin_json = 1
+" if exists('b:did_my_ftplugin_json')
+"   finish
+" endif
+" let b:did_my_ftplugin_json = 1
 
 setlocal formatexpr=
 setlocal formatprg=jq\ .
