@@ -68,8 +68,8 @@ let g:quickrun_config['php-cs-fixer'] = {
 autocmd MyVimrc FileType php.phpunit
 \   nnoremap <buffer> <Leader>r<CR> :<C-u>QuickRun -mode n<CR>
 \|  nnoremap <buffer> <Leader>R<CR> :<C-u>QuickRun -type sudo_phpunit -mode n<CR>
-\|  nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
-\|  nnoremap <buffer> <Leader>Rm :<C-u>execute 'QuickRun -type sudo_phpunit -cmdopt "--filter='.tagbar#currenttag('%s','').'"'<CR>
+\|  nnoremap <buffer> <Leader>rm :<C-u>execute 'QuickRun                    -cmdopt "--filter=/'.tagbar#currenttag('%s','').'/"'<CR>
+\|  nnoremap <buffer> <Leader>Rm :<C-u>execute 'QuickRun -type sudo_phpunit -cmdopt "--filter=/'.tagbar#currenttag('%s','').'/"'<CR>
 \|  nnoremap <buffer> <Leader>rcf :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' expand('%:p')<CR>
 \|  nnoremap <buffer> <Leader>rcF :<C-u>execute 'QuickRun -type php-cs-fixer -args' expand('%:p')<CR>
 \|  nnoremap <buffer> <Leader>rcd :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' expand('%:p:h')<CR>
