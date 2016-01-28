@@ -746,7 +746,7 @@ NeoBundleLazy 'DrawIt', {
 
 NeoBundleLazy 'Shougo/junkfile.vim', {
 \   'autoload': {
-\       'commands': ['Junkfile', 'JunkfileFiletype'],
+\       'commands': ['Junkfile', 'JunkfileOpen', 'JunkfileFiletype'],
 \       'unite_sources': 'junkfile',
 \   }
 \}
