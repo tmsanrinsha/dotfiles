@@ -249,12 +249,11 @@ if(io.File('~/.vimperatorrc.local').exists()){
 EOF
 
 " vimperatorを自分でビルドしたいとき
-"   cd **SOMEWHERE**
-"   git clone https://github.com/vimperator/vimperator-labs/
-"   cd vimperator-labs
-"   git checkout 3.8.3-a3
-"   make
-"   # to install the created `xpi` file into your firefox type the below into its `command line`
-"   :open file:///**SOMEWHERE**/vimperator-labs/downloads/vimperator-3.8.3.xpi
+" $ git clone https://github.com/vimperator/vimperator-labs/
+" $ cd vimperator-labs
+" $ make
+" :open file://path/to/vimperator-labs/downloads/vimperator-3.8.3.xpi
+" 警告が出るときはabout:configでxpinstall.signatures.requiredする
+" [Firefox のアドオン署名 | Firefox ヘルプ](https://support.mozilla.org/ja/kb/add-on-signing-in-firefox?as=u&utm_source=inproduct)
 
 " vim: set ft=vimperator:
