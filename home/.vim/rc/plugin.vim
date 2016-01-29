@@ -45,6 +45,7 @@ if IsInstalled('unite.vim')
 
     " uniteウィンドウを閉じる
     nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
+    nnoremap <silent> <C-w>, :<C-u>call GotoWin('\[unite\]')<CR>
     nnoremap [unite], :<C-u>Unite -toggle<CR>
 
     " バッファ
