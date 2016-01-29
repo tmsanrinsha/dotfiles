@@ -77,16 +77,8 @@ NeoBundleLazy 'osyo-manga/vital-coaster', {
 
 " unite {{{1
 " ============================================================================
-" unite.vimはlazyがうまくいかない
-NeoBundleLazy 'Shougo/unite.vim', {
-\   'autoload': {
-\       'commands': ['Unite']
-\   },
-\   'depends': [
-\       'vimfiler.vim'
-\   ]
-\}
-" NeoBundle 'Shougo/unite.vim'
+" lazyにすると$ vim .で起動するときにエラーが出る
+NeoBundle 'Shougo/unite.vim'
 NeoBundleLazy 'Shougo/neomru.vim', {
 \   'on_unite': ['file_mru', 'directory_mru']
 \}
