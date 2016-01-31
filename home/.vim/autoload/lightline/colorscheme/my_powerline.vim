@@ -1,15 +1,15 @@
 " =============================================================================
-" Filename: autoload/lightline/colorscheme/powerline.vim
+" Filename: autoload/lightline/colorscheme/my_powerline.vim
 " Version: 0.0
-" Author: itchyny
+" Author: tmsanrinsha
 " License: MIT License
-" Last Change: 06-Oct-2014.
+" Last Change: 31-Jan-2016.
 " =============================================================================
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 let s:p.normal.left = [ ['darkestgreen', 'brightgreen', 'bold'] ,['brightred', 'gray4', 'bold'], ['white', 'gray4']]
 let s:p.normal.right = [ ['gray5', 'gray10'], ['gray9', 'gray4'], ['gray8', 'gray2'] ]
-let s:p.inactive.right = [ ['gray1', 'gray5'], ['gray4', 'gray1'], ['gray4', 'gray0'] ]
+let s:p.inactive.right = [ ['gray1', 'gray5'], ['gray8', 'gray1'], ['gray7', 'gray0'] ]
 let s:p.inactive.left = s:p.inactive.right[1:]
 let s:p.insert.left = [ ['darkestcyan', 'white', 'bold'], ['brightred', 'darkblue', 'bold'], ['white', 'darkblue'] ]
 let s:p.insert.right = [ [ 'darkestcyan', 'mediumcyan' ], [ 'mediumcyan', 'darkblue' ], [ 'mediumcyan', 'darkestblue' ] ]
