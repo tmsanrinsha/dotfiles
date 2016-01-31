@@ -1347,7 +1347,7 @@ autocmd MyVimrc FileType javascript call s:configure_javascript()
 function! s:configure_javascript()
     setlocal syntax=jquery
     " .を入れたほうがneocompleteの補完がうまくいく
-    setlocal iskeyword+=.
+    " setlocal iskeyword+=.
 endfunction
 
 " Java {{{1
