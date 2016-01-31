@@ -3,6 +3,8 @@ if has('win32')
     set guifontwide=MS_Gothic
 elseif has('gui_macvim')
     let macvim_skip_colorscheme=1
+    set guifont=Monaco:h12
+    set guifontwide=Monaco
     set transparency=15
 endif
 
