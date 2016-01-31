@@ -895,12 +895,11 @@ endfunction
 " 暗号化して保存するためには
 "   :set cryptmethod=blowfish2 (Vim 7.4.399以前はblowfish)
 "   :X
-" set cryptmethod=blowfishは重いのでkeyがあるときのみ設定
+" has('crypt-blowfish'), has('crypt-blowfish')で使用できる暗号化アルゴリズムを確認できる
 autocmd MyVimrc BufReadPost *
 \   if &key != ""
-\|      setlocal noswapfile nowritebackup noshelltemp secure
-\|  endif
-" \|      setlocal cryptmethod=blowfish noswapfile nowritebackup noshelltemp secure
+\ |     setlocal noswapfile nowritebackup noshelltemp secure
+\ | endif
 
 " man {{{1
 " ==============================================================================
