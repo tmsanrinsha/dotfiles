@@ -240,12 +240,11 @@ fi
 # open {{{2
 # ----------------------------------------------------------------------------
 alias excel='open -a Microsoft\ Excel'
+alias firefox='open -a Firefox'
 # }}}
 
 alias apache_check='apachectl configtest'
 alias apache_restart='sudo apachectl restart'
-
-alias cdg='ghq look'
 
 alias phpunit='phpunit.sh --colors'
 alias php-cs-fixer='php-cs-fixer.sh --diff'
