@@ -2237,6 +2237,16 @@ let g:lightline = {
 \           ['fileformat', 'fileencoding', 'filetype']
 \       ]
 \   },
+\   'inactive': {
+\       'left': [
+\           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
+\       ],
+\       'right': [
+\           ['column', 'lineinfo'],
+\           ['percent'],
+\           ['fileformat', 'fileencoding', 'filetype']
+\       ]
+\   },
 \   'component': {
 \       'flag_red': '%{&paste?"PASTE":""}%R%W%<',
 \       'flag': '%H%q',
