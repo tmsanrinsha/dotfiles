@@ -9,7 +9,6 @@ function func_php-cs-fixer
         return 1
     fi
 
-    cmd="${cmd} fix"
     local dir="${PWD}"
 
     while [ -n "${dir}" ]; do
