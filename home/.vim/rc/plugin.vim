@@ -2111,6 +2111,7 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]s   :Gstatus<CR>
     nnoremap [fugitive]l   :Glog<CR>
     nnoremap [fugitive]ps  :Git push
+    nnoremap [fugitive]psf :Git push -f
     nnoremap [fugitive]pso :Git push origin
     nnoremap [fugitive]pl  :Git pull --rebase origin master
     nnoremap [fugitive]fo  :Git fetch origin<CR>
