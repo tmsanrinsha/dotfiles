@@ -556,13 +556,13 @@ REPORTTIME=10
 if hash peco 2>/dev/null; then
     # git {{{2
     # ------------------------------------------------------------------------
-    function peco_git_sha1() {
+    function peco_git_hash() {
         GIT_COMMIT_HASH=$(git log --oneline --graph --all --decorate | peco | sed -e "s/^\W\+\([0-9A-Fa-f]\+\).*$/\1/")
         BUFFER=${BUFFER}${GIT_COMMIT_HASH}
         CURSOR=$#BUFFER
     }
-    zle -N peco_git_sha1
-    bindkey "^[h" peco_git_sha1
+    zle -N peco_git_hash
+    bindkey "^xpH" peco_git_hash
 
     # kill {{{2
     # ------------------------------------------------------------------------
@@ -591,7 +591,7 @@ if hash peco 2>/dev/null; then
         zle -R -c                   # refresh
     }
     zle -N peco_select_host
-    bindkey '^x^h' peco_select_host
+    bindkey '^xph' peco_select_host
 
     # ssh {{{2
     # function peco-ssh() {
