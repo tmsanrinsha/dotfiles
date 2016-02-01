@@ -35,7 +35,7 @@ function func_phpunit
         dir="${dir%/*}"
     done
 
-    php -d open_basedir= $cmd $@ | cat
+    php -d open_basedir= -d date.timezone=Asia/Tokyo -d apc.enable_cli=1 $cmd $@ | cat
     return ${PIPESTATUS[0]}
 }
 
