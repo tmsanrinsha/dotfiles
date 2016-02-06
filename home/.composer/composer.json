@@ -1,0 +1,8 @@
+{
+    "require": {
+        "hirak/prestissimo": "^0.1.9",
+        "fabpot/php-cs-fixer": "dev-master",
+        "squizlabs/php_codesniffer": "*",
+        "jdorn/sql-formatter": "dev-master"
+    }
+}
