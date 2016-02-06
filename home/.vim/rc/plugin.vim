@@ -73,6 +73,8 @@ if IsInstalled('unite.vim')
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]dc :<C-u>Unite directory<CR>
+    " カレントバッファのディレクトリ以下
+    nnoremap [unite]d. :<C-u>execute "Unite directory:".expand('%:p:h')<CR>
     nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]dv :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
@@ -98,12 +100,9 @@ if IsInstalled('unite.vim')
         endif
     endfunction
 
+    nnoremap [unite]f. :<C-u>execute "Unite file_rec/async:".expand('%:p:h')<CR>
     nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-
-    " unite memo {{{2
-    " ------------------------------------------------------------------------
-    nnoremap [unite]fM :<C-u>Unite memo<CR>
 
     " map unite grep {{{2
     " ------------------------------------------------------------------------
@@ -176,7 +175,10 @@ if IsInstalled('unite.vim')
 
     call unite#custom#action('source/output/*', 'verbose', s:action)
 
-    " unit memo {{{3
+    " unite memo {{{2
+    " ------------------------------------------------------------------------
+    nnoremap [unite]fM :<C-u>Unite memo<CR>
+
     " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
     if !exists('g:memo_directory')
         let g:memo_directory = expand('~/Dropbox/memo/doc')
@@ -189,6 +191,7 @@ if IsInstalled('unite.vim')
     \}
     call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
     execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
+
     " unite-grep {{{2
     " ------------------------------------------------------------------------
     " :h unite-source-grep
