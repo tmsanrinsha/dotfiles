@@ -1426,8 +1426,8 @@ if IsInstalled('vital-coaster')
     nmap <C-a> <Plug>(my-increment)
     nmap <C-x> <Plug>(my-decriment)
 
-    let bundle = neobundle#get('vital-coaster')
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get('vital-coaster')
+    " function! bundle.hooks.on_source(bundle)
         nnoremap <expr> <Plug>(my-increment) <SID>increment('\S-\d\+', "\<C-x>")
         nnoremap <expr> <Plug>(my-decriment) <SID>decrement('\S-\d\+', "\<C-a>")
         let s:Buffer = vital#of('vital').import('Coaster.Buffer')
@@ -1452,7 +1452,7 @@ if IsInstalled('vital-coaster')
             let key = get(a:, 1, '')
             return s:count(a:ignore_pattern, key, "\<C-x>")
         endfunction
-    endfunction
+    " endfunction
 endif
 
 " vim-asterisk {{{1
