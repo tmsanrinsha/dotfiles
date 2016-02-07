@@ -107,7 +107,7 @@ alias -g A='| awk'
 alias -g C='| column -t'
 alias -g G='| grep -i'
 alias -g L='| less -R'
-alias -g P='| peco'
+alias -g P='| peco_with_action'
 # Vim: Warning: Input is not from a terminal
 # http://hateda.hatenadiary.jp/entry/2012/09/06/000000
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
@@ -762,6 +762,18 @@ if hash peco 2>/dev/null; then
     # http://r7kamura.github.io/2014/06/21/ghq.html
     function p() {
         peco | while read LINE; do $@ $LINE; done
+    }
+
+    function peco_with_action {
+        local selected action
+        peco | selected=`cat -` </dev/tty
+        if [ -z "$selected" ]; then
+            return
+        fi
+        echo -n "command: "
+        read action </dev/tty
+        echo $ $action ${selected/$'\n'/ }
+        eval $action ${selected/$'\n'/ } </dev/tty
     }
     # }}}
 fi
