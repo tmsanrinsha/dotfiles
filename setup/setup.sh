@@ -99,15 +99,6 @@ ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 test -d ~/.zsh/.cache      || mkdir -p ~/.zsh/.cache
 test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
 
-if [ ! -x ~/.zsh/functions/_pandoc ];then
-    # https://gist.github.com/sky-y/3334048
-    $downloader https://gist.githubusercontent.com/sky-y/3334048/raw/e2a0f9ef67c3097b3034f022d03165d9ac4fb604/_pandoc > ~/.zsh/functions/_pandoc
-    chmod a+x ~/.zsh/functions/_pandoc
-fi
-
-ghq get -u zsh-users/zsh-completions
-ghq get -u Valodim/zsh-curl-completion
-
 # antigen {{{2
 # ----------------------------------------------------------------------------
 # cd $git_dir

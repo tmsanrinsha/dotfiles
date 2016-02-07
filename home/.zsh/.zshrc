@@ -9,6 +9,40 @@ else
     tac='tail -r'
 fi
 
+# zplug {{{1
+# ============================================================================
+if [ ! -d ~/.zplug ]; then
+    printf "Install zplug? [y/N]: "
+    if read -q; then
+        echo;
+        git clone https://github.com/b4b4r07/zplug ~/.zplug
+        source ~/.zplug/zplug
+        # manage zlug by itself
+        zplug update --self
+    fi
+fi
+
+if [ -f ~/.zplug/zplug ]; then
+    source ~/.zplug/zplug
+
+    # Make sure you use double quotes
+    zplug "b4b4r07/zplug"
+    zplug "zsh-users/zsh-completions"
+    zplug "Valodim/zsh-curl-completion"
+    zplug "srijanshetty/zsh-pandoc-completion"
+
+    # Install plugins if there are plugins that have not been installed
+    if ! zplug check --verbose; then
+        printf "Install zsh plugin? [y/N]: "
+        if read -q; then
+            echo; zplug install
+        fi
+    fi
+
+    # Then, source plugins and add commands to $PATH
+    zplug load --verbose
+fi
+
 # antigen {{{1
 # ============================================================================
 # antigenをsubtreeで管理には以下のコマンド
@@ -40,8 +74,6 @@ typeset -U path cdpath fpath manpath ld_library_path include
 
 fpath=(
     ~/.zsh/functions
-    $SRC_ROOT/github.com/zsh-users/zsh-completions/src
-    $SRC_ROOT/github.com/Valodim/zsh-curl-completion
     $fpath
 )
 
