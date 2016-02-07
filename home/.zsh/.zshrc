@@ -30,6 +30,7 @@ if [ -f ~/.zplug/zplug ]; then
     zplug "zsh-users/zsh-completions"
     zplug "Valodim/zsh-curl-completion"
     zplug "srijanshetty/zsh-pandoc-completion"
+    zplug "tmsanrinsha/zsh-composer-completion"
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check --verbose; then
@@ -353,35 +354,6 @@ compdef _gnu_generic bc
 # compdef _gnu_generic composer
 compdef _gnu_generic phpunit
 compdef _gnu_generic phpunit.sh
-
-# Composer basic command completion
-# _composer_get_command_list () {
-#     $_comp_command1 --no-ansi 2>/dev/null | sed "1,/Available commands/d" | awk '/^[ \t]*[a-z]+/ { print $1 }'
-# }
-#
-# _composer_get_required_list () {
-#     $_comp_command1 show -s --no-ansi 2>/dev/null | sed '1,/requires/d' | awk 'NF > 0 && !/^requires \(dev\)/{ print $1 }'
-# }
-#
-# _composer () {
-#   local curcontext="$curcontext" state line
-#   typeset -A opt_args
-#   _arguments \
-#     '1: :->command'\
-#     '*: :->args'
-#
-#   case $state in
-#     command)
-#       compadd $(_composer_get_command_list)
-#       ;;
-#     *)
-#       compadd $(_composer_get_required_list)
-#       ;;
-#   esac
-# }
-#
-# compdef _composer composer
-# compdef _composer composer.phar
 
 # zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
 # <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
