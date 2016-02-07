@@ -79,39 +79,49 @@ NeoBundleLazy 'osyo-manga/vital-coaster', {
 " ============================================================================
 " lazyにすると$ vim .で起動するときにエラーが出る
 NeoBundle 'Shougo/unite.vim'
-NeoBundleLazy 'Shougo/neomru.vim', {
-\   'on_unite': ['file_mru', 'directory_mru']
-\}
-NeoBundleLazy 'Shougo/neossh.vim', {
-\   'on_unite': ['ssh']
-\}
+NeoBundle 'Shougo/neomru.vim'
+" neobundlelazy 'shougo/neomru.vim', {
+" \   'on_unite': ['file_mru', 'directory_mru']
+" \}
+NeoBundle 'Shougo/neossh.vim'
+" NeoBundleLazy 'Shougo/neossh.vim', {
+" \   'on_unite': ['ssh']
+" \}
 " unite-で始まるプラグインは自動的にunite_sourcesがセットされる
-NeoBundleLazy 'Shougo/unite-outline', {
-\   'on_unite': 'outline'
-\}
-NeoBundleLazy 'tacroe/unite-mark', {
-\   'on_unite': 'mark'
-\}
-NeoBundleLazy 'tsukkee/unite-tag', {
-\   'on_unite': 'tag'
-\}
-NeoBundle 'ujihisa/unite-locate', {
-\   'on_unite': 'locate'
-\}
-NeoBundleLazy 'Shougo/neoyank.vim', {
-\   'on_unite': ['history/yank']
-\}
-NeoBundleLazy 'thinca/vim-unite-history', {
-\   'on_unite': ['history/command', 'history/search']
-\}
-NeoBundleLazy 'tmsanrinsha/unite-ghq', {
-\   'on_unite': 'ghq'
-\}
-NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
-\   'on_unite': ['zsh-cdr']
-\}
+NeoBundle 'Shougo/unite-outline'
+" NeoBundleLazy 'Shougo/unite-outline', {
+" \   'on_unite': 'outline'
+" \}
+NeoBundle 'tacroe/unite-mark'
+" NeoBundleLazy 'tacroe/unite-mark', {
+" \   'on_unite': 'mark'
+" \}
+NeoBundle 'tsukkee/unite-tag'
+" NeoBundleLazy 'tsukkee/unite-tag', {
+" \   'on_unite': 'tag'
+" \}
+NeoBundle 'ujihisa/unite-locate'
+" NeoBundleLazy 'ujihisa/unite-locate', {
+" \   'on_unite': 'locate'
+" \}
+NeoBundle 'Shougo/neoyank.vim'
+" NeoBundleLazy 'Shougo/neoyank.vim', {
+" \   'on_unite': ['history/yank']
+" \}
+NeoBundle 'thinca/vim-unite-history'
+" NeoBundleLazy 'thinca/vim-unite-history', {
+" \   'on_unite': ['history/command', 'history/search']
+" \}
+NeoBundle 'tmsanrinsha/unite-ghq'
+" NeoBundleLazy 'tmsanrinsha/unite-ghq', {
+" \   'on_unite': 'ghq'
+" \}
+NeoBundle 'rhysd/unite-zsh-cdr.vim'
+" NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
+" \   'on_unite': ['zsh-cdr']
+" \}
 " NeoBundle 'Shougo/unite-sudo'
-
+" }}}
 " http://archiva.jp/web/tool/vim_grep2.html
 NeoBundle 'thinca/vim-qfreplace'
 
