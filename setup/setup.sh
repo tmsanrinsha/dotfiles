@@ -96,8 +96,9 @@ ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 
 # zsh {{{1
 # ============================================================================
-test -d ~/.zsh/.cache      || mkdir -p ~/.zsh/.cache
-test -d ~/.zsh/functions   || mkdir -p ~/.zsh/functions
+export ZDOTDIR=${HOME}/.zsh
+test -d $ZDOTDIR/.cache      || mkdir -p $ZDOTDIR/.cache
+test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
 
 # antigen {{{2
 # ----------------------------------------------------------------------------
