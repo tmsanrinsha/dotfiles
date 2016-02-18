@@ -275,8 +275,8 @@ set cindent         " 他の2つの方法よりも賢く動作し、設定する
 
 " 不可視文字の表示
 set list
-" tabに»･、行末の空白に･、ノーブレークスペース文字に%を使う
-set listchars=tab:»･,trail:･,nbsp:%
+" tabに»-、行末の空白に･、ノーブレークスペース文字に%を使う
+set listchars=tab:»-,trail:･,nbsp:%
 " set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
 
 " autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
