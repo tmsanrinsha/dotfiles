@@ -270,8 +270,8 @@ if IsInstalled('neomru.vim')
     "最近使用したディレクトリ一覧
     nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
 
-    let bundle = neobundle#get('neomru.vim')
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get('neomru.vim')
+    " function! bundle.hooks.on_source(bundle)
         " ファイルが存在するかチェックしない
         " ファイルへの書き込みを60秒ごとにする
         let g:neomru#update_interval = 60
@@ -284,7 +284,7 @@ if IsInstalled('neomru.vim')
         \'\|\%(^\%(fugitive\)://\)'.
         \'\|/mnt/'
         \)
-    endfunction
+    " endfunction
 
 endif
 
@@ -318,14 +318,14 @@ if IsInstalled('unite-outline')
     nnoremap [unite]o<CR> :<C-u>Unite outline<CR>
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
-    let bundle = neobundle#get('unite-outline')
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get('unite-outline')
+    " function! bundle.hooks.on_source(bundle)
         call unite#sources#outline#alias('ref-man', 'man')
         call unite#sources#outline#alias('rmd', 'markdown')
         call unite#sources#outline#alias('tmux', 'conf')
         call unite#sources#outline#alias('vimperator', 'conf')
         call unite#sources#outline#alias('zsh', 'conf')
-    endfunction
+    " endfunction
 endif
 
 autocmd MyVimrc FileType yaml
@@ -356,10 +356,10 @@ endif
 if IsInstalled('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
-    let bundle = neobundle#get('unite-ghq')
-    function! bundle.hooks.on_source(bundle)
+    " let bundle = neobundle#get('unite-ghq')
+    " function! bundle.hooks.on_source(bundle)
         call unite#custom_default_action('source/ghq/directory', 'vimfiler')
-    endfunction
+    " endfunction
 endif
 
 " unite-zsh-cdr.vim {{{1
