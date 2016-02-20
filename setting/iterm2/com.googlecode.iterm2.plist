@@ -1108,7 +1108,7 @@
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
-	<true/>
+	<false/>
 	<key>HighlightTabLabels</key>
 	<true/>
 	<key>HotKeyBookmark</key>
@@ -1146,7 +1146,7 @@
 	<key>NSFontPanelPreviewHeight</key>
 	<real>0.0</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/src/github.com/mbadolato/iTerm2-Color-Schemes/terminal</string>
+	<string>~/src/github.com/tmsanrinsha/dotfiles/setting/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{1280, 773}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
@@ -1197,13 +1197,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>611 168 445 202 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>241 126 924 485 0 0 1280 777 </string>
+	<string>-103 1092 924 485 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1205 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 37 1277 740 0 0 1280 777 </string>
+	<string>-331 875 1277 757 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1222,7 +1222,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1529,13 +1529,6 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
-				<key>0x9-0x40000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>9</string>
-				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -1556,13 +1549,6 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;6A</string>
-				</dict>
-				<key>0xf700-0x280000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x1b 0x1b 0x5b 0x41</string>
 				</dict>
 				<key>0xf701-0x220000</key>
 				<dict>
@@ -1585,13 +1571,6 @@
 					<key>Text</key>
 					<string>[1;6B</string>
 				</dict>
-				<key>0xf701-0x280000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x1b 0x1b 0x5b 0x42</string>
-				</dict>
 				<key>0xf702-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -1613,13 +1592,6 @@
 					<key>Text</key>
 					<string>[1;6D</string>
 				</dict>
-				<key>0xf702-0x280000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x1b 0x1b 0x5b 0x44</string>
-				</dict>
 				<key>0xf703-0x220000</key>
 				<dict>
 					<key>Action</key>
@@ -1640,13 +1612,6 @@
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;6C</string>
-				</dict>
-				<key>0xf703-0x280000</key>
-				<dict>
-					<key>Action</key>
-					<integer>11</integer>
-					<key>Text</key>
-					<string>0x1b 0x1b 0x5b 0x43</string>
 				</dict>
 				<key>0xf704-0x20000</key>
 				<dict>
