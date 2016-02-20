@@ -47,6 +47,22 @@ function install() {
   fi
 }
 
+function myplug() {
+    local plugin=$1
+    local dir=$2
+
+    if [ ! which git 1>/dev/null 2?&1 ]; then
+        return
+    fi
+
+    if [ ! -d $dir ]; then
+        git clone $plugin $dir
+    else
+        cd $dir
+        git pull
+    fi
+}
+
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
 $home/bin/makelink.sh $home
@@ -193,6 +209,9 @@ elif [ $os = osx ]; then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
     fi
+
+    myplug https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
     if [ $brew -eq 1 ]; then
         cd $setup_dir
         ./brew.sh -b
@@ -205,10 +224,7 @@ if [ $os = osx ]; then
     ln -fs ~/_gvimrc ~/.gvimrc
 fi
 
-if [ ! -d ~/.vim/bundle/neobundle.vim ] && which git 1>/dev/null 2>&1;then
-    mkdir -p ~/.vim/bundle
-    git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-fi
+myplug https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # Vimのバージョンチェック。正確には7.2.051以上
 if [[ $(echo "$(vim --version | head -n1 | cut -d' ' -f5) >= 7.3" | bc) -eq 1 ]];then
