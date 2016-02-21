@@ -100,9 +100,7 @@ NeoBundle 'tsukkee/unite-tag'
 " \   'on_unite': 'tag'
 " \}
 NeoBundle 'ujihisa/unite-locate'
-" NeoBundleLazy 'ujihisa/unite-locate', {
-" \   'on_unite': 'locate'
-" \}
+NeoBundle 'basyura/unite-mdfind'
 NeoBundle 'Shougo/neoyank.vim'
 " NeoBundleLazy 'Shougo/neoyank.vim', {
 " \   'on_unite': ['history/yank']
