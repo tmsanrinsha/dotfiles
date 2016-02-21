@@ -56,10 +56,25 @@ if IsInstalled('unite.vim')
 
     " Unite output {{{2
     " ------------------------------------------------------------------------
-    " Unite output:map
+    " Unite output:map {{{3
     " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
     " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
     nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=verbose<CR>
+
+    " verbose mapするアクションの定義
+    " [unite.vim の action について理解する - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131004/1380890539)
+    let s:action = {
+    \   'description' : 'verbose',
+    \   'is_selectable' : 1,
+    \}
+
+    function! s:action.func(candidates)
+        for candidate in a:candidates
+            execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+        endfor
+    endfunction
+
+    call unite#custom#action('source/output/*', 'verbose', s:action)
 
     " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
@@ -104,7 +119,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
-    " map unite grep {{{2
+    " unite grep {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-u>Unite grep:.<CR>
@@ -159,21 +174,6 @@ if IsInstalled('unite.vim')
     " dでファイルの削除
     call unite#custom#alias('file', 'delete', 'vimfiler__delete')
     call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
-
-    " verbose mapするアクションの定義
-    " [unite.vim の action について理解する - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131004/1380890539)
-    let s:action = {
-    \   'description' : 'verbose',
-    \   'is_selectable' : 1,
-    \}
-
-    function! s:action.func(candidates)
-        for candidate in a:candidates
-            execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
-        endfor
-    endfunction
-
-    call unite#custom#action('source/output/*', 'verbose', s:action)
 
     " unite memo {{{2
     " ------------------------------------------------------------------------
@@ -778,7 +778,7 @@ if IsInstalled('neocomplete.vim')
     " let g:neocomplete#fallback_mappings =
     " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
-    inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('file')
+    " inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('file')
     " inoremap <expr><C-x><C-n>  neocomplete#start_manual_complete('buffer')
     imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
     " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
@@ -1464,6 +1464,9 @@ if IsInstalled('vim-asterisk')
     " map g* <Plug>(asterisk-gz*)
     " map g# <Plug>(asterisk-gz#)
     let g:asterisk#keeppos = 1
+
+    nmap g* *:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+    nmap g# #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
 endif
 
 " vim-easymotion {{{1
@@ -1497,8 +1500,6 @@ endif
 " vim-ref {{{1
 " ============================================================================
 if IsInstalled('vim-ref')
-    cabbrev man Ref man
-
     let bundle = neobundle#get('vim-ref')
     function! bundle.hooks.on_source(bundle)
         if has('mac')
@@ -2043,13 +2044,16 @@ endif
 
 " R lang, jcfaria/Vim-R-plugin {{{1
 " ============================================================================
+" _で->などのマッピングをしない
+let vimrplugin_assign = 0
+
 autocmd MyVimrc FileType r
-\   nmap <buffer> <LocalLeader>ss <Plug>RSendLine
+\   nmap <buffer> <Leader>r<CR> <Plug>RSendFile
+\ | nmap <buffer> <LocalLeader>re <Plug>RESendFile
+\ | nmap <buffer> <LocalLeader>ss <Plug>RSendLine
 \ |  vmap <buffer> <LocalLeader>ss <Plug>RESendSelection<Esc>
 \ |  imap <M-CR> <Esc><Plug>RSendLineo
 
-" _で->などのマッピングをしない
-let vimrplugin_assign = 0
 
 " result <- fun(
 "               par1 = "abc",
