@@ -363,7 +363,11 @@ xnoremap g0 0
 nnoremap g$ $
 xnoremap g$ $
 
-"挿入モードのキーバインドをemacs風に
+" emacs keybind {{{2
+" ----------------------------------------------------------------------------
+" vim/gvim挿入モードのキーを若干Emacs風味にカスタマイズ - fudisti
+" - https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips/vim-key-emacs
+" コマンドラインモードはhttps://github.com/tmsanrinsha/vim-emacscommandline 参照
 inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
@@ -374,6 +378,47 @@ endif
 " 元々のi_CTRL-Dは左にインデントする処理。
 " 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
 inoremap <M-t> <C-d>
+
+"カーソル位置から後の単語を削除
+inoremap <silent> <M-d> <C-g>u<C-r>=MyDeleteWord()<CR>
+
+""""""""""""""""""""""""""""""
+"カーソル以降の単語削除
+""""""""""""""""""""""""""""""
+function! MyDeleteWord()
+  if col('.') == col('$')
+    return ''
+  endif
+  let save_cursor = getpos('.')
+  silent exec 'normal! wge'
+  if save_cursor[1] != line('.') || (save_cursor[2] > col('.'))
+    call setpos('.', save_cursor)
+    return MyExecExCommand('normal! dw', 'onemore')
+  endif
+  silent exec 'normal! v'
+  call setpos('.', save_cursor)
+  return MyExecExCommand('normal! d')
+endfunction
+
+""""""""""""""""""""""""""""""
+"IMEの状態とカーソル位置保存のため<C-r>を使用してコマンドを実行。
+""""""""""""""""""""""""""""""
+function! MyExecExCommand(cmd, ...)
+  let saved_ve = &virtualedit
+  let index = 1
+  while index <= a:0
+    if a:{index} ==# 'onemore'
+      silent setlocal virtualedit+=onemore
+    endif
+    let index = index + 1
+  endwhile
+
+  silent exec a:cmd
+  if a:0 > 0
+    silent exec 'setlocal virtualedit='.saved_ve
+  endif
+  return ''
+endfunction
 
 " neocomplcacheにて設定
 " inoremap <C-h> <BS>
