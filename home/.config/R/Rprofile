@@ -1,5 +1,7 @@
 options(repos = "http://cran.ism.ac.jp/")
 # options(repos = "https://cran.r-project.org/")
+options(pager = "vim-manpager.sh")
+
 if (interactive()) {
     library(colorout)
     library(setwidth)
