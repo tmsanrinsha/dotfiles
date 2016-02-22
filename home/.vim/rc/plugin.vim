@@ -854,6 +854,9 @@ if IsInstalled('lexima.vim')
 
         " matchparisで設定したもの(「,」:（,）など)をルールに追加
         for s:val in split(&matchpairs, ',')
+            if s:val ==# '<:>'
+                continue
+            endif
             let s:val = escape(s:val, '[]')
             let s:pair = split(s:val, ':')
             execute "call lexima#add_rule({'char': '".s:pair[0]."', 'input_after': '". s:pair[1]."'})"
