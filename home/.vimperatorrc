@@ -169,6 +169,11 @@ liberator.globalVariables.copy_templates = [
     { label: 'markdown',  value: '[%TITLE%](%URL%)'},
     { label: 'n',         value: '%TITLE%\n%URL%'},
     { label: 'image',     value: '![](%URL%)'},
+    { label: 'decoded_URI', value: 'copy decoded URI',
+        custom: function () {
+            return decodeURI(content.document.location);
+        }
+    },
     { label: 'github_repository', value: 'copy repository name of Github',
         custom: function () {
             return content.document.location.pathname.replace('/','');
@@ -182,6 +187,7 @@ liberator.globalVariables.copy_templates = [
 EOM
 
 " mapを上で設定すると不安定なので、ここで設定
+nnoremap <Leader>yd :copy decoded_URI<CR>
 nnoremap <Leader>yt :copy title<CR>
 nnoremap <Leader>ym :copy markdown<CR>
 nnoremap <Leader>yn :copy n<CR>
