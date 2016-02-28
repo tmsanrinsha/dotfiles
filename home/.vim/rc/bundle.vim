@@ -76,72 +76,77 @@ NeoBundle 'osyo-manga/vital-coaster'
 
 " unite {{{1
 " ============================================================================
-" lazyにすると$ vim .で起動するときにエラーが出る
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-" neobundlelazy 'shougo/neomru.vim', {
-" \   'on_unite': ['file_mru', 'directory_mru']
-" \}
-NeoBundle 'Shougo/neossh.vim'
-" NeoBundleLazy 'Shougo/neossh.vim', {
-" \   'on_unite': ['ssh']
-" \}
-" unite-で始まるプラグインは自動的にunite_sourcesがセットされる
-NeoBundle 'Shougo/unite-outline'
-" NeoBundleLazy 'Shougo/unite-outline', {
-" \   'on_unite': 'outline'
-" \}
-NeoBundle 'tacroe/unite-mark'
-" NeoBundleLazy 'tacroe/unite-mark', {
-" \   'on_unite': 'mark'
-" \}
-NeoBundle 'tsukkee/unite-tag'
-" NeoBundleLazy 'tsukkee/unite-tag', {
-" \   'on_unite': 'tag'
-" \}
-NeoBundle 'ujihisa/unite-locate'
-NeoBundle 'basyura/unite-mdfind'
-NeoBundle 'Shougo/neoyank.vim'
-" NeoBundleLazy 'Shougo/neoyank.vim', {
-" \   'on_unite': ['history/yank']
-" \}
-NeoBundle 'thinca/vim-unite-history'
-" NeoBundleLazy 'thinca/vim-unite-history', {
-" \   'on_unite': ['history/command', 'history/search']
-" \}
-NeoBundle 'tmsanrinsha/unite-ghq'
-" NeoBundleLazy 'tmsanrinsha/unite-ghq', {
-" \   'on_unite': 'ghq'
-" \}
-NeoBundle 'rhysd/unite-zsh-cdr.vim'
-" NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
-" \   'on_unite': ['zsh-cdr']
-" \}
+" vimfiler.vimをon_sourceしないと、$ vim .で起動するときにエラーが出る
+NeoBundleLazy 'Shougo/unite.vim', {
+\   'on_cmd': 'Unite',
+\}
+
+" Why on_unite feature has been deleted? · Issue #495 · Shougo/neobundle.vim
+" https://github.com/Shougo/neobundle.vim/issues/495
+NeoBundleLazy 'Shougo/neomru.vim', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'Shougo/neossh.vim', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'Shougo/unite-outline', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'tacroe/unite-mark', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'tsukkee/unite-tag', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'ujihisa/unite-locate', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'basyura/unite-mdfind', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'Shougo/neoyank.vim', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'thinca/vim-unite-history', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'tmsanrinsha/unite-ghq', {
+\   'on_source': 'unite.vim'
+\}
+NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
+\   'on_source': 'unite.vim'
+\}
 " NeoBundle 'Shougo/unite-sudo'
-" }}}
+
+" qfreplace {{{1
+" ============================================================================
 " http://archiva.jp/web/tool/vim_grep2.html
-NeoBundle 'thinca/vim-qfreplace'
+NeoBundleLazy 'thinca/vim-qfreplace', {
+\   'on_source': 'unite.vim'
+\}
 
 " shell, filer {{{1
 " ============================================================================
 NeoBundleLazy 'Shougo/vimshell.vim', {
-\   'autoload' : { 'commands' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ] },
+\   'on_cmd' : [ 'VimShell', "VimShellBufferDir", "VimShellInteractive", "VimShellPop" ],
 \   'depends' : ['Shougo/vim-vcs', 'Shougo/unite.vim']
 \}
-NeoBundle 'ujihisa/vimshell-ssh'
-NeoBundleLazy 'oplatek/Conque-Shell', {
-\   'autoload': {
-\       'commands': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
-\   }
+NeoBundleLazy 'ujihisa/vimshell-ssh', {
+\   'on_source': ['unite.vim', 'vimshell.vim']
 \}
-" Lazyにすると$ vim .でVimFilerが開かないのでやらない
-NeoBundle 'Shougo/vimfiler.vim'
+NeoBundleLazy 'oplatek/Conque-Shell', {
+\   'on_cmd': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
+\}
+" $ vim .でVimFilerが開かないので下でNeoBundleSourceしている
+NeoBundleLazy 'Shougo/vimfiler.vim', {
+\   'depends': 'unite.vim'
+\}
 
 " 補完・入力補助 {{{1
 " ============================================================================
 "" 自動補完 {{{2
 NeoBundleLazy "Shougo/neocomplete.vim", {
-\   "autoload": {"insert": 1},
+\   'on_i': 1,
 \   'depends' : [
 \       'Shougo/context_filetype.vim',
 \       'Shougo/neoinclude.vim',
@@ -291,7 +296,7 @@ NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(texto
 
 NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'kana/vim-smartword', {
-\   'autoload' : { 'mappings' : '<Plug>(smartword-' }
+\   'on_map' : '<Plug>(smartword-'
 \}
 " NeoBundleLazy 'thinca/vim-visualstar', {
 " \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
@@ -813,3 +818,5 @@ filetype plugin indent on     " Required!
 
 " Installation check.
 NeoBundleCheck
+" NeoBundleSource unite.vim
+NeoBundleSource vimfiler.vim
