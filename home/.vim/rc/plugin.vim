@@ -2508,9 +2508,9 @@ if IsInstalled('qfixhowm')
         let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
         let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
         " メモファイルの拡張子
-        let g:qfixmemo_ext = 'txt'
+        let g:qfixmemo_ext = 'md'
         " ファイルタイプをmarkdownにする
-        let g:qfixmemo_filetype = 'mkd'
+        let g:qfixmemo_filetype = 'md'
         " 外部grep使用
         let g:mygrepprg='grep'
         " let g:QFixMRU_RootDir = qfixmemo_dir
