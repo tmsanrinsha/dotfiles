@@ -551,26 +551,22 @@ NeoBundleLazy 'autowitch/hive.vim', {
 " \}
 " fenced code blockで色がつかない
 " インデントがおかしい
-" NeoBundleLazy 'plasticboy/vim-markdown', {
-" \   'name': 'plasticboy_vim-markdown',
-" \   'autoload': {'filetypes': ['mkd']},
-" \}
-" NeoBundle 'plasticboy/vim-markdown', {
-" \   'name': 'plasticboy_vim-markdown',
-" \}
+NeoBundleLazy 'plasticboy/vim-markdown', {
+\   'on_ft': 'markdown',
+\}
 
 " [VimでのMarkdown環境を整える - rcmdnk's blog](http://rcmdnk.github.io/blog/2013/11/17/computer-vim/#rcmdnkvim-markdown)
 " forked from plasticboy/vim-markdown
 " vim-markdown-quote-syntaxを使うと色がつく
 " rmdでも使いたいのでautoloadに設定する
-NeoBundleLazy 'rcmdnk/vim-markdown', {
-\   'name': 'rcmdnk_vim-markdown',
-\   'autoload': {'filetypes': ['markdown', 'rmd']},
-\   'depends': [
-\       'godlygeek/tabular',
-\       'joker1007/vim-markdown-quote-syntax',
-\   ]
-\}
+" NeoBundleLazy 'rcmdnk/vim-markdown', {
+" \   'name': 'rcmdnk_vim-markdown',
+" \   'autoload': {'filetypes': ['markdown', 'rmd']},
+" \   'depends': [
+" \       'godlygeek/tabular',
+" \       'joker1007/vim-markdown-quote-syntax',
+" \   ]
+" \}
 
 NeoBundleLazy 'nelstrom/vim-markdown-folding', {
 \   'autoload': {'filetypes': ['markdown']}

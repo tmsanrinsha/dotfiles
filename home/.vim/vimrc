@@ -1344,11 +1344,13 @@ autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 " au FileType mkd      call MyAddToFileType('markdown')
 
 " rcmdnk/vim-markdown {{{3
-if IsInstalled('rcmdnk_vim-markdown')
+" if IsInstalled('rcmdnk_vim-markdown')
+if IsInstalled('vim-markdown')
     let g:vim_markdown_folding_disabled = 1
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= 'open'
     let g:vim_markdown_no_default_key_mappings=1
+    let g:vim_markdown_frontmatter = 1
 endif
 
 " joker1007/vim-markdown-quote-syntax {{{3
