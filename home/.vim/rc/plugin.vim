@@ -2469,21 +2469,16 @@ endif
 " memoliset.vim {{{1
 " ============================================================================
 if IsInstalled('memolist.vim')
-    " call neobundle#config('memolist.vim', {
-    "     \   'autoload': {
-    "     \       'commands': ['MemoNew', 'MemoList', 'MemoGrep']
-    "     \   }
-    "     \})
-
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :MemoList<CR>
     nnoremap <Leader>mg  :MemoGrep<CR>
 
-    let g:memolist_path = expand('~/Dropbox/memo')
+    let g:memolist_path = expand('~/Dropbox/memo/doc')
 
     let bundle = neobundle#get('memolist.vim')
     function! bundle.hooks.on_source(bundle)
-        let g:memolist_memo_suffix = "txt"
+        let g:memolist_memo_suffix = 'md'
+        let g:memolist_template_dir_path = '~/.vim/template/memolist'
         let g:memolist_unite = 1
     endfunction
 endif

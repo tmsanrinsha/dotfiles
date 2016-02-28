@@ -746,7 +746,9 @@ NeoBundleLazy 'neilagabriel/vim-geeknote', {
 " \   'filetypes': ['vimwiki']
 " \}
 
-" NeoBundleLazy 'glidenote/memolist.vim'
+NeoBundleLazy 'glidenote/memolist.vim', {
+\   'on_cmd': ['MemoNew', 'MemoList', 'MemoGrep']
+\}
 " NeoBundleLazy 'fuenor/qfixhowm'
 " NeoBundle "osyo-manga/unite-qfixhowm"
 " NeoBundle 'jceb/vim-orgmode', {
