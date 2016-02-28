@@ -240,27 +240,25 @@ NeoBundle 'QuickFixCurrentNumber', {
 " operator {{{1
 " ============================================================================
 NeoBundleLazy "kana/vim-operator-user", {
-\   'autoload': {
-\       'mappings': '<Plug>(operator-'
-\   }
+\   'on_map': '<Plug>(operator-'
 \}
 
 NeoBundleLazy 'kana/vim-operator-replace', {
 \   'depends': 'kana/vim-operator-user',
-\   'autoload' : { 'mappings' : '<Plug>(operator-replace)' }
+\   'on_map': '<Plug>(operator-replace)'
 \}
 NeoBundleLazy "osyo-manga/vim-operator-search", {
 \   'depends': 'kana/vim-operator-user',
-\   'autoload' : { 'mappings' : '<Plug>(operator-search)' }
+\   'on_map': '<Plug>(operator-search)'
 \}
 NeoBundle 'tpope/vim-surround'
 NeoBundleLazy "rhysd/vim-operator-surround", {
 \   'depends': 'kana/vim-operator-user',
-\   'autoload' : { 'mappings' : '<plug>(operator-surround-' }
+\   'on_map': '<plug>(operator-surround-'
 \}
 NeoBundleLazy "tyru/operator-camelize.vim", {
 \   'depends': 'kana/vim-operator-user',
-\   'autoload' : { 'mappings' : '<Plug>(operator-camelize-' }
+\   'on_map': '<Plug>(operator-camelize-'
 \}
 " clipboardが使えない、もしくはsshで接続している時にvim-fakeclipを使う。
 if !has('clipboard') || $SSH_CLIENT != ''
@@ -276,22 +274,22 @@ NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'sgur/vim-textobj-parameter'
 " NeoBundle 'thinca/vim-textobj-comment'
 NeoBundleLazy 'glts/vim-textobj-comment', {
-\   'autoload': {'mappings': '<Plug>(textobj-comment-'}
+\   'on_map': '<Plug>(textobj-comment-'
 \}
 NeoBundleLazy 'osyo-manga/vim-textobj-context', {
-\   'autoload': {'mappings': '<Plug>(textobj-context-'}
+\   'on_map': '<Plug>(textobj-context-'
 \}
 NeoBundle 'osyo-manga/vim-textobj-multiblock'
 NeoBundleLazy 'kana/vim-textobj-lastpat', {
-\   'autoload' : { 'mappings' : '<Plug>(textobj-lastpat-' },
+\   'on_map': '<Plug>(textobj-lastpat-',
 \   'disabled' : MyHasPatch('patch-7.3.610')
 \}
 " Gitでコンフリクトしている部分
 " lazyはうまくいかない
-" NeoBundleLazy 'rhysd/vim-textobj-conflict', {'autoload': {'mappings': '<Plug>(textobj-conflict'}}
+" NeoBundleLazy 'rhysd/vim-textobj-conflict', {'on_map': '<Plug>(textobj-conflict'}
 NeoBundle 'rhysd/vim-textobj-conflict'
 " バッファ全体
-NeoBundleLazy 'kana/vim-textobj-entire', {'autoload': {'mappings': '<Plug>(textobj-entire'}}
+NeoBundleLazy 'kana/vim-textobj-entire', {'on_map': '<Plug>(textobj-entire'}
 " }}}
 
 NeoBundle 'tpope/vim-repeat'
@@ -299,12 +297,10 @@ NeoBundleLazy 'kana/vim-smartword', {
 \   'on_map' : '<Plug>(smartword-'
 \}
 " NeoBundleLazy 'thinca/vim-visualstar', {
-" \   'autoload' : { 'mappings' : '<Plug>(visualstar-' }
+" \   'on_map': '<Plug>(visualstar-'
 " \}
 NeoBundleLazy 'haya14busa/vim-asterisk', {
-\   'autoload' : {
-\     'mappings' : ['<Plug>(asterisk-']
-\   }
+\   'on_map': '<Plug>(asterisk-'
 \ }
 
 
@@ -312,9 +308,7 @@ NeoBundle 'rhysd/clever-f.vim'
 
 " Vimperatorのクイックヒント風にカーソル移動
 NeoBundleLazy 'Lokaltog/vim-easymotion', {
-\   'autoload': {
-\       'mappings': '<Plug>(easymotion-'
-\   }
+\   'on_map': '<Plug>(easymotion-'
 \}
 
 " https://github.com/dahu/Severalections
@@ -342,17 +336,13 @@ endif
 " NeoBundle "tyru/caw.vim"
 " NeoBundle "tpope/vim-commentary"
 NeoBundleLazy "tomtom/tcomment_vim", {
-\   'autoload': {
-\       'mappings': ['<Plug>TComment_', 'gc'],
-\   }
+\   'on_map': ['<Plug>TComment_', 'gc'],
 \}
 
 " NeoBundle 'YankRing.vim'
 NeoBundleLazy 'LeafCage/yankround.vim', {
-\   'autoload': {
-\       'mappings': '<Plug>(yankround-',
-\       'unite_sources' : 'yankround'
-\   },
+\   'on_map': '<Plug>(yankround-',
+\   'on_sources' : 'unite.vim',
 \   'vim_version': '7.3'
 \}
 
@@ -365,14 +355,8 @@ NeoBundle 'thinca/vim-singleton', {
 " vim path/to/file.ext:12:3 こういうに行と列を指定して開く
 NeoBundle 'kopischke/vim-fetch'
 NeoBundle 'kana/vim-gf-user' 
-NeoBundle 'kana/vim-gf-diff'
 " lazyにするとGitvでの挙動がおかしくなる
-" NeoBundleLazy 'kana/vim-gf-diff', {
-" \   'depends': 'kana/vim-gf-user',
-" \   'autoload': {
-" \       'mappings': '<Plug>(gf-user-',
-" \   }
-" \}
+NeoBundle 'kana/vim-gf-diff'
 " }}}
 
 " 一時バッファの制御
@@ -680,10 +664,8 @@ NeoBundleLazy 'mattn/gist-vim', {
 
 " }}}
 NeoBundleLazy 'tyru/open-browser.vim', {
-\   'autoload': {
-\       'mappings': '<Plug>(openbrowser-',
-\       'functions': ['openbrowser#search', 'OpenBrowser']
-\   }
+\   'on_map': '<Plug>(openbrowser-',
+\   'on_func': ['openbrowser#search', 'OpenBrowser']
 \}
 
 
@@ -718,7 +700,7 @@ NeoBundle 'itchyny/lightline.vim', {
 
 " NeoBundle 'luochen1990/rainbow'
 NeoBundleLazy 't9md/vim-quickhl', {
-\   'autoload': {'mappings': '<Plug>(quickhl-'}
+\   'on_map': '<Plug>(quickhl-'
 \}
 
 NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
@@ -742,10 +724,8 @@ NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
 "}}}
 " [Vimエディタで線を描画する — 名無しのvim使い](http://nanasi.jp/articles/howto/editing/drawline.html#id4)
 NeoBundleLazy 'DrawIt', {
-\   'autoload': {
-\       'commands': 'DrawIt',
-\       'mappings': ';di',
-\   }
+\   'on_cmd': 'DrawIt',
+\   'on_map': ';di',
 \}
 
 NeoBundleLazy 'Shougo/junkfile.vim', {
