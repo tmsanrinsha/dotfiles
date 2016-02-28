@@ -599,7 +599,7 @@ set scrolloff=1
 "http://ogawa.s18.xrea.com/fswiki/wiki.cgi?page=Vim%A4%CE%A5%E1%A5%E2
 "nnoremap <F12> :set scrollbind!<CR>
 
-" tab {{{1
+" tab page {{{1
 " ============================================================================
 "  いつタブページのラベルを表示するかを指定する。
 "  0: 表示しない

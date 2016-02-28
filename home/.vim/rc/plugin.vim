@@ -266,9 +266,9 @@ endif
 " ============================================================================
 if IsInstalled('neomru.vim')
     "最近使用したファイル一覧
-    nnoremap <silent> [unite]fm :<C-u>Unite file_mru<CR>
+    nnoremap <silent> [unite]fm :<C-u>Unite neomru/file<CR>
     "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-u>Unite directory_mru<CR>
+    nnoremap <silent> [unite]dm :<C-u>Unite neomru/directory<CR>
 
     " let bundle = neobundle#get('neomru.vim')
     " function! bundle.hooks.on_source(bundle)
@@ -1333,6 +1333,8 @@ sign define qfsign texthl=SignColumn text=>>
 
 " operator {{{1
 " ============================================================================
+onoremap ; t;
+
 if IsInstalled('vim-operator-user')
 
     map [:space:]c <Plug>(operator-camelize-toggle)
