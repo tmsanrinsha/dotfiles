@@ -573,12 +573,17 @@ if &term ==# 'screen'
     let &t_fs = "\007\e\\"
 endif
 
+" buffer {{{1
+" ============================================================================
+nnoremap <M-n> :bnext<CR>
+nnoremap <M-p> :bprevious<CR>
+
 " window {{{1
 " ============================================================================
-"nnoremap <M-h> <C-w>h
-"nnoremap <M-j> <C-w>j
-"nnoremap <M-k> <C-w>k
-"nnoremap <M-l> <C-w>l
+" nnoremap <M-h> <C-w>h
+" nnoremap <M-j> <C-w>j
+" nnoremap <M-k> <C-w>k
+" nnoremap <M-l> <C-w>l
 nnoremap <M--> <C-w>-
 nnoremap <M-+> <C-w>+
 nnoremap <M-,> <C-w><
@@ -621,8 +626,6 @@ nnoremap <S-C-Tab> :tabp<CR>
 nnoremap [TAB]n :tabn<CR>
 nnoremap [TAB]p :tabp<CR>
 
-nnoremap <M-n> :tabn<CR>
-nnoremap <M-p> :tabp<CR>
 nnoremap <M-1> :1tabn<CR>
 nnoremap <M-2> :2tabn<CR>
 nnoremap <M-3> :3tabn<CR>

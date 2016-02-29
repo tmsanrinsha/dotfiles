@@ -1903,7 +1903,8 @@ let g:vdebug_options = {
 \   'marker_open_tree' : '▾'
 \}
 
-" JSON {{{1
+" vim-json {{{1
+" ============================================================================
 let g:vim_json_syntax_conceal = 0
 
 " Python, jedi-vim {{{1
