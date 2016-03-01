@@ -181,8 +181,7 @@ NeoBundleLazy "Shougo/neocomplcache.vim", {
 " 閉じ括弧などの対応するものの補完 {{{2
 " NeoBundleLazy "kana/vim-smartinput", {"autoload": {"insert": 1}}
 NeoBundleLazy "cohama/lexima.vim", {"autoload": {"insert": 1}}
-" }}}
-" }}}
+
 " templete {{{1
 " ============================================================================
 NeoBundle 'thinca/vim-template'
@@ -261,9 +260,9 @@ NeoBundleLazy "tyru/operator-camelize.vim", {
 \   'on_map': '<Plug>(operator-camelize-'
 \}
 " clipboardが使えない、もしくはsshで接続している時にvim-fakeclipを使う。
-if !has('clipboard') || $SSH_CLIENT != ''
-    NeoBundle 'tmsanrinsha/vim-fakeclip'
-endif
+NeoBundle 'tmsanrinsha/vim-fakeclip', {
+\   'disable': has('clipboard') && $SSH_CLIENT == ''
+\}
 
 " textobj {{{1
 " ============================================================================
@@ -272,7 +271,6 @@ NeoBundle 'kana/vim-textobj-function'
 NeoBundle 'kentaro/vim-textobj-function-php'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'sgur/vim-textobj-parameter'
-" NeoBundle 'thinca/vim-textobj-comment'
 NeoBundleLazy 'glts/vim-textobj-comment', {
 \   'on_map': '<Plug>(textobj-comment-'
 \}
@@ -290,20 +288,14 @@ NeoBundleLazy 'kana/vim-textobj-lastpat', {
 NeoBundle 'rhysd/vim-textobj-conflict'
 " バッファ全体
 NeoBundleLazy 'kana/vim-textobj-entire', {'on_map': '<Plug>(textobj-entire'}
-" }}}
 
 NeoBundle 'tpope/vim-repeat'
 NeoBundleLazy 'kana/vim-smartword', {
 \   'on_map' : '<Plug>(smartword-'
 \}
-" NeoBundleLazy 'thinca/vim-visualstar', {
-" \   'on_map': '<Plug>(visualstar-'
-" \}
 NeoBundleLazy 'haya14busa/vim-asterisk', {
 \   'on_map': '<Plug>(asterisk-'
 \ }
-
-
 NeoBundle 'rhysd/clever-f.vim'
 
 " Vimperatorのクイックヒント風にカーソル移動
@@ -326,11 +318,7 @@ NeoBundleLazy 'thinca/vim-partedit', {
 \}
 
 " 整形
-if v:version >= 701
-    NeoBundle 'h1mesuke/vim-alignta'
-else
-    NeoBundle 'Align'
-endif
+NeoBundle 'h1mesuke/vim-alignta'
 
 " コメント操作
 " NeoBundle "tyru/caw.vim"
@@ -339,7 +327,6 @@ NeoBundleLazy "tomtom/tcomment_vim", {
 \   'on_map': ['<Plug>TComment_', 'gc'],
 \}
 
-" NeoBundle 'YankRing.vim'
 NeoBundleLazy 'LeafCage/yankround.vim', {
 \   'on_map': '<Plug>(yankround-',
 \   'on_sources' : 'unite.vim',
@@ -360,11 +347,10 @@ NeoBundle 'kana/vim-gf-diff'
 " }}}
 
 " 一時バッファの制御
-" if v:version >= 704 || (v:version == 703 && has('patch462'))
-"     NeoBundle 'osyo-manga/vim-automatic', {
-"                 \   'depends': 'osyo-manga/vim-gift',
-"                 \}
-" endif
+" NeoBundle 'osyo-manga/vim-automatic', {
+" \   'depends': 'osyo-manga/vim-gift',
+" \   'disable': !MyHasPatch('patch-7.3.462')
+" \}
 
 NeoBundle 'LeafCage/foldCC'
 NeoBundleLazy 'thinca/vim-ft-help_fold', {
@@ -546,9 +532,6 @@ NeoBundleLazy 'autowitch/hive.vim', {
 
 " Markdown {{{1
 " ============================================================================
-" NeoBundleLazy 'tpope/vim-markdown', {
-" \   'autoload' : { 'filetypes' : 'markdown' }
-" \}
 " fenced code blockで色がつかない
 " インデントがおかしい
 NeoBundleLazy 'plasticboy/vim-markdown', {
@@ -777,9 +760,6 @@ NeoBundleLazy 'mattn/qiita-vim', {
 "             \   ]}
 "             \}
 
-" 自分のリポジトリ
-" NeoBundle 'tmsanrinsha/vim-colors-solarized'
-" NeoBundle 'tmsanrinsha/vim'
 NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
 NeoBundleSaveCache
@@ -794,5 +774,6 @@ filetype plugin indent on     " Required!
 
 " Installation check.
 NeoBundleCheck
+
 " NeoBundleSource unite.vim
 NeoBundleSource vimfiler.vim
