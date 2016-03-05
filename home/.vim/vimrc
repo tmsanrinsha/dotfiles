@@ -1362,6 +1362,7 @@ if IsInstalled('vim-markdown')
     let g:netrw_browsex_viewer= 'open'
     let g:vim_markdown_no_default_key_mappings=1
     let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_conceal = 0
 endif
 
 " joker1007/vim-markdown-quote-syntax {{{3
