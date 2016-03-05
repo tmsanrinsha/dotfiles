@@ -838,6 +838,7 @@ if IsInstalled('lexima.vim')
     let bundle = neobundle#get('lexima.vim')
     function! bundle.hooks.on_source(bundle)
         let g:lexima_no_default_rules = 1
+        let g:lexima_enable_space_rules = 0
         call lexima#set_default_rules()
 
         " <C-h>でlexima.vimの<BS>の動きをさせる
