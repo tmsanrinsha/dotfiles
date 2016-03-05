@@ -454,7 +454,8 @@ inoremap <C-_> <C-o>u
 " インデントしない改行
 " [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
 " [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
-nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>ji
+nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>j
+
 
 imap <silent><C-j> <End><CR>
 
