@@ -2093,6 +2093,70 @@ autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 \   let b:sql_type_overrride = 'hive'
 \|  setlocal filetype=sql
 
+" Markdown {{{1
+" ============================================================================
+" デフォルトで入っているプラグインでfenced code blocksのコードをハイライト {{{2
+" let g:markdown_fenced_languages = [
+" \  'css',
+" \  'javascript',
+" \  'js=javascript',
+" \  'json=javascript',
+" \  'php',
+" \  'sql',
+" \  'xml',
+" \]
+
+" rcmdnk/vim-markdown {{{2
+" ----------------------------------------------------------------------------
+" if IsInstalled('rcmdnk_vim-markdown')
+if IsInstalled('vim-markdown')
+    let g:vim_markdown_folding_disabled = 1
+    " macでgxを使いたい場合
+    let g:netrw_browsex_viewer= 'open'
+    let g:vim_markdown_no_default_key_mappings=1
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_conceal = 0
+
+    " plasticboy/vim-markdownでfiletypeをmkd.markdownにする {{{3
+    " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
+    " function! MyAddToFileType(ft)
+    "   if index(split(&ft, '\.'), a:ft) == -1
+    "     let &ft .= '.'.a:ft
+    "   endif
+    " endfun
+    " au FileType markdown call MyAddToFileType('mkd')
+    " au FileType mkd      call MyAddToFileType('markdown')
+endif
+
+" joker1007/vim-markdown-quote-syntax {{{2
+" ----------------------------------------------------------------------------
+let g:markdown_quote_syntax_filetypes = {
+\   'css' : {
+\       'start' : "\\%(css\\|scss\\)",
+\   },
+\   'dot' : {
+\       'start' : 'dot',
+\   },
+\   'javascript' : {
+\       'start' : 'javascript',
+\   },
+\   'php' : {
+\       'start' : 'php',
+\   },
+\   'sh' : {
+\       'start' : 'sh',
+\   },
+\}
+
+" nelstrom/vim-markdown-folding {{{2
+" ----------------------------------------------------------------------------
+if IsInstalled('vim-markdown-folding')
+    let g:bundle = neobundle#get('vim-markdown-folding')
+    function! bundle.hooks.on_source(bundle)
+        let g:markdown_fold_style = 'nested'
+    endfunction
+endif
+
 " vimconsole.vim {{{1
 " ==============================================================================
 if IsInstalled('vimconsole.vim')
