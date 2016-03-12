@@ -1,0 +1,166 @@
+[[plugins]]
+repo = 'Shougo/vim-vcs'
+
+[[plugins]]
+repo = 'ciaranm/detectindent'
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'osyo-manga/shabadou.vim'
+
+[[plugins]]
+repo = 'tmsanrinsha/diffchar.vim'
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+
+[[plugins]]
+repo = 'sudo.vim'
+
+[[plugins]]
+repo = 'tmsanrinsha/vim-fakeclip'
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+
+[[plugins]]
+repo = 'KazuakiM/vim-qfsigns'
+
+[[plugins]]
+repo = 'savevers.vim'
+
+[[plugins]]
+repo = 'kopischke/vim-fetch'
+
+[[plugins]]
+repo = 'QuickFixCurrentNumber'
+depends = 'ingo-library'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'osyo-manga/vital-coaster'
+
+[[plugins]]
+repo = 'tmsanrinsha/vim-emacscommandline'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+augroup = 'fugitive'
+
+[[plugins]]
+repo = 'ingo-library'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+    [plugins.build]
+    windows = 'tools\\update-dll-mingw'
+    cygwin  = 'make -f make_cygwin.mak'
+    mac     = 'make -f make_mac.mak'
+    linux   = 'make'
+    unix    = 'gmake'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+
+[[plugins]]
+repo = 'kana/vim-gf-user'
+
+[[plugins]]
+repo = 'LeafCage/foldCC'
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+
+[[plugins]]
+repo = 'thinca/vim-template'
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'kana/vim-textobj-function'
+
+[[plugins]]
+repo = 'kentaro/vim-textobj-function-php'
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent'
+
+[[plugins]]
+repo = 'Shougo/neobundle.vim'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-conflict'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'tmsanrinsha/molokai'
+name = 'my_molokai'
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'dannyob/quickfixstatus'
+
+[[plugins]]
+repo = 'thinca/vim-singleton'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+depends = ['vim-fugitive', 'tagbar', 'vim-anzu']
+
+[[plugins]]
+repo = 'thinca/vim-prettyprint'
+
+[[plugins]]
+repo = 'cohama/vim-hier'
+
+[[plugins]]
+repo = 'PreserveNoEOL'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo = 'kana/vim-gf-diff'
+
+[[plugins]]
+repo = 'h1mesuke/vim-alignta'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'

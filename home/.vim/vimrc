@@ -14,7 +14,7 @@ scriptencoding utf-8
 " 初期設定 {{{1
 " ============================================================================
 let $VIMRC_DIR = $HOME.'/.vim/rc'
-let $VIM_CACHE_DIR = expand('~/.cache/vim')
+let $VIM_CACHE_DIR = expand('$XDG_CACHE_HOME/vim')
 if !isdirectory($VIM_CACHE_DIR)
     call mkdir($VIM_CACHE_DIR, 'p')
 endif
@@ -1445,5 +1445,7 @@ autocmd MyVimrc FileType gitcommit
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif
-call SourceRc('plugin.vim')
+" call SourceRc('plugin.vim')
+call SourceRc('dein.vim')
 call SourceRc('local.vim')
+syntax enable
