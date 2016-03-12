@@ -47,23 +47,63 @@ on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
+on_source = 'unite.vim'
+on_map = '<Plug>'
 
+# vimshell {{{1
+# ============================================================================
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 depends = ['vim-vcs', 'unite.vim']
 on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
 
 [[plugins]]
-repo = 'Shougo/vim-vcs'
-
-[[plugins]]
 repo = 'ujihisa/vimshell-ssh'
 on_source = ['unite.vim', 'vimshell.vim']
 
 [[plugins]]
+repo = 'Shougo/vim-vcs'
+# }}}
+
+[[plugins]]
 repo = 'oplatek/Conque-Shell'
 on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
+
+# neocomplete {{{1
+# ============================================================================
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+depends = [
+    'context_filetype.vim', 'FastFold'
+    'neoinclude.vim', 'neco-syntax',
+    'neosnippet.vim', 'neosnippet-snippets', 'vim-snippets'
+]
+# depends = 'FastFold'
+on_i = 1
+# vim_version = '7.3.825'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# [[plugins]]
+# repo = 'Konfekt/FastFold'
+# on_source = 'neocomplete.vim'
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+# }}}
 
 [[plugins]]
 repo = 'tmsanrinsha/DirDiff.vim'
@@ -290,12 +330,6 @@ on_ft = ['help']
 [[plugins]]
 repo = 'nono/jquery.vim'
 on_ft = ['javascript', 'html', 'php']
-
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-depends = ['context_filetype.vim', 'neoinclude.vim', 'neco-syntax', 'neosnippet.vim', 'neosnippet-snippets', 'vim-snippets']
-on_i = 1
-# vim_version = '7.3.825'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'

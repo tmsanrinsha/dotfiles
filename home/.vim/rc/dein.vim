@@ -1,10 +1,9 @@
 scriptencoding utf-8
 
 let s:dein_dir = expand('$VIM_CACHE_DIR/dein')
-" dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-" dein.vim がなければ github から落としてくる
+" dein.vim がなければgit clone
 if !isdirectory(s:dein_repo_dir)
     echo 'git clone https://github.com/Shougo/dein.vim '.s:dein_repo_dir
     call system('git clone https://github.com/Shougo/dein.vim '.s:dein_repo_dir)
@@ -12,29 +11,31 @@ endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
 
-" 設定開始
 call dein#begin(s:dein_dir)
 
-" プラグインリストを収めた TOML ファイル
 let s:toml      = '~/.vim/rc/dein.toml'
 let s:lazy_toml = '~/.vim/rc/dein_lazy.toml'
 
-" TOML を読み込み、キャッシュしておく
 if dein#load_cache([expand('<sfile>'), s:toml, s:lazy_toml])
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  call dein#save_cache()
+    call dein#load_toml(s:toml,      {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+    call dein#save_cache()
 endif
 
-" 設定終了
 call dein#end()
 
-" もし、未インストールものものがあったらインストール
+filetype plugin indent on
+
+" vimprocは先にインストールする
+if dein#check_install(['vimproc.vim'])
+  call dein#install(['vimproc.vim'])
+endif
+
 if dein#check_install()
   call dein#install()
 endif
 
-function! s:dein_source(plugin) abort
+function! s:dein_on_source(plugin) abort
     execute 'autocmd MyVimrc User dein#source#'.g:dein#name
     \   'call s:'.a:plugin.'_on_source()'
 endfunction
@@ -302,7 +303,7 @@ if dein#tap('unite.vim')
         call unite#custom#action('file', 'args', s:args_action)
     endfunction
 
-    call s:dein_source('unite')
+    call s:dein_on_source('unite')
 endif
 
 
@@ -331,7 +332,7 @@ if dein#tap('neomru.vim')
         \)
     endfunction
 
-    call s:dein_source('neomru')
+    call s:dein_on_source('neomru')
 endif
 
 
@@ -373,7 +374,7 @@ if dein#tap('unite-outline')
         call unite#sources#outline#alias('zsh', 'conf')
     endfunction
 
-    call s:dein_source('unite_outline')
+    call s:dein_on_source('unite_outline')
 endif
 
 autocmd MyVimrc FileType yaml
@@ -408,7 +409,7 @@ if dein#tap('unite-ghq')
         call unite#custom_default_action('source/ghq/directory', 'vimfiler')
     endfunction
 
-    call s:dein_source('unite_ghq')
+    call s:dein_on_source('unite_ghq')
 endif
 
 " cdr {{{1
@@ -792,7 +793,7 @@ if dein#tap('neocomplete.vim')
         " }}}
     endfunction
 
-    call s:dein_source('neocomplete')
+    call s:dein_on_source('neocomplete')
 endif
 
 " neosnippet {{{1
@@ -824,7 +825,7 @@ if dein#tap('neosnippet.vim')
 
     endfunction
 
-    call s:dein_source('neosnippet')
+    call s:dein_on_source('neosnippet')
 endif
 
 " SirVer/ultisnips {{{1
@@ -975,7 +976,7 @@ if dein#tap('lexima.vim')
         " execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
     endfunction
 
-    call s:dein_source('lexima')
+    call s:dein_on_source('lexima')
 endif
 
 " thinca/vim-template {{{1
@@ -1131,7 +1132,7 @@ if dein#tap('vim-watchdogs')
     augroup WatchdogsSetting
         autocmd!
         autocmd BufWritePre *
-        \   call s:dein_source('watchdogs') |
+        \   call s:dein_on_source('watchdogs') |
         \   autocmd! WatchdogsSetting
     augroup END
 
@@ -1498,7 +1499,7 @@ if dein#tap('vim-easymotion')
         let g:EasyMotion_do_mapping = 0
     endfunction
 
-    call s:dein_source('easymotion')
+    call s:dein_on_source('easymotion')
 endif
 
 " vim-multiple-cursors {{{1
@@ -1521,7 +1522,7 @@ if dein#tap('vim-ref')
         " command! -nargs=* Man Ref man <args>
     endfunction
 
-    call s:dein_source('vim_ref')
+    call s:dein_on_source('vim_ref')
 endif
 
 " vim-partedit {{{1
@@ -1867,7 +1868,7 @@ if dein#tap('eclim')
 
     endfunction
 
-    call s:dein_source('eclim')
+    call s:dein_on_source('eclim')
 endif
 
 " phpcomplete.vim {{{1
@@ -1959,7 +1960,7 @@ autocmd MyVimrc FileType python
 " {{{2 jedi
 " ----------------------------------------------------------------------------
 if dein#tap('jedi-vim')
-    function! s:jedi_on_source(bundle)
+    function! s:jedi_on_source() abort
         " call s:set_python_path()
 
         autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
@@ -1995,7 +1996,7 @@ if dein#tap('jedi-vim')
         endif
     endfunction
 
-    call s:dein_source('jedi')
+    call s:dein_on_source('jedi')
 endif
 
 " C, C++ {{{1
@@ -2048,7 +2049,7 @@ if dein#tap('vim-marching')
 
     endfunction
 
-    call s:dein_source('marching')
+    call s:dein_on_source('marching')
 endif
 
 if dein#tap('vim-cpp-auto-include')
@@ -2161,7 +2162,7 @@ if dein#tap('vim-markdown-folding')
         let g:markdown_fold_style = 'nested'
     endfunction
 
-    call s:dein_source('markdown_folding')
+    call s:dein_on_source('markdown_folding')
 endif
 
 " vimconsole.vim {{{1
@@ -2251,7 +2252,7 @@ if dein#tap('gitv')
             \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
     endfunction
 
-    call s:dein_source('gitv')
+    call s:dein_on_source('gitv')
 endif
 
 " open-browser.vim {{{1
@@ -2281,7 +2282,7 @@ if dein#tap('open-browser.vim')
     endfunction
     command! -nargs=1 MyOpenbrowserSearch call s:my_openbrowser_search('<args>')
 
-    function! s:open_browser_on_source(bundle)
+    function! s:open_browser_on_source() abort
         let g:netrw_nogx = 1 " disable netrw's gx mapping.
         let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
 
@@ -2303,7 +2304,7 @@ if dein#tap('open-browser.vim')
         endif
     endfunction
 
-    call s:dein_source('open_browser')
+    call s:dein_on_source('open_browser')
 endif
 
 
@@ -2521,7 +2522,7 @@ if dein#tap('vim-geeknote')
         call s:set_python_path()
     endfunction
 
-    call s:dein_source('geeknote')
+    call s:dein_on_source('geeknote')
 endif
 
 " vimwiki {{{1
@@ -2540,7 +2541,7 @@ if dein#tap('vimwiki')
             \}]
     endfunction
 
-    call s:dein_source('vimwiki')
+    call s:dein_on_source('vimwiki')
 endif
 
 " memoliset.vim {{{1
@@ -2552,13 +2553,13 @@ if dein#tap('memolist.vim')
 
     let g:memolist_path = expand('~/Dropbox/memo/doc')
 
-    function! s:memolist_on_source(bundle) abort
+    function! s:memolist_on_source() abort
         let g:memolist_memo_suffix = 'md'
         let g:memolist_template_dir_path = '~/.vim/template/memolist'
         let g:memolist_unite = 1
     endfunction
 
-    call s:dein_source('memolist')
+    call s:dein_on_source('memolist')
 endif
 
 " qfixhowm {{{1
@@ -2603,7 +2604,7 @@ if dein#tap('qfixhowm')
         " let g:QFixMRU_Title['md'] = '^# '
     endfunction
 
-    call s:dein_source('qfixhowm')
+    call s:dein_on_source('qfixhowm')
 endif
 
 " colorscheme {{{1
