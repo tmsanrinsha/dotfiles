@@ -38,6 +38,7 @@ function! s:dein_source(plugin) abort
     execute 'autocmd MyVimrc User dein#source#'.g:dein#name
     \   'call s:'.a:plugin.'_on_source()'
 endfunction
+
 " vim-singleton {{{1
 " ============================================================================
 if dein#tap('vim-singleton') && has('gui_running')
@@ -112,8 +113,6 @@ if dein#tap('unite.vim')
             execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
         endfor
     endfunction
-
-    call unite#custom#action('source/output/*', 'verbose', s:action)
 
     " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
@@ -194,26 +193,6 @@ if dein#tap('unite.vim')
 
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
-    call unite#custom#profile('default', 'context', {
-    \   'start_insert': 1,
-    \   'direction': 'topleft',
-    \   'winheight': 10,
-    \   'auto_resize': 1,
-    \   'prompt': '> ',
-    \ })
-
-    call unite#custom_default_action('directory' , 'vimfiler')
-    " vimfiler上ではvimfilerを増やさず、移動するだけ
-    " autocmd MyVimrc FileType vimfiler
-    " \   call unite#custom_default_action('directory', 'lcd')
-
-    call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-    call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-
-    " dでファイルの削除
-    call unite#custom#alias('file', 'delete', 'vimfiler__delete')
-    call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
-
     " unite memo {{{2
     " ------------------------------------------------------------------------
     nnoremap [unite]fM :<C-u>Unite memo<CR>
@@ -228,7 +207,6 @@ if dein#tap('unite.vim')
     \       'args' : g:memo_directory,
     \   },
     \}
-    call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
     execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
 
     " unite-grep {{{2
@@ -264,13 +242,7 @@ if dein#tap('unite.vim')
 
     let g:unite_source_grep_max_candidates = 1000
     " Set "-no-quit" automatically in grep unite source.
-    call unite#custom#profile('source/grep', 'context',
-    \ {'no_quit' : 1})
 
-
-    " unit bookmark {{{2
-    " -------------------------------------------------------------------
-    call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
     " unite-args {{{2
     " ------------------------------------------------------------------------
@@ -290,7 +262,6 @@ if dein#tap('unite.vim')
         silent! argdelete *
         call s:set_arglist(a:candidates)
     endfunction
-    call unite#custom#action('file', 'args', s:args_action)
 
     " arglistにuniteで選択したファイルを追加する
     let s:argadd_action = {'description': 'argadd', 'is_selectable': 1}
@@ -298,8 +269,43 @@ if dein#tap('unite.vim')
     function! s:argadd_action.func(candidates)
         call s:set_arglist(a:candidates)
     endfunction
-    call unite#custom#action('file', 'argadd', s:argadd_action)
+
+    function! s:unite_on_source() abort
+        call unite#custom#action('source/output/*', 'verbose', s:action)
+        call unite#custom#profile('default', 'context', {
+        \   'start_insert': 1,
+        \   'direction': 'topleft',
+        \   'winheight': 10,
+        \   'auto_resize': 1,
+        \   'prompt': '> ',
+        \ })
+        call unite#custom_default_action('directory' , 'vimfiler')
+        " vimfiler上ではvimfilerを増やさず、移動するだけ
+        " autocmd MyVimrc FileType vimfiler
+        " \   call unite#custom_default_action('directory', 'lcd')
+
+        call unite#custom_default_action('source/directory/directory' , 'vimfiler')
+        call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
+
+        " dでファイルの削除
+        call unite#custom#alias('file', 'delete', 'vimfiler__delete')
+        call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
+
+        call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+
+        call unite#custom#profile('source/grep', 'context',
+        \ {'no_quit' : 1})
+
+        call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
+
+        call unite#custom#action('file', 'argadd', s:argadd_action)
+        call unite#custom#action('file', 'args', s:args_action)
+    endfunction
+
+    call s:dein_source('unite')
 endif
+
+
 
 " neomru {{{1
 " ============================================================================
@@ -313,14 +319,19 @@ if dein#tap('neomru.vim')
     " ファイルへの書き込みを60秒ごとにする
     let g:neomru#update_interval = 60
     let g:neomru#do_validate = 0
-    call unite#custom#source(
-    \'neomru/file', 'ignoer_pattern',
-    \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
-    \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-    \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-    \'\|\%(^\%(fugitive\)://\)'.
-    \'\|/mnt/'
-    \)
+
+    function! s:neomru_on_source() abort
+        call unite#custom#source(
+        \'neomru/file', 'ignoer_pattern',
+        \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
+        \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+        \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
+        \'\|\%(^\%(fugitive\)://\)'.
+        \'\|/mnt/'
+        \)
+    endfunction
+
+    call s:dein_source('neomru')
 endif
 
 
@@ -354,11 +365,15 @@ if dein#tap('unite-outline')
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
 
-    call unite#sources#outline#alias('ref-man', 'man')
-    call unite#sources#outline#alias('rmd', 'markdown')
-    call unite#sources#outline#alias('tmux', 'conf')
-    call unite#sources#outline#alias('vimperator', 'conf')
-    call unite#sources#outline#alias('zsh', 'conf')
+    function! s:unite_outline_on_source() abort
+        call unite#sources#outline#alias('ref-man', 'man')
+        call unite#sources#outline#alias('rmd', 'markdown')
+        call unite#sources#outline#alias('tmux', 'conf')
+        call unite#sources#outline#alias('vimperator', 'conf')
+        call unite#sources#outline#alias('zsh', 'conf')
+    endfunction
+
+    call s:dein_source('unite_outline')
 endif
 
 autocmd MyVimrc FileType yaml
@@ -385,15 +400,48 @@ if dein#tap('vim-unite-history')
 endif
 
 " unite-ghq {{{1
-" =========================================================================
+" ============================================================================
 if dein#tap('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 
-    call unite#custom_default_action('source/ghq/directory', 'vimfiler')
+    function! s:unite_ghq_on_source() abort
+        call unite#custom_default_action('source/ghq/directory', 'vimfiler')
+    endfunction
+
+    call s:dein_source('unite_ghq')
 endif
 
-" unite-zsh-cdr.vim {{{1
-" =========================================================================
+" cdr {{{1
+" ============================================================================
+if dein#tap('vital.vim')
+    let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
+    augroup cdr
+        autocmd!
+        autocmd BufEnter * call s:update_cdr(expand('%:p:h'))
+    augroup END
+
+    function! s:update_cdr(dir)
+        " .gitなどのdirectoryは書き込まない
+        let l:ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+        \   '\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'
+
+        if !isdirectory(a:dir) || a:dir =~ l:ignore_pattern
+            return
+        end
+
+        if filereadable(g:recent_dirs_file)
+            let l:recent_dirs = readfile(g:recent_dirs_file)
+            call insert(l:recent_dirs, "$'".a:dir."'", 0)
+            let l:V = vital#of('vital')
+            let l:List = l:V.import('Data.List')
+            let l:recent_dirs = l:List.uniq(l:recent_dirs)
+            call writefile(l:recent_dirs, g:recent_dirs_file)
+        endif
+    endfunction
+endif
+
+" unite-zsh-cdr.vim {{{2
+" ----------------------------------------------------------------------------
 if dein#tap('unite-zsh-cdr.vim')
     nnoremap [unite]dr :<C-u>Unite zsh-cdr<CR>
 
@@ -526,15 +574,15 @@ if dein#tap('Conque-Shell')
     \   'call s:conque_on_source()'
 endif
 
-" neocomplcache & neocomplete {{{1
+" neocomplete {{{1
 " ============================================================================
 if dein#tap('neocomplete.vim')
     function! s:neocomplete_on_source() abort
         " Use neocomplcache.
-        let g:neocomplete#enable_at_startup = 1'
+        let g:neocomplete#enable_at_startup = 1
         " Use smartcase.
-        let g:neocomplete#enable_smart_case = 1'
-        let g:neocomplete#enable_ignore_case = 1'
+        let g:neocomplete#enable_smart_case = 1
+        let g:neocomplete#enable_ignore_case = 1
 
         " smartcaseな補完にする
         let g:neocomplete#enable_camel_case = 0
@@ -547,7 +595,7 @@ if dein#tap('neocomplete.vim')
 
         set pumheight=10
         " 補完候補取得に時間がかかったときにスキップ
-        let g:neocomplete#skip_auto_completion_time = "0.1"'
+        let g:neocomplete#skip_auto_completion_time = "0.1"
         " let g:neocomplete#skip_auto_completion_time = '1'
         " 候補の数を増やす
         " execute 'let g:'.s:neocom_.'max_list = 3000'
@@ -560,7 +608,7 @@ if dein#tap('neocomplete.vim')
         " " In default, completes from all buffers.
         " let g:neocomplete#same_filetypes._ = '_'
 
-        let g:neocomplete#enable_auto_close_preview=0'
+        let g:neocomplete#enable_auto_close_preview=0
         " fugitiveのバッファも閉じてしまうのでコメントアウト
         " autocmd MyVimrc InsertLeave *.* pclose
 
@@ -709,23 +757,6 @@ if dein#tap('neocomplete.vim')
 
         " endif
 
-        " let g:neocomplete#enable_cursor_hold_i = 1
-        " let g:neocomplete#cursor_hold_i_time = 100
-
-        " let g:neocomplete#disable_auto_complete = 1
-        " let g:neocomplete#enable_refresh_always = 1
-        " autocmd MyVimrc FileType *
-        " \   if &filetype == 'php'
-        " \|      echom 'php'
-        " \|      let g:neocomplete#enable_cursor_hold_i=1
-        " \|      let g:neocomplete#cursor_hold_i_time=100
-        " \|      NeoCompleteEnable
-        " \|  else
-        " \|      let g:neocomplete#enable_cursor_hold_i=0
-        " \|      NeoCompleteEnable
-        " \|  endif
-
-        " ?
         " let g:neocomplete#fallback_mappings =
         " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
 
@@ -758,7 +789,10 @@ if dein#tap('neocomplete.vim')
         " inoremap <expr><C-x><C-n>  neocomplete#start_manual_complete('buffer')
         imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
         " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
+        " }}}
     endfunction
+
+    call s:dein_source('neocomplete')
 endif
 
 " neosnippet {{{1
@@ -1981,9 +2015,7 @@ autocmd MyVimrc Filetype c,cpp
 \|  setlocal suffixesadd=.h
 
 if dein#tap('vim-marching')
-    let bundle = neobundle#get("vim-marching")
-    function! bundle.hooks.on_source(bundle)
-        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
+    function! s:marching_on_source() abort
         " clang コマンドの設定
         let g:marching_clang_command = "clang"
 
@@ -2015,6 +2047,8 @@ if dein#tap('vim-marching')
         imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
     endfunction
+
+    call s:dein_source('marching')
 endif
 
 if dein#tap('vim-cpp-auto-include')
@@ -2417,6 +2451,7 @@ function! GetCurrentColumn()
         return ''
     endif
 endfunction
+" call lightline#update()
 
 " vim-quickhl {{{1
 " ============================================================================
@@ -2569,4 +2604,11 @@ if dein#tap('qfixhowm')
     endfunction
 
     call s:dein_source('qfixhowm')
+endif
+
+" colorscheme {{{1
+" ============================================================================
+if dein#tap('my_molokai')
+    colorscheme molokai-customized
+    syntax enable
 endif

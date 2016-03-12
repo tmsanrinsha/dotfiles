@@ -1,5 +1,14 @@
 [[plugins]]
-repo = 'Shougo/vim-vcs'
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+    [plugins.build]
+    windows = 'tools\\update-dll-mingw'
+    cygwin  = 'make -f make_cygwin.mak'
+    mac     = 'make -f make_mac.mak'
+    linux   = 'make'
+    unix    = 'gmake'
 
 [[plugins]]
 repo = 'ciaranm/detectindent'
@@ -68,15 +77,6 @@ depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-    [plugins.build]
-    windows = 'tools\\update-dll-mingw'
-    cygwin  = 'make -f make_cygwin.mak'
-    mac     = 'make -f make_mac.mak'
-    linux   = 'make'
-    unix    = 'gmake'
-
-[[plugins]]
 repo = 'tpope/vim-repeat'
 
 [[plugins]]
@@ -136,7 +136,7 @@ repo = 'thinca/vim-singleton'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-depends = ['vim-fugitive', 'tagbar', 'vim-anzu']
+# depends = ['vim-fugitive', 'tagbar', 'vim-anzu']
 
 [[plugins]]
 repo = 'thinca/vim-prettyprint'
@@ -161,6 +161,3 @@ repo = 'kana/vim-gf-diff'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'

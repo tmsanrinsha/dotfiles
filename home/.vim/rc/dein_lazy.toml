@@ -1,9 +1,33 @@
-[[plugins]]
-repo = 'tmsanrinsha/DirDiff.vim'
-on_cmd = 'DirDiff'
-
 # unite {{{1
 # ============================================================================
+[[plugins]]
+repo = 'Shougo/unite.vim'
+on_cmd = 'Unite'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'tacroe/unite-mark'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'tmsanrinsha/unite-ghq'
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'rhysd/unite-zsh-cdr.vim'
+on_source = 'unite.vim'
+
 [[plugins]]
 repo = 'basyura/unite-mdfind'
 on_source = 'unite.vim'
@@ -13,16 +37,58 @@ repo = 'ujihisa/unite-locate'
 on_source = 'unite.vim'
 
 [[plugins]]
-repo = 'osyo-manga/vim-marching'
-on_ft = ['c', 'cpp']
-
-[[plugins]]
 repo = 'tsukkee/unite-tag'
 on_source = 'unite.vim'
 
 [[plugins]]
+repo = 'Shougo/neossh.vim'
+on_source = 'unite.vim'
+# }}}
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimshell.vim'
+depends = ['vim-vcs', 'unite.vim']
+on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
+
+[[plugins]]
+repo = 'Shougo/vim-vcs'
+
+[[plugins]]
+repo = 'ujihisa/vimshell-ssh'
+on_source = ['unite.vim', 'vimshell.vim']
+
+[[plugins]]
+repo = 'oplatek/Conque-Shell'
+on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
+
+[[plugins]]
+repo = 'tmsanrinsha/DirDiff.vim'
+on_cmd = 'DirDiff'
+
+[[plugins]]
+repo = 'osyo-manga/vim-marching'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
 repo = 'pangloss/vim-javascript'
 on_ft = ['javascript', 'html', 'php']
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript', 'html', 'php']
+
+[[plugins]]
+repo = 'maksimr/vim-jsbeautify'
+external_commands = 'node'
+on_ft = ['javascript', 'css', 'html']
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python']
 
 [[plugins]]
 repo = 'autowitch/hive.vim'
@@ -33,35 +99,22 @@ repo = 'nelstrom/vim-markdown-folding'
 on_ft = ['markdown']
 
 [[plugins]]
-repo = 'osyo-manga/vim-operator-search'
-depends = 'vim-operator-user'
-on_map = '<Plug>(operator-search)'
+repo = 'tmsanrinsha/previm'
+depends = 'open-browser.vim'
+on_cmd = ['PrevimOpen']
 
 [[plugins]]
 repo = 'sh.vim--Cla'
 on_ft = 'sh'
 
 [[plugins]]
-repo = 'tmsanrinsha/previm'
-depends = 'open-browser.vim'
-on_cmd = ['PrevimOpen']
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
 
 [[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript', 'html', 'php']
-
-[[plugins]]
-repo = 'oplatek/Conque-Shell'
-on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
-
-[[plugins]]
-repo = 'Shougo/vimshell.vim'
-depends = ['vim-vcs', 'unite.vim']
-on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-on_source = 'unite.vim'
+repo = 'osyo-manga/vim-operator-search'
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-search)'
 
 [[plugins]]
 repo = 'vim-scripts/AnsiEsc.vim'
@@ -74,17 +127,8 @@ on_map = '<Plug>(yankround-'
 on_sources = 'unite.vim'
 
 [[plugins]]
-repo = 'maksimr/vim-jsbeautify'
-external_commands = 'node'
-on_ft = ['javascript', 'css', 'html']
-
-[[plugins]]
 repo = 'vobornik/vim-mql4'
 on_ft = ['mql4']
-
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python']
 
 [[plugins]]
 repo = 'glts/vim-textobj-comment'
@@ -95,12 +139,8 @@ repo = 'sjl/gundo.vim'
 on_cmd = 'GundoToggle'
 
 [[plugins]]
-repo = 'rhysd/unite-zsh-cdr.vim'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'cohama/lexima.vim'
-on_cmd = 1
+on_i = 1
 
 [[plugins]]
 repo = 'quark-zju/vim-cpp-auto-include'
@@ -178,17 +218,9 @@ repo = '4Evergreen4/vim-hardy'
 on_ft = ['arduino']
 
 [[plugins]]
-repo = 'Shougo/neossh.vim'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'mattn/gist-vim'
 depends = 'webapi-vim'
 on_cmd = ['Gist']
-
-# [[plugins]]
-# repo = 'Shougo/unite.vim'
-# on_cmd = 'Unite'
 
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
@@ -205,10 +237,6 @@ on_ft = ['html', 'php']
 [[plugins]]
 repo = 'kana/vim-textobj-entire'
 on_map = '<Plug>(textobj-entire'
-
-[[plugins]]
-repo = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
 
 [[plugins]]
 repo = 'tyru/operator-camelize.vim'
@@ -256,10 +284,6 @@ repo = 'haya14busa/vim-asterisk'
 on_map = '<Plug>(asterisk-'
 
 [[plugins]]
-repo = 'Shougo/neocomplcache.vim'
-on_ft = 1
-
-[[plugins]]
 repo = 'thinca/vim-ft-help_fold'
 on_ft = ['help']
 
@@ -271,7 +295,7 @@ on_ft = ['javascript', 'html', 'php']
 repo = 'Shougo/neocomplete.vim'
 depends = ['context_filetype.vim', 'neoinclude.vim', 'neco-syntax', 'neosnippet.vim', 'neosnippet-snippets', 'vim-snippets']
 on_i = 1
-vim_version = '7.3.825'
+# vim_version = '7.3.825'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
@@ -305,14 +329,6 @@ repo = 'confluencewiki.vim'
 on_ft = ['confluencewiki']
 
 [[plugins]]
-repo = 'thinca/vim-unite-history'
-on_source = 'unite.vim'
-
-[[plugins]]
-repo = 'tmsanrinsha/unite-ghq'
-on_source = 'unite.vim'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_map = ['<Plug>TComment_', 'gc']
 
@@ -325,25 +341,13 @@ repo = 'stephpy/vim-php-cs-fixer'
 on_ft = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
 [[plugins]]
-repo = 'ujihisa/vimshell-ssh'
-on_source = ['unite.vim', 'vimshell.vim']
-
-[[plugins]]
 repo = 'gregsexton/gitv'
 on_cmd = ['Gitv']
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
 vim_version = '7.3.825'
 on_ft = 'vim'
-
-[[plugins]]
-repo = 'tacroe/unite-mark'
-on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'StanAngeloff/php.vim'

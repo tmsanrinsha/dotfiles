@@ -117,8 +117,12 @@ function! s:makelink() abort " {{{
     call system('ln -s '.l:real_path.' '.l:symlink_path)
 endfunction " }}}
 
+if has('mac') && has('kaoriya')
+    set runtimepath-=$VIM/plugins/vimproc
+endif
+
 call SourceRc('local_pre.vim')
-call SourceRc('bundle.vim')
+" call SourceRc('bundle.vim')
 
 " 基本設定 {{{1
 " ============================================================================
@@ -847,35 +851,6 @@ function! s:auto_mkdir(dir, force)
     endif
 endfunction
 
-" cdr {{{2
-" ----------------------------------------------------------------------------
-if IsInstalled('vital.vim')
-    let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
-    augroup cdr
-        autocmd!
-        autocmd BufEnter * call s:update_cdr(expand('%:p:h'))
-    augroup END
-
-    function! s:update_cdr(dir)
-        " .gitなどのdirectoryは書き込まない
-        let l:ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-        \   '\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'
-
-        if !isdirectory(a:dir) || a:dir =~ l:ignore_pattern
-            return
-        end
-
-        if filereadable(g:recent_dirs_file)
-            let l:recent_dirs = readfile(g:recent_dirs_file)
-            call insert(l:recent_dirs, "$'".a:dir."'", 0)
-            let l:V = vital#of('vital')
-            let l:List = l:V.import('Data.List')
-            let l:recent_dirs = l:List.uniq(l:recent_dirs)
-            call writefile(l:recent_dirs, g:recent_dirs_file)
-        endif
-    endfunction
-endif
-
 " ctags {{{1
 " ============================================================================
 if has('path_extra')
@@ -1097,11 +1072,11 @@ set t_Co=256
 " シンタックスハイライトを効かせる
 syntax enable
 
-if IsInstalled('my_molokai')
+" if IsInstalled('my_molokai')
     " let g:molokai_original = 1
     " let g:rehash256 = 1
-    colorscheme molokai-customized
-endif
+    " colorscheme molokai-customized
+" endif
 " colorscheme molokai
 
 let g:solarized_termcolors=256
@@ -1350,7 +1325,7 @@ function! s:configure_javascript()
     " setlocal iskeyword+=.
 endfunction
 
-" Java {{{1
+" Java {{{2
 " ----------------------------------------------------------------------------
 if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
     autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
@@ -1377,6 +1352,7 @@ execute 'nnoremap [VIM]e :<C-u>edit '.s:dotfiles_home.'/.vim/vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:dotfiles_home.'/.vim/gvimrc<CR>'
 execute 'nnoremap [VIM]b :<C-u>edit '.s:dotfiles_home.'/.vim/rc/bundle.vim<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:dotfiles_home.'/.vim/rc/plugin.vim<CR>'
+execute 'nnoremap [VIM]d :<C-u>edit '.s:dotfiles_home.'/.vim/rc/dein.vim<CR>'
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
 " execute 'nnoremap [VIM]l :<C-u>edit '.substitute(system('readlink ~/.vim/rc/local.vim'),  "\<NL>", '', '').'<CR>'
 execute 'nnoremap [VIM]l :<C-u>edit '.resolve(expand('~/.vim/rc/local.vim')).'<CR>'
@@ -1448,4 +1424,3 @@ endif
 " call SourceRc('plugin.vim')
 call SourceRc('dein.vim')
 call SourceRc('local.vim')
-syntax enable
