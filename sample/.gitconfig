@@ -17,6 +17,7 @@
 	# editor = vim ここで設定せずに$EDITORに設定されたものを使う
 	# グローバルなgitignore
 	excludesfile = ~/.config/git/.gitignore
+	quotepath = false
 [diff]
 	# external = git_diff_vim
 	# 賢いdiff algorithm
