@@ -7,8 +7,16 @@ if has('mac') && has('kaoriya')
     set runtimepath-=$VIM/plugins/vimproc
 endif
 
+" neobundle.vim がなければgit clone
+let s:neobundle_repo_dir = expand('~/.vim/bundle/neobundle.vim')
+
+if !isdirectory(s:neobundle_repo_dir)
+    echo 'git clone https://github.com/Shougo/neobundle.vim '.s:neobundle_repo_dir
+    call system('git clone https://github.com/Shougo/neobundle.vim '.s:neobundle_repo_dir)
+endif
+
 " neobundleが使えない環境用
-if !(isdirectory($HOME.'/.vim/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.051'))
+if !MyHasPatch('patch-7.2.051')
     " neobundleが使えない場合
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     let s:load_plugin_list = [
@@ -29,6 +37,7 @@ if !(isdirectory($HOME.'/.vim/bundle/neobundle.vim/') && MyHasPatch('patch-7.2.0
     filetype plugin indent on
     finish
 endif
+
 
 if has('vim_starting')
     if &compatible

@@ -120,9 +120,11 @@ endfunction " }}}
 if has('mac') && has('kaoriya')
     set runtimepath-=$VIM/plugins/vimproc
 endif
+" }}}
+" }}}
 
 call SourceRc('local_pre.vim')
-" call SourceRc('bundle.vim')
+" call SourceRc('neobundle.vim')
 
 " 基本設定 {{{1
 " ============================================================================
