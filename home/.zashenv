@@ -136,11 +136,11 @@ export R_HISTSIZE="5000"
 
 # Vim {{{1
 # ============================================================================
-if [ -d /usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS ]; then
-    macvim_dir=/usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS
-elif [ -d /Applications/MacVim.app/Contents/MacOS ]; then
+# if [ -d /usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS ]; then
+#     macvim_dir=/usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS
+# elif [ -d /Applications/MacVim.app/Contents/MacOS ]; then
     macvim_dir=/Applications/MacVim.app/Contents/MacOS
-fi
+# fi
 
 if [ -x "$macvim_dir/Vim" ]; then
     export EDITOR="$macvim_dir/Vim"
