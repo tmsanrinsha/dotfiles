@@ -30,7 +30,7 @@ else
     exit 1
 fi
 
-source $home/.zashenv
+source $home/.sh/env.sh
 
 function install() {
   local url=$1
