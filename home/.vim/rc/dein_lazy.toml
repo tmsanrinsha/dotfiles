@@ -87,6 +87,7 @@ repo = 'Shougo/context_filetype.vim'
 
 # [[plugins]]
 # repo = 'Konfekt/FastFold'
+# on_path = '.*'
 # on_source = 'neocomplete.vim'
 
 [[plugins]]
@@ -140,8 +141,8 @@ on_ft = ['markdown']
 
 [[plugins]]
 repo = 'tmsanrinsha/previm'
-depends = 'open-browser.vim'
 on_cmd = ['PrevimOpen']
+on_ft = ['markdown']
 
 [[plugins]]
 repo = 'sh.vim--Cla'
