@@ -1,0 +1,2 @@
+" quickrunの出力バッファで^Mを表示しないようにファイルフォーマットをdosにする
+setlocal fileformat=dos
