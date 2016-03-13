@@ -13,12 +13,16 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
 
-let s:toml      = '~/.vim/rc/dein.toml'
-let s:lazy_toml = '~/.vim/rc/dein_lazy.toml'
+let s:toml_files = split(glob("$VIMRC_DIR/*.toml"), "\n")
 
-if dein#load_cache([expand('<sfile>'), s:toml, s:lazy_toml])
-    call dein#load_toml(s:toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+if dein#load_cache(s:toml_files)
+    for s:toml_file in s:toml_files
+        if match(s:toml_file, 'lazy') >= 0
+            call dein#load_toml(s:toml_file, {'lazy': 1})
+        else
+            call dein#load_toml(s:toml_file)
+        endif
+    endfor
     call dein#save_cache()
 endif
 
