@@ -64,6 +64,7 @@ brew-install screen
 brew-install ssh-copy-id
 brew-install tmux
 brew-install tree
+brew-install wget
 brew-install zsh
 
 # [Patched ctags · shawncplus/phpcomplete.vim Wiki](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
