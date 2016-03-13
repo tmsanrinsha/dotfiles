@@ -1352,7 +1352,7 @@ nmap <Leader>v [VIM]
 
 execute 'nnoremap [VIM]e :<C-u>edit '.s:dotfiles_home.'/.vim/vimrc<CR>'
 execute 'nnoremap [VIM]E :<C-u>edit '.s:dotfiles_home.'/.vim/gvimrc<CR>'
-execute 'nnoremap [VIM]b :<C-u>edit '.s:dotfiles_home.'/.vim/rc/bundle.vim<CR>'
+execute 'nnoremap [VIM]b :<C-u>edit '.s:dotfiles_home.'/.vim/rc/neobundle.vim<CR>'
 execute 'nnoremap [VIM]p :<C-u>edit '.s:dotfiles_home.'/.vim/rc/plugin.vim<CR>'
 execute 'nnoremap [VIM]d :<C-u>edit '.s:dotfiles_home.'/.vim/rc/dein.vim<CR>'
 " vimrcの実体を開く。systemだと最後に<NL>が入ってうまくいかない
