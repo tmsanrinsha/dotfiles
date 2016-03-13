@@ -2,9 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Konfekt/FastFold'
-
-[[plugins]]
 repo = 'Shougo/vimproc.vim'
     [plugins.build]
     windows = 'tools\\update-dll-mingw'
@@ -12,6 +9,50 @@ repo = 'Shougo/vimproc.vim'
     mac     = 'make -f make_mac.mak'
     linux   = 'make'
     unix    = 'gmake'
+
+[[plugins]]
+repo = 'tmsanrinsha/unite-ghq'
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+
+[[plugins]]
+repo = 'ujihisa/unite-locate'
+
+[[plugins]]
+repo = 'tacroe/unite-mark'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+
+[[plugins]]
+repo = 'ujihisa/vimshell-ssh'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'tsukkee/unite-tag'
+
+[[plugins]]
+repo = 'rhysd/unite-zsh-cdr.vim'
+
+[[plugins]]
+repo = 'Shougo/neossh.vim'
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+# external_commands = 'look'
+# vim_version = '7.3.825'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Konfekt/FastFold'
 
 [[plugins]]
 repo = 'ciaranm/detectindent'
@@ -39,6 +80,9 @@ repo = 'sudo.vim'
 
 [[plugins]]
 repo = 'tmsanrinsha/vim-fakeclip'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'sgur/vim-textobj-parameter'
@@ -110,9 +154,6 @@ repo = 'kentaro/vim-textobj-function-php'
 repo = 'kana/vim-textobj-indent'
 
 [[plugins]]
-repo = 'Shougo/neobundle.vim'
-
-[[plugins]]
 repo = 'rhysd/vim-textobj-conflict'
 
 [[plugins]]
@@ -127,9 +168,6 @@ name = 'my_molokai'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
-
-[[plugins]]
-repo = 'Shougo/neco-syntax'
 
 [[plugins]]
 repo = 'dannyob/quickfixstatus'
@@ -148,6 +186,9 @@ repo = 'thinca/vim-prettyprint'
 repo = 'cohama/vim-hier'
 
 [[plugins]]
+repo = 'superbrothers/vim-vimperator'
+
+[[plugins]]
 repo = 'PreserveNoEOL'
 
 [[plugins]]
@@ -164,3 +205,77 @@ repo = 'kana/vim-gf-diff'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
+
+# arduino
+[[plugins]]
+repo = '4Evergreen4/vim-hardy'
+
+# confluence
+[[plugins]]
+repo = 'confluencewiki.vim'
+
+# graphviz
+[[plugins]]
+repo = 'wannesm/wmgraphviz.vim'
+
+# javascript
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+
+[[plugins]]
+repo = 'nono/jquery.vim'
+
+# JSON
+[[plugins]]
+repo = 'elzr/vim-json'
+
+# markdown
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+
+[[plugins]]
+repo = 'nelstrom/vim-markdown-folding'
+
+# MQL4
+[[plugins]]
+repo = 'vobornik/vim-mql4'
+
+# PHP
+[[plugins]]
+repo = 'shawncplus/phpcomplete.vim'
+
+[[plugins]]
+repo = 'StanAngeloff/php.vim'
+
+# python
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+
+# R lang
+[[plugins]]
+repo = 'jcfaria/Vim-R-plugin'
+
+# shell
+[[plugins]]
+repo = 'sh.vim--Cla'
+
+# SQL hive
+[[plugins]]
+repo = 'autowitch/hive.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# tmux
+[[plugins]]
+repo = 'zaiste/tmux.vim'
+
+# vim
+[[plugins]]
+repo = 'ynkdir/vim-vimlparser'
+
+[[plugins]]
+repo = 'thinca/vim-ft-help_fold'
