@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-set -e
+set -ex
+
+if [ "$#" -ne 1 ]; then
+    exit
+fi
 
 home=${1%/}
 
@@ -37,4 +41,4 @@ while IFS= read -r -d '' file; do
         rm "$HOME/$file"
     fi
     ln -sv "$home/$file" "$HOME/$file"
-done < <(find . -type f ! -regex '.*swp.*' -print0)
+done < <(find . -type f ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)
