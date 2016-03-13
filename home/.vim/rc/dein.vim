@@ -44,6 +44,11 @@ function! s:dein_on_source(plugin) abort
     \   'call s:'.a:plugin.'_on_source()'
 endfunction
 
+function! s:on_source_add(name, func) abort
+    execute 'autocmd MyVimrc User dein#source#'.a:name
+    \   'call s:'.a:func.'_on_source()'
+endfunction
+
 " vim-singleton {{{1
 " ============================================================================
 if dein#tap('vim-singleton') && has('gui_running')
@@ -310,8 +315,6 @@ if dein#tap('unite.vim')
     call s:dein_on_source('unite')
 endif
 
-
-
 " neomru {{{1
 " ============================================================================
 if dein#tap('neomru.vim')
@@ -336,7 +339,7 @@ if dein#tap('neomru.vim')
         \)
     endfunction
 
-    call s:dein_on_source('neomru')
+    call s:on_source_add('unite.vim', 'neomru')
 endif
 
 
@@ -378,7 +381,7 @@ if dein#tap('unite-outline')
         call unite#sources#outline#alias('zsh', 'conf')
     endfunction
 
-    call s:dein_on_source('unite_outline')
+    call s:on_source_add('unite.vim', 'unite_outline')
 endif
 
 autocmd MyVimrc FileType yaml
@@ -413,7 +416,7 @@ if dein#tap('unite-ghq')
         call unite#custom_default_action('source/ghq/directory', 'vimfiler')
     endfunction
 
-    call s:dein_on_source('unite_ghq')
+    call s:on_source_add('unite.vim', 'unite_ghq')
 endif
 
 " cdr {{{1
