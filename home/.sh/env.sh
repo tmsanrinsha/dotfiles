@@ -59,9 +59,6 @@ export PATH="$HOME/local/bin:$PATH"
 
 pathmunge "$HOME/.composer/vendor/bin"
 
-# neobundleで管理するスクリプト
-pathmungeR ~/.vim/fetchBundle
-
 pathmungeR "$HOME/script/common"
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmungeR "$HOME/script/pseudo" after

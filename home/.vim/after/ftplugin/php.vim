@@ -77,9 +77,4 @@ autocmd MyVimrc FileType php.phpunit
 \|  nnoremap <buffer> <Leader>rcp :<C-u>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' GetProjectDir()<CR>
 \|  nnoremap <buffer> <Leader>rcP :<C-u>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h') GetProjectDir()<CR>
 
-if neobundle#is_installed('phpcomplete-extended') &&
-\   phpcomplete_extended#is_phpcomplete_extended_project()
-  setlocal omnifunc=phpcomplete_extended#CompletePHP
-else
-  setlocal omnifunc=phpcomplete#CompletePHP
-endif
+setlocal omnifunc=phpcomplete#CompletePHP
