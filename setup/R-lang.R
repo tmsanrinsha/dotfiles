@@ -19,8 +19,10 @@ my_install("dygraphs")
 my_install("data.table")
 my_install("DT")
 my_install('DiagrammeR')
+my_install('revealjs')
 
-# # vimcom関連
+# vimcom関連
+# TODO: devtoolsもインストールしてない時にインストールするようにする
 # devtools::install_github("jalvesaq/VimCom")
 # # コンソールでカラー表示する
 # devtools::install_github("jalvesaq/colorout")
