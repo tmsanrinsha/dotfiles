@@ -2423,7 +2423,7 @@ endfunction
 
 function! MyFugitive()
   try
-    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+    if &filetype !~? 'gundo' && exists('*fugitive#head') && strlen(fugitive#head())
       return fugitive#head()
     endif
   catch
@@ -2555,8 +2555,10 @@ endif
 " ============================================================================
 if dein#tap('memolist.vim')
     nnoremap <Leader>mn  :MemoNew<CR>
-    nnoremap <Leader>ml  :MemoList<CR>
-    nnoremap <Leader>mg  :MemoGrep<CR>
+    nnoremap <Leader>ml  :Unite memo<CR>
+    execute 'nnoremap <Leader>mg :<C-u>Unite grep:'.g:memo_directory.'<CR>'
+    " nnoremap <Leader>ml  :MemoList<CR>
+    " nnoremap <Leader>mg  :MemoGrep<CR>
 
     let g:memolist_path = expand('~/Dropbox/memo/doc')
 
