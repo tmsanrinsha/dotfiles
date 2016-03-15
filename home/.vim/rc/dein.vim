@@ -1915,6 +1915,9 @@ let g:vdebug_options = {
 \   'marker_open_tree' : '▾'
 \}
 
+autocmd MyVimrc BufWinEnter DebuggerBreakpoints
+\   nnoremap <buffer> dd ^:BreakpointRemove <C-r><C-w><CR>
+
 " vim-json {{{1
 " ============================================================================
 let g:vim_json_syntax_conceal = 0
