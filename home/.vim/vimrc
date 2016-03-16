@@ -611,6 +611,9 @@ set splitright
 " カーソルの上下に最低でも1行は表示させる。常にカーソル行を真ん中にする場合は999など
 set scrolloff=1
 
+" ウィンドウ分割時に等分にしない
+set noequalalways
+
 "縦分割されたウィンドウのスクロールを同期させる
 "同期させたいウィンドウ上で<F12>を押せばおｋ
 "解除はもう一度<F12>を押す
@@ -1102,7 +1105,7 @@ function! s:get_syn_id(transparent)
     endif
 endfunction
 function! s:get_syn_attr(synid)
-    let l:name = synIDattr(a:synid, 'name')
+    let l:name = synIDattr(a:synid, "name")
     let l:ctermfg = synIDattr(a:synid, 'fg', 'cterm')
     let l:ctermbg = synIDattr(a:synid, 'bg', 'cterm')
     let l:guifg = synIDattr(a:synid, 'fg', 'gui')
