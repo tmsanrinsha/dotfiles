@@ -469,6 +469,7 @@ nmap <Leader>f [VIMFILER]
 nnoremap <silent> [VIMFILER]f :VimFiler<CR>
 nnoremap <silent> [VIMFILER]b :VimFilerBufferDir<CR>
 nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
+nnoremap <silent> [VIMFILER]t :cd %:h<CR>:VimFilerTab<CR>
 nnoremap <silent> [VIMFILER]p :execute "VimFilerExplorer ". unite#util#path2project_directory(expand('%'))<CR>
 
 autocmd MyVimrc FileType vimfiler
