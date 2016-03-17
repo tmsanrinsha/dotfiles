@@ -44,9 +44,9 @@ function! s:dein_on_source(plugin) abort
     \   'call s:'.a:plugin.'_on_source()'
 endfunction
 
-function! s:on_source_add(name, func) abort
-    execute 'autocmd MyVimrc User dein#source#'.a:name
-    \   'call s:'.a:func.'_on_source()'
+function! s:add_on_source(dein_name, func) abort
+    execute 'autocmd MyVimrc User dein#source#'.a:dein_name
+    \   'call '.a:func.'()'
 endfunction
 
 " vim-singleton {{{1
@@ -339,7 +339,7 @@ if dein#tap('neomru.vim')
         \)
     endfunction
 
-    call s:on_source_add('unite.vim', 'neomru')
+    call s:add_on_source('unite.vim', 's:neomru_on_source')
 endif
 
 
@@ -381,7 +381,7 @@ if dein#tap('unite-outline')
         call unite#sources#outline#alias('zsh', 'conf')
     endfunction
 
-    call s:on_source_add('unite.vim', 'unite_outline')
+    call s:add_on_source('unite.vim', 's:unite_outline_on_source')
 endif
 
 autocmd MyVimrc FileType yaml
@@ -416,7 +416,7 @@ if dein#tap('unite-ghq')
         call unite#custom_default_action('source/ghq/directory', 'vimfiler')
     endfunction
 
-    call s:on_source_add('unite.vim', 'unite_ghq')
+    call s:add_on_source('unite.vim', 's:unite_ghq_on_source')
 endif
 
 " cdr {{{1
@@ -1140,7 +1140,7 @@ if dein#tap('vim-watchdogs')
     augroup WatchdogsSetting
         autocmd!
         autocmd BufWritePre *
-        \   call s:dein_on_source('watchdogs') |
+        \   call dein#source("vim-watchdogs") |
         \   autocmd! WatchdogsSetting
     augroup END
 
@@ -1328,6 +1328,8 @@ if dein#tap('vim-watchdogs')
         call watchdogs#setup(g:quickrun_config)
 
     endfunction
+
+    call s:add_on_source(g:dein#name, 's:watchdogs_on_source')
 endif
 
 " quickfix系プラグインのアップデート {{{1

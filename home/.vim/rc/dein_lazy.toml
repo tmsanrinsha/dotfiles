@@ -129,12 +129,21 @@ repo = 'osyo-manga/vim-watchdogs'
 depends = ['vim-quickrun', 'shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
 
 [[plugins]]
+repo = 'cohama/vim-hier'
+
+[[plugins]]
+repo = 'dannyob/quickfixstatus'
+
+[[plugins]]
+repo = 'KazuakiM/vim-qfsigns'
+
+[[plugins]]
 repo = 'joonty/vdebug'
 on_ft = ['php']
 
 [[plugins]]
 repo = 'kana/vim-smartword'
-on_map = '<Plug>(smartword-'
+on_map = '<Plug>'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-context'
