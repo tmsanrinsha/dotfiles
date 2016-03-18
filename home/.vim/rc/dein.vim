@@ -404,7 +404,7 @@ if dein#tap('vim-unite-history')
     nnoremap [unite]hc :<C-u>Unite history/command<CR>
     nnoremap [unite]hs :<C-u>Unite history/search<CR>
     cnoremap <M-r> :<C-u>Unite history/command -start-insert -default-action=edit<CR>
-    inoremap <C-x>hc <C-o>:Unite history/command -start-insert -default-action=append<CR>
+    inoremap <C-x>,hc <C-o>:Unite history/command -start-insert -default-action=append<CR>
 endif
 
 " unite-ghq {{{1
