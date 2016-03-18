@@ -851,6 +851,17 @@ endif
 " ==============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 
+" Shougo/context_filetype.vim {{{1
+" ==============================================================================
+if dein#tap('context_filetype.vim')
+    let g:context_filetype#filetypes = deepcopy(context_filetype#default_filetypes())
+    call add(g:context_filetype#filetypes.markdown, {
+    \   'end': '</style>',
+    \   'filetype': 'css',
+    \   'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
+    \})
+endif
+
 " lexima.vim {{{1
 " ==============================================================================
 if dein#tap('lexima.vim')
