@@ -855,11 +855,17 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 " ==============================================================================
 if dein#tap('context_filetype.vim')
     let g:context_filetype#filetypes = deepcopy(context_filetype#default_filetypes())
+
+    " markdown
     call add(g:context_filetype#filetypes.markdown, {
-    \   'end': '</style>',
     \   'filetype': 'css',
-    \   'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
+    \   'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>',
+    \   'end': '</style>'
     \})
+
+    " Rmd
+    let g:context_filetype#filetypes.rmd = g:context_filetype#filetypes.markdown
+
 endif
 
 " lexima.vim {{{1
