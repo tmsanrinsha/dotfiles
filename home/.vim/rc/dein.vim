@@ -1009,7 +1009,6 @@ endif
 autocmd MyVimrc User plugin-template-loaded
 \   if search('<+CURSOR+>')
 \ |     execute 'normal! "_da>'
-\ |     startinsert
 \ | endif
 
 " vim-quickrun {{{1
