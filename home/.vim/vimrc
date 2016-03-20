@@ -1311,6 +1311,31 @@ endfunction
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 
+" HTML {{{2
+" ----------------------------------------------------------------------------
+function! s:live_reload(dir) abort
+    if !executable('livereloadx')
+        if input('livereloadx is not installed. npm -g install livereloadx? [y/N]') =~? '^y\%[es]$'
+            if !executable('npm')
+                echo 'npm is not found'
+                return
+            endif
+            !npm -g install livereloadx
+        else
+            return
+        endif
+    endif
+
+    let sub = vimproc#popen2('livereloadx -s '.a:dir)
+    augroup LiveReload
+        execute 'autocmd LiveReload VimLeavePre * call vimproc#kill('.sub.pid.', 15)'
+    augroup END
+    call vimproc#popen2('open -a Google\ Chrome http://localhost:35729/'.expand('%:t:r').'.html')
+endfunction
+
+command! LiveReloadBufferDir call s:live_reload(expand('%:p:h'))
+command! LiveReloadProjectDir call s:live_reload(GetProjectDir())
+
 " Markdown {{{2
 " ----------------------------------------------------------------------------
 " pandocでhtmlからmarkdownに変換 {{{3
