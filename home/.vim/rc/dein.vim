@@ -1303,7 +1303,7 @@ if dein#tap('vim-watchdogs')
         \   'type': 'watchdogs_checker/php'
         \}
 
-        " R {{{2
+        " R-lang {{{2
         " --------------------------------------------------------------------
         " Rmd {{{3
         let g:quickrun_config['rmd/watchdogs_checker'] = {
@@ -1311,10 +1311,10 @@ if dein#tap('vim-watchdogs')
         \}
 
         let g:quickrun_config['watchdogs_checker/rmd'] = {
-        \   "hook/cd/directory": '%S:p:h',
+        \   'hook/cd/directory': '%S:p:h',
         \   'command': 'Rscript',
         \   'cmdopt': '-e',
-        \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"'],
+        \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"', 'sleep 1', 'touch %s:p:r.html'],
         \}
 
         " sh {{{2
