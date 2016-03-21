@@ -1776,25 +1776,25 @@ endif
 set backup
 set patchmode=.bak
 set backupdir=$VIM_CACHE_DIR/savevers
-execute "set backupskip+=*" . &patchmode
-execute "set suffixes+=" . &patchmode
+execute 'set backupskip+=*'.&patchmode
+execute 'set suffixes+='.&patchmode
 
 let g:versdiff_no_resize = 0
 
 autocmd MyVimrc BufEnter * call s:updateSaveversDirs()
 function! s:updateSaveversDirs()
-    let s:basedir = $VIM_CACHE_DIR . "/savevers"
     " ドライブ名を変更して、連結する (e.g. C: -> /C/)
-    let g:savevers_dirs = s:basedir . substitute(expand("%:p:h"), '\v\c^([a-z]):', '/\1/' , '')
+    let g:savevers_dirs = &backupdir . substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
 endfunction
 
 function! s:existOrMakeSaveversDirs()
     if !isdirectory(g:savevers_dirs)
-        call mkdir(g:savevers_dirs, "p")
+        call mkdir(g:savevers_dirs, 'p')
     endif
 endfunction
 
-autocmd MyVimrc BufWrite * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
+" autocmd MyVimrc BufWritePre * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
+autocmd MyVimrc BufWritePre * call s:existOrMakeSaveversDirs()
 
 " PreserveNoEOL {{{1
 " ============================================================================
