@@ -49,6 +49,11 @@ on_i = 1
 # vim_version = '7.3.825'
 
 [[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = 'vim'
+# vim_version = '7.3.825'
+
+[[plugins]]
 repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
@@ -56,6 +61,42 @@ repo = 'Shougo/neosnippet.vim'
 
 [[plugins]]
 repo = 'honza/vim-snippets'
+
+# operator {{{1
+# ============================================================================
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+on_map = '<plug>(operator-surround-'
+
+[[plugins]]
+repo = 'tyru/operator-camelize.vim'
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-camelize-'
+
+[[plugins]]
+repo = 'kana/vim-operator-replace'
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-replace)'
+
+[[plugins]]
+repo = 'osyo-manga/vim-operator-search'
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-search)'
+
+# textobj {{{1
+# ============================================================================
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+on_map = '<Plug>(textobj-entire'
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-context'
+on_map = '<Plug>(textobj-context-'
+
+[[plugins]]
+repo = 'kana/vim-textobj-lastpat'
+on_map = '<Plug>(textobj-lastpat-'
 # }}}
 
 [[plugins]]
@@ -81,9 +122,8 @@ on_cmd = ['PrevimOpen']
 on_ft = ['markdown']
 
 [[plugins]]
-repo = 'osyo-manga/vim-operator-search'
-depends = 'vim-operator-user'
-on_map = '<Plug>(operator-search)'
+repo = 'dhruvasagar/vim-table-mode'
+on_cmd = ['TableModeToggle', 'Tableize', 'TableAddFormula', 'TableEvalFormulaLine']
 
 [[plugins]]
 repo = 'vim-scripts/AnsiEsc.vim'
@@ -117,10 +157,6 @@ repo = 'Lokaltog/vim-easymotion'
 on_map = '<Plug>(easymotion-'
 
 [[plugins]]
-repo = 'glidenote/memolist.vim'
-on_cmd = ['MemoNew', 'MemoList', 'MemoGrep']
-
-[[plugins]]
 repo = 'thinca/vim-ref'
 on_cmd = ['Ref', 'Man']
 
@@ -146,10 +182,6 @@ repo = 'kana/vim-smartword'
 on_map = '<Plug>'
 
 [[plugins]]
-repo = 'osyo-manga/vim-textobj-context'
-on_map = '<Plug>(textobj-context-'
-
-[[plugins]]
 repo = 'thinca/vim-partedit'
 on_cmd = 'Partedit'
 
@@ -163,31 +195,8 @@ on_map = ';di'
 on_cmd = 'DrawIt'
 
 [[plugins]]
-repo = 'rhysd/vim-operator-surround'
-depends = 'vim-operator-user'
-on_map = '<plug>(operator-surround-'
-
-[[plugins]]
-repo = 'mattn/gist-vim'
-depends = 'webapi-vim'
-on_cmd = ['Gist']
-
-[[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html', 'php']
-
-[[plugins]]
-repo = 'kana/vim-textobj-entire'
-on_map = '<Plug>(textobj-entire'
-
-[[plugins]]
-repo = 'tyru/operator-camelize.vim'
-depends = 'vim-operator-user'
-on_map = '<Plug>(operator-camelize-'
-
-[[plugins]]
-repo = 'neilagabriel/vim-geeknote'
-on_cmd = ['Geeknote']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -199,14 +208,27 @@ repo = 'thinca/vim-qfreplace'
 on_source = 'unite.vim'
 
 [[plugins]]
-repo = 'mattn/qiita-vim'
-on_source = 'unite.vim'
-on_cmd = ['Qiita']
+repo = 'glidenote/memolist.vim'
+on_cmd = ['MemoNew', 'MemoList', 'MemoGrep']
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_source = 'unite.vim'
 on_cmd = ['Junkfile', 'JunkfileOpen', 'JunkfileFiletype']
+
+[[plugins]]
+repo = 'mattn/qiita-vim'
+on_source = 'unite.vim'
+on_cmd = ['Qiita']
+
+[[plugins]]
+repo = 'mattn/gist-vim'
+depends = 'webapi-vim'
+on_cmd = ['Gist']
+
+[[plugins]]
+repo = 'neilagabriel/vim-geeknote'
+on_cmd = ['Geeknote']
 
 [[plugins]]
 repo = 'lambdalisue/vim-pyenv'
@@ -220,15 +242,6 @@ on_map = '<Plug>(asterisk-'
 [[plugins]]
 repo = 'kannokanno/vim-helpnew'
 on_cmd = 'HelpNew'
-
-[[plugins]]
-repo = 'kana/vim-operator-replace'
-depends = 'vim-operator-user'
-on_map = '<Plug>(operator-replace)'
-
-[[plugins]]
-repo = 'kana/vim-textobj-lastpat'
-on_map = '<Plug>(textobj-lastpat-'
 
 [[plugins]]
 repo = 'rbtnn/vimconsole.vim'
@@ -245,8 +258,3 @@ on_ft = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 [[plugins]]
 repo = 'gregsexton/gitv'
 on_cmd = ['Gitv']
-
-[[plugins]]
-repo = 'Shougo/neco-vim'
-vim_version = '7.3.825'
-on_ft = 'vim'
