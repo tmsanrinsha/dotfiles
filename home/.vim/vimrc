@@ -553,13 +553,7 @@ endfunction
 " 1: ウィンドウの数が2以上のときのみ表示
 " 2: 常に表示
 set laststatus=2
-
-" 最下ウィンドウにいつステータス行が表示されるかを設定する。
-" 0: 全く表示しない
-" 1: ウィンドウの数が2以上のときのみ表示
-" 2: 常に表示
-set laststatus=2
-" statuslineの設定。lightline.vimなどのプラグインを使うとかっこよくできる
+" statuslineはlightline.vimでやっている
 " :help 'statusline'
 " f     バッファ内のファイルのパス(入力された通り、またはカレントディレクトリに対する相対パス)
 " m     修正フラグ
@@ -589,8 +583,8 @@ endif
 
 " buffer {{{1
 " ============================================================================
-nnoremap <M-n> :bnext<CR>
-nnoremap <M-p> :bprevious<CR>
+" nnoremap <M-n> :bnext<CR>
+" nnoremap <M-p> :bprevious<CR>
 
 " window {{{1
 " ============================================================================
@@ -643,6 +637,8 @@ nnoremap <S-C-Tab> :tabp<CR>
 nnoremap [TAB]n :tabn<CR>
 nnoremap [TAB]p :tabp<CR>
 
+nnoremap <M-n> gt
+nnoremap <M-p> gT
 nnoremap <M-1> :1tabn<CR>
 nnoremap <M-2> :2tabn<CR>
 nnoremap <M-3> :3tabn<CR>
