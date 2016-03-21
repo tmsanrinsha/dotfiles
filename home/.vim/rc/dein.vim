@@ -310,6 +310,8 @@ if dein#tap('unite.vim')
     endfunction
 
     call s:dein_on_source('unite')
+
+    nnoremap [unite]D :<C-u>Unite dein<CR>
 endif
 
 " neomru {{{1
