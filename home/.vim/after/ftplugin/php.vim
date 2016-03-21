@@ -33,37 +33,7 @@ setlocal includeexpr=substitute(v:fname,'^/','','')
 " setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 setlocal makeprg=php\ -l\ %
 
-let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
-let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
-let g:quickrun_config['phpv'] = {
-\   'exec': 'php %s',
-\   'hook/eval/enable': 1,
-\   'hook/eval/template': '<?php %s'
-\}
-
 xnoremap <buffer> <Leader>r :QuickRun -type phpv -mode v<CR>
-
-let g:quickrun_config['php.phpunit'] = {
-\ 'hook/cd/directory'              : '%S:p:h',
-\ 'command'                        : 'phpunit.sh',
-\ 'cmdopt'                         : '',
-\ 'exec'                           : '%c -v --debug --colors %o %s',
-\ 'outputter/quickfix/errorformat' : '%f:%l,%m in %f on line %l',
-\}
-
-let g:quickrun_config['sudo_phpunit'] = deepcopy(g:quickrun_config['php.phpunit'])
-let g:quickrun_config['sudo_phpunit']['exec'] = 'echo %{GetPassword()} | sudo -S '.g:quickrun_config['sudo_phpunit']['exec']
-
-let g:quickrun_config['php-cs-fixer'] = {
-\   'hook/cd/directory'              : '%S:p:h',
-\   'outputter'                     : 'buffer',
-\   'hook/close_buffer/enable_failure':          0,
-\   'command'                        : 'php-cs-fixer.sh',
-\   'cmdopt'                         : '',
-\   'exec'                           : '%c --diff %o %a',
-\}
-" \   'exec'                           : '%c fix --diff %o %a',
-" \   'outputter'                     : 'message',
 
 autocmd MyVimrc FileType php.phpunit
 \   nnoremap <buffer> <Leader>r<CR> :<C-u>QuickRun -mode n<CR>
