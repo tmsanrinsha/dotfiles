@@ -18,6 +18,7 @@ if [ -f ~/.zplug/zplug ]; then
     zplug "Valodim/zsh-curl-completion"
     zplug "srijanshetty/zsh-pandoc-completion"
     zplug "tmsanrinsha/zsh-composer-completion"
+    zplug "Tarrasch/zsh-bd"
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check --verbose; then
