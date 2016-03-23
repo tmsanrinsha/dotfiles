@@ -46,6 +46,8 @@ function! s:add_on_source(dein_name, func) abort
     \   'call '.a:func.'()'
 endfunction
 
+let g:memo_directory = expand('~/Dropbox/memo/doc')
+
 " vim-singleton {{{1
 " ============================================================================
 if dein#tap('vim-singleton') && has('gui_running')
@@ -205,9 +207,6 @@ if dein#tap('unite.vim')
     nnoremap [unite]fM :<C-u>Unite memo<CR>
 
     " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
-    if !exists('g:memo_directory')
-        let g:memo_directory = expand('~/Dropbox/memo/doc')
-    endif
     let g:unite_source_alias_aliases = {
     \   'memo' : {
     \       'source' : 'file_rec/async',
@@ -2603,10 +2602,8 @@ if dein#tap('memolist.vim')
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :Unite memo<CR>
     execute 'nnoremap <Leader>mg :<C-u>Unite grep:'.g:memo_directory.'<CR>'
-    " nnoremap <Leader>ml  :MemoList<CR>
-    " nnoremap <Leader>mg  :MemoGrep<CR>
 
-    let g:memolist_path = expand('~/Dropbox/memo/doc')
+    let g:memolist_path = expand('~/Dropbox/memo/doc').'/'.strftime('%Y/%m')
 
     function! s:memolist_on_source() abort
         let g:memolist_memo_suffix = 'md'
