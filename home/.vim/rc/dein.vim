@@ -46,7 +46,9 @@ function! s:add_on_source(dein_name, func) abort
     \   'call '.a:func.'()'
 endfunction
 
-let g:memo_directory = expand('~/Dropbox/memo/doc')
+if !exists('g:memo_directory')
+    let g:memo_directory = expand('~/Dropbox/memo/doc')
+endif
 
 " vim-singleton {{{1
 " ============================================================================
