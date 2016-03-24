@@ -2605,7 +2605,7 @@ if dein#tap('memolist.vim')
     nnoremap <Leader>ml  :Unite memo<CR>
     execute 'nnoremap <Leader>mg :<C-u>Unite grep:'.g:memo_directory.'<CR>'
 
-    let g:memolist_path = expand('~/Dropbox/memo/doc').'/'.strftime('%Y/%m')
+    let g:memolist_path = g:memo_directory.'/'.strftime('%Y/%m')
 
     function! s:memolist_on_source() abort
         let g:memolist_memo_suffix = 'md'
