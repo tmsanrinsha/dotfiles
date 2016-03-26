@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 # terminalがmacで動いている用
 
-stdin=`cat -`
+if [ "$1" != '' ]; then
+    str=$1
+else
+    str=`cat -`
+fi
+
 if [ "$TERM" = 'screen' ];then
     # Tmuxのとき
-    printf "\x1bPtmux;\x1b\x1b]52;;%s\x1b\x1b\\\\\x1b\\" `base64 <(echo $stdin)`
+    printf "\x1bPtmux;\x1b\x1b]52;;%s\x1b\x1b\\\\\x1b\\" `base64 <(echo -n $str)` > /dev/tty
     # GNU Screenのとき
-    # printf "\x1bP\x1b]52;;%s\x07\x1b\\" `base64 <(echo $stdin)`
+    # printf "\x1bP\x1b]52;;%s\x07\x1b\\" `base64 <(echo -n $str)` > /dev/tty
 else
-    printf "\x1b]52;;%s\x1b\\" `base64 <(echo $stdin)`
+    printf "\x1b]52;;%s\x1b\\" `base64 <(echo -n $str)` > /dev/tty
 fi
+
+# vim:ft=sh
