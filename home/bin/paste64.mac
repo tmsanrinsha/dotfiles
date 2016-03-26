@@ -7,13 +7,23 @@ else
     str=`cat -`
 fi
 
+# ダブルクォートで$strを囲まないと途中の改行が消えてしまうので囲む
+# base64の-w 0はエンコードした文字列を改行しないオプション
+base64=`echo -n "$str" | base64 -w 0`
+
 if [ "$TERM" = 'screen' ];then
-    # Tmuxのとき
-    printf "\x1bPtmux;\x1b\x1b]52;;%s\x1b\x1b\\\\\x1b\\" `base64 <(echo -n $str)` > /dev/tty
+    # tmux使用時は制御シーケンスがtmuxを素通りするように
+    # \ePtmux;と\e\\ではさむ必要がある
+    # また、素通りさせたい\eは\e\e、\\は\\\\にエスケープする
+    printf "\ePtmux;\e\e]52;;%s\e\e\\\\\e\\" $base64 > /dev/tty
     # GNU Screenのとき
-    # printf "\x1bP\x1b]52;;%s\x07\x1b\\" `base64 <(echo -n $str)` > /dev/tty
+    # printf "\eP\e]52;;%s\x07\e\\" $base64 > /dev/tty
 else
-    printf "\x1b]52;;%s\x1b\\" `base64 <(echo -n $str)` > /dev/tty
+    # base64でエンコードされた文字列を\e]52;;と\e\\ではさんで送信することで
+    # clipboardにコピーすることができる。
+    # \eは\x1bでもよい
+    # vimから使った時にも使えるように > /dev/ttyをつけておく
+    printf "\e]52;;%s\e\\" $base64 > /dev/tty
 fi
 
 # vim:ft=sh
