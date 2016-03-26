@@ -1434,16 +1434,16 @@ endif
 
 " clipboard copy {{{1
 " ============================================================================
-nmap [:space:]y "+y
-xmap [:space:]y "+y
-nmap [:space:]yy "+yy
-nmap [:space:]Y "+y$
+nmap [:space:]y "*y
+xmap [:space:]y "*y
+nmap [:space:]yy "*yy
+nmap [:space:]Y "*y$
 
 " vim-fakeclip {{{1
 " ----------------------------------------------------------------------------
 if dein#tap('vim-fakeclip')
     " +clipboardでもfakeclipのキーマッピングを使う
-    let g:fakeclip_provide_provide_key_mapping = 1
+    let g:fakeclip_provide_clipboard_key_mappings = 1
     " クリップボードコピーのコマンドにrfpbcopyを使う
     " let g:fakeclip_write_clipboard_command = 'rfpbcopy'
     let g:fakeclip_write_clipboard_command = 'paste64.mac'
