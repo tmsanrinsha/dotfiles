@@ -10,6 +10,10 @@
 	# Githubのpushのurlをsshに変更
 	rtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
 	ctags = !.git/hooks/ctags
+	resolve-merge-upper = !git checkout --theirs . && git add . && git commit
+	resolve-merge-lower = !git checkout --ours . && git add . && git commit
+	resolve-rebase-ours = !git checkout --ours . && git add . && git rebase --continue
+	resolve-rebase-theirs = !git checkout --theirs . && git add . && git rebse --continue
 [color]
 	ui = auto
 [core]
