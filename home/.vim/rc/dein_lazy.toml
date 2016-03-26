@@ -100,6 +100,11 @@ on_map = '<Plug>(textobj-lastpat-'
 # }}}
 
 [[plugins]]
+repo = 'tmsanrinsha/vim-fakeclip'
+if = "$SSH_CLIENT != ''"
+on_map = '<Plug>'
+
+[[plugins]]
 repo = 'tmsanrinsha/DirDiff.vim'
 on_cmd = 'DirDiff'
 

@@ -76,9 +76,6 @@ repo = 'Shougo/neoinclude.vim'
 repo = 'sudo.vim'
 
 [[plugins]]
-repo = 'tmsanrinsha/vim-fakeclip'
-
-[[plugins]]
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
@@ -270,3 +267,6 @@ repo = 'ynkdir/vim-vimlparser'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
+
+[[plugins]]
+repo = 'simeji/winresizer'
