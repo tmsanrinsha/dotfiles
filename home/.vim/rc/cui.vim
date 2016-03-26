@@ -4,7 +4,6 @@ if v:version > 701
     " :h terminal-info
     " cuiのvimでaltを使う設定 {{{2
     " ------------------------------------------------------------------------
-    " https://github.com/cpfaff/vim-my-setup/blob/master/vimrc
     for i in range(32,126)
         let c = nr2char(i)
         if c=='|' || c=='"'
@@ -30,7 +29,7 @@ if v:version > 701
     cmap  <NUL> <C-Space>
     " map! <NUL> <C-Space>
 
-    " cuiで修飾キー+カーソルキーを使う設定{{{2
+    " cuiでShift+カーソルキーを使う設定{{{2
     " ------------------------------------------------------------------------
     set <S-Left>=[1;2D
     set <S-Right>=[1;2C
@@ -119,12 +118,15 @@ endif
 " 対応していない場合もあるので注意。
 " 検証端末は主にiTerm2とTera Term
 "
-" tmux, screenなどのターミナルマルチプレクサ使用時にtmux, screenが対応しておらず、制御シーケンスが端末
-" まで届かないことがある。その場合、
-" tmuxだと"\ePtmux;\e"と"\e\\"で
-" screenだと'\eP'と"\e\\"で
-" 制御シーケンスを囲むことで、ターミナルマルチプレクサでは何も行わず、端末まで届けることができる
-" ターミナルマルチプレクサを使用しているかは$TERMがscreenかで判断する
+" tmux, screenなどのターミナルマルチプレクサ使用時にターミナルマルチプレクサが制御シーケンスに対応しておらず
+" 制御シーケンスが端末まで届かないことがある。
+" その場合、パススルーシーケンス
+" tmuxだと"\ePtmux;\e"と"\e\\"
+" screenだと'\eP'と"\e\\"
+" で制御シーケンスを囲むことで、ターミナルマルチプレクサを素通りさせて端末まで届けることができる
+" tmuxの場合だと制御シーケンス内の\eを\e\eで、\\を\\\\でエスケープする必要がある
+"
+" ターミナルマルチプレクサを使用しているかはここでは$TERMがscreenかで判断する
 "
 " 端末オプション (:help terminal-options)
 " &t_SI: 挿入モード開始
@@ -158,18 +160,18 @@ endif
 if v:version > 603
     if &term =~ "screen"
         " for tmux >= 1.7
-        let &t_SI = &t_SI . "\e[?2004h"
-        let &t_EI = "\e[?2004l" . &t_EI
+        let &t_SI = &t_SI."\e[?2004h"
+        let &t_EI = "\e[?2004l".&t_EI
         " for tmux
-        " let &t_SI .= "\ePtmux;\e\e[?2004h\e\\"
-        " let &t_EI .= "\ePtmux;\e\e[?2004l\e\\"
+        " let &t_SI = &t_SI."\ePtmux;\e\e[?2004h\e\\"
+        " let &t_EI = "\ePtmux;\e\e[?2004l\e\\".&t_EI
         "for screen
-        " let &t_SI .= "\eP\e[?2004h\e\\"
-        " let &t_EI .= "\eP\e[?2004l\e\\"
+        " let &t_SI = &t_SI."\eP\e[?2004h\e\\"
+        " let &t_EI = "\eP\e[?2004l\e\\".&t_EI
     elseif &term =~ "xterm"
         " for xterm
-        let &t_SI = &t_SI . "\e[?2004h"
-        let &t_EI = "\e[?2004l" . &t_EI
+        let &t_SI = &t_SI."\e[?2004h"
+        let &t_EI = "\e[?2004l".&t_EI
     endif
     let &pastetoggle = "\e[201~"
 
@@ -178,7 +180,7 @@ if v:version > 603
 endif
 
 " ウィンドウタイトルを保存・復元する {{{2
-" ------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " tmuxを使っていると効果が無い
 let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
