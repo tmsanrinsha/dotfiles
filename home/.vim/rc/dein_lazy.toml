@@ -97,7 +97,15 @@ on_map = '<Plug>(textobj-context-'
 [[plugins]]
 repo = 'kana/vim-textobj-lastpat'
 on_map = '<Plug>(textobj-lastpat-'
+
+[[plugins]]
+repo = 'glts/vim-textobj-comment'
+on_map = '<Plug>(textobj-comment-'
 # }}}
+
+[[plugins]]
+repo = 'kana/vim-smartword'
+on_map = '<Plug>'
 
 [[plugins]]
 repo = 'tmsanrinsha/vim-fakeclip'
@@ -113,13 +121,31 @@ repo = 'osyo-manga/vim-marching'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
+repo = 'quark-zju/vim-cpp-auto-include'
+external_commands = 'ruby'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html', 'php']
+
+[[plugins]]
 repo = 'maksimr/vim-jsbeautify'
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
 
 [[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+on_ft = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
+
+[[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
+
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+depends = ['jedi-vim']
+on_ft = ['python', 'python3']
 
 [[plugins]]
 repo = 'tmsanrinsha/previm'
@@ -141,21 +167,12 @@ on_sources = 'unite.vim'
 # vim_version = '7.3'
 
 [[plugins]]
-repo = 'glts/vim-textobj-comment'
-on_map = '<Plug>(textobj-comment-'
-
-[[plugins]]
 repo = 'sjl/gundo.vim'
 on_cmd = 'GundoToggle'
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
 on_i = 1
-
-[[plugins]]
-repo = 'quark-zju/vim-cpp-auto-include'
-external_commands = 'ruby'
-on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'Lokaltog/vim-easymotion'
@@ -183,10 +200,6 @@ repo = 'joonty/vdebug'
 on_ft = ['php']
 
 [[plugins]]
-repo = 'kana/vim-smartword'
-on_map = '<Plug>'
-
-[[plugins]]
 repo = 'thinca/vim-partedit'
 on_cmd = 'Partedit'
 
@@ -198,10 +211,6 @@ on_map = '<Plug>(quickhl-'
 repo = 'DrawIt'
 on_map = ';di'
 on_cmd = 'DrawIt'
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
-on_ft = ['html', 'php']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -236,11 +245,6 @@ repo = 'neilagabriel/vim-geeknote'
 on_cmd = ['Geeknote']
 
 [[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-depends = ['jedi-vim']
-on_ft = ['python', 'python3']
-
-[[plugins]]
 repo = 'haya14busa/vim-asterisk'
 on_map = '<Plug>(asterisk-'
 
@@ -255,10 +259,6 @@ on_cmd = 'VimConsoleToggle'
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_map = ['<Plug>TComment_', 'gc']
-
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-on_ft = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
 [[plugins]]
 repo = 'gregsexton/gitv'
