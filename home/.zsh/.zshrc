@@ -588,6 +588,14 @@ REPORTTIME=10
 # peco {{{1
 # ============================================================================
 if hash peco 2>/dev/null; then
+    # バッファ上のコマンドを実行して、pecoの選択結果をバッファに出力
+    function peco_buffer() {
+        BUFFER=$(eval ${BUFFER} | peco)
+        CURSOR=0
+    }
+    zle -N peco_buffer
+    bindkey "^[p" peco_buffer
+
     # git {{{2
     # ------------------------------------------------------------------------
     function peco_git_hash() {
