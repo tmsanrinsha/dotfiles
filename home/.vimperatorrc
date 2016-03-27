@@ -5,8 +5,8 @@ vmapclear
 imapclear
 cmapclear
 
-js<<EOM
-if(liberator.has("MacUnix")) {
+javascript <<EOM
+if (liberator.has("MacUnix")) {
   // どれも最初にMacVimを起動している必要あり
   liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/Vim -f --remote-tab"'); // 複数起動しない
   // liberator.execute('set\ editor="/Applications/MacVim.app/Contents/MacOS/MacVim -f --remote-tab"'); // 複数起動
@@ -30,9 +30,9 @@ set previouspattern=前へ,前のページ,←,\bprev|previous\b,^<$,^(<<|«)$,^
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
-js<<EOM
+javascript <<EOM
 var fontFamily;
-if(liberator.has("MacUnix")) {
+if (liberator.has("MacUnix")) {
   fontFamily = 'Monaco';
 } else {
   fontFamily = 'Consolas';
@@ -137,8 +137,8 @@ EOF
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 
 set complete=lH
-set defsearch=g
-set suggestengines=g
+" set defsearch=g
+" set suggestengines=g
 
 " nnoremap o :set complete=lH<CR>:open<Space>
 " nnoremap t :set complete=lH<CR>:tabopen<Space>
@@ -229,7 +229,6 @@ command! -nargs=0 -description="Tile Tabs..." vs emenu Tile.Tile New Tab.Right
 nnoremap <C-w>s :emenu タイル.複製したタブをタイル表示.下<CR>
 nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 
-
 " config {{{1
 " ============================================================================
 " スワイプで戻る・進むにアニメーションをつける
@@ -259,7 +258,7 @@ set! browser.snapshots.limit=1
 
 javascript <<EOF
 // [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
-if(io.File('~/.vimperatorrc.local').exists()){
+if (io.File('~/.vimperatorrc.local').exists()){
     io.source('~/.vimperatorrc.local', false);
 }
 EOF
