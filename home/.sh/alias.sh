@@ -118,7 +118,7 @@ alias lcc="export LC_CTYPE='C'"
 alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
 
 # リンク切れのリンクを削除する
-function rm-broken-link() {
+function clean-symlink() {
     if [ "$1" = '--force' ]; then
         find . -type l -exec bash -c 'test -e "{}" || echo "{}" && rm -r "{}"' \;
     else
