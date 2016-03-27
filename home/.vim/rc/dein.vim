@@ -1723,7 +1723,7 @@ else
 endif
 
 " automatic {{{1
-" ==============================================================================
+" ============================================================================
 " http://d.hatena.ne.jp/osyo-manga/20130812/1376314945
 " http://blog.supermomonga.com/articles/vim/automatic.html
 " let g:automatic_default_set_config = {

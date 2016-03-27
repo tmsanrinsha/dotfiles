@@ -606,7 +606,8 @@ set splitright
 set scrolloff=1
 
 " ウィンドウ分割時に等分にしない
-set noequalalways
+" fugitiveを使った時のdiffが等分になって欲しいのでコメントアウト
+" set noequalalways
 
 "縦分割されたウィンドウのスクロールを同期させる
 "同期させたいウィンドウ上で<F12>を押せばおｋ
