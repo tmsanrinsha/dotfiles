@@ -88,7 +88,6 @@ noremap gxf cvy:tabopen<Space>http://info.finance.yahoo.co.jp/search/?query=<M-v
 
 noremap ,B :bmarks<Space>
 noremap ,h :history<Space>
-noremap ,ps :panorama switch<Space>
 
 nnoremap <Leader>vr :execute 'source ' + io.getRCFile().target<CR>:echo '.vimperatorrc is loaded'<CR>
 nnoremap ZZ :restart<CR>
