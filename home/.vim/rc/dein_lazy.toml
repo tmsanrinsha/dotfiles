@@ -204,6 +204,13 @@ repo = 'thinca/vim-partedit'
 on_cmd = 'Partedit'
 
 [[plugins]]
+repo = 'simeji/winresizer'
+on_cmd = 'WWinResizerStartResize'
+hook_add = '''
+  let g:winresizer_start_key = '<A-w>'
+'''
+
+[[plugins]]
 repo = 't9md/vim-quickhl'
 on_map = '<Plug>(quickhl-'
 

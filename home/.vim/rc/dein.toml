@@ -267,6 +267,3 @@ repo = 'ynkdir/vim-vimlparser'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
-
-[[plugins]]
-repo = 'simeji/winresizer'
