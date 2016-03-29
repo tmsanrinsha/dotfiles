@@ -615,8 +615,11 @@ if hash peco 2>/dev/null; then
 
     # history {{{2
     function peco_select_history() {
-        # historyを番号なし、逆順、最初から表示。順番を保持して重複を削除
-        BUFFER=$(history -nr 1 | perl -ne 'print if!$line{$_}++' | peco --query "$LBUFFER")
+        # historyを番号なし、逆順、最初から表示。
+        # 順番を保持して重複を削除。
+        # pecoで選択
+        # \nを改行に変換
+        BUFFER="$(history -nr 1 | perl -ne 'print if!$line{$_}++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
         # # historyを番号なし、逆順、時間表示で最初から表示
         # BUFFER=$(history -nri 1 | peco --query "$LBUFFER" | cut -d ' ' -f 4-)
         CURSOR=$#BUFFER             # move cursor
