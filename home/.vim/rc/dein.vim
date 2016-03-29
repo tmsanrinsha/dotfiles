@@ -125,6 +125,22 @@ if dein#tap('unite.vim')
         endfor
     endfunction
 
+    " :h map-listing
+    " <Space>  ノーマル、ビジュアル、選択、オペレータ待機
+    "    n     ノーマル
+    "    v     ビジュアル、選択
+    "    s     選択
+    "    x     ビジュアル
+    "    o     オペレータ待機
+    "    !     挿入、コマンドライン
+    "    i     挿入
+    "    l     挿入、コマンドライン、Lang-Argでの ":lmap" マップ
+    "    c     コマンドライン
+
+    " *   再マップされません
+    " &   スクリプトローカルなマップだけが再マップされます
+    " @   バッファローカルなマップです。
+
     " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
     " :messagesの最後をunite.vimで表示する
