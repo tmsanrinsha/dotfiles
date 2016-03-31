@@ -1195,15 +1195,15 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>607 309 222 309 0 0 1280 777 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>611 168 445 202 0 0 1280 777 </string>
+	<string>611 142 445 225 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>-103 1092 924 485 -349 800 1920 1057 </string>
+	<string>120 203 924 485 0 0 1280 777 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>259 1205 592 584 -349 800 1920 1057 </string>
+	<string>315 165 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-331 875 1277 757 -349 800 1920 1057 </string>
+	<string>0 15 1277 762 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1222,7 +1222,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<false/>
+			<true/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2029,7 +2029,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1428324480</real>
+	<real>1459046016</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>Use background pattern indicator</key>
