@@ -169,11 +169,12 @@ fi
 #     fi
 # fi
 
-if which pyenv 1>/dev/null 2>&1; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    pathmunge "$PYENV_ROOT/bin"
-    eval "$(pyenv init -)"
-fi
+# virtualenvと相性が悪い
+# if which pyenv 1>/dev/null 2>&1; then
+#     export PYENV_ROOT="$HOME/.pyenv"
+#     pathmunge "$PYENV_ROOT/bin"
+#     eval "$(pyenv init -)"
+# fi
 
 # .zashrc.cygwin {{{1
 if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
