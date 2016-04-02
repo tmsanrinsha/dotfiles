@@ -299,9 +299,10 @@ on_cmd = 'Partedit'
 
 [[plugins]]
 repo = 'simeji/winresizer'
-on_cmd = 'WWinResizerStartResize'
+on_cmd = 'WinResizerStartResize'
 hook_add = '''
-  let g:winresizer_start_key = '<A-w>'
+  let g:winresizer_start_key = '<M-w>'
+  nmap <M-w> :<C-u>WinResizerStartResize<CR>
 '''
 
 [[plugins]]
