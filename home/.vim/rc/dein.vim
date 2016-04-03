@@ -335,7 +335,7 @@ if dein#tap('unite.vim')
 
     call s:dein_on_source('unite')
 
-    nnoremap [unite]D :<C-u>Unite dein<CR>
+    nnoremap [unite]D :<C-u>Unite dein -default-action=vimfiler<CR>
 endif
 
 " neomru {{{1
