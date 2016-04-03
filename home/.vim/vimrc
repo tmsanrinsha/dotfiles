@@ -680,6 +680,8 @@ cnoremap <C-N> <DOWN>
 cnoremap <UP> <C-P>
 cnoremap <DOWN> <C-N>
 
+nnoremap Q q:
+
 " vim-emacscommandlineで<C-F>は右に進むになっているので、
 " コマンドラインウィンドウを開きたいときは<C-Space>にする
 cnoremap <C-Space> <C-F>
@@ -1017,7 +1019,7 @@ function! TestErrFmt(errfmt,lines)
     endtry
 endfunction
 
-" messagesのエラー箇所に飛ぶ {{{2
+" Vim script でエラーが出た時のmessagesのエラー箇所に飛ぶ {{{2
 " ----------------------------------------------------------------------------
 function! s:quickfix_message()
   let str_messages = ''
