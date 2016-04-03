@@ -121,12 +121,12 @@ if dein#tap('unite.vim')
 
     " verbose mapするアクションの定義
     " [unite.vim の action について理解する - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131004/1380890539)
-    let s:action = {
+    let s:action_verbose_map = {
     \   'description' : 'verbose',
     \   'is_selectable' : 1,
     \}
 
-    function! s:action.func(candidates)
+    function! s:action_verbose_map.func(candidates)
         for candidate in a:candidates
             execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
         endfor
@@ -302,7 +302,7 @@ if dein#tap('unite.vim')
     endfunction
 
     function! s:unite_on_source() abort
-        call unite#custom#action('source/output/*', 'verbose', s:action)
+        call unite#custom#action('source/output/*', 'verbose', s:action_verbose_map)
         call unite#custom#profile('default', 'context', {
         \   'start_insert': 1,
         \   'direction': 'topleft',
