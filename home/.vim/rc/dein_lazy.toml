@@ -355,10 +355,6 @@ repo = 'kannokanno/vim-helpnew'
 on_cmd = 'HelpNew'
 
 [[plugins]]
-repo = 'rbtnn/vimconsole.vim'
-on_cmd = 'VimConsoleToggle'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_map = ['<Plug>TComment_', 'gc']
 

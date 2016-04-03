@@ -104,7 +104,7 @@ repo = 'ingo-library'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vimconsole.vim']
 
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
@@ -259,6 +259,10 @@ repo = 'zaiste/tmux.vim'
 # vim
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
+
+# deepcopy(g:quickrun#default_config)でvimconsole#widthのエラーが出るのでコメントアウト
+# [[plugins]]
+# repo = 'rbtnn/vimconsole.vim'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
