@@ -21,6 +21,7 @@ if dein#load_state(s:dein_dir)
             call dein#load_toml(s:toml_file)
         endif
     endfor
+
     call dein#end()
     call dein#save_state()
 endif
@@ -48,6 +49,7 @@ endfunction
 
 if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
+    let $MEMO_DIR = g:memo_directory
 endif
 
 " vim-singleton {{{1
@@ -628,7 +630,7 @@ if dein#tap('neocomplete.vim')
 
         set pumheight=10
         " 補完候補取得に時間がかかったときにスキップ
-        let g:neocomplete#skip_auto_completion_time = "0.1"
+        let g:neocomplete#skip_auto_completion_time = '0.1'
         " let g:neocomplete#skip_auto_completion_time = '1'
         " 候補の数を増やす
         " execute 'let g:'.s:neocom_.'max_list = 3000'
@@ -750,7 +752,7 @@ if dein#tap('neocomplete.vim')
         set completeopt-=preview
         if MyHasPatch('patch-7.4.775')
             " insert,selectしない
-            set completeopt+=noinsert,noselect
+            " set completeopt+=noinsert,noselect
         endif
 
         " auto_selectするとsnippetの方でうまくいかない
@@ -1218,7 +1220,9 @@ if dein#tap('vim-watchdogs')
     augroup END
 
     function! s:watchdogs_on_source() abort
-        let g:watchdogs_check_BufWritePost_enable = 1
+
+        let g:watchdogs_check_CursorHold_enable = 1
+        " let g:watchdogs_check_BufWritePost_enable = 1
 
         if !exists('g:quickrun_config')
             let g:quickrun_config = {}
@@ -2201,16 +2205,16 @@ autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 " \  'xml',
 " \]
 
-" rcmdnk/vim-markdown {{{2
+" vim-markdown {{{2
 " ----------------------------------------------------------------------------
 " if dein#tap('rcmdnk_vim-markdown')
 if dein#tap('vim-markdown')
-    let g:vim_markdown_folding_disabled = 1
+    let g:vim_markdown_folding_disabled = 0
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= 'open'
     let g:vim_markdown_no_default_key_mappings=1
     let g:vim_markdown_frontmatter = 1
-    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_conceal = 1
 
     " plasticboy/vim-markdownでfiletypeをmkd.markdownにする {{{3
     " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
@@ -2245,13 +2249,13 @@ let g:markdown_quote_syntax_filetypes = {
 
 " nelstrom/vim-markdown-folding {{{2
 " ----------------------------------------------------------------------------
-if dein#tap('vim-markdown-folding')
-    function! s:markdown_folding_on_source() abort
-        let g:markdown_fold_style = 'nested'
-    endfunction
-
-    call s:dein_on_source('markdown_folding')
-endif
+" if dein#tap('vim-markdown-folding')
+"     function! s:markdown_folding_on_source() abort
+"         let g:markdown_fold_style = 'nested'
+"     endfunction
+"
+"     call s:dein_on_source('markdown_folding')
+" endif
 
 " vimconsole.vim {{{1
 " ==============================================================================
