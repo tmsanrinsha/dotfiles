@@ -212,6 +212,7 @@ if dein#tap('unite.vim')
     endfunction
 
     nnoremap [unite]gd :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    execute 'nnoremap [unite]gD :<C-u>Unite grep:' . s:dein_dir . '<CR>'
     nnoremap [unite]gv :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]gV :<C-u>Unite grep:$VIM<CR>
     nnoremap [unite]gb :<C-u>Unite grep:$HOME/.vim/bundle<CR>
