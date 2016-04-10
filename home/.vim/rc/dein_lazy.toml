@@ -22,6 +22,17 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'Shougo/unite-outline'
+on_source = 'unite.vim'
+hook_source = '''
+    call unite#sources#outline#alias('ref-man', 'man')
+    call unite#sources#outline#alias('rmd', 'markdown')
+    call unite#sources#outline#alias('tmux', 'conf')
+    call unite#sources#outline#alias('vimperator', 'conf')
+    call unite#sources#outline#alias('zsh', 'conf')
+'''
+
+[[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_source = 'unite.vim'
 

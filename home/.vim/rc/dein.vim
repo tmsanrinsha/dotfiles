@@ -296,12 +296,6 @@ if dein#tap('unite-outline')
     nnoremap [unite]o<CR> :<C-u>Unite outline<CR>
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
-
-    call unite#sources#outline#alias('ref-man', 'man')
-    call unite#sources#outline#alias('rmd', 'markdown')
-    call unite#sources#outline#alias('tmux', 'conf')
-    call unite#sources#outline#alias('vimperator', 'conf')
-    call unite#sources#outline#alias('zsh', 'conf')
 endif
 
 autocmd MyVimrc FileType yaml

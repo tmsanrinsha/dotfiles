@@ -18,9 +18,6 @@ repo = 'ujihisa/unite-locate'
 repo = 'tacroe/unite-mark'
 
 [[plugins]]
-repo = 'Shougo/unite-outline'
-
-[[plugins]]
 repo = 'ujihisa/vimshell-ssh'
 
 [[plugins]]
