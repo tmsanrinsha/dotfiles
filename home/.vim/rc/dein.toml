@@ -3,7 +3,7 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-hook_post_update = 'make'
+build = 'make'
 
 [[plugins]]
 repo = 'tmsanrinsha/unite-ghq'
