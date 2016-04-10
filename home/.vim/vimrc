@@ -1450,6 +1450,12 @@ autocmd MyVimrc FileType gitcommit
 if !has('gui_running')
     call SourceRc('cui.vim')
 endif
+
+if !exists('g:memo_directory')
+    let g:memo_directory = expand('~/Dropbox/memo/doc')
+    let $MEMO_DIR = g:memo_directory
+endif
+
 " call SourceRc('plugin.vim')
 call SourceRc('dein.vim')
 call SourceRc('local.vim')

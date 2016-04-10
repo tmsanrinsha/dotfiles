@@ -37,21 +37,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-function! s:dein_on_source(plugin) abort
-    execute 'autocmd MyVimrc User dein#source#'.g:dein#name
-    \   'call s:'.a:plugin.'_on_source()'
-endfunction
-
-function! s:add_on_source(dein_name, func) abort
-    execute 'autocmd MyVimrc User dein#source#'.a:dein_name
-    \   'call '.a:func.'()'
-endfunction
-
-if !exists('g:memo_directory')
-    let g:memo_directory = expand('~/Dropbox/memo/doc')
-    let $MEMO_DIR = g:memo_directory
-endif
-
 " vim-singleton {{{1
 " ============================================================================
 if dein#tap('vim-singleton') && has('gui_running')
@@ -120,19 +105,6 @@ if dein#tap('unite.vim')
     " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
     " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
     nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=verbose<CR>
-
-    " verbose mapするアクションの定義
-    " [unite.vim の action について理解する - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131004/1380890539)
-    let s:action_verbose_map = {
-    \   'description' : 'verbose',
-    \   'is_selectable' : 1,
-    \}
-
-    function! s:action_verbose_map.func(candidates)
-        for candidate in a:candidates
-            execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
-        endfor
-    endfunction
 
     " :h map-listing
     " <Space>  ノーマル、ビジュアル、選択、オペレータ待機
@@ -277,67 +249,6 @@ if dein#tap('unite.vim')
     let g:unite_source_grep_max_candidates = 1000
     " Set "-no-quit" automatically in grep unite source.
 
-
-    " unite-args {{{2
-    " ------------------------------------------------------------------------
-    function! s:set_arglist(candidates)
-        let argslist = {}
-        for candidate in a:candidates
-            " h unite-kind-file
-            let argslist[candidate.action__path] = 1
-        endfor
-        execute 'argadd' join(map(keys(argslist), 'fnameescape(v:val)'))
-    endfunction
-
-    " arglistにuniteで選択したファイルを設定する
-    let s:args_action = {'description': 'args', 'is_selectable': 1}
-
-    function! s:args_action.func(candidates)
-        silent! argdelete *
-        call s:set_arglist(a:candidates)
-    endfunction
-
-    " arglistにuniteで選択したファイルを追加する
-    let s:argadd_action = {'description': 'argadd', 'is_selectable': 1}
-
-    function! s:argadd_action.func(candidates)
-        call s:set_arglist(a:candidates)
-    endfunction
-
-    function! s:unite_on_source() abort
-        call unite#custom#action('source/output/*', 'verbose', s:action_verbose_map)
-        call unite#custom#profile('default', 'context', {
-        \   'start_insert': 1,
-        \   'direction': 'topleft',
-        \   'winheight': 10,
-        \   'auto_resize': 1,
-        \   'prompt': '> ',
-        \ })
-        call unite#custom_default_action('directory' , 'vimfiler')
-        " vimfiler上ではvimfilerを増やさず、移動するだけ
-        " autocmd MyVimrc FileType vimfiler
-        " \   call unite#custom_default_action('directory', 'lcd')
-
-        call unite#custom_default_action('source/directory/directory' , 'vimfiler')
-        call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
-
-        " dでファイルの削除
-        call unite#custom#alias('file', 'delete', 'vimfiler__delete')
-        call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
-
-        call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
-
-        call unite#custom#profile('source/grep', 'context',
-        \ {'no_quit' : 1})
-
-        call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
-
-        call unite#custom#action('file', 'argadd', s:argadd_action)
-        call unite#custom#action('file', 'args', s:args_action)
-    endfunction
-
-    call s:dein_on_source('unite')
-
     nnoremap [unite]D :<C-u>Unite dein -default-action=vimfiler<CR>
 endif
 
@@ -353,19 +264,6 @@ if dein#tap('neomru.vim')
     " ファイルへの書き込みを60秒ごとにする
     let g:neomru#update_interval = 60
     let g:neomru#do_validate = 0
-
-    function! s:neomru_on_source() abort
-        call unite#custom#source(
-        \'neomru/file', 'ignoer_pattern',
-        \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
-        \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-        \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-        \'\|\%(^\%(fugitive\)://\)'.
-        \'\|/mnt/'
-        \)
-    endfunction
-
-    call s:add_on_source('unite.vim', 's:neomru_on_source')
 endif
 
 
@@ -399,15 +297,11 @@ if dein#tap('unite-outline')
     nnoremap [unite]of :<C-u>Unite outline:folding<CR>
     nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
 
-    function! s:unite_outline_on_source() abort
-        call unite#sources#outline#alias('ref-man', 'man')
-        call unite#sources#outline#alias('rmd', 'markdown')
-        call unite#sources#outline#alias('tmux', 'conf')
-        call unite#sources#outline#alias('vimperator', 'conf')
-        call unite#sources#outline#alias('zsh', 'conf')
-    endfunction
-
-    call s:add_on_source('unite.vim', 's:unite_outline_on_source')
+    call unite#sources#outline#alias('ref-man', 'man')
+    call unite#sources#outline#alias('rmd', 'markdown')
+    call unite#sources#outline#alias('tmux', 'conf')
+    call unite#sources#outline#alias('vimperator', 'conf')
+    call unite#sources#outline#alias('zsh', 'conf')
 endif
 
 autocmd MyVimrc FileType yaml
@@ -437,12 +331,6 @@ endif
 " ============================================================================
 if dein#tap('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
-
-    function! s:unite_ghq_on_source() abort
-        call unite#custom_default_action('source/ghq/directory', 'vimfiler')
-    endfunction
-
-    call s:add_on_source('unite.vim', 's:unite_ghq_on_source')
 endif
 
 " cdr {{{1
@@ -582,260 +470,6 @@ if dein#tap('Conque-Shell')
     noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
 
     let g:neocomplete#lock_buffer_name_pattern = 'zsh -'
-
-    function! s:conque_on_source() abort
-        " 違うバッファに移ってもバッファを更新し続ける。
-        " ただし、スクロールはできない
-        let g:ConqueTerm_ReadUnfocused = 1
-        " プログラムが終了したらバッファを閉じる
-        let g:ConqueTerm_CloseOnEnd = 1
-        " 設定がまずい場合は立ち上げ時にwarningを出す
-        let g:ConqueTerm_StartMessages = 1
-        " <C-w>をウィンドウを変更するために使わない(ConqueTerm上で<C-w>を使う)
-        let g:ConqueTerm_CWInsert = 0
-        " 通常の<Esc>はconqueTermにEscapeを送って、<C-j>はVimにEscapeを送る
-        let g:ConqueTerm_EscKey = '<C-j>'
-
-        " [もぷろぐ: Vim から zsh を呼ぶ ﾌﾟﾗｷﾞﾝ 紹介](http://ac-mopp.blogspot.jp/2013/02/vim-zsh.html)
-        " bufferが消えた時プロセスを終了する。なくてもいい気がする
-        " function! s:delete_ConqueTerm(buffer_name)
-        "     let term_obj = conque_term#get_instance(a:buffer_name)
-        "     call term_obj.close()
-        " endfunction
-        " autocmd! my_conque BufWinLeave zsh\s-\s? call <SID>delete_ConqueTerm(expand('%'))
-    endfunction
-
-    execute 'autocmd MyVimrc User' 'dein#source#'.g:dein#name
-    \   'call s:conque_on_source()'
-endif
-
-" neocomplete {{{1
-" ============================================================================
-if dein#tap('neocomplete.vim')
-    function! s:neocomplete_on_source() abort
-        " Use neocomplcache.
-        let g:neocomplete#enable_at_startup = 1
-        " Use smartcase.
-        let g:neocomplete#enable_smart_case = 1
-        let g:neocomplete#enable_ignore_case = 1
-
-        " smartcaseな補完にする
-        let g:neocomplete#enable_camel_case = 0
-
-        " Set minimum syntax keyword length.
-        let g:neocomplete#sources#syntax#min_syntax_length = 3
-
-        " for keyword
-        let g:neocomplete#auto_completion_start_length = 2
-
-        set pumheight=10
-        " 補完候補取得に時間がかかったときにスキップ
-        let g:neocomplete#skip_auto_completion_time = '0.1'
-        " let g:neocomplete#skip_auto_completion_time = '1'
-        " 候補の数を増やす
-        " execute 'let g:'.s:neocom_.'max_list = 3000'
-
-        " execute 'let g:'.s:neocom_.'force_overwrite_completefunc = 1'
-
-        " if !exists('g:neocomplete#same_filetypes')
-        "   let g:neocomplete#same_filetypes = {}
-        " endif
-        " " In default, completes from all buffers.
-        " let g:neocomplete#same_filetypes._ = '_'
-
-        let g:neocomplete#enable_auto_close_preview=0
-        " fugitiveのバッファも閉じてしまうのでコメントアウト
-        " autocmd MyVimrc InsertLeave *.* pclose
-
-        " let g:neocomplete#sources#tags#cache_limit_size = 1000000
-        " 使用する補完の種類を減らす
-        " http://alpaca-tc.github.io/blog/vim/neocomplete-vs-youcompleteme.html
-        " 現在のSourceの取得は 
-        " `:echo keys(neocomplete#variables#get_sources())`
-        " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
-        " 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']
-
-        if !exists('g:neocomplete#sources')
-          let g:neocomplete#sources = {}
-        endif
-        " let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'ultisnips', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
-        let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
-        " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
-        let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
-        " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-        let g:neocomplete#sources.php      = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
-        let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
-        let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
-
-        set dictionary=/Users/tmsanrinsha/Dropbox/memo/doc/memo.dict
-        " neocompleteで日本語を出すには設定が必要
-        let g:neocomplete#sources#dictionary#dictionaries = {
-        \   'default': '',
-        \   'vimshell': $HOME.'/.vimshell_hist',
-        \   'markdown': $MEMO_DIR.'/memo.dict'
-        \ }
-
-        " 補完候補の順番
-        if dein#tap('neocomplete.vim')
-            " defaultの値は ~/.vim/bundle/neocomplete.vim/autoload/neocomplete/sources/ 以下で確認
-            " ファイル名補完
-            call neocomplete#custom#source('file',         'rank', 450)
-            call neocomplete#custom#source('neosnippet',   'rank', 440)
-            call neocomplete#custom#source('member',       'rank', 430)
-            call neocomplete#custom#source('buffer',       'rank', 420)
-            call neocomplete#custom#source('omni',         'rank', 410)
-            call neocomplete#custom#source('file/include', 'rank', 370)
-            call neocomplete#custom#source('tag',          'rank', 360)
-            call neocomplete#custom#source('syntax',       'rank', 300)
-            " call neocomplete#custom#source('ultisnips',    'rank', 400)
-        endif
-
-        let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
-
-        " Enable omni completion.
-        augroup MyVimrc
-            autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
-        augroup END
-        " let g:neocomplete#sources#omni#functions.sql =
-        " \ 'sqlcomplete#Complete'
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-
-        if !exists('g:neocomplete#sources#omni#functions')
-            let g:neocomplete#sources#omni#functions = {}
-        endif
-
-        let g:neocomplete#sources#omni#functions.dot = 'GraphvizComplete'
-        let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
-        " forceで設定しているとmarkdownのコードブロックでも探そうとするらしく
-        "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
-        " が表示される
-
-        let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-
-        " 日本語も補完させたい場合は
-        " g:neocomplete#enable_multibyte_completionをnon-0にして
-        " g:neocomplete#keyword_patternsも変更する必要あり
-
-        " key mappings {{{2
-        inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        execute 'inoremap <expr><C-l> neocomplete#complete_common_string()'
-        execute 'inoremap <expr><C-Space> neocomplete#start_manual_complete()'
-        " execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()'
-        " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
-        execute 'inoremap <expr><C-g>  pumvisible() ? neocomplete#undo_completion() : "\<C-g>"'
-
-        " <C-u>, <C-w>した文字列をアンドゥできるようにする
-        " http://vim-users.jp/2009/10/hack81/
-        " C-uでポップアップを消したいがうまくいかない
-        execute 'inoremap <expr><C-u>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
-        execute 'inoremap <expr><C-w>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
-
-        " Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita
-        " <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
-
-
-        " previewしない
-        set completeopt-=preview
-        if MyHasPatch('patch-7.4.775')
-            " insert,selectしない
-            " set completeopt+=noinsert,noselect
-        endif
-
-        " auto_selectするとsnippetの方でうまくいかない
-        " let g:neocomplete#enable_auto_select = 1
-        " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        " function! s:my_cr_function()
-        "     " For no inserting <CR> key.
-        "     return pumvisible() ? "\<C-y>" : "\<CR>"
-        "     " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-        " endfunction
-
-        " " <TAB>: completion.
-        " " ポップアップが出ていたら下を選択
-        " " 出てなくて、
-        " "   *があるときは右にインデント。a<BS>しているのは、改行直後に<Esc>すると、autoindentによって挿入された
-        " "   空白が消えてしまうので
-        " "   それ以外は普通のタブ
-        " " 矩形選択して挿入モードに入った時にうまくいかない
-        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc>>>A" : "\<Tab>")
-        " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" :
-        "     \   (match(getline('.'), '^\s*\*') >= 0 ? "a<BS>\<Esc><<A" : "\<S-Tab>")
-
-        " ポップアップが出てない時に、カーソルの左側がスペースならばタブ、そうでない場合は手動補完
-        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-        " \   <SID>check_back_space() ? "\<TAB>" :
-        " \   neocomplete#start_manual_complete()
-        " function! s:check_back_space()
-        "     let col = col('.') - 1
-        "     return !col || getline('.')[col - 1]  =~ '\s'
-        " endfunction
-
-        " <BS>, <C-h> でポップアップを閉じて文字を削除。ポップアップを選択していたときはそれがキャンセルされた後に削除される。
-        " 例) fuとタイプして、補完候補のfunctionを選択していた時に<BS>するとfになる
-        " lexima.vimと競合するのでコメントアウト
-        " execute 'inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<BS>"  : "\<BS>"'
-        " execute 'inoremap <expr><C-h> pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<C-h>"'
-
-        " <CR> でポップアップ中の候補を選択し改行する
-        " execute 'inoremap <expr><CR> neocomplete#close_popup()."\<CR>"'
-
-        " これをやるとコピペに改行があるときにポップアップが選択されてしまう
-        " 補完候補が表示されている場合は確定。そうでない場合は改行
-        " execute 'inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"'
-
-        " endif
-
-        " let g:neocomplete#fallback_mappings =
-        " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
-
-        " inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('file')
-        " inoremap <expr><C-x><C-n>  neocomplete#start_manual_complete('buffer')
-        imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
-        " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
-
-        " let g:neocomplete#enable_cursor_hold_i = 1
-        " let g:neocomplete#cursor_hold_i_time = 100
-
-        " let g:neocomplete#disable_auto_complete = 1
-        " let g:neocomplete#enable_refresh_always = 1
-        " autocmd MyVimrc FileType *
-        " \   if &filetype == 'php'
-        " \|      echom 'php'
-        " \|      let g:neocomplete#enable_cursor_hold_i=1
-        " \|      let g:neocomplete#cursor_hold_i_time=100
-        " \|      NeoCompleteEnable
-        " \|  else
-        " \|      let g:neocomplete#enable_cursor_hold_i=0
-        " \|      NeoCompleteEnable
-        " \|  endif
-
-        " ?
-        " let g:neocomplete#fallback_mappings =
-        " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
-
-        " inoremap <expr><C-x><C-f>  neocomplete#start_manual_complete('file')
-        " inoremap <expr><C-x><C-n>  neocomplete#start_manual_complete('buffer')
-        imap  <C-x>u <Plug>(neocomplete_start_unite_complete)
-        " imap  <C-x>u <Plug>(neocomplete_start_unite_quick_match)
-        " }}}
-    endfunction
-
-    call s:dein_on_source('neocomplete')
 endif
 
 " neosnippet {{{1
@@ -846,28 +480,6 @@ if dein#tap('neosnippet.vim')
     \   '~/.vim/bundle/vim-snippets/snippets',
     \   '~/.vim/bundle/wmgraphviz.vim/snippets',
     \]
-
-    function! s:neosnippet_on_source() abort
-        " Plugin key-mappings.
-        imap <expr><C-k> neosnippet#expandable_or_jumpable() ?
-        \   "\<Plug>(neosnippet_expand_or_jump)" :
-        \   "\<C-o>D"
-        smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
-        \   "\<Plug>(neosnippet_expand_or_jump)" :
-        \   "\<C-o>D"
-        xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-        " For snippet_complete marker.
-        " if has('conceal')
-        "     set conceallevel=2 concealcursor=niv
-        " endif
-
-        " Enable snipMate compatibility feature.
-        let g:neosnippet#enable_snipmate_compatibility = 1
-
-    endfunction
-
-    call s:dein_on_source('neosnippet')
 endif
 
 " SirVer/ultisnips {{{1
@@ -902,141 +514,6 @@ if dein#tap('context_filetype.vim')
 
 endif
 
-" lexima.vim {{{1
-" ==============================================================================
-if dein#tap('lexima.vim')
-    " reloadble
-    function! s:lexima_on_source() abort
-        let g:lexima_no_default_rules = 1
-        let g:lexima_enable_space_rules = 0
-        call lexima#set_default_rules()
-
-        " <C-h>でlexima.vimの<BS>の動きをさせる
-        imap <C-h> <BS>
-
-        " <C-f>で右に移動
-        imap <C-f> <Right>
-        call lexima#add_rule({'char': '<Right>', 'leave': 1})
-
-        " dot repeatableな<C-d>。lexima.vimによって追加された文字以外は
-        " 消してくれないので、コメント
-        " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
-        inoremap <C-d> <Del>
-
-        " matchparisで設定したもの(「,」:（,）など)をルールに追加
-        for s:val in split(&matchpairs, ',')
-            if s:val ==# '<:>'
-                continue
-            endif
-            let s:val = escape(s:val, '[]')
-            let s:pair = split(s:val, ':')
-            execute "call lexima#add_rule({'char': '".s:pair[0]."', 'input_after': '". s:pair[1]."'})"
-            execute "call lexima#add_rule({'char': '".s:pair[1]."', 'at': '\\%#".s:pair[1]."', 'leave': 1})"
-            execute "call lexima#add_rule({'char': '<BS>', 'at': '".s:pair[0].'\%#'.s:pair[1]."', 'delete': 1})"
-        endfor
-
-        call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
-
-        " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
-        for s:val in ['-', '\*', '+', '1.', '>']
-            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<C-w><C-w><CR>'', ''filetype'': ''markdown''})'
-            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<Esc>0Di'', ''filetype'': ''rmd''})'
-        endfor
-
-        " Vim script {{{2
-        " --------------------------------------------------------------------
-        " Vim scriptで以下のようなインデントをする
-        " NeoBundleLazy "cohama/lexima.vim", {
-        " \   "autoload": {
-        " \       "insert": 1
-        " \   }
-        " \}
-        for s:val in ['{:}', '\[:\]']
-            let s:pair = split(s:val, ':')
-
-            " {\%#}
-            " ↓
-            " {
-            " \   \%%
-            " \}
-            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': '''.s:pair[0].'\%#'.s:pair[1].''', ''input'': ''<CR>\   '', ''input_after'': ''<CR>\'', ''filetype'': ''vim''})'
-            " \   {\%#}
-            " ^^^^ shiftwidthの倍数 - 1の長さ
-            " ↓
-            " \   {
-            " \       \%#
-            " \   }
-            let s:indent = &l:shiftwidth
-            " indent 5つ分まで設定
-            for s:i in range(1, 5)
-                let s:space_num = s:indent * s:i - 1
-                let s:space = ''
-                for s:j in range(s:space_num + s:indent)
-                    let s:space = s:space . ' '
-                endfor
-                let s:space_after = ''
-                for s:j in range(s:space_num)
-                    let s:space_after = s:space_after . ' '
-                endfor
-
-                execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*\\\s\{'.s:space_num.'\}.*'.s:pair[0].'\%#'.s:pair[1].''', ''input'': ''<CR>\'.s:space.''', ''input_after'': ''<CR>\'.s:space_after.''', ''filetype'': ''vim''})'
-            endfor
-        endfor
-
-        " \   {
-        " \       'hoge': 'fuga',\%#
-        " \   }
-        " ↓
-        " \   {
-        " \       'hoge': 'fuga',
-        " \       \%#
-        " \   }
-        let s:indent = &l:shiftwidth
-        " indent 5つ分まで設定
-        for s:i in range(1, 5)
-            let s:space_num = s:indent * s:i - 1
-            let s:space = ''
-            for s:j in range(s:space_num)
-                let s:space = s:space . ' '
-            endfor
-            execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*\\\s\{'.s:space_num.'\}.*,\%#'', ''input'': ''<CR>\'.s:space.''', ''filetype'': ''vim''})'
-        endfor
-        " }}}
-
-        call lexima#add_rule({'char': '<Right>', 'at': '\%#"""',  'leave': 3})
-        call lexima#add_rule({'char': '<Right>', 'at': "\\%#'''", 'leave': 3})
-        call lexima#add_rule({'char': '<Right>', 'at': '\%#```',  'leave': 3})
-
-        " ｛｛｛1などの入力
-        " call lexima#add_rule({'char': '{', 'at': '{{\%#}}', 'delete': 2})
-        call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3})
-        call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3})
-        call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3})
-
-        call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
-
-        " <!-- | -->
-        call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
-
-        " call lexima#add_rule({'char': '=', 'input': ' = '})
-        " call lexima#add_rule({'char': '=', 'input': '=', 'syntax': 'vimSet'})
-        " call lexima#add_rule({'char': '+', 'input': ' + '})
-        " call lexima#add_rule({'char': '+', 'input': '+', 'syntax': 'vimOption'})
-        " call lexima#add_rule({'char': '-', 'input': ' - '})
-        " call lexima#add_rule({'char': '-', 'input': '-', 'syntax': 'vimSetEqual'})
-        " call lexima#add_rule({'char': '*', 'input': ' * '})
-        " call lexima#add_rule({'char': '/', 'input': ' / '})
-        " call lexima#add_rule({'char': '/', 'input': '/', 'syntax': ['String', 'shQuote']})
-        " call lexima#add_rule({'char': ',', 'input': ', '})
-
-
-        " neocomplete.vimとの連携
-        " imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
-        " execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
-    endfunction
-
-    call s:dein_on_source('lexima')
-endif
 
 " thinca/vim-template {{{1
 " ============================================================================
@@ -1218,195 +695,6 @@ if dein#tap('vim-watchdogs')
         \   call dein#source("vim-watchdogs") |
         \   autocmd! WatchdogsSetting
     augroup END
-
-    function! s:watchdogs_on_source() abort
-
-        let g:watchdogs_check_CursorHold_enable = 1
-        " let g:watchdogs_check_BufWritePost_enable = 1
-
-        if !exists('g:quickrun_config')
-            let g:quickrun_config = {}
-        endif
-
-        let g:quickrun_config['watchdogs_checker/_'] = {
-        \ 'hook/hier_update/enable_exit':              1,
-        \ 'hook/hier_update/priority_exit':            2,
-        \ 'hook/qfsigns_update/enable_exit':           1,
-        \ 'hook/qfsigns_update/priority_exit':         2,
-        \ 'hook/quickfix_status_enable/enable_exit':   1,
-        \ 'hook/quickfix_status_enable/priority_exit': 2,
-        \}
-        " \ 'hook/qfstatusline_update/enable_exit':      1,
-        " \ 'hook/qfstatusline_update/priority_exit':    2,
-
-        " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
-        " watchdogsの場合は出力が無いので、これを1にしておくと
-        " quickrunでなんらかのプログラムを実行したあと保存をすると
-        " その出力結果が消えてしまうので、0にする
-        let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
-
-        " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
-        let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
-        " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
-        " windo HierUpdateなどを行う
-
-        " apaache {{{2
-        " ------------------------------------------------------------------------
-        let g:quickrun_config["watchdogs_checker/apache"] = {
-        \   "command":           "apachectl",
-        \   "cmdopt":            "configtest",
-        \   "exec":              "%c %o",
-        \   "errorformat":       "%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#",
-        \}
-
-        let g:quickrun_config["apache/watchdogs_checker"] = {
-        \   "type" : "watchdogs_checker/apache"
-        \}
-
-        " cpp {{{2
-        " ------------------------------------------------------------------------
-        let g:quickrun_config["cpp/watchdogs_checker"] = {
-        \   "type"
-        \       : executable("g++")         ? "watchdogs_checker/g++"
-        \       : executable("clang-check") ? "watchdogs_checker/clang_check"
-        \       : executable("clang++")     ? "watchdogs_checker/clang++"
-        \       : executable("cl")          ? "watchdogs_checker/cl"
-        \       : "",
-        \}
-
-        let g:quickrun_config["watchdogs_checker/g++"] = {
-        \   "command"   : "g++",
-        \   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
-        \   "outputter" : "quickfix",
-        \}
-
-        " mql {{{2
-        " ------------------------------------------------------------------------
-        let g:quickrun_config["watchdogs_checker/mql"] = {
-        \   "hook/cd/directory": '%S:p:h',
-        \   "command":           "wine",
-        \   "cmdopt":            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
-        \   "exec":              "%c %o %S:t",
-        \   "errorformat":       '%f(%l\,%c) : %m',
-        \}
-        " hook/cd/directoryでファイルのあるディレクトリに移動して、execでファイル名を指定して実行。
-        " ディレクトリを移動しない場合、wine側で認識させるためにz:をファイルパスにつけル必要があり、つけた結果エラー結果にz:がついてしまい、Vimで開くことができなくなる
-        " cmdoptでmql.exeをwineに渡す。#includeを読み込むためにはProgram FilesのMetaTraderディレクトリにmql.exeを置いておくか、/i:オプションでworking directoryを指定する
-        " MetaTraderディレクトリにmql.exeを置いておくと、MetaTraderの再起動時にファイルが消えてしまうので後者の方法を取る
-        " シングルクォートが非常に多いが
-        " シングルクォートの中でシングルクォートを表すには''、
-        " さらにvimprocでシングルクォートを表すために''''、
-        " さらにwineの引数でシングルクォートを表すために''''''''
-        " となっている
-
-        let g:quickrun_config["mql4/watchdogs_checker"] = {
-        \   "type" : "watchdogs_checker/mql"
-        \}
-
-        " fugitiveのdiffなどの表示画面ではcheckしない
-        autocmd MyVimrc BufRead fugitive://*.mq4
-        \   let b:watchdogs_checker_type = ''
-
-
-        " java {{{2
-        " ------------------------------------------------------------------------
-        let g:quickrun_config['java/watchdogs_checker'] = {
-        \   'type': ''
-        \}
-
-        " php {{{2
-        " ------------------------------------------------------------------------
-        if executable('phpcs')
-            let g:quickrun_config['watchdogs_checker/php'] = {
-            \   'exec' : ['php -l %s:p', 'phpcs --standard=PSR2 --report=csv %s:p'],
-            \   'errorformat' :
-            \       '%m\ in\ %f\ on\ line\ %l,'.
-            \       '%-GNo syntax errors detected in %.%#,'.
-            \       '%-GErrors parsing %.%#,'.
-            \       '%-G,'.
-            \       '"%f"\,%l\,%c\,%t%*[^\,]\,"%m"\,%.%#,'.
-            \       '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity\,Fixable'
-            \}
-        else
-            let g:quickrun_config['watchdogs_checker/php'] = {
-            \   'command' : 'php',
-            \   'exec'    : '%c %o -l %s:p',
-            \   'errorformat' : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
-            \}
-        endif
-
-
-        let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
-        \   'type': 'watchdogs_checker/php'
-        \}
-
-        " R-lang {{{2
-        " --------------------------------------------------------------------
-        " Rmd {{{3
-        let g:quickrun_config['rmd/watchdogs_checker'] = {
-        \   'type': 'watchdogs_checker/rmd'
-        \}
-
-        let g:quickrun_config['watchdogs_checker/rmd'] = {
-        \   'hook/cd/directory': '%S:p:h',
-        \   'command': 'Rscript',
-        \   'cmdopt': '-e',
-        \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"', 'sleep 1', 'touch %s:p:r.html'],
-        \}
-
-        " sh {{{2
-        " --------------------------------------------------------------------
-        " filetypeがshでも基本的にbashを使うので、bashでチェックする
-        let g:quickrun_config['sh/watchdogs_checker'] = {
-        \   'type': (executable('bash') ? 'watchdogs_checker/bash' : '')
-        \}
-
-        let g:quickrun_config['watchdogs_checker/bash'] = {
-        \   'command':     'bash',
-        \   'exec':        '%c -n %o %s:p',
-        \   'errorformat': '%f:\ line\ %l:%m',
-        \}
-
-        " sql {{{2
-        " ------------------------------------------------------------------------
-        " filetypeがshでも基本的にbashを使うので、bashでチェックする
-        let g:quickrun_config['sql/watchdogs_checker'] = {
-        \   'type': 'watchdogs_checker/sql'
-        \}
-
-        " https://sql.treasuredata.com/
-        let g:quickrun_config['watchdogs_checker/sql'] = {
-        \   'command':     'curl',
-        \   'exec':        '%c -s "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=`cat %s | perl -pe ''s/\n/%%0A/''`"',
-        \   'errorformat': '%f:\ line\ %l:%m',
-        \}
-
-        " \   'exec':        "%c -v \"https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\\&engine=hive\\&query=`cat %s`\"",
-        " \   'exec':        '%c -v "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=\$(cat %s)"',
-        " vim {{{2
-        " ------------------------------------------------------------------------
-        let g:quickrun_config['vim/watchdogs_checker'] = {
-        \   'type': executable('vint') ? 'watchdogs_checker/vint' : '',
-        \}
-
-        let g:quickrun_config['watchdogs_checker/vint'] = {
-        \       'command'   : 'vint',
-        \       'exec'      : '%c %o %s:p',
-        \}
-
-        " zsh {{{2
-        " ------------------------------------------------------------------------
-        " let g:quickrun_config['zsh/watchdogs_checker'] = {
-        " \   'type': ''
-        " \}
-
-        call SourceRc('watchdogs_local.vim')
-        " watchdogs.vim の設定を更新（初回は呼ばれる）
-        call watchdogs#setup(g:quickrun_config)
-
-    endfunction
-
-    call s:add_on_source(g:dein#name, 's:watchdogs_on_source')
 endif
 
 " quickfix系プラグインのアップデート {{{1
@@ -1570,25 +858,6 @@ if dein#tap('vim-asterisk')
     nmap g# #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
 endif
 
-" vim-easymotion {{{1
-" ============================================================================
-if dein#tap('vim-easymotion')
-    map ' <Plug>(easymotion-s2)
-    " map ' <Plug>(easymotion-bd-jk)
-    " map f <Plug>(easymotion-fl)
-    " map t <Plug>(easymotion-tl)
-    " map F <Plug>(easymotion-Fl)
-    " map T <Plug>(easymotion-Tl)
-
-    function! s:easymotion_on_source() abort
-        let g:EasyMotion_smartcase = 1
-        let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-        let g:EasyMotion_do_mapping = 0
-    endfunction
-
-    call s:dein_on_source('easymotion')
-endif
-
 " vim-multiple-cursors {{{1
 " ============================================================================
 if dein#tap('vim-multiple-cursors')
@@ -1597,19 +866,6 @@ if dein#tap('vim-multiple-cursors')
     let g:multi_cursor_prev_key='-'
     let g:multi_cursor_skip_key='&'
     let g:multi_cursor_quit_key='<Esc>'
-endif
-
-" vim-ref {{{1
-" ============================================================================
-if dein#tap('vim-ref')
-    function! s:vim_ref_on_source() abort
-        if has('mac')
-            let g:ref_man_cmd = 'man -P cat'
-        endif
-        " command! -nargs=* Man Ref man <args>
-    endfunction
-
-    call s:dein_on_source('vim_ref')
 endif
 
 " vim-partedit {{{1
@@ -1926,39 +1182,6 @@ if dein#tap('syntastic')
     let g:syntastic_sh_checkers = ['']
 endif
 
-" eclim {{{1
-" ============================================================================
-if dein#tap('eclim')
-
-    " エラーのマークがずれる場合はエンコーディングが間違っている
-    " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
-
-    function! s:eclim_on_source() abort
-        autocmd MyVimrc FileType java
-            \   setlocal omnifunc=eclim#java#complete#CodeComplete
-            \|  setlocal completeopt-=preview
-            \|  nnoremap <buffer> <C-]> :<C-u>JavaSearch<CR>
-        " neocomplcacheで補完するため
-        let g:EclimCompletionMethod = 'omnifunc'
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-        let g:neocomplete#force_omni_input_patterns.java =
-            \ '\%(\h\w*\|)\)\.\w*'
-
-        nnoremap [eclim] <Nop>
-        nmap <Leader>e [eclim]
-        nnoremap [eclim]pi :ProjectInfo<CR>
-        nnoremap [eclim]pp :ProjectProblems!<CR>
-        nnoremap [eclim]c :OpenUrl http://eclim.org/cheatsheet.html<CR>
-        nnoremap [eclim]jc :JavaCorrect<CR>
-        nnoremap [eclim]ji :JavaImportOrganize<CR>
-
-    endfunction
-
-    call s:dein_on_source('eclim')
-endif
 
 " phpcomplete.vim {{{1
 " ============================================================================
@@ -2025,7 +1248,7 @@ if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
     let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
 endif
 
-function! s:set_python_path()
+function! Set_python_path()
     if ! exists('g:python_path')
         let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
     endif
@@ -2040,7 +1263,7 @@ for path in python_paths:
         sys.path.insert(0, path)
 EOT
 endfunction
-" call s:set_python_path()
+" call Set_python_path()
 " }}}
 
 autocmd MyVimrc FileType python
@@ -2049,100 +1272,9 @@ autocmd MyVimrc FileType python
 \|  endif
 \|  let &l:path = g:python_path
 
-" {{{2 jedi
-" ----------------------------------------------------------------------------
-if dein#tap('jedi-vim')
-    function! s:jedi_on_source() abort
-        " call s:set_python_path()
-
-        autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-
-        " iexe pythonで>>>がある場合も補完が効くように
-        " '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-        " を ^\s* -> ^>*\s* に変更した
-        let g:neocomplete#force_omni_input_patterns.python =
-        \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*import \)\w*'
-
-        let g:jedi#completions_enabled = 0
-        " completeopt, <C-c>の変更をしない
-        let g:jedi#auto_vim_configuration = 0
-
-        " quickrunと被るため大文字に変更
-        let g:jedi#rename_command = '<Leader>R'
-        let g:jedi#goto_assignments_command = '<C-]>'
-
-        if jedi#init_python()
-            function! s:jedi_auto_force_py_version() abort
-                let major_version = pyenv#python#get_internal_major_version()
-                call jedi#force_py_version(major_version)
-            endfunction
-            augroup vim-pyenv-custom-augroup
-                autocmd! *
-                autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-                autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-            augroup END
-        endif
-    endfunction
-
-    call s:dein_on_source('jedi')
-endif
-
-" C, C++ {{{1
-" ============================================================================
-function! s:getCPath()
-    if ! exists('g:c_path')
-        let g:c_path = substitute(
-        \   system("gcc -print-search-dirs | awk -F= '/libraries/ {print $2}'")
-        \   , "\<NL>", '', ''
-        \) . '/include'
-    endif
-    return g:c_path
-endfunction
-
 autocmd MyVimrc Filetype c,cpp
 \|  execute 'setlocal path+='.s:getCPath()
 \|  setlocal suffixesadd=.h
-
-if dein#tap('vim-marching')
-    function! s:marching_on_source() abort
-        " clang コマンドの設定
-        let g:marching_clang_command = "clang"
-
-        " オプションを追加する
-        " filetype=cpp に対して設定する場合
-        " let g:marching#clang_command#options = {
-        " \   "cpp" : "-std=gnu++1y"
-        " \}
-
-        " インクルードディレクトリのパスを設定
-        let g:marching_include_paths = [
-        \   s:getCPath()
-        \]
-
-        " neocomplete.vim と併用して使用する場合
-        let g:marching_enable_neocomplete = 1
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-            let g:neocomplete#force_omni_input_patterns = {}
-        endif
-
-        let g:neocomplete#force_omni_input_patterns.cpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
-        " オムニ補完時に補完ワードを挿入したくない場合
-        " imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
-
-        " キャッシュを削除してからオムに補完を行う
-        imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
-
-    endfunction
-
-    call s:dein_on_source('marching')
-endif
 
 if dein#tap('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
@@ -2250,11 +1382,7 @@ let g:markdown_quote_syntax_filetypes = {
 " nelstrom/vim-markdown-folding {{{2
 " ----------------------------------------------------------------------------
 " if dein#tap('vim-markdown-folding')
-"     function! s:markdown_folding_on_source() abort
-"         let g:markdown_fold_style = 'nested'
-"     endfunction
-"
-"     call s:dein_on_source('markdown_folding')
+"     let g:markdown_fold_style = 'nested'
 " endif
 
 " vimconsole.vim {{{1
@@ -2328,24 +1456,6 @@ if dein#tap('vim-fugitive')
 
 endif
 
-" gitv {{{2
-" ----------------------------------------------------------------------------
-if dein#tap('gitv')
-    function! s:gitv_on_source() abort
-        function! GitvGetCurrentHash()
-            return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
-        endfunction
-
-        autocmd MyVimrc FileType gitv
-            \   setlocal iskeyword+=/,-,.
-            \|  nnoremap <buffer> <LocalLeader>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <LocalLeader>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
-            \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
-    endfunction
-
-    call s:dein_on_source('gitv')
-endif
 
 " open-browser.vim {{{1
 " ============================================================================
@@ -2373,32 +1483,7 @@ if dein#tap('open-browser.vim')
         call openbrowser#search(search_text, &filetype)
     endfunction
     command! -nargs=1 MyOpenbrowserSearch call s:my_openbrowser_search('<args>')
-
-    function! s:open_browser_on_source() abort
-        let g:netrw_nogx = 1 " disable netrw's gx mapping.
-        let g:openbrowser_open_filepath_in_vim = 0 " Vimで開かずに関連付けされたプログラムで開く
-
-        if !exists('g:openbrowser_search_engines')
-            let g:openbrowser_search_engines = {}
-        endif
-        let g:openbrowser_search_engines.php =
-        \   'http://www.php.net/search.php?show=quickref&=&pattern={query}'
-        let g:openbrowser_search_engines.mql4 =
-        \   'http://www.mql4.com/search#!keyword={query}'
-
-        if $SSH_CLIENT != ''
-            let g:openbrowser_browser_commands = [
-            \   {
-            \       "name": "rfbrowser",
-            \       "args": "rfbrowser {uri}"
-            \   }
-            \]
-        endif
-    endfunction
-
-    call s:dein_on_source('open_browser')
 endif
-
 
 " lightline, statusline {{{1
 " ============================================================================
@@ -2607,18 +1692,40 @@ if dein#tap('junkfile.vim')
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
 
-" vim-geeknote {{{1
-" ============================================================================
-if dein#tap('vim-geeknote')
-    function! s:geeknote_on_source() abort
-        call s:set_python_path()
-    endfunction
 
-    call s:dein_on_source('geeknote')
+
+
+
+finish " {{{1
+
+" eclim {{{2
+if dein#tap('eclim')
+
+    " エラーのマークがずれる場合はエンコーディングが間違っている
+    " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
+
+    autocmd MyVimrc FileType java
+    \   setlocal omnifunc=eclim#java#complete#CodeComplete
+    \|  setlocal completeopt-=preview
+    \|  nnoremap <buffer> <C-]> :<C-u>JavaSearch<CR>
+    " neocomplcacheで補完するため
+    let g:EclimCompletionMethod = 'omnifunc'
+
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
+    let g:neocomplete#force_omni_input_patterns.java =
+    \ '\%(\h\w*\|)\)\.\w*'
+
+    nnoremap [eclim] <Nop>
+    nmap <Leader>e [eclim]
+    nnoremap [eclim]pi :ProjectInfo<CR>
+    nnoremap [eclim]pp :ProjectProblems!<CR>
+    nnoremap [eclim]c :OpenUrl http://eclim.org/cheatsheet.html<CR>
+    nnoremap [eclim]jc :JavaCorrect<CR>
+    nnoremap [eclim]ji :JavaImportOrganize<CR>
 endif
-
-" vimwiki {{{1
-" ============================================================================
+" vimwiki {{{2
 if dein#tap('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
@@ -2626,75 +1733,47 @@ if dein#tap('vimwiki')
     nmap <Leader>wn  <Plug>VimwikiMakeDiaryNote
     nmap <Leader>wu  <Plug>VimwikiDiaryGenerateLinks
 
-    function! s:vimwiki_on_source() abort
-        let g:vimwiki_list = [{
-            \   'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/',
-            \   'syntax': 'markdown', 'ext': '.txt'
-            \}]
-    endfunction
-
-    call s:dein_on_source('vimwiki')
+    let g:vimwiki_list = [{
+    \   'path': '~/Dropbox/vimwiki/wiki/', 'path_html': '~/Dropbox/vimwiki/public_html/',
+    \   'syntax': 'markdown', 'ext': '.txt'
+    \}]
 endif
 
-" memoliset.vim {{{1
-" ============================================================================
-if dein#tap('memolist.vim')
-    nnoremap <Leader>mn  :MemoNew<CR>
-    nnoremap <Leader>ml  :Unite memo<CR>
-    execute 'nnoremap <Leader>mg :<C-u>Unite grep:'.g:memo_directory.'<CR>'
-
-    let g:memolist_path = g:memo_directory.'/'.strftime('%Y/%m')
-
-    function! s:memolist_on_source() abort
-        let g:memolist_memo_suffix = 'md'
-        let g:memolist_template_dir_path = '~/.vim/template/memolist'
-        let g:memolist_unite = 1
-    endfunction
-
-    call s:dein_on_source('memolist')
-endif
-
-" qfixhowm {{{1
-" ==============================================================================
+" qfixhowm {{{2
 if dein#tap('qfixhowm')
-
-    function! s:qfixhowm_on_source() abort
-        " QFixHowm互換を切る
-        let g:QFixHowm_Convert = 0
-        let g:qfixmemo_mapleader = '\M'
-        " デフォルトの保存先
-        let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
-        let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
-        " メモファイルの拡張子
-        let g:qfixmemo_ext = 'md'
-        " ファイルタイプをmarkdownにする
-        let g:qfixmemo_filetype = 'md'
-        " 外部grep使用
-        let g:mygrepprg='grep'
-        " let g:QFixMRU_RootDir = qfixmemo_dir
-        " let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
-        " let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
-        let g:qfixmemo_template = [
-            \   '%TITLE% ',
-            \   '==========',
-            \   '%DATE%',
-            \   'tags: []',
-            \   'categories: []',
-            \   '- - -',
-            \   ''
-            \]
-        let g:qfixmemo_title = 'title:'
-        " let g:qfixmemo_timeformat = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
-        " let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
-        " let g:qfixmemo_template_keycmd = "2j$a"
-        let g:QFixMRU_Title = {}
-        let g:QFixMRU_Title['mkd'] = '^title:'
-        let qfixmemo_folding = 0
-        " let g:qfixmemo_title    = '#'
-        " let g:QFixMRU_Title = {}
-        " let g:QFixMRU_Title['mkd'] = '^# '
-        " let g:QFixMRU_Title['md'] = '^# '
-    endfunction
-
-    call s:dein_on_source('qfixhowm')
+    " QFixHowm互換を切る
+    let g:QFixHowm_Convert = 0
+    let g:qfixmemo_mapleader = '\M'
+    " デフォルトの保存先
+    let g:qfixmemo_dir = $HOME . '/Dropbox/memo'
+    let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d'
+    " メモファイルの拡張子
+    let g:qfixmemo_ext = 'md'
+    " ファイルタイプをmarkdownにする
+    let g:qfixmemo_filetype = 'md'
+    " 外部grep使用
+    let g:mygrepprg='grep'
+    " let g:QFixMRU_RootDir = qfixmemo_dir
+    " let g:QFixMRU_Filename = qfixmemo_dir . '/mainmru'
+    " let g:qfixmemo_timeformat = 'date: %Y-%m-%d %H:%M'
+    let g:qfixmemo_template = [
+        \   '%TITLE% ',
+        \   '==========',
+        \   '%DATE%',
+        \   'tags: []',
+        \   'categories: []',
+        \   '- - -',
+        \   ''
+        \]
+    let g:qfixmemo_title = 'title:'
+    " let g:qfixmemo_timeformat = '^date: \d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}'
+    " let g:qfixmemo_timestamp_regxp = g:qfixmemo_timeformat_regxp
+    " let g:qfixmemo_template_keycmd = "2j$a"
+    let g:QFixMRU_Title = {}
+    let g:QFixMRU_Title['mkd'] = '^title:'
+    let qfixmemo_folding = 0
+    " let g:qfixmemo_title    = '#'
+    " let g:QFixMRU_Title = {}
+    " let g:QFixMRU_Title['mkd'] = '^# '
+    " let g:QFixMRU_Title['md'] = '^# '
 endif
