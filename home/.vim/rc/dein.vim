@@ -659,11 +659,19 @@ if dein#tap('neocomplete.vim')
         " let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'ultisnips', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
-        let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
+        let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
         " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
         let g:neocomplete#sources.php      = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
         let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
         let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
+
+        set dictionary=/Users/tmsanrinsha/Dropbox/memo/doc/memo.dict
+        " neocompleteで日本語を出すには設定が必要
+        let g:neocomplete#sources#dictionary#dictionaries = {
+        \   'default': '',
+        \   'vimshell': $HOME.'/.vimshell_hist',
+        \   'markdown': $MEMO_DIR.'/memo.dict'
+        \ }
 
         " 補完候補の順番
         if dein#tap('neocomplete.vim')
