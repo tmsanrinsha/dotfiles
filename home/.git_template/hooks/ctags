@@ -4,7 +4,7 @@ PATH="$HOME/local/bin:/usr/local/bin:$PATH"
 
 if ! ctags --version | grep 'Exuberant Ctags' 1>/dev/null 2>&1; then
     echo 'ctags is not found'
-    exit 1
+    exit
 fi
 
 cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../../
