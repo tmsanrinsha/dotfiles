@@ -219,8 +219,9 @@ repo = 'elzr/vim-json'
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 
-[[plugins]]
-repo = 'nelstrom/vim-markdown-folding'
+# yaml frontmatterがヘッダーと判定されてしまうのでコメントアウト
+# [[plugins]]
+# repo = 'nelstrom/vim-markdown-folding'
 
 # MQL4
 [[plugins]]
