@@ -1104,18 +1104,22 @@ endif
 " diff {{{1
 " ============================================================================
 set diffopt+=vertical
-nnoremap [VIMDIFF] <Nop>
-nmap [:space:]d [VIMDIFF]
-nnoremap [VIMDIFF]t :diffthis<CR>
-nnoremap [VIMDIFF]u :diffupdate<CR>
-nnoremap [VIMDIFF]o :diffoff<CR>
-nnoremap [VIMDIFF]T :windo diffthis<CR>
-nnoremap [VIMDIFF]O :windo diffoff<CR>
-nnoremap [VIMDIFF]s :vertical diffsplit<space>
-nnoremap [VIMDIFF]w :set diffopt+=iwhite<CR>
-nnoremap [VIMDIFF]W :set diffopt-=iwhite<CR>
+nnoremap [:diff:] <Nop>
+nmap [:space:]d [:diff:]
+xnoremap [:diff:] <Nop>
+xmap [:space:]d [:diff:]
+nnoremap [:diff:]t :diffthis<CR>
+nnoremap [:diff:]u :diffupdate<CR>
+nnoremap [:diff:]o :diffoff<CR>
+nnoremap [:diff:]T :windo diffthis<CR>
+nnoremap [:diff:]O :windo diffoff<CR>
+nnoremap [:diff:]s :vertical diffsplit<space>
+nnoremap [:diff:]w :set diffopt+=iwhite<CR>
+nnoremap [:diff:]W :set diffopt-=iwhite<CR>
 nnoremap dP :<C-u>%diffput<CR>
 nnoremap dO :<C-u>%diffget<CR>
+xnoremap [:diff:]p :diffput<CR>
+xnoremap [:diff:]o :diffget<CR>
 
 " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
 " ----------------------------------------------------------------------------
