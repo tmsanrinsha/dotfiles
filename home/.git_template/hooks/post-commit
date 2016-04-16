@@ -1,4 +1,4 @@
 #!/bin/sh
 if [ -x .git/hooks/ctags ]; then
-    .git/hooks/ctags
+    .git/hooks/ctags 2>&1 &
 fi

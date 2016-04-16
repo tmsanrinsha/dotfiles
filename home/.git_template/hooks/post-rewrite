@@ -2,7 +2,7 @@
 case "$1" in
   rebase)
       if [ -x .git/hooks/ctags ]; then
-          exec .git/hooks/ctags
+          exec .git/hooks/ctags 2>&1 &
       fi
       ;;
 esac
