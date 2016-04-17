@@ -74,3 +74,10 @@ call unite#custom#action('file', 'args', s:args_action)
 if dein#tap('unite-ghq')
     call unite#custom_default_action('source/ghq/directory', 'vimfiler')
 endif
+
+" うまく言っていない
+autocmd MyVimrc FileType unite call s:unite_my_settings()
+
+function! s:unite_my_settings() "{{{
+    imap <buffer> '     <Plug>(unite_quick_match_default_action)
+endfunction
