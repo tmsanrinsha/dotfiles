@@ -235,9 +235,9 @@ nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 " スワイプで戻る・進むにアニメーションをつける
 " coderwall.com : establishing geek cred since 1305712800
 " https://coderwall.com/p/oe0jvw/firefox-on-os-x-with-safari-like-swipe-animation
+set! browser.snapshots.limit=1
 " アドオンのFireGesturesを使っているときはスワイプジェスチャにチェックを入れてないと
 " スワイプ出来ない
-set! browser.snapshots.limit=1
 
 " frecency {{{2
 " ----------------------------------------------------------------------------
