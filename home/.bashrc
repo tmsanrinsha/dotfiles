@@ -85,17 +85,27 @@ shopt -u histappend   # .bash_history追記モードは不要なのでOFFに
 export HISTSIZE=9999  # 履歴のMAX保存数を指定
 export HISTFILE=~/.bash_history  # 履歴のMAX保存数を指定
 
+function peco-select-history() {
+    local tac
+    which gtac &> /dev/null && tac="gtac" || \
+        which tac &> /dev/null && tac="tac" || \
+        tac="tail -r"
+    READLINE_LINE=$(HISTTIMEFORMAT= history | $tac | sed -e 's/^\s*[0-9]\+\s\+//' | awk '!a[$0]++' | peco --query "$READLINE_LINE")
+    READLINE_POINT=${#READLINE_LINE}
+}
+bind -x '"\C-r": peco-select-history'
+
 #-------------------------------------------------------------------------------
 # screenの設定
 #-------------------------------------------------------------------------------
 #実行中のコマンドまたはカレントディレクトリの表示
 #.screenrcでterm xterm-256colorと設定している場合
-if [ $TERM = xterm-256color ];then
-    function screen_title {
-        echo -ne "\ek$(basename $(pwd))@$(hostname | cut -d . -f 1)\e\\"
-    }
-    PROMPT_COMMAND="$PROMPT_COMMAND; screen_title" 
-fi
+# if [ $TERM = xterm-256color ];then
+#     function screen_title {
+#         echo -ne "\ek$(basename $(pwd))@$(hostname | cut -d . -f 1)\e\\"
+#     }
+#     PROMPT_COMMAND="$PROMPT_COMMAND; screen_title" 
+# fi
 
 if [ -f ~/.bashrc.local ]; then
     . ~/.bashrc.local
