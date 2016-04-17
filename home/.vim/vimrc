@@ -1209,7 +1209,7 @@ command! LiveReloadProjectDir call s:live_reload(GetProjectDir())
 " ----------------------------------------------------------------------------
 " pandocでhtmlからmarkdownに変換 {{{3
 autocmd MyVimrc FileType markdown,html
-\   command! Pandoc :%!pandoc -f html -t markdown_phpextra --no-wrap
+\   command! Pandoc :%!pandoc -f html -t markdown_phpextra --wrap=none
 
 autocmd MyVimrc FileType markdown
 \   nnoremap <buffer> <Leader>r :<C-u>PrevimOpen<CR>
