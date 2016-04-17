@@ -383,9 +383,8 @@ xnoremap g$ $
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
 
-" inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
 " inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
-" }}}
+
 " swap, backup, undo {{{1
 " ============================================================================
 " updatetimeを短くして、CursorHoldに使うので
@@ -704,6 +703,7 @@ function! s:move(src, dest)
     execute 'e '.a:dest
     bdelete #
 endfunction
+" TODO: rename()を試す
 
 " Resolve {{{2
 " ----------------------------------------------------------------------------
@@ -815,7 +815,7 @@ autocmd MyVimrc BufReadPost *
 " :Man <man>でマニュアルを開く
 " http://vim.wikia.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix
 " [manをVimで見る - rcmdnk's blog](http://rcmdnk.github.io/blog/2014/07/20/computer-vim/)
-" runtime ftplugin/man.vim
+runtime ftplugin/man.vim
 " nmap K <Leader>K
 " let $PAGER=''
 " コマンドラインでmanを使ったとき、vimの:Manで見るようにするためには
@@ -1167,7 +1167,7 @@ nnoremap [FILETYPE]x  :<C-u>setlocal filetype=xml<CR>
 " プラグインなどで変更された設定をグローバルな値に戻す
 " *.txtでtextwidth=78されちゃう
 " [vimrc_exampleのロードのタイミング - Google グループ](https://groups.google.com/forum/#!topic/vim_jp/Z_3NSVO57FE "vimrc_exampleのロードのタイミング - Google グループ")
-" autocmd MyVimrc FileType vim,text,mkd,markdown call s:override_plugin_setting()
+autocmd MyVimrc FileType vim,text,markdown call s:override_plugin_setting()
 " autocmd MyVimrc FileType vim,text call s:override_plugin_setting()
 
 function! s:override_plugin_setting()
@@ -1257,8 +1257,7 @@ execute 'nnoremap [VIM]d :<C-u>edit '.s:dotfiles_home.'/.vim/rc/dein.vim<CR>'
 execute 'nnoremap [VIM]l :<C-u>edit '.resolve(expand('~/.vim/rc/local.vim')).'<CR>'
 
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> [VIM]r :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| echo 'vimrc reloaded!'<CR>
-nnoremap <silent> [VIM]R :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> [VIM]r :<C-u>new \| source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif \| q \| echo 'vimrc reloaded!'<CR>
 
 ""vimrc auto update
 "augroup MyAutoCmd
