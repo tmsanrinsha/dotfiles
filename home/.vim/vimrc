@@ -73,7 +73,7 @@ function! IsInstalled(plugin) " {{{
     " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
     if exists('*dein#tap')
         return dein#tap(a:plugin)
-    if exists('*neobundle#is_installed')
+    elseif exists('*neobundle#is_installed')
         return neobundle#is_installed(a:plugin)
     else
         " runtimepathにあるか
@@ -205,7 +205,9 @@ set virtualedit=block
 " 文字コード
 " set encoding=utf-8 上で設定
 " カレントバッファのファイルの文字エンコーディングをUTF-8にする。新規にファイルを作った時などに影響する
-set fileencoding=utf-8
+" setにするとvimrcをリロードした時、バッファのfileencodingを変更してしまうのでsetglobalにする
+" :h setglobal
+setglobal fileencoding=utf-8
 
 " ファイルの読み込み時に文字エンコーディングを判定する順番
 " kaoriya版ではguess_encodeというものがあるので、それを使う
