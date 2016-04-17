@@ -510,7 +510,7 @@ setopt hist_ignore_dups
 # スペースで始まるコマンドラインはヒストリに追加しない。
 setopt hist_ignore_space
 # 余分な空白は詰めて記録
-setopt hist_reduce_blanks
+setopt nohist_reduce_blanks
 # zshプロセス間でヒストリを共有する。
 setopt share_history
 # # すぐにヒストリファイルに追記する。
@@ -589,12 +589,12 @@ REPORTTIME=10
 # ============================================================================
 if hash peco 2>/dev/null; then
     # バッファ上のコマンドを実行して、pecoの選択結果をバッファに出力
-    function peco_buffer() {
+    function peco-buffer() {
         BUFFER=$(eval ${BUFFER} | peco)
         CURSOR=0
     }
-    zle -N peco_buffer
-    bindkey "^[p" peco_buffer
+    zle -N peco-buffer
+    bindkey "^[p" peco-buffer
 
     # git {{{2
     # ------------------------------------------------------------------------
@@ -614,60 +614,36 @@ if hash peco 2>/dev/null; then
     alias pk=peco_kill
 
     # history {{{2
-    function peco_select_history() {
+    # ------------------------------------------------------------------------
+    function peco-select-history() {
         # historyを番号なし、逆順、最初から表示。
         # 順番を保持して重複を削除。
-        # pecoで選択
+        # カーソルに左側の文字列をクエリにしてpecoを起動
         # \nを改行に変換
-        BUFFER="$(history -nr 1 | perl -ne 'print if!$line{$_}++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+        BUFFER="$(history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+        # perl -ne 'print if!$line{$_}++'
         # # historyを番号なし、逆順、時間表示で最初から表示
         # BUFFER=$(history -nri 1 | peco --query "$LBUFFER" | cut -d ' ' -f 4-)
-        CURSOR=$#BUFFER             # move cursor
+        CURSOR=$#BUFFER             # カーソルを文末に移動
         zle -R -c                   # refresh
     }
-    zle -N peco_select_history
-    bindkey '^R' peco_select_history
+    zle -N peco-select-history
+    bindkey '^R' peco-select-history
 
     # host {{{2
-    function peco_select_host() {
-        # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
-        BUFFER=${BUFFER}$(history -nrm 'ssh*' 1 | perl -ne 'print if!$line{$_}++' | awk '{print $2}' | peco)
-        CURSOR=$#BUFFER             # move cursor
-        zle -R -c                   # refresh
-    }
-    zle -N peco_select_host
-    bindkey '^xph' peco_select_host
-
-    # ssh {{{2
-    # function peco-ssh() {
-    #     # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
-    #     # host部分を取り出す
-    #     # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
-    #     # 改行がはいっているとlocal宣言と代入を一緒にできない？
-    #     local hosts
-    #     hosts="$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++')"
-    #     # know_hostsからもホスト名を取り出す
-    #     hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | $tac | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
-    #     # 順番を保持して重複を削除
-    #     hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
-    #     local selected_host=$(echo $hosts | peco --prompt="ssh >" --query "$LBUFFER")
-    #     if [ -n "$selected_host" ]; then
-    #         BUFFER="ssh ${selected_host}"
-    #         zle accept-line
-    #     fi
-    # }
+    # ------------------------------------------------------------------------
     function _get_hosts() {
         # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
-        # host部分を取り出す
-        # perl部分は順番を保持して重複を削除 http://keiroku.g.hatena.ne.jp/nnga/20110909/1315571775
+        # 最後の項をhost名と仮定してhost部分を取り出す
         # 改行がはいっているとlocal宣言と代入を一緒にできない？
         local hosts
-        hosts="$(history -nrm 'ssh*' 1 | awk '{print $2}' | perl -ne 'print if!$line{$_}++')"
+        hosts="$(history -nrm 'ssh*' 1 | awk '{print $NF}')"
         # know_hostsからもホスト名を取り出す
-        hosts="$hosts\n$(grep -o '^\S\+' ~/.ssh/known_hosts | $tac | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
-        # 順番を保持して重複を削除
-        # return $(echo $hosts | perl -ne 'print if!$line{$_}++')
-        hosts=$(echo $hosts | perl -ne 'print if!$line{$_}++')
+        # portを指定したり、id指定でsshしていると
+        #   [hoge.com]:2222,[\d{3}.\d{3].\d{3}.\d{3}]:2222
+        # といったものもあるのでそれにも対応している
+        hosts="$hosts\n$(cut -d' ' -f1  ~/.ssh/known_hosts | tr -d '[]' | tr ',' '\n' | cut -d: -f1)"
+        hosts=$(echo $hosts | awk '!a[$0]++')
         echo $hosts
     }
 
@@ -686,22 +662,22 @@ if hash peco 2>/dev/null; then
         hosts=`_get_hosts`
         local selected_host=$(echo $hosts | peco --prompt="host >")
         if [ -n "$selected_host" ]; then
-            BUFFER="$LBUFFER ${selected_host}"
+            BUFFER="$LBUFFER${selected_host}"
         fi
     }
     zle -N peco-host
     bindkey '^[S' peco-host
 
     # cdr {{{2
-    function peco_cdr () {
+    function peco-cdr () {
         local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="cdr >" --query "$LBUFFER")"
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${selected_dir}"
             zle accept-line
         fi
     }
-    zle -N peco_cdr
-    bindkey '^[r' peco_cdr
+    zle -N peco-cdr
+    bindkey '^[r' peco-cdr
 
     # fd {{{2
     # ------------------------------------------------------------------------
@@ -728,7 +704,7 @@ if hash peco 2>/dev/null; then
 
     # ghq {{{2
     # ------------------------------------------------------------------------
-    function peco_ghq-cd () {
+    function peco-ghq-cd () {
         # Gitリポジトリを.gitの更新時間でソートする
         local ghq_roots="$(git config --path --get-all ghq.root)"
         local selected_dir=$(ghq list --full-path | \
@@ -741,8 +717,8 @@ if hash peco 2>/dev/null; then
             zle accept-line
         fi
     }
-    zle -N peco_ghq-cd
-    bindkey '^[g' peco_ghq-cd
+    zle -N peco-ghq-cd
+    bindkey '^[g' peco-ghq-cd
 
     function peco_ghq () {
         # Gitリポジトリを.gitの更新時間でソートする
@@ -762,6 +738,7 @@ if hash peco 2>/dev/null; then
 
 
     # grepしてvimで開く {{{2
+    # ------------------------------------------------------------------------
     function peco-grep-vim () {
         local selected_result="$(grep -nHr $@ . | peco --query "$@" | awk -F : '{print "-c " $2 " " $1}')"
         if [ -n "$selected_result" ]; then
