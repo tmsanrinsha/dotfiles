@@ -71,6 +71,8 @@ function! IsInstalled(plugin) " {{{
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
     " runtimepathのチェックでプラグインがインストールされているかをチェックできない
     " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
+    if exists('*dein#tap')
+        return dein#tap(a:plugin)
     if exists('*neobundle#is_installed')
         return neobundle#is_installed(a:plugin)
     else
@@ -718,51 +720,6 @@ function! s:init_cmdwin()
     startinsert!
 endfunction
 " }}}
-" search/substitute {{{1
-" ============================================================================
-" インクリメンタルサーチ
-set incsearch
-" 検索パターンの大文字小文字を区別しない
-set ignorecase
-" 検索パターンに大文字が含まれていたら、大文字小文字を区別する。
-set smartcase
-set hlsearch   "検索結果をハイライト
-
-" ESCキー2度押しでハイライトのトグル
-nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
-
-nnoremap * *N
-nnoremap # g*N
-
-" function! s:RegistSearchWord()
-"     silent normal yiw
-"     let @/ = '\<'.@".'\>'
-" endfunction
-"
-" command! -range RegistSearchWord :call s:RegistSearchWord()
-" nnoremap <silent> * :RegistSearchWord<CR>
-
-" /で検索しても、?で検索してもnで前方検索、Nで後方検索
-" http://deris.hatenablog.jp/entry/2014/05/20/235807
-nnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
-nnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
-vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
-vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
-
-function! s:search_forward_p()
-    return exists('v:searchforward') ? v:searchforward : 1
-endfunction
-
-" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
-cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
-
-"ヴィビュアルモードで選択した範囲だけ検索
-xnoremap <Leader>/ <ESC>/\%V
-xnoremap <Leader>? <ESC>?\%V
-
 " ビジュアルモード {{{1
 " =============================================================================
 " ビジュアル矩形モードでなくても、IやAで挿入できるようにする {{{
@@ -1458,4 +1415,159 @@ endif
 
 " call SourceRc('plugin.vim')
 call SourceRc('dein.vim')
+
+" search/substitute {{{1
+" ============================================================================
+" インクリメンタルサーチ
+set incsearch
+" 検索パターンの大文字小文字を区別しない
+set ignorecase
+" 検索パターンに大文字が含まれていたら、大文字小文字を区別する。
+set smartcase
+set hlsearch   "検索結果をハイライト
+
+" ESCキー2度押しでハイライトのトグル
+nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
+
+if IsInstalled('vim-asterisk')
+    map *  <Plug>(asterisk-z*)
+    " map #  <Plug>(asterisk-z#)
+    map #  <Plug>(asterisk-gz#)
+    " map g* <Plug>(asterisk-gz*)
+    " map g# <Plug>(asterisk-gz#)
+    let g:asterisk#keeppos = 1
+else
+    nnoremap * *N
+    nnoremap # g*N
+endif
+
+nmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+vmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+
+" function! s:RegistSearchWord()
+"     silent normal yiw
+"     let @/ = '\<'.@".'\>'
+" endfunction
+"
+" command! -range RegistSearchWord :call s:RegistSearchWord()
+" nnoremap <silent> * :RegistSearchWord<CR>
+
+" /で検索しても、?で検索してもnで前方検索、Nで後方検索
+" http://deris.hatenablog.jp/entry/2014/05/20/235807
+nnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+nnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+
+function! s:search_forward_p()
+    return exists('v:searchforward') ? v:searchforward : 1
+endfunction
+
+" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
+cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
+
+"ヴィビュアルモードで選択した範囲だけ検索
+xnoremap <Leader>/ <ESC>/\%V
+xnoremap <Leader>? <ESC>?\%V
+
+" emacs keybind {{{1
+" ============================================================================
+" vim/gvim挿入モードのキーを若干Emacs風味にカスタマイズ - fudisti
+" - https://sites.google.com/site/fudist/Home/vim-nihongo-ban/tips/vim-key-emacs
+" コマンドラインモードはhttps://github.com/tmsanrinsha/vim-emacscommandline 参照
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+
+" 元々の<C-n>,<C-p>はMで
+inoremap <M-n> <C-n>
+inoremap <M-p> <C-p>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+if !IsInstalled('lexima.vim')
+    inoremap <C-d> <Del>
+    " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
+endif
+
+" 元々のi_CTRL-Dは左にインデントする処理。
+" 右にインデントするのがi_CTRL-Tなので<M-t>に設定する
+inoremap <M-t> <C-d>
+
+"カーソル位置から後の単語を削除
+inoremap <silent> <M-d> <C-g>u<C-r>=MyDeleteWord()<CR>
+
+""""""""""""""""""""""""""""""
+"カーソル以降の単語削除
+""""""""""""""""""""""""""""""
+function! MyDeleteWord()
+  if col('.') == col('$')
+    return ''
+  endif
+  let save_cursor = getpos('.')
+  silent exec 'normal! wge'
+  if save_cursor[1] != line('.') || (save_cursor[2] > col('.'))
+    call setpos('.', save_cursor)
+    return MyExecExCommand('normal! dw', 'onemore')
+  endif
+  silent exec 'normal! v'
+  call setpos('.', save_cursor)
+  return MyExecExCommand('normal! d')
+endfunction
+
+""""""""""""""""""""""""""""""
+"IMEの状態とカーソル位置保存のため<C-r>を使用してコマンドを実行。
+""""""""""""""""""""""""""""""
+function! MyExecExCommand(cmd, ...)
+  let saved_ve = &virtualedit
+  let index = 1
+  while index <= a:0
+    if a:{index} ==# 'onemore'
+      silent setlocal virtualedit+=onemore
+    endif
+    let index = index + 1
+  endwhile
+
+  silent exec a:cmd
+  if a:0 > 0
+    silent exec 'setlocal virtualedit='.saved_ve
+  endif
+  return ''
+endfunction
+
+" neocomplcacheにて設定
+" inoremap <C-h> <BS>
+
+if !IsInstalled('neosnippet.vim')
+    inoremap <C-k> <C-o>D
+endif
+inoremap <C-_> <C-o>u
+
+" * があるときに<Tab>を打つと右にインデントしたい
+" →insertモードで<C-t>打つと右にインデントできる
+" function! s:MyIndent()
+"     if match(getline('.'), '^\s*\*') >= 0
+"         normal! >>A
+"     else
+"         execute "normal! i\<Tab>"
+"     endif
+" endfunction
+" command! MyIndent call s:MyIndent()
+
+" inoremap <Tab> <C-o>:MyIndent<CR>
+
+" インデントしない改行
+" [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
+" [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
+nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>j
+
+imap <silent><C-j> <End><CR>
+
+" }}}
+
 call SourceRc('local.vim')

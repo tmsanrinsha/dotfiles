@@ -838,20 +838,6 @@ if dein#tap('vital-coaster')
     endfunction
 endif
 
-" vim-asterisk {{{1
-" ============================================================================
-if dein#tap('vim-asterisk')
-    map *  <Plug>(asterisk-z*)
-    " map #  <Plug>(asterisk-z#)
-    map #  <Plug>(asterisk-gz#)
-    " map g* <Plug>(asterisk-gz*)
-    " map g# <Plug>(asterisk-gz#)
-    let g:asterisk#keeppos = 1
-
-    nmap g* *:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
-    nmap g# #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
-endif
-
 " vim-multiple-cursors {{{1
 " ============================================================================
 if dein#tap('vim-multiple-cursors')
