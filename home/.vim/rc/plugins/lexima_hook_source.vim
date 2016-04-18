@@ -32,7 +32,7 @@ call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
 " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
 for s:val in ['-', '\*', '+', '1.', '>']
-    execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<C-w><C-w><CR>'', ''filetype'': ''markdown''})'
+    execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<C-u>'', ''filetype'': ''markdown''})'
     execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<Esc>0Di'', ''filetype'': ''rmd''})'
 endfor
 
