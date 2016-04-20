@@ -141,16 +141,16 @@ set complete=lH
 " set defsearch=g
 " set suggestengines=g
 
-" nnoremap o :set complete=lH<CR>:open<Space>
-" nnoremap t :set complete=lH<CR>:tabopen<Space>
-" nnoremap <Leader>ob :set complete=b<CR>:open<Space>
-" nnoremap <Leader>tb :set complete=b<CR>:tabopen<Space>
-" nnoremap <Leader>oh :set complete=h<CR>:open<Space>
-" nnoremap <Leader>th :set complete=h<CR>:tabopen<Space>
-" nnoremap <Leader>os :set complete=S<CR>:open<Space>
-" nnoremap <Leader>ts :set complete=S<CR>:tabopen<Space>
-" nnoremap <Leader>oH :set complete=H<CR>:open<Space>
-" nnoremap <Leader>tH :set complete=H<CR>:tabopen<Space>
+nnoremap o :set complete=lH<CR>:open<Space>
+nnoremap t :set complete=lH<CR>:tabopen<Space>
+nnoremap <Leader>ob :set complete=b<CR>:open<Space>
+nnoremap <Leader>tb :set complete=b<CR>:tabopen<Space>
+nnoremap <Leader>oh :set complete=h<CR>:open<Space>
+nnoremap <Leader>th :set complete=h<CR>:tabopen<Space>
+nnoremap <Leader>os :set complete=S<CR>:open<Space>
+nnoremap <Leader>ts :set complete=S<CR>:tabopen<Space>
+nnoremap <Leader>oH :set complete=H<CR>:open<Space>
+nnoremap <Leader>tH :set complete=H<CR>:tabopen<Space>
 
 " plugin_loader {{{1
 " ============================================================================
