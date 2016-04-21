@@ -880,8 +880,8 @@ endif
 
 " LeafCage/yankround.vim :paste:yank: {{{1
 " ============================================================================
-nnoremap <C-p> gT
-nnoremap <C-n> gt
+nnoremap <C-p> ]]
+nnoremap <C-n> [[
 
 nnoremap ]p p`[v`]=
 nnoremap ]P P`[v`]=
@@ -1328,7 +1328,7 @@ if dein#tap('vim-markdown')
     let g:vim_markdown_folding_disabled = 0
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= 'open'
-    let g:vim_markdown_no_default_key_mappings=1
+    let g:vim_markdown_no_default_key_mappings = 0
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_conceal = 1
 

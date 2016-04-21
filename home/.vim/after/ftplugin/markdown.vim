@@ -10,3 +10,6 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 " イタリックを無効に
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
+
+nmap <buffer> <C-p> <Plug>Markdown_MoveToPreviousHeader
+nmap <buffer> <C-n> <Plug>Markdown_MoveToNextHeader
