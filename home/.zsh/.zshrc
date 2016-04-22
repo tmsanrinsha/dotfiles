@@ -525,7 +525,7 @@ set_terminal_title_string() {
         kterm*|xterm)
             echo -ne "\e]2;${HOST%%.*}:${PWD}\007"
             ;;
-        screen*|xterm-256color) # tmux用
+        screen*) # tmux用
             echo -ne "\ePtmux;\e\e]2;${HOST%%.*}:${PWD}\007\e\\"
             ;;
     esac
