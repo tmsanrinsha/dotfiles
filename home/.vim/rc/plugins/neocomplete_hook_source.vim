@@ -131,10 +131,6 @@ execute 'inoremap <expr><C-g>  pumvisible() ? neocomplete#undo_completion() : "\
 execute 'inoremap <expr><C-u>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
 execute 'inoremap <expr><C-w>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
 
-" Vim - smartinput の <BS> や <CR> の汎用性を高める - Qiita
-" <http://qiita.com/todashuta@github/items/bdad8e28843bfb3cd8bf>
-
-
 " previewしない
 set completeopt-=preview
 if MyHasPatch('patch-7.4.775')

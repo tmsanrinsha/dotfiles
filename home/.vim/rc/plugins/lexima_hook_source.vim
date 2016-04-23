@@ -135,6 +135,7 @@ call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after':
 " call lexima#add_rule({'char': ',', 'input': ', '})
 
 
-" neocomplete.vimとの連携
-" imapを使ってlexima.vimの<BS>にマップ。巡回参照になってしまうので、<C-h>にはマップ出来ない
-" execute 'imap <expr><C-h> pumvisible() ? ' . s:neocom . '#smart_close_popup()."\<BS>" : "\<BS>"'
+" neocomplete.vimとの連携 {{{1
+" ============================================================================
+" これで出来そう
+" inoremap <expr> <CR> someCondition() ? '' : lexima#expand('<CR>', 'i')
