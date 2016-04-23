@@ -780,6 +780,13 @@ omap ib <Plug>(textobj-multiblock-i)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
 
+" matchparisの括弧を追加
+let g:textobj_multiblock_blocks = []
+for s:val in split(&matchpairs, ',')
+    let s:pair = split(s:val, ':')
+    call add(g:textobj_multiblock_blocks, s:pair)
+endfor
+
 omap ic <Plug>(textobj-comment-i)
 xmap ic <Plug>(textobj-comment-i)
 omap ac <Plug>(textobj-comment-a)
