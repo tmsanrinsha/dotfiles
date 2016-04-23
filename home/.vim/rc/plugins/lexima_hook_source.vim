@@ -1,7 +1,12 @@
 scriptencoding utf-8
 
 let g:lexima_no_default_rules = 1
+
+" let g:lexima_enable_basic_rules = 0
+" let g:lexima_enable_newline_rules = 1
 let g:lexima_enable_space_rules = 0
+" let g:lexima_enable_endwise_rules = 1
+
 call lexima#set_default_rules()
 
 " <C-h>でlexima.vimの<BS>の動きをさせる
@@ -11,10 +16,17 @@ imap <C-h> <BS>
 imap <C-f> <Right>
 call lexima#add_rule({'char': '<Right>', 'leave': 1})
 
-" dot repeatableな<C-d>。lexima.vimによって追加された文字以外は
-" 消してくれないので、コメント
+" dot repeatableな<C-d>。lexima.vimによって追加された文字以外は消してくれないので、コメント
 " call lexima#add_rule({'char': '<C-d>', 'delete': 1})
 inoremap <C-d> <Del>
+
+" 右側が非空白文字の時は補完をしない
+call lexima#add_rule({'char': '(', 'at': '\%#\S'})
+call lexima#add_rule({'char': ')', 'at': '\%#\S'})
+call lexima#add_rule({'char': '{', 'at': '\%#\S'})
+call lexima#add_rule({'char': '}', 'at': '\%#\S'})
+call lexima#add_rule({'char': '[', 'at': '\%#\S'})
+call lexima#add_rule({'char': ']', 'at': '\%#\S'})
 
 " matchparisで設定したもの(「,」:（,）など)をルールに追加
 for s:val in split(&matchpairs, ',')
@@ -23,17 +35,17 @@ for s:val in split(&matchpairs, ',')
     endif
     let s:val = escape(s:val, '[]')
     let s:pair = split(s:val, ':')
-    execute "call lexima#add_rule({'char': '".s:pair[0]."', 'input_after': '". s:pair[1]."'})"
-    execute "call lexima#add_rule({'char': '".s:pair[1]."', 'at': '\\%#".s:pair[1]."', 'leave': 1})"
-    execute "call lexima#add_rule({'char': '<BS>', 'at': '".s:pair[0].'\%#'.s:pair[1]."', 'delete': 1})"
+    call lexima#add_rule({'char': s:pair[0], 'input_after': s:pair[1], 'except': '\%#\S'})
+    call lexima#add_rule({'char': s:pair[1], 'at': '\%#'.s:pair[1], 'leave': 1})
+    call lexima#add_rule({'char': '<BS>', 'at': s:pair[0].'\%#'.s:pair[1], 'delete': 1})
 endfor
 
 call lexima#add_rule({'char': '<CR>', 'at': '" \%#',  'input': '<BS><BS>'})
 
 " Markdownのリストでなんにも書いてない場合に改行した場合はリストを消す
 for s:val in ['-', '\*', '+', '1.', '>']
-    execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<C-u>'', ''filetype'': ''markdown''})'
-    execute 'call lexima#add_rule({''char'': ''<CR>'', ''at'': ''^\s*'.s:val.'\s*\%#'',  ''input'': ''<Esc>0Di'', ''filetype'': ''rmd''})'
+    call lexima#add_rule({'char': '<CR>', 'at': '^\s*'.s:val.'\s*\%#',  'input': '<C-u>', 'filetype': 'markdown'})
+    call lexima#add_rule({'char': '<CR>', 'at': '^\s*'.s:val.'\s*\%#',  'input': '<Esc>0Di', 'filetype': 'rmd'})
 endfor
 
 " Vim script {{{2
