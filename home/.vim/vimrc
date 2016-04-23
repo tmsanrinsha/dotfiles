@@ -663,7 +663,7 @@ onoremap gm :<C-u>normal gm<CR>
 "    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 "augroup END
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
-nnoremap [:space:]gc :cd %:h<CR>
+nnoremap [:space:]gc :cd %:h <Bar> echo 'cd '.expand('%:p:h')<CR>
 command! Shell lcd %:h <Bar> shell
 
 " <C-r>%で%の内容を挿入できる
@@ -762,14 +762,14 @@ function! s:configure_tag()
         return
     endif
 
-    if &filetype ==# 'vim|help'
+    if &filetype =~# 'vim|help'
         " 引数が4つまでになるのは7.4.279以上
         " [Vim script言語仕様の変更 · rbtnn/vimscript Wiki](https://github.com/rbtnn/vimscript/wiki/Vim-script%E8%A8%80%E8%AA%9E%E4%BB%95%E6%A7%98%E3%81%AE%E5%A4%89%E6%9B%B4)
         " execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
         execute 'setlocal tags+='.substitute(globpath(&runtimepath, '.git/tags', 0), "\<NL>", ',', 'g')
     endif
 
-    " nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
+    nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
 endfunction
 
 " tagsにその都度個別に追加する版 {{{3
@@ -1476,7 +1476,7 @@ inoremap <C-_> <C-o>u
 " インデントしない改行
 " [vim-jp » Hack #57: 空行を挿入する](http://vim-jp.org/vim-users-jp/2009/08/15/Hack-57.html)
 " [空行を挿入する+α - derisの日記](http://deris.hatenablog.jp/entry/20130404/1365086716)
-nnoremap <silent><C-j> :<C-u>call append(expand('.'), '')<CR>j
+nnoremap <silent><C-j> :<C-u>call append(line('.'), '')<CR>j
 
 imap <silent><C-j> <End><CR>
 
