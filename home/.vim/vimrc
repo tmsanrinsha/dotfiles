@@ -145,10 +145,10 @@ set display=lastline
 set showmatch
 " マッチを表示する時間を0.1秒にする
 set matchtime=1
-set matchpairs+=<:>
+" set matchpairs+=<:>
 " 7.3.769からmatchpairsにマルチバイト文字が使える
 if MyHasPatch('patch-7.3.769')
-    set matchpairs+=（:）,「:」
+    set matchpairs+=「:」,『:』,（:）,【:】,《:》,〈:〉,［:］,‘:’,“:”
 endif
 
 " %の拡張する。%で開始タグ、終了タグを移動、ifとendifを移動など
