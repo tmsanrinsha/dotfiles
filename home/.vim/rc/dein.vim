@@ -734,6 +734,13 @@ if dein#tap('vim-operator-user')
     nmap sd" <Plug>(operator-surround-delete)a"
     nmap sr" <Plug>(operator-surround-delete)a"
 
+    let g:operator#surround#blocks = {}
+    let g:operator#surround#blocks['-'] = [
+    \   { 'block' : ['（', '）'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['P'] },
+    \   { 'block' : ['「', '」'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['B'] },
+    \   { 'block' : ['『', '』'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['2B'] },
+    \ ]
+
     " そもそもclipboardはoperator
     " let bundle = neobundle#get("vim-operator-user")
     " function! bundle.hooks.on_source(bundle)
