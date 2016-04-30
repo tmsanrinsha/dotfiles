@@ -11,5 +11,5 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
 
-nmap <buffer> <C-p> <Plug>Markdown_MoveToPreviousHeader
-nmap <buffer> <C-n> <Plug>Markdown_MoveToNextHeader
+nmap <buffer> <expr> <C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
+nmap <buffer> <expr> <C-n> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"
