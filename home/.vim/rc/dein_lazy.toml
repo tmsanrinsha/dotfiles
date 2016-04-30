@@ -278,6 +278,12 @@ on_ft = ['markdown']
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
 on_cmd = ['TableModeToggle', 'Tableize', 'TableAddFormula', 'TableEvalFormulaLine']
+on_func = 'tablemode#Toggle'
+hook_add = '''
+    nnoremap [:table-mode:] <Nop>
+    nmap <Leader>t [:table-mode:]
+    map [:table-mode:]m :call tablemode#Toggle()<CR>
+'''
 
 [[plugins]]
 repo = 'vim-scripts/AnsiEsc.vim'
