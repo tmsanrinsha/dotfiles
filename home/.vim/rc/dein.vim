@@ -66,10 +66,15 @@ endif
 " vim-smartword {{{1
 " ==============================================================================
 if dein#tap('vim-smartword')
-    map w <Plug>(smartword-w)
-    map b <Plug>(smartword-b)
-    map e <Plug>(smartword-e)
+    map w  <Plug>(smartword-w)
+    map b  <Plug>(smartword-b)
+    map e  <Plug>(smartword-e)
     map ge <Plug>(smartword-ge)
+
+    map [:space:]w  <Plug>(smartword-basic-w)
+    map [:space:]b  <Plug>(smartword-basic-b)
+    map [:space:]e  <Plug>(smartword-basic-e)
+    map [:space:]ge <Plug>(smartword-basic-ge)
 endif
 
 " unite.vim {{{1
