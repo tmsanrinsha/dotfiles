@@ -249,7 +249,7 @@ on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft = ['html', 'php']
+on_ft = ['html', 'xml', 'apache', 'php']
 
 [[plugins]]
 repo = 'maksimr/vim-jsbeautify'
