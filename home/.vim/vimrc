@@ -947,8 +947,13 @@ command! -range=% Ip2host call s:Ip2host(<line1>, <line2>)
 " ============================================================================
 " 256色を使えるようにする
 set t_Co=256
+
 " シンタックスハイライトを効かせる
-syntax enable
+" markdownのファイルを開いた後にsytax enableをするとハイライトがおかしくなる。
+" vimrcをリローダブルにするため、すでにシンタックスが効いているなら、syntax enableをしない
+if !exists('g:syntax_on')
+    syntax enable
+endif
 
 " if IsInstalled('my_molokai')
     " let g:molokai_original = 1
