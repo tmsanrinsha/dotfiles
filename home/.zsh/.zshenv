@@ -3,7 +3,7 @@ if [ -f ~/.zashenv ]; then
     . ~/.zashenv
 fi
 
-if [ $os = osx ]; then
+if [ $os = mac ]; then
     # In order to use this build of zsh as your login shell,
     # it must be added to /etc/shells.
     # Add the following to your zshrc to access the online help:

@@ -2,7 +2,7 @@
 # ============================================================================
 case "$(uname)" in
     Linux)   os='linux'   ;;
-    Darwin)  os='osx'     ;;
+    Darwin)  os='mac'     ;;
     FreeBSD) os='freebsd' ;;
     CYGWIN*) os='cygwin'  ;;
 esac

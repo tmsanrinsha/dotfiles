@@ -142,7 +142,7 @@ install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 install 'https://raw.githubusercontent.com/mla/ip2host/master/ip2host'
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
 
-if [ $os = osx ]; then
+if [ $os = mac ]; then
     url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
 elif [ $os = linux ]; then
     url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
@@ -204,7 +204,7 @@ if [[ `uname` = CYGWIN* ]]; then
 
 # Darwin {{{1
 # ============================================================================
-elif [ $os = osx ]; then
+elif [ $os = mac ]; then
     if [ ! -x ~/bin/rmtrash ];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
@@ -220,7 +220,7 @@ fi
 
 # vim {{{1
 # ============================================================================
-if [ $os = osx ]; then
+if [ $os = mac ]; then
     ln -fs ~/_gvimrc ~/.gvimrc
 fi
 

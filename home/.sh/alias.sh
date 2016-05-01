@@ -45,7 +45,7 @@ alias cdt='cd `git rev-parse --show-toplevel`'
 
 # tail {{{1
 # ============================================================================
-if [ "$os" = osx ]; then
+if [ "$os" = mac ]; then
   alias taa='tail -f /var/log/apache2/access_log'
   alias tae='tail -f /var/log/apache2/error_log'
 elif [ "$os" = linux ]; then
