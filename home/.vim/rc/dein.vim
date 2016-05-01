@@ -47,7 +47,6 @@ endif
 " ============================================================================
 if dein#tap('my_molokai')
     colorscheme molokai-customized
-    syntax enable
 endif
 
 " sudo.vim {{{1
@@ -169,7 +168,9 @@ if dein#tap('unite.vim')
 
     nnoremap [unite]f. :<C-u>execute "Unite file_rec/async:".expand('%:p:h')<CR>
     nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]fV :<C-u>Unite file_rec/async:$VIM<CR>
     nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    execute 'nnoremap [unite]fD :<C-u>Unite file_rec/async:' . s:dein_dir . '/github.com/tmsanrinsha/dotfiles<CR>'
 
     " unite grep {{{2
     " ------------------------------------------------------------------------

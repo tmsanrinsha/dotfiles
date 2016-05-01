@@ -670,7 +670,6 @@ onoremap gm :<C-u>normal gm<CR>
 nnoremap [:space:]gc :cd %:h <Bar> echo 'cd '.expand('%:p:h')<CR>
 command! Shell lcd %:h <Bar> shell
 
-" <C-r>%で%の内容を挿入できる
 " file name
 inoremap <C-r>f <C-r>=expand("%:t")<CR>
 cnoremap <C-r>f <C-r>=expand("%:t")<CR>
@@ -688,12 +687,12 @@ nnoremap yF :let @" = expand('%:p')<CR>
 " yank full path of directory
 nnoremap yd :let @" = expand('%:p:h')<CR>
 
-" copy full path of file
-nnoremap [:space:]yp :let @* = expand('%:p')<CR>
-" copy full path of directory
-nnoremap [:space:]yd :let @* = expand('%:p:h')<CR>
 " copy file name
 nnoremap [:space:]yf :let @* = expand("%:t")<CR>
+" copy full path of file
+nnoremap [:space:]yF :let @* = expand('%:p')<CR>
+" copy full path of directory
+nnoremap [:space:]yd :let @* = expand('%:p:h')<CR>
 
 " Rename {{{2
 " ----------------------------------------------------------------------------
