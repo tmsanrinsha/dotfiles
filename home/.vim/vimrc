@@ -547,7 +547,7 @@ nmap <Leader>t [TAB]
 " 一番右にタブを作る
 " nnoremap <M-t> :tablast <Bar> tabnew<CR>
 nnoremap <M-t> :tabnew<CR>
-nnoremap <M-T> :tabnew %<CR>
+
 nnoremap [TAB]q :tabclose<CR>
 
 nnoremap <C-Tab> :tabn<CR>
