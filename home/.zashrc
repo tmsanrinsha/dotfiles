@@ -106,12 +106,6 @@ function tm {
         tmux -2 -f <(echo "$tmux_config") new-session
     fi
 }
-# }}}
-
-if [ $SHLVL -eq 1 ]; then # tmux, screenを起動していないとき
-    # 回線が切られた時にlogoutする。.bash_logout等を実行するための設定
-    trap logout HUP
-fi
 
 # perl {{{1
 # ==============================================================================
@@ -132,6 +126,16 @@ export GISTY_SSL_VERIFY="NONE"
 #     eval "$(pyenv init -)"
 # fi
 
+# mac {{{1
+# ==============================================================================
+if [ "$os" = mac ]; then
+    function launchctl-reload()
+    {
+        launchctl unload $1
+        launchctl load $1
+    }
+fi
+
 # .zashrc.cygwin {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
@@ -143,5 +147,11 @@ fi
 if [ -f ~/.zashrc.local ]; then
     . ~/.zashrc.local
 fi
+
+if [ $SHLVL -eq 1 ]; then # tmux, screenを起動していないとき
+    # 回線が切られた時にlogoutする。.bash_logout等を実行するための設定
+    trap logout HUP
+fi
+
 
 # vim:ft=sh
