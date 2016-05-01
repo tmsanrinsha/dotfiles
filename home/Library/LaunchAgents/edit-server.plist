@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>edit-server</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>python</string>
+            <string>/Users/tmsanrinsha/src/github.com/timbertson/edit-server/edit-server</string>
+        </array>
+        <key>OnDemand</key>
+        <false/>
+        <!-- <key>Watchpaths</key> -->
+        <!-- <array> -->
+        <!--     <string>/private/var/folders/8s/2xqcrr5j45dgtkx3jmnc3clr0000gn/T</string> -->
+        <!-- </array> -->
+        <key>StandardOutPath</key>
+        <string>/Users/tmsanrinsha/logs/edit-server.log</string>
+        <key>StandardErrorPath</key>
+        <string>/Users/tmsanrinsha/logs/edit-server-err.log</string>
+    </dict>
+</plist>

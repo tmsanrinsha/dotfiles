@@ -202,7 +202,7 @@ if [[ `uname` = CYGWIN* ]]; then
         popd
     fi
 
-# Darwin {{{1
+# mac {{{1
 # ============================================================================
 elif [ $os = mac ]; then
     if [ ! -x ~/bin/rmtrash ];then
@@ -211,6 +211,11 @@ elif [ $os = mac ]; then
     fi
 
     myplug https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+    if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/edit-server ]; then
+        ghq get tmsanrinsha/edit-server
+        launchctl load ~/Library/LaunchAgents/edit-server.plist
+    fi
 
     if [ $brew -eq 1 ]; then
         cd $setup_dir
