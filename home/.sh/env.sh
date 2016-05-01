@@ -143,9 +143,7 @@ if [ -x "$macvim_dir/Vim" ]; then
     export EDITOR="$macvim_dir/Vim"
     pathmunge $macvim_dir
     alias vim="$macvim_dir/Vim"
-    alias gvim="$macvim_dir/mvim"
     unset macvim_dir
 else
     export EDITOR='vim'
 fi
-
