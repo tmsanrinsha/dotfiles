@@ -6,15 +6,16 @@
         <string>edit-server</string>
         <key>ProgramArguments</key>
         <array>
-            <string>python</string>
-            <string>/Users/tmsanrinsha/src/github.com/timbertson/edit-server/edit-server</string>
+            <string>sh</string>
+            <string>-c</string>
+            <string>
+                export EDIT_SERVER_EDITOR="/Applications/MacVim.app/Contents/MacOS/gvim -f";
+                python
+                $HOME/src/github.com/tmsanrinsha/edit-server/edit-server
+            </string>
         </array>
         <key>OnDemand</key>
         <false/>
-        <!-- <key>Watchpaths</key> -->
-        <!-- <array> -->
-        <!--     <string>/private/var/folders/8s/2xqcrr5j45dgtkx3jmnc3clr0000gn/T</string> -->
-        <!-- </array> -->
         <key>StandardOutPath</key>
         <string>/Users/tmsanrinsha/logs/edit-server.log</string>
         <key>StandardErrorPath</key>
