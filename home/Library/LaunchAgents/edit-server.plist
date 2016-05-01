@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
+   <dict>
         <key>Label</key>
         <string>edit-server</string>
         <key>ProgramArguments</key>
@@ -16,9 +16,9 @@
         </array>
         <key>OnDemand</key>
         <false/>
-        <key>StandardOutPath</key>
-        <string>/Users/tmsanrinsha/logs/edit-server.log</string>
-        <key>StandardErrorPath</key>
-        <string>/Users/tmsanrinsha/logs/edit-server-err.log</string>
+        <!-- <key>StandardOutPath</key> -->
+        <!-- <string>/Users/tmsanrinsha/logs/edit&#45;server.log</string> -->
+        <!-- <key>StandardErrorPath</key> -->
+        <!-- <string>/Users/tmsanrinsha/logs/edit&#45;server&#45;err.log</string> -->
     </dict>
 </plist>
