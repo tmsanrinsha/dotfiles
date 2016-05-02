@@ -13,7 +13,6 @@ scriptencoding utf-8
 
 " 初期設定 {{{1
 " ============================================================================
-let $VIMRC_DIR = $HOME.'/.vim/rc'
 if empty($XDG_CACHE_HOME)
     let $XDG_CACHE_HOME = $HOME . '/.cache'
 endif
@@ -22,11 +21,17 @@ if !isdirectory($VIM_CACHE_DIR)
     call mkdir($VIM_CACHE_DIR, 'p')
 endif
 
+let $VIMRC_DIR = $HOME.'/.vim/rc'
+
 if has('win32')
     set runtimepath&
     set runtimepath^=$HOME/.vim
     set runtimepath+=$HOME/.vim/after
     cd ~
+endif
+
+if empty($SRC_ROOT)
+    let $SRC_ROOT = $HOME . '/src'
 endif
 
 let s:dotfiles_home = $SRC_ROOT.'/github.com/tmsanrinsha/dotfiles/home'
