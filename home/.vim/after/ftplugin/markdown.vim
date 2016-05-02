@@ -7,6 +7,8 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 " let &l:softtabstop = &l:tabstop
 " let &l:shiftwidth = &l:tabstop
 
+set iskeyword+=-
+
 " イタリックを無効に
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
