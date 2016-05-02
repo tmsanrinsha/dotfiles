@@ -1338,7 +1338,6 @@ endif
 
 if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
-    let $MEMO_DIR = g:memo_directory
 endif
 
 " call SourceRc('plugin.vim')
