@@ -111,6 +111,23 @@ export LESS='-iR'
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# TERMの設定 {{{2
+# ----------------------------------------------------------------------------
+# screen-256color -> screen
+if [ $TERM = screen-256color ]; then
+    if [ "`find /usr/share/terminfo -name screen-256color`" = '' ]; then
+        export TERM='screen'
+    fi
+fi
+
+# xterm-256color -> xterm
+if [ $TERM = xterm-256color ]; then
+    if [ "`find /usr/share/terminfo -name xterm-256color`" = '' ]; then
+        export TERM='xterm'
+    fi
+fi
+# }}}
+
 # 独自設定
 export SRC_ROOT=$HOME/src
 
