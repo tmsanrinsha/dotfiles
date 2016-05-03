@@ -51,6 +51,7 @@
 
 [prevent-push-master]
 	allow = tmsanrinsha
+	allow = heroku
 
 [ghq]
 	root = ~/src

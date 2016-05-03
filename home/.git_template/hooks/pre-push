@@ -19,9 +19,7 @@
 remote="$1"
 url="$2"
 
-IFS=' '
-
-allow=$(git config prevent-push-master.allow)
+allow=$(git config --get-all prevent-push-master.allow)
 for pattern in $allow
 do
     if [[ $url =~ $pattern ]]; then
