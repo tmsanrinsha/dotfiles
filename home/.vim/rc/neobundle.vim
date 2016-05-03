@@ -54,10 +54,10 @@ let g:neobundle#install_process_timeout = 2000
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " キャッシュを使うとUnite.vimの調子が悪い気がしたが、オッケーそうなので使う
-if neobundle#load_cache(
-\  expand('~/.vim/rc/bundle.vim'),
-\  expand('~/.vim/rc/bundle_local.vim')
-\)
+" if neobundle#load_cache(
+" \  expand('~/.vim/rc/bundle.vim'),
+" \  expand('~/.vim/rc/bundle_local.vim')
+" \)
 
 " Let neobundle manage neobundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -85,47 +85,49 @@ NeoBundle 'osyo-manga/vital-coaster'
 
 " unite {{{1
 " ============================================================================
-" vimfiler.vimをon_sourceしないと、$ vim .で起動するときにエラーが出る
-NeoBundleLazy 'Shougo/unite.vim', {
-\   'on_cmd': 'Unite',
-\}
+if v:version > 702
+    " vimfiler.vimをon_sourceしないと、$ vim .で起動するときにエラーが出る
+    NeoBundleLazy 'Shougo/unite.vim', {
+    \   'on_cmd': 'Unite',
+    \}
 
-" Why on_unite feature has been deleted? · Issue #495 · Shougo/neobundle.vim
-" https://github.com/Shougo/neobundle.vim/issues/495
-NeoBundleLazy 'Shougo/neomru.vim', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'Shougo/neossh.vim', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'Shougo/unite-outline', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'tacroe/unite-mark', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'tsukkee/unite-tag', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'ujihisa/unite-locate', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'basyura/unite-mdfind', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'Shougo/neoyank.vim', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'thinca/vim-unite-history', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'tmsanrinsha/unite-ghq', {
-\   'on_source': 'unite.vim'
-\}
-NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
-\   'on_source': 'unite.vim'
-\}
-" NeoBundle 'Shougo/unite-sudo'
+    " Why on_unite feature has been deleted? · Issue #495 · Shougo/neobundle.vim
+    " https://github.com/Shougo/neobundle.vim/issues/495
+    NeoBundleLazy 'Shougo/neomru.vim', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'Shougo/neossh.vim', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'Shougo/unite-outline', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'tacroe/unite-mark', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'tsukkee/unite-tag', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'ujihisa/unite-locate', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'basyura/unite-mdfind', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'Shougo/neoyank.vim', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'thinca/vim-unite-history', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'tmsanrinsha/unite-ghq', {
+    \   'on_source': 'unite.vim'
+    \}
+    NeoBundleLazy 'rhysd/unite-zsh-cdr.vim', {
+    \   'on_source': 'unite.vim'
+    \}
+    " NeoBundle 'Shougo/unite-sudo'
+endif
 
 " qfreplace {{{1
 " ============================================================================
@@ -147,9 +149,11 @@ NeoBundleLazy 'oplatek/Conque-Shell', {
 \   'on_cmd': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
 \}
 " $ vim .でVimFilerが開かないので下でNeoBundleSourceしている
-NeoBundleLazy 'Shougo/vimfiler.vim', {
-\   'depends': 'unite.vim'
-\}
+if v:version > 702
+    NeoBundleLazy 'Shougo/vimfiler.vim', {
+    \   'depends': 'unite.vim'
+    \}
+endif
 
 " 補完・入力補助 {{{1
 " ============================================================================
@@ -651,11 +655,12 @@ NeoBundleLazy 'mattn/gist-vim', {
 \}
 
 " }}}
-NeoBundleLazy 'tyru/open-browser.vim', {
-\   'on_map': '<Plug>(openbrowser-',
-\   'on_func': ['openbrowser#search', 'OpenBrowser']
-\}
-
+if v:version > 702
+    NeoBundleLazy 'tyru/open-browser.vim', {
+    \   'on_map': '<Plug>(openbrowser-',
+    \   'on_func': ['openbrowser#search', 'OpenBrowser']
+    \}
+endif
 
 " color {{{1
 " ============================================================================
@@ -773,7 +778,7 @@ NeoBundle 'tmsanrinsha/vim-emacscommandline'
 
 NeoBundleSaveCache
 
-endif
+" endif
 
 call SourceRc('bundle_local.vim')
 
@@ -784,5 +789,7 @@ filetype plugin indent on     " Required!
 " Installation check.
 NeoBundleCheck
 
-" NeoBundleSource unite.vim
-NeoBundleSource vimfiler.vim
+if v:version > 702
+    " NeoBundleSource unite.vim
+    NeoBundleSource vimfiler.vim
+endif
