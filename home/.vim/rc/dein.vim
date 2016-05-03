@@ -43,12 +43,6 @@ if dein#tap('vim-singleton') && has('gui_running')
     call singleton#enable()
 endif
 
-" colorscheme {{{1
-" ============================================================================
-if dein#tap('my_molokai')
-    colorscheme molokai-customized
-endif
-
 " sudo.vim {{{1
 " ==============================================================================
 " sudo権限で保存する
