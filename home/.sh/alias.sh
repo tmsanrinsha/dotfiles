@@ -65,8 +65,16 @@ fi
 
 # open {{{1
 # ============================================================================
-alias excel='open -a Microsoft\ Excel'
-alias firefox='open -a Firefox'
+if [ "$os" = mac ]; then
+    alias excel='open -a Microsoft\ Excel'
+    alias firefox='open -a Firefox'
+fi
+
+# heroku {{{1
+# ============================================================================
+if [ "$os" = mac ]; then
+    alias h='heroku'
+fi
 
 # other {{{1
 # ============================================================================
