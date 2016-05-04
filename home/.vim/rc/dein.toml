@@ -163,6 +163,9 @@ repo = 'rhysd/vim-textobj-conflict'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
+
+[[plugins]]
+repo = 'anyakichi/vim-textobj-xbrackets'
 # }}}
 
 [[plugins]]

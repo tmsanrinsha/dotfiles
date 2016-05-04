@@ -819,6 +819,13 @@ xmap ie <Plug>(textobj-entire-i)
 " xmap ix <Plug>(textobj-conflict-i)
 " omap ax <Plug>(textobj-conflict-a)
 
+if IsInstalled('vim-textobj-xbrackets')
+    " change surround function
+    nmap csf vax(ovce
+    " delte surround function
+    nmap dsf vax(ovde
+endif
+
 " vital-coaster, CTRL-A, CTRL-X {{{1
 " ============================================================================
 " - の前に空白文字以外があれば <C-x> を、それ以外は <C-a> を呼ぶ
