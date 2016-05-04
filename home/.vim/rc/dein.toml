@@ -132,9 +132,23 @@ repo = 'vim-jp/vital.vim'
 [[plugins]]
 repo = 'thinca/vim-template'
 
+# snippet {{{1
+# ============================================================================
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+# }}}
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# textobj {{{1
+# ============================================================================
 [[plugins]]
 repo = 'kana/vim-textobj-function'
 
@@ -148,17 +162,8 @@ repo = 'kana/vim-textobj-indent'
 repo = 'rhysd/vim-textobj-conflict'
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'tmsanrinsha/molokai'
-name = 'my_molokai'
-
-[[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
+# }}}
 
 [[plugins]]
 repo = 'thinca/vim-singleton'
@@ -171,19 +176,20 @@ repo = 'itchyny/lightline.vim'
 repo = 'thinca/vim-prettyprint'
 
 [[plugins]]
-repo = 'vimperator/vimperator.vim'
-
-[[plugins]]
 repo = 'PreserveNoEOL'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
 
+# colorscheme {{{1
+# ============================================================================
 [[plugins]]
-repo = 'altercation/vim-colors-solarized'
+repo = 'tmsanrinsha/molokai'
+name = 'my_molokai'
 
 [[plugins]]
-repo = 'honza/vim-snippets'
+repo = 'altercation/vim-colors-solarized'
+# }}}
 
 [[plugins]]
 repo = 'kana/vim-gf-diff'
@@ -191,6 +197,8 @@ repo = 'kana/vim-gf-diff'
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
 
+# filetype {{{1
+# ============================================================================
 # arduino
 [[plugins]]
 repo = '4Evergreen4/vim-hardy'
@@ -252,15 +260,20 @@ repo = 'sh.vim--Cla'
 [[plugins]]
 repo = 'autowitch/hive.vim'
 
-[[plugins]]
-repo = 'cespare/vim-toml'
-
 # tmux
 [[plugins]]
 repo = 'zaiste/tmux.vim'
 
-# vim {{{1
-# ============================================================================
+# toml
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# twig
+[[plugins]]
+repo = 'evidens/vim-twig'
+
+# vim {{{2
+# ----------------------------------------------------------------------------
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
 
@@ -273,3 +286,7 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
+# }}}
+
+[[plugins]]
+repo = 'vimperator/vimperator.vim'
