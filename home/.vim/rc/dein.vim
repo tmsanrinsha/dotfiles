@@ -15,6 +15,9 @@ if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir)
     let s:toml_files = split(glob('$VIMRC_DIR/*.toml'), "\n")
     for s:toml_file in s:toml_files
+        " lazyがついているtomlファイルはlazyとして処理する。
+        " pluginディレクトリがないプラグインはlazyにしても意味が無い
+        " :h dein#check_lazy_plugins()
         if match(s:toml_file, 'lazy') >= 0
             call dein#load_toml(s:toml_file, {'lazy': 1})
         else
