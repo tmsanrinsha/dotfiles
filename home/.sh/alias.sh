@@ -43,6 +43,16 @@ alias gs='git status'
 # gitのルートディレクトリに移動
 alias cdt='cd `git rev-parse --show-toplevel`'
 
+# PHP {{{1
+# ============================================================================
+# https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
+# Load xdebug Zend extension with php command
+alias php='php -dzend_extension=xdebug.so'
+# PHPUnit needs xdebug for coverage. In this case, just make an alias with php command prefix.
+# alias phpunit='php $(which phpunit)'
+alias phpunit='php $(which phpunit.sh) --colors'
+alias php-cs-fixer='php-cs-fixer.sh --diff'
+
 # tail {{{1
 # ============================================================================
 if [ "$os" = mac ]; then
@@ -91,9 +101,6 @@ alias tree='tree -FCl'
 
 alias apache_check='apachectl configtest'
 alias apache_restart='sudo apachectl restart'
-
-alias phpunit='phpunit.sh --colors'
-alias php-cs-fixer='php-cs-fixer.sh --diff'
 
 alias sr="exec $SHELL -l"
 
