@@ -217,7 +217,7 @@ bindkey "^P" history-beginning-search-backward
 
 # incremental search {{{2
 # ----------------------------------------------------------------------------
-# :peco:も参照
+# |peco| も参照
 # グロブ(*)が使えるインクリメンタルサーチ
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
@@ -230,7 +230,7 @@ setopt no_flow_control
 # /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# fg {{{2
+# C-z, fg {{{2
 # ----------------------------------------------------------------------------
 # ctrl-zでfgする
 # [Vimの生産性を高める12の方法 | 開発手法・プロジェクト管理 | POSTD](http://postd.cc/how-to-boost-your-vim-productivity/)
@@ -245,6 +245,15 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+# C-^でcdr {{{2
+# ----------------------------------------------------------------------------
+cdr-ctrl-^ () {
+    BUFFER=cdr
+    zle accept-line
+}
+zle -N cdr-ctrl-^
+bindkey '^^' cdr-ctrl-^
 
 # complete {{{1
 # ============================================================================
@@ -595,7 +604,7 @@ REPORTTIME=10
 #bindkey "\C-m" alls
 #bindkey "\C-j" alls
 
-# peco {{{1
+# peco                                                             *peco* {{{1
 # ============================================================================
 if hash peco 2>/dev/null; then
     # バッファ上のコマンドを実行して、pecoの選択結果をバッファに出力
