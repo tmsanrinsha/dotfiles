@@ -164,3 +164,10 @@ if [ -x "$macvim_dir/Vim" ]; then
 else
     export EDITOR='vim'
 fi
+
+# postgres {{{1
+# ============================================================================
+if [ "$os" = mac ]; then
+    export DATABASE_URL=postgres:///$(whoami)
+    export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+fi
