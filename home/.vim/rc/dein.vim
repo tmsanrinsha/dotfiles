@@ -1012,10 +1012,13 @@ endif
 " vim-jsbeautify {{{1
 " ==============================================================================
 if dein#tap('vim-jsbeautify')
+    autocmd MyVimrc FileType javascript setlocal formatexpr=JsBeautify()
+    autocmd MyVimrc FileType css        setlocal formatexpr=CSSBeautify()
+    autocmd MyVimrc FileType html       setlocal formatexpr=HtmlBeautify()
+
     " こう設定しないとpangloss/vim-javascriptに上書きされてしまう
-    autocmd MyVimrc BufRead *.js  setlocal formatexpr=JsBeautify()
-    autocmd MyVimrc FileType css  setlocal formatexpr=CSSBeautify()
-    autocmd MyVimrc FileType html setlocal formatexpr=HtmlBeautify()
+    " ⇡しなくてもうまくいった
+    " autocmd MyVimrc BufRead  *.js       setlocal formatexpr=JsBeautify()
 else
     autocmd MyVimrc FileType html
         \   nnoremap <buffer> gq :%s/></>\r</ge<CR>gg=G
