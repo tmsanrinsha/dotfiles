@@ -821,9 +821,12 @@ xmap ie <Plug>(textobj-entire-i)
 
 if IsInstalled('vim-textobj-xbrackets')
     " change surround function
-    nmap csf vax(ovce
+    nmap csf vax(ovct(
     " delte surround function
-    nmap dsf vax(ovde
+    nmap dsf vax(ovdt(
+
+    " これも良さそう
+    " [hoge() で囲みたい症候群 - vim 初心者の作業メモ](http://d.hatena.ne.jp/syngan/20140301/1393676442)
 endif
 
 " vital-coaster, CTRL-A, CTRL-X {{{1
