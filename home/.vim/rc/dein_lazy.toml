@@ -370,6 +370,8 @@ repo = 'DrawIt'
 on_map = ';di'
 on_cmd = 'DrawIt'
 
+# browser {{{1
+# ============================================================================
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 on_func = ['openbrowser#search', 'OpenBrowser']
@@ -395,6 +397,14 @@ hook_source = '''
         \]
     endif
 '''
+[[plugins]]
+repo = 'shikato/vim2browser.vim'
+on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
+
+[[plugins]]
+repo = 'shikato/keysender.vim'
+on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
+# }}}
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'

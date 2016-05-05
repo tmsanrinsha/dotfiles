@@ -1500,6 +1500,11 @@ if dein#tap('open-browser.vim')
     command! -nargs=1 MyOpenbrowserSearch call s:my_openbrowser_search('<args>')
 endif
 
+if IsInstalled('keysender.vim') && IsInstalled('vim2browser')
+    inoremap <C-s> <Esc>:<C-u>Vim2ChromeAppendAll<CR>:KeysenderKeyCode 52<CR>
+    nnoremap <C-s> <Esc>:<C-u>Vim2ChromeAppendAll<CR>:KeysenderKeyCode 52<CR>
+endif
+
 " lightline, statusline {{{1
 " ============================================================================
     " \       'paste': '%{&paste?"PASTE":""}',
