@@ -14,9 +14,10 @@ alias vim-profile='rm profile.txt; vim --startuptime profile.txt +q && vim profi
 
 # git {{{1
 # ============================================================================
-alias gal='alias | grep git'
+alias g='git'
+alias gal='alias | grep git | peco'
 alias ga='git add'
-alias gb='git branch'
+alias gb='git branch -vv'
 alias gci='git commit'
 alias gco='git checkout'
 alias gd='git diff'
@@ -37,7 +38,7 @@ alias gmt='git mergetool'
 alias grb='git rebase'
 alias grbi='git rebase -i'
 alias grbom='git rebase origin/master'
-alias grv='git remote -v'
+alias grt='git remote -v'
 alias gs='git status'
 
 # gitのルートディレクトリに移動
