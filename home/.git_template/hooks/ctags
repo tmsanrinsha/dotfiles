@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
-PATH="$HOME/local/bin:/usr/local/bin:$PATH"
+PATH="/Applications/MacVim.app/Contents/MacOS/ctags:/usr/local/bin/ctags:/usr/bin/ctags:$PATH"
 
 if ! ctags --version | grep 'Exuberant Ctags' 1>/dev/null 2>&1; then
-    echo 'ctags is not found'
+    echo 'Exuberant Ctags is not found'
     exit
 fi
 
