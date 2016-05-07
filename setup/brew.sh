@@ -34,6 +34,8 @@ brew tap homebrew/science
 brew-install ag
 brew-install ant
 brew-install coreutils
+brew tap ethereum/ethereum
+brew-install ethereum
 brew-install gnu-sed
 brew-install go
 brew-install graphviz
