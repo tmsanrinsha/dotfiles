@@ -13,5 +13,16 @@
             "Args": [ "$QUERY" ]
         }
     },
-    "StickySelection": true
+    "StickySelection": true,
+    "Keymap": {
+        "C-e": "peco.ExecuteCommand.Notepad",
+        "C-x,C-c": "peco.Cancel"
+    },
+    "Command": [
+        {
+            "Name": "Notepad",
+            "Args": ["mvim", "$LINE"],
+            "Spawn": false
+        }
+    ]
 }
