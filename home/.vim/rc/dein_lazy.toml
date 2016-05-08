@@ -397,6 +397,16 @@ hook_source = '''
         \]
     endif
 '''
+
+[[plugins]]
+repo= 'tyru/open-browser-github.vim'
+depends = 'open-browser.vim'
+on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
+hook_source = '''
+    let g:openbrowser_github_always_use_commit_hash = 0
+    let g:openbrowser_github_url_exists_check = 'ignore'
+'''
+
 [[plugins]]
 repo = 'shikato/vim2browser.vim'
 on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
