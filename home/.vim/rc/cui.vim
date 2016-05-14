@@ -102,7 +102,8 @@ vnoremap <A-c> :Paste64Copy<CR>
 " endif
 " Using the mouse on a terminal.
 if has('mouse')
-    set mouse=a
+    " インサートモードではマウスを使わない
+    set mouse=nvch
     if has('mouse_sgr')
         set ttymouse=sgr
     elseif v:version > 703 || v:version is 703 && has('patch632') " I couldn't use has('mouse_sgr') :-(
