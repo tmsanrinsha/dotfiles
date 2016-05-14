@@ -6,15 +6,29 @@ set output-meta on
 # bashでbind -pを打つと現在のバインド一覧を表示
 # bind -lでバインドできる関数一覧を表示
 
+# Use Vi, not Emacs, style editing
+# set editing-mode vi
+
+# Show all completions as soon as I press tab, even if there's more than one
+set show-all-if-ambiguous on
+
+# Ignore case
+set completion-ignore-case on
+
+# on menu-complete, first display the common prefix, then cycle through the 
+# options when hitting TAB
+set menu-complete-display-prefix on
+
+TAB: menu-complete
+# Shift-Tabで逆向きに補完。readlineのバージョンが古いとできない
+"\e[Z": menu-complete-backward
+
 #"\e[A": history-search-backward
 #"\e[0A": history-search-backward
 #"\e[B": history-search-forward
 #"\e[0B": history-search-forward
 "\C-n": history-search-forward
 "\C-p": history-search-backward
-"\en": menu-complete
-# readlineのバージョンが古いとできない
-"\ep": menu-complete-backward
 
 # readlineマクロ
 # http://d.hatena.ne.jp/hirose31/20090531/1243777478
