@@ -306,8 +306,11 @@ set listchars=tab:»-,trail:･,nbsp:%
 " set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
 
 if has('conceal')
-    set conceallevel=2
-    " set concealcursor=niv
+    " For snippet_complete marker.
+    set conceallevel=2 concealcursor=niv
+
+    autocmd MyVimrc Filetype json,markdown
+    \ setlocal concealcursor=
 endif
 
 " format {{{1

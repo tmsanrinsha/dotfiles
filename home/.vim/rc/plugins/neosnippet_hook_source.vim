@@ -9,10 +9,8 @@ smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
 \   "\<C-o>D"
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" For snippet_complete marker.
-" if has('conceal')
-"     set conceallevel=2 concealcursor=niv
-" endif
+autocmd MyVimrc FileType markdown
+\   inoremap <buffer> <C-k> <C-o>D
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1

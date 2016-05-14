@@ -475,8 +475,9 @@ endif
 if dein#tap('neosnippet.vim')
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory= [
-    \   '~/.vim/bundle/vim-snippets/snippets',
-    \   '~/.vim/bundle/wmgraphviz.vim/snippets',
+    \   s:dein_dir . '/repos/github.com/Shougo/neosnippet-snippets/neosnippets',
+    \   s:dein_dir . '/repos/github.com/honza/vim-snippets/snippets',
+    \   s:dein_dir . '/repos/github.com/wannesm/wmgraphviz.vim/snippets',
     \]
 endif
 
