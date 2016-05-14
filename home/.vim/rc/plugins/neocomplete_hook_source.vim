@@ -37,7 +37,8 @@ let g:neocomplete#enable_auto_close_preview=0
 " let g:neocomplete#sources#tags#cache_limit_size = 1000000
 " 使用する補完の種類を減らす
 " http://alpaca-tc.github.io/blog/vim/neocomplete-vs-youcompleteme.html
-" 現在のSourceの取得は 
+
+" 現在のSourceの取得は
 " `:echo keys(neocomplete#variables#get_sources())`
 " デフォルト: ['file', 'tag', 'neosnippet', 'vim', 'dictionary',
 " 'omni', 'member', 'syntax', 'include', 'buffer', 'file/include']
@@ -48,7 +49,7 @@ endif
 " let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'ultisnips', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
 let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
 " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
-let g:neocomplete#sources.markdown = ['tag', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
+let g:neocomplete#sources.markdown = ['tag', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
 " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
 let g:neocomplete#sources.php      = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
 let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']

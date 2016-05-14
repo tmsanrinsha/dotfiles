@@ -391,10 +391,24 @@ xnoremap g0 0
 nnoremap g$ $
 xnoremap g$ $
 
+" goto file
+nnoremap gf gF
+xnoremap gf gF
+nnoremap gF gf
+xnoremap gF gf
+nnoremap <C-w>f <C-w>F
+xnoremap <C-w>f <C-w>F
+nnoremap <C-w>F <C-w>f
+xnoremap <C-w>F <C-w>f
+nnoremap <C-w>gf <C-w>gF
+xnoremap <C-w>gf <C-w>gF
+nnoremap <C-w>gF <C-w>gf
+xnoremap <C-w>gF <C-w>gf
+
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
 
-" inoremap <Leader>= <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+inoremap <A-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 
 " swap, backup, undo {{{1
 " ============================================================================
@@ -1082,14 +1096,13 @@ nnoremap <silent> [VIM]r :<C-u>new \| source $MYVIMRC \| if has('gui_running') \
 " カーソル下のキーワードを:helpで開く (:help K)
 autocmd MyVimrc FileType vim
 \   setlocal keywordprg=:help
-\|  setlocal path&
-\|  setlocal path+=$HOME/.vim/bundle
 \|  setlocal comments=:\"
 
 " vimperator {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType vimperator
 \   setlocal comments=:\"
+
 " help {{{2
 " ----------------------------------------------------------------------------
 " set helplang=en,ja
@@ -1098,7 +1111,7 @@ autocmd MyVimrc FileType help call s:setting_help()
 function! s:setting_help()
     nnoremap <buffer><silent> K <C-]>
     nnoremap <buffer><silent> q :q<CR>
-    nnoremap <buffer> ]]     /<Bar>.*<Bar><CR>
+    " nnoremap <buffer> ]]     /<Bar>.*<Bar><CR>
     nnoremap <buffer> ]<Bar> /<Bar>.*<Bar><CR>
     nnoremap <buffer> [[     ?<Bar>.*<Bar><CR>
     nnoremap <buffer> [<Bar> ?<Bar>.*<Bar><CR>
@@ -1202,12 +1215,12 @@ xnoremap <Leader>? <ESC>?\%V
 " コマンドラインモードはhttps://github.com/tmsanrinsha/vim-emacscommandline 参照
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
 
-" 元々の<C-n>,<C-p>はMで
-inoremap <M-n> <C-n>
-inoremap <M-p> <C-p>
+" inoremap <C-n> <Down>
+" inoremap <C-p> <Up>
+" " 元々の<C-n>,<C-p>はMで
+" inoremap <M-n> <C-n>
+" inoremap <M-p> <C-p>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
