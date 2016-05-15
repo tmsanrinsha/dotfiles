@@ -259,6 +259,10 @@ repo = 'jcfaria/Vim-R-plugin'
 [[plugins]]
 repo = 'sh.vim--Cla'
 
+# solidity
+[[plugins]]
+repo = 'tomlion/vim-solidity'
+
 # SQL hive
 [[plugins]]
 repo = 'autowitch/hive.vim'

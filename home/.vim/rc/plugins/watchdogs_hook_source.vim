@@ -146,9 +146,20 @@ let g:quickrun_config['watchdogs_checker/bash'] = {
 \   'errorformat': '%f:\ line\ %l:%m',
 \}
 
+" solc {{{2
+" --------------------------------------------------------------------
+let g:quickrun_config['solidity/watchdogs_checker'] = {
+\   'type': (executable('solc') ? 'watchdogs_checker/solc' : '')
+\}
+
+let g:quickrun_config['watchdogs_checker/solc'] = {
+\   'command':     'solc',
+\   'exec':        '%c %s:p',
+\   'errorformat': '%f:%l:%c: %m,%-G%.%#',
+\}
+
 " sql {{{2
 " ------------------------------------------------------------------------
-" filetypeがshでも基本的にbashを使うので、bashでチェックする
 let g:quickrun_config['sql/watchdogs_checker'] = {
 \   'type': 'watchdogs_checker/sql'
 \}
