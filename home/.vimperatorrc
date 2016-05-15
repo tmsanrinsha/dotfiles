@@ -40,9 +40,6 @@ if (liberator.has("MacUnix")) {
 liberator.execute('highlight Hint font-size:14px; color: white; background: red; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: ' + fontFamily);
 EOM
 
-" テキストボックスにフォーカスさせない
-" set focuscontent
-
 " mapping {{{1
 " ============================================================================
 let mapleader = ';'
@@ -94,6 +91,7 @@ nnoremap ZZ :restart<CR>
 
 " qmark {{{1
 " ============================================================================
+qmark b http://bookstore.yahoo.co.jp/
 qmark c https://www.google.com/calendar/
 qmark F https://www.facebook.com/
 qmark f http://finance.yahoo.co.jp/
@@ -138,8 +136,8 @@ EOF
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 
 set complete=lH
-" set defsearch=g
-" set suggestengines=g
+set defsearch=g
+set suggestengines=g
 
 nnoremap o :set complete=lH<CR>:open<Space>
 nnoremap t :set complete=lH<CR>:tabopen<Space>
@@ -158,7 +156,10 @@ let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins"
 " let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain,migemo_completion"
 " errorが出るのでmigemo_completionを削除
 let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
+
 " forcefocuscontentはタイミングが遅いのでやめる
+" テキストボックスにフォーカスさせない
+" set focuscontent
 
 " copy.js, link {{{1
 " ============================================================================
