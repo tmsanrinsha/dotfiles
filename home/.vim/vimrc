@@ -1528,8 +1528,8 @@ nnoremap [:diff:]O :windo diffoff<CR>
 nnoremap [:diff:]s :vertical diffsplit<space>
 nnoremap [:diff:]w :set diffopt+=iwhite<CR>
 nnoremap [:diff:]W :set diffopt-=iwhite<CR>
-nnoremap dP :<C-u>%diffput<CR>
-nnoremap dO :<C-u>%diffget<CR>
+nnoremap [:diff:]p :<C-u>%diffput<CR>
+nnoremap [:diff:]o :<C-u>%diffget<CR>
 xnoremap [:diff:]p :diffput<CR>
 xnoremap [:diff:]o :diffget<CR>
 
