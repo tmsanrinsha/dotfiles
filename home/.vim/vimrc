@@ -1302,8 +1302,6 @@ nnoremap <silent><C-j> :<C-u>call append(line('.'), '')<CR>j
 
 imap <silent><C-j> <End><CR>
 
-" }}}
-
 " syntax highlight, colorscheme {{{1
 " ============================================================================
 " 256色を使えるようにする
@@ -1515,4 +1513,72 @@ augroup MyVimrc
     endfunction
 augroup END
 
+" diff {{{1
+" ============================================================================
+set diffopt+=vertical
+nnoremap [:diff:] <Nop>
+nmap [:space:]d [:diff:]
+xnoremap [:diff:] <Nop>
+xmap [:space:]d [:diff:]
+nnoremap [:diff:]t :diffthis<CR>
+nnoremap [:diff:]u :diffupdate<CR>
+nnoremap [:diff:]o :diffoff<CR>
+nnoremap [:diff:]T :windo diffthis<CR>
+nnoremap [:diff:]O :windo diffoff<CR>
+nnoremap [:diff:]s :vertical diffsplit<space>
+nnoremap [:diff:]w :set diffopt+=iwhite<CR>
+nnoremap [:diff:]W :set diffopt-=iwhite<CR>
+nnoremap dP :<C-u>%diffput<CR>
+nnoremap dO :<C-u>%diffget<CR>
+xnoremap [:diff:]p :diffput<CR>
+xnoremap [:diff:]o :diffget<CR>
+
+" vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
+" ----------------------------------------------------------------------------
+" http://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3
+" https://github.com/fumiyas/home-commands/blob/master/git-diff-normal
+let s:git_diff_normal='git-diff-normal'
+" let s:git_diff_normal_opts=["--diff-algorithm=histogram"]
+" gitのバージョンが1.7だと--diff-algorithmが使えなかった
+let s:git_diff_normal_opts=['--patience']
+
+function! GitDiffNormal()
+    let args=[s:git_diff_normal]
+    if &diffopt =~# 'iwhite'
+        call add(args, '--ignore-all-space')
+    endif
+    call extend(args, s:git_diff_normal_opts)
+    call extend(args, [v:fname_in, v:fname_new])
+    let cmd=join(args, ' ') . '>' . v:fname_out
+    call system(cmd)
+endfunction
+
+autocmd MyVimrc FilterWritePre *
+\   if &diff && !exists('g:my_check_diff')
+\|      if executable(s:git_diff_normal) && executable('git')
+\|          set diffexpr=GitDiffNormal()
+\|      endif
+\|      let g:my_check_diff = 1
+\|  endif
+
+" diffchar.vim {{{2
+" ----------------------------------------------------------------------------
+" vimdiffで単語単位の差分表示: diffchar.vimが超便利 - Qiita
+" http://qiita.com/takaakikasai/items/0d617b6e0aed490dff35
+if IsInstalled('diffchar.vim')
+    let g:DiffUnit='Word3'
+    " vimdiffで起動した時にdiffcharを有効にする
+    if &diff
+        autocmd MyVimrc VimEnter * %SDChar
+    endif
+
+    " Gdiff使った時に自動的にdiffcharを有効にしたかったが、エラーが出るため断念
+    " autocmd MyVimrc BufEnter *
+    " \   if &diff |
+    " \       execute '%SDChar' |
+    " \   endif
+endif
+
+" local {{{1
+" ============================================================================
 call SourceRc('local.vim')
