@@ -93,11 +93,12 @@ nnoremap ZZ :restart<CR>
 " ============================================================================
 qmark b http://bookstore.yahoo.co.jp/
 qmark c https://www.google.com/calendar/
+qmark d https://github.com/tmsanrinsha/dotfiles
 qmark F https://www.facebook.com/
 qmark f http://finance.yahoo.co.jp/
-qmark g https://mail.google.com/
 qmark h http://b.hatena.ne.jp/tmsanrinsha/bookmark
 qmark m https://moneyforward.com/
+qmark M https://mail.google.com/
 qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
 qmark s http://sanrinsha.lolipop.jp/
