@@ -706,18 +706,18 @@ inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 
 " yank file name
-nnoremap yf :let @" = expand("%:t")<CR>
+nnoremap yf :let @" = expand("%:t") <Bar> echo 'yanked: ' . expand("%:t")<CR>
 " yank full path of file
-nnoremap yF :let @" = expand('%:p')<CR>
+nnoremap yF :let @" = expand('%:p') <Bar> echo 'yanked: ' . expand("%:p")<CR>
 " yank full path of directory
-nnoremap yd :let @" = expand('%:p:h')<CR>
+nnoremap yd :let @" = expand('%:p:h') <Bar> echo 'yanked: ' . expand("%:p:h")<CR>
 
 " copy file name
-nnoremap [:space:]yf :let @* = expand("%:t")<CR>
+nnoremap [:space:]yf :let @* = expand("%:t") <Bar> echo 'copied: ' . expand("%:t")<CR>
 " copy full path of file
-nnoremap [:space:]yF :let @* = expand('%:p')<CR>
+nnoremap [:space:]yF :let @* = expand('%:p') <Bar> echo 'copied: ' . expand("%:p")<CR>
 " copy full path of directory
-nnoremap [:space:]yd :let @* = expand('%:p:h')<CR>
+nnoremap [:space:]yd :let @* = expand('%:p:h') <Bar> echo 'copied: ' . expand("%:P:h")<CR>
 
 " Rename {{{2
 " ----------------------------------------------------------------------------
@@ -1218,9 +1218,8 @@ inoremap <C-f> <Right>
 
 " inoremap <C-n> <Down>
 " inoremap <C-p> <Up>
-" " 元々の<C-n>,<C-p>はMで
-" inoremap <M-n> <C-n>
-" inoremap <M-p> <C-p>
+inoremap <M-n> <Down>
+inoremap <M-p> <Up>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
