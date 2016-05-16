@@ -43,10 +43,22 @@ repo = 'ujihisa/neco-look'
 # vim_version = '7.3.825'
 
 [[plugins]]
+repo = 'Shougo/neoinclude.vim'
+
+[[plugins]]
 repo = 'Shougo/context_filetype.vim'
+
+# snippet {{{1
+# ============================================================================
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+# }}}
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
@@ -65,9 +77,6 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'tmsanrinsha/diffchar.vim'
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
 repo = 'sudo.vim'
@@ -131,21 +140,6 @@ repo = 'vim-jp/vital.vim'
 
 [[plugins]]
 repo = 'thinca/vim-template'
-
-# snippet {{{1
-# ============================================================================
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'honza/vim-snippets'
-# }}}
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
 
 # textobj {{{1
 # ============================================================================
@@ -297,3 +291,7 @@ repo = 'thinca/vim-ft-help_fold'
 
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
+# }}}
+
+[[plugins]]
+repo = 'epeli/slimux'
