@@ -117,5 +117,6 @@ endif
 autocmd MyVimrc FileType unite call s:unite_my_settings()
 
 function! s:unite_my_settings() "{{{
-    imap <buffer> '     <Plug>(unite_quick_match_default_action)
+    imap <buffer> '          <Plug>(unite_quick_match_default_action)
+    imap <buffer> <C-Space>  <Plug>(unite_toggle_mark_current_candidate)
 endfunction
