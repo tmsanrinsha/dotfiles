@@ -339,13 +339,13 @@ if dein#tap('unite-ghq')
     nnoremap [unite]dg :<C-u>Unite ghq<CR>
 endif
 
-" cdr {{{1
+" cdr *cdr* {{{1
 " ============================================================================
 if dein#tap('vital.vim')
     let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
     augroup cdr
         autocmd!
-        autocmd BufEnter * call s:update_cdr(expand('%:p:h'))
+        autocmd BufEnter * call s:update_cdr(GetBufferDir())
     augroup END
 
     function! s:update_cdr(dir)
