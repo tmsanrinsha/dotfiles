@@ -772,13 +772,13 @@ autocmd MyVimrc BufWritePost *
 \   call system('"'.b:git_dir.'/hooks/ctags" &') |
 \ endif
 
-" tsukkee/unite-tag {{{2
+" tsukkee/unite-tag *unite-tag* {{{2
 " ----------------------------------------------------------------------------
 nnoremap [unite]t :<C-u>Unite tag<CR>
 
-let g:unite_source_tag_max_fname_length = 1000
-let g:unite_source_tag_max_name_length = 100
-let g:unite_source_tag_strict_truncate_string = 0
+" let g:unite_source_tag_max_fname_length = 1000
+" let g:unite_source_tag_max_name_length = 100
+" let g:unite_source_tag_strict_truncate_string = 0
 
 " filetypeがjavaのとき以外
 " gitのhookで.git/tagsが生成されるように設定しておく
