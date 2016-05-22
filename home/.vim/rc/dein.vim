@@ -227,39 +227,6 @@ if dein#tap('unite.vim')
     " execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.' grep:~/Dropbox/common/memo<CR>'
     execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
 
-    " unite-grep {{{2
-    " ------------------------------------------------------------------------
-    " :h unite-source-grep
-    " grepの結果のファイル名を短くするのはこの辺を見ればできるかも
-    " :h unite#custom#profile()
-    " [:Unite file でどこにいるのかわからなくなる問題を解決する - basyura's blog](http://blog.basyura.org/entry/2013/05/08/210536)
-    if executable('ag')
-        " Use ag in unite grep source.
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_default_opts =
-        \ '-f --vimgrep --hidden --ignore ' .
-        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-        let g:unite_source_grep_recursive_opt = ''
-    elseif executable('pt')
-        " ptは複数PATH指定ができない。
-        " ptの文字コードチェックは512byteまで。
-        let g:unite_source_grep_command = 'pt'
-        let g:unite_source_grep_default_opts = '-e -S --nogroup --nocolor'
-        let g:unite_source_grep_recursive_opt = ''
-        let g:unite_source_grep_encoding = 'utf-8'
-    elseif executable('grep')
-        let g:unite_source_grep_command = 'grep'
-        let g:unite_source_grep_default_opts = '-inHE'
-        let g:unite_source_grep_recursive_opt = '-r'
-    elseif executable('jvgrep')
-        " jvgrepは遅い
-        let g:unite_source_grep_command = 'jvgrep'
-        let g:unite_source_grep_default_opts = '--color=never -i'
-        let g:unite_source_grep_recursive_opt = '-R'
-    endif
-
-    let g:unite_source_grep_max_candidates = 1000
-    " Set "-no-quit" automatically in grep unite source.
 
     nnoremap [unite]D :<C-u>Unite dein -default-action=vimfiler<CR>
 endif
