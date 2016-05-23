@@ -144,7 +144,6 @@ endif
 " }}}
 
 call SourceRc('local_pre.vim')
-" call SourceRc('neobundle.vim')
 
 " 基本設定 {{{1
 " ============================================================================
@@ -1025,7 +1024,7 @@ function! s:live_reload(dir) abort
         endif
     endif
 
-    let sub = vimproc#popen2('livereloadx -s '.a:dir)
+    let sub = vimproc#popen2('livereloadx --include ''*.md'' -s '.a:dir)
     augroup LiveReload
         execute 'autocmd LiveReload VimLeavePre * call vimproc#kill('.sub.pid.', 15)'
     augroup END
