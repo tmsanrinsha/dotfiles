@@ -54,7 +54,7 @@ if executable('ag')
     " --vimgrepは同一行の複数マッチが出てくるので-n --noheadingにする
     " -fはfollow symlinks
     let g:unite_source_grep_default_opts =
-    \ '-f -n --noheading --nocolor --hidden --ignore ' .
+    \ '-f --noheading --nocolor --hidden --ignore ' .
     \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
     let g:unite_source_grep_recursive_opt = ''
 elseif executable('pt')
