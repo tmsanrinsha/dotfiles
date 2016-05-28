@@ -9,6 +9,13 @@ smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
 \   "\<C-o>D"
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+let g:neosnippet#disable_select_mode_mappings = 1
+
+snoremap <BS>     <BS><BS>
+snoremap <BS>     <BS><BS>
+snoremap <C-h>    <BS><BS>
+snoremap <Del>    <BS><BS>
+
 autocmd MyVimrc FileType markdown
 \   inoremap <buffer> <C-k> <C-o>D
 
