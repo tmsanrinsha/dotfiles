@@ -208,6 +208,10 @@ repo = 'confluencewiki.vim'
 [[plugins]]
 repo = 'wannesm/wmgraphviz.vim'
 
+# java
+[[plugins]]
+repo = 'artur-shaik/vim-javacomplete2'
+
 # javascript
 [[plugins]]
 repo = 'pangloss/vim-javascript'

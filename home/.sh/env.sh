@@ -138,7 +138,7 @@ pathmunge $GOPATH/bin
 
 # Java {{{1
 # ============================================================================
-export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -Duser.language=en"
 
 
 # R lang {{{1

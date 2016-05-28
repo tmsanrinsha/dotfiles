@@ -110,6 +110,10 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 
 let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
+" artur-shaik/vim-javacomplete2
+autocmd MyVimrc FileType java          setlocal omnifunc=javacomplete#Complete
+let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h\w\+\)\?'
+
 
 " 日本語も補完させたい場合は
 " g:neocomplete#enable_multibyte_completionをnon-0にして

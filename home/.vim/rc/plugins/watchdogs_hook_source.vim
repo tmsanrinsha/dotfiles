@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
-let g:watchdogs_check_CursorHold_enable = 1
-" let g:watchdogs_check_BufWritePost_enable = 1
+" let g:watchdogs_check_CursorHold_enable = 1
+let g:watchdogs_check_BufWritePost_enable = 1
 
 if !exists('g:quickrun_config')
     let g:quickrun_config = {}
@@ -89,8 +89,15 @@ autocmd MyVimrc BufRead fugitive://*.mq4
 
 " java {{{2
 " ------------------------------------------------------------------------
-let g:quickrun_config['java/watchdogs_checker'] = {
-\   'type': ''
+let g:quickrun_config['watchdogs_checker/javac'] = {
+\    "command" : "javac",
+\    "exec"    : "%c -d " . (
+\                      exists('$TEMP') ? $TEMP
+\                    : exists('$TMP') ? $TMP
+\                    : exists('$TMPDIR') ? $TMPDIR
+\                    : "") .
+\                " %o %S:p",
+\    "errorformat" : '%tarning: %m,%-G%*\d error,%-G%*\d warnings,%f:%l: %trror: %m,%f:%l: %tarning: %m,%+G%.%#',
 \}
 
 " php {{{2
