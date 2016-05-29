@@ -200,6 +200,12 @@ nnoremap <Leader>yl :copy line<CR>
 nnoremap <Leader>yT :copy textile<CR>
 nnoremap <Leader>ya :copy anchor<CR>
 
+" [VimperatorからAppleScriptを実行して、WebページへのリンクをHTMLのデータとしてクリップボードに保存する - Qiita](http://qiita.com/tmsanrinsha/items/8172063e219c8fcc713e)
+nnoremap <Leader>yh :js io.system('hex="$(echo -E \'<meta charset="utf-8"><a href="' + content.document.location.href.replace(/'/g, "'\\''") + '">' + content.document.title.replace(/'/g, "'\\''") + '</a>\' | hexdump -ve \'1/1 "%.2x"\')"; osascript -e "set the clipboard to «data HTML${hex}»"')<CR>
+" メモでリンクがでない
+" nnoremap <Leader>yh :js io.system('hex="$(echo -E \'<meta charset="utf-8"><a href="' + content.document.location.href.replace(/'/g, "'\\''") + '">' + content.document.title.replace(/'/g, "'\\''") + '</a>\' | hexdump -ve \'1/1 "%.2x"\')"; osascript -e "set the clipboard to {«class HTML»:«data HTML${hex}», Unicode text:\\"' + content.document.title.replace(/"/g, '\\\\\\"') + '\\"}"')<CR>
+
+
 " feedsomekeys_3.js {{{1
 " ============================================================================
 " feedSomeKeys_3.jsでVimperatorのキーバインドの無効化するキーを設定する
@@ -232,7 +238,7 @@ command! -nargs=0 -description="Tile Tabs..." vs emenu Tile.Tile New Tab.Right
 nnoremap <C-w>s :emenu タイル.複製したタブをタイル表示.下<CR>
 nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 
-" config {{{1
+" config, set {{{1
 " ============================================================================
 " スワイプで戻る・進むにアニメーションをつける
 " coderwall.com : establishing geek cred since 1305712800
@@ -240,6 +246,9 @@ nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 set! browser.snapshots.limit=1
 " アドオンのFireGesturesを使っているときはスワイプジェスチャにチェックを入れてないと
 " スワイプ出来ない
+
+" helpを英語で見る
+" set! general.useragent.locale=en-US
 
 " frecency {{{2
 " ----------------------------------------------------------------------------
