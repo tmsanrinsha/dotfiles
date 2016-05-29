@@ -246,6 +246,15 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+# ^[C でpbcopy {{{2
+# ----------------------------------------------------------------------------
+pbcopy-buffer() {
+    echo -n "$BUFFER" | pbcopy
+    BUFFER=''
+}
+zle -N pbcopy-buffer
+bindkey "^[c" pbcopy-buffer
+
 # C-^でcdr {{{2
 # ----------------------------------------------------------------------------
 cdr-ctrl-^ () {
