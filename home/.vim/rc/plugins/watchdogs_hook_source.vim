@@ -15,6 +15,7 @@ let g:quickrun_config['watchdogs_checker/_'] = {
 \ 'hook/quickfix_status_enable/enable_exit':   1,
 \ 'hook/quickfix_status_enable/priority_exit': 2,
 \}
+
 " \ 'hook/qfstatusline_update/enable_exit':      1,
 " \ 'hook/qfstatusline_update/priority_exit':    2,
 
@@ -86,19 +87,6 @@ let g:quickrun_config["mql4/watchdogs_checker"] = {
 autocmd MyVimrc BufRead fugitive://*.mq4
 \   let b:watchdogs_checker_type = ''
 
-
-" java {{{2
-" ------------------------------------------------------------------------
-let g:quickrun_config['watchdogs_checker/javac'] = {
-\    "command" : "javac",
-\    "exec"    : "%c -d " . (
-\                      exists('$TEMP') ? $TEMP
-\                    : exists('$TMP') ? $TMP
-\                    : exists('$TMPDIR') ? $TMPDIR
-\                    : "") .
-\                " %o %S:p",
-\    "errorformat" : '%tarning: %m,%-G%*\d error,%-G%*\d warnings,%f:%l: %trror: %m,%f:%l: %tarning: %m,%+G%.%#',
-\}
 
 " php {{{2
 " ------------------------------------------------------------------------
