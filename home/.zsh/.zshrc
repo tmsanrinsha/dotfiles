@@ -246,7 +246,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# ^[C でpbcopy {{{2
+# ^[c でpbcopy {{{2
 # ----------------------------------------------------------------------------
 pbcopy-buffer() {
     echo -n "$BUFFER" | pbcopy
