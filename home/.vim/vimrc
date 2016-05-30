@@ -1538,9 +1538,9 @@ nnoremap [:diff:]s :vertical diffsplit<space>
 nnoremap [:diff:]w :set diffopt+=iwhite<CR>
 nnoremap [:diff:]W :set diffopt-=iwhite<CR>
 nnoremap [:diff:]p :<C-u>%diffput<CR>
-nnoremap [:diff:]o :<C-u>%diffget<CR>
+nnoremap [:diff:]g :<C-u>%diffget<CR>
 xnoremap [:diff:]p :diffput<CR>
-xnoremap [:diff:]o :diffget<CR>
+xnoremap [:diff:]g :diffget<CR>
 
 " vimdiffでより賢いアルゴリズム (patience, histogram) を使う - Qiita {{{2
 " ----------------------------------------------------------------------------
