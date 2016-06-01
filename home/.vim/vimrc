@@ -131,12 +131,30 @@ function! GetPassword() abort " {{{2
 endfunction
 
 command! Makelink call s:makelink() " {{{2
-function! s:makelink() abort " {{{
+function! s:makelink() abort
     let l:real_path = expand('%:p')
     let l:symlink_path = substitute(l:real_path, '.*/home', $HOME, '')
     call system('ln -s '.l:real_path.' '.l:symlink_path)
-endfunction " }}}
+endfunction
 
+command! -range=% StripWhitespace call <SID>StripWhitespace( <line1>, <line2> ) " {{{2
+" [ntpeters/vim-better-whitespace: Better whitespace highlighting for Vim](https://github.com/ntpeters/vim-better-whitespace)
+" Removes all extraneous whitespace in the file
+function! s:StripWhitespace( line1, line2 )
+    " Save the current search and cursor position
+    let _s=@/
+    let l = line('.')
+    let c = col('.')
+
+    " Strip the whitespace
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\s\+$//e'
+
+    " Restore the saved search and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+" }}}
 if has('mac') && has('kaoriya')
     set runtimepath-=$VIM/plugins/vimproc
 endif
