@@ -76,6 +76,8 @@ call neocomplete#custom#source('tag',          'rank', 360)
 call neocomplete#custom#source('syntax',       'rank', 300)
 " call neocomplete#custom#source('ultisnips',    'rank', 400)
 
+" call neocomplete#custom#source('neosnippet', 'min_pattern_length', 2)
+
 let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
 
 " Enable omni completion.
