@@ -795,6 +795,12 @@ if hash peco 2>/dev/null; then
     }
     # }}}
 fi
+
+# chef {{{1
+# ============================================================================
+if which chef 1>/dev/null 2>&1; then
+    eval "$(chef shell-int zsh)"
+fi
 # }}}
 
 if [ -f $ZDOTDIR/plugin/z.sh ]; then
