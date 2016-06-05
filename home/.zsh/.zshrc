@@ -100,6 +100,7 @@ alias -g TGZ='| gzip -dc | tar xf -'
 # ============================================================================
 # [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita](http://qiita.com/matsu_chara/items/8372616f52934c657214)
 if [ "$os" = mac ]; then
+    alias -s app='open'
     alias -s xpi='open -a Firefox'
 fi
 
