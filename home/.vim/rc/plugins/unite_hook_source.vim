@@ -35,6 +35,15 @@ call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
 call unite#custom#alias('file', 'delete', 'vimfiler__delete')
 call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
 
+" [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
+if !exists('g:unite_source_alias_aliases')
+    let g:unite_source_alias_aliases = {}
+endif
+let g:unite_source_alias_aliases['memo'] = {
+\   'source' : 'file_rec/async',
+\   'args' : g:memo_directory,
+\}
+
 call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
 
 call unite#custom#profile('source/grep', 'context',

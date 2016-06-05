@@ -206,27 +206,8 @@ if dein#tap('unite.vim')
 
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
 
-    " unite memo {{{2
-    " ------------------------------------------------------------------------
-    " nnoremap [unite]fM :<C-u>Unite memo memo2<CR>
     nnoremap [unite]fM :<C-u>Unite memo<CR>
-
-    " [unite-filters の converter を活用しよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130919/1379602932)
-    if !exists('g:unite_source_alias_aliases')
-        let g:unite_source_alias_aliases = {}
-    endif
-    let g:unite_source_alias_aliases['memo'] = {
-    \   'source' : 'file_rec/async',
-    \   'args' : g:memo_directory,
-    \}
-    " let g:unite_source_alias_aliases['memo2'] = {
-    " \   'source' : 'file_rec/async',
-    " \   'args' : expand('~/Dropbox/common/memo'),
-    " \}
-
-    " execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.' grep:~/Dropbox/common/memo<CR>'
     execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
-
 
     nnoremap [unite]D :<C-u>Unite dein -default-action=vimfiler<CR>
 endif
