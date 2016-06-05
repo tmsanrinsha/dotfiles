@@ -332,6 +332,12 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'thinca/vim-quickrun'
+on_cmd = 'QuickRun'
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vimconsole.vim']
+hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
+
+[[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
 depends = ['vim-quickrun', 'shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
 hook_source = 'source ~/.vim/rc/plugins/watchdogs_hook_source.vim'
@@ -466,6 +472,10 @@ repo = 'kannokanno/vim-helpnew'
 on_cmd = 'HelpNew'
 
 [[plugins]]
+repo = "vim-utils/vim-man"
+on_cmd = 'Man'
+
+[[plugins]]
 repo = 'tomtom/tcomment_vim'
 on_map = ['<Plug>TComment_', 'gc']
 
@@ -484,3 +494,6 @@ hook_source = '''
         \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
         \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
 '''
+
+[[plugins]]
+repo = 'epeli/slimux'

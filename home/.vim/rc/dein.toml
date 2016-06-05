@@ -114,10 +114,6 @@ augroup = 'fugitive'
 repo = 'ingo-library'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vimconsole.vim']
-
-[[plugins]]
 repo = 'osyo-manga/shabadou.vim'
 
 [[plugins]]
@@ -296,6 +292,3 @@ repo = 'thinca/vim-ft-help_fold'
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
 # }}}
-
-[[plugins]]
-repo = 'epeli/slimux'
