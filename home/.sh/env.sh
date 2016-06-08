@@ -85,9 +85,6 @@ elif [[ $OSTYPE == darwin* ]]; then
     if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
         pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
     fi
-
-    # ruby
-    export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
 
@@ -147,6 +144,15 @@ export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
 test -d $XDG_CACHE_HOME/R || mkdir -p $XDG_CACHE_HOME/R
 export R_HISTFILE="$XDG_CACHE_HOME/R/Rhistory"
 export R_HISTSIZE="5000"
+
+# ruby {{{1
+# ============================================================================
+if [ -d /usr/local/opt/ruby/bin ]; then
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+fi
+if [ -d /usr/local/lib/ruby/gems/2.3.0/gems/tmuxinator-0.8.1/bin ]; then
+    export PATH="/usr/local/lib/ruby/gems/2.3.0/gems/tmuxinator-0.8.1/bin:$PATH"
+fi
 
 # Vim {{{1
 # ============================================================================
