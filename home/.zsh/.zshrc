@@ -547,11 +547,11 @@ setopt share_history
 # share_historyをしていれば必要ない
 # http://www.ayu.ics.keio.ac.jp/~mukai/translate/zshoptions.html#SHARE_HISTORY
 
-# 端末のタイトルを変更する {{{1
+# 端末のタイトルを変更する title {{{1
 #==============================================================================
 set_terminal_title_string() {
     case "${TERM}" in
-        kterm*|xterm)
+        kterm*|xterm*)
             echo -ne "\e]2;${HOST%%.*}:${PWD}\007"
             ;;
         screen*) # tmux用
