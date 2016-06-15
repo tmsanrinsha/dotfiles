@@ -13,7 +13,7 @@ let g:neocomplete#enable_camel_case = 0
 let g:neocomplete#sources#syntax#min_syntax_length = 3
 
 " for keyword
-let g:neocomplete#auto_completion_start_length = 2
+let g:neocomplete#auto_completion_start_length = 1
 
 set pumheight=10
 " 補完候補取得に時間がかかったときにスキップ
