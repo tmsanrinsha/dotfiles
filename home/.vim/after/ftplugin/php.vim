@@ -30,7 +30,7 @@ let &l:path .= g:php_open_basedir
 setlocal includeexpr=substitute(v:fname,'^/','','')
 
 " 構文チェック
-" setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 setlocal makeprg=php\ -l\ %
 
 xnoremap <buffer> <Leader>r :QuickRun -type phpv -mode v<CR>

@@ -334,7 +334,7 @@ hook_source = '''
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 on_cmd = 'QuickRun'
-depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vimconsole.vim']
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
 hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
 
 [[plugins]]
