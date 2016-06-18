@@ -678,7 +678,7 @@ if hash peco 2>/dev/null; then
 
     function peco-ssh() {
         hosts=`_get_hosts`
-        local selected_host=$(echo $hosts | peco --prompt="ssh >" --query "$LBUFFER")
+        local selected_host=$(echo $hosts | peco --prompt="ssh>" --query "$LBUFFER")
         if [ -n "$selected_host" ]; then
             BUFFER="ssh ${selected_host}"
             zle accept-line
@@ -689,7 +689,7 @@ if hash peco 2>/dev/null; then
 
     function peco-host() {
         hosts=`_get_hosts`
-        local selected_host=$(echo $hosts | peco --prompt="host >")
+        local selected_host=$(echo $hosts | peco --prompt="host>")
         if [ -n "$selected_host" ]; then
             BUFFER="$LBUFFER${selected_host}"
         fi
@@ -725,7 +725,7 @@ if hash peco 2>/dev/null; then
             return
         fi
 
-        selected_dir="$(echo $find_result | peco --prompt="fd >" --query "$1")"
+        selected_dir="$(echo $find_result | peco --prompt="fd>" --query "$1")"
         if [ -n "$selected_dir" ]; then
             cd ${selected_dir}
         fi
@@ -740,7 +740,7 @@ if hash peco 2>/dev/null; then
             xargs -I{} ls -dl --time-style=+%s {}/.git | sed 's/.*\([0-9]\{10\}\)/\1/' | sort -nr | \
             sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             sed 's/\/.git//' | \
-            peco --prompt="cd-ghq >" --query "$LBUFFER")
+            peco --prompt="cd-ghq>" --query "$LBUFFER")
         if [ -n "$selected_dir" ]; then
             BUFFER="cd $(ghq list --full-path | grep -E "/$selected_dir$")"
             zle accept-line
@@ -756,7 +756,7 @@ if hash peco 2>/dev/null; then
             xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
             sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
             sed 's/\/.git//' | \
-            peco --prompt="cd-ghq >")
+            peco --prompt="cd-ghq>")
         if [ -n "$selected_dir" ]; then
             BUFFER="$LBUFFER $(ghq list --full-path | grep -E "/$selected_dir$")"
             CURSOR=$#BUFFER
