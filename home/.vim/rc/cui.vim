@@ -19,7 +19,7 @@ if v:version > 701
         endif
     endfor
     exec "set <M-CR>=\<Esc>\<CR>"
-    exec "set <M-C-h>=\<Esc>\<C-h>"
+    exec "set <M-C-h>=\<Esc>\<C-H>"
     exec "set <M-C-?>=\<Esc>\<C-?>"
 
     " cuiのvimで<C-Space>を使う設定 {{{2
@@ -177,7 +177,7 @@ if v:version > 603
     let &pastetoggle = "\e[201~"
 
     exec "set <F13>=\e[200~"
-    inoremap <F13> <C-o>:set paste<CR>
+    inoremap <F13> <C-O>:set paste<CR>
 endif
 
 " ウィンドウタイトルを保存・復元する {{{2

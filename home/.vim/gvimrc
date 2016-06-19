@@ -47,7 +47,7 @@ set guioptions+=A
 " Alt+でメニューをフォーカスしない
 set winaltkeys=no
 " Alt+Spaceでウィンドウのシステムメニュー
-nnoremap <silent> <M-Space> :<C-u>simalt ~<CR>
+nnoremap <silent> <M-Space> :<C-U>simalt ~<CR>
 
 " コンテキストメニューにCopy Pathと追加
 " http://d.hatena.ne.jp/tyru/20140531/add_right_click_popup_menu_for_openbrowser
@@ -69,8 +69,8 @@ if has('multi_byte_ime') || has('xim')
   "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 endif
 
-" inoremap <M-v> <C-o>:set paste<CR><C-r>*<C-o>:set nopaste<CR>
-" cnoremap <M-v> <C-r>*
+" inoremap <M-v> <C-O>:set paste<CR><C-R>*<C-O>:set nopaste<CR>
+" cnoremap <M-v> <C-R>*
 " xnoremap <M-c> "*y
 " nnoremap <M-a> ggVG
 

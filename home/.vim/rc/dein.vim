@@ -91,22 +91,22 @@ if dein#tap('unite.vim')
 
     " uniteウィンドウを閉じる
     nmap <silent> [unite]q :UniteClose
-    nnoremap <silent> <C-w>, :<C-u>call GotoWin('\[unite\]')<CR>
+    nnoremap <silent> <C-W>, :<C-U>call GotoWin('\[unite\]')<CR>
     " 前回のuniteの結果を表示する。このunite画面を終了後にカーソルが戻る位置も前回の起動した位置になってしまう
-    nnoremap [unite], :<C-u>UniteResume<CR>
+    nnoremap [unite], :<C-U>UniteResume<CR>
 
     " バッファ
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+    nnoremap <silent> [unite]b :<C-U>Unite buffer<CR>
 
     " ファイル内検索結果
-    nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+    nnoremap <silent> [unite]l :<C-U>Unite line<CR>
 
     " Unite output {{{2
     " ------------------------------------------------------------------------
     " Unite output:map {{{3
     " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
     " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
-    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=open<CR>
+    nnoremap <silent> [unite]m :<C-U>Unite output:map<Bar>map!<Bar>lmap -default-action=open<CR>
 
     " :h map-listing
     " <Space>  ノーマル、ビジュアル、選択、オペレータ待機
@@ -127,30 +127,30 @@ if dein#tap('unite.vim')
     " Unite output:message {{{3
     " [unite-messages をつくってみる - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20131030/1383144724)
     " :messagesの最後をunite.vimで表示する
-    nnoremap [unite]Om :<C-u>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
+    nnoremap [unite]Om :<C-U>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
 
     " Unite outputでruntimpathを出力する {{{3
-    nnoremap [unite]Or :<C-u>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
+    nnoremap [unite]Or :<C-U>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
 
     " Unite.vim directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
-    nnoremap [unite]dc :<C-u>Unite directory<CR>
+    nnoremap [unite]dc :<C-U>Unite directory<CR>
     " カレントバッファのディレクトリ以下
-    nnoremap [unite]d. :<C-u>execute "Unite directory:".expand('%:p:h')<CR>
-    nnoremap [unite]dd :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-    nnoremap [unite]dv :<C-u>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
-    nnoremap [unite]dV :<C-u>Unite directory:$VIM<CR>
-    nnoremap [unite]db :<C-u>Unite directory:$HOME/.vim/bundle<CR>
-    nnoremap [unite]da :<C-u>Unite directory:/Applications directory:$HOME/Applications<CR>
+    nnoremap [unite]d. :<C-U>execute "Unite directory:".expand('%:p:h')<CR>
+    nnoremap [unite]dd :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    nnoremap [unite]dv :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]dV :<C-U>Unite directory:$VIM<CR>
+    nnoremap [unite]db :<C-U>Unite directory:$HOME/.vim/bundle<CR>
+    nnoremap [unite]da :<C-U>Unite directory:/Applications directory:$HOME/Applications<CR>
 
     " Unite file(_rec) {{{2
     " ------------------------------------------------------------------------
     " プロジェクトディレクトリ以下のファイル
     " こちらのコマンドだと、カレントディレクトリがあるプロジェクトディレクトリ以下
-    " nnoremap [unite]fp :<C-u>Unite file_rec:!<CR>
+    " nnoremap [unite]fp :<C-U>Unite file_rec:!<CR>
     " こちらのコマンドだと、カレントバッファのファイルがあるプロジェクトディレクトリ以下
-    nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
+    nnoremap [unite]fp :<C-U>call <SID>unite_file_project('-start-insert')<CR>
     function! s:unite_file_project(...)
         let l:opts = (a:0 ? join(a:000, ' ') : '')
         let l:project_dir = GetProjectDir()
@@ -163,22 +163,22 @@ if dein#tap('unite.vim')
         endif
     endfunction
 
-    nnoremap [unite]f. :<C-u>execute "Unite file_rec/async:".expand('%:p:h')<CR>
-    nnoremap [unite]fv :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
-    nnoremap [unite]fV :<C-u>Unite file_rec/async:$VIM<CR>
-    nnoremap [unite]fd :<C-u>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-    execute 'nnoremap [unite]fD :<C-u>Unite file_rec/async:' . s:dein_dir . '/github.com/tmsanrinsha/dotfiles<CR>'
+    nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:".expand('%:p:h')<CR>
+    nnoremap [unite]fv :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]fV :<C-U>Unite file_rec/async:$VIM<CR>
+    nnoremap [unite]fd :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    execute 'nnoremap [unite]fD :<C-U>Unite file_rec/async:' . s:dein_dir . '/github.com/tmsanrinsha/dotfiles<CR>'
 
     " unite grep {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリに対してgrep
-    nnoremap [unite]gc :<C-u>Unite grep:.<CR>
+    nnoremap [unite]gc :<C-U>Unite grep:.<CR>
     " カレントバッファのディレクトリ以下に対してgrep
-    nnoremap [unite]g. :<C-u>execute "Unite grep:".expand('%:p:h')<CR>
+    nnoremap [unite]g. :<C-U>execute "Unite grep:".expand('%:p:h')<CR>
     " 全バッファに対してgrep
-    nnoremap [unite]gB :<C-u>Unite grep:$buffers<CR>
+    nnoremap [unite]gB :<C-U>Unite grep:$buffers<CR>
     " プロジェクト内のファイルに対してgrep
-    nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
+    nnoremap [unite]gp :<C-U>call <SID>unite_grep_project('-start-insert')<CR>
     function! s:unite_grep_project(...)
         let opts = (a:0 ? join(a:000, ' ') : '')
         let l:project_dir = GetProjectDir()
@@ -189,36 +189,36 @@ if dein#tap('unite.vim')
         endif
     endfunction
 
-    nnoremap [unite]gd :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-    execute 'nnoremap [unite]gD :<C-u>Unite grep:' . s:dein_dir . '<CR>'
-    nnoremap [unite]gv :<C-u>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
-    nnoremap [unite]gV :<C-u>Unite grep:$VIM<CR>
-    nnoremap [unite]gb :<C-u>Unite grep:$HOME/.vim/bundle<CR>
+    nnoremap [unite]gd :<C-U>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+    execute 'nnoremap [unite]gD :<C-U>Unite grep:' . s:dein_dir . '<CR>'
+    nnoremap [unite]gv :<C-U>Unite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+    nnoremap [unite]gV :<C-U>Unite grep:$VIM<CR>
+    nnoremap [unite]gb :<C-U>Unite grep:$HOME/.vim/bundle<CR>
     "}}}
 
     "レジスタ一覧
-    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap <silent> [unite]r :<C-U>Unite -buffer-name=register register<CR>
     " ヤンク履歴
     let g:unite_source_history_yank_enable = 1  "history/yankの有効化
-    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+    nnoremap <silent> [unite]y :<C-U>Unite history/yank<CR>
     " ブックマーク
-    nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
+    nnoremap <silent> [unite]B :<C-U>Unite bookmark<CR>
 
-    nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
+    nnoremap <silent> [unite]j :<C-U>Unite jump<CR>
 
-    nnoremap [unite]fM :<C-u>Unite memo<CR>
-    execute 'nnoremap [unite]gM :<C-u>Unite grep:'.g:memo_directory.'<CR>'
+    nnoremap [unite]fM :<C-U>Unite memo<CR>
+    execute 'nnoremap [unite]gM :<C-U>Unite grep:'.g:memo_directory.'<CR>'
 
-    nnoremap [unite]D :<C-u>Unite dein -default-action=vimfiler<CR>
+    nnoremap [unite]D :<C-U>Unite dein -default-action=vimfiler<CR>
 endif
 
 " neomru {{{1
 " ============================================================================
 if dein#tap('neomru.vim')
     "最近使用したファイル一覧
-    nnoremap <silent> [unite]fm :<C-u>Unite neomru/file<CR>
+    nnoremap <silent> [unite]fm :<C-U>Unite neomru/file<CR>
     "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-u>Unite neomru/directory<CR>
+    nnoremap <silent> [unite]dm :<C-U>Unite neomru/directory<CR>
 
     " ファイルが存在するかチェックしない
     " ファイルへの書き込みを60秒ごとにする
@@ -253,38 +253,38 @@ endif
 " unite-outline {{{1
 " =========================================================================
 if dein#tap('unite-outline')
-    nnoremap [unite]o<CR> :<C-u>Unite outline<CR>
-    nnoremap [unite]of :<C-u>Unite outline:folding<CR>
-    nnoremap [unite]oo :<C-u>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
+    nnoremap [unite]o<CR> :<C-U>Unite outline<CR>
+    nnoremap [unite]of :<C-U>Unite outline:folding<CR>
+    nnoremap [unite]oo :<C-U>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
 endif
 
 autocmd MyVimrc FileType yaml
-\   nnoremap <buffer> [unite]o :<C-u>Unite outline:folding<CR>
+\   nnoremap <buffer> [unite]o :<C-U>Unite outline:folding<CR>
 
 " tacroe/unite-mark {{{1
 " =========================================================================
-nnoremap [unite]` :<C-u>Unite mark<CR>
+nnoremap [unite]` :<C-U>Unite mark<CR>
 
 " neoyank.vim {{{1
 " =========================================================================
 if dein#tap('neoyank.vim')
-    nnoremap [unite]hy :<C-u>Unite history/yank<CR>
+    nnoremap [unite]hy :<C-U>Unite history/yank<CR>
     let g:neoyank#file = $VIM_CACHE_DIR.'/yankring.txt'
 endif
 
 " vim-unite-history {{{1
 " =========================================================================
 if dein#tap('vim-unite-history')
-    nnoremap [unite]hc :<C-u>Unite history/command<CR>
-    nnoremap [unite]hs :<C-u>Unite history/search<CR>
-    cnoremap <M-r> :<C-u>Unite history/command -start-insert -default-action=edit<CR>
-    inoremap <C-x>,hc <C-o>:Unite history/command -start-insert -default-action=insert<CR>
+    nnoremap [unite]hc :<C-U>Unite history/command<CR>
+    nnoremap [unite]hs :<C-U>Unite history/search<CR>
+    cnoremap <M-r> :<C-U>Unite history/command -start-insert -default-action=edit<CR>
+    inoremap <C-X>,hc <C-O>:Unite history/command -start-insert -default-action=insert<CR>
 endif
 
 " unite-ghq {{{1
 " ============================================================================
 if dein#tap('unite-ghq')
-    nnoremap [unite]dg :<C-u>Unite ghq<CR>
+    nnoremap [unite]dg :<C-U>Unite ghq<CR>
 endif
 
 " cdr *cdr* {{{1
@@ -319,7 +319,7 @@ endif
 " unite-zsh-cdr.vim {{{2
 " ----------------------------------------------------------------------------
 if dein#tap('unite-zsh-cdr.vim')
-    nnoremap [unite]dr :<C-u>Unite zsh-cdr<CR>
+    nnoremap [unite]dr :<C-U>Unite zsh-cdr<CR>
 
     let g:unite_zsh_cdr_chpwd_recent_dirs = g:recent_dirs_file
 endif
@@ -393,9 +393,9 @@ if dein#tap('vimshell.vim')
         autocmd MyVimrc FileType vimshell
             \   setlocal nonumber
             \|  setlocal nocursorline
-            \|  nmap <buffer> q <Plug>(vimshell_hide)<C-w>=
+            \|  nmap <buffer> q <Plug>(vimshell_hide)<C-W>=
             \|  imap <buffer> <M-n> <Plug>(vimshell_history_neocomplete)
-            \|  imap <buffer> <C-k> <Plug>(vimshell_zsh_complete)
+            \|  imap <buffer> <C-K> <Plug>(vimshell_zsh_complete)
             \|  call vimshell#altercmd#define('g', 'git')
             \|  call vimshell#altercmd#define('l', 'll')
             \|  call vimshell#altercmd#define('ll', 'ls -l')
@@ -407,7 +407,7 @@ if dein#tap('vimshell.vim')
         "endfunction
 
         autocmd MyVimrc FileType int-*
-            \   inoremap <buffer> <expr> <C-p> pumvisible() ? "\<C-p>" : "\<C-x>\<C-l>"
+            \   inoremap <buffer> <expr> <C-P> pumvisible() ? "\<C-P>" : "\<C-X>\<C-L>"
             " \|  execute 'setlocal filetype='.matchstr(&filetype, 'int-\zs.*')
         let g:vimshell_split_command = 'split'
     endfunction
@@ -632,17 +632,17 @@ endif
 
 " vital-coaster, CTRL-A, CTRL-X {{{1
 " ============================================================================
-" - の前に空白文字以外があれば <C-x> を、それ以外は <C-a> を呼ぶ
-" "Vim で特定の条件でのみ <C-a> でインクリメントしないようにする - Secret Garden(Instrumental":http://secret-garden.hatenablog.com/entry/2015/05/14/180752
-" -423  ←これは <C-a> される
-" d-423 ←これは <C-x> される
+" - の前に空白文字以外があれば <C-X> を、それ以外は <C-A> を呼ぶ
+" "Vim で特定の条件でのみ <C-A> でインクリメントしないようにする - Secret Garden(Instrumental":http://secret-garden.hatenablog.com/entry/2015/05/14/180752
+" -423  ←これは <C-A> される
+" d-423 ←これは <C-X> される
 
 if dein#tap('vital-coaster')
-    nmap <C-a> <Plug>(my-increment)
-    nmap <C-x> <Plug>(my-decriment)
+    nmap <C-A> <Plug>(my-increment)
+    nmap <C-X> <Plug>(my-decriment)
 
-    nnoremap <expr> <Plug>(my-increment) <SID>increment('\S-\d\+', "\<C-x>")
-    nnoremap <expr> <Plug>(my-decriment) <SID>decrement('\S-\d\+', "\<C-a>")
+    nnoremap <expr> <Plug>(my-increment) <SID>increment('\S-\d\+', "\<C-X>")
+    nnoremap <expr> <Plug>(my-decriment) <SID>decrement('\S-\d\+', "\<C-A>")
     let s:Buffer = vital#of('vital').import('Coaster.Buffer')
 
     function! s:count(pattern, then, else)
@@ -654,16 +654,16 @@ if dein#tap('vital-coaster')
         endif
     endfunction
 
-    " 第一引数に <C-a> を無視するパターンを設定
+    " 第一引数に <C-A> を無視するパターンを設定
     " 第二引数に無視した場合の代替キーを設定
     function! s:increment(ignore_pattern, ...)
         let key = get(a:, 1, '')
-        return s:count(a:ignore_pattern, key, "\<C-a>")
+        return s:count(a:ignore_pattern, key, "\<C-A>")
     endfunction
 
     function! s:decrement(ignore_pattern, ...)
         let key = get(a:, 1, '')
-        return s:count(a:ignore_pattern, key, "\<C-x>")
+        return s:count(a:ignore_pattern, key, "\<C-X>")
     endfunction
 endif
 
@@ -682,9 +682,9 @@ endif
 if dein#tap('vim-partedit')
     " let g:partedit#auto_prefix = 0
 
-    nnoremap <Leader>pe :<C-u>MyParteditContext<CR>
+    nnoremap <Leader>pe :<C-U>MyParteditContext<CR>
     xnoremap <Leader>pe :Partedit -opener split<CR>
-    nnoremap <Leader>pq :<C-u>ParteditEnd<CR>
+    nnoremap <Leader>pq :<C-U>ParteditEnd<CR>
     function! s:partedit_context()
         let context = context_filetype#get()
         let startline = context['range'][0][0] ? context['range'][0][0] : 1
@@ -709,8 +709,8 @@ endif
 
 " LeafCage/yankround.vim :paste:yank: {{{1
 " ============================================================================
-nnoremap <C-p> ]]
-nnoremap <C-n> [[
+nnoremap <C-P> ]]
+nnoremap <C-N> [[
 
 nnoremap ]p p`[v`]=
 nnoremap ]P P`[v`]=
@@ -737,8 +737,8 @@ if dein#tap('yankround.vim')
     nmap gp <Plug>(yankround-gp)
     xmap gp <Plug>(yankround-gp)
     nmap gP <Plug>(yankround-gP)
-    nmap <expr><C-p> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
-    nmap <expr><C-n> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
+    nmap <expr><C-P> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
+    nmap <expr><C-N> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
 endif
 
 " gf {{{1
@@ -760,15 +760,15 @@ if dein#tap('vim-gf-user')
     xmap [:space:]gf         <Plug>(gf-user-gf)
     nmap [:space:]gF         <Plug>(gf-user-gF)
     xmap [:space:]gF         <Plug>(gf-user-gF)
-    nmap [:space:]<C-w>f     <Plug>(gf-user-<C-w>f)
-    xmap [:space:]<C-w>f     <Plug>(gf-user-<C-w>f)
-    nmap [:space:]<C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    xmap [:space:]<C-w><C-f> <Plug>(gf-user-<C-w><C-f>)
-    nmap [:space:]<C-w>F     <Plug>(gf-user-<C-w>F)
-    xmap [:space:]<C-w>F     <Plug>(gf-user-<C-w>F)
-    nmap [:space:]<C-w>gf    <Plug>(gf-user-<C-w>gf)
-    xmap [:space:]<C-w>gf    <Plug>(gf-user-<C-w>gf)
-    nmap [:space:]<C-w>gF    <Plug>(gf-user-<C-w>gF)
+    nmap [:space:]<C-W>f     <Plug>(gf-user-<C-W>f)
+    xmap [:space:]<C-W>f     <Plug>(gf-user-<C-W>f)
+    nmap [:space:]<C-W><C-F> <Plug>(gf-user-<C-W><C-F>)
+    xmap [:space:]<C-W><C-F> <Plug>(gf-user-<C-W><C-F>)
+    nmap [:space:]<C-W>F     <Plug>(gf-user-<C-W>F)
+    xmap [:space:]<C-W>F     <Plug>(gf-user-<C-W>F)
+    nmap [:space:]<C-W>gf    <Plug>(gf-user-<C-W>gf)
+    xmap [:space:]<C-W>gf    <Plug>(gf-user-<C-W>gf)
+    nmap [:space:]<C-W>gF    <Plug>(gf-user-<C-W>gF)
 
     " カーソル下のファイル名のファイルを、現在開いているファイルと同じディレクトリに開く
     function! GfNewFile()
@@ -797,7 +797,7 @@ if dein#tap('caw.vim')
     " http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
     " 現在の行をコメントアウトして下にコピー
     nmap <Leader>cy yyPgcij
-    xmap <Leader>cy ygvgcigv<C-c>p
+    xmap <Leader>cy ygvgcigv<C-C>p
 endif
 
 " tcomment_vim {{{1

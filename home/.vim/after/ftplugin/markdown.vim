@@ -13,5 +13,5 @@ setlocal iskeyword+=-
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
 
-nmap <buffer> <expr> <C-p> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
-nmap <buffer> <expr> <C-n> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"
+nmap <buffer> <expr> <C-P> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
+nmap <buffer> <expr> <C-N> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"
