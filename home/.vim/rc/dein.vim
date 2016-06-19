@@ -90,7 +90,7 @@ if dein#tap('unite.vim')
     " augroup END
 
     " uniteウィンドウを閉じる
-    nmap <silent> [unite]q [Colon]<C-u>call GotoWin('\[unite\]')<CR><Plug>(unite_all_exit)
+    nmap <silent> [unite]q :UniteClose
     nnoremap <silent> <C-w>, :<C-u>call GotoWin('\[unite\]')<CR>
     " 前回のuniteの結果を表示する。このunite画面を終了後にカーソルが戻る位置も前回の起動した位置になってしまう
     nnoremap [unite], :<C-u>UniteResume<CR>
