@@ -38,15 +38,13 @@ function! s:action_open.func(candidates)
         silent execute 'verbose ' l:mapmode l:lhs
         redir END
 
-        echom 'verbose'
-        echom l:verbose_map
-        let l:rhs = matchstr(l:verbose_map, '\S\s\+\S\+\s\+\(\*[@ ]:\)\?:\?\zs.\{-}\ze\n')
-        echom l:rhs
-        let l:file = matchstr(l:verbose_map, 'Last set from \zs.\{-}\n')
+        let l:rhs = matchstr(l:verbose_map, '\S\s\+\S\+\s\+\(\*[@ ]\)\?:\?\zs.\+\ze\n')
+        let l:file = matchstr(l:verbose_map, 'Last set from \zs\f\+')
 
         " 割とよい
         echom 'grep ' . shellescape(escape(l:rhs, '\.*'), 1) . ' ' . escape(l:file, ' ')
-        silent execute 'grep ' . shellescape(escape(l:rhs, '\.*'), 1) . ' ' . escape(l:file, ' ')
+        " execute 'grep ' . shellescape(escape(l:rhs, '\.*'), 1) . ' ' . escape(l:file, ' ')
+        execute 'vimgrep /\V' . escape(l:rhs, '\') . '/ ' . escape(l:file, ' ')
 
         " echom 'grep ' . shellescape(escape(l:lhs, '\.*[]') . '\s\+' . escape(l:rhs, '\.*[]'), 1) . ' ' . escape(l:file, ' ')
         " verbose mapの結果は<Bar>を|、<Leader>を文字に変換してしまうので、記述と合わない場合がある
