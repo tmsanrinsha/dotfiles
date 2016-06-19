@@ -106,7 +106,7 @@ if dein#tap('unite.vim')
     " Unite output:map {{{3
     " unite-mappingではnormalのマッピングしか出ないので、すべてのマッピングを出力するようにする
     " http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
-    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=verbose<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite output:map<Bar>map!<Bar>lmap -default-action=open<CR>
 
     " :h map-listing
     " <Space>  ノーマル、ビジュアル、選択、オペレータ待機

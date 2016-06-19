@@ -17,11 +17,44 @@ let s:action_verbose_map = {
 
 function! s:action_verbose_map.func(candidates)
     for candidate in a:candidates
-        execute 'verbose map' matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+        let l:mapmode = matchstr(candidate.unite__abbr, '^\S\+') . 'map'
+        let l:lhs = matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+        execute 'verbose ' l:mapmode l:lhs
     endfor
 endfunction
 
 call unite#custom#action('source/output/*', 'verbose', s:action_verbose_map)
+
+let s:action_open = {
+\   'description' : 'open',
+\   'is_selectable' : 1,
+\}
+
+function! s:action_open.func(candidates)
+    for candidate in a:candidates
+        let l:mapmode = matchstr(candidate.unite__abbr, '^\S\+') . 'map'
+        let l:lhs = matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+        redir => l:verbose_map
+        silent execute 'verbose ' l:mapmode l:lhs
+        redir END
+
+        echom 'verbose'
+        echom l:verbose_map
+        let l:rhs = matchstr(l:verbose_map, '\S\s\+\S\+\s\+\(\*[@ ]:\)\?:\?\zs.\{-}\ze\n')
+        echom l:rhs
+        let l:file = matchstr(l:verbose_map, 'Last set from \zs.\{-}\n')
+
+        " 割とよい
+        echom 'grep ' . shellescape(escape(l:rhs, '\.*'), 1) . ' ' . escape(l:file, ' ')
+        silent execute 'grep ' . shellescape(escape(l:rhs, '\.*'), 1) . ' ' . escape(l:file, ' ')
+
+        " echom 'grep ' . shellescape(escape(l:lhs, '\.*[]') . '\s\+' . escape(l:rhs, '\.*[]'), 1) . ' ' . escape(l:file, ' ')
+        " verbose mapの結果は<Bar>を|、<Leader>を文字に変換してしまうので、記述と合わない場合がある
+        " execute 'grep ' . shellescape(escape(l:lhs, '\.*[]') . '\s\+' . escape(l:rhs, '\.*[]'), 1) . ' ' . escape(l:file, ' ')
+    endfor
+endfunction
+
+call unite#custom#action('source/output/*', 'open', s:action_open)
 
 call unite#custom_default_action('directory' , 'vimfiler')
 " vimfiler上ではvimfilerを増やさず、移動するだけ
