@@ -132,7 +132,7 @@ if dein#tap('unite.vim')
     " Unite outputでruntimpathを出力する {{{3
     nnoremap [unite]Or :<C-U>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
 
-    " Unite.vim directory {{{2
+    " Unite directory {{{2
     " ------------------------------------------------------------------------
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]dc :<C-U>Unite directory<CR>
@@ -155,12 +155,20 @@ if dein#tap('unite.vim')
         let l:opts = (a:0 ? join(a:000, ' ') : '')
         let l:project_dir = GetProjectDir()
 
+        call unite#custom#source(
+        \   'neomru/file', 'matchers',
+        \   ['matcher_project_files', 'matcher_context'])
+
         if isdirectory(l:project_dir.'/.git')
             execute 'lcd '.l:project_dir
-            execute 'Unite '.opts.' file_rec/git:--cached:--others:--exclude-standard'
+            execute 'Unite '.opts.' neomru/file file_rec/git:--cached:--others:--exclude-standard'
         else
-            execute 'Unite '.opts.' file_rec/async:'.l:project_dir
+            execute 'Unite '.opts.' neomru/file file_rec/async:'.l:project_dir
         endif
+
+        call unite#custom#source(
+        \   'neomru/file', 'matchers',
+        \   ['matcher_context'])
     endfunction
 
     nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:".expand('%:p:h')<CR>
