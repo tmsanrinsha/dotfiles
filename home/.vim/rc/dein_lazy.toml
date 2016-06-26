@@ -343,6 +343,14 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'kannokanno/vim-helpnew'
+on_cmd = 'HelpNew'
+
+[[plugins]]
+repo = "vim-utils/vim-man"
+on_cmd = 'Man'
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
 on_cmd = 'QuickRun'
 depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
@@ -477,14 +485,6 @@ hook_source = '''
 [[plugins]]
 repo = 'haya14busa/vim-asterisk'
 on_map = '<Plug>(asterisk-'
-
-[[plugins]]
-repo = 'kannokanno/vim-helpnew'
-on_cmd = 'HelpNew'
-
-[[plugins]]
-repo = "vim-utils/vim-man"
-on_cmd = 'Man'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
