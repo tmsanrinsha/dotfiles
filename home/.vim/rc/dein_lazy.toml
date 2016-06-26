@@ -138,6 +138,13 @@ on_map = '<Plug>(textobj-comment-'
 repo = 'kana/vim-smartword'
 on_map = '<Plug>'
 
+[[plugins]]
+repo = 'moll/vim-bbye'
+on_cmd = 'Bdelete'
+hook_add = '''
+    nnoremap <Leader>bd :<C-U>Bdelete<CR>
+'''
+
 # tmsanrinsha/vim-fakeclip {{{
 [[plugins]]
 repo = 'tmsanrinsha/vim-fakeclip'
