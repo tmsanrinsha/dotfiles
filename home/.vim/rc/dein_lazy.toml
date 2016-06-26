@@ -67,12 +67,16 @@ hook_source = 'source ~/.vim/rc/plugins/Conque-Shell_hook_source.vim'
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 depends = [
+    'FastFold'
     'neoinclude.vim',
     'neosnippet.vim', 'vim-snippets'
 ]
 on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/neocomplete_hook_source.vim'
 # vim_version = '7.3.825'
+
+[[plugins]]
+repo = 'Konfekt/FastFold'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'

@@ -61,9 +61,6 @@ repo = 'honza/vim-snippets'
 # }}}
 
 [[plugins]]
-repo = 'Konfekt/FastFold'
-
-[[plugins]]
 repo = 'ciaranm/detectindent'
 
 [[plugins]]
