@@ -52,6 +52,7 @@
 [prevent-push-master]
 	allow = tmsanrinsha
 	allow = heroku
+	allow = tatetate55
 
 [ghq]
 	root = ~/src
