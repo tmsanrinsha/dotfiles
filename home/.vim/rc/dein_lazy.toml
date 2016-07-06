@@ -282,6 +282,10 @@ depends = ['jedi-vim']
 on_ft = ['python', 'python3']
 
 [[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = ['ruby']
+
+[[plugins]]
 repo = 'tmsanrinsha/previm'
 on_cmd = ['PrevimOpen']
 on_ft = ['markdown']

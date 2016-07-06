@@ -111,6 +111,9 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 " が表示される
 
 let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns = {
+\   'ruby' : '[^. *\t]\.\w*\|\h\w*::',
+\}
 
 " artur-shaik/vim-javacomplete2
 autocmd MyVimrc FileType java          setlocal omnifunc=javacomplete#Complete
