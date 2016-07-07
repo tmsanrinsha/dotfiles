@@ -21,10 +21,14 @@ link:
 brew:
 	$(SETUP_DIR)brew.sh
 
+.PHONY: php
+php:
+	$(SETUP_DIR)php.sh
+
 .PHONY: R
 R:
 	R --vanilla --slave < $(SETUP_DIR)R-lang.R
 
-.PHONY: php
-php:
-	$(SETUP_DIR)php.sh
+.PHONY: ruby
+ruby:
+	$(SETUP_DIR)ruby.sh
