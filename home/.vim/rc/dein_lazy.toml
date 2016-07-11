@@ -299,12 +299,13 @@ on_ft = 'ruby'
 # https://github.com/raa0121/rcodetools
 #
 # # rsenseのvim plugin
-on_ft = ['ruby']
+# https://github.com/marcus/rsense
 
 [[plugins]]
 repo = 'tmsanrinsha/previm'
 on_cmd = ['PrevimOpen']
 on_ft = ['markdown']
+depends = 'open-browser.vim'
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
