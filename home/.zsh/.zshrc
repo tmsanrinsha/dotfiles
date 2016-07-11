@@ -185,6 +185,10 @@ bindkey '^[' vi-cmd-mode
 # bindkey '^]'  vi-find-next-char
 # bindkey '^[]' vi-find-prev-char
 
+# ^sでロックしない
+# [「Ctrl」＋「S」でキー入力が受け付けられなくなる - ITmedia エンタープライズ](http://www.itmedia.co.jp/help/tips/linux/l0612.html)
+stty stop undef
+
 # M-.を賢くする {{{2
 # ----------------------------------------------------------------------------
 # zshで直前のコマンドラインの最後の単語を挿入する
