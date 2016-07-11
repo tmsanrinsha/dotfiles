@@ -281,8 +281,24 @@ repo = 'lambdalisue/vim-pyenv'
 depends = ['jedi-vim']
 on_ft = ['python', 'python3']
 
+# ruby {{{1
+# ============================================================================
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
+on_ft = 'ruby'
+# # debug
+# let g:monster#debug#enable=1 
+# echo monster#debug#log()
+# call monster#debug#clear_log()#
+#
+# # rcodetools進んでいるリポジトリ
+# https://github.com/raa0121/rcodetools
+#
+# # rsenseのvim plugin
 on_ft = ['ruby']
 
 [[plugins]]
