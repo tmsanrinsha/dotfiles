@@ -6,6 +6,7 @@ let &l:shiftwidth = &l:tabstop
 
 setlocal textwidth=120
 setlocal colorcolumn=+1
+setlocal foldmethod=syntax
 
 " MacVIM-KaoriYa で "現在の Ruby" の libruby.dylib を動的リンクする - ドレッシングのような
 " http://d.hatena.ne.jp/mrkn/20110221/current_ruby_in_macvim_kaoriya
