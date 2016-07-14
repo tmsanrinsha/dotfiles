@@ -137,7 +137,7 @@ function! s:makelink() abort
     call system('ln -s '.l:real_path.' '.l:symlink_path)
 endfunction
 
-command! -range=% StripWhitespace call <SID>StripWhitespace( <line1>, <line2> ) " {{{2
+command! -range=% TrimTrail call <SID>TrimTrail( <line1>, <line2> ) " {{{2
 " [ntpeters/vim-better-whitespace: Better whitespace highlighting for Vim](https://github.com/ntpeters/vim-better-whitespace)
 " Removes all extraneous whitespace in the file
 function! s:StripWhitespace( line1, line2 )
