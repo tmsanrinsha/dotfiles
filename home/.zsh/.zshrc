@@ -339,9 +339,12 @@ else
     zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 fi
 
-# cdで今いるディレクトリを補完候補から外す
-# http://qiita.com/items/7916037b1384d253b457
-zstyle ':completion:*' ignore-parents parent pwd ..
+# zshのzstyleでの補完時の挙動について - voidy21の日記
+# http://voidy21.hatenablog.jp/entry/20090902/1251918174
+# カレントディレクトリに候補がないとき、cdpathのディレクトリを候補に出す
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
+# cd ../<TAB>のとき、カレントディレクトリを表示させない
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 # killで今のシェル以外のプロセスも補完する
 zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
