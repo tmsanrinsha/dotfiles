@@ -1201,7 +1201,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>730 993 445 99 -349 800 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>245 276 606 456 0 0 1280 777 </string>
+	<string>245 320 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -2030,7 +2030,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-10T12:12:54Z</date>
+	<date>2016-07-16T13:43:18Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2093,6 +2093,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.2</string>
+	<string>3.0.4</string>
 </dict>
 </plist>
