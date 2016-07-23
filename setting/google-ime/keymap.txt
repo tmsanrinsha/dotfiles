@@ -122,6 +122,7 @@ Conversion	Up	ConvertPrev
 Conversion	Ctrl b	SegmentFocusLeft
 Conversion	Ctrl Shift b	SegmentWidthShrink
 Conversion	Ctrl Shift f	SegmentWidthExpand
+Composition	Ctrl w	Cancel
 Composition	ASCII	InsertCharacter
 Composition	Hankaku/Zenkaku	IMEOff
 Composition	Kanji	IMEOff
