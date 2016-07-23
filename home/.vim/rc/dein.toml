@@ -179,6 +179,10 @@ name = 'my_molokai'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'reedes/vim-colors-pencil'
+
 # }}}
 
 [[plugins]]

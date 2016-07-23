@@ -1,3 +1,4 @@
+scriptencoding utf-8
 if has('win32')
     set guifont=Consolas:h10
     set guifontwide=MS_Gothic
@@ -5,20 +6,20 @@ elseif has('gui_macvim')
     let macvim_skip_colorscheme=1
     set guifont=Monaco:h12
     set guifontwide=Monaco
-    set transparency=15
+    set transparency=10
 endif
 
 if dein#tap('my_molokai')
     "let g:rehash256 = 1
-    set background=dark
-    colorscheme molokai-customized
+    " set background=dark
+    " colorscheme molokai-customized
 " if g:has_plugin('solarized')
-"      set background=dark
-"      " set background=light
-"      let g:solarized_degrade = 1
-"      let g:solarized_contrast = "high"
-"      let g:solarized_visibility = "high"
-"      colorscheme solarized
+     set background=light
+     " let g:solarized_termcolors=256
+     " let g:solarized_degrade = 1
+     " let g:solarized_contrast = "high"
+     " let g:solarized_visibility = "high"
+     " colorscheme solarized
 else
     colorscheme default
 endif
