@@ -122,19 +122,30 @@ if which md5 1>/dev/null 2>&1; then
 else
     md5=md5sum
 fi
-host_num=$((0x`hostname | $md5 | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
-user_num=$((0x`whoami   | $md5 | cut -c1-8` % 216 + 1))
 
-host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
-user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
+# 256色番
+# host_num=$((0x`hostname | $md5 | cut -c1-8` % 216 + 1)) # zshの配列のインデックスは1から
+# user_num=$((0x`whoami   | $md5 | cut -c1-8` % 216 + 1))
+#
+# host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
+# user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
+# host_color="%{"$'\e'"[38;5;$colArr[$host_num]m%}"
+# user_color="%{"$'\e'"[38;5;$colArr[$user_num]m%}"
+
+host_num=$((0x`hostname | $md5 | cut -c1-8` % 6 + 31)) # 31から赤
+user_num=$(((0x`(hostname; whoami) | $md5 | cut -c1-8`) % 6 + 31))
+host_color="%{"$'\e'"[${host_num}m%}"
+user_color="%{"$'\e'"[${user_num}m%}"
+
 
 reset_color=$'\e'"[0m"
 fg_yellow=$'\e'"[33m"
 fg_red=$'\e'"[31m"
+fg_white=$'\e'"[37m"
 bg_red=$'\e'"[41m"
 
 PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
-%0(?|%{$fg_yellow%}|%18(?|%{$fg_yellow%}|%{$bg_red%}))%~%(!|#|$)%{${reset_color}%} "
+%{$fg_yellow%}%~%{${reset_color}%}%0(?||%18(?|}|%{$fg_white%}%{$bg_red%}))%(!|#|$)%{${reset_color}%} "
 
 # %?: 直前のコマンドの終了ステータスコード
 # [zshの設定 - wasabi0522's blog](http://aircastle.hatenablog.com/entry/20080428/1209313162)
