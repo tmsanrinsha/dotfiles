@@ -138,6 +138,7 @@ on_map = '<Plug>(textobj-comment-'
 repo = 'kana/vim-smartword'
 on_map = '<Plug>'
 
+# bufferを閉じてもレイアウトを崩さない
 [[plugins]]
 repo = 'moll/vim-bbye'
 on_cmd = 'Bdelete'

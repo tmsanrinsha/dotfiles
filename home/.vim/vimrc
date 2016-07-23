@@ -1350,8 +1350,8 @@ if IsInstalled('my_molokai')
     colorscheme molokai-customized
 endif
 
-let g:solarized_termcolors=256
-" let g:solarized_contrast = "high"
+" let g:solarized_termcolors=256
+let g:solarized_contrast = "high"
 " colorscheme solarized
 
 " 16色の色見本
@@ -1371,7 +1371,7 @@ function! s:get_syn_id(transparent)
     endif
 endfunction
 function! s:get_syn_attr(synid)
-    let l:name = synIDattr(a:synid, "name")
+    let l:name = synIDattr(a:synid, 'name')
     let l:ctermfg = synIDattr(a:synid, 'fg', 'cterm')
     let l:ctermbg = synIDattr(a:synid, 'bg', 'cterm')
     let l:guifg = synIDattr(a:synid, 'fg', 'gui')
