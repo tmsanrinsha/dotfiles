@@ -28,11 +28,11 @@
 	# http://www.justinleegrant.com/?p=339
 	algorithm = patience
 [merge]
-	# tool = git_mergetool_vim
-[mergetool "git_mergetool_vim"]
-	# cmd = git_mergetool_vim vim $BASE $LOCAL $REMOTE $MERGED
-	# trustExitCode = true
-	# keepBackup = false
+	tool = diffconflicts
+[mergetool "diffconflicts"]
+	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = true
+	keepBackup = false
 [pager]
 	diff =
 [push]
