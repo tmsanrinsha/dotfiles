@@ -1598,9 +1598,10 @@ autocmd MyVimrc FilterWritePre *
 if IsInstalled('diffchar.vim')
     let g:DiffUnit='Word3'
     " vimdiffで起動した時にdiffcharを有効にする
-    if &diff
-        autocmd MyVimrc VimEnter * %SDChar
-    endif
+    " diffupdateした時にうまくいかない気がするのでコメントアウト
+    " if &diff
+    "     autocmd MyVimrc VimEnter * %SDChar
+    " endif
 
     " Gdiff使った時に自動的にdiffcharを有効にしたかったが、エラーが出るため断念
     " autocmd MyVimrc BufEnter *
