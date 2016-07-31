@@ -54,6 +54,7 @@ pathmungeR () {
 # シェルスクリプトなどを置くディレクトリ
 # pathmunge "$HOME/bin"
 export PATH="$HOME/bin:$PATH"
+export PATH="$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/bin:$PATH"
 # makeで作った実行ファイルなどを置くディレクトリ
 export PATH="$HOME/local/bin:$PATH"
 
