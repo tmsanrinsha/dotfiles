@@ -677,7 +677,7 @@ if hash peco 2>/dev/null; then
     zle -N peco-select-history
     bindkey '^R' peco-select-history
 
-    # host {{{2
+    # hostname {{{2
     # ------------------------------------------------------------------------
     function _get_hosts() {
         # historyを番号なし、逆順、ssh*にマッチするものを1番目から表示
@@ -709,7 +709,7 @@ if hash peco 2>/dev/null; then
         hosts=`_get_hosts`
         local selected_host=$(echo $hosts | peco --prompt="host>")
         if [ -n "$selected_host" ]; then
-            BUFFER="$LBUFFER${selected_host}"
+            BUFFER="$LBUFFER${selected_host}$RBUFFER"
         fi
     }
     zle -N peco-host
