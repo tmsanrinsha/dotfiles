@@ -60,8 +60,14 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'honza/vim-snippets'
 # }}}
 
+# indent {{{1
+# ============================================================================
 [[plugins]]
 repo = 'ciaranm/detectindent'
+
+[[plugins]]
+repo = 'tpope/vim-sleuth'
+# }}}
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
