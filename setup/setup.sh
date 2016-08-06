@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
-
 set -ex
+
+# macのcronでPATHを設定するため
+# 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
+# - http://koseki.hatenablog.com/entry/20081201/macportPath
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
 
 brew=0
 link=0
@@ -65,7 +71,7 @@ function myplug() {
 
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
-if [ command_exists lndir ]; then
+if command_exists lndir; then
   lndir $home ~
 else
   $home/bin/makelink.sh $home
