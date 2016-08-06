@@ -93,6 +93,9 @@ hook_source = 'source ~/.vim/rc/plugins/neosnippet_hook_source.vim'
 [[plugins]]
 repo = 'honza/vim-snippets'
 
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+
 # operator {{{1
 # ============================================================================
 [[plugins]]
