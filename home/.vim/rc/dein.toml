@@ -51,13 +51,7 @@ repo = 'Shougo/context_filetype.vim'
 # snippet {{{1
 # ============================================================================
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'honza/vim-snippets'
 # }}}
 
 # indent {{{1
@@ -199,23 +193,28 @@ repo = 'h1mesuke/vim-alignta'
 
 # filetype {{{1
 # ============================================================================
-# arduino
+# arduino {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = '4Evergreen4/vim-hardy'
 
-# confluence
+# confluence {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'confluencewiki.vim'
 
-# graphviz
+# graphviz {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'wannesm/wmgraphviz.vim'
 
-# java
+# java {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
 
-# javascript
+# javascript {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'pangloss/vim-javascript'
 
@@ -225,11 +224,17 @@ repo = 'jelera/vim-javascript-syntax'
 [[plugins]]
 repo = 'nono/jquery.vim'
 
-# JSON
+[[plugins]]
+repo = 'ternjs/tern_for_vim'
+build = 'npm install'
+
+# JSON {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'elzr/vim-json'
 
-# markdown
+# markdown {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 
@@ -237,51 +242,61 @@ repo = 'plasticboy/vim-markdown'
 # [[plugins]]
 # repo = 'nelstrom/vim-markdown-folding'
 
-# MQL4
+# MQL4 {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vobornik/vim-mql4'
 
-# PHP
+# PHP {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'shawncplus/phpcomplete.vim'
 
 [[plugins]]
 repo = 'StanAngeloff/php.vim'
 
-# python
+# python {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 
-# R lang
+# R lang {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'jcfaria/Vim-R-plugin'
 
-# shell
+# shell {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'sh.vim--Cla'
 
-# solidity
+# solidity {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'tomlion/vim-solidity'
 
-# SQL hive
+# SQL hive {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'autowitch/hive.vim'
 
-# tmux
+# tmux {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'zaiste/tmux.vim'
 
-# toml
+# toml {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'cespare/vim-toml'
 
-# twig
+# twig {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'evidens/vim-twig'
 
 # vim {{{2
-# ----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
 
@@ -294,8 +309,9 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
-# }}}
 
+# vimperator {{{2
+# -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
 # }}}
