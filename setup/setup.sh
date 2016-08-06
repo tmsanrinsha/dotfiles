@@ -65,7 +65,14 @@ function myplug() {
 
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
-$home/bin/makelink.sh $home
+if [ command_exists lndir ]; then
+  lndir $home ~
+else
+  $home/bin/makelink.sh $home
+fi
+
+# [ディレクトリ内のファイル1つ1つに対して一気にシンボリックリンクを作成する - Qiita](http://qiita.com/krsak/items/394850608ffe530cd6b2)
+# lndirのシェルスクリプト版がある
 
 # .gitconfigの設定 {{{2
 # ----------------------------------------------------------------------------
