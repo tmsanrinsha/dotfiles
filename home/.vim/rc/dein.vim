@@ -437,12 +437,17 @@ endif
 " neosnippet {{{1
 " ==============================================================================
 if dein#tap('neosnippet.vim')
-    " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory= [
-    \   s:dein_dir . '/repos/github.com/Shougo/neosnippet-snippets/neosnippets',
-    \   s:dein_dir . '/repos/github.com/honza/vim-snippets/snippets',
-    \   s:dein_dir . '/repos/github.com/wannesm/wmgraphviz.vim/snippets',
-    \]
+  " disables all runtime snippets
+  let g:neosnippet#disable_runtime_snippets = {
+  \   '_' : 1,
+  \ }
+
+  " Tell Neosnippet about the other snippets
+  let g:neosnippet#snippets_directory = [
+  \   $HOME . '/.vim/snippets',
+  \   s:dein_dir . '/repos/github.com/Shougo/neosnippet-snippets/neosnippets',
+  \   s:dein_dir . '/repos/github.com/honza/vim-snippets/snippets',
+  \]
 endif
 
 " SirVer/ultisnips {{{1
