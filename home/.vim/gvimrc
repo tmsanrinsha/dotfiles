@@ -12,9 +12,9 @@ endif
 if dein#tap('my_molokai')
     "let g:rehash256 = 1
     " set background=dark
-    " colorscheme molokai-customized
+    colorscheme molokai-customized
 " if g:has_plugin('solarized')
-     set background=light
+     " set background=light
      " let g:solarized_termcolors=256
      " let g:solarized_degrade = 1
      " let g:solarized_contrast = "high"
