@@ -706,11 +706,13 @@ if hash peco 2>/dev/null; then
     bindkey '^[s' peco-ssh
 
     function peco-host() {
-        hosts=`_get_hosts`
-        local selected_host=$(echo $hosts | peco --prompt="host>")
-        if [ -n "$selected_host" ]; then
-            BUFFER="$LBUFFER${selected_host}$RBUFFER"
-        fi
+      hosts=`_get_hosts`
+      local selected_host=$(echo $hosts | peco --prompt="host>")
+      local rbuffer_num=$#RBUFFER
+      if [ -n "$selected_host" ]; then
+        BUFFER="$LBUFFER${selected_host}$RBUFFER"
+        CURSOR=$(($#BUFFER - $rbuffer_num))
+      fi
     }
     zle -N peco-host
     bindkey '^[S' peco-host
@@ -751,38 +753,36 @@ if hash peco 2>/dev/null; then
 
     # ghq {{{2
     # ------------------------------------------------------------------------
+    # .gitの更新時間でソートされたghqのディレクトリを取得する
+    function _get_ghq_dir () {
+      local ghq_roots="$(git config --path --get-all ghq.root)"
+      ghq list --full-path | \
+          xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
+          sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
+          sed 's/\/.git//'
+    }
+
     function peco-ghq-cd () {
-        # Gitリポジトリを.gitの更新時間でソートする
-        local ghq_roots="$(git config --path --get-all ghq.root)"
-        local selected_dir=$(ghq list --full-path | \
-            xargs -I{} ls -l --time-style=+%s {}/.git/index | sed 's/.*\([0-9]\{10\}\)/\1/' | sort -nr | \
-            sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
-            sed 's/\/.git\/index//' | \
-            peco --prompt="cd-ghq>" --query "$LBUFFER")
-        if [ -n "$selected_dir" ]; then
-            BUFFER="cd $(ghq list --full-path | grep -E "/$selected_dir$")"
-            zle accept-line
-        fi
+      # Gitリポジトリを.gitの更新時間でソートする
+      local selected_dir=$(_get_ghq_dir | peco --prompt="cd-ghq>" --query "$LBUFFER")
+      if [ -n "$selected_dir" ]; then
+        BUFFER="cd $(ghq list --full-path | grep -E "/$selected_dir$")"
+        zle accept-line
+      fi
     }
     zle -N peco-ghq-cd
     bindkey '^[g' peco-ghq-cd
 
-    function peco_ghq () {
-        # Gitリポジトリを.gitの更新時間でソートする
-        local ghq_roots="$(git config --path --get-all ghq.root)"
-        local selected_dir=$(ghq list --full-path | \
-            xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
-            sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
-            sed 's/\/.git//' | \
-            peco --prompt="cd-ghq>")
+    function peco-ghq () {
+        local selected_dir=$(_get_ghq_dir| peco --prompt="ghq>")
+        local rbuffer_num=$#RBUFFER
         if [ -n "$selected_dir" ]; then
-            BUFFER="$LBUFFER $(ghq list --full-path | grep -E "/$selected_dir$")"
-            CURSOR=$#BUFFER
+          BUFFER="${LBUFFER}$(ghq list --full-path | grep -E "/$selected_dir$")${RBUFFER}"
+          CURSOR=$(($#BUFFER - $rbuffer_num))
         fi
     }
-    zle -N peco_ghq
-    bindkey '^xg' peco_ghq
-
+    zle -N peco-ghq
+    bindkey '^[G' peco-ghq
 
     # grepしてvimで開く {{{2
     # ------------------------------------------------------------------------
