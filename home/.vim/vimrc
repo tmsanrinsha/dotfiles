@@ -441,8 +441,9 @@ inoremap <A-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " swap, backup, undo {{{1
 " ============================================================================
 " updatetimeを短くして、CursorHoldに使うので
-" swap fileがupdatetimeごとに作成されないようにする
-set swapfile
+" swap fileがupdatetimeごと頻繁に作成されないようにnoswapfileにする
+" vimfilerを使っているとnoswapfileに設定される
+set noswapfile
 "" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 ""   set directory&
 ""   set directory-=~/tmp
