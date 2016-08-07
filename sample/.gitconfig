@@ -14,6 +14,20 @@
 	resolve-merge-lower = !git checkout --ours . && git add . && git commit
 	resolve-rebase-ours = !git checkout --ours . && git add . && git rebase --continue
 	resolve-rebase-theirs = !git checkout --theirs . && git add . && git rebse --continue
+
+	# [Keep your git directory clean with `git clean` and `git trash`](https://coderwall.com/p/g16jpq/keep-your-git-directory-clean-with-git-clean-and-git-trash)
+	# git option
+	#   --others
+	#     Show other (i.e. untracked) files in the output
+	#   --exclude-standard
+	#     Add the standard Git exclusions: .git/info/exclude, .gitignore in each directory, and the user's global exclusion file.
+	#   -t
+	# mv option
+	#   -f
+	#     do not prompt before overwriting
+	#   -t
+	#     move all SOURCE arguments into DIRECTORY
+	trash = !mkdir -p .trash && git ls-files --others --exclude-standard | xargs mv -f -t .trash
 [color]
 	ui = auto
 [core]
