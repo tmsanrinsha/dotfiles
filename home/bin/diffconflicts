@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# - A better Vimdiff Git mergetool - Vim Tips Wiki - Wikia
+#   http://vim.wikia.com/wiki/A_better_Vimdiff_Git_mergetool
+# - git mergetoolでvimdiffを便利に使う - haya14busa
+#   http://haya14busa.com/git-mergetool-vimdiff/
+#
+#
 # A better vimdiff mergetool for Git
 #
 # Git does a great job resolving merge conflicts automatically but there are
