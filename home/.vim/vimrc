@@ -443,7 +443,7 @@ inoremap <A-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 " updatetimeを短くして、CursorHoldに使うので
 " swap fileがupdatetimeごと頻繁に作成されないようにnoswapfileにする
 " vimfilerを使っているとnoswapfileに設定される
-set noswapfile
+" set noswapfile
 "" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
 ""   set directory&
 ""   set directory-=~/tmp
@@ -451,7 +451,8 @@ set noswapfile
 ""   if has('win32') || has('mac')
 ""       set noswapfile
 ""   endif
-
+" 個人的に便利だと思うVimの基本設定のランキングを発表します！ - プログラムモグモグ
+" http://itchyny.hatenablog.com/entry/2014/12/25/090000
 " FreeBSD, Macでcrontab -eしたときに
 "   crontab: temp file must be edited in place
 " というエラーが出てcrontabが更新されないときの対策
@@ -1501,7 +1502,7 @@ doautocmd ColorScheme
 " 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
 " <http://d.hatena.ne.jp/thinca/20090530/1243615055>
 set updatetime=100
-set noswapfile " updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
+" set noswapfile " updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 augroup MyVimrc
     " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
     " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
