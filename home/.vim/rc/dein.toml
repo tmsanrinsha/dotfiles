@@ -59,8 +59,9 @@ repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'ciaranm/detectindent'
 
-[[plugins]]
-repo = 'tpope/vim-sleuth'
+# 重い
+# [[plugins]]
+# repo = 'tpope/vim-sleuth'
 # }}}
 
 [[plugins]]
