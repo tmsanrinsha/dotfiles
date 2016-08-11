@@ -106,7 +106,7 @@ qmark t https://twitter.com/
 qmark T http://tv.yahoo.co.jp/listings/realtime/
 qmark y http://www.yahoo.co.jp/
 
-" bmark
+" bmark {{{1
 " ============================================================================
 bmark -folder search -keyword alc -title 検索:アルク                 http://eow.alc.co.jp/search?q=%s
 bmark -folder search -keyword y   -title 検索:Yahoo!ウェブ検索       http://search.yahoo.co.jp/search?ei=UTF-8&p=%s
