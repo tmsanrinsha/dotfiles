@@ -757,7 +757,7 @@ if hash peco 2>/dev/null; then
     function _get_ghq_dir () {
       local ghq_roots="$(git config --path --get-all ghq.root)"
       ghq list --full-path | \
-          xargs -I{} ls -dl --time-style=+%s {}/.git | sort -nr -k6 | \
+          xargs -I{} ls -dl --time-style=+%s {}/.git | sed 's/.*\([0-9]\{10\}\)/\1/' | sort -nr | \
           sed "s,.*\(${ghq_roots/$'\n'/\|}\)/,," | \
           sed 's/\/.git//'
     }
