@@ -26,7 +26,8 @@ let g:quickrun_config['watchdogs_checker/_'] = {
 let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
 
 " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
-let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+" 開かないと気づかないので開く？ステータスラインでどうにかする？
+let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'copen'
 " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
 " windo HierUpdateなどを行う
 
