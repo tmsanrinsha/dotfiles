@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " key setting {{{1
 " ============================================================================
 if v:version > 701
@@ -15,12 +16,12 @@ if v:version > 701
             "set <M-P>=\<Esc>P  \ePは制御シーケンスで使用するためsetしない
             "set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
         else
-            exec "set <M-".c.">=\<Esc>".c
+            exec 'set <M-'.c.'>=\<Esc>'.c
         endif
     endfor
-    exec "set <M-CR>=\<Esc>\<CR>"
-    exec "set <M-C-h>=\<Esc>\<C-H>"
-    exec "set <M-C-?>=\<Esc>\<C-?>"
+    exec 'set <M-CR>=\<Esc>\<CR>'
+    exec 'set <M-C-h>=\<Esc>\<C-H>'
+    exec 'set <M-C-?>=\<Esc>\<C-?>'
 
     " cuiのvimで<C-Space>を使う設定 {{{2
     " ------------------------------------------------------------------------
@@ -31,10 +32,12 @@ if v:version > 701
 
     " cuiでShift+カーソルキーを使う設定{{{2
     " ------------------------------------------------------------------------
-    set <S-Left>=[1;2D
-    set <S-Right>=[1;2C
-    set <S-Up>=[1;2A
-    set <S-Down>=[1;2B
+    " \<Esc>が使えない？
+    " executeを書かないと、vintでひっかかる
+    execute 'set <S-Left>=[1;2D'
+    execute 'set <S-Right>=[1;2C'
+    execute 'set <S-Up>=[1;2A'
+    execute 'set <S-Down>=[1;2B'
 
     " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック {{{2
     " ------------------------------------------------------------------------
@@ -45,7 +48,7 @@ if v:version > 701
     function! <SID>MapFastKeycode(key, keycode)
         if s:fast_i == 46
             echohl WarningMsg
-            echomsg "Unable to map ".a:key.": out of spare keycodes"
+            echomsg 'Unable to map '.a:key.': out of spare keycodes'
             echohl None
             return
         endif
@@ -56,8 +59,8 @@ if v:version > 701
     endfunction
     let s:fast_i = 0
 
-    call <SID>MapFastKeycode('<C-Tab>', "[27;5;9~")
-    call <SID>MapFastKeycode('<S-C-Tab>', "[27;6;9~")
+    call <SID>MapFastKeycode('<C-Tab>', '[27;5;9~')
+    call <SID>MapFastKeycode('<S-C-Tab>', '[27;6;9~')
 endif
 
 " clipboard {{{1
@@ -65,7 +68,7 @@ endif
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 function! s:Paste64Copy() range
     let l:tmp = @"
-    silent normal gvy
+    silent normal! gvy
     let l:selected = @"
     let @" = l:tmp
     let l:i = 0
@@ -140,7 +143,7 @@ endif
 " ----------------------------------------------------------------------------
 " [「vim からの制御シーケンスの使用例」をScreen上でも使えるようにする | SanRin舎](http://sanrinsha.lolipop.jp/blog/2011/11/%E3%80%8Cvim-%E3%81%8B%E3%82%89%E3%81%AE%E5%88%B6%E5%BE%A1%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E3%81%AE%E4%BD%BF%E7%94%A8%E4%BE%8B%E3%80%8D%E3%82%92screen%E4%B8%8A%E3%81%A7%E3%82%82%E4%BD%BF.html)
 if v:version > 603
-    if &term =~ 'screen' || &term =~ 'xterm'
+    if &term =~? 'screen' || &term =~? 'xterm'
         " for tmux and xterm
         " let &t_SI .= "\e[5 q" 縦線点滅
         let &t_SI .= "\e[6 q" " 縦線点灯
@@ -159,7 +162,7 @@ endif
 " 自動的にpasteモードに切り替え、終了後に戻す
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
 if v:version > 603
-    if &term =~ "screen"
+    if &term =~? 'screen'
         " for tmux >= 1.7
         let &t_SI = &t_SI."\e[?2004h"
         let &t_EI = "\e[?2004l".&t_EI
@@ -169,7 +172,7 @@ if v:version > 603
         "for screen
         " let &t_SI = &t_SI."\eP\e[?2004h\e\\"
         " let &t_EI = "\eP\e[?2004l\e\\".&t_EI
-    elseif &term =~ "xterm"
+    elseif &term =~? 'xterm'
         " for xterm
         let &t_SI = &t_SI."\e[?2004h"
         let &t_EI = "\e[?2004l".&t_EI

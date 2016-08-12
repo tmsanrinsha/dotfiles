@@ -445,6 +445,7 @@ if dein#tap('neosnippet.vim')
   \ }
 
   " Tell Neosnippet about the other snippets
+  " 同じ名前のスニペットがあった時、上書きはされない
   let g:neosnippet#snippets_directory = [
   \   $HOME . '/.vim/snippets',
   \   s:dein_dir . '/repos/github.com/Shougo/neosnippet-snippets/neosnippets',
@@ -524,7 +525,7 @@ endfunction
 " qfsigns {{{1
 " ============================================================================
 " let g:qfsigns#AutoJump = 1
-let g:qfsigns#Config = {"id": '5050', 'name': 'qfsign'}
+let g:qfsigns#Config = {'id': '5050', 'name': 'qfsign'}
 sign define qfsign texthl=SignColumn text=>>
 
 " quickfixsign_vim {{{1
@@ -1195,7 +1196,7 @@ if dein#tap('vim-fugitive')
 
     " Gbrowse ではgit config --global web.browserの値は見てない
     " ~/.vim/bundle/vim-fugitive/plugin/fugitive.vim
-    if !has('gui_running') && $SSH_CLIENT != ''
+    if !has('gui_running') && $SSH_CLIENT !=# ''
         let g:netrw_browsex_viewer = 'rfbrowser'
     endif
 
@@ -1419,7 +1420,7 @@ autocmd MyVimrc FileType quickrun AnsiEsc
 
 " rainbow {{{1
 " ============================================================================
-if dein#tap("rainbow")
+if dein#tap('rainbow')
     let g:rainbow_active = 1
     let g:rainbow_conf = {
     \    'guifgs':   ['#FA248F', '#FA8F24', '#8FFA24', '#24FA8F', '#248FFA', '#8F24FA', '#FA2424', '#FAFA24', '#24FA24', '#24FAFA', '#2424FA', '#FA24FA'],
