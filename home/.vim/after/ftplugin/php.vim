@@ -46,5 +46,3 @@ autocmd MyVimrc FileType php.phpunit
 \|  nnoremap <buffer> <Leader>rcD :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h')<CR>
 \|  nnoremap <buffer> <Leader>rcp :<C-U>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' GetProjectDir()<CR>
 \|  nnoremap <buffer> <Leader>rcP :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h') GetProjectDir()<CR>
-
-setlocal omnifunc=phpcomplete#CompletePHP

@@ -1,21 +1,26 @@
 scriptencoding utf-8
 
-autocmd BufRead,BufNewFile *Test.php setlocal filetype=php.phpunit
-autocmd BufRead,BufNewFile *.md setlocal filetype=markdown
-" autocmd BufRead,BufNewFile *.Rmd setlocal filetype=markdown.rmd
-autocmd BufRead,BufNewFile *.csv setlocal filetype=csv
-autocmd BufRead,BufNewFile *.tsv setlocal filetype=tsv
+augroup MyVimrc
+    " PHP
+    autocmd BufRead,BufNewFile *Test.php setlocal filetype=php.phpunit
+    autocmd BufRead,BufNewFile composer.json setlocal filetype=composer.json
 
-autocmd BufRead            sanrinsha*,qiita.com_drafts_* setlocal filetype=markdown
+    autocmd BufRead,BufNewFile *.md setlocal filetype=markdown
+    " autocmd BufRead,BufNewFile *.Rmd setlocal filetype=markdown.rmd
+    autocmd BufRead,BufNewFile *.csv setlocal filetype=csv
+    autocmd BufRead,BufNewFile *.tsv setlocal filetype=tsv
 
-" MySQLのEditorの設定
-" http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
-autocmd BufRead            /var/tmp/sql* setlocal filetype=sql
+    autocmd BufRead            sanrinsha*,qiita.com_drafts_* setlocal filetype=markdown
 
-autocmd BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
+    " MySQLのEditorの設定
+    " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
+    autocmd BufRead            /var/tmp/sql* setlocal filetype=sql
 
-" *.htmlのファイルの1行目に<?phpがあるときにfiletypeをphpにする
-autocmd BufRead,BufNewFile *.html
-\   if getline(1) =~ '<?php'
-\|      setlocal filetype=php
-\|  endif
+    autocmd BufRead,BufNewFile *apache*/*.conf setlocal filetype=apache
+
+    " *.htmlのファイルの1行目に<?phpがあるときにfiletypeをphpにする
+    autocmd BufRead,BufNewFile *.html
+    \   if getline(1) =~ '<?php'
+    \|      setlocal filetype=php
+    \|  endif
+augroup END

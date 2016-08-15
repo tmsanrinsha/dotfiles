@@ -271,10 +271,25 @@ repo = 'maksimr/vim-jsbeautify'
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
 
+# PHP {{{1
+# ============================================================================
+[[plugins]]
+repo = 'mkusher/padawan.vim'
+if = '$PHP55'
+on_ft = 'php'
+hook_source = '''
+let g:padawan#composer_command = 'composer'
+let g:padawan#timeout = 0.3
+'''
+# [does not obey @property dockblock · Issue #26 · mkusher/padawan.php](https://github.com/mkusher/padawan.php/issues/26)
+# [Completion scopes and built\-in php functions by mkusher · Pull Request \#14 · mkusher/padawan\.php](https://github.com/mkusher/padawan.php/pull/14#event-612270301)
+
 [[plugins]]
 repo = 'stephpy/vim-php-cs-fixer'
-on_ft = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
+on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
+# Python {{{1
+# ============================================================================
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']

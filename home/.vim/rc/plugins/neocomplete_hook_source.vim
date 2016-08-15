@@ -85,13 +85,13 @@ augroup MyVimrc
     autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType javascript    setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 " let g:neocomplete#sources#omni#functions.sql =
 " \ 'sqlcomplete#Complete'
 
-" Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
@@ -110,13 +110,24 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
 " が表示される
 
-let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplete#sources#omni#input_patterns = {
-\   'ruby' : '[^. *\t]\.\w*\|\h\w*::',
-\}
+" PHP
+" for phpcomplete
+if dein#tap('padawan.vim')
+    " for padawan
+    let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
+    " let g:neocomplete#force_omni_input_patterns.php = '[^- \t]->\w*'
+else
+    let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+endif
+
+" R
+let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\\$]\+'
+let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
+
+" Ruby
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " artur-shaik/vim-javacomplete2
-autocmd MyVimrc FileType java          setlocal omnifunc=javacomplete#Complete
 let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h\w\+\)\?'
 
 

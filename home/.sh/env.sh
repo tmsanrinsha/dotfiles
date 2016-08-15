@@ -59,8 +59,6 @@ export PATH="$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/bin:$PATH"
 # makeで作った実行ファイルなどを置くディレクトリ
 export PATH="$HOME/local/bin:$PATH"
 
-pathmunge "$HOME/.composer/vendor/bin"
-
 pathmungeR "$HOME/script/common"
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmungeR "$HOME/script/pseudo" after
@@ -144,6 +142,12 @@ export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -Duser.language=en"
 if command_exists npm; then
   export PATH="$(npm bin):$PATH"
 fi
+
+# PHP {{{1
+# ============================================================================
+pathmunge "$HOME/.composer/vendor/bin"
+# export PHP55=`php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");' 2>/dev/null`
+export PHP55=0
 
 # R lang {{{1
 # ============================================================================

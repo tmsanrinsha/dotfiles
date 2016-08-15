@@ -252,6 +252,7 @@ repo = 'vobornik/vim-mql4'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'shawncplus/phpcomplete.vim'
+if = '!$PHP55'
 
 [[plugins]]
 repo = 'StanAngeloff/php.vim'

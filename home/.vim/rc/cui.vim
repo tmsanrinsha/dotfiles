@@ -5,6 +5,8 @@ if v:version > 701
     " :h terminal-info
     " cuiのvimでaltを使う設定 {{{2
     " ------------------------------------------------------------------------
+    " このプラグインを使ってもいいかも
+    " [vim-utils/vim-alt-mappings: (experimental!) Enables ALT key mappings in terminal vim](https://github.com/vim-utils/vim-alt-mappings)
     for i in range(32,126)
         let c = nr2char(i)
         if c ==# '|'
@@ -16,12 +18,13 @@ if v:version > 701
             "set <M-P>=\<Esc>P  \ePは制御シーケンスで使用するためsetしない
             "set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
         else
-            exec 'set <M-'.c.'>=\<Esc>'.c
+            " シングルクォートだとと\<Esc>が文字列になってしまう
+            exec "set <M-".c.">=\<Esc>".c
         endif
     endfor
-    exec 'set <M-CR>=\<Esc>\<CR>'
-    exec 'set <M-C-h>=\<Esc>\<C-H>'
-    exec 'set <M-C-?>=\<Esc>\<C-?>'
+    exec "set <M-CR>=\<Esc>\<CR>"
+    exec "set <M-C-h>=\<Esc>\<C-H>"
+    exec "set <M-C-?>=\<Esc>\<C-?>"
 
     " cuiのvimで<C-Space>を使う設定 {{{2
     " ------------------------------------------------------------------------
@@ -32,12 +35,11 @@ if v:version > 701
 
     " cuiでShift+カーソルキーを使う設定{{{2
     " ------------------------------------------------------------------------
-    " \<Esc>が使えない？
     " executeを書かないと、vintでひっかかる
-    execute 'set <S-Left>=[1;2D'
-    execute 'set <S-Right>=[1;2C'
-    execute 'set <S-Up>=[1;2A'
-    execute 'set <S-Down>=[1;2B'
+    execute "set <S-Left>=\<Esc>[1;2D"
+    execute "set <S-Right>=\<Esc>[1;2C"
+    execute "set <S-Up>=\<Esc>[1;2A"
+    execute "set <S-Down>=\<Esc>[1;2B"
 
     " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック {{{2
     " ------------------------------------------------------------------------

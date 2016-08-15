@@ -1073,16 +1073,6 @@ autocmd MyVimrc FileType r
 " にする。最後の括弧がにならない
 " let r_indent_align_args = 0
 
-if dein#tap('neocomplete.vim')
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    if !exists('g:neocomplete#sources#omni#functions')
-        let g:neocomplete#sources#omni#functions = {}
-    endif
-    let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\\$]\+'
-    let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
-endif
 
 " autowitch/hive.vim {{{1
 " ============================================================================
