@@ -70,10 +70,10 @@
 [prevent-push-master]
 	allow = tmsanrinsha
 	allow = heroku
-	allow = tatetate55
 
 [ghq]
 	root = ~/src
+	root = ~/go/src
 
 [include]
 	# 環境ごとに違う設定は別ファイルでやる
