@@ -143,6 +143,13 @@ if command_exists npm; then
   export PATH="$(npm bin):$PATH"
 fi
 
+# Perl {{{1
+# ============================================================================
+if command_exists perl; then
+    # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
+    alias perl-pm-list="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
+fi
+
 # PHP {{{1
 # ============================================================================
 pathmunge "$HOME/.composer/vendor/bin"
