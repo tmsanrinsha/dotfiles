@@ -154,12 +154,38 @@ function! s:StripWhitespace( line1, line2 )
     call cursor(l, c)
 endfunction
 
-" }}}
+" from以下でファイルの保存したら、to以下にディレクトリ構成を保ってコピーする {{{2
+" ----------------------------------------------------------------------------
+function! SetAutocmdSyncSaveDir(sync_save_dir_list) abort
+    for sync_save_dir in a:sync_save_dir_list
+        if len(glob(sync_save_dir['glob'])) == 0
+            echoerr 'no match glob'
+        endif
+
+        execute 'autocmd MyVimrc BufWritePost ' . sync_save_dir['glob']
+        \   . ' call s:syncSaveDir("' . sync_save_dir['from'] . '", "' . sync_save_dir['to'] . '")'
+    endfor
+endfunction
+
+function! s:syncSaveDir(from, to)
+    let l:current_file = expand('%:p')
+    " カレントファイルのフルパスのfrom部分をtoに置換する。
+    " バックスラッシュをエスケープする必要あり
+    let l:target_file = substitute(l:current_file, escape(a:from, '\'), a:to , '')
+    let l:target_dir = fnamemodify(l:target_file, ':h')
+
+    if !isdirectory(l:target_dir)
+        call mkdir(l:target_dir, 'p')
+    endif
+
+    call writefile(readfile(l:current_file, 'b'), l:target_file, 'b')
+endfunction
+" }}}2
+" }}}1
+
 if has('mac') && has('kaoriya')
     set runtimepath-=$VIM/plugins/vimproc
 endif
-" }}}
-" }}}
 
 call SourceRc('local_pre.vim')
 

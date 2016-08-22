@@ -1453,12 +1453,21 @@ if dein#tap('junkfile.vim')
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
 
+" repo以下のautoloadを保存したら.dein以下にコピーする {{{1
+" ============================================================================
+" dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
+" repo以下を編集・保存したら.dein以下にコピーするようにする
+let s:sync_save_dir_list = [
+\    {
+\      'glob' : s:dein_dir . '/repos/**/autoload/**/*.vim',
+\      'from' : s:dein_dir . '/repos/.*/autoload',
+\      'to'   : s:dein_dir . '/.dein/autoload',
+\    }
+\]
 
+call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
-
-
-finish " {{{1
-
+finish " backup {{{1
 " eclim {{{2
 if dein#tap('eclim')
 
