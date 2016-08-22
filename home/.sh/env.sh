@@ -130,7 +130,11 @@ export SRC_ROOT=$HOME/src
 
 # Go language {{{1
 # ============================================================================
-export GOPATH=$HOME/.go
+# MacでGoをパッケージからインストールした時用
+if [ -d /usr/local/go/bin ]; then
+    export PATH="/usr/local/go/bin:$PATH"
+fi
+export GOPATH=$HOME/go
 pathmunge $GOPATH/bin
 
 # Java {{{1
