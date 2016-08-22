@@ -12,6 +12,7 @@ build = 'make'
 
 [[plugins]]
 repo = 'tmsanrinsha/unite-ghq'
+build = "ln -s `pwd`/bin/ghq-list.sh ~/bin"
 
 [[plugins]]
 repo = 'thinca/vim-unite-history'
