@@ -886,7 +886,7 @@ autocmd MyVimrc BufReadPost *
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
 
-" Quickfix {{{1
+" quickfix, make {{{1
 " ============================================================================
 nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>
@@ -1502,7 +1502,9 @@ doautocmd ColorScheme
 " 'cursorline' を必要な時にだけ有効にする - 永遠に未完成
 " <http://d.hatena.ne.jp/thinca/20090530/1243615055>
 set updatetime=100
-" set noswapfile " updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
+" updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
+" あとswapファイルが度々作られて、表示がでるのがいやなのでnoswapにする
+set noswapfile
 augroup MyVimrc
     " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
     " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
