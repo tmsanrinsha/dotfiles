@@ -271,6 +271,11 @@ repo = 'maksimr/vim-jsbeautify'
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
 
+# Go lang {{{1
+# ============================================================================
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
 # PHP {{{1
 # ============================================================================
 [[plugins]]

@@ -27,7 +27,8 @@ let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_dat
 
 " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
 " 開かないと気づかないので開く？ステータスラインでどうにかする？
-let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'copen'
+let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'copen'
 " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
 " windo HierUpdateなどを行う
 
@@ -59,6 +60,25 @@ let g:quickrun_config["watchdogs_checker/g++"] = {
 \   "command"   : "g++",
 \   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
 \   "outputter" : "quickfix",
+\}
+
+" Go lang {{{2
+" ------------
+" vim-goでやるので、typeの設定を外しておく
+let g:quickrun_config['go/watchdogs_checker'] = {
+\   'type': ''
+\}
+
+" let g:quickrun_config['go/watchdogs_checker'] = {
+" \   'type'
+" \       : executable('gometalinter') ? 'watchdogs_checker/gometalinter'
+" \       : ''
+" \}
+"
+let g:quickrun_config['watchdogs_checker/gometalinter'] = {
+\   'command' : 'gometalinter',
+\   'exec'    : '%c --disable-all --enable=vet --enable=golint --enable=errcheck %s:p:h',
+\   'errorformat' : '%f:%l:%c:%t%*[^:]: %m,%-G%.%#',
 \}
 
 " mql {{{2
