@@ -8,7 +8,7 @@ call unite#custom#profile('default', 'context', {
 \   'prompt': '> ',
 \ })
 
-autocmd MyVimrc FileType * call s:change_defult_action_for_directory()
+autocmd MyVimrc BufEnter * call s:change_defult_action_for_directory()
 
 
 function! s:change_defult_action_for_directory() abort
