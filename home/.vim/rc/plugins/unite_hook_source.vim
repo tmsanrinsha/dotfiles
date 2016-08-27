@@ -8,10 +8,18 @@ call unite#custom#profile('default', 'context', {
 \   'prompt': '> ',
 \ })
 
-call unite#custom_default_action('directory' , 'vimfiler')
-" vimfiler上ではvimfilerを増やさず、移動するだけ
-" autocmd MyVimrc FileType vimfiler
-" \   call unite#custom_default_action('directory', 'lcd')
+autocmd MyVimrc FileType * call s:change_defult_action_for_directory()
+
+
+function! s:change_defult_action_for_directory() abort
+    if &filetype ==# 'vimfiler'
+        call unite#custom_default_action('directory', 'lcd')
+    elseif &filetype ==# 'unite'
+        return
+    else
+        call unite#custom_default_action('directory', 'vimfiler')
+    endif
+endfunction
 
 call unite#custom_default_action('source/directory/directory' , 'vimfiler')
 call unite#custom_default_action('source/directory_mru/directory' , 'vimfiler')
