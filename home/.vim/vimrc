@@ -462,7 +462,10 @@ xnoremap <C-w>gF <C-w>gf
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
 
-inoremap <A-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+nnoremap <M-s> :<C-u>w<CR>
+inoremap <M-s> <Esc>:w<CR>
+
+inoremap <M-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 
 " swap, backup, undo {{{1
 " ============================================================================
@@ -1279,7 +1282,7 @@ inoremap <C-f> <Right>
 inoremap <M-n> <Down>
 inoremap <M-p> <Up>
 
-inoremap <C-a> <Home>
+inoremap <C-a> <Esc>I
 inoremap <C-e> <End>
 
 if !IsInstalled('lexima.vim')
