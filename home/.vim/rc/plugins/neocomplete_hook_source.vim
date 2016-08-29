@@ -110,6 +110,11 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
 " が表示される
 
+let g:neocomplete#sources#omni#input_patterns.html     = '</\?\|\"\|\s[[:alnum:]-]*'
+let g:neocomplete#sources#omni#input_patterns.xhtml    = '</\?\|\"\|\s[[:alnum:]-]*'
+let g:neocomplete#sources#omni#input_patterns.xml      = '</\?\|\"\|\s[[:alnum:]-]*'
+let g:neocomplete#sources#omni#input_patterns.markdown = '</\?\|\"\|\s[[:alnum:]-]*'
+
 " PHP
 " for phpcomplete
 if dein#tap('padawan.vim')
