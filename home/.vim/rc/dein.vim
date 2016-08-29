@@ -92,7 +92,7 @@ if dein#tap('unite.vim')
     " augroup END
 
     " uniteウィンドウを閉じる
-    nmap <silent> [unite]q :UniteClose
+    nmap <silent> [unite]q :UniteClose<CR>
     nnoremap <silent> <C-W>, :<C-U>call GotoWin('\[unite\]')<CR>
     " 前回のuniteの結果を表示する。このunite画面を終了後にカーソルが戻る位置も前回の起動した位置になってしまう
     nnoremap [unite], :<C-U>UniteResume<CR>
@@ -1223,11 +1223,9 @@ if dein#tap('open-browser.vim')
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
     vmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
 
-    autocmd MyVimrc FileType *
-    \    if &filetype !~ 'vim\|help\|man\|ref'
-    \|      nnoremap <buffer> K :<C-u>MyOpenbrowserSearch n<CR>
-    \|      xnoremap <buffer> K :<C-u>MyOpenbrowserSearch v<CR>
-    \|  endif
+    autocmd MyVimrc FileType mql4,php
+    \   nnoremap <buffer> K :<C-u>MyOpenbrowserSearch n<CR>
+    \|  xnoremap <buffer> K :<C-u>MyOpenbrowserSearch v<CR>
 
     function! s:my_openbrowser_search(mode)
         if a:mode ==# 'n'
