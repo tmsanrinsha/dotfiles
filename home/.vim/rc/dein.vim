@@ -330,6 +330,7 @@ endif
 " ----------------------------------------------------------------------------
 if dein#tap('unite-zsh-cdr.vim')
     nnoremap [unite]dr :<C-U>Unite zsh-cdr<CR>
+    nnoremap <M-r> :<C-U>Unite zsh-cdr<CR>
 
     let g:unite_zsh_cdr_chpwd_recent_dirs = g:recent_dirs_file
 endif
