@@ -8,6 +8,7 @@ if !exists('g:quickrun_config')
 endif
 
 let g:quickrun_config['watchdogs_checker/_'] = {
+\ 'runner/vimproc/updatetime' : 10,
 \ 'hook/hier_update/enable_exit':              1,
 \ 'hook/hier_update/priority_exit':            2,
 \ 'hook/qfsigns_update/enable_exit':           1,
