@@ -230,10 +230,10 @@ if dein#tap('neomru.vim')
     "最近使用したディレクトリ一覧
     nnoremap <silent> [unite]dm :<C-U>Unite neomru/directory<CR>
 
-    " ファイルが存在するかチェックしない
     " ファイルへの書き込みを60秒ごとにする
     let g:neomru#update_interval = 60
-    let g:neomru#do_validate = 0
+    " ファイルが存在するかチェックする
+    let g:neomru#do_validate = 1
 endif
 
 
