@@ -139,7 +139,8 @@ if dein#tap('unite.vim')
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]dc :<C-U>Unite directory<CR>
     " カレントバッファのディレクトリ以下
-    nnoremap [unite]d. :<C-U>execute "Unite directory:".expand('%:p:h')<CR>
+    nnoremap [unite]d. :<C-U>execute "Unite directory:" . GetBufferDir()<CR>
+    nnoremap [unite]dp :<C-U>execute "Unite directory:" . GetProjectDir()<CR>
     nnoremap [unite]dd :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]dv :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]dV :<C-U>Unite directory:$VIM<CR>
@@ -173,7 +174,7 @@ if dein#tap('unite.vim')
         \   ['matcher_context'])
     endfunction
 
-    nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:".expand('%:p:h')<CR>
+    nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:" . GetBufferDir()<CR>
     nnoremap [unite]fv :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fV :<C-U>Unite file_rec/async:$VIM<CR>
     nnoremap [unite]fd :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
