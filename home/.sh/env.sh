@@ -179,8 +179,8 @@ fi
 
 # local {{{1
 # ============================================================================
-if [ -f ~/env_local.sh ]; then
-    . ~/env_local.sh
+if [ -f ~/.sh/env_local.sh ]; then
+    . ~/.sh/env_local.sh
 fi
 
 # $HOME/bin, $HOME/local/bin {{{1
