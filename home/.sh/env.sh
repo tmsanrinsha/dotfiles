@@ -47,18 +47,6 @@ pathmungeR () {
     fi
 }
 
-# macでtmuxを起動したり、vimで!でコマンド実行をすると
-# PATHの先頭に /etc/paths, /etc/paths.d以下のPATHが追加された後に
-# .zshenvなどが読み込まれるよう。
-# pathmungeだと、すでにPATHにあるため追加できないのでexportで追加
-
-# シェルスクリプトなどを置くディレクトリ
-# pathmunge "$HOME/bin"
-export PATH="$HOME/bin:$PATH"
-export PATH="$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/bin:$PATH"
-# makeで作った実行ファイルなどを置くディレクトリ
-export PATH="$HOME/local/bin:$PATH"
-
 pathmungeR "$HOME/script/common"
 # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
 pathmungeR "$HOME/script/pseudo" after
@@ -86,17 +74,6 @@ elif [[ $OSTYPE == darwin* ]]; then
         pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
     fi
 fi
-
-
-# script_dir=$HOME/git/tmsanrinsha/dotfiles/script
-# # シェルスクリプトなどを置くディレクトリ
-# pathmungeR ${script_dir}/common
-# # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
-# pathmungeR ${script_dir}/pseudo after
-# # Cygwin用のコマンドを置くディレクトリ
-# if [[ `uname` = CYGWIN* ]]; then
-#     pathmungeR ${script_dir}/cygwin
-# fi
 
 export PAGER=less
 
@@ -199,3 +176,21 @@ if [ "$os" = mac ]; then
     export DATABASE_URL=postgres:///$(whoami)
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi
+
+# local {{{1
+# ============================================================================
+if [ -f ~/env_local.sh ]; then
+    . ~/env_local.sh
+fi
+
+# $HOME/bin, $HOME/local/bin {{{1
+# ============================================================================
+# macでtmuxを起動したり、vimで!でコマンド実行をすると
+# PATHの先頭に /etc/paths, /etc/paths.d以下のPATHが追加された後に
+# .zshenvなどが読み込まれるようだ。
+# pathmungeだと、すでにPATHにあるため追加できないのでexportで追加
+
+# シェルスクリプトなどを置くディレクトリ
+export PATH="$HOME/bin:$PATH"
+# makeで作った実行ファイルなどを置くディレクトリ
+export PATH="$HOME/local/bin:$PATH"
