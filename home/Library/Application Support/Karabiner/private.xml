@@ -2,6 +2,10 @@
 <root>
     <!-- /Applications/KeyRemap4MacBook.app/Contents/Resources/appdef.xml の定義の上書き -->
     <appdef>
+        <appname>MacVim</appname>
+        <equal>org.vim.MacVim</equal>
+    </appdef>
+    <appdef>
         <appname>VMWARE_FUSION</appname>
         <equal>com.vmware.fusion</equal>
     </appdef>
@@ -204,6 +208,14 @@
           <not>{{EMACS_MODE_IGNORE_APPS}}</not>
           <autogen>__KeyToKey__ KeyCode::D, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_OPTION, KeyCode::FORWARD_DELETE, ModifierFlag::OPTION_L</autogen>
         </item>
+        <!-- MacVim (((1 -->
+        <item>
+          <name>[MacVim] Control+/ to Control+-</name>
+          <identifier>myremap.macvim_ctrl+/_to_ctrl+_</identifier>
+          <only>MacVim</only>
+          <autogen>__KeyToKey__ KeyCode::SLASH, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::MINUS, ModifierFlag::CONTROL_L</autogen>
+        </item>
+        <!-- ))) -->
         <item>
             <name>[ex] Control+U to Command+Shift+Left,Command+X</name>
             <identifier>myremap.emacsmode_ex_controlU</identifier>
@@ -307,5 +319,5 @@
     </item>
 </root>
 <!--
-     vim: foldmarker=(((,)))
+     vim: foldmarker=(((,))) sts=2 sw=2 :
 -->
