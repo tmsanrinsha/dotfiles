@@ -1179,7 +1179,7 @@ if dein#tap('vim-fugitive')
     nnoremap [fugitive]ps  :Git push
     nnoremap [fugitive]psf :Git push -f
     nnoremap [fugitive]pso :Git push origin
-    nnoremap [fugitive]pl  :Git pull --rebase origin master
+    nnoremap [fugitive]pl  :Git pull --rebase
     nnoremap [fugitive]fo  :Git fetch origin<CR>
     nnoremap [fugitive]for :Git fetch origin<CR>:Git rebase origin/master<CR>
 
