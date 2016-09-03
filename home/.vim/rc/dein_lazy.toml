@@ -468,10 +468,18 @@ repo = 'shikato/keysender.vim'
 on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
 # }}}
 
+# search, replace {{{1
+# ============================================================================
+[[plugins]]
+repo = 'haya14busa/vim-asterisk'
+on_map = '<Plug>(asterisk-'
+
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_source = 'unite.vim'
 
+# memo {{{1
+# ============================================================================
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 on_cmd = ['MemoNew', 'MemoList', 'MemoGrep']
@@ -508,10 +516,7 @@ on_cmd = ['Geeknote']
 hook_source = '''
     call Set_python_path()
 '''
-
-[[plugins]]
-repo = 'haya14busa/vim-asterisk'
-on_map = '<Plug>(asterisk-'
+# }}}
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
