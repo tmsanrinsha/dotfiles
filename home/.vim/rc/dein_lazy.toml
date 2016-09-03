@@ -534,4 +534,8 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'lilydjwg/colorizer'
+on_cmd = ['ColorToggle']
+
+[[plugins]]
 repo = 'epeli/slimux'
