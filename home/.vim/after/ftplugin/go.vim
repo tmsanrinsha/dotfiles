@@ -13,6 +13,8 @@ nmap <buffer> <Leader>At    :call go#alternate#Switch(<bang>0, 'tabe')<CR>
 nmap <buffer> <Leader>c <Plug>(go-coverage-toggle)
 nmap <buffer> <Leader>i <Plug>(go-info)
 
+inoremap <M-i> <C-o>:GoImport <C-r><C-w><CR>
+
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
   let l:file = expand('%')
