@@ -16,9 +16,10 @@ let g:neocomplete#sources#syntax#min_syntax_length = 3
 let g:neocomplete#auto_completion_start_length = 1
 
 set pumheight=10
+
 " 補完候補取得に時間がかかったときにスキップ
-let g:neocomplete#skip_auto_completion_time = '0.1'
-" let g:neocomplete#skip_auto_completion_time = '1'
+let g:neocomplete#skip_auto_completion_time = '1'
+
 " 候補の数を増やす
 " execute 'let g:'.s:neocom_.'max_list = 3000'
 
@@ -108,6 +109,9 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 " forceで設定しているとmarkdownのコードブロックでも探そうとするらしく
 "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
 " が表示される
+
+" golang
+let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\|[^.[:digit:] *\t]\.\w*'
 
 let g:neocomplete#sources#omni#input_patterns.html     = '</\?\|\"\|\s[[:alnum:]-]*'
 let g:neocomplete#sources#omni#input_patterns.xhtml    = '</\?\|\"\|\s[[:alnum:]-]*'
