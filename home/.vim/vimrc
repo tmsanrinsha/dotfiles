@@ -1534,47 +1534,61 @@ set updatetime=100
 " updatetimeミリ秒ごとにswapファイルが作られないようにswapファイルの設定を消す
 " あとswapファイルが度々作られて、表示がでるのがいやなのでnoswapにする
 set noswapfile
-augroup MyVimrc
-    " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-    " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-    autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
-    autocmd CursorHold  * call s:auto_cursorline('CursorHold')
-    autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
-    autocmd WinEnter    * call s:auto_cursorline('WinEnter')
-    autocmd WinLeave    * call s:auto_cursorline('WinLeave')
 
-    let s:cursorline_lock = 0
-    function! s:auto_cursorline(event)
-        if &filetype ==# 'qf' || &diff
-            if &cursorline
-                setlocal nocursorline
-                return
-            else
-                return
-            endif
-        endif
-        if a:event ==# 'WinEnter'
-            setlocal cursorline
-            let s:cursorline_lock = 2
-        elseif a:event ==# 'WinLeave'
-            setlocal cursorline
-        elseif a:event ==# 'CursorMoved'
-            if s:cursorline_lock
-                if s:cursorline_lock > 1
-                    let s:cursorline_lock = 1
-                else
-                    setlocal nocursorline
-                    let s:cursorline_lock = 0
-                endif
-            endif
-        elseif a:event ==# 'CursorHold'
-            setlocal cursorline
-            let s:cursorline_lock = 1
-        elseif a:event ==# 'InsertEnter'
-            setlocal nocursorline
-        endif
-    endfunction
-augroup END
+" CursorHold を使って、setlocal cursorlineをするとj, kで短い行に行ったあと長い行にいったとき
+" にカラムが戻らないのでコメントアウト
+" augroup MyVimrc
+"     " autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+"     " autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+"
+"     autocmd CursorMoved * call s:auto_cursorline('CursorMoved')
+"     autocmd CursorHold  * call s:auto_cursorline('CursorHold')
+"     autocmd InsertEnter * call s:auto_cursorline('InsertEnter')
+"     autocmd WinEnter    * call s:auto_cursorline('WinEnter')
+"     autocmd WinLeave    * call s:auto_cursorline('WinLeave')
+" augroup END
+"
+" let s:cursorline_lock = 0
+" function! s:auto_cursorline(event)
+"     if &filetype ==# 'qf' || &diff
+"         if &cursorline
+"             setlocal nocursorline
+"         endif
+"         return
+"     endif
+"
+"     if a:event ==# 'WinEnter'
+"         setlocal cursorline
+"         let s:cursorline_lock = 2
+"     elseif a:event ==# 'WinLeave'
+"         setlocal cursorline
+"     elseif a:event ==# 'CursorMoved'
+"         if s:cursorline_lock
+"             if s:cursorline_lock > 1
+"                 let s:cursorline_lock = 1
+"             else
+"                 setlocal nocursorline
+"                 let s:cursorline_lock = 0
+"             endif
+"         endif
+"     elseif a:event ==# 'CursorHold'
+"         setlocal cursorline
+"         let s:cursorline_lock = 1
+"     elseif a:event ==# 'InsertEnter'
+"         setlocal nocursorline
+"     endif
+" endfunction
+
+set cursorline
+
+autocmd MyVimrc WinEnter *
+\   if &filetype ==# 'qf' || &diff
+\|      setlocal nocursorline
+\|  else
+\|      setlocal cursorline
+\|  endif
+
+
 
 " diff {{{1
 " ============================================================================
