@@ -10,51 +10,51 @@ highlight clear
 " }
 " EOM
 
-hi CmdLine            color: #D0CFD0; background: #333333;
+hi CmdLine              color: #D0CFD0; background: #333333;
 " default value
-hi CmdOutput         white-space: pre;
+hi CmdOutput            white-space: pre;
 " 補完リストの説明欄（右側）
-hi CompDesc           color: #999999; width: 500px; max-width: 500px;
-hi CompGroup          color: #D0CFD0; background: transparent;
-hi CompIcon           background: #F8F8F8; width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
-hi CompItem           color: #D0CFD0; background: transparent;
+hi CompDesc             color: #999999; width: 500px; max-width: 500px;
+hi CompGroup            color: #D0CFD0; background: transparent;
+hi CompIcon             background: #F8F8F8; width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
+hi CompItem             color: #D0CFD0; background: transparent;
 hi CompItem[selected]   color: #D0CFD0; background: #666666;
 hi CompItem[selected]>* color: #FFFFFF;
 " default value
-hi CompItem>* height: 18px; min-height: 18px; padding: 0 0.5ex;
+hi CompItem>*           height: 18px; min-height: 18px; padding: 0 0.5ex;
 " Generating results...
 hi CompMsg              color: #D0CFD0; margin-left: 16px;
-hi CompResult width: 500px; max-width: 500px; overflow: hidden;
-hi CompTitle                          background: rgba(230, 230, 230, 0.1); font-weight: bold;
-hi CompTitle>* color: #FD971F; border-top: 1px solid black; border-bottom: 1px solid black; padding: 1px 0.5ex;;
+hi CompResult           width: 500px; max-width: 500px; overflow: hidden;
+hi CompTitle            background: rgba(230, 230, 230, 0.1); font-weight: bold;
+hi CompTitle>*          color: #FD971F; border-top: 1px solid black; border-bottom: 1px solid black; padding: 1px 0.5ex;
 
 " 補完リストに候補がないときにでる~
-hi ContentSeparator   border-top: 1px solid #262426; display: -moz-box;
+hi ContentSeparator     border-top: 1px solid #262426; display: -moz-box;
 
 " Pattern not found
-hi ErrorMsg           color: #F92672;
+hi ErrorMsg             color: #F92672;
 
 " 補完リストでマッチしたテキスト
-hi Filter             color: #29B0FA;
-hi Hint               font-family: Consolas, Monaco; font-size: 13px; font-weight: bold; color: white; background: #F92672; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
-hi Hint::after        content: attr(number);
-hi HintActive         background: #FD971F;
-hi HintElem           background: #B2D7FF;
-hi HintImage          opacity: .5;
-hi Indicator          color: #D7005F;
-hi InfoMsg            color: #D0CFD0;
-hi Keyword            color: #F92672;
-hi ModeMsg            color: white; background: #3B8ED1; border-radius: 1px; padding: 0px 5px;
-hi MoreMsg            color: #87FF00; background: #121112;
-hi NonText            color: #B973FF; min-height: 16px; padding-left: 2px;
-hi Normal             color: #D0CFD0; background: rgba(0, 0, 0, 0.7); font-size: 9pt; font-family: Consolas, Monaco, monospace;
-hi Null               color: #005F87;
-hi Number             color: #005F87;
-hi StatusLine         color: #D0CFD0; background: #333333;
+hi Filter               color: #29B0FA;
+hi Hint                 font-family: Monaco, Consolas; font-size: 13px; font-weight: bold; color: white; background: #F92672; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
+hi Hint::after          content: attr(number);
+hi HintActive           background: #FD971F;
+hi HintElem             background: #B2D7FF;
+hi HintImage            opacity: .5;
+hi Indicator            color: #D7005F;
+hi InfoMsg              color: #D0CFD0;
+hi Keyword              color: #F92672;
+hi ModeMsg              color: white;   background: #3B8ED1; border-radius: 1px; padding: 0px 5px;
+hi MoreMsg              color: #87FF00; background: #121112;
+hi NonText              color: #B973FF; min-height: 16px; padding-left: 2px;
+hi Normal               color: #D0CFD0; background: rgba(0, 0, 0, 0.7); font-size: 9pt; font-family: Consolas, Monaco, monospace;
+hi Null                 color: #005F87;
+hi Number               color: #005F87;
+hi StatusLine           color: #D0CFD0; background: #333333;
 
-hi URL                color: #87FF00; text-decoration:  none;               
-hi PromptText         color: white;   background: rgba(51,51,51,0.6);
-hi Tag                color: #005F87;
-hi Title              color: #FF005F;            font-weight:      bold;
-hi WarningMsg         color: #E6DB74;
+hi URL                  color: #87FF00; text-decoration:  none;               
+hi PromptText           color: white;   background: rgba(51,51,51,0.6);
+hi Tag                  color: #005F87;
+hi Title                color: #FF005F; font-weight: bold;
+hi WarningMsg           color: #E6DB74;
 " No Completionsはどこ？
