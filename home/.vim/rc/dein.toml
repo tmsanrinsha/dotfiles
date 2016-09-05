@@ -72,9 +72,6 @@ repo = 'osyo-manga/vim-anzu'
 # repo = 'terryma/vim-multiple-cursors'
 
 [[plugins]]
-repo = 'tpope/vim-surround'
-
-[[plugins]]
 repo = 'tmsanrinsha/diffchar.vim'
 
 [[plugins]]
@@ -87,6 +84,9 @@ repo = 'kana/vim-operator-user'
 repo = 'sgur/vim-textobj-parameter'
 
 [[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
 repo = 'savevers.vim'
 
 [[plugins]]
@@ -95,6 +95,9 @@ repo = 'kopischke/vim-fetch'
 [[plugins]]
 repo = 'QuickFixCurrentNumber'
 depends = 'ingo-library'
+
+[[plugins]]
+repo = 'ingo-library'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
@@ -106,11 +109,11 @@ repo = 'osyo-manga/vital-coaster'
 repo = 'tmsanrinsha/vim-emacscommandline'
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
-augroup = 'fugitive'
+repo = 'airblade/vim-rooter'
 
 [[plugins]]
-repo = 'ingo-library'
+repo = 'tpope/vim-fugitive'
+augroup = 'fugitive'
 
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
