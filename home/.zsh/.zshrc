@@ -246,6 +246,58 @@ setopt no_flow_control
 # /を入れないことでを単語境界とみなし、Ctrl+Wで1ディレクトリだけ削除できるようにする
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# kill-region, copy-region {{{2
+# ----------------------------------------------------------------------------
+# zshで範囲選択・削除・コピー・切り取りする - Qiita
+# http://qiita.com/takc923/items/35d9fe81f61436c867a8
+## 範囲削除
+function delete-region() {
+    zle kill-region
+    CUTBUFFER=$killring[1]
+    shift killring
+}
+zle -N delete-region
+
+function backward-delete-char-or-region() {
+    if [ $REGION_ACTIVE -eq 0 ]; then
+        zle backward-delete-char
+    else
+        zle delete-region
+    fi
+}
+zle -N backward-delete-char-or-region
+
+function delete-char-or-list-or-region() {
+    if [ $REGION_ACTIVE -eq 0 ]; then
+        zle delete-char-or-list
+    else
+        zle delete-region
+    fi
+}
+zle -N delete-char-or-list-or-region
+
+bindkey "^h" backward-delete-char-or-region
+bindkey "^d" delete-char-or-list-or-region
+
+## 範囲コピー
+function copy-region() {
+    zle copy-region-as-kill
+    REGION_ACTIVE=0
+}
+zle -N copy-region
+bindkey "^[w" copy-region
+
+## 範囲切り取り
+function backward-kill-word-or-region() {
+    if [ $REGION_ACTIVE -eq 0 ]; then
+        zle backward-kill-word
+    else
+        zle kill-region
+    fi
+}
+zle -N backward-kill-word-or-region
+bindkey "^w" backward-kill-word-or-region
+
 # C-z, fg {{{2
 # ----------------------------------------------------------------------------
 # ctrl-zでfgする
