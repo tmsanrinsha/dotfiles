@@ -86,8 +86,8 @@ fi
 if command_exists knife; then
     alias knd='knife node delete'
     alias knl='knife node list'
-    alias ksn='knife show node'
-    alias ksna='knife show node'
+    alias ksn='knife search node'
+    alias ksna='knife search node "*:*"'
 fi
 
 # ls {{{1
