@@ -8,7 +8,7 @@ setlocal textwidth=120
 setlocal colorcolumn=+1
 setlocal foldmethod=syntax
 
-# ChefSpec用
+" ChefSpec用
 setlocal errorformat^=\ %##\ %f:%l:%m
 
 " MacVIM-KaoriYa で "現在の Ruby" の libruby.dylib を動的リンクする - ドレッシングのような
