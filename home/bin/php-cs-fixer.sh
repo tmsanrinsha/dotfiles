@@ -2,7 +2,7 @@
 
 function func_php-cs-fixer
 {
-    local cmd=$(which php-cs-fixer 2>/dev/null)
+    local cmd=$(type php-cs-fixer 2>/dev/null)
 
     if [ -z "$cmd" ]; then
         echo 'command not found: php-cs-fixer'

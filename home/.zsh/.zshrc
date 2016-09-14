@@ -3,7 +3,7 @@ if [ -f ~/.zashrc ]; then
     . ~/.zashrc
 fi
 
-if which tac 1>/dev/null 2>&1;then
+if command_exists tac;then
     tac=`which tac`
 else
     tac='tail -r'
@@ -117,7 +117,7 @@ colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 
 # hostnameをmd5でハッシュに変更し、1-217の数値を生成する
 # hostnameが長いとエラーが出るので最初の8文字を使う
-if which md5 1>/dev/null 2>&1; then
+if command_exists md5; then
     md5=md5
 else
     md5=md5sum
@@ -561,7 +561,7 @@ test ! -d ~/.zsh && mkdir ~/.zsh
 test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
 # プロンプトが表示される前にディレクトリスタックを更新する
 function share_dirs_precmd {
-    if which tac 1>/dev/null 2>&1;then
+    if command_exists tac;then
         taccmd=`which tac`
     else
         taccmd='tail -r'

@@ -13,7 +13,7 @@ esac
 # @see コマンドの存在チェックはwhichよりhashの方が良いかも→いやtypeが最強
 #      http://qiita.com/kawaz/items/1b61ee2dd4d1acc7cc94
 function command_exists {
-  hash "$1" 2>/dev/null;
+  type "$1" 1>/dev/null 2>&1;
 }
 
 # hosts用の設定の出力 {{{1

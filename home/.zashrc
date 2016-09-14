@@ -104,7 +104,7 @@ export GISTY_SSL_VERIFY="NONE"
 # pyenv {{{1
 # ==============================================================================
 # virtualenvと相性が悪い
-# if which pyenv 1>/dev/null 2>&1; then
+# if command_exists pyenv; then
 #     export PYENV_ROOT="$HOME/.pyenv"
 #     pathmunge "$PYENV_ROOT/bin"
 #     eval "$(pyenv init -)"

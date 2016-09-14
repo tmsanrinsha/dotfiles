@@ -81,6 +81,15 @@ if [ "$os" = mac ]; then
     alias h='heroku'
 fi
 
+# knife {{{1
+# ============================================================================
+if command_exists knife; then
+    alias knd='knife node delete'
+    alias knl='knife node list'
+    alias ksn='knife show node'
+    alias ksna='knife show node'
+fi
+
 # ls {{{1
 # ============================================================================
 alias l='ls'

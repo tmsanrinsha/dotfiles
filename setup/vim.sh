@@ -6,7 +6,7 @@ set -ex
 # CentOSの場合でコンパイルしない場合はこちらを参照
 # http://d.hatena.ne.jp/deris/20120804/1344080402
 
-if which git; then
+if type git; then
     vvm=$HOME/.vvm
     if [ ! -d $vvm/vim ]; then
         git clone https://github.com/vim-jp/vim.git $vvm/vim
@@ -24,9 +24,9 @@ else
     pkg_ver=vim-${ver}.${patch}
 fi
 
-if which git; then
+if type git; then
     :
-elif which hg &>/dev/null; then
+elif type hg &>/dev/null; then
     # hgを使う
     if [ ! -d ~/hg ]; then
         mkdir ~/hg
@@ -42,9 +42,9 @@ else
     tmpdir=`mktemp -d /tmp/XXXXXX`
     cd $tmpdir
 
-    if which curl;then
+    if type curl;then
         downloader='curl -L'
-    elif which wget;then
+    elif type wget;then
         downloader='wget -O -'
     else
         echo 'curlまたはwgetをインストールしてください'
@@ -58,9 +58,9 @@ else
     mkdir -p patches
     cd patches
 
-    if which curl;then
+    if type curl;then
         downloader='curl -O'
-    elif which wget;then
+    elif type wget;then
         downloader='wget -N'
     fi
     $downloader ftp://ftp.vim.org/pub/vim/patches/${ver}/${ver}.[001-${patch}] || exit 1
@@ -74,11 +74,11 @@ else
     cat patches/${ver}.* | patch -p0
 fi
 
-if which python; then
+if type python; then
     option='--enable-pythoninterp=yes'
 fi
 
-if which lua; then
+if type lua; then
     option="${option} --enable-luainterp"
 fi
 

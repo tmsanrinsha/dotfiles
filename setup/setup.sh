@@ -27,16 +27,16 @@ git pull
 home=$git_dir/home
 setup_dir=$git_dir/setup
 
-if which curl;then
+source $home/.sh/env.sh
+
+if command_exists curl;then
     downloader='curl -kLR'
-elif which wget;then
+elif command_exists wget;then
     downloader='wget --no-check-certificate -O -'
 else
     echo 'curlまたはwgetをインストールしてください'
     exit 1
 fi
-
-source $home/.sh/env.sh
 
 function install() {
   local url=$1
@@ -57,7 +57,7 @@ function myplug() {
     local plugin=$1
     local dir=$2
 
-    if [ ! which git 1>/dev/null 2>&1 ]; then
+    if [ ! command_exists git ]; then
         return
     fi
 

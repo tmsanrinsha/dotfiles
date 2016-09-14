@@ -63,7 +63,7 @@ colArr=({1..6} {9..14} {22..59} {61..186} {190..229})
 
 # hostnameをmd5でハッシュに変更する
 # 長いとエラーが出るので最初の8文字を使う
-if which md5 1>/dev/null 2>&1; then
+if command_exists md5; then
     num=$((0x`hostname | md5 | cut -c1-8` % 216)) # zshの配列のインデックスは0から
 else
     num=$((0x`hostname | md5sum | cut -c1-8` % 216))
@@ -87,8 +87,8 @@ export HISTFILE=~/.bash_history  # 履歴のMAX保存数を指定
 
 function peco-select-history() {
     local tac
-    which gtac &> /dev/null && tac="gtac" || \
-        which tac &> /dev/null && tac="tac" || \
+    command_exists gtac && tac="gtac" || \
+        command_exists tac && tac="tac" || \
         tac="tail -r"
     READLINE_LINE=$(HISTTIMEFORMAT= history | $tac | sed -e 's/^\s*[0-9]\+\s\+//' | awk '!a[$0]++' | peco --query "$READLINE_LINE")
     READLINE_POINT=${#READLINE_LINE}

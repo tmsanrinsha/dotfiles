@@ -43,7 +43,7 @@
 #
 #     # ssh-agent
 #     # http://sanrinsha.lolipop.jp/blog/2010/09/ssh%E9%96%A2%E9%80%A3.html
-#     if [[ `uname` != CYGWIN* ]] && which ssh-agent 1>/dev/null 2>&1; then
+#     if [[ `uname` != CYGWIN* ]] && command_exists ssh-agent; then
 #         SSH_AGENT_PID=$(ps x | grep ssh-agent 2>/dev/null | grep -v grep | head -1 | awk '{print $1}')
 #         SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.$(expr $SSH_AGENT_PID - 1 2>/dev/null) 2>/dev/null) # $agentPIDが空の時はexprのエラーが出るので/dev/nullに送る
 #         if [ -z "$SSH_AGENT_PID" -o -z "$SSH_AUTH_SOCK" ]; then
