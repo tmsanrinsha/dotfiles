@@ -1092,7 +1092,7 @@ autocmd MyVimrc FileType markdown,html
 
 autocmd MyVimrc FileType markdown
 \   nnoremap <buffer> <Leader>r :<C-u>PrevimOpen<CR>
-\ | command! MarkdownStrict :%!pandoc -f markdown+hard_line_breaks -t markdown_strict --wrap=none
+\ | command! -range=% MarkdownStrict :<line1>,<line2>!pandoc -f markdown+hard_line_breaks -t markdown_strict --wrap=none
 
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
