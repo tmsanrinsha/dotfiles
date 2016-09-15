@@ -310,16 +310,17 @@ command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval
 
 " tab, indent {{{1
 " ============================================================================
-" 画面上でタブ文字が占める幅
-set tabstop=4
 " 挿入モードで<Tab>を押したときにスペースに展開する。タブそのものを使いたいときはコメントアウト
 set expandtab
-" <Tab>を挿入したり、<BS>を使った時の幅をtabstopの値と同じにする
-" letを使うとtabstopの値を参照できる
+" 画面上でタブ文字が占める幅
+set tabstop=4
+" <Tab>を挿入したり、<BS>を使った時の幅
+" -1に設定するとtabstopの値と同じにする
 " <BS>を使った時に1スペース削除したい場合はコメントアウト
-let &softtabstop = &tabstop
+set softtabstop=-1
 " 自動インデントやコマンド<と>などに使われる空白の数
-let &shiftwidth = &tabstop
+" 0の場合はtabstopと同じ値
+set shiftwidth=0
 " コマンド<や>でインデントする際に'shiftwidth'の倍数に丸める
 set shiftround
 
