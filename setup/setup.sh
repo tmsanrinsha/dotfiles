@@ -57,7 +57,7 @@ function myplug() {
     local plugin=$1
     local dir=$2
 
-    if [ type git ]; then
+    if type git 1>/dev/null 2>&1; then
         return
     fi
 
