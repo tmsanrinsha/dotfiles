@@ -57,7 +57,7 @@ function myplug() {
     local plugin=$1
     local dir=$2
 
-    if [ ! command_exists git ]; then
+    if [ type git ]; then
         return
     fi
 
