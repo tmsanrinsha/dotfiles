@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-let s:dein_dir = expand('$VIM_CACHE_DIR/dein')
+let s:dein_dir = g:dein_dir
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければgit clone
@@ -53,11 +53,11 @@ endif
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 if dein#tap('sudo.vim')
-    if dein#tap('bclose')
-        nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
-    else
-        nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
-    endif
+    " if dein#tap('bclose')
+    "     nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
+    " else
+    "     nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
+    " endif
     nnoremap <Leader>W :w sudo:%<CR>
 endif
 

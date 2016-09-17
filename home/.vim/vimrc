@@ -1211,11 +1211,35 @@ if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
 endif
 
+
+let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
+
 if v:version >= 704
     call SourceRc('dein.vim')
 elseif MyHasPatch('patch-7.2.051')
     call SourceRc('neobundle.vim')
     call SourceRc('plugin.vim')
+else
+    " bundle以下にあるpluginをいくつかruntimepathへ追加する
+    " let s:load_plugin_list = [
+    " \   'sudo.vim', 'my_molokai', 'vim-smartword'
+    " \]
+    " " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
+    " "     let s:plugin_name = matchstr(path, '[^/]\+$')
+    " "     if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
+    " "         let &runtimepath = &runtimepath.','.path
+    " "     end
+    " " endfor
+    " for s:plugin in s:load_plugin_list
+    "     if isdirectory($HOME.'/.vim/bundle/'.s:plugin)
+    "         let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
+    "     endif
+    " endfor
+
+    let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
+    nnoremap <Leader>W :w sudo:%<CR>
+
+    filetype plugin indent on
 endif
 
 " search/substitute {{{1

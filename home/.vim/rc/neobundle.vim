@@ -787,7 +787,7 @@ call neobundle#end()
 filetype plugin indent on     " Required!
 
 " Installation check.
-NeoBundleCheck
+" NeoBundleCheck
 
 if v:version > 702
     " NeoBundleSource unite.vim
