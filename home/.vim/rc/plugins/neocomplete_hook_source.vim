@@ -81,11 +81,12 @@ call neocomplete#custom#source('syntax',       'rank', 300)
 
 let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
 
+" omnifunc {{{1
+" ============================================================================
 " Enable omni completion.
 augroup MyVimrc
     autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
     " autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
@@ -104,14 +105,24 @@ if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
 endif
 
+" dot {{{2
+" ----------------------------------------------------------------------------
 let g:neocomplete#sources#omni#functions.dot = 'GraphvizComplete'
 let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 " forceで設定しているとmarkdownのコードブロックでも探そうとするらしく
 "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
 " が表示される
 
-" golang
+" JavaScript {{{2
+" ----------------------------------------------------------------------------
+if IsInstalled('tern_for_vim')
+    let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
+    autocmd MyVimrc FileType html,php,vimperator call tern#Enable()
+end
+
+" golang {{{2
 let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\|[^.[:digit:] *\t]\.\w*'
+" }}}
 
 let g:neocomplete#sources#omni#input_patterns.html     = '</\?\|\"\|\s[[:alnum:]-]*'
 let g:neocomplete#sources#omni#input_patterns.xhtml    = '</\?\|\"\|\s[[:alnum:]-]*'
