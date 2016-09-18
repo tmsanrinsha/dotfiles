@@ -280,6 +280,18 @@ if (io.File('~/.vimperatorrc.local').exists()){
 }
 EOF
 
+" サイトを指定してGoogle検索 {{{1
+" ============================================================================
+javascript <<EOT
+(function () {
+    mappings.addUserMap([modes.NORMAL], ['<Leader>gs'], ':open site:', () => {
+        const domain = window.content.document.domain;
+
+        commandline.open('', commands.commandToString({command: `open site:${domain} `}), modes.EX);
+    });
+})();
+EOT
+
 " vimperatorを自分でビルドしたいとき
 " $ git clone https://github.com/vimperator/vimperator-labs/
 " $ cd vimperator-labs
