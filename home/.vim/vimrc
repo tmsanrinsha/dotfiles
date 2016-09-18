@@ -135,7 +135,7 @@ endfunction
 command! -range=% TrimTrail call <SID>TrimTrail( <line1>, <line2> ) " {{{2
 " [ntpeters/vim-better-whitespace: Better whitespace highlighting for Vim](https://github.com/ntpeters/vim-better-whitespace)
 " Removes all extraneous whitespace in the file
-function! s:StripWhitespace( line1, line2 )
+function! s:TrimTrail( line1, line2 )
     " Save the current search and cursor position
     let _s=@/
     let l = line('.')
