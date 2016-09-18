@@ -154,16 +154,6 @@ set complete=lH
 set defsearch=g
 set suggestengines=g
 
-nnoremap o :set complete=lH<CR>:open<Space>
-nnoremap t :set complete=lH<CR>:tabopen<Space>
-nnoremap <Leader>ob :set complete=b<CR>:open<Space>
-nnoremap <Leader>tb :set complete=b<CR>:tabopen<Space>
-nnoremap <Leader>oh :set complete=h<CR>:open<Space>
-nnoremap <Leader>th :set complete=h<CR>:tabopen<Space>
-nnoremap <Leader>os :set complete=S<CR>:open<Space>
-nnoremap <Leader>ts :set complete=S<CR>:tabopen<Space>
-nnoremap <Leader>oH :set complete=H<CR>:open<Space>
-nnoremap <Leader>tH :set complete=H<CR>:tabopen<Space>
 
 " plugin_loader {{{1
 " ============================================================================
@@ -279,25 +269,10 @@ set! browser.snapshots.limit=1
 
 " helpを英語で見る
 " set! general.useragent.locale=en-US
-
-" frecency {{{2
-" ----------------------------------------------------------------------------
-" set! places.frecency.linkVisitBonus=98
-" set! places.frecency.typedVisitBonus=15
-" set! places.frecency.bookmarkVisitBonus=1
-" set! places.frecency.embedVisitBonus=0
-" set! places.frecency.permRedirectVisitBonus=13
-" set! places.frecency.tempRedirectVisitBonus=1
-" set! places.frecency.downloadVisitBonus=0
-"
-" set! places.frecency.firstBucketWeight=94
-" set! places.frecency.secondBucketWeight=33
-" set! places.frecency.thirdBucketWeight=7
-" set! places.frecency.fourthBucketWeight=6
-" set! places.frecency.defaultBucketWeight=3
-" }}}
 " }}}
 
+" Vimperatorrc.localの読み込み {{{1
+" ============================================================================
 javascript <<EOF
 // [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
 if (io.File('~/.vimperatorrc.local').exists()){
