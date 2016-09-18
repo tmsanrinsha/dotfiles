@@ -269,7 +269,6 @@ set! browser.snapshots.limit=1
 
 " helpを英語で見る
 " set! general.useragent.locale=en-US
-" }}}
 
 " Vimperatorrc.localの読み込み {{{1
 " ============================================================================
