@@ -42,6 +42,25 @@ if dein#check_install()
   call dein#install()
 endif
 
+" repo以下のautoloadを保存したら.dein以下にコピーする {{{1
+" ============================================================================
+" dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
+" repo以下を編集・保存したら.dein以下にコピーするようにする
+let s:sync_save_dir_list = [
+\    {
+\      'glob' : s:dein_dir . '/repos/**/autoload/*.vim',
+\      'from' : s:dein_dir . '/repos/.*/autoload',
+\      'to'   : s:dein_dir . '/.dein/autoload',
+\    },
+\    {
+\      'glob' : s:dein_dir . '/repos/**/autoload/**/*.vim',
+\      'from' : s:dein_dir . '/repos/.*/autoload',
+\      'to'   : s:dein_dir . '/.dein/autoload',
+\    }
+\]
+
+call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+
 " vim-singleton {{{1
 " ============================================================================
 if dein#tap('vim-singleton') && has('gui_running')
@@ -1452,20 +1471,6 @@ if dein#tap('junkfile.vim')
     nnoremap [:junk]f :JunkfileFiletype<CR>
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
-
-" repo以下のautoloadを保存したら.dein以下にコピーする {{{1
-" ============================================================================
-" dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
-" repo以下を編集・保存したら.dein以下にコピーするようにする
-let s:sync_save_dir_list = [
-\    {
-\      'glob' : s:dein_dir . '/repos/**/autoload/**/*.vim',
-\      'from' : s:dein_dir . '/repos/.*/autoload',
-\      'to'   : s:dein_dir . '/.dein/autoload',
-\    }
-\]
-
-call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
 finish " backup {{{1
 " eclim {{{2
