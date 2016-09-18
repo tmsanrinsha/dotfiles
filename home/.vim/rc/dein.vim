@@ -493,6 +493,15 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 " ==============================================================================
 if dein#tap('context_filetype.vim')
     let g:context_filetype#filetypes = deepcopy(context_filetype#default_filetypes())
+    " JavaScript
+    " 本体に取り込まれたら外す
+    let g:context_filetype#filetypes.vimperator = [
+    \   {
+    \       'filetype': 'javascript',
+    \       'start': '^\s*\%(javascript\|js\)\s\+<<\s*\(\h\w*\)',
+    \       'end': '^\1'
+    \   }
+    \]
 
     " markdown
     call add(g:context_filetype#filetypes.markdown, {
