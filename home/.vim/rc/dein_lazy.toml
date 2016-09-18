@@ -118,6 +118,22 @@ repo = 'osyo-manga/vim-operator-search'
 depends = 'vim-operator-user'
 on_map = '<Plug>(operator-search)'
 
+[[plugins]]
+repo = 'tyru/caw.vim'
+depends = ['vim-operator-user', 'vim-repeat', 'context_filetype.vim']
+on_map = '<Plug>(caw:'
+hook_add = '''
+    nmap gc <Plug>(caw:hatpos:toggle:operator)
+    xmap gc <Plug>(caw:hatpos:toggle:operator)
+    nmap gcc <Plug>(caw:hatpos:toggle)
+    nmap <C-_> yy<Plug>(caw:hatpos:toggle)p
+    xmap <C-_> ygv<Plug>(caw:hatpos:toggle)gv<C-c>p
+'''
+
+# [[plugins]]
+# repo = 'tomtom/tcomment_vim'
+# on_map = ['<Plug>TComment_', 'gc']
+
 # textobj {{{1
 # ============================================================================
 [[plugins]]
@@ -517,10 +533,6 @@ hook_source = '''
     call Set_python_path()
 '''
 # }}}
-
-[[plugins]]
-repo = 'tomtom/tcomment_vim'
-on_map = ['<Plug>TComment_', 'gc']
 
 [[plugins]]
 repo = 'gregsexton/gitv'
