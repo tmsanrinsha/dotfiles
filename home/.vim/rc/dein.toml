@@ -80,8 +80,15 @@ repo = 'sudo.vim'
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
+# textobj {{{1
+# ============================================================================
+[[plugins]]
+# lazyにすると最初の"*yieでクリップボードではなく、ヤンクされる
+repo = 'kana/vim-textobj-entire'
+
 [[plugins]]
 repo = 'sgur/vim-textobj-parameter'
+# }}}
 
 [[plugins]]
 repo = 'tpope/vim-surround'

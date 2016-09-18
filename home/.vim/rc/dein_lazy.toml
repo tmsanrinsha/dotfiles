@@ -136,9 +136,9 @@ hook_add = '''
 
 # textobj {{{1
 # ============================================================================
-[[plugins]]
-repo = 'kana/vim-textobj-entire'
-on_map = '<Plug>(textobj-entire'
+# [[plugins]]
+# repo = 'kana/vim-textobj-entire'
+# on_map = '<Plug>(textobj-entire'
 
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-context'
