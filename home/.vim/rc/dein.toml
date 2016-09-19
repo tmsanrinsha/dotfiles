@@ -117,6 +117,9 @@ repo = 'tmsanrinsha/vim-emacscommandline'
 
 [[plugins]]
 repo = 'airblade/vim-rooter'
+hook_add = '''
+let g:rooter_manual_only = 1
+'''
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
