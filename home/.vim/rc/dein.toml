@@ -10,6 +10,8 @@ hook_add = '''
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
+# unite.vim, vimfiler {{{1
+# ============================================================================
 [[plugins]]
 repo = 'tmsanrinsha/unite-ghq'
 build = "test -f ~/bin/ghq-list.sh || ln -s `pwd`/bin/ghq-list.sh ~/bin"
@@ -24,12 +26,6 @@ repo = 'ujihisa/unite-locate'
 repo = 'tacroe/unite-mark'
 
 [[plugins]]
-repo = 'ujihisa/vimshell-ssh'
-
-[[plugins]]
-repo = 'Shougo/neco-syntax'
-
-[[plugins]]
 repo = 'tsukkee/unite-tag'
 
 [[plugins]]
@@ -37,6 +33,14 @@ repo = 'rhysd/unite-zsh-cdr.vim'
 
 [[plugins]]
 repo = 'Shougo/neossh.vim'
+
+[[plugins]]
+repo = 'ujihisa/vimshell-ssh'
+
+# neocomplete {{{1
+# ============================================================================
+[[plugins]]
+repo = 'Shougo/neco-syntax'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'
@@ -53,7 +57,55 @@ repo = 'Shougo/context_filetype.vim'
 # ============================================================================
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-# }}}
+
+# operator {{{1
+# ============================================================================
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+# textobj {{{1
+# ============================================================================
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+# lazyにすると最初の"*yieでクリップボードではなく、ヤンクされる
+repo = 'kana/vim-textobj-entire'
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+
+[[plugins]]
+repo = 'kana/vim-textobj-function'
+
+[[plugins]]
+repo = 'kentaro/vim-textobj-function-php'
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-conflict'
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+
+[[plugins]]
+repo = 'anyakichi/vim-textobj-xbrackets'
+
+# gf {{{1
+# ============================================================================
+[[plugins]]
+repo = 'kana/vim-gf-user'
+
+[[plugins]]
+repo = 'kana/vim-gf-diff'
 
 # indent {{{1
 # ============================================================================
@@ -76,22 +128,6 @@ repo = 'tmsanrinsha/diffchar.vim'
 
 [[plugins]]
 repo = 'sudo.vim'
-
-[[plugins]]
-repo = 'kana/vim-operator-user'
-
-# textobj {{{1
-# ============================================================================
-[[plugins]]
-# lazyにすると最初の"*yieでクリップボードではなく、ヤンクされる
-repo = 'kana/vim-textobj-entire'
-
-[[plugins]]
-repo = 'sgur/vim-textobj-parameter'
-# }}}
-
-[[plugins]]
-repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'savevers.vim'
@@ -129,16 +165,7 @@ augroup = 'fugitive'
 repo = 'osyo-manga/shabadou.vim'
 
 [[plugins]]
-repo = 'kana/vim-textobj-user'
-
-[[plugins]]
-repo = 'tpope/vim-repeat'
-
-[[plugins]]
 repo = 'rhysd/clever-f.vim'
-
-[[plugins]]
-repo = 'kana/vim-gf-user'
 
 [[plugins]]
 repo = 'LeafCage/foldCC'
@@ -148,27 +175,6 @@ repo = 'vim-jp/vital.vim'
 
 [[plugins]]
 repo = 'thinca/vim-template'
-
-# textobj {{{1
-# ============================================================================
-[[plugins]]
-repo = 'kana/vim-textobj-function'
-
-[[plugins]]
-repo = 'kentaro/vim-textobj-function-php'
-
-[[plugins]]
-repo = 'kana/vim-textobj-indent'
-
-[[plugins]]
-repo = 'rhysd/vim-textobj-conflict'
-
-[[plugins]]
-repo = 'osyo-manga/vim-textobj-multiblock'
-
-[[plugins]]
-repo = 'anyakichi/vim-textobj-xbrackets'
-# }}}
 
 [[plugins]]
 repo = 'thinca/vim-singleton'
@@ -199,9 +205,6 @@ repo = 'altercation/vim-colors-solarized'
 repo = 'reedes/vim-colors-pencil'
 
 # }}}
-
-[[plugins]]
-repo = 'kana/vim-gf-diff'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
@@ -325,6 +328,9 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'thinca/vim-ft-help_fold'
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
 
 # vimperator {{{2
 # -----------------------------------------------------------------------------

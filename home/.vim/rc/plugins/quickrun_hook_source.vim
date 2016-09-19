@@ -10,6 +10,7 @@ nnoremap <expr><silent> <C-C> quickrun#is_running() ? quickrun#sweep_sessions() 
 if !exists('g:quickrun_config')
     let g:quickrun_config = {}
 endif
+
 " 共通の設定
 " [shabadou.vim を使って quickrun.vim をカスタマイズしよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20120919/1348054752)
 let g:quickrun_config['_'] = {
@@ -31,6 +32,8 @@ let g:quickrun_config['_'] = {
 \}
 " \ 'hook/qfstatusline_update/enable_exit':      1,
 " \ 'hook/qfstatusline_update/priority_exit':    2,
+
+" hook/cd/diretoryで%sを付かつとパスがダブルクォートで囲まれてうまくいかない
 
 " PHP {{{2
 " --------------------------------------------------------------------
