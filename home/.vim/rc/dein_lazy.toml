@@ -80,7 +80,7 @@ repo = 'Konfekt/FastFold'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-on_ft = 'vim'
+on_ft = ['vim', 'toml']
 # vim_version = '7.3.825'
 
 [[plugins]]
