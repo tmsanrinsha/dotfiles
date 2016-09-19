@@ -39,7 +39,12 @@ if dein#check_install(['vimproc.vim'])
 endif
 
 if dein#check_install()
-  call dein#install()
+    " vimがサイレンスモード(-s)で起動した場合はデフォルトのNoが選ばれる
+    " これによってcall dein#install()した後にdein#update()するという
+    " 無駄な処理を行わずにすむ
+    if confirm('Install bundles now?', "yes\nNo", 2) == 1
+        call dein#install()
+    endif
 endif
 
 " repo以下のautoloadを保存したら.dein以下にコピーする {{{1
