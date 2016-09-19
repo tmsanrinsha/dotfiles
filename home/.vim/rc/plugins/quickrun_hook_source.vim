@@ -29,11 +29,24 @@ let g:quickrun_config['_'] = {
 \ 'hook/qfsigns_update/priority_exit':         2,
 \ 'hook/quickfix_status_enable/enable_exit':   1,
 \ 'hook/quickfix_status_enable/priority_exit': 2,
+\ 'hook/unya/enable': 1,
+\ 'hook/echo/enable': 1,
+\ 'hook/echo/output_success': 'Let''s＼(・ω・)／にゃー！',
+\ 'hook/echo/output_failure': '＼(・ω・＼)SAN値!(/・ω・)/ピンチ!',
 \}
+
 " \ 'hook/qfstatusline_update/enable_exit':      1,
 " \ 'hook/qfstatusline_update/priority_exit':    2,
 
-" hook/cd/diretoryで%sを付かつとパスがダブルクォートで囲まれてうまくいかない
+" hook/cd/diretoryで%sを使うとパスがダブルクォートで囲まれてうまくいかない
+
+" （」・ω・）」quick！（／・ω・）／run！ - C++でゲームプログラミング
+" http://d.hatena.ne.jp/osyo-manga/20120508/1336437386
+call quickrun#module#register(shabadou#make_quickrun_hook_anim(
+\   'unya',
+\   ['（」・ω・）」うー！', '(／・ω・)／にゃー！'],
+\   4,
+\), 1)
 
 " PHP {{{2
 " --------------------------------------------------------------------

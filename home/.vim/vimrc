@@ -1417,7 +1417,7 @@ if IsInstalled('my_molokai')
 endif
 
 " let g:solarized_termcolors=256
-let g:solarized_contrast = "high"
+let g:solarized_contrast = 'high'
 " colorscheme solarized
 
 " 16色の色見本
