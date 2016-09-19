@@ -492,7 +492,8 @@ inoremap <M-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
 set backupskip&
 set backupskip+=/home/tmp/*,/private/tmp/*
 
-" 富豪的バックアップ
+" 富豪的バックアップ {{{2
+" ----------------------------------------------------------------------------
 " http://d.hatena.ne.jp/viver/20090723/p1
 " http://synpey.net/?p=127
 " savevers.vimが場合はそちらを使う
@@ -519,7 +520,8 @@ if ! isdirectory(expand('~/.vim/bundle/savevers.vim'))
     augroup END
 endif
 
-" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする
+" アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする {{{2
+" ----------------------------------------------------------------------------
 " 開いた時に前回保存時と内容が違う場合はリセットされる
 if has('persistent_undo')
     set undofile
@@ -529,13 +531,16 @@ if has('persistent_undo')
     set undodir=$VIM_CACHE_DIR/undo
 endif
 
-" 前回のカーソル位置にジャンプ
+" 前回のカーソル位置にジャンプ {{{2
+" ----------------------------------------------------------------------------
 " Always Jump to the Last Known Cursor Position
 autocmd MyVimrc BufReadPost *
-            \ if line("`\"") > 1 && line("`\"") <= line("$") |
-            \   execute "normal! g`\"" |
-            \ endif
+\   if line("`\"") > 1 && line("`\"") <= line("$") |
+\       execute "normal! g`\"" |
+\   endif
 
+" session {{{2
+" ----------------------------------------------------------------------------
 " optionsを設定するとおかしくなる
 set sessionoptions-=options
 autocmd MyVimrc VimLeavePre * call s:save_session()
