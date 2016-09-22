@@ -1275,6 +1275,7 @@ endif
     " \       'paste': '%{&paste?"PASTE":""}',
     " \       'readonly': '%2*%{&filetype=="help"?"":&readonly?"RO":""}%*',
     " \       'paste': '%{&paste?"PASTE":""}%R%H%W%q',
+
 let g:lightline = {
 \   'colorscheme': 'my_powerline',
 \   'active': {
@@ -1284,7 +1285,7 @@ let g:lightline = {
 \           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
 \       ],
 \       'right': [
-\           ['column', 'lineinfo'],
+\           ['syntaxcheck', 'column', 'lineinfo'],
 \           ['percent'],
 \           ['fileformat', 'fileencoding', 'filetype']
 \       ]
@@ -1306,7 +1307,13 @@ let g:lightline = {
 \   },
 \   'component_visible_condition': {
 \       'flag': '(&filetype == "help" || &filetype == "qf")',
-\   }
+\   },
+\   'component_expand': {
+\       'syntaxcheck': 'qfstatusline#Update',
+\   },
+\   'component_type': {
+\       'syntaxcheck': 'error',
+\   },
 \}
 
 let g:lightline['component_function'] = {
@@ -1348,7 +1355,7 @@ let g:lightline['mode_map']  = {
 " \       'syntaxcheck': 'error',
 " \   },
 
-" let g:Qfstatusline#UpdateCmd = function('lightline#update')
+let g:Qfstatusline#UpdateCmd = function('lightline#update')
 " }}}
 
 " 途中で色変更をするとInsert modeがおかしくなる

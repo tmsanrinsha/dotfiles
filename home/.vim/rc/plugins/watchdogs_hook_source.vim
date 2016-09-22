@@ -17,9 +17,6 @@ let g:quickrun_config['watchdogs_checker/_'] = {
 \ 'hook/quickfix_status_enable/priority_exit': 2,
 \}
 
-" \ 'hook/qfstatusline_update/enable_exit':      1,
-" \ 'hook/qfstatusline_update/priority_exit':    2,
-
 " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
 " watchdogsの場合は出力が無いので、これを1にしておくと
 " quickrunでなんらかのプログラムを実行したあと保存をすると
@@ -28,8 +25,8 @@ let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_dat
 
 " open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
 " 開かないと気づかないので開く？ステータスラインでどうにかする？
-let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
-" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'copen'
+" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'botright copen'
 " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
 " windo HierUpdateなどを行う
 

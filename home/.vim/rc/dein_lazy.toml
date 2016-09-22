@@ -414,12 +414,12 @@ on_cmd = 'Man'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 on_cmd = 'QuickRun'
-depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline']
 hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
-depends = ['vim-quickrun', 'shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns']
+depends = ['vim-quickrun']
 hook_source = 'source ~/.vim/rc/plugins/watchdogs_hook_source.vim'
 
 [[plugins]]
@@ -430,6 +430,12 @@ repo = 'dannyob/quickfixstatus'
 
 [[plugins]]
 repo = 'KazuakiM/vim-qfsigns'
+
+[[plugins]]
+repo = 'KazuakiM/vim-qfstatusline'
+hook_source = '''
+    let g:Qfstatusline#Text = 'E'
+'''
 
 [[plugins]]
 repo = 'joonty/vdebug'

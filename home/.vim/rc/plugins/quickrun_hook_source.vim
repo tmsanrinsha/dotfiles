@@ -18,6 +18,7 @@ let g:quickrun_config['_'] = {
 \ 'runner/vimproc/updatetime':                 50,
 \ 'outputter':                                 'multi:buffer:quickfix',
 \ 'outputter/buffer/split':                    'botright 8sp',
+\ 'outputter/quickfix/open_cmd':               'botright copen',
 \ 'hook/cd/directory':                         '%S:p:h',
 \ 'hook/close_quickfix/enable_hook_loaded':    1,
 \ 'hook/close_quickfix/enable_success':        1,
@@ -29,14 +30,14 @@ let g:quickrun_config['_'] = {
 \ 'hook/qfsigns_update/priority_exit':         2,
 \ 'hook/quickfix_status_enable/enable_exit':   1,
 \ 'hook/quickfix_status_enable/priority_exit': 2,
+\ 'hook/qfstatusline_update/enable_exit':      1,
+\ 'hook/qfstatusline_update/priority_exit':    2,
 \ 'hook/unya/enable': 1,
 \ 'hook/echo/enable': 1,
 \ 'hook/echo/output_success': 'Let''s＼(・ω・)／にゃー！',
 \ 'hook/echo/output_failure': '＼(・ω・＼)SAN値!(/・ω・)/ピンチ!',
 \}
 
-" \ 'hook/qfstatusline_update/enable_exit':      1,
-" \ 'hook/qfstatusline_update/priority_exit':    2,
 
 " hook/cd/diretoryで%sを使うとパスがダブルクォートで囲まれてうまくいかない
 
