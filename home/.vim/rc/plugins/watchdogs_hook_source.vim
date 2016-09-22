@@ -32,32 +32,32 @@ let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'b
 
 " apaache {{{2
 " ------------------------------------------------------------------------
-let g:quickrun_config["watchdogs_checker/apache"] = {
-\   "command":           "apachectl",
-\   "cmdopt":            "configtest",
-\   "exec":              "%c %o",
-\   "errorformat":       "%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#",
+let g:quickrun_config['watchdogs_checker/apache'] = {
+\   'command':           'apachectl',
+\   'cmdopt':            'configtest',
+\   'exec':              '%c %o',
+\   'errorformat':       '%A%.%#Syntax error on line %l of %f:,%Z%m,%-G%.%#',
 \}
 
-let g:quickrun_config["apache/watchdogs_checker"] = {
-\   "type" : "watchdogs_checker/apache"
+let g:quickrun_config['apache/watchdogs_checker'] = {
+\   'type' : 'watchdogs_checker/apache'
 \}
 
 " cpp {{{2
 " ------------------------------------------------------------------------
-let g:quickrun_config["cpp/watchdogs_checker"] = {
-\   "type"
-\       : executable("g++")         ? "watchdogs_checker/g++"
-\       : executable("clang-check") ? "watchdogs_checker/clang_check"
-\       : executable("clang++")     ? "watchdogs_checker/clang++"
-\       : executable("cl")          ? "watchdogs_checker/cl"
-\       : "",
+let g:quickrun_config['cpp/watchdogs_checker'] = {
+\   'type'
+\       : executable('g++')         ? 'watchdogs_checker/g++'
+\       : executable('clang-check') ? 'watchdogs_checker/clang_check'
+\       : executable('clang++')     ? 'watchdogs_checker/clang++'
+\       : executable('cl')          ? 'watchdogs_checker/cl'
+\       : '',
 \}
 
-let g:quickrun_config["watchdogs_checker/g++"] = {
-\   "command"   : "g++",
-\   "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
-\   "outputter" : "quickfix",
+let g:quickrun_config['watchdogs_checker/g++'] = {
+\   'command'   : 'g++',
+\   'exec'      : '%c %o -std=gnu++0x -fsyntax-only %s:p ',
+\   'outputter' : 'quickfix',
 \}
 
 " Go lang {{{2
@@ -81,12 +81,12 @@ let g:quickrun_config['watchdogs_checker/gometalinter'] = {
 
 " mql {{{2
 " ------------------------------------------------------------------------
-let g:quickrun_config["watchdogs_checker/mql"] = {
-\   "hook/cd/directory": '%S:p:h',
-\   "command":           "wine",
-\   "cmdopt":            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
-\   "exec":              "%c %o %S:t",
-\   "errorformat":       '%f(%l\,%c) : %m',
+let g:quickrun_config['watchdogs_checker/mql'] = {
+\   'hook/cd/directory': '%S:p:h',
+\   'command':           'wine',
+\   'cmdopt':            '~/Dropbox/src/localhost/me/MetaTrader/mql.exe /i:Z:'.$HOME.'/PlayOnMac''''''''s\ virtual\ drives/OANDA_MT4_/drive_c/Program\ Files/OANDA\ -\ MetaTrader/MQL4',
+\   'exec':              '%c %o %S:t',
+\   'errorformat':       '%f(%l\,%c) : %m',
 \}
 " hook/cd/directoryでファイルのあるディレクトリに移動して、execでファイル名を指定して実行。
 " ディレクトリを移動しない場合、wine側で認識させるためにz:をファイルパスにつけル必要があり、つけた結果エラー結果にz:がついてしまい、Vimで開くことができなくなる
@@ -98,8 +98,8 @@ let g:quickrun_config["watchdogs_checker/mql"] = {
 " さらにwineの引数でシングルクォートを表すために''''''''
 " となっている
 
-let g:quickrun_config["mql4/watchdogs_checker"] = {
-\   "type" : "watchdogs_checker/mql"
+let g:quickrun_config['mql4/watchdogs_checker'] = {
+\   'type' : 'watchdogs_checker/mql'
 \}
 
 " fugitiveのdiffなどの表示画面ではcheckしない
