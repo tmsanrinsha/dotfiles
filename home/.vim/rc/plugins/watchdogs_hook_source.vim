@@ -30,6 +30,10 @@ let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'b
 " quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
 " windo HierUpdateなどを行う
 
+" fugitiveのdiffなどの表示画面ではcheckしない
+autocmd MyVimrc BufRead fugitive://*
+\   let b:watchdogs_checker_type = ''
+
 " apaache {{{2
 " ------------------------------------------------------------------------
 let g:quickrun_config['watchdogs_checker/apache'] = {
@@ -101,11 +105,6 @@ let g:quickrun_config['watchdogs_checker/mql'] = {
 let g:quickrun_config['mql4/watchdogs_checker'] = {
 \   'type' : 'watchdogs_checker/mql'
 \}
-
-" fugitiveのdiffなどの表示画面ではcheckしない
-autocmd MyVimrc BufRead fugitive://*.mq4
-\   let b:watchdogs_checker_type = ''
-
 
 " php {{{2
 " ------------------------------------------------------------------------
