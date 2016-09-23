@@ -79,6 +79,7 @@ alias hgr='history 1 | grep -C 3'
 alias -g A='| awk'
 alias -g C='| column -t'
 alias -g G='| grep -i'
+alias -g J='| jq .'
 alias -g L='| less -R'
 alias -g P='| peco_with_action'
 # Vim: Warning: Input is not from a terminal
@@ -88,11 +89,11 @@ alias -g PXV="| peco | xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g V='| vim -R -'
 alias -g VT='| tovim'
 alias -g XV="| xargs bash -c '</dev/tty vim \$@' ignoreme"
+alias -g X='| xmllint --format -'
 alias -g H='| head'
 alias -g T='| tail -f'
 alias -g E='| egrep'
 alias -g GI='| egrep -i'
-alias -g X='| xmllint --format -'
 # alias -g C="2>&1 | sed -e 's/.*ERR.*/[31m&[0m/' -e 's/.*WARN.*/[33m&[0m/'"
 alias -g TGZ='| gzip -dc | tar xf -'
 
