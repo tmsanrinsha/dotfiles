@@ -829,18 +829,6 @@ if dein#tap('vim-gf-user')
     call gf#user#extend('GfNewFile', 3000)
 endif
 
-" caw {{{1
-" ==============================================================================
-" http://d.hatena.ne.jp/osyo-manga/20120106/1325815224
-if dein#tap('caw.vim')
-    " コメントアウトのトグル
-    nmap <Leader>cc <Plug>(caw:i:toggle)
-    xmap <Leader>cc <Plug>(caw:i:toggle)
-    " http://d.hatena.ne.jp/osyo-manga/20120303/1330731434
-    " 現在の行をコメントアウトして下にコピー
-    nmap <Leader>cy yyPgcij
-    xmap <Leader>cy ygvgcigv<C-C>p
-endif
 
 " tcomment_vim {{{1
 " ============================================================================
