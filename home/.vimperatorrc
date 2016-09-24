@@ -260,6 +260,8 @@ nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 
 " config, set {{{1
 " ============================================================================
+" preferenceを変更するにはset!を使う
+
 " スワイプで戻る・進むにアニメーションをつける
 " coderwall.com : establishing geek cred since 1305712800
 " https://coderwall.com/p/oe0jvw/firefox-on-os-x-with-safari-like-swipe-animation
@@ -268,7 +270,7 @@ set! browser.snapshots.limit=1
 " スワイプ出来ない
 
 " タブを隣に開く
-set browser.tabs.insertRelatedAfterCurrent=true
+set! browser.tabs.insertRelatedAfterCurrent=true
 
 " helpを英語で見る
 " set! general.useragent.locale=en-US
