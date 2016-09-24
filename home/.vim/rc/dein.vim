@@ -1121,7 +1121,6 @@ autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 
 " vim-markdown {{{2
 " ----------------------------------------------------------------------------
-" if dein#tap('rcmdnk_vim-markdown')
 if dein#tap('vim-markdown')
     let g:vim_markdown_folding_disabled = 0
     " macでgxを使いたい場合
