@@ -267,6 +267,9 @@ set! browser.snapshots.limit=1
 " アドオンのFireGesturesを使っているときはスワイプジェスチャにチェックを入れてないと
 " スワイプ出来ない
 
+" タブを隣に開く
+set browser.tabs.insertRelatedAfterCurrent=true
+
 " helpを英語で見る
 " set! general.useragent.locale=en-US
 
