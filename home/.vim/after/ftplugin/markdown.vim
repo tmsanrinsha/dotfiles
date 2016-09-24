@@ -13,5 +13,7 @@ setlocal iskeyword+=-
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
 
+setlocal nowrap
+
 nmap <buffer> <expr> <C-P> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
 nmap <buffer> <expr> <C-N> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"
