@@ -7,16 +7,6 @@ if !exists('g:quickrun_config')
     let g:quickrun_config = {}
 endif
 
-let g:quickrun_config['watchdogs_checker/_'] = {
-\ 'runner/vimproc/updatetime' : 10,
-\ 'hook/hier_update/enable_exit':              1,
-\ 'hook/hier_update/priority_exit':            2,
-\ 'hook/qfsigns_update/enable_exit':           1,
-\ 'hook/qfsigns_update/priority_exit':         2,
-\ 'hook/quickfix_status_enable/enable_exit':   1,
-\ 'hook/quickfix_status_enable/priority_exit': 2,
-\}
-
 " quickrunの出力結果が空の時にquickrunのバッファを閉じる設定。
 " watchdogsの場合は出力が無いので、これを1にしておくと
 " quickrunでなんらかのプログラムを実行したあと保存をすると

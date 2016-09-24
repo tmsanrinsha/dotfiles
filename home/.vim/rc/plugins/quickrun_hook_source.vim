@@ -15,7 +15,7 @@ endif
 " [shabadou.vim を使って quickrun.vim をカスタマイズしよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20120919/1348054752)
 let g:quickrun_config['_'] = {
 \ 'runner':                                    'vimproc',
-\ 'runner/vimproc/updatetime':                 50,
+\ 'runner/vimproc/updatetime':                 100,
 \ 'outputter':                                 'multi:buffer:quickfix',
 \ 'outputter/buffer/split':                    'botright 8sp',
 \ 'outputter/quickfix/open_cmd':               'botright copen',
