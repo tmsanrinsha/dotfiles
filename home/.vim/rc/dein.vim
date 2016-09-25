@@ -582,26 +582,12 @@ if dein#tap('vim-operator-user')
     nmap sr" <Plug>(operator-surround-delete)a"
 
     let g:operator#surround#blocks = {}
+    " zは全角
     let g:operator#surround#blocks['-'] = [
-    \   { 'block' : ['（', '）'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['P'] },
-    \   { 'block' : ['「', '」'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['B'] },
-    \   { 'block' : ['『', '』'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['2B'] },
+    \   { 'block' : ['（', '）'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['z('] },
+    \   { 'block' : ['「', '」'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['z['] },
+    \   { 'block' : ['『', '』'], 'motionwise' : ['char', 'line', 'block'], 'keys' : ['2z['] },
     \ ]
-
-    " そもそもclipboardはoperator
-    " let bundle = neobundle#get("vim-operator-user")
-    " function! bundle.hooks.on_source(bundle)
-    "     " clipboard copyのoperator
-    "     " http://www.infiniteloop.co.jp/blog/2011/11/vim-operator/
-    "     function! OperatorYankClipboard(motion_wiseness)
-    "         let visual_commnad =
-    "             \ operator#user#visual_command_from_wise_name(a:motion_wiseness)
-    "         execute 'normal!' '`['.visual_commnad.'`]"+y'
-    "     endfunction
-    "
-    "     call operator#user#define('yank-clipboard', 'OperatorYankClipboard')
-    " endfunction
-    " map [:space:]y <Plug>(operator-yank-clipboard)
 endif
 
 " clipboard copy {{{1
