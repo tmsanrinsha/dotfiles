@@ -58,6 +58,13 @@ endfor
 " \       "insert": 1
 " \   }
 " \}
+
+if &l:shiftwidth == 0
+    let s:indent = &l:tabstop
+else
+    let s:indent = &l:shiftwidth
+endif
+
 for s:val in ['{:}', '\[:\]']
     let s:pair = split(s:val, ':')
 
@@ -73,7 +80,6 @@ for s:val in ['{:}', '\[:\]']
     " \   {
     " \       \%#
     " \   }
-    let s:indent = &l:shiftwidth
     " indent 5つ分まで設定
     for s:i in range(1, 5)
         let s:space_num = s:indent * s:i - 1
@@ -98,7 +104,6 @@ endfor
 " \       'hoge': 'fuga',
 " \       \%#
 " \   }
-let s:indent = &l:shiftwidth
 " indent 5つ分まで設定
 for s:i in range(1, 5)
     let s:space_num = s:indent * s:i - 1
