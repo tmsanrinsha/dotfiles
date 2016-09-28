@@ -270,7 +270,7 @@ set! browser.snapshots.limit=1
 " スワイプ出来ない
 
 " タブを隣に開く
-set! browser.tabs.insertRelatedAfterCurrent=true
+" set! browser.tabs.insertRelatedAfterCurrent=true
 
 " helpを英語で見る
 " set! general.useragent.locale=en-US
