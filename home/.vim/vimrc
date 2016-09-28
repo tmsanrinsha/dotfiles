@@ -35,6 +35,7 @@ if empty($SRC_ROOT)
 endif
 
 let s:dotfiles_home = $SRC_ROOT.'/github.com/tmsanrinsha/dotfiles/home'
+let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
 
 " vimrc全体で使うaugroup {{{1
 " ============================================================================
@@ -843,7 +844,6 @@ autocmd MyVimrc BufWritePost *
 " tsukkee/unite-tag *unite-tag* {{{2
 " ----------------------------------------------------------------------------
 nnoremap [unite]t :<C-u>Unite tag<CR>
-
 " let g:unite_source_tag_max_fname_length = 1000
 " let g:unite_source_tag_max_name_length = 100
 " let g:unite_source_tag_strict_truncate_string = 0
@@ -858,11 +858,12 @@ function! s:configure_tag()
         return
     endif
 
-    if &filetype =~# 'vim|help'
-        " 引数が4つまでになるのは7.4.279以上
+    if &filetype =~# 'vim\|help'
+        execute 'setlocal tags+=' . g:dein_dir . '/repos/**/.git/tags'
+        " globpathの引数が4つまでになるのは7.4.279以上
         " [Vim script言語仕様の変更 · rbtnn/vimscript Wiki](https://github.com/rbtnn/vimscript/wiki/Vim-script%E8%A8%80%E8%AA%9E%E4%BB%95%E6%A7%98%E3%81%AE%E5%A4%89%E6%9B%B4)
         " execute 'setlocal tags+='.join(globpath(&runtimepath, '.git/tags', 0, 1), ',')
-        execute 'setlocal tags+='.substitute(globpath(&runtimepath, '.git/tags', 0), "\<NL>", ',', 'g')
+        " execute 'setlocal tags+='.substitute(globpath(&runtimepath, '.git/tags', 0), "\<NL>", ',', 'g')
     endif
 
     nnoremap <buffer> <C-]> :UniteWithCursorWord -immediately tag<CR>
@@ -1215,9 +1216,6 @@ endif
 if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
 endif
-
-
-let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
 
 if v:version >= 704
     call SourceRc('dein.vim')
