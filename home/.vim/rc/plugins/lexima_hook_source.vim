@@ -5,7 +5,7 @@ let g:lexima_no_default_rules = 1
 " let g:lexima_enable_basic_rules = 0
 " let g:lexima_enable_newline_rules = 1
 let g:lexima_enable_space_rules = 0
-" let g:lexima_enable_endwise_rules = 1
+let g:lexima_enable_endwise_rules = 1
 
 call lexima#set_default_rules()
 
@@ -141,6 +141,28 @@ call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after':
 " call lexima#add_rule({'char': '/', 'input': '/', 'syntax': ['String', 'shQuote']})
 " call lexima#add_rule({'char': ',', 'input': ', '})
 
+" endwise {{{1
+" ============================================================================
+let s:cr_key = '<CR>'
+
+function! s:make_rule(at, end, filetype, syntax)
+  return {
+  \ 'char': '<CR>',
+  \ 'input': s:cr_key,
+  \ 'input_after': '<CR>' . a:end,
+  \ 'at': a:at,
+  \ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+  \ 'filetype': a:filetype,
+  \ 'syntax': a:syntax,
+  \ }
+endfunction
+
+" ruby.chef {{{1
+" ----------------------------------------------------------------------------
+call lexima#add_rule(s:make_rule('^\s*\%(module\|def\|class\|if\|unless\|for\|while\|until\|case\)\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'ruby.chef', []))
+call lexima#add_rule(s:make_rule('^\s*\%(begin\)\s*\%#', 'end', 'ruby.chef', []))
+call lexima#add_rule(s:make_rule('\%(^\s*#.*\)\@<!do\%(\s*|.*|\)\?\s*\%#', 'end', 'ruby.chef', []))
+call lexima#add_rule(s:make_rule('\<\%(if\|unless\)\>.*\%#', 'end', 'ruby.chef', 'rubyConditionalExpression'))
 
 " neocomplete.vimとの連携 {{{1
 " ============================================================================
