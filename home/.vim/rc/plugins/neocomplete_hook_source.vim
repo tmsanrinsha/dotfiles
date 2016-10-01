@@ -5,6 +5,7 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " smartcaseな補完にする
 let g:neocomplete#enable_camel_case = 0
@@ -57,7 +58,6 @@ let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 
 let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
 let dictionary = g:memo_directory . '/memo/doc/memo.dict'
-" neocompleteで日本語を出すには設定が必要
 let g:neocomplete#sources#dictionary#dictionaries = {
 \   'default': '',
 \   'vimshell': $HOME.'/.vimshell_hist',
@@ -153,21 +153,28 @@ let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h
 " 日本語も補完させたい場合は
 " g:neocomplete#enable_multibyte_completionをnon-0にして
 " g:neocomplete#keyword_patternsも変更する必要あり
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " key mappings {{{2
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-execute 'inoremap <expr><C-l> neocomplete#complete_common_string()'
-execute 'inoremap <expr><C-Space> neocomplete#start_manual_complete()'
+inoremap <expr><C-Space> neocomplete#start_manual_complete()
 " execute 'inoremap <expr><C-Space> pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()'
 " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-n>"
-execute 'inoremap <expr><C-g>  pumvisible() ? neocomplete#undo_completion() : "\<C-g>"'
+
+" <C-G>S        <Plug>ISurround があるため<C-g><C-g>も追加
+inoremap <expr><C-g>       pumvisible() ? neocomplete#undo_completion() : "\<C-g>"
+inoremap <expr><C-g><C-g>  pumvisible() ? neocomplete#undo_completion() : "\<C-g>"
+inoremap <expr><C-l> neocomplete#complete_common_string()
 
 " <C-u>, <C-w>した文字列をアンドゥできるようにする
 " http://vim-users.jp/2009/10/hack81/
 " C-uでポップアップを消したいがうまくいかない
-execute 'inoremap <expr><C-u>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"'
-execute 'inoremap <expr><C-w>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"'
+inoremap <expr><C-u>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"
+inoremap <expr><C-w>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"
 
 " previewしない
 set completeopt-=preview
@@ -178,12 +185,12 @@ endif
 
 " auto_selectするとsnippetの方でうまくいかない
 " let g:neocomplete#enable_auto_select = 1
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-"     " For no inserting <CR> key.
-"     return pumvisible() ? "\<C-y>" : "\<CR>"
-"     " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-" endfunction
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : '' ) . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
 
 " " <TAB>: completion.
 " " ポップアップが出ていたら下を選択
@@ -211,15 +218,6 @@ endif
 " lexima.vimと競合するのでコメントアウト
 " execute 'inoremap <expr><BS>  pumvisible() ? neocomplete#smart_close_popup()."\<BS>"  : "\<BS>"'
 " execute 'inoremap <expr><C-h> pumvisible() ? neocomplete#smart_close_popup()."\<C-h>" : "\<C-h>"'
-
-" <CR> でポップアップ中の候補を選択し改行する
-" execute 'inoremap <expr><CR> neocomplete#close_popup()."\<CR>"'
-
-" これをやるとコピペに改行があるときにポップアップが選択されてしまう
-" 補完候補が表示されている場合は確定。そうでない場合は改行
-" execute 'inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"'
-
-" endif
 
 " let g:neocomplete#fallback_mappings =
 " \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
