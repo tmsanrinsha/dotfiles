@@ -1302,6 +1302,13 @@ cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 xnoremap <Leader>/ <ESC>/\%V
 xnoremap <Leader>? <ESC>?\%V
 
+" <C-n>, <C-p> {{{1
+" ============================================================================
+if IsInstalled('yankround.vim') && IsInstalled('QuickFixCurrentNumber')
+    nmap <expr><C-P> yankround#is_active() ? "\<Plug>(yankround-prev)" : "<Plug>(QuickFixCurrentNumberQPrev) "
+    nmap <expr><C-N> yankround#is_active() ? "\<Plug>(yankround-next)" : "<Plug>(QuickFixCurrentNumberQNext) "
+endif
+
 " emacs keybind {{{1
 " ============================================================================
 " vim/gvim挿入モードのキーを若干Emacs風味にカスタマイズ - fudisti

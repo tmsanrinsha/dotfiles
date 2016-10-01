@@ -737,9 +737,6 @@ endif
 
 " LeafCage/yankround.vim :paste:yank: {{{1
 " ============================================================================
-nnoremap <C-P> ]]
-nnoremap <C-N> [[
-
 nnoremap ]p p`[v`]=
 nnoremap ]P P`[v`]=
 xnoremap ]p p`[v`]=
@@ -765,8 +762,6 @@ if dein#tap('yankround.vim')
     nmap gp <Plug>(yankround-gp)
     xmap gp <Plug>(yankround-gp)
     nmap gP <Plug>(yankround-gP)
-    nmap <expr><C-P> yankround#is_active() ? "\<Plug>(yankround-prev)" : "gT"
-    nmap <expr><C-N> yankround#is_active() ? "\<Plug>(yankround-next)" : "gt"
 endif
 
 " gf {{{1
