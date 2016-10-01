@@ -1205,13 +1205,13 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>330 289 620 392 0 0 1280 777 </string>
+	<string>301 1298 620 392 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>207 1213 796 473 -349 800 1920 1057 </string>
+	<string>477 200 918 498 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>315 165 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-349 801 1914 1056 -349 800 1920 1057 </string>
+	<string>0 15 1277 762 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1917,7 +1917,7 @@
 			<key>Thin Strokes</key>
 			<integer>1</integer>
 			<key>Transparency</key>
-			<real>0.22722585896063136</real>
+			<real>0.1195312398777911</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -2034,7 +2034,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-19T16:26:13Z</date>
+	<date>2016-09-17T13:41:32Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2097,6 +2097,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.7</string>
+	<string>3.0.8</string>
 </dict>
 </plist>
