@@ -21,14 +21,14 @@ call lexima#add_rule({'char': '<Right>', 'leave': 1})
 inoremap <C-d> <Del>
 
 " 右側が単語を構成する文字の時は補完をしない
-call lexima#add_rule({'char': '(', 'at': '\%#\w'})
-call lexima#add_rule({'char': ')', 'at': '\%#\w'})
-call lexima#add_rule({'char': '{', 'at': '\%#\w'})
-call lexima#add_rule({'char': '}', 'at': '\%#\w'})
-call lexima#add_rule({'char': '[', 'at': '\%#\w'})
-call lexima#add_rule({'char': ']', 'at': '\%#\w'})
-call lexima#add_rule({'char': "'", 'at': '\%#\w'})
-call lexima#add_rule({'char': '"', 'at': '\%#\w'})
+call lexima#add_rule({'char': '(', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': ')', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': '{', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': '}', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': '[', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': ']', 'at': '\%#.*\k'})
+call lexima#add_rule({'char': "'", 'at': '\%#.*\k'})
+call lexima#add_rule({'char': '"', 'at': '\%#.*\k'})
 
 " matchparisで設定したもの(「,」:（,）など)をルールに追加
 for s:val in split(&matchpairs, ',')
