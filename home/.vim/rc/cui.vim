@@ -19,7 +19,7 @@ if v:version > 701
             "set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
         else
             " シングルクォートだとと\<Esc>が文字列になってしまう
-            exec "set <M-".c.">=\<Esc>".c
+            exec 'set <M-'.c.">=\<Esc>".c
         endif
     endfor
     exec "set <M-CR>=\<Esc>\<CR>"
