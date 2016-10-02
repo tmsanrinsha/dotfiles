@@ -469,7 +469,22 @@ nnoremap [h ?\vhttps\?://<CR>
 nnoremap <M-s> :<C-u>w<CR>
 inoremap <M-s> <Esc>:w<CR>
 
-inoremap <M-=> <Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>
+" <M-=>でカーソル前の数式の結果を=の後に出力する {{{2
+" ----------------------------------------------------------------------------
+" Vim scriptテクニックバイブル4-3によると
+" <expr>
+" <C-r>=
+" <C-o>
+" <Esc>
+" の順にいいらしい
+inoremap <expr> <M-=> "\<C-g>u" . EvalExpression()
+
+function! EvalExpression() abort
+    let expression = getline('.')
+    let expression = matchstr(expression, '[0-9.+\-*/() ]\+')
+    " 1/4を0.25としてほしいのでluaeval()を使う
+    return ' = ' . string(luaeval(expression))
+endfunction
 
 " swap, backup, undo {{{1
 " ============================================================================
