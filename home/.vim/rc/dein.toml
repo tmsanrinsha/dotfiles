@@ -209,6 +209,14 @@ repo = 'reedes/vim-colors-pencil'
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
 
+[[plugins]]
+repo = 'vim-scripts/transpose-words'
+hook_add = '''
+nmap <S-Tab> <Plug>Transposewords
+imap <S-Tab> <Plug>Transposewords
+let g:transwrd_wordpattern = '\k\+\%(()\)\?'
+'''
+
 # filetype {{{1
 # ============================================================================
 # arduino {{{2
