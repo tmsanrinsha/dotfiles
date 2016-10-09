@@ -185,12 +185,14 @@ endif
 
 " auto_selectするとsnippetの方でうまくいかない
 " let g:neocomplete#enable_auto_select = 1
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : '' ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
+" leximaとバッティングする
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"     return (pumvisible() ? "\<C-y>" : '' ) . "\<CR>"
+"     " For no inserting <CR> key.
+"     "return pumvisible() ? "\<C-y>" : "\<CR>"
+" endfunction
+
 
 " " <TAB>: completion.
 " " ポップアップが出ていたら下を選択

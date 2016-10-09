@@ -1,13 +1,13 @@
 scriptencoding utf-8
 
 let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
 
 " let g:lexima_enable_basic_rules = 0
 " let g:lexima_enable_newline_rules = 1
 let g:lexima_enable_space_rules = 0
 let g:lexima_enable_endwise_rules = 1
 
-call lexima#set_default_rules()
 
 " <C-h>でlexima.vimの<BS>の動きをさせる
 imap <C-h> <BS>

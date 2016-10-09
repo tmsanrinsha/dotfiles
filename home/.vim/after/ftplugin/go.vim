@@ -6,10 +6,12 @@ let g:go_metalinter_autosave = 1
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave_enabled = ['vet']
 
-nmap <buffer> <Leader>A<CR> <Plug>(go-alternate-edit)
-nmap <buffer> <Leader>As    <Plug>(go-alternate-split)
-nmap <buffer> <Leader>Av    <Plug>(go-alternate-vertical)
-nmap <buffer> <Leader>At    :call go#alternate#Switch(<bang>0, 'tabe')<CR>
+set errorformat-=%-G%.%#
+
+nmap <buffer> <Leader>a<CR> <Plug>(go-alternate-edit)
+nmap <buffer> <Leader>as    <Plug>(go-alternate-split)
+nmap <buffer> <Leader>av    <Plug>(go-alternate-vertical)
+nmap <buffer> <Leader>at    :call go#alternate#Switch(<bang>0, 'tabe')<CR>
 
 nmap <buffer> <Leader>c <Plug>(go-coverage-toggle)
 nmap <buffer> <Leader>i <Plug>(go-info)
