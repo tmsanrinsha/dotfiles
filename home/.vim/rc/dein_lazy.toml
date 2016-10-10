@@ -428,7 +428,7 @@ hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
-depends = ['vim-quickrun']
+depends = ['vim-quickrun', 'vim-bufixlist']
 hook_source = 'source ~/.vim/rc/plugins/watchdogs_hook_source.vim'
 
 [[plugins]]
@@ -445,6 +445,9 @@ repo = 'KazuakiM/vim-qfstatusline'
 hook_source = '''
     let g:Qfstatusline#Text = 'E'
 '''
+
+[[plugins]]
+repo = 'osyo-manga/vim-bufixlist'
 
 [[plugins]]
 repo = 'joonty/vdebug'

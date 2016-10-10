@@ -15,12 +15,13 @@ let g:quickrun_config['watchdogs_checker/_'] = {}
 " その出力結果が消えてしまうので、0にする
 let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
 
-" open_cmdを''にするとquickfixが開かない。開くとhook/*_updateが効かない
-" 開かないと気づかないので開く？ステータスラインでどうにかする？
-" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
 let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'botright copen'
-" quickfixを開いてかつ、updateしたいときはautocmd FileType qfで
-" windo HierUpdateなどを行う
+" quickfixを開きたくない場合はopen_cmdを''にする
+" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+
+" 出力先をbufixlistににする。hook/close_bufixlistにあたるものがない
+" let g:quickrun_config['watchdogs_checker/_']['outputter'] = 'bufixlist'
+" let g:quickrun_config['watchdogs_checker/_']['outputter/bufixlist/open_cmd'] = 'botright Bopen'
 
 " fugitiveのdiffなどの表示画面ではcheckしない
 autocmd MyVimrc BufRead fugitive://*
@@ -196,5 +197,6 @@ let g:quickrun_config['watchdogs_checker/vint'] = {
 " \}
 
 call SourceRc('watchdogs_local.vim')
-" watchdogs.vim の設定を更新（初回は呼ばれる）
+
+" watchdogs.vim の設定を更新（初回は呼ばれるが、リロード時のために書いておく）
 call watchdogs#setup(g:quickrun_config)
