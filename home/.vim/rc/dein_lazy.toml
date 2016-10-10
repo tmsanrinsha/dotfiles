@@ -25,6 +25,7 @@ hook_source = '''
 repo = 'Shougo/unite-outline'
 on_source = 'unite.vim'
 hook_source = '''
+    call unite#sources#outline#alias('mql4', 'cpp')
     call unite#sources#outline#alias('ref-man', 'man')
     call unite#sources#outline#alias('rmd', 'markdown')
     call unite#sources#outline#alias('tmux', 'conf')
