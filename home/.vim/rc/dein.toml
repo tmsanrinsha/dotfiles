@@ -332,10 +332,6 @@ repo = 'evidens/vim-twig'
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
 
-# deepcopy(g:quickrun#default_config)でvimconsole#widthのエラーが出るのでコメントアウト
-# [[plugins]]
-# repo = 'rbtnn/vimconsole.vim'
-
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 

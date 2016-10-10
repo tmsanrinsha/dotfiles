@@ -340,6 +340,15 @@ on_ft = 'ruby'
 #
 # # rsenseのvim plugin
 # https://github.com/marcus/rsense
+# }}}
+
+# vim {{{1
+# ============================================================================
+[[plugins]]
+repo = 'rbtnn/vimconsole.vim'
+on_func = 'vimconsole#log'
+on_cmd = 'VimConsoleTogggle'
+# }}}
 
 [[plugins]]
 repo = 'tmsanrinsha/previm'
