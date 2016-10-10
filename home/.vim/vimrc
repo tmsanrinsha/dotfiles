@@ -417,6 +417,10 @@ xnoremap [:space:]   <Nop>
 nmap <Space> [:space:]
 xmap <Space> [:space:]
 
+" <Plug>を使っていいかも
+" nmap <Space> <Plug>(my-space)
+" nnoremap <Plug>(my-space) <Nop>
+
 " noremap ; :
 " noremap : ;
 
@@ -943,6 +947,8 @@ set printfont=Andale\ Mono:h12:cUTF8
 
 " quickfix, make {{{1
 " ============================================================================
+nmap [q <Plug>(QuickFixCurrentNumberQPrev)
+nmap ]q <Plug>(QuickFixCurrentNumberQNext)
 nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>
 noremap [*quickfix] <Nop>
@@ -1181,11 +1187,6 @@ nnoremap <silent> [VIM]r :<C-u>new \| source $MYVIMRC \| if has('gui_running') \
 "     \|       source %
 "     \|  endif
 
-" カーソル下のキーワードを:helpで開く (:help K)
-autocmd MyVimrc FileType vim
-\   setlocal keywordprg=:help
-\|  setlocal comments=:\"
-
 " vimperator {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType vimperator
@@ -1285,8 +1286,8 @@ else
     nnoremap # g*N
 endif
 
-nmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
-vmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+nmap [:space:]s #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+vmap [:space:]s #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
 
 " function! s:RegistSearchWord()
 "     silent normal yiw
@@ -1320,8 +1321,8 @@ xnoremap <Leader>? <ESC>?\%V
 " <C-n>, <C-p> {{{1
 " ============================================================================
 if IsInstalled('yankround.vim') && IsInstalled('QuickFixCurrentNumber')
-    nmap <expr><C-P> yankround#is_active() ? "\<Plug>(yankround-prev)" : "<Plug>(QuickFixCurrentNumberQPrev) "
-    nmap <expr><C-N> yankround#is_active() ? "\<Plug>(yankround-next)" : "<Plug>(QuickFixCurrentNumberQNext) "
+    nmap <expr><C-P> yankround#is_active() ? "\<Plug>(yankround-prev)" : "\<Plug>(QuickFixCurrentNumberQPrev)"
+    nmap <expr><C-N> yankround#is_active() ? "\<Plug>(yankround-next)" : "\<Plug>(QuickFixCurrentNumberQNext)"
 endif
 
 " emacs keybind {{{1
