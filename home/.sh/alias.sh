@@ -121,9 +121,9 @@ alias pk='pkill -f'
 
 # tree
 # -F:ディレクトリなら/をつけるなど
-# -C:color
+# -C:color は付けないときがautoの挙動になって、通常はcolor、パイプがあるときはcolorじゃなくなる
 # -l:ディレクトリのシンボリックリンクを追う
-alias tree='tree -FCl'
+alias tree='tree -Fl'
 
 alias apache_check='apachectl configtest'
 alias apache_restart='sudo apachectl restart'
