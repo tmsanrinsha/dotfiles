@@ -1,7 +1,6 @@
 #!/bin/sh
 
 cat <<EOT
---append=yes
 --tag-relative
 --recurse=yes
 --exclude=.svn
