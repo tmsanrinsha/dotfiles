@@ -105,7 +105,7 @@ fi
 # 独自設定
 export SRC_ROOT=$HOME/src
 
-# Go language {{{1
+# Golang {{{1
 # ============================================================================
 # MacでGoをパッケージからインストールした時用
 if [ -d /usr/local/go/bin ]; then
@@ -137,7 +137,12 @@ pathmunge "$HOME/.composer/vendor/bin"
 # export PHP55=`php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");' 2>/dev/null`
 export PHP55=0
 
-# R lang {{{1
+# Python {{{1
+# ============================================================================
+export PYTHONUSERBASE="$HOME/python"
+export PATH="$PYTHONUSERBASE/bin:$PATH"
+
+# Rlang {{{1
 # ============================================================================
 export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
 test -d $XDG_CACHE_HOME/R || mkdir -p $XDG_CACHE_HOME/R
