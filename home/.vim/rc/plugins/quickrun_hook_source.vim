@@ -18,7 +18,7 @@ let g:quickrun_config['_'] = {
 \ 'runner/vimproc/updatetime':                 100,
 \ 'outputter':                                 'multi:buffer:quickfix',
 \ 'outputter/buffer/split':                    'botright 8sp',
-\ 'outputter/quickfix/open_cmd':               'botright copen',
+\ 'outputter/quickfix/open_cmd':               'botright cwindow',
 \ 'hook/cd/directory':                         '%S:p:h',
 \ 'hook/close_quickfix/enable_hook_loaded':    1,
 \ 'hook/close_quickfix/enable_success':        1,
@@ -38,7 +38,7 @@ let g:quickrun_config['_'] = {
 \ 'hook/echo/output_failure': '＼(・ω・＼)SAN値!(/・ω・)/ピンチ!',
 \}
 
-
+" cwindowは認識されたエラーがるときにQuickFixウィンドを開く
 " hook/cd/diretoryで%sを使うとパスがダブルクォートで囲まれてうまくいかない
 
 " （」・ω・）」quick！（／・ω・）／run！ - C++でゲームプログラミング
