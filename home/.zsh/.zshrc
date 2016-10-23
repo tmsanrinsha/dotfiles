@@ -45,7 +45,7 @@ fi
 typeset -U path cdpath fpath manpath ld_library_path include
 
 fpath=(
-    ~/.zsh/functions
+    $ZDOTDIR/functions
     $fpath
 )
 
