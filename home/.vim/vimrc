@@ -133,17 +133,23 @@ function! s:makelink() abort
     call system('ln -s '.l:real_path.' '.l:symlink_path)
 endfunction
 
-command! -range=% TrimTrail call <SID>TrimTrail( <line1>, <line2> ) " {{{2
+" FixSpaces {{{2
+" original
 " [ntpeters/vim-better-whitespace: Better whitespace highlighting for Vim](https://github.com/ntpeters/vim-better-whitespace)
 " Removes all extraneous whitespace in the file
-function! s:TrimTrail( line1, line2 )
+command! -range=% FixSpaces call <SID>fix_spaces(<line1>, <line2>)
+
+function! s:fix_spaces(line1, line2)
     " Save the current search and cursor position
     let _s=@/
     let l = line('.')
     let c = col('.')
 
-    " Strip the whitespace
+    " Trim trailing spaces
     silent! execute ':' . a:line1 . ',' . a:line2 . 's/\s\+$//e'
+
+    " Replace unicode spaces to normal space
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\%u00A0\|\%u180E\|\%u2000\|\%u2001\|\%u2002\|\%u2003\|\%u2004\|\%u2005\|\%u2006\|\%u2007\|\%u2008\|\%u2009\|\%u200A\|\%u2028\|\%u2029\|\%u202F\|\%u205F\|\%u3000/ /ge'
 
     " Restore the saved search and cursor position
     let @/=_s
@@ -374,6 +380,22 @@ if has('conceal')
     " autocmd MyVimrc Filetype json,markdown
     " \ setlocal concealcursor=
 endif
+
+" スペース以外の空白文字をハイライト {{{2
+" ----------------------------------------------------------------------------
+" （Vimテクニックバイブル1-11）+ unicode spacesもハイライトするようにした
+" [Vimで全角空白以外のユニコードの空白文字もハイライト&取り除く - Qiita](http://qiita.com/tmsanrinsha/items/d6c11f2b7788eb24c776)
+augroup MyVimrc
+    autocmd ColorScheme * highlight UnicodeSpaces cterm=underline ctermfg=59 ctermbg=16 gui=underline guifg=#465457 guibg=#000000
+    " autocmd ColorScheme *
+    " \   execute 'highlight UnicodeSpaces'
+    " \   . ' ctermfg=' . synIDattr(synIDtrans(hlID('SpecialKey')), 'fg', 'cterm')
+    " \   . ' ctermbg=' . synIDattr(synIDtrans(hlID('SpecialKey')), 'bg', 'cterm')
+    " \   . ' guifg=' .   synIDattr(synIDtrans(hlID('SpecialKey')), 'fg', 'gui')
+    " \   . ' guibg=' .   synIDattr(synIDtrans(hlID('SpecialKey')), 'bg', 'gui')
+    " \   . ' cterm=underline gui=underline'
+    autocmd VimEnter,WinEnter * match UnicodeSpaces /\%u180E\|\%u2000\|\%u2001\|\%u2002\|\%u2003\|\%u2004\|\%u2005\|\%u2006\|\%u2007\|\%u2008\|\%u2009\|\%u200A\|\%u2028\|\%u2029\|\%u202F\|\%u205F\|\%u3000/
+augroup END
 
 " format {{{1
 " ============================================================================
@@ -1574,17 +1596,6 @@ autocmd MyVimrc FileType markdown syntax sync minlines=500 maxlines=5000
 
 " :h doxygen-syntax
 " let g:load_dosygen_syntax=1
-
-" 全角スペースをハイライト （Vimテクニックバイブル1-11）{{{2
-" ----------------------------------------------------------------------------
-" [Vim documentation: syntax](http://vim-jp.org/vimdoc-ja/syntax.html)
-augroup MyVimrc
-    autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-    autocmd ColorScheme *
-    \   highlight IdeographicSpace cterm=underline ctermfg=59 ctermbg=16 gui=underline guifg=#465457 guibg=#000000
-    " \   highlight IdeographicSpace term=underline ctermbg=67 guibg=#5f87af
-augroup END
-doautocmd ColorScheme
 
 " cursorlineは重いので必要なときだけ有効にする {{{2
 " ----------------------------------------------------------------------------
