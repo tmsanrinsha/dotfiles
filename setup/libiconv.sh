@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 
 mkdir -p $HOME/local/{bin,src}
 cd $HOME/local/src/ || exit 1

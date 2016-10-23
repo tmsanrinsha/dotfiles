@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 # tmuxを$HOME/local/bin以下にインストールする
 mkdir -p $HOME/local/{bin,src}
 

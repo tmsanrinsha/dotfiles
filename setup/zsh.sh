@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 # zshを$HOME/local/bin以下にインストールする
 # http://sourceforge.net/projects/zsh/files/zsh-dev/で最新バージョンを確かめる
 VERSION=5.0.2
