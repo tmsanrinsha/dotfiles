@@ -73,6 +73,7 @@ function! s:action_verbose_map.func(candidates)
     for candidate in a:candidates
         let l:mapmode = matchstr(candidate.unite__abbr, '^\S\+') . 'map'
         let l:lhs = matchstr(candidate.unite__abbr, '^\S\+\s\+\zs\S\+\ze')
+        " TODO 複数対応
         execute 'verbose ' l:mapmode l:lhs
     endfor
 endfunction
@@ -108,7 +109,6 @@ endfunction
 
 call unite#custom#action('source/output/*', 'open', s:action_open)
 " }}}
-
 
 " dでファイルの削除
 call unite#custom#alias('file', 'delete', 'vimfiler__delete')

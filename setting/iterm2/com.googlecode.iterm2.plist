@@ -1205,9 +1205,9 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>419 1496 384 129 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>301 1298 620 392 -349 800 1920 1057 </string>
+	<string>330 289 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>477 200 918 498 0 0 1280 777 </string>
+	<string>25 237 918 495 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>315 165 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1230,7 +1230,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<false/>
+			<true/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1962,6 +1962,10 @@
 	<real>463704362.69334298</real>
 	<key>NoSyncTipsDisabled</key>
 	<true/>
+	<key>NoSyncWarnAboutAmbiguousWidth</key>
+	<true/>
+	<key>NoSyncWarnAboutAmbiguousWidth_selection</key>
+	<integer>0</integer>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2034,7 +2038,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-09-17T13:41:32Z</date>
+	<date>2016-10-20T15:23:15Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2097,6 +2101,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.8</string>
+	<string>3.0.10</string>
 </dict>
 </plist>

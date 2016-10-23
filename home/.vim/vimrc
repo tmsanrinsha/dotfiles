@@ -358,9 +358,13 @@ set pastetoggle=<F11>
 " ============================================================================
 " 不可視文字の表示
 set list
-" tabに»-、行末の空白に･、ノーブレークスペース文字に%を使う
-set listchars=tab:»-,trail:･,nbsp:%
-" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↲
+" tab: »-
+" 行末の空白: ･
+" ノーブレークスペース: ⍽
+" 画面の右側に文字があるとき: »
+" 画面の左側に文字があるとき: «
+set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
+" set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↵
 
 if has('conceal')
     " For snippet_complete marker.
