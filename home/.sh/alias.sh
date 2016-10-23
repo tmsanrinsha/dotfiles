@@ -1,5 +1,6 @@
 # vim {{{1
 # ============================================================================
+alias v='vim'
 alias vi='vim'
 alias view='vim -R' # readonlyで開く
 alias vis="vim -S ~/.cache/vim/session.vim"
@@ -84,6 +85,7 @@ fi
 # knife {{{1
 # ============================================================================
 if command_exists knife; then
+    alias k='knife'
     alias knd='knife node delete'
     alias knl='knife node list'
     alias kns='knife node show'
@@ -108,9 +110,12 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
+alias crontab="crontab -i"
+
 alias j='cdr'
 
 alias egrep='egrep --color=auto'
+
 if [ "$os" = freebsd ];then
     alias find='find -E'
 fi
