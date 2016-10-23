@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash -x
+#!/usr/bin/env bash -x
 # http://mercurial.selenic.com/release/で最新バージョンを確かめる
 VERSION=2.0.1
 

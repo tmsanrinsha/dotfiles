@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash -x
+#!/usr/bin/env bash -x
 # screenを$HOME/local/bin以下にインストールする
 # http://sanrinsha.lolipop.jp/blog/2011/12/%E9%96%8B%E7%99%BA%E7%89%88gnu-screen%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html
 # automakeとgmakeが必要
