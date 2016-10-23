@@ -424,65 +424,11 @@ compdef _gnu_generic bc
 compdef _gnu_generic phpunit
 compdef _gnu_generic phpunit.sh
 
-# npm {{{2
+# gcloud {{{2
 # ----------------------------------------------------------------------------
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
-
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -o default -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
+if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
-###-end-npm-completion-###
 
 # zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
 # ----------------------------------------------------------------------------
@@ -516,7 +462,8 @@ dabbrev-complete () {
 zle -C dabbrev-complete complete-word dabbrev-complete
 bindkey '^o' dabbrev-complete
 
-## file completion {{{2
+# file completion {{{2
+# ----------------------------------------------------------------------------
 complete_files () {
     compadd - $PREFIX*
 }
@@ -524,6 +471,7 @@ zle -C complete-files complete-word complete_files
 bindkey '^x^f' complete-files
 
 # site-functionsのリロード {{{2
+# ----------------------------------------------------------------------------
 rsf() {
   local f
   f=(~/local/share/zsh/site-functions/*(.))
@@ -532,6 +480,7 @@ rsf() {
 }
 
 # Incremental completion on zsh {{{2
+# ----------------------------------------------------------------------------
 # http://mimosa-pudica.net/zsh-incremental.html
 if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
     . ~/.zsh/plugin/incr-0.2.zsh
@@ -859,6 +808,10 @@ if hash peco 2>/dev/null; then
     # }}}
 fi
 # }}}
+
+for file in $ZDOTDIR/load/*.zsh; do
+    source $file
+done
 
 if [ -f $ZDOTDIR/plugin/z.sh ]; then
     _Z_CMD=j

@@ -128,6 +128,15 @@ ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 export ZDOTDIR=${HOME}/.zsh
 test -d $ZDOTDIR/.cache      || mkdir -p $ZDOTDIR/.cache
 test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
+test -d $ZDOTDIR/load   || mkdir -p $ZDOTDIR/load
+
+if command_exists npm && ! test -f $ZDOTDIR/load/npm.zsh ; then
+    npm completion > $ZDOTDIR/load/npm.zsh
+fi
+
+if command_exists kubectl && ! test -f $ZDOTDIR/load/kubectl.zsh ; then
+    kubectl completion zsh > $ZDOTDIR/load/kubectl.zsh
+fi
 
 # antigen {{{2
 # ----------------------------------------------------------------------------
@@ -174,7 +183,13 @@ if ! command_exists migemogrep; then
 fi
 
 ghq get -u motemen/ghq
-ln -fs ~/src/github.com/motemen/ghq/zsh/_ghq ~/.zsh/functions
+
+if [ -f ~/src/github.com/motemen/ghq/zsh/_ghq ]; then
+    ln -fs ~/src/github.com/motemen/ghq/zsh/_ghq ~/.zsh/functions
+fi
+if [ -f ~/go/src/github.com/motemen/ghq/zsh/_ghq ]; then
+    ln -fs ~/go/src/github.com/motemen/ghq/zsh/_ghq ~/.zsh/functions
+fi
 
 # grep系 {{{1
 # ============================================================================
