@@ -26,7 +26,7 @@ set wildmode=list:full
 " beep音を消す
 set visualbell
 set nextpattern=次へ,次のページ,→,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
-set previouspattern=前へ,前のページ,←,\bprev,previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
+set previouspattern=前へ,前のページ,前に,←,\bprev,previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
 " hintchars
 set hintchars=asdfghjklqwertyuiopzxcvbnm1234567890
