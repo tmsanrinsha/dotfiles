@@ -69,6 +69,10 @@ function myplug() {
     fi
 }
 
+function error {
+    echo -e "\e[31m$1\e[m"
+}
+
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
 if command_exists lndir; then
@@ -118,7 +122,7 @@ fi
 # b4b4r07/cli
 # https://github.com/b4b4r07/cli
 
-command_exists ghq || ghinst motemen/ghq
+command_exists ghq || ghinst motemen/ghq || error 'Failed: ghinst motemen/ghq'
 
 ghq get -u tmsanrinsha/tmux_multi
 ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
