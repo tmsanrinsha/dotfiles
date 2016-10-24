@@ -5,45 +5,57 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければgit clone
 if !isdirectory(s:dein_repo_dir)
-    echo 'git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir
-    call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
+    if !executable('git')
+        echomsg 'git not found'
+    else
+        echo 'git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir
+        echo system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
+    endif
 endif
 
-execute 'set runtimepath^=' . s:dein_repo_dir
+if isdirectory(s:dein_repo_dir)
+    execute 'set runtimepath^=' . s:dein_repo_dir
 
-let g:dein#install_process_timeout = 1200
+    if dein#load_state(s:dein_dir)
+        call dein#begin(s:dein_dir)
+        let s:toml_files = split(glob('$VIMRC_DIR/*.toml'), "\n")
+        for s:toml_file in s:toml_files
+            " lazyがついているtomlファイルはlazyとして処理する。
+            " pluginディレクトリがないプラグインはlazyにしても意味が無い
+            " :h dein#check_lazy_plugins()
+            if match(s:toml_file, 'lazy') >= 0
+                call dein#load_toml(s:toml_file, {'lazy': 1})
+            else
+                call dein#load_toml(s:toml_file)
+            endif
+        endfor
 
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-    let s:toml_files = split(glob('$VIMRC_DIR/*.toml'), "\n")
-    for s:toml_file in s:toml_files
-        " lazyがついているtomlファイルはlazyとして処理する。
-        " pluginディレクトリがないプラグインはlazyにしても意味が無い
-        " :h dein#check_lazy_plugins()
-        if match(s:toml_file, 'lazy') >= 0
-            call dein#load_toml(s:toml_file, {'lazy': 1})
-        else
-            call dein#load_toml(s:toml_file)
-        endif
-    endfor
+        call dein#end()
+        call dein#save_state()
+    endif
 
-    call dein#end()
-    call dein#save_state()
-endif
+    let g:dein#install_process_timeout = 1200
+end
 
 filetype plugin indent on
 
-" vimprocは先にインストールする
-if dein#check_install(['vimproc.vim'])
-  call dein#install(['vimproc.vim'])
-endif
+if isdirectory(s:dein_repo_dir)
+    " vimprocは先にインストールする
+    if dein#check_install(['vimproc.vim'])
+        if executable('cc')
+            echomsg 'cc not found'
+        else
+            call dein#install(['vimproc.vim'])
+        endif
+    endif
 
-if dein#check_install()
-    " vimがサイレンスモード(-s)で起動した場合はデフォルトのNoが選ばれる
-    " これによってcall dein#install()した後にdein#update()するという
-    " 無駄な処理を行わずにすむ
-    if confirm('Install bundles now?', "yes\nNo", 2) == 1
-        call dein#install()
+    if dein#check_install()
+        " vimがサイレンスモード(-s)で起動した場合はデフォルトのNoが選ばれる
+        " これによってcall dein#install()した後にdein#update()するという
+        " 無駄な処理を行わずにすむ
+        if confirm('Install bundles now?', "yes\nNo", 2) == 1
+            call dein#install()
+        endif
     endif
 endif
 
@@ -68,7 +80,7 @@ call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
 " vim-singleton {{{1
 " ============================================================================
-if dein#tap('vim-singleton') && has('gui_running')
+if IsInstalled('vim-singleton') && has('gui_running')
     call singleton#enable()
 endif
 
@@ -76,8 +88,8 @@ endif
 " ==============================================================================
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
-if dein#tap('sudo.vim')
-    " if dein#tap('bclose')
+if IsInstalled('sudo.vim')
+    " if IsInstalled('bclose')
     "     nmap <Leader>E :e sudo:%<CR><C-^><Plug>Kwbd
     " else
     "     nnoremap <Leader>E :e sudo:%<CR><C-^>:bd<CR>
@@ -87,7 +99,7 @@ endif
 
 " vim-smartword {{{1
 " ==============================================================================
-if dein#tap('vim-smartword')
+if IsInstalled('vim-smartword')
     map w  <Plug>(smartword-w)
     map b  <Plug>(smartword-b)
     map e  <Plug>(smartword-e)
@@ -101,7 +113,7 @@ endif
 
 " unite.vim {{{1
 " ============================================================================
-if dein#tap('unite.vim')
+if IsInstalled('unite.vim')
     let g:unite_data_directory = $VIM_CACHE_DIR.'/unite'
     let g:unite_enable_start_insert = 1
     " let g:unite_source_find_max_candidates = 1000
@@ -251,7 +263,7 @@ endif
 
 " neomru {{{1
 " ============================================================================
-if dein#tap('neomru.vim')
+if IsInstalled('neomru.vim')
     "最近使用したファイル一覧
     nnoremap <silent> [unite]fm :<C-U>Unite neomru/file<CR>
     "最近使用したディレクトリ一覧
@@ -289,7 +301,7 @@ endif
 
 " unite-outline {{{1
 " =========================================================================
-if dein#tap('unite-outline')
+if IsInstalled('unite-outline')
     nnoremap [unite]o<CR> :<C-U>Unite outline<CR>
     nnoremap [unite]of :<C-U>Unite outline:folding<CR>
     nnoremap [unite]oo :<C-U>Unite -vertical -winwidth=40 -no-auto-resize -no-quit outline<CR>
@@ -304,14 +316,14 @@ nnoremap [unite]` :<C-U>Unite mark<CR>
 
 " neoyank.vim {{{1
 " =========================================================================
-if dein#tap('neoyank.vim')
+if IsInstalled('neoyank.vim')
     nnoremap [unite]hy :<C-U>Unite history/yank<CR>
     let g:neoyank#file = $VIM_CACHE_DIR.'/yankring.txt'
 endif
 
 " vim-unite-history {{{1
 " =========================================================================
-if dein#tap('vim-unite-history')
+if IsInstalled('vim-unite-history')
     nnoremap [unite]hc :<C-U>Unite history/command<CR>
     nnoremap [unite]hs :<C-U>Unite history/search<CR>
     cnoremap <M-r> :<C-U>Unite history/command -start-insert -default-action=edit<CR>
@@ -320,13 +332,13 @@ endif
 
 " unite-ghq {{{1
 " ============================================================================
-if dein#tap('unite-ghq')
+if IsInstalled('unite-ghq')
     nnoremap [unite]dg :<C-U>Unite ghq<CR>
 endif
 
 " cdr *cdr* {{{1
 " ============================================================================
-if dein#tap('vital.vim')
+if IsInstalled('vital.vim')
     let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
     augroup cdr
         autocmd!
@@ -355,7 +367,7 @@ endif
 
 " unite-zsh-cdr.vim {{{2
 " ----------------------------------------------------------------------------
-if dein#tap('unite-zsh-cdr.vim')
+if IsInstalled('unite-zsh-cdr.vim')
     nnoremap [unite]dr :<C-U>Unite zsh-cdr<CR>
     nnoremap <M-r> :<C-U>Unite zsh-cdr<CR>
 
@@ -391,7 +403,7 @@ autocmd MyVimrc BufLeave vimfiler*
 
 " vimshell {{{1
 " ============================================================================
-if dein#tap('vimshell.vim')
+if IsInstalled('vimshell.vim')
     nmap <leader>H [VIMSHELL]
     xmap <leader>H [VIMSHELL]
     nnoremap [VIMSHELL]H   :VimShellPop<CR>
@@ -456,7 +468,7 @@ endif
 
 " Conque-Shell {{{1
 " ============================================================================
-if dein#tap('Conque-Shell')
+if IsInstalled('Conque-Shell')
     " 現在のバッファのディレクトリでzshを立ち上げる
     noremap <Leader>C<CR> :ConqueTerm zsh<CR>
     noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
@@ -481,7 +493,7 @@ let g:ycm_filetype_whitelist = { 'java': 1 }
 
 " Shougo/context_filetype.vim {{{1
 " ==============================================================================
-if dein#tap('context_filetype.vim')
+if IsInstalled('context_filetype.vim')
     let g:context_filetype#filetypes = deepcopy(context_filetype#default_filetypes())
 
     " markdown
@@ -506,7 +518,7 @@ autocmd MyVimrc User plugin-template-loaded
 
 " vim-quickrun {{{1
 " ============================================================================
-if dein#tap('vim-quickrun')
+if IsInstalled('vim-quickrun')
     let g:quickrun_no_default_key_mappings = 1
     nnoremap <Leader>r<CR> :QuickRun -mode n<CR>
     xnoremap <Leader>r<CR> :QuickRun -mode v<CR>
@@ -514,7 +526,7 @@ endif
 
 " vim-watchdogs {{{1
 " ============================================================================
-if dein#tap('vim-watchdogs')
+if IsInstalled('vim-watchdogs')
     augroup WatchdogsSetting
         autocmd!
         autocmd BufWritePre *
@@ -547,7 +559,7 @@ sign define qfsign texthl=SignColumn text=>>
 " ============================================================================
 onoremap ; t;
 
-if dein#tap('vim-operator-user')
+if IsInstalled('vim-operator-user')
 
     map [:space:]c <Plug>(operator-camelize-toggle)
     map [:space:]p <Plug>(operator-replace)
@@ -584,7 +596,7 @@ nmap [:space:]Y "*y$
 
 " vim-fakeclip {{{1
 " ----------------------------------------------------------------------------
-if dein#tap('vim-fakeclip')
+if IsInstalled('vim-fakeclip')
     " +clipboardでもfakeclipのキーマッピングを使う
     let g:fakeclip_provide_clipboard_key_mappings = 1
     " クリップボードコピーのコマンドにrfpbcopyを使う
@@ -594,7 +606,7 @@ endif
 
 " textobj {{{1
 " ============================================================================
-if dein#tap('vim-textobj-lastpat')
+if IsInstalled('vim-textobj-lastpat')
     let g:textobj_lastpat_no_default_key_mappings = 1
     nmap gn <Plug>(textobj-lastpat-n)
     nmap gN <Plug>(textobj-lastpat-N)
@@ -650,7 +662,7 @@ endif
 " -423  ←これは <C-A> される
 " d-423 ←これは <C-X> される
 
-if dein#tap('vital-coaster')
+if IsInstalled('vital-coaster')
     nmap <C-A> <Plug>(my-increment)
     nmap <C-X> <Plug>(my-decriment)
 
@@ -682,7 +694,7 @@ endif
 
 " vim-multiple-cursors {{{1
 " ============================================================================
-if dein#tap('vim-multiple-cursors')
+if IsInstalled('vim-multiple-cursors')
     let g:multi_cursor_use_default_mapping = 0
     let g:multi_cursor_next_key='+'
     let g:multi_cursor_prev_key='-'
@@ -692,7 +704,7 @@ endif
 
 " vim-partedit {{{1
 " ============================================================================
-if dein#tap('vim-partedit')
+if IsInstalled('vim-partedit')
     " let g:partedit#auto_prefix = 0
 
     nnoremap <Leader>pe :<C-U>MyParteditContext<CR>
@@ -711,7 +723,7 @@ endif
 
 " vim-alignta {{{1
 " ==============================================================================
-if dein#tap('vim-alignta')
+if IsInstalled('vim-alignta')
     xnoremap [ALIGNTA] <Nop>
     xmap <Leader>a [ALIGNTA]
     xnoremap [ALIGNTA]s :Alignta \S\+<CR>
@@ -733,7 +745,7 @@ nnoremap ]gP P`[v`]=`]
 xnoremap ]gp p`[v`]=`]
 xnoremap ]gP P`[v`]=`]
 
-if dein#tap('yankround.vim')
+if IsInstalled('yankround.vim')
     let g:yankround_dir = $VIM_CACHE_DIR.'/yankround'
 
     let g:yankround_use_region_hl = 1
@@ -759,7 +771,7 @@ set isfname-==
 
 " vim-gf-user {{{2
 " ----------------------------------------------------------------------------
-if dein#tap('vim-gf-user')
+if IsInstalled('vim-gf-user')
     let g:gf_user_no_default_key_mappings = 1
     " ディレクトリの場合にうまくvimfilerが開かない
     " gf#user#doのtryを外すと開く。エラーではないのかcatchはできない
@@ -798,7 +810,7 @@ endif
 
 " tcomment_vim {{{1
 " ============================================================================
-if dein#tap('tcomment_vim')
+if IsInstalled('tcomment_vim')
     " コメントアウトしてコピー
     nmap <C-_>y yyP<Plug>TComment_<C-_><C-_>j
     xmap <C-_>y ygv<Plug>TComment_<C-_><C-_>gv<C-c>p
@@ -808,7 +820,7 @@ endif
 
 " vim-jsbeautify {{{1
 " ==============================================================================
-if dein#tap('vim-jsbeautify')
+if IsInstalled('vim-jsbeautify')
     autocmd MyVimrc FileType javascript setlocal formatexpr=JsBeautify()
     autocmd MyVimrc FileType css        setlocal formatexpr=CSSBeautify()
     autocmd MyVimrc FileType html       setlocal formatexpr=HtmlBeautify()
@@ -856,7 +868,7 @@ autocmd MyVimrc InsertLeave *
 nnoremap z- zMzv
 nnoremap <expr>l  foldclosed('.') != -1 ? 'zo' : 'l'
 
-if dein#tap('foldCC')
+if IsInstalled('foldCC')
     set foldtext=FoldCCtext()
     set foldcolumn=1
     set fillchars=vert:\|
@@ -868,7 +880,7 @@ endif
 
 " Kwbd.vim {{{1
 " ==============================================================================
-if dein#tap('Kwbd.vim')
+if IsInstalled('Kwbd.vim')
     nmap <Leader>bd <Plug>Kwbd
 endif
 
@@ -903,7 +915,7 @@ let g:PreserveNoEOL = 1
 
 " detectindent {{{1
 " ============================================================================
-if dein#tap('detectindent')
+if IsInstalled('detectindent')
     " let g:detectindent_verbosity = 0
     autocmd MyVimrc FileType yml
     \   let g:detectindent_preferred_indent = &shiftwidth
@@ -917,7 +929,7 @@ endif
 
 " scrooloose/syntastic {{{1
 " ============================================================================
-if dein#tap('syntastic')
+if IsInstalled('syntastic')
     autocmd MyVimrc BufWrite * NeoBundleSource syntastic
     let g:syntastic_mode_map = {
         \   'mode': 'active',
@@ -1022,7 +1034,7 @@ autocmd MyVimrc Filetype c,cpp
 \|  execute 'setlocal path+='.s:getCPath()
 \|  setlocal suffixesadd=.h
 
-if dein#tap('vim-cpp-auto-include')
+if IsInstalled('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
 
@@ -1075,7 +1087,7 @@ autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 
 " vim-markdown {{{2
 " ----------------------------------------------------------------------------
-if dein#tap('vim-markdown')
+if IsInstalled('vim-markdown')
     let g:vim_markdown_folding_disabled = 0
     " macでgxを使いたい場合
     let g:netrw_browsex_viewer= 'open'
@@ -1116,13 +1128,13 @@ let g:markdown_quote_syntax_filetypes = {
 
 " nelstrom/vim-markdown-folding {{{2
 " ----------------------------------------------------------------------------
-" if dein#tap('vim-markdown-folding')
+" if IsInstalled('vim-markdown-folding')
 "     let g:markdown_fold_style = 'nested'
 " endif
 
 " vimconsole.vim {{{1
 " ==============================================================================
-if dein#tap('vimconsole.vim')
+if IsInstalled('vimconsole.vim')
     let g:vimconsole#auto_redraw = 1
     augroup MyVimrc
         autocmd FileType vim,vimconsole
@@ -1143,7 +1155,7 @@ endif
 " ============================================================================
 " vim-fugitive {{{2
 " ----------------------------------------------------------------------------
-if dein#tap('vim-fugitive')
+if IsInstalled('vim-fugitive')
 
     nnoremap [fugitive] <Nop>
     nmap <Leader>g [fugitive]
@@ -1194,7 +1206,7 @@ endif
 
 " open-browser.vim {{{1
 " ============================================================================
-if dein#tap('open-browser.vim')
+if IsInstalled('open-browser.vim')
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
     nmap <C-LeftMouse> <Plug>(openbrowser-smart-search)
@@ -1394,7 +1406,7 @@ autocmd MyVimrc FileType quickrun AnsiEsc
 
 " rainbow {{{1
 " ============================================================================
-if dein#tap('rainbow')
+if IsInstalled('rainbow')
     let g:rainbow_active = 1
     let g:rainbow_conf = {
     \    'guifgs':   ['#FA248F', '#FA8F24', '#8FFA24', '#24FA8F', '#248FFA', '#8F24FA', '#FA2424', '#FAFA24', '#24FA24', '#24FAFA', '#2424FA', '#FA24FA'],
@@ -1422,7 +1434,7 @@ endif
 
 " junkfile.vim {{{1
 " ============================================================================
-if dein#tap('junkfile.vim')
+if IsInstalled('junkfile.vim')
     let g:junkfile#directory = $VIM_CACHE_DIR.'/junkfile'
     let g:junkfile#edit_command = 'new'
 
@@ -1439,7 +1451,7 @@ endif
 
 finish " backup {{{1
 " eclim {{{2
-if dein#tap('eclim')
+if IsInstalled('eclim')
 
     " エラーのマークがずれる場合はエンコーディングが間違っている
     " http://eclim.org/faq.html#code-validation-signs-are-showing-up-on-the-wrong-lines
@@ -1466,7 +1478,7 @@ if dein#tap('eclim')
     nnoremap [eclim]ji :JavaImportOrganize<CR>
 endif
 " vimwiki {{{2
-if dein#tap('vimwiki')
+if IsInstalled('vimwiki')
 
     nmap <Leader>ww  <Plug>VimwikiIndex
     nmap <Leader>w<Leader>d  <Plug>VimwikiDiaryIndex
@@ -1480,7 +1492,7 @@ if dein#tap('vimwiki')
 endif
 
 " qfixhowm {{{2
-if dein#tap('qfixhowm')
+if IsInstalled('qfixhowm')
     " QFixHowm互換を切る
     let g:QFixHowm_Convert = 0
     let g:qfixmemo_mapleader = '\M'

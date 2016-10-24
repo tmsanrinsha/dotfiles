@@ -9,6 +9,7 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
+if = 'executable("cc")'
 
 # unite.vim, vimfiler {{{1
 # ============================================================================
