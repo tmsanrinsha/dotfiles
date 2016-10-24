@@ -19,7 +19,8 @@ set completion-ignore-case on
 # options when hitting TAB
 set menu-complete-display-prefix on
 
-TAB: menu-complete
+# バージョンが低いと一回目のタブでmenu-completeされてしまう
+# TAB: menu-complete
 # Shift-Tabで逆向きに補完。readlineのバージョンが古いとできない
 "\e[Z": menu-complete-backward
 
