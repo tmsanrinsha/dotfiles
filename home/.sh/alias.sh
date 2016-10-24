@@ -9,7 +9,7 @@ alias vf="vim -c 'VimFiler'"
 # 最小限の構成
 alias vim-min='vim -N -U NONE -i NONE --noplugin'
 # vimの起動時間をプロファイルする
-alias vim-profile='profile=~/.cache/vim/profile.txt; vim --startuptime $profile +q && vim $profile; rm $profile; unset profile'
+alias vim-profile='profile=~/.cache/vim/profile.txt; vim --startuptime $profile +q && vim $profile; \rm $profile; unset profile'
 # Vim scriptのfileのプロファイル
 # [vimrc のどこが重いのかを調べるもう1つの方法 - 永遠に未完成](http://thinca.hatenablog.com/entry/20120316/1331836420)
 
