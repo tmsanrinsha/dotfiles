@@ -1199,7 +1199,7 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>508 1323 228 261 -349 800 1920 1057 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>820 977 445 77 -349 800 1920 1057 </string>
+	<string>-12 1007 445 77 -349 800 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>336 1399 606 456 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -1207,11 +1207,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>330 289 620 392 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>25 237 918 495 0 0 1280 777 </string>
+	<string>-107 1027 796 473 -349 800 1920 1057 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>315 165 592 584 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 15 1277 762 0 0 1280 777 </string>
+	<string>-349 1384 570 473 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1230,7 +1230,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2038,7 +2038,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-10-20T15:23:15Z</date>
+	<date>2016-10-28T15:26:03Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
