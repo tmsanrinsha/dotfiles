@@ -75,14 +75,19 @@ function error {
 
 # 設定ファイルにシンボリックリンクを貼る {{{1
 # ============================================================================
+# [ディレクトリ内のファイル1つ1つに対して一気にシンボリックリンクを作成する - Qiita](http://qiita.com/krsak/items/394850608ffe530cd6b2)
+# lndirのシェルスクリプト版がある
 if command_exists lndir; then
   lndir $home ~
 else
   $home/bin/makelink.sh $home
 fi
 
-# [ディレクトリ内のファイル1つ1つに対して一気にシンボリックリンクを作成する - Qiita](http://qiita.com/krsak/items/394850608ffe530cd6b2)
-# lndirのシェルスクリプト版がある
+# vim {{{2
+# ----------------------------------------------------------------------------
+if [ $os == mac ]; then
+    ln -fs ~/_gvimrc ~/.gvimrc
+fi
 
 # .gitconfigの設定 {{{2
 # ----------------------------------------------------------------------------
@@ -253,12 +258,6 @@ elif [ $os == mac ]; then
         cd $setup_dir
         ./brew.sh -b
     fi
-fi
-
-# vim {{{1
-# ============================================================================
-if [ $os == mac ]; then
-    ln -fs ~/_gvimrc ~/.gvimrc
 fi
 
 # python {{{1
