@@ -1038,35 +1038,101 @@ endfunction
 
 " Vim script でエラーが出た時のmessagesのエラー箇所に飛ぶ {{{2
 " ----------------------------------------------------------------------------
-function! s:quickfix_message()
+function! s:qf_messages()
   let str_messages = ''
   redir => str_messages
   silent! messages
   redir END
 
-  let errors = []
-  for line in split(str_messages, "\n")
-    if line =~# ' の処理中にエラーが検出されました:'
-        let filename = matchstr(line, '^\S\+')
-    elseif line =~# '^行'
-        let info = {'filename': filename}
-        let info.lnum = substitute(line, '行\s*\(\d*\):', '\1', '')
-    elseif line =~# '^E'
-        " 行がない場合もあるのでinfoを定義する
-        if !exists('info')
-            let info = {}
-        endif
-        let info.text = line
-        call add(errors, info)
-        unlet info
-    endif
-  endfor
-  call setqflist(errors, 'r')
+  let qflist = s:parse_error_messages(str_messages)
+  call setqflist(qflist, 'r')
   cwindow
 endfunction
 
-command! -nargs=0 QuickFixMessage call s:quickfix_message()
-nnoremap [*quickfix]m :<C-u>QuickFixMessage<CR>
+function! s:parse_error_messages(messages) abort
+    let files = {}
+    let qf_info = {}
+    let qf_info_list = []
+    let qflist = []
+
+    for line in split(a:messages, "\n")
+        if line =~# ' の処理中にエラーが検出されました:'
+            if line =~# '^function'
+                " function <SNR>175_hoge の処理中にエラーが検出されました:
+                " function 680[2]..<SNR>351_hoge の処理中にエラーが検出されました:
+                let line = matchstr(line, '^function \zs\S*')
+                let stacks = reverse(split(line, '\.\.'))
+                for stack in stacks
+                    let [func_name, offset] = (stack =~# '\S\+\[\d')
+                    \ ? matchlist(stack, '\(\S\+\)\[\(\d\+\)\]')[1:2]
+                    \ : [stack, 0]
+                    let func_name = func_name =~# '^\d\+$' ? '{' . func_name . '}' : func_name
+
+                    redir => verbose_func
+                    execute 'silent verbose function ' . func_name
+                    redir END
+
+                    let filename = matchstr(verbose_func, '最後にセットしたスクリプト: \zs\f\+')
+                    let filename = expand(filename)
+
+                    if !has_key(files, filename)
+                        let files[filename] = readfile(filename)
+                    endif
+
+                    let func_name  = substitute(func_name, '<SNR>\d\+_', 's:', '')
+                    let lnum = match(files[filename], '^\s*fu\%[nction]!\=\s\+' . func_name) + 1 + offset
+
+                    call add(qf_info_list, {
+                    \   'filename': filename,
+                    \   'lnum': lnum,
+                    \   'text': func_name,
+                    \})
+                endfor
+            else
+                " <filename> の処理中にエラーが検出されました:
+                " Error detected while processing <filename>:
+                let filename = expand(matchstr(line, '^\f\+'))
+                let qf_info.filename = expand(filename)
+            endif
+        elseif line =~# '^行'
+            let lnum = matchstr(line, '行\s\+\zs\d\+\ze:')
+            if len(qf_info_list) > 0
+                let qf_info_list[0]['lnum'] += lnum
+            else
+                let qf_info.lnum = lnum
+            endif
+        elseif line =~# '^E'
+            " ex) E492: エディタのコマンドではありません: one
+            let [nr, text] = matchlist(line, '^E\(\d\+\): \(.\+\)')[1:2]
+            if len(qf_info_list) > 0
+                if len(qf_info_list) == 1
+                    let qf_info_list[0]['nr'] = nr
+                    let qf_info_list[0]['text'] = 'in ' . qf_info_list[0]['text'] . ' | ' . text
+                else
+                    let i = 0
+                    for val in qf_info_list
+                        let val['nr'] = nr
+                        let val['text'] = '#' . i . ' in ' . val['text'] . (i == 0 ? (' | ' . text) : '')
+                        let i += 1
+                    endfor
+                endif
+                let qflist += qf_info_list
+            else
+                let qf_info.nr = nr
+                let qf_info.text = text
+                call add(qflist, qf_info)
+            endif
+
+            let qf_info = {}
+            let qf_info_list = []
+        endif
+    endfor
+
+    return qflist
+endfunction
+
+command! -nargs=0 QfMessages call s:qf_messages()
+nnoremap [*quickfix]m :<C-u>QfMessages<CR>
 
 " 参考サイト
 " * [Vim scriptをsourceしてエラーがあればquickfixに表示する - ぼっち勉強会](http://kannokanno.hatenablog.com/entry/20120723/1343147069)
