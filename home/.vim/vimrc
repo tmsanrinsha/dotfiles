@@ -1079,8 +1079,46 @@ function! s:parse_error_messages(messages) abort
                         let files[filename] = readfile(filename)
                     endif
 
-                    let func_name  = substitute(func_name, '<SNR>\d\+_', 's:', '')
-                    let lnum = match(files[filename], '^\s*fu\%[nction]!\=\s\+' . func_name) + 1 + offset
+                    if func_name =~# '{\d\+}'
+                        let func_lines = split(verbose_func, "\n")
+                        unlet func_lines[1]
+                        let max_line = len(func_lines)
+                        let func_lines[0] = '^\s*fu\%[nction]!\=\s\+\zs\S\+\.\S\+'
+
+                        for i in range(1, max_line - 2)
+                            let func_lines[i] = '^\s*' . matchstr(func_lines[i], '^\d\+\s*\zs.*')
+                        endfor
+
+                        let func_lines[max_line - 1] = '^\s*endf[unction]'
+
+                        let lnum = 0
+                        while 1
+                            let lnum = match(files[filename], func_lines[0], lnum)
+
+                            if lnum < 0
+                                throw 'No dictionary function'
+                            endif
+
+                            let find_dic_func = 1
+                            for i in range(1, max_line - 1)
+                                if files[filename][lnum + i] !~# func_lines[i]
+                                    let lnum = lnum + i
+                                    let find_dic_func = 0
+                                    break
+                                endif
+                            endfor
+
+                            if find_dic_func
+                                break
+                            endif
+                        endwhile
+
+                        let func_name = matchstr(files[filename][lnum], func_lines[0])
+                        let lnum += 1 + offset
+                    else
+                        let func_name  = substitute(func_name, '<SNR>\d\+_', 's:', '')
+                        let lnum = match(files[filename], '^\s*fu\%[nction]!\=\s\+' . func_name) + 1 + offset
+                    endif
 
                     call add(qf_info_list, {
                     \   'filename': filename,
