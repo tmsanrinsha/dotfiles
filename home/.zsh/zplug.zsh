@@ -19,6 +19,7 @@ if [ -f ~/.zplug/zplug ]; then
     zplug "srijanshetty/zsh-pandoc-completion"
     zplug "tmsanrinsha/zsh-composer-completion"
     zplug "Tarrasch/zsh-bd"
+    zplug "Dannyzen/cf-zsh-autocomplete-plugin"
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check --verbose; then
