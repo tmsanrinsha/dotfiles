@@ -147,13 +147,6 @@ if command_exists kubectl && ! test -f $ZDOTDIR/load/kubectl.zsh ; then
     kubectl completion zsh > $ZDOTDIR/load/kubectl.zsh
 fi
 
-# antigen {{{2
-# ----------------------------------------------------------------------------
-# cd $git_dir
-# git subtree pull --prefix=subtrees/antigen antigen master --squash
-# antigen selfupdate
-# antigen update
-
 # vimperator {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
