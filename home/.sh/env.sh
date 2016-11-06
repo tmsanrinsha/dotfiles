@@ -142,6 +142,10 @@ export PHP55=0
 export PYTHONUSERBASE="$HOME/python"
 export PATH="$PYTHONUSERBASE/bin:$PATH"
 
+# Anaconda {{{2
+# ----------------------------------------------------------------------------
+export PATH="/Users/tmsanrinsha/anaconda/bin:$PATH"
+
 # Rlang {{{1
 # ============================================================================
 export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
