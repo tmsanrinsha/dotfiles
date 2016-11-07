@@ -160,9 +160,15 @@ endif
 
 " paste {{{2
 " ------------------------------------------------------------------------------
+" autoindentなどがonの状態でペーストするとインデントが入った文章が階段状になってしまう。
+" pasteモードではautoindentなどのオプションが解除されそのままペーストできるようになる。
+" 以下を設定するとpasteモードをトグルすることができる
+" set pastetoggle=<F1>
+
 " Bracketed Paste Modeを利用して、クリップボードからの貼り付け時に
 " 自動的にpasteモードに切り替え、終了後に戻す
 " http://sanrinsha.lolipop.jp/blog/2013/01/10618.html
+
 if v:version > 603
     if &term =~? 'screen'
         " for tmux >= 1.7
@@ -182,7 +188,15 @@ if v:version > 603
     let &pastetoggle = "\e[201~"
 
     exec "set <F13>=\e[200~"
-    inoremap <F13> <C-O>:set paste<CR>
+
+    " コメント行でペーストする場合
+    " # _
+    " _にカーソルがあるときに<C-o>すると
+    " #_
+    " のようにスペースが消えてしまうので、
+    " 一度適当な文字を入力して消してから<C-o>する
+
+    inoremap <F13> X<C-h><C-o>:set paste<CR>
 endif
 
 " ウィンドウタイトルを保存・復元する {{{2
