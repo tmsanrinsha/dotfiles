@@ -1044,29 +1044,47 @@ function! s:qf_messages()
 endfunction
 
 function! s:parse_error_messages(messages) abort
-    let files = {}
-    let qf_info = {}
-    let qf_info_list = []
+    " 戻り値。setqflistの引数に使う配列
     let qflist = []
+    " qflistの要素になる辞書
+    let qf_info = {}
+    " qflistの要素となる辞書の配列。エラー内容がスタックトレースのときに使用
+    let qf_info_list = []
+    " 読み込んだファイルの内容をキャッシュしておくための辞書
+    let files = {}
+
+    if v:lang =~# 'ja_JP'
+        let regex_error_detect = '^.\+\ze の処理中にエラーが検出されました:$'
+        let regex_line = '^行\s\+\zs\d\+\ze:$'
+        let regex_last_set = '最後にセットしたスクリプト: \zs\f\+'
+    else
+        let regex_error_detect = '^Error detected while processing \zs.\+\ze:$'
+        let regex_line = '^line\s\+\zs\d\+\e:$'
+        let regex_last_set = 'Last set from \zs\f\+'
+    endif
 
     for line in split(a:messages, "\n")
-        if line =~# ' の処理中にエラーが検出されました:'
-            if line =~# '^function'
-                " function <SNR>175_hoge の処理中にエラーが検出されました:
-                " function 680[2]..<SNR>351_hoge の処理中にエラーが検出されました:
-                let line = matchstr(line, '^function \zs\S*')
-                let stacks = reverse(split(line, '\.\.'))
+        if line =~# regex_error_detect
+            " ... の処理中にエラーが検出されました:'
+            let matched = matchstr(line, regex_error_detect)
+            if matched =~# '^function'
+                " function <SNR>253_fuga の処理中にエラーが検出されました:
+                " function <SNR>253_piyo[1]..<SNR>253_fuga の処理中にエラーが検出されました:
+                let matched = matchstr(matched, '^function \zs\S*')
+                let stacks = reverse(split(matched, '\.\.'))
                 for stack in stacks
                     let [func_name, offset] = (stack =~# '\S\+\[\d')
                     \ ? matchlist(stack, '\(\S\+\)\[\(\d\+\)\]')[1:2]
                     \ : [stack, 0]
+
+                    " 辞書関数の数字は{}で囲む
                     let func_name = func_name =~# '^\d\+$' ? '{' . func_name . '}' : func_name
 
                     redir => verbose_func
                     execute 'silent verbose function ' . func_name
                     redir END
 
-                    let filename = matchstr(verbose_func, '最後にセットしたスクリプト: \zs\f\+')
+                    let filename = matchstr(verbose_func, regex_last_set)
                     let filename = expand(filename)
 
                     if !has_key(files, filename)
@@ -1122,19 +1140,19 @@ function! s:parse_error_messages(messages) abort
                 endfor
             else
                 " <filename> の処理中にエラーが検出されました:
-                " Error detected while processing <filename>:
-                let filename = expand(matchstr(line, '^\f\+'))
+                let filename = expand(matchstr(line, regex_error_detect))
                 let qf_info.filename = expand(filename)
             endif
-        elseif line =~# '^行'
-            let lnum = matchstr(line, '行\s\+\zs\d\+\ze:')
+        elseif line =~# regex_line
+            " 行    1:
+            let lnum = matchstr(line, regex_line)
             if len(qf_info_list) > 0
                 let qf_info_list[0]['lnum'] += lnum
             else
                 let qf_info.lnum = lnum
             endif
         elseif line =~# '^E'
-            " ex) E492: エディタのコマンドではありません: one
+            " E492: エディタのコマンドではありません: one
             let [nr, text] = matchlist(line, '^E\(\d\+\): \(.\+\)')[1:2]
             if len(qf_info_list) > 0
                 if len(qf_info_list) == 1
