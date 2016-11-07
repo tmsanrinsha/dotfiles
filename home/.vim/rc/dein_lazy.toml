@@ -25,7 +25,7 @@ hook_source = '''
 repo = 'Shougo/unite-outline'
 on_source = 'unite.vim'
 hook_source = '''
-    call unite#sources#outline#alias('mql4', 'cpp')
+    call unite#sources#outline#alias('mql4', 'c')
     call unite#sources#outline#alias('ref-man', 'man')
     call unite#sources#outline#alias('rmd', 'markdown')
     call unite#sources#outline#alias('tmux', 'conf')
@@ -342,7 +342,6 @@ on_ft = 'ruby'
 #
 # # rsenseのvim plugin
 # https://github.com/marcus/rsense
-# }}}
 
 # vim {{{1
 # ============================================================================
@@ -350,6 +349,11 @@ on_ft = 'ruby'
 repo = 'rbtnn/vimconsole.vim'
 on_func = 'vimconsole#log'
 on_cmd = 'VimConsoleTogggle'
+
+# [[plugins]]
+# repo = 'haya14busa/vim-stacktrace'
+# build = 'make'
+# on_cmd = 'CStacktraceFromhist'
 # }}}
 
 [[plugins]]
