@@ -30,6 +30,9 @@ call lexima#add_rule({'char': ']', 'at': '\%#.*\k'})
 call lexima#add_rule({'char': "'", 'at': '\%#.*\k'})
 call lexima#add_rule({'char': '"', 'at': '\%#.*\k'})
 
+" ```で補完させない
+call lexima#add_rule({'char': '`', 'at': '``\%#'})
+
 " matchparisで設定したもの(「,」:（,）など)をルールに追加
 for s:val in split(&matchpairs, ',')
     if s:val ==# '<:>'
@@ -156,6 +159,8 @@ function! s:make_rule(at, end, filetype, syntax)
   \ 'syntax': a:syntax,
   \ }
 endfunction
+
+call lexima#add_rule(s:make_rule('^```.*\%#', '```', 'markdown', []))
 
 " ruby.chef {{{1
 " ----------------------------------------------------------------------------
