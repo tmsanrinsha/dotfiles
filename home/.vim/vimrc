@@ -360,10 +360,10 @@ set cindent         " 他の2つの方法よりも賢く動作し、設定する
 set list
 " tab: »-
 " 行末の空白: ･
-" ノーブレークスペース: ⍽
+" ノーブレークスペース: _
 " 画面の右側に文字があるとき: »
 " 画面の左側に文字があるとき: «
-set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
+set listchars=tab:»-,trail:･,nbsp:_,extends:»,precedes:«
 " set listchars=tab:»-,trail:_,extends:»,precedes:«,nbsp:%,eol:↵
 
 if has('conceal')
