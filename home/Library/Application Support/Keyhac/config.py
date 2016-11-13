@@ -23,8 +23,8 @@ def configure(keymap):
     # Theme
     keymap.setTheme("black")
 
-    # global setting
-    # ==============
+    # --------------------------------------------------------------------
+    # global keymap
 
     keymap_global = keymap.defineWindowKeymap()
 
@@ -38,111 +38,61 @@ def configure(keymap):
 
     # Ctrl+SemicolonでEscして、英数
     keymap_global["Ctrl-Semicolon"] = "Esc", "102"
+    keymap_global["Ctrl-OpenBracket"] = "Esc"
+
+    keymap_global["Fn-q"] = keymap.command_RecordToggle
+    # keymap_globa;["Fn-1"] = keymap.command_RecordStart
+    # keymap_global["Fn-2"] = keymap.command_RecordStop
+    keymap_global["Fn-Atmark"] = keymap.command_RecordPlay
+    # keymap_global[ "Fn-4" ] = keymap.command_RecordClear
 
     # config.pyリロード
     keymap_global['Fn-r'] = keymap.command_ReloadConfig
 
-    # keymap_global["Alt-Space"] = keymap.SubProcessCallCommand(["open", "-a", "Alfred 2"])
+    keymap_global['Ctrl-n'] = 'Down'
+    keymap_global['Ctrl-p'] = 'Up'
+    keymap_global['Ctrl-b'] = 'Left'
+    keymap_global['Ctrl-f'] = 'Right'
+
+    keymap_global['Cmd-Ctrl-n'] = 'Down'
+    keymap_global['Cmd-Ctrl-p'] = 'Up'
+    keymap_global['Cmd-Ctrl-b'] = 'Left'
+    keymap_global['Cmd-Ctrl-f'] = 'Right'
 
     # --------------------------------------------------------------------
+    # local keymap
+
     keymap_local = {}
+    for app in ["com.googlecode.iterm2", "org.vim.MacVim"]:
+        keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
+        keymap_local[app]['Ctrl-n'] = 'Ctrl-n'
+        keymap_local[app]['Ctrl-p'] = 'Ctrl-p'
+        keymap_local[app]['Ctrl-b'] = 'Ctrl-b'
+        keymap_local[app]['Ctrl-f'] = 'Ctrl-f'
+
     for app in ["org.mozilla.firefox", "com.google.Chrome"]:
         keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
-        keymap_local[app]['Ctrl-n'] = 'Down'
-        keymap_local[app]['Ctrl-p'] = 'Up'
+        keymap_local[app]['Ctrl-b'] = 'Ctrl-b'
+        keymap_local[app]['Ctrl-b'] = 'Ctrl-b'
+        keymap_local[app]['Ctrl-f'] = 'Ctrl-f'
 
-    # Fn-A : Sample of assigning callable object to key
-    if 1:
-        def command_HelloWorld():
-            print("Hello World!")
-
-        keymap_global["Fn-A"] = command_HelloWorld
-
-    # Keyboard macro
-    if 1:
-        keymap_global[ "Fn-0" ] = keymap.command_RecordToggle
-        keymap_global[ "Fn-1" ] = keymap.command_RecordStart
-        keymap_global[ "Fn-2" ] = keymap.command_RecordStop
-        keymap_global[ "Fn-3" ] = keymap.command_RecordPlay
-        keymap_global[ "Fn-4" ] = keymap.command_RecordClear
-
-
-
-    # Customize TextEdit as Emacs-ish (as an example of multi-stroke key customization)
-    # if 1:
-
-        # Define Ctrl-X as the first key of multi-stroke keys
-        # keymap_textedit[ "Ctrl-X" ] = keymap.defineMultiStrokeKeymap("Ctrl-X")
-        #
-        # keymap_textedit[ "Ctrl-P" ] = "Up"                  # Move cursor up
-        # keymap_textedit[ "Ctrl-N" ] = "Down"                # Move cursor down
-        # keymap_textedit[ "Ctrl-F" ] = "Right"               # Move cursor right
-        # keymap_textedit[ "Ctrl-B" ] = "Left"                # Move cursor left
-        # keymap_textedit[ "Ctrl-A" ] = "Home"                # Move to beginning of line
-        # keymap_textedit[ "Ctrl-E" ] = "End"                 # Move to end of line
-        # keymap_textedit[ "Alt-F" ] = "Alt-Right"            # Word right
-        # keymap_textedit[ "Alt-B" ] = "Alt-Left"             # Word left
-        # keymap_textedit[ "Ctrl-V" ] = "PageDown"            # Page down
-        # keymap_textedit[ "Alt-V" ] = "PageUp"               # page up
-        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-F" ] = "Cmd-O"   # Open file
-        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-S" ] = "Cmd-S"   # Save
-        # keymap_textedit[ "Ctrl-X" ][ "U" ] = "Cmd-Z"        # Undo
-        # keymap_textedit[ "Ctrl-S" ] = "Cmd-F"               # Search
-        # keymap_textedit[ "Ctrl-X" ][ "H" ] = "Cmd-A"        # Select all
-        # keymap_textedit[ "Ctrl-W" ] = "Cmd-X"               # Cut
-        # keymap_textedit[ "Alt-W" ] = "Cmd-C"                # Copy
-        # keymap_textedit[ "Ctrl-Y" ] = "Cmd-V"               # Paste
-        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-C" ] = "Cmd-W"   # Exit
-
-
-    # Activation of specific window
-    if 1:
-        # Fn-T : Activate Terminal
-        keymap_global[ "Fn-T" ] = keymap.ActivateApplicationCommand( "com.apple.Terminal" )
-
-
-    # Launch subprocess or application
-    if 1:
-
-        # Fn-E : Launch TextEdit
-        keymap_global[ "Fn-E" ] = keymap.SubProcessCallCommand( [ "open", "-a", "TextEdit" ], cwd=os.environ["HOME"] )
-
-        # Fn-L : Execute ls command
-        keymap_global[ "Fn-L" ] = keymap.SubProcessCallCommand( [ "ls", "-al" ], cwd=os.environ["HOME"] )
-
-
-    # Fn-S : サブスレッド処理のテスト
-    if 1:
-        def command_JobTest():
-
-            # サブスレッドで呼ばれる処理
-            def jobTest(job_item):
-                subprocess.call([ "open", "-a", "Notes" ])
-
-            # サブスレッド処理が完了した後にメインスレッドで呼ばれる処理
-            def jobTestFinished(job_item):
-                print( "Done." )
-
-            job_item = JobItem( jobTest, jobTestFinished )
-            JobQueue.defaultQueue().enqueue(job_item)
-
-        keymap_global[ "Fn-N" ] = command_JobTest
-
+    for app in ["com.microsoft.Outlook"]:
+        keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
+        keymap_local[app]['Ctrl-a'] = 'Home'
+        keymap_local[app]['Ctrl-e'] = 'End'
 
     # --------------------------------------------------------------------
     # Clipboard related customization
-    if 1:
-        keymap_global[ "Fn-Z"       ] = keymap.command_ClipboardList      # Open the clipboard history list
-        keymap_global[ "Fn-X"       ] = keymap.command_ClipboardRotate    # Move the most recent history to tail
-        keymap_global[ "Fn-Shift-X" ] = keymap.command_ClipboardRemove    # Remove the most recent history
-        keymap.quote_mark = "> "                                          # Mark for quote pasting
+    keymap_global["Fn-Z"] = keymap.command_ClipboardList      # Open the clipboard history list
+    keymap_global["Fn-X"] = keymap.command_ClipboardRotate    # Move the most recent history to tail
+    keymap_global["Fn-Shift-X"] = keymap.command_ClipboardRemove    # Remove the most recent history
+    keymap.quote_mark = "> "                                          # Mark for quote pasting
 
-        # Maximum number of clipboard history (Default:1000)
-        keymap.clipboard_history.maxnum = 1000
+    # Maximum number of clipboard history (Default:1000)
+    keymap.clipboard_history.maxnum = 1000
 
-        # Total maximum size of clipboard history (Default:10MB)
-        keymap.clipboard_history.quota = 10*1024*1024
-
+    # Total maximum size of clipboard history (Default:10MB)
+    keymap.clipboard_history.quota = 10*1024*1024
 
     # Customizing clipboard history list
     if 1:
@@ -265,3 +215,69 @@ def configure(keymap):
             ( "Date-time", cblister_FixedPhrase(datetime_items) ),
             ( "Others", cblister_FixedPhrase(other_items) ),
         ]
+
+    # Fn-A : Sample of assigning callable object to key
+    if 1:
+        def command_HelloWorld():
+            print("Hello World!")
+
+        keymap_global["Fn-A"] = command_HelloWorld
+
+    # Customize TextEdit as Emacs-ish (as an example of multi-stroke key customization)
+    # if 1:
+
+        # Define Ctrl-X as the first key of multi-stroke keys
+        # keymap_textedit[ "Ctrl-X" ] = keymap.defineMultiStrokeKeymap("Ctrl-X")
+        #
+        # keymap_textedit[ "Ctrl-P" ] = "Up"                  # Move cursor up
+        # keymap_textedit[ "Ctrl-N" ] = "Down"                # Move cursor down
+        # keymap_textedit[ "Ctrl-F" ] = "Right"               # Move cursor right
+        # keymap_textedit[ "Ctrl-B" ] = "Left"                # Move cursor left
+        # keymap_textedit[ "Ctrl-A" ] = "Home"                # Move to beginning of line
+        # keymap_textedit[ "Ctrl-E" ] = "End"                 # Move to end of line
+        # keymap_textedit[ "Alt-F" ] = "Alt-Right"            # Word right
+        # keymap_textedit[ "Alt-B" ] = "Alt-Left"             # Word left
+        # keymap_textedit[ "Ctrl-V" ] = "PageDown"            # Page down
+        # keymap_textedit[ "Alt-V" ] = "PageUp"               # page up
+        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-F" ] = "Cmd-O"   # Open file
+        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-S" ] = "Cmd-S"   # Save
+        # keymap_textedit[ "Ctrl-X" ][ "U" ] = "Cmd-Z"        # Undo
+        # keymap_textedit[ "Ctrl-S" ] = "Cmd-F"               # Search
+        # keymap_textedit[ "Ctrl-X" ][ "H" ] = "Cmd-A"        # Select all
+        # keymap_textedit[ "Ctrl-W" ] = "Cmd-X"               # Cut
+        # keymap_textedit[ "Alt-W" ] = "Cmd-C"                # Copy
+        # keymap_textedit[ "Ctrl-Y" ] = "Cmd-V"               # Paste
+        # keymap_textedit[ "Ctrl-X" ][ "Ctrl-C" ] = "Cmd-W"   # Exit
+
+
+    # Activation of specific window
+    if 1:
+        # Fn-T : Activate Terminal
+        keymap_global[ "Fn-T" ] = keymap.ActivateApplicationCommand( "com.apple.Terminal" )
+
+
+    # Launch subprocess or application
+    if 1:
+
+        # Fn-E : Launch TextEdit
+        keymap_global[ "Fn-E" ] = keymap.SubProcessCallCommand( [ "open", "-a", "TextEdit" ], cwd=os.environ["HOME"] )
+
+        # Fn-L : Execute ls command
+        keymap_global[ "Fn-L" ] = keymap.SubProcessCallCommand( [ "ls", "-al" ], cwd=os.environ["HOME"] )
+
+    # Fn-S : サブスレッド処理のテスト
+    if 1:
+        def command_JobTest():
+
+            # サブスレッドで呼ばれる処理
+            def jobTest(job_item):
+                subprocess.call([ "open", "-a", "Notes" ])
+
+            # サブスレッド処理が完了した後にメインスレッドで呼ばれる処理
+            def jobTestFinished(job_item):
+                print( "Done." )
+
+            job_item = JobItem( jobTest, jobTestFinished )
+            JobQueue.defaultQueue().enqueue(job_item)
+
+        keymap_global[ "Fn-N" ] = command_JobTest
