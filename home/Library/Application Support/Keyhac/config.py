@@ -53,6 +53,7 @@ def configure(keymap):
     keymap_global['Ctrl-p'] = 'Up'
     keymap_global['Ctrl-b'] = 'Left'
     keymap_global['Ctrl-f'] = 'Right'
+    keymap_global['Ctrl-w'] = 'Alt-Back'
 
     keymap_global['Cmd-Ctrl-n'] = 'Down'
     keymap_global['Cmd-Ctrl-p'] = 'Up'
@@ -69,6 +70,7 @@ def configure(keymap):
         keymap_local[app]['Ctrl-p'] = 'Ctrl-p'
         keymap_local[app]['Ctrl-b'] = 'Ctrl-b'
         keymap_local[app]['Ctrl-f'] = 'Ctrl-f'
+        keymap_local[app]['Ctrl-w'] = 'Ctrl-w'
 
     for app in ["org.mozilla.firefox", "com.google.Chrome"]:
         keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
