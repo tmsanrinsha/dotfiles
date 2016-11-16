@@ -117,7 +117,7 @@ alias .......='cd ../../../../../..'
 # [なんで末尾にスペース入れるだけで sudo で alias を有効にできるわけ？ « blog.hekt.org](http://archive.blog.hekt.org/archives/5085/)
 alias sudo='sudo '
 
-alias crontab="crontab -i"
+alias cl="crontab -l"
 
 alias j='cdr'
 
