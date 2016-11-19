@@ -61,6 +61,9 @@ alias php-cs-fixer='php-cs-fixer.sh --diff'
 
 # tail {{{1
 # ============================================================================
+alias t='tail'
+alias tf='tail -f'
+
 if [ "$os" = mac ]; then
   alias taa='tail -f /var/log/apache2/access_log'
   alias tae='tail -f /var/log/apache2/error_log'
