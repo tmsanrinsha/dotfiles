@@ -49,10 +49,13 @@ def configure(keymap):
     # config.pyリロード
     keymap_global['Fn-r'] = keymap.command_ReloadConfig
 
-    keymap_global['Ctrl-n'] = 'Down'
-    keymap_global['Ctrl-p'] = 'Up'
+    keymap_global['Alt-b'] = 'Alt-Left'
+    keymap_global['Alt-d'] = 'Fn-Alt-Delte'
+    keymap_global['Alt-f'] = 'Alt-Right'
     keymap_global['Ctrl-b'] = 'Left'
     keymap_global['Ctrl-f'] = 'Right'
+    keymap_global['Ctrl-n'] = 'Down'
+    keymap_global['Ctrl-p'] = 'Up'
     keymap_global['Ctrl-w'] = 'Alt-Back'
 
     keymap_global['Cmd-Ctrl-n'] = 'Down'
@@ -66,11 +69,14 @@ def configure(keymap):
     keymap_local = {}
     for app in ["com.googlecode.iterm2", "org.vim.MacVim"]:
         keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
-        keymap_local[app]['Ctrl-n'] = 'Ctrl-n'
-        keymap_local[app]['Ctrl-p'] = 'Ctrl-p'
         keymap_local[app]['Ctrl-b'] = 'Ctrl-b'
         keymap_local[app]['Ctrl-f'] = 'Ctrl-f'
+        keymap_local[app]['Ctrl-n'] = 'Ctrl-n'
+        keymap_local[app]['Ctrl-p'] = 'Ctrl-p'
         keymap_local[app]['Ctrl-w'] = 'Ctrl-w'
+        keymap_local[aap]['Alt-b'] = 'Alt-b'
+        keymap_local[aap]['Alt-d'] = 'Alt-d'
+        keymap_local[aap]['Alt-f'] = 'Alt-f'
 
     for app in ["org.mozilla.firefox", "com.google.Chrome"]:
         keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
