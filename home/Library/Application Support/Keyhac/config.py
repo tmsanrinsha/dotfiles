@@ -26,10 +26,10 @@ def configure(keymap):
     # --------------------------------------------------------------------
     # global keymap
 
-    keymap_global = keymap.defineWindowKeymap()
-
     # 右Commandを右Optionに変更
     keymap.replaceKey("RCmd", "RAlt")
+
+    keymap_global = keymap.defineWindowKeymap()
 
     # 左Command単独押しで英数
     keymap_global["O-LCmd"] = "102"
@@ -74,9 +74,9 @@ def configure(keymap):
         keymap_local[app]['Ctrl-n'] = 'Ctrl-n'
         keymap_local[app]['Ctrl-p'] = 'Ctrl-p'
         keymap_local[app]['Ctrl-w'] = 'Ctrl-w'
-        keymap_local[aap]['Alt-b'] = 'Alt-b'
-        keymap_local[aap]['Alt-d'] = 'Alt-d'
-        keymap_local[aap]['Alt-f'] = 'Alt-f'
+        keymap_local[app]['Alt-b'] = 'Alt-b'
+        keymap_local[app]['Alt-d'] = 'Alt-d'
+        keymap_local[app]['Alt-f'] = 'Alt-f'
 
     for app in ["org.mozilla.firefox", "com.google.Chrome"]:
         keymap_local[app] = keymap.defineWindowKeymap(app_name=app)
