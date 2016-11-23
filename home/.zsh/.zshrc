@@ -669,7 +669,7 @@ if hash peco 2>/dev/null; then
         # 順番を保持して重複を削除。
         # カーソルに左側の文字列をクエリにしてpecoを起動
         # \nを改行に変換
-        BUFFER="$(history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+        BUFFER="$(history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/g')"
         # perl -ne 'print if!$line{$_}++'
         # # historyを番号なし、逆順、時間表示で最初から表示
         # BUFFER=$(history -nri 1 | peco --query "$LBUFFER" | cut -d ' ' -f 4-)
