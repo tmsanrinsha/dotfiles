@@ -50,7 +50,7 @@ def configure(keymap):
     keymap_global['Fn-r'] = keymap.command_ReloadConfig
 
     keymap_global['Alt-b'] = 'Alt-Left'
-    keymap_global['Alt-d'] = 'Fn-Alt-Delte'
+    keymap_global['Alt-d'] = 'Fn-Alt-relete'
     keymap_global['Alt-f'] = 'Alt-Right'
     keymap_global['Ctrl-b'] = 'Left'
     keymap_global['Ctrl-f'] = 'Right'
