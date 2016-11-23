@@ -123,6 +123,7 @@ alias hist='history'
 alias sudo='sudo '
 
 alias cl="crontab -l"
+alias ce="crontab -e"
 
 alias j='cdr'
 
