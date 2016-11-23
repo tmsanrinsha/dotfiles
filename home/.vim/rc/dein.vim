@@ -521,7 +521,7 @@ autocmd MyVimrc User plugin-template-loaded
 if IsInstalled('vim-quickrun')
     let g:quickrun_no_default_key_mappings = 1
     nnoremap <Leader>r<CR> :QuickRun -mode n<CR>
-    xnoremap <Leader>r<CR> :QuickRun -mode v<CR>
+    xnoremap <Leader>r<CR> :<C-u>execute 'QuickRun -type ' context_filetype#get()['filetype'] ' -mode v'<CR>
 endif
 
 " vim-watchdogs {{{1
