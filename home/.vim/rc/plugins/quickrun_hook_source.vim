@@ -49,8 +49,8 @@ call quickrun#module#register(shabadou#make_quickrun_hook_anim(
 \   4,
 \), 1)
 
-" PHP {{{2
-" --------------------------------------------------------------------
+" PHP {{{1
+" ============================================================================
 let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
 let g:quickrun_config['php']['hook/cd/directory'] = '%S:p:h'
 let g:quickrun_config['phpv'] = {
@@ -91,13 +91,13 @@ autocmd MyVimrc BufRead,BufNewFile composer.json
 \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
 \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
 
-" ruby {{{2
-" --------------------------------------------------------------------
+" ruby {{{1
+" ============================================================================
 let g:quickrun_config['ruby.chef'] = deepcopy(g:quickrun#default_config['ruby'])
 let g:quickrun_config['ruby.chef']['command'] = 'ruby'
 
-" R lang {{{2
-" --------------------------------------------------------------------
+" R lang {{{1
+" ============================================================================
 let g:quickrun_config['rmd'] = {
 \ 'command'                        : 'Rscript',
 \ 'cmdopt'                         : '-e',
@@ -105,8 +105,8 @@ let g:quickrun_config['rmd'] = {
 \ 'outputter'                      : 'quickfix',
 \}
 
-" dot, graphviz {{{2
-" --------------------------------------------------------------------
+" dot, graphviz {{{1
+" ============================================================================
 let g:quickrun_config['dot'] = {
 \ 'hook/cd/directory'              : '%S:p:h',
 \ 'command'                        : 'dot',
@@ -115,8 +115,8 @@ let g:quickrun_config['dot'] = {
 \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#,%EError: %m,%C%m,%Z%m'
 \}
 
-" Android Dev {{{2
-" --------------------------------------------------------------------
+" Android Dev {{{1
+" ============================================================================
 " function! s:QuickRunAndroidProject()
 "     let l:project_dir = unite#util#path2project_directory(expand('%'))
 "
@@ -165,8 +165,8 @@ let g:quickrun_config['dot'] = {
 " command! QuickRunAndroidProject call s:QuickRunAndroidProject()
 " autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
 
-" Node.js {{{2
-" --------------------------------------------------------------------
+" tail {{{1
+" ============================================================================
 " let g:quickrun_config['node'] = {
 "             \   'runner/vimproc/updatetime' : 1000,
 "             \   'command'                : 'tail',
@@ -176,4 +176,6 @@ let g:quickrun_config['dot'] = {
 "             \}
 " "
 " set errorformat=debug:\%s
+" 1}}}
+
 call SourceRc('quickrun_local.vim')
