@@ -182,8 +182,56 @@ function! s:syncSaveDir(from, to)
 
     call writefile(readfile(l:current_file, 'b'), l:target_file, 'b')
 endfunction
-" }}}2
-" }}}1
+
+" Call a script local function. {{{2
+" ----------------------------------
+" [スクリプトローカルな関数を手軽に呼び出す - 永遠に未完成](http://thinca.hatenablog.com/entry/20111228/1325077104)
+" Usage:
+" - S('local_func')
+"   -> call s:local_func() in current file.
+" - S('plugin/hoge.vim:local_func', 'string', 10)
+"   -> call s:local_func('string', 10) in *plugin/hoge.vim.
+" - S('plugin/hoge:local_func("string", 10)')
+"   -> call s:local_func("string", 10) in *plugin/hoge(.vim)?.
+function! S(f, ...)
+  let [file, func] =a:f =~# ':' ?  split(a:f, ':') : [expand('%:p'), a:f]
+  let fname = matchstr(func, '^\w*')
+
+  " Get sourced scripts.
+  redir =>slist
+  silent scriptnames
+  redir END
+
+  let filepat = '\V' . substitute(file, '\\', '/', 'g') . '\v%(\.vim)?$'
+  for s in split(slist, "\n")
+    let p = matchlist(s, '^\s*\(\d\+\):\s*\(.*\)$')
+    if empty(p)
+      continue
+    endif
+    let [nr, sfile] = p[1 : 2]
+    let sfile = fnamemodify(sfile, ':p:gs?\\?/?')
+    if sfile =~# filepat &&
+    \    exists(printf("*\<SNR>%d_%s", nr, fname))
+      let cfunc = printf("\<SNR>%d_%s", nr, func)
+      break
+    endif
+  endfor
+
+  if !exists('nr')
+    echoerr 'Not sourced: ' . file
+    return
+  elseif !exists('cfunc')
+    let file = fnamemodify(file, ':p')
+    echoerr printf(
+    \    'File found, but function is not defined: %s: %s()', file, fname)
+    return
+  endif
+
+  return 0 <= match(func, '^\w*\s*(.*)\s*$')
+  \      ? eval(cfunc) : call(cfunc, a:000)
+endfunction
+
+" 1}}}
 
 if has('mac') && has('kaoriya')
     set runtimepath-=$VIM/plugins/vimproc
