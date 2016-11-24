@@ -219,9 +219,9 @@ def configure(keymap):
 
         # Clipboard history list extensions
         keymap.cblisters += [
+            ( "Others", cblister_FixedPhrase(other_items) ),
             ( "Fixed phrase", cblister_FixedPhrase(fixed_items) ),
             ( "Date-time", cblister_FixedPhrase(datetime_items) ),
-            ( "Others", cblister_FixedPhrase(other_items) ),
         ]
 
     # Fn-A : Sample of assigning callable object to key
