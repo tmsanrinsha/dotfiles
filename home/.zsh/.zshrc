@@ -688,7 +688,11 @@ if hash peco 2>/dev/null; then
         # 最後の項をhost名と仮定してhost部分を取り出す
         # 改行がはいっているとlocal宣言と代入を一緒にできない？
         local hosts
-        hosts="$(history -nrm 'ssh*' 1 | awk '{print $NF}')"
+        ssh_hist="$(history -nrm 'ssh*' 1 | \grep 'ssh ')"
+        # hosts="$(echo $ssh_hist | sed 's/ssh\(\s\+-\([1246AaCfGgKkMNnqsTtVvXxYy]\|[^1246AaCfGgKkMNnqsTtVvXxYy]\s\+\S\+\)\)*\s\+\(\S\+@\)\?//' | cut -d' ' -f1)"
+        hosts="$(echo $ssh_hist | perl -pe 's/ssh(\s+-([1246AaCfGgKkMNnqsTtVvXxYy]|[^1246AaCfGgKkMNnqsTtVvXxYy]\s+\S+))*\s+(\S+@)?//' | cut -d' ' -f1)"
+        #                                   ------------------------------------------------------------------------------ ------
+        #                                                        hostnameよりも前にあるオプション                          user@  を削除
         # know_hostsからもホスト名を取り出す
         # portを指定したり、id指定でsshしていると
         #   [hoge.com]:2222,[\d{3}.\d{3].\d{3}.\d{3}]:2222
