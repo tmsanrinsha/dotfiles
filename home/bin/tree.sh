@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# set -x
 # ORIGINAL: http://d.hatena.ne.jp/teramako/20071108/tree_using_find_and_sed
 # The Tree Command for Linux Homepageにあるtreeの方が高機能で良い
 # 参照:http://sanrinsha.lolipop.jp/blog/2012/01/treeunix%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89.html#more-9162
