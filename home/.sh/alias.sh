@@ -120,7 +120,7 @@ alias hist='history'
 # これはaliasの値がスペースかタブで終わっている場合は次のコマンドがエイリアス展開できるか確認する
 # という仕様のため
 # [なんで末尾にスペース入れるだけで sudo で alias を有効にできるわけ？ « blog.hekt.org](http://archive.blog.hekt.org/archives/5085/)
-alias sudo='sudo '
+alias s='sudo '
 
 alias cl="crontab -l"
 alias ce="crontab -e"
