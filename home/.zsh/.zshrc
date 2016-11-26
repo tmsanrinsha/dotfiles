@@ -81,7 +81,9 @@ alias -g C='| column -t'
 alias -g G='| grep -i'
 alias -g J='| jq .'
 alias -g L='| less -R'
-alias -g P='| peco_with_action'
+alias -g P='| pbcopy'
+alias -g PT='| tee >(pbcopy)'
+alias -g PC='| peco_with_action'
 # Vim: Warning: Input is not from a terminal
 # http://hateda.hatenadiary.jp/entry/2012/09/06/000000
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
