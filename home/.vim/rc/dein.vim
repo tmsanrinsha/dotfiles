@@ -42,7 +42,7 @@ filetype plugin indent on
 if isdirectory(s:dein_repo_dir)
     " vimprocは先にインストールする
     if dein#check_install(['vimproc.vim'])
-        if executable('cc')
+        if !executable('cc')
             echomsg 'cc not found'
         else
             call dein#install(['vimproc.vim'])
