@@ -189,6 +189,7 @@ repo = 'thinca/vim-prettyprint'
 
 [[plugins]]
 repo = 'PreserveNoEOL'
+if = '!exists("&fixeol")'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
