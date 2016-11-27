@@ -522,7 +522,7 @@ on_source = 'unite.vim'
 # ============================================================================
 [[plugins]]
 repo = 'glidenote/memolist.vim'
-on_cmd = ['MemoNew', 'MemoList', 'MemoGrep']
+on_cmd = ['MemoNew', 'MemoList', 'MemoGrep', 'MemoNewCopyingMeta']
 hook_add = '''
     nnoremap <Leader>mn  :MemoNew<CR>
     nnoremap <Leader>ml  :Unite memo<CR>
@@ -533,6 +533,9 @@ hook_source = '''
     let g:memolist_memo_suffix = 'md'
     let g:memolist_template_dir_path = '~/.vim/template/memolist'
     let g:memolist_unite = 1
+    let g:memolist_delimiter_yaml_end  = "---"
+    let g:memolist_delimiter_yaml_start = "---"
+    let g:memolist_filename_prefix_none = 1
 '''
 
 [[plugins]]
