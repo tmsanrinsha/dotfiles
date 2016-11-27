@@ -105,13 +105,15 @@ alias la='ls -A'
 alias lla='ls -la'
 alias lld='ls -ld'
 
-# other {{{
+# other {{{1
 # ============================================================================
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
+
+alias cal="cal | grep -C6 \"\$(date +'%-d')\""
 
 alias hist='history'
 
