@@ -1414,13 +1414,16 @@ autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
 autocmd MyVimrc FileType gitcommit
     \  setlocal formatoptions<
 " }}}
-" }}}
-if !has('gui_running')
-    call SourceRc('cui.vim')
-endif
 
+" memo {{{1
+" ============================================================================
 if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
+endif
+" }}}
+
+if !has('gui_running')
+    call SourceRc('cui.vim')
 endif
 
 if v:version >= 704

@@ -1030,10 +1030,6 @@ autocmd MyVimrc FileType python
 \|  endif
 \|  let &l:path = g:python_path
 
-autocmd MyVimrc Filetype c,cpp
-\|  execute 'setlocal path+='.s:getCPath()
-\|  setlocal suffixesadd=.h
-
 if IsInstalled('vim-cpp-auto-include')
     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
 endif
