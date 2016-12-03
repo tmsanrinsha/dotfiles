@@ -137,14 +137,14 @@ ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 export ZDOTDIR=${HOME}/.zsh
 test -d $ZDOTDIR/.cache      || mkdir -p $ZDOTDIR/.cache
 test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
-test -d $ZDOTDIR/load   || mkdir -p $ZDOTDIR/load
+test -d $ZDOTDIR/completion  || mkdir -p $ZDOTDIR/completion
 
-if command_exists npm && ! test -f $ZDOTDIR/load/npm.zsh ; then
-    npm completion > $ZDOTDIR/load/npm.zsh
+if command_exists npm && ! test -f $ZDOTDIR/completion/npm.zsh ; then
+    npm completion > $ZDOTDIR/completion/npm.zsh
 fi
 
-if command_exists kubectl && ! test -f $ZDOTDIR/load/kubectl.zsh ; then
-    kubectl completion zsh > $ZDOTDIR/load/kubectl.zsh
+if command_exists kubectl && ! test -f $ZDOTDIR/completion/kubectl.zsh ; then
+    kubectl completion zsh > $ZDOTDIR/completion/kubectl.zsh
 fi
 
 # vimperator {{{1

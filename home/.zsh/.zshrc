@@ -81,9 +81,9 @@ alias -g C='| column -t'
 alias -g G='| grep -i'
 alias -g J='| jq .'
 alias -g L='| less -R'
-alias -g P='| pbcopy'
+alias -g PB='| pbcopy'
 alias -g PT='| tee >(pbcopy)'
-alias -g PC='| peco_with_action'
+alias -g P='| peco_with_action'
 # Vim: Warning: Input is not from a terminal
 # http://hateda.hatenadiary.jp/entry/2012/09/06/000000
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
@@ -181,6 +181,156 @@ SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 #  - http://d.hatena.ne.jp/itchyny/20110629/1309355617
 #  - 顔文字を参考にした
 # }}}
+# complete {{{1
+# ============================================================================
+autoload -U compinit && compinit
+# bash用の補完を使うためには以下の設定をする
+# https://github.com/dsanson/pandoc-completion
+# autoload bashcompinit
+# bashcompinit
+# source "/path/to/hoge-completion.bash"
+
+# compacked complete list display
+setopt list_packed
+setopt complete_in_word      # 語の途中でもカーソル位置で補完
+
+# cacheを使う
+zstyle ':completion:*' use-cache true
+
+# [zshのzstyleでの補完時の挙動について - voidy21の日記](http://voidy21.hatenablog.jp/entry/20090902/1251918174)
+# m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
+# r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+# r:については挙動がおかしくなるのでやめる
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# _expandはグロブを使ったときファイルが補完対象に入るので使わない
+# _historyも関係ない文脈で補完されるので使わない
+# _matchはファイルパスに空白があるとうまくいかないので使わない
+zstyle ':completion:*' completer _complete _prefix _list
+
+# menu complition {{{2
+zmodload -i zsh/complist
+
+# tab二回でmenuから選択できるようにする
+zstyle ':completion:*:default' menu select=2
+
+# [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
+# zstyle ':completion:*' menu select interactive
+# 上のcompleterで_matchを設定しているとグロブが使えるので良い。
+# しかしinteractiveを設定するとtabでmenuを選択できなくなるので、やめる
+
+# menuselectのキーバインド
+bindkey -M menuselect \
+    '^p' up-line-or-history \
+    '^n' down-line-or-history \
+    '^b' backward-char \
+    '^f' forward-char \
+    '^o' accept-and-infer-next-history
+bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
+bindkey -M menuselect '^r'   history-incremental-search-forward # 補完候補内インクリメンタルサーチ
+bindkey -M menuselect '^s'   history-incremental-search-backward
+# bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
+# }}}
+
+# ファイル・ディレクトリ補完に色を付ける
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+else
+    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+fi
+
+# zshのzstyleでの補完時の挙動について - voidy21の日記
+# http://voidy21.hatenablog.jp/entry/20090902/1251918174
+# カレントディレクトリに候補がないとき、cdpathのディレクトリを候補に出す
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
+# cd ../<TAB>のとき、カレントディレクトリを表示させない
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+# killで今のシェル以外のプロセスも補完する
+zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
+
+## 補完関数を作るための設定
+# http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
+zstyle ':completion:*' verbose yes
+#zstyle ':completion:*' format '%BCompleting %d%b'
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+# コンテキストの確認
+bindkey "^Xh" _complete_help
+
+# MacVimでvimの補完を使う
+compdef Vim=vim
+
+# Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
+# http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
+compdef _gnu_generic bc
+# compdef _gnu_generic composer
+compdef _gnu_generic phpunit
+compdef _gnu_generic phpunit.sh
+
+# zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
+# ----------------------------------------------------------------------------
+# <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
+
+dabbrev-complete () {
+  local hardcopy buffername reply lines=80
+
+  tmux capture-pane
+  # tmuxのバージョンによって違う？
+  # hardcopy=$(tmux save-buffer -b 0 -)
+  buffername=$(tmux list-buffers | head -1 | cut -d':' -f1)
+  hardcopy=$(tmux save-buffer -b $buffername -)
+  tmux delete-buffer -b $buffername
+  reply=($(
+    echo $hardcopy |
+    # 空白行の削除
+    sed '/^$/d' |
+    # 最後の2行（プロンプト行と補完候補行が一行と仮定）は消す
+    sed '$d' | sed '$d' |
+    # いらない文字を空白に変換
+    sed 's/[<>]/ /g' |
+    # 最後の$lines行だけ取得
+    tail -$lines
+  ))
+
+  # 文字列の最後の*/=@|については削除
+  compadd -Q - "${reply[@]%[*/=@|]}"
+}
+
+zle -C dabbrev-complete complete-word dabbrev-complete
+bindkey '^o' dabbrev-complete
+
+# file completion {{{2
+# ----------------------------------------------------------------------------
+complete_files () {
+    compadd - $PREFIX*
+}
+zle -C complete-files complete-word complete_files
+bindkey '^x^f' complete-files
+
+# gcloud {{{2
+# ----------------------------------------------------------------------------
+if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
+  source "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
+
+# kubectl.zshが^Xeを上書きしているので注意
+# (N)はグロブにマッチしなくてもエラーを出さないオプション
+for file in $ZDOTDIR/completion/*.zsh(N); do
+    source $file
+done
+
+# Incremental completion on zsh {{{2
+# ----------------------------------------------------------------------------
+# http://mimosa-pudica.net/zsh-incremental.html
+# if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
+#     . ~/.zsh/plugin/incr-0.2.zsh
+# fi
+
 # keybind {{{1
 # ============================================================================
 bindkey -e # emacs like
@@ -202,6 +352,12 @@ bindkey '^[' vi-cmd-mode
 # ^sでロックしない
 # [「Ctrl」＋「S」でキー入力が受け付けられなくなる - ITmedia エンタープライズ](http://www.itmedia.co.jp/help/tips/linux/l0612.html)
 stty stop undef
+
+# コマンドラインをeditorで編集する
+# ----------------------------------------------------------------------------
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
 
 # M-.を賢くする {{{2
 # ----------------------------------------------------------------------------
@@ -334,159 +490,6 @@ cdr-ctrl-^ () {
 }
 zle -N cdr-ctrl-^
 bindkey '^^' cdr-ctrl-^
-
-# complete {{{1
-# ============================================================================
-autoload -U compinit && compinit
-# bash用の補完を使うためには以下の設定をする
-# https://github.com/dsanson/pandoc-completion
-# autoload bashcompinit
-# bashcompinit
-# source "/path/to/hoge-completion.bash"
-
-# compacked complete list display
-setopt list_packed
-setopt complete_in_word      # 語の途中でもカーソル位置で補完
-
-# cacheを使う
-zstyle ':completion:*' use-cache true
-
-# [zshのzstyleでの補完時の挙動について - voidy21の日記](http://voidy21.hatenablog.jp/entry/20090902/1251918174)
-# m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
-# r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
-# r:については挙動がおかしくなるのでやめる
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# _expandはグロブを使ったときファイルが補完対象に入るので使わない
-# _historyも関係ない文脈で補完されるので使わない
-# _matchはファイルパスに空白があるとうまくいかないので使わない
-zstyle ':completion:*' completer _complete _prefix _list
-
-# menu complition {{{2
-zmodload -i zsh/complist
-
-# tab二回でmenuから選択できるようにする
-zstyle ':completion:*:default' menu select=2
-
-# [zshのメニュー補完で候補をインタラクティブに絞り込む - Qiita](http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be)
-# zstyle ':completion:*' menu select interactive
-# 上のcompleterで_matchを設定しているとグロブが使えるので良い。
-# しかしinteractiveを設定するとtabでmenuを選択できなくなるので、やめる
-
-# menuselectのキーバインド
-bindkey -M menuselect \
-    '^p' up-line-or-history \
-    '^n' down-line-or-history \
-    '^b' backward-char \
-    '^f' forward-char \
-    '^o' accept-and-infer-next-history
-bindkey -M menuselect "\e[Z" reverse-menu-complete # Shift-Tabで補完メニューを逆に選ぶ
-bindkey -M menuselect '^r'   history-incremental-search-forward # 補完候補内インクリメンタルサーチ
-bindkey -M menuselect '^s'   history-incremental-search-backward
-# bindkey -M menuselect '^i' menu-expand-or-complete # 一回のCtrl+I or Tabで補完メニューの最初の候補を選ぶ
-# }}}
-
-# ファイル・ディレクトリ補完に色を付ける
-if [ -n "$LS_COLORS" ]; then
-    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-else
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-fi
-
-# zshのzstyleでの補完時の挙動について - voidy21の日記
-# http://voidy21.hatenablog.jp/entry/20090902/1251918174
-# カレントディレクトリに候補がないとき、cdpathのディレクトリを候補に出す
-zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-# cd ../<TAB>のとき、カレントディレクトリを表示させない
-zstyle ':completion:*:cd:*' ignore-parents parent pwd
-
-# killで今のシェル以外のプロセスも補完する
-zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
-
-## 補完関数を作るための設定
-# http://www.ayu.ics.keio.ac.jp/~mukai/translate/write_zsh_functions.html
-zstyle ':completion:*' verbose yes
-#zstyle ':completion:*' format '%BCompleting %d%b'
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name ''
-
-# コンテキストの確認
-bindkey "^Xh" _complete_help
-
-# MacVimでvimの補完を使う
-compdef Vim=vim
-
-# Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
-# http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
-compdef _gnu_generic bc
-# compdef _gnu_generic composer
-compdef _gnu_generic phpunit
-compdef _gnu_generic phpunit.sh
-
-# gcloud {{{2
-# ----------------------------------------------------------------------------
-if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
-  source "$HOME/google-cloud-sdk/completion.zsh.inc"
-fi
-
-# zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
-# ----------------------------------------------------------------------------
-# <http://qiita.com/hamaco/items/4eb19da6cf216104adf0>
-
-dabbrev-complete () {
-  local hardcopy buffername reply lines=80
-
-  tmux capture-pane
-  # tmuxのバージョンによって違う？
-  # hardcopy=$(tmux save-buffer -b 0 -)
-  buffername=$(tmux list-buffers | head -1 | cut -d':' -f1)
-  hardcopy=$(tmux save-buffer -b $buffername -)
-  tmux delete-buffer -b $buffername
-  reply=($(
-    echo $hardcopy |
-    # 空白行の削除
-    sed '/^$/d' |
-    # 最後の2行（プロンプト行と補完候補行が一行と仮定）は消す
-    sed '$d' | sed '$d' |
-    # いらない文字を空白に変換
-    sed 's/[<>]/ /g' |
-    # 最後の$lines行だけ取得
-    tail -$lines
-  ))
-
-  # 文字列の最後の*/=@|については削除
-  compadd -Q - "${reply[@]%[*/=@|]}"
-}
-
-zle -C dabbrev-complete complete-word dabbrev-complete
-bindkey '^o' dabbrev-complete
-
-# file completion {{{2
-# ----------------------------------------------------------------------------
-complete_files () {
-    compadd - $PREFIX*
-}
-zle -C complete-files complete-word complete_files
-bindkey '^x^f' complete-files
-
-# site-functionsのリロード {{{2
-# ----------------------------------------------------------------------------
-rsf() {
-  local f
-  f=(~/local/share/zsh/site-functions/*(.))
-  unfunction $f:t 2> /dev/null
-  autoload -U $f:t
-}
-
-# Incremental completion on zsh {{{2
-# ----------------------------------------------------------------------------
-# http://mimosa-pudica.net/zsh-incremental.html
-if [ -f ~/.zsh/plugin/incr-0.2.zsh ]; then
-    . ~/.zsh/plugin/incr-0.2.zsh
-fi
 
 # ディレクトリ関連 {{{1
 # ==============================================================================
@@ -815,14 +818,10 @@ if hash peco 2>/dev/null; then
 fi
 # }}}
 
-for file in $ZDOTDIR/load/*.zsh; do
-    source $file
-done
-
-if [ -f $ZDOTDIR/plugin/z.sh ]; then
-    _Z_CMD=j
-    source $ZDOTDIR/plugin/z.sh
-fi
+# if [ -f $ZDOTDIR/plugin/z.sh ]; then
+#     _Z_CMD=j
+#     source $ZDOTDIR/plugin/z.sh
+# fi
 
 if [ -f $ZDOTDIR/.zshrc.local ]; then
     . $ZDOTDIR/.zshrc.local
