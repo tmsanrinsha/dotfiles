@@ -355,6 +355,7 @@ stty stop undef
 
 # コマンドラインをeditorで編集する
 # ----------------------------------------------------------------------------
+# [zshのコマンドラインを任意のテキストエディタで編集する - Qiita](http://qiita.com/mollifier/items/7b1cfe609a7911a69706)
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^xe' edit-command-line
