@@ -48,13 +48,13 @@ let g:neocomplete#enable_auto_close_preview=0
 if !exists('g:neocomplete#sources')
     let g:neocomplete#sources = {}
 endif
-" let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'ultisnips', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
-let g:neocomplete#sources._    = ['tag', 'syntax', 'neosnippet', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
+
+let g:neocomplete#sources._    =     ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'syntax', 'tag', 'dictionary']
 " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
-let g:neocomplete#sources.markdown = ['tag', 'dictionary', 'omni', 'member', 'buffer', 'file', 'file/include']
+let g:neocomplete#sources.markdown = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'tag', 'dictionary']
 " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-let g:neocomplete#sources.php      = ['tag', 'neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include']
-let g:neocomplete#sources.vim      = ['member', 'buffer', 'file', 'neosnippet', 'file/include', 'vim']
+let g:neocomplete#sources.php      = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'tag']
+let g:neocomplete#sources.vim      = ['neosnippet', 'vim',  'member', 'buffer', 'file']
 let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
 let dictionary = g:memo_directory . '/memo/doc/memo.dict'
