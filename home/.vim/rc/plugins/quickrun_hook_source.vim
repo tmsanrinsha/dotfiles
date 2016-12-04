@@ -178,4 +178,15 @@ let g:quickrun_config['dot'] = {
 " set errorformat=debug:\%s
 " 1}}}
 
+" [quickrun-outputter-replace_region つくった - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130224/1361703750)
+command! -nargs=* -range=0 -complete=customlist,quickrun#complete
+\   QuickRunReplace
+\   QuickRun
+\       -mode v
+\       -outputter error
+\       -outputter/success replace_region
+\       -outputter/error message
+\       -outputter/message/log 1
+\       <args>
+
 call SourceRc('quickrun_local.vim')
