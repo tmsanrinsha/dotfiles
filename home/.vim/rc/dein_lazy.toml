@@ -428,8 +428,8 @@ on_cmd = 'Man'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-on_cmd = 'QuickRun'
-depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline']
+on_cmd = ['QuickRun', 'QuickRunReplace']
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
 hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
 
 [[plugins]]
@@ -451,6 +451,9 @@ repo = 'KazuakiM/vim-qfstatusline'
 hook_source = '''
     let g:Qfstatusline#Text = 'E'
 '''
+
+[[plugins]]
+repo = 'osyo-manga/quickrun-outputter-replace_region'
 
 [[plugins]]
 repo = 'osyo-manga/vim-bufixlist'
