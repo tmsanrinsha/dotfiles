@@ -88,7 +88,7 @@ alias -g P='| peco_with_action'
 # http://hateda.hatenadiary.jp/entry/2012/09/06/000000
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
 alias -g PXV="| peco | xargs bash -c '</dev/tty vim \$@' ignoreme"
-alias -g V='| vim -R -'
+alias -g V="| vim - -c 'setlocal buftype=nofile noswapfile | file output'"
 alias -g VT='| tovim'
 alias -g XV="| xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g X='| xmllint --format -'
