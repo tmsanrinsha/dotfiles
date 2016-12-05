@@ -49,11 +49,11 @@ if !exists('g:neocomplete#sources')
     let g:neocomplete#sources = {}
 endif
 
-let g:neocomplete#sources._    =     ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'syntax', 'tag', 'dictionary']
+let g:neocomplete#sources._    =     ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'syntax', 'tag', 'dictionary']
 " codeのハイライトのためsyntaxファイルを大量に読み込むため、syntaxを入れておくと、insertモード開始時に固まるので抜く
-let g:neocomplete#sources.markdown = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'tag', 'dictionary']
+let g:neocomplete#sources.markdown = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'tag', 'dictionary']
 " shawncplus/phpcomplete.vimで補完されるため、syntaxはいらない
-let g:neocomplete#sources.php      = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'include', 'tag']
+let g:neocomplete#sources.php      = ['neosnippet', 'omni', 'member', 'buffer', 'file', 'file/include', 'tag']
 let g:neocomplete#sources.vim      = ['neosnippet', 'vim',  'member', 'buffer', 'file']
 let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
