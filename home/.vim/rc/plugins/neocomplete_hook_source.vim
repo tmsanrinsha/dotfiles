@@ -87,11 +87,8 @@ let g:neocomplete#data_directory = $VIM_CACHE_DIR . '/neocomplete'
 augroup MyVimrc
     autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
     autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
-" let g:neocomplete#sources#omni#functions.sql =
-" \ 'sqlcomplete#Complete'
 
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
@@ -113,6 +110,11 @@ let g:neocomplete#force_omni_input_patterns.dot = '\%(=\|,\|\[\)\s*\w*'
 "   -- オムニ補完 (^O^N^P) パターンは見つかりませんでした
 " が表示される
 
+" Java {{{2
+" ----------------------------------------------------------------------------
+" artur-shaik/vim-javacomplete2
+let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h\w\+\)\?'
+
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
 if IsInstalled('tern_for_vim')
@@ -121,16 +123,23 @@ if IsInstalled('tern_for_vim')
 end
 
 " golang {{{2
+" ----------------------------------------------------------------------------
 let g:neocomplete#sources#omni#input_patterns.go = '\h\w*\|[^.[:digit:] *\t]\.\w*'
-" }}}
 
+" xml html {{{2
+" ----------------------------------------------------------------------------
 let g:neocomplete#sources#omni#input_patterns.html     = '</\?\|\"\|\s[[:alnum:]-]*'
 let g:neocomplete#sources#omni#input_patterns.xhtml    = '</\?\|\"\|\s[[:alnum:]-]*'
 let g:neocomplete#sources#omni#input_patterns.xml      = '</\?\|\"\|\s[[:alnum:]-]*'
 let g:neocomplete#sources#omni#input_patterns.markdown = '</\?\|\"\|\s[[:alnum:]-]*'
 
-" PHP
-" for phpcomplete
+" Perl {{{2
+" ----------------------------------------------------------------------------
+let g:neocomplete#sources#omni#input_patterns.perl =
+\   '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+" PHP {{{2
+" ----------------------------------------------------------------------------
 if dein#tap('padawan.vim')
     " for padawan
     let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
@@ -139,16 +148,16 @@ else
     let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 endif
 
-" R
+" R {{{2
+" ----------------------------------------------------------------------------
 let g:neocomplete#sources#omni#input_patterns.r = '[[:alnum:].\\\$]\+'
 let g:neocomplete#sources#omni#functions.r = 'rcomplete#CompleteR'
 
-" Ruby
+" Ruby {{{2
+" ----------------------------------------------------------------------------
 let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" artur-shaik/vim-javacomplete2
-let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h\w\+\)\?'
-
+" }}}
+" }}}
 
 " 日本語も補完させたい場合は
 " g:neocomplete#enable_multibyte_completionをnon-0にして
