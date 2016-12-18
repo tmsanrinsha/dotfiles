@@ -490,10 +490,16 @@ hook_add = '''
 repo = 't9md/vim-quickhl'
 on_map = '<Plug>(quickhl-'
 
+# draw {{{1
+# ============================================================================
 [[plugins]]
 repo = 'DrawIt'
 on_map = ';di'
 on_cmd = 'DrawIt'
+
+[[plugins]]
+repo = 'shinespark/vim-list2tree'
+on_cmd = 'List2Tree'
 
 # browser {{{1
 # ============================================================================
