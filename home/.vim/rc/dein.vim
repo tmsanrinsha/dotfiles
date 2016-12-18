@@ -67,12 +67,12 @@ let s:sync_save_dir_list = [
 \    {
 \      'glob' : s:dein_dir . '/repos/**/autoload/*.vim',
 \      'from' : s:dein_dir . '/repos/.*/autoload',
-\      'to'   : s:dein_dir . '/.dein/autoload',
+\      'to'   : s:dein_dir . '/.cache/.vimrc/.dein/autoload',
 \    },
 \    {
 \      'glob' : s:dein_dir . '/repos/**/autoload/**/*.vim',
 \      'from' : s:dein_dir . '/repos/.*/autoload',
-\      'to'   : s:dein_dir . '/.dein/autoload',
+\      'to'   : s:dein_dir . '/.cache/.vimrc/.dein/autoload',
 \    }
 \]
 
