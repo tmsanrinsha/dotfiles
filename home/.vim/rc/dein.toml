@@ -52,7 +52,7 @@ repo = 'ujihisa/neco-look'
 repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
+repo = 'tmsanrinsha/context_filetype.vim'
 
 # snippet {{{1
 # ============================================================================
