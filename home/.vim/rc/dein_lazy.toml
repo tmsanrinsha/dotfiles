@@ -294,6 +294,12 @@ on_ft = ['javascript', 'css', 'html']
 repo = 'fatih/vim-go'
 on_ft = 'go'
 
+# Perl {{{1
+# ============================================================================
+repo = 'tmsanrinsha/vim-perl'
+on_ft = 'perl'
+build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
+
 # PHP {{{1
 # ============================================================================
 [[plugins]]
