@@ -1895,6 +1895,12 @@ if IsInstalled('diffchar.vim')
     " \   endif
 endif
 
+" Mac {{{1
+" ============================================================================
+if has('mac')
+    " set perldll=/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/libperl.dylib
+endif
+
 " local {{{1
 " ============================================================================
 call SourceRc('local.vim')
