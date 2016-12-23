@@ -207,6 +207,9 @@ fi
 # cpanm --skip-installed MIME::Base64
 # cpanm --skip-installed App::Ack
 
+# Golang {{{1
+command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
+
 # CYGWIN {{{1
 # ============================================================================
 if [[ `uname` = CYGWIN* ]]; then

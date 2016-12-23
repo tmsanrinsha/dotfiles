@@ -27,8 +27,8 @@ let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'b
 autocmd MyVimrc BufRead fugitive://*
 \   let b:watchdogs_checker_type = ''
 
-" apaache {{{2
-" ------------------------------------------------------------------------
+" apaache {{{1
+" ============================================================================
 let g:quickrun_config['watchdogs_checker/apache'] = {
 \   'command':           'apachectl',
 \   'cmdopt':            'configtest',
@@ -40,8 +40,8 @@ let g:quickrun_config['apache/watchdogs_checker'] = {
 \   'type' : 'watchdogs_checker/apache'
 \}
 
-" cpp {{{2
-" ------------------------------------------------------------------------
+" cpp {{{1
+" ============================================================================
 let g:quickrun_config['cpp/watchdogs_checker'] = {
 \   'type'
 \       : executable('g++')         ? 'watchdogs_checker/g++'
@@ -57,7 +57,7 @@ let g:quickrun_config['watchdogs_checker/g++'] = {
 \   'outputter' : 'quickfix',
 \}
 
-" Go lang {{{2
+" Go lang {{{1
 " ------------
 " vim-goでやるので、typeの設定を外しておく
 let g:quickrun_config['go/watchdogs_checker'] = {
@@ -76,8 +76,8 @@ let g:quickrun_config['watchdogs_checker/gometalinter'] = {
 \   'errorformat' : '%f:%l:%c:%t%*[^:]: %m,%-G%.%#',
 \}
 
-" mql {{{2
-" ------------------------------------------------------------------------
+" mql {{{1
+" ============================================================================
 let g:quickrun_config['watchdogs_checker/mql'] = {
 \   'hook/cd/directory': '%S:p:h',
 \   'command':           'wine',
@@ -99,8 +99,8 @@ let g:quickrun_config['mql4/watchdogs_checker'] = {
 \   'type' : 'watchdogs_checker/mql'
 \}
 
-" php {{{2
-" ------------------------------------------------------------------------
+" php {{{1
+" ============================================================================
 " if executable('phpcs')
 "     let g:quickrun_config['watchdogs_checker/php'] = {
 "     \   'exec' : ['php -l %s:p', 'phpcs --standard=PSR2 --report=csv %s:p'],
@@ -125,7 +125,7 @@ let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
 \   'type': 'watchdogs_checker/php'
 \}
 
-" R-lang {{{2
+" R-lang {{{1
 " --------------------------------------------------------------------
 " Rmd {{{3
 let g:quickrun_config['rmd/watchdogs_checker'] = {
@@ -139,7 +139,7 @@ let g:quickrun_config['watchdogs_checker/rmd'] = {
 \   'exec': ['%c %o "library(rmarkdown);rmarkdown::render(''%s:p'')"', 'sleep 1', 'touch %s:p:r.html'],
 \}
 
-" sh {{{2
+" sh {{{1
 " --------------------------------------------------------------------
 " filetypeがshでも基本的にbashを使うので、bashでチェックする
 let g:quickrun_config['sh/watchdogs_checker'] = {
@@ -152,7 +152,7 @@ let g:quickrun_config['watchdogs_checker/bash'] = {
 \   'errorformat': '%f:\ line\ %l:%m',
 \}
 
-" solc {{{2
+" solidity {{{1
 " --------------------------------------------------------------------
 let g:quickrun_config['solidity/watchdogs_checker'] = {
 \   'type': (executable('solc') ? 'watchdogs_checker/solc' : '')
@@ -164,23 +164,22 @@ let g:quickrun_config['watchdogs_checker/solc'] = {
 \   'errorformat': '%f:%l:%c: %m,%-G%.%#',
 \}
 
-" sql {{{2
-" ------------------------------------------------------------------------
-let g:quickrun_config['sql/watchdogs_checker'] = {
-\   'type': 'watchdogs_checker/sql'
+" sql {{{1
+" ============================================================================
+" let g:quickrun_config['sql/watchdogs_checker'] = {
+" \   'type': 'watchdogs_checker/sql'
+" \}
+"
+" " https://sql.treasuredata.com/
+" let g:quickrun_config['watchdogs_checker/sql'] = {
+" \   'command':     'curl',
+" \   'exec':        '%c -s "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=`cat %s | perl -pe ''s/\n/%%0A/''`"',
+" \   'errorformat': '%f:\ line\ %l:%m',
+" \}
 \}
 
-" https://sql.treasuredata.com/
-let g:quickrun_config['watchdogs_checker/sql'] = {
-\   'command':     'curl',
-\   'exec':        '%c -s "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=`cat %s | perl -pe ''s/\n/%%0A/''`"',
-\   'errorformat': '%f:\ line\ %l:%m',
-\}
-
-" \   'exec':        "%c -v \"https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\\&engine=hive\\&query=`cat %s`\"",
-" \   'exec':        '%c -v "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=\$(cat %s)"',
-" vim {{{2
-" ------------------------------------------------------------------------
+" vim {{{1
+" ============================================================================
 let g:quickrun_config['vim/watchdogs_checker'] = {
 \   'type': executable('vint') ? 'watchdogs_checker/vint' : '',
 \}
@@ -190,8 +189,8 @@ let g:quickrun_config['watchdogs_checker/vint'] = {
 \       'exec'      : '%c %o %s:p',
 \}
 
-" zsh {{{2
-" ------------------------------------------------------------------------
+" zsh {{{1
+" ============================================================================
 " let g:quickrun_config['zsh/watchdogs_checker'] = {
 " \   'type': ''
 " \}
