@@ -57,8 +57,8 @@ let g:quickrun_config['watchdogs_checker/g++'] = {
 \   'outputter' : 'quickfix',
 \}
 
-" Go lang {{{1
-" ------------
+" Golang {{{1
+" ============================================================================
 " vim-goでやるので、typeの設定を外しておく
 let g:quickrun_config['go/watchdogs_checker'] = {
 \   'type': ''
@@ -126,7 +126,7 @@ let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
 \}
 
 " R-lang {{{1
-" --------------------------------------------------------------------
+" ============================================================================
 " Rmd {{{3
 let g:quickrun_config['rmd/watchdogs_checker'] = {
 \   'type': 'watchdogs_checker/rmd'
@@ -140,7 +140,7 @@ let g:quickrun_config['watchdogs_checker/rmd'] = {
 \}
 
 " sh {{{1
-" --------------------------------------------------------------------
+"=============================================================================
 " filetypeがshでも基本的にbashを使うので、bashでチェックする
 let g:quickrun_config['sh/watchdogs_checker'] = {
 \   'type': (executable('bash') ? 'watchdogs_checker/bash' : '')
@@ -153,7 +153,7 @@ let g:quickrun_config['watchdogs_checker/bash'] = {
 \}
 
 " solidity {{{1
-" --------------------------------------------------------------------
+"=============================================================================
 let g:quickrun_config['solidity/watchdogs_checker'] = {
 \   'type': (executable('solc') ? 'watchdogs_checker/solc' : '')
 \}
