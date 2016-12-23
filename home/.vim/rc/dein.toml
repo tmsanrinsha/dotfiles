@@ -52,7 +52,7 @@ repo = 'ujihisa/neco-look'
 repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
-repo = 'tmsanrinsha/context_filetype.vim'
+repo = 'Shougo/context_filetype.vim'
 
 # snippet {{{1
 # ============================================================================
@@ -283,6 +283,7 @@ repo = 'vobornik/vim-mql4'
 
 # Perl {{{2
 # -----------------------------------------------------------------------------
+[[plugins]]
 repo = 'c9s/perlomni.vim'
 
 # PHP {{{2
