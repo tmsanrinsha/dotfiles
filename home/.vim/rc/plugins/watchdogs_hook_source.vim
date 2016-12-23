@@ -176,6 +176,17 @@ let g:quickrun_config['watchdogs_checker/solc'] = {
 " \   'exec':        '%c -s "https://td-sql.herokuapp.com/api/v1/query/validate?callback=angular.callbacks._1\&engine=hive\&query=`cat %s | perl -pe ''s/\n/%%0A/''`"',
 " \   'errorformat': '%f:\ line\ %l:%m',
 " \}
+
+" toml {{{1
+" ============================================================================
+let g:quickrun_config['toml/watchdogs_checker'] = {
+\   'type': executable('tomlv') ? 'watchdogs_checker/tomlv' : '',
+\}
+
+let g:quickrun_config['watchdogs_checker/tomlv'] = {
+\   'command'   : 'tomlv',
+\   'exec'      : '%c %s',
+\   'errorformat': "Error in '%f': Near line %l %m"
 \}
 
 " vim {{{1
