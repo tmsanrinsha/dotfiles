@@ -504,12 +504,17 @@ set formatexpr=
 " key mappingに対しては9000ミリ秒待ち、key codeに対しては20ミリ秒待つ
 " コマンドラインモードで<Esc>を押した時に消えるのが早くなるなど。
 set timeout timeoutlen=9000 ttimeoutlen=20
+
+" MacVimでMETAキーを使えるようにする
 if exists('+macmeta')
-    " MacVimでMETAキーを使えるようにする
     set macmeta
 endif
+
 let g:mapleader = ';'
 let g:maplocalleader = '\'
+
+" maparg()
+" 現在の設定のrhsを返す
 
 " prefix
 " http://blog.bouzuya.net/2012/03/26/prefixedmap-vim/
@@ -528,8 +533,9 @@ xmap <Space> [:space:]
 
 nnoremap [Colon] :
 
-inoremap jj <ESC>
-"cnoremap jj <ESC>
+" inoremap jj <ESC>
+" cnoremap jj <ESC>
+
 nnoremap Y y$
 
 " カーソルを表示行で移動するようにする
