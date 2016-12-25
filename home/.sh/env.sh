@@ -133,8 +133,10 @@ if command_exists perl; then
         perl -M$1 -e 'print $'"$1::VERSION"' . "\n"'
     }
 
-    export PERL_CPANM_OPT="--local-lib=~/perl5"
-    eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    if command_exists cpanm; then
+        export PERL_CPANM_OPT="--local-lib=~/perl5"
+        eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+    fi
 fi
 
 # PHP {{{1
