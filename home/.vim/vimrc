@@ -1441,20 +1441,6 @@ function! s:setting_help()
     setlocal iskeyword=!-39,42-~,^*,^\|,^\",192-255
 endfunction
 
-" Git {{{2
-" ----------------------------------------------------------------------------
-" コミットメッセージは72文字で折り返す
-" http://keijinsonyaban.blogspot.jp/2011/01/git.html
-" 72列目に線を引く
-" Insert modeで始める
-autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
-    \   setlocal colorcolumn=+1
-    \|  startinsert
-" ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
-autocmd MyVimrc FileType gitcommit
-    \  setlocal formatoptions<
-" }}}
-
 " memo {{{1
 " ============================================================================
 if !exists('g:memo_directory')
@@ -3007,6 +2993,19 @@ endif
 
 " Git {{{1
 " ============================================================================
+" Git {{{2
+" ----------------------------------------------------------------------------
+" コミットメッセージは72文字で折り返す
+" http://keijinsonyaban.blogspot.jp/2011/01/git.html
+" 72列目に線を引く
+" Insert modeで始める
+autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
+    \   setlocal colorcolumn=+1
+    \|  startinsert
+" ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
+autocmd MyVimrc FileType gitcommit
+    \  setlocal formatoptions<
+"
 " vim-fugitive {{{2
 " ----------------------------------------------------------------------------
 if IsInstalled('vim-fugitive')
