@@ -18,6 +18,8 @@ mysql:bind -s "^xm" "show master status\\\\G"
 mysql:bind -s "^xp" "show full processlist;"
 mysql:bind -s "^xa" "show table status like 'TN'\\\\G"
 
-bind
+# 現在のキーバインドを確認するにはコメントアウト
+# bind
+
 # [快適mysqlコマンド★カスタマイズの決定版 - (ひ)メモ](http://d.hatena.ne.jp/hirose31/20131225/1387942323)
 # [EDITRC(5) - ファイルフォーマット - YOS OPENSONAR](http://www.yosbits.com/opensonar/rest/man/freebsd/man/ja/man5/editrc.5.html?l=ja)

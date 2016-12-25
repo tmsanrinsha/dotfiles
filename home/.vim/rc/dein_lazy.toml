@@ -68,7 +68,7 @@ hook_source = 'source ~/.vim/rc/plugins/Conque-Shell_hook_source.vim'
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 depends = [
-    'FastFold'
+    'FastFold',
     'neoinclude.vim',
     'neosnippet.vim', 'vim-snippets'
 ]
@@ -291,11 +291,13 @@ on_ft = ['javascript', 'css', 'html']
 
 # Go lang {{{1
 # ============================================================================
+[[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
 
 # Perl {{{1
 # ============================================================================
+[[plugins]]
 repo = 'tmsanrinsha/vim-perl'
 on_ft = 'perl'
 build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
@@ -593,6 +595,7 @@ hook_source = '''
     autocmd MyVimrc FileType gitv
         \   setlocal iskeyword+=/,-,.
         \|  nnoremap <buffer> <LocalLeader>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <LocalLeader>rs :<C-u>Git reset        <C-r>=GitvGetCurrentHash()<CR><CR>
         \|  nnoremap <buffer> <LocalLeader>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
         \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
         \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
