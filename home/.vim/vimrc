@@ -2229,6 +2229,10 @@ let g:vimfiler_safe_mode_by_default = 0
 
 let g:vimfiler_data_directory = $VIM_CACHE_DIR.'/vimfiler'
 
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_tree_leaf_icon = ' '
+
 nnoremap [VIMFILER] <Nop>
 nmap <Leader>f [VIMFILER]
 nnoremap <silent> [VIMFILER]f :VimFiler<CR>
@@ -2719,7 +2723,7 @@ if IsInstalled('foldCC')
     set foldtext=FoldCCtext()
     set foldcolumn=1
     set fillchars=vert:\|
-    let g:foldCCtext_head = '"+ " . v:folddashes . " "'
+    let g:foldCCtext_head = '"▸ " . v:folddashes . " "'
     " let g:foldCCtext_head = 'repeat(" ", v:foldlevel) . "+ "'
     let g:foldCCtext_tail = 'printf("[Lv%d %3d]", v:foldlevel, v:foldend-v:foldstart+1)'
     nnoremap <Leader><C-g> :echo FoldCCnavi()<CR>
