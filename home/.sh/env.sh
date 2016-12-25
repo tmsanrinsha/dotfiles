@@ -129,6 +129,12 @@ fi
 if command_exists perl; then
     # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
     alias perl-pm-list="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
+    function perl-pm-version {
+        perl -M$1 -e 'print $'"$1::VERSION"' . "\n"'
+    }
+
+    export PERL_CPANM_OPT="--local-lib=~/perl5"
+    eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
 fi
 
 # PHP {{{1

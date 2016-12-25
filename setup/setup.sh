@@ -203,9 +203,11 @@ fi
 
 # cpanm {{{1
 # ============================================================================
-# command_exists cpanm || source $setup_dir/cpanm.sh
-# cpanm --skip-installed MIME::Base64
-# cpanm --skip-installed App::Ack
+if ! command_exists cpanm && command_exists perl; then
+    curl -Lok http://xrl.us/cpanm > ~/bin/cpanm
+    chmod +x ~/bin/cpanm
+    cpanm local::lib
+fi
 
 # Golang {{{1
 command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
