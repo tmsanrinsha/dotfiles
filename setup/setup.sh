@@ -201,7 +201,7 @@ fi
 # ============================================================================
 # [perlモジュールのinstallにcpanmを使う｜perl｜@OMAKASE](http://www.omakase.org/perl/cpanm.html)
 if ! command_exists cpanm && command_exists perl; then
-    curl -Lok http://xrl.us/cpanm > ~/bin/cpanm
+    curl -Lk http://xrl.us/cpanm > ~/bin/cpanm
     chmod +x ~/bin/cpanm
     cpanm local::lib
 fi
