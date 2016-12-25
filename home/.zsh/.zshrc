@@ -645,7 +645,7 @@ REPORTTIME=10
 if hash peco 2>/dev/null; then
     # バッファ上のコマンドを実行して、pecoの選択結果をバッファに出力
     function peco-buffer() {
-        BUFFER=$(eval ${BUFFER} | peco)
+        BUFFER=" $(eval ${BUFFER} | peco)"
         CURSOR=0
     }
     zle -N peco-buffer
