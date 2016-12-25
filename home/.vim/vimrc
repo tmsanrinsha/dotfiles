@@ -56,36 +56,6 @@ function! SourceRc(path) " {{{1
     endif
 endfunction
 
-" plugin {{{1
-" ============================================================================
-if v:version >= 704
-    call SourceRc('dein.vim')
-elseif MyHasPatch('patch-7.2.051')
-    call SourceRc('neobundle.vim')
-    call SourceRc('plugin.vim')
-else
-    " bundle以下にあるpluginをいくつかruntimepathへ追加する
-    " let s:load_plugin_list = [
-    " \   'sudo.vim', 'my_molokai', 'vim-smartword'
-    " \]
-    " " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
-    " "     let s:plugin_name = matchstr(path, '[^/]\+$')
-    " "     if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
-    " "         let &runtimepath = &runtimepath.','.path
-    " "     end
-    " " endfor
-    " for s:plugin in s:load_plugin_list
-    "     if isdirectory($HOME.'/.vim/bundle/'.s:plugin)
-    "         let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
-    "     endif
-    " endfor
-
-    let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
-    nnoremap <Leader>W :w sudo:%<CR>
-
-    filetype plugin indent on
-endif
-
 " function {{{1
 " ============================================================================
 " MyHasPatch {{{
@@ -962,22 +932,14 @@ command! -nargs=1 -complete=file Ctags call s:ctags('<args>')
 
 " Gitリポジトリ以下のときに、保存するたびにctagsを実行 {{{2
 " ----------------------------------------------------------------------------
-" http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html
+" [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
 autocmd MyVimrc BufWritePost *
 \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
 \   call system('"'.b:git_dir.'/hooks/ctags" &') |
 \ endif
 
-" tsukkee/unite-tag *unite-tag* {{{2
+" tagsの設定 {{{2
 " ----------------------------------------------------------------------------
-nnoremap [unite]t :<C-u>Unite tag<CR>
-" let g:unite_source_tag_max_fname_length = 1000
-" let g:unite_source_tag_max_name_length = 100
-" let g:unite_source_tag_strict_truncate_string = 0
-
-" filetypeがjavaのとき以外
-" gitのhookで.git/tagsが生成されるように設定しておく
-" [GitのhookでCtagsを実行する | SanRin舎](http://sanrinsha.lolipop.jp/blog/2014/04/git-hook-ctags.html)
 autocmd MyVimrc FileType * call s:configure_tag()
 
 function! s:configure_tag()
@@ -1016,7 +978,13 @@ endfunction
 "     UniteWithCursorWord -immediately tag
 " endfunction
 " command! MyUniteTag call s:
-" }}}
+
+" tsukkee/unite-tag {{{2
+" ----------------------------------------------------------------------------
+nnoremap [unite]t :<C-u>Unite tag<CR>
+" let g:unite_source_tag_max_fname_length = 1000
+" let g:unite_source_tag_max_name_length = 100
+" let g:unite_source_tag_strict_truncate_string = 0
 
 " crypt {{{1
 " ============================================================================
@@ -1450,6 +1418,36 @@ endif
 
 if !has('gui_running')
     call SourceRc('cui.vim')
+endif
+
+" plugin {{{1
+" ============================================================================
+if v:version >= 704
+    call SourceRc('dein.vim')
+elseif MyHasPatch('patch-7.2.051')
+    call SourceRc('neobundle.vim')
+    call SourceRc('plugin.vim')
+else
+    " bundle以下にあるpluginをいくつかruntimepathへ追加する
+    " let s:load_plugin_list = [
+    " \   'sudo.vim', 'my_molokai', 'vim-smartword'
+    " \]
+    " " for path in split(glob($HOME.'/.vim/bundle/*'), '\n')
+    " "     let s:plugin_name = matchstr(path, '[^/]\+$')
+    " "     if isdirectory(path) && index(s:load_plugin_list, s:plugin_name) >= 0
+    " "         let &runtimepath = &runtimepath.','.path
+    " "     end
+    " " endfor
+    " for s:plugin in s:load_plugin_list
+    "     if isdirectory($HOME.'/.vim/bundle/'.s:plugin)
+    "         let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
+    "     endif
+    " endfor
+
+    let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
+    nnoremap <Leader>W :w sudo:%<CR>
+
+    filetype plugin indent on
 endif
 
 " search/substitute {{{1
