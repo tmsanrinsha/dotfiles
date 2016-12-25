@@ -3016,12 +3016,12 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]d   :Gdiff<CR>
     nnoremap [fugitive]s   :Gstatus<CR>
     nnoremap [fugitive]l   :Glog<CR>
-    nnoremap [fugitive]ps  :Gpush
-    nnoremap [fugitive]psf :Gpush -f
-    nnoremap [fugitive]pso :Gpush origin
-    nnoremap [fugitive]pl  :Gpull --rebase
-    nnoremap [fugitive]fo  :Gfetch origin<CR>
-    nnoremap [fugitive]for :Gfetch origin<CR>:Git rebase origin/master<CR>
+    nnoremap [fugitive]ps  :Git push
+    nnoremap [fugitive]psf :Git push -f
+    nnoremap [fugitive]pso :Git push origin
+    nnoremap [fugitive]pl  :Git pull --rebase
+    nnoremap [fugitive]fo  :Git fetch origin<CR>
+    nnoremap [fugitive]for :Git fetch origin<CR>:Git rebase origin/master<CR>
 
     nnoremap [fugitive]2 :diffget //2 <Bar> diffupdate\<CR>
     nnoremap [fugitive]3 :diffget //3 <Bar> diffupdate\<CR>
@@ -3053,7 +3053,6 @@ if IsInstalled('vim-fugitive')
     \   autocmd CursorMoved <buffer> let b:git_dir = '' | call fugitive#detect(vimfiler#get_filename())
 
 endif
-
 
 " open-browser.vim {{{1
 " ============================================================================
