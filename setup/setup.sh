@@ -106,11 +106,7 @@ cp $git_dir/sample/.gitconfig ~/.gitconfig
 if [ -L "$HOME/.ctags" ]; then
     rm "$HOME/.ctags"
 fi
-if ctags --version | grep Development; then
-    $setup_dir/make_.ctags.sh --new > ~/.ctags
-else
-    $setup_dir/make_.ctags.sh --old > ~/.ctags
-fi
+$setup_dir/make_.ctags.sh > ~/.ctags
 # }}}
 
 if [ $link -eq 1 ]; then

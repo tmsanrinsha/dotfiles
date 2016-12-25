@@ -1,7 +1,12 @@
 #!/bin/sh
 
+new=0
+if ctags --version | grep Development; then
+    new=1
+fi
+
 cat <<EOT
---tag-relative
+--tag-relative=yes
 --recurse=yes
 --exclude=.svn
 --exclude=.git
@@ -10,7 +15,11 @@ EOT
 
 # PHP {{{1
 # ============================================================================
-if [ $1 == '--old' ]; then
+if [ $new -eq 1 ]; then
+    cat <<EOT
+--fields=+aimS
+EOT
+else
     cat <<EOT
 --php-kinds=cidfv
 --langmap=PHP:+.inc.tpl
@@ -18,10 +27,6 @@ if [ $1 == '--old' ]; then
 --regex-php=/^[ \t]*abstract class ([^ ]*)/\1/c/
 --regex-php=/^[ \t]*interface ([^ ]*)/\1/c/
 --regex-php=/^[ \t]*(public |static |abstract |protected |private )+function ([^ (]*)/\2/f/
-EOT
-elif [ $1 == '--new' ]; then
-    cat <<EOT
---fields=+aimS
 EOT
 fi
 
