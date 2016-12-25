@@ -2063,7 +2063,7 @@ if IsInstalled('unite.vim')
     " カレントディレクトリに対してgrep
     nnoremap [unite]gc :<C-U>Unite grep:.<CR>
     " カレントバッファのディレクトリ以下に対してgrep
-    nnoremap [unite]g. :<C-U>execute "Unite grep:".expand('%:p:h')<CR>
+    nnoremap [unite]g. :<C-U>execute "Unite grep:".escape(expand('%:p:h'), ' ')<CR>
     " 全バッファに対してgrep
     nnoremap [unite]gB :<C-U>Unite grep:$buffers<CR>
     " プロジェクト内のファイルに対してgrep
