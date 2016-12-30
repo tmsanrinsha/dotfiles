@@ -109,6 +109,7 @@ qmark y http://www.yahoo.co.jp/
 " bmark {{{1
 " ============================================================================
 bmark -folder search -keyword alc -title 検索:アルク                 http://eow.alc.co.jp/search?q=%s
+bmark -folder search -keyword t   -title 検索:Twitter検索       https://twitter.com/search?vertical=default&q=%s&src=typd
 bmark -folder search -keyword y   -title 検索:Yahoo!ウェブ検索       http://search.yahoo.co.jp/search?ei=UTF-8&p=%s
 bmark -folder search -keyword yf  -title 検索:Yahoo!ファイナンス     http://info.finance.yahoo.co.jp/search/?query=%s
 bmark -folder search -keyword yr  -title 検索:Yahoo!リアルタイム検索 http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8
