@@ -8,6 +8,7 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 " let &l:shiftwidth = &l:tabstop
 
 setlocal iskeyword+=-
+setlocal commentstring=<!--%s-->
 
 " イタリックを無効に
 highlight! link markdownItalic Normal
