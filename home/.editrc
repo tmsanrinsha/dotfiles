@@ -12,11 +12,22 @@ mysql:bind -s "^xu" "select user,host,password from mysql.user order by user,hos
 mysql:bind -s "^xb" "select user,host,db       from mysql.db   order by user,host;"
 mysql:bind -s "^xc" "show create table TN\\\\G"
 mysql:bind -s "^xn" "select count(*) from ;"
-mysql:bind -s "^xv" "show variables like '%%';"
 mysql:bind -s "^xs" "show slave status\\\\G"
 mysql:bind -s "^xm" "show master status\\\\G"
 mysql:bind -s "^xp" "show full processlist;"
 mysql:bind -s "^xa" "show table status like 'TN'\\\\G"
+
+# MySQLの出力先をVimにする
+# ============================================================================
+# MySQL pager
+# http://d.hatena.ne.jp/xyk/touch/20110207/1297045517
+# http://vim-jp.org/vimdoc-ja/starting.html
+# - 標準入力を読み込む
+# -c   ~/.vimrc ファイルを読み込んだ後に、コマンドを実行
+# --cmd ~/.vimrc ファイルを読み込む前に、コマンドを実行
+# setlocal nowrap テキストを折り返さない
+# nopagerで標準出力に戻す
+mysql:bind -s "^xv" "\\\\P vim - -c 'setlocal nowrap buftype=nofile noswapfile | file output';"
 
 # 現在のキーバインドを確認するにはコメントアウト
 # bind
