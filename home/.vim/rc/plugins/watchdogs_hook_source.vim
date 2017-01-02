@@ -211,7 +211,7 @@ call SourceRc('watchdogs_local.vim')
 " watchdogs.vim の設定を更新（初回は呼ばれるが、リロード時のために書いておく）
 call watchdogs#setup(g:quickrun_config)
 
-" WatchdogsDisable
+" WatchdogsDisable {{{1
 " ============================================================================
 command! WatchdogsDisable call <SID>watchdogs_disable(&filetype)
 function! s:watchdogs_disable(filetype) abort
