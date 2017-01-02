@@ -56,6 +56,14 @@ if [[ `uname` = CYGWIN* ]]; then
     # Cygwin用のコマンドを置くディレクトリ
     pathmungeR "$HOME/script/cygwin"
 elif [[ $OSTYPE == darwin* ]]; then
+    # macのcronでPATHを設定するため
+    # macのzshが/etc/zprofileを読んでない
+    # 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
+    # - http://koseki.hatenablog.com/entry/20081201/macportPath
+    if [ -x /usr/libexec/path_helper ]; then
+        eval `/usr/libexec/path_helper -s`
+    fi
+
     # Mac用のコマンドを置くディレクトリ
     pathmungeR "$HOME/script/mac"
 
@@ -88,18 +96,18 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # TERMの設定 {{{2
 # ----------------------------------------------------------------------------
 # screen-256color -> screen
-if [ $TERM = screen-256color ]; then
-    if [ "`find /usr/share/terminfo -name screen-256color`" = '' ]; then
-        export TERM='screen'
-    fi
-fi
-
-# xterm-256color -> xterm
-if [ $TERM = xterm-256color ]; then
-    if [ "`find /usr/share/terminfo -name xterm-256color`" = '' ]; then
-        export TERM='xterm'
-    fi
-fi
+# if [ $TERM = screen-256color ]; then
+#     if [ "`find /usr/share/terminfo -name screen-256color`" = '' ]; then
+#         export TERM='screen'
+#     fi
+# fi
+#
+# # xterm-256color -> xterm
+# if [ $TERM = xterm-256color ]; then
+#     if [ "`find /usr/share/terminfo -name xterm-256color`" = '' ]; then
+#         export TERM='xterm'
+#     fi
+# fi
 # }}}
 
 # 独自設定
@@ -121,7 +129,7 @@ export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -Duser.language=en"
 # Node.js {{{1
 # ============================================================================
 if command_exists npm; then
-  export PATH="$(npm bin):$PATH"
+  export PATH="$HOME/node_modules/.bin:$PATH"
 fi
 
 # Perl {{{1
@@ -135,7 +143,7 @@ if command_exists perl; then
 
     if command_exists cpanm; then
         export PERL_CPANM_OPT="--local-lib=~/perl5"
-        eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+        test -r ~/.sh/cpanm.sh && source ~/.sh/cpanm.sh
     fi
 fi
 
@@ -190,7 +198,7 @@ fi
 # postgres {{{1
 # ============================================================================
 if [ "$os" = mac ]; then
-    export DATABASE_URL=postgres:///$(whoami)
+    export DATABASE_URL="postgres:///$USER"
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi
 

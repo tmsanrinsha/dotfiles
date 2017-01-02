@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 
-# macのcronでPATHを設定するため
-# 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
-# - http://koseki.hatenablog.com/entry/20081201/macportPath
-if [ -x /usr/libexec/path_helper ]; then
-  eval `/usr/libexec/path_helper -s`
-fi
-
 brew=0
 link=0
 while getopts bl OPT
@@ -204,6 +197,7 @@ if ! command_exists cpanm && command_exists perl; then
     curl -Lk http://xrl.us/cpanm > ~/bin/cpanm
     chmod +x ~/bin/cpanm
     cpanm local::lib
+    perl -I ~/perl5/lib/perl5/ -Mlocal::lib > ~/.sh/cpanm.sh
 fi
 
 # Golang {{{1
