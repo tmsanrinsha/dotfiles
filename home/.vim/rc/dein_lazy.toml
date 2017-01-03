@@ -157,7 +157,8 @@ on_map = '<Plug>(textobj-comment-'
 
 [[plugins]]
 repo = 'kana/vim-smartword'
-on_map = '<Plug>'
+[plugins.on_map]
+nxo = '<Plug>'
 
 # bufferを閉じてもレイアウトを崩さない
 [[plugins]]
