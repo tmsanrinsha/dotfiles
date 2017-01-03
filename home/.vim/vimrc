@@ -711,6 +711,9 @@ set scrolloff=1
 set sidescrolloff=2
 " 横スクロールを1文字ずつ
 set sidescroll=1
+" 横方向に半画面分移動
+nnoremap <M-f> zL
+nnoremap <M-b> zH
 
 " ウィンドウ分割時に等分にしない
 " fugitiveを使った時のdiffが等分になって欲しいのでコメントアウト
