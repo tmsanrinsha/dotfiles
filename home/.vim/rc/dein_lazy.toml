@@ -541,6 +541,7 @@ on_map = '<Plug>(asterisk-'
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_source = 'unite.vim'
+# 一時的にBufWriteを無効にしたいときは'eventignore'を使うといいかも
 
 # memo {{{1
 # ============================================================================
@@ -604,7 +605,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
-on_cmd = ['ColorToggle']
+on_cmd = ['ColorHighlight', 'ColorToggle']
 
 [[plugins]]
 repo = 'epeli/slimux'

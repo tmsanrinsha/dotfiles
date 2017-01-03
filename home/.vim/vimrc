@@ -1420,7 +1420,7 @@ if !has('gui_running')
     call SourceRc('cui.vim')
 endif
 
-" plugin {{{1
+" plugin load {{{1
 " ============================================================================
 if v:version >= 704
     call SourceRc('dein.vim')
@@ -1897,8 +1897,10 @@ if has('mac')
     " set perldll=/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/libperl.dylib
 endif
 
-" repo以下のautoloadを保存したら.dein以下にコピーする {{{1
+" dein.vim {{{1
 " ============================================================================
+" repo以下のautoloadを保存したら.dein以下にコピーする {{{2
+" ----------------------------------------------------------------------------
 " dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
 " repo以下を編集・保存したら.dein以下にコピーするようにする
 let s:sync_save_dir_list = [
@@ -1911,7 +1913,12 @@ let s:sync_save_dir_list = [
 \      'glob' : g:dein_dir . '/repos/**/autoload/**/*.vim',
 \      'from' : g:dein_dir . '/repos/.*/autoload',
 \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
-\    }
+\    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/colors',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
+\    },
 \]
 
 call SetAutocmdSyncSaveDir(s:sync_save_dir_list)

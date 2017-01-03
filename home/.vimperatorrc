@@ -235,7 +235,7 @@ colorscheme molokai
 
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 " ?の無効化。ショートカットを見たいときはi?とうつ
-lazy fmaps -u='.*' ?
+" lazy fmaps -u='.*' ?
 " gmailでnとj、pとjを入れ替える。
 lazy fmaps -u='mail\.google\.com/mail' <C-a>,j <C-x>,k
 " うまくいかない
