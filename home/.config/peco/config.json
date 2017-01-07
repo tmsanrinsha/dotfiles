@@ -1,9 +1,9 @@
 {
     "Style": {
-        "Basic": ["on_default", "default"],
+        "Basic": ["default", "on_default"],
+        "Selected": ["default", "on_black", "bold"],
         "SavedSelection": ["red"],
-        "Selected": ["on_blue", "white", "bold"],
-        "Query": ["yellow"],
+        "Query": ["blue"],
         "Matched": ["green", "bold"]
     },
     "CustomFilter": {
