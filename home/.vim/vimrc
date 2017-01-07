@@ -2385,9 +2385,6 @@ if IsInstalled('vim-watchdogs')
         \   call dein#source("vim-watchdogs") |
         \   autocmd! WatchdogsSetting
     augroup END
-
-    autocmd MyVimrc BufRead */.cache/vim/dein/**/*.vim
-    \   let b:watchdogs_checker_type = ''
 endif
 
 " quickfix系プラグインのアップデート {{{1

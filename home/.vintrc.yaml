@@ -1,11 +1,36 @@
 cmdargs:
   # Checking more strictly
-  severity: style_problem
-
-  # Enable coloring
-  # color: true
+  # severity: style_problem
 
 policies:
-  # Disable a violation
+  # Warnig
+  ProhibitAutocmdWithNoGroup:
+    enabled: false
+  ProhibitCommandRelyOnUser:
+    enabled: false
+  ProhibitCommandWithUnintendedSideEffect:
+    enabled: false
+  ProhibitEncodingOptionAfterScriptEncoding:
+    enabled: false
+  ProhibitEqualTildeOperator:
+    enabled: false
+  ProhibitImplicitScopeBuiltinVariable:
+    enabled: false
+  ProhibitMissingScriptEncoding:
+    enabled: false
+  ProhibitNoAbortFunction:
+    enabled: false
+  ProhibitSetNoCompatible:
+    enabled: false
+  ProhibitUnnecessaryDoubleQuote:
+    enabled: false
+  ProhibitUnusedVariable:
+    enabled: false
+  ProhibitUsingUndeclaredVariable:
+    enabled: false
+
+  # Style problem
+  ProhibitAbbreviationOption:
+    enabled: false
   ProhibitImplicitScopeVariable:
     enabled: false
