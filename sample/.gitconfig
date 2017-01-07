@@ -3,7 +3,8 @@
 	co = checkout
 	ci = commit
 	# 外部エディタを起動せず、diffを単語単位で
-	di = diff --no-ext-diff
+	d = diff --no-ext-diff
+	dw = diff --no-ext-diff --word-diff
 	hist = "log --pretty=format:\"%h %ad %s%d by %an\" --graph --date=short"
 	st = status
 	rt = remote -v
