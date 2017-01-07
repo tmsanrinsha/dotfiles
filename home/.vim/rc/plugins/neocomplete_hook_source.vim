@@ -57,11 +57,9 @@ let g:neocomplete#sources.php      = ['neosnippet', 'omni', 'member', 'buffer', 
 let g:neocomplete#sources.vim      = ['neosnippet', 'vim',  'member', 'buffer', 'file']
 let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
-let dictionary = g:memo_directory . '/memo/doc/memo.dict'
 let g:neocomplete#sources#dictionary#dictionaries = {
 \   'default': '',
 \   'vimshell': $HOME.'/.vimshell_hist',
-\   'markdown': g:memo_directory . '/memo.dict'
 \ }
 
 " 補完候補の順番
