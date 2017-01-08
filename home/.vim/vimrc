@@ -1417,6 +1417,26 @@ endfunction
 if !exists('g:memo_directory')
     let g:memo_directory = expand('~/Dropbox/memo/doc')
 endif
+
+" hugo {{{1
+" ============================================================================
+let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site/content/post'
+
+nnoremap [unite]fh :<C-U>Unite hugo<CR>
+execute 'nnoremap [unite]gh :<C-U>Unite grep:'.g:hugo_directory.'<CR>'
+
+command! HugoNew call s:hugoNew()
+function! s:hugoNew() abort
+    let prefix = strftime('%Y/%m/')
+    let filename = input('Input file name: ', prefix)
+    let filename = g:hugo_directory . '/' . filename
+    let dir = fnamemodify(filename, ':h')
+    if !isdirectory(dir)
+        call mkdir(dir, 'p')
+    endif
+
+    execute 'e ' fnameescape(filename)
+endfunction
 " }}}
 
 if !has('gui_running')
@@ -2364,10 +2384,16 @@ endif
 
 " thinca/vim-template {{{1
 " ============================================================================
-autocmd MyVimrc User plugin-template-loaded
-\   if search('<+CURSOR+>')
-\ |     execute 'normal! "_da>'
-\ | endif
+autocmd MyVimrc User plugin-template-loaded call s:setup_template()
+
+function! s:setup_template() abort
+    %s/<+FILE ROOT+>/\=expand('%:t:r')/g
+    %s/<+RFC 3339+>/\=strftime('%Y-%m-%dT%H:%M:%S+09:00')/g
+
+    if search('<+CURSOR+>')
+        execute 'normal! "_da>'
+    endif
+endfunction
 
 " vim-quickrun {{{1
 " ============================================================================

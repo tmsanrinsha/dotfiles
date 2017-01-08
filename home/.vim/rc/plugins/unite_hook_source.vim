@@ -120,12 +120,25 @@ call unite#custom#alias('directory', 'delete', 'vimfiler__delete')
 if !exists('g:unite_source_alias_aliases')
     let g:unite_source_alias_aliases = {}
 endif
+
+" Unite memo {{{1
+" ============================================================================
 let g:unite_source_alias_aliases['memo'] = {
 \   'source' : 'file_rec/async',
 \   'args' : g:memo_directory,
 \}
 
 call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+
+" Unite hugo {{{1
+" ============================================================================
+let g:unite_source_alias_aliases['hugo'] = {
+\   'source' : 'file_rec/async',
+\   'args' : g:hugo_directory,
+\}
+
+call unite#custom#source('hugo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+" }}}
 
 call unite#custom#profile('source/grep', 'context',
 \ {'no_quit' : 1})
