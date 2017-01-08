@@ -98,7 +98,8 @@ function! IsInstalled(plugin) " {{{
 endfunction " }}}
 function! GetBufferDir() abort " {{{2
     if exists('b:vimfiler.current_dir')
-        return b:vimfiler.current_dir
+        " 最後のスラッシュを含めない
+        return b:vimfiler.current_dir[:-2]
     else
         let l:buffer_dir = expand('%:p:h')
         return isdirectory(l:buffer_dir) ? l:buffer_dir : ''
