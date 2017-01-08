@@ -568,55 +568,6 @@ function! EvalExpression() abort
     return ' = ' . string(luaeval(expression))
 endfunction
 
-" swap, backup, undo {{{1
-" ============================================================================
-" updatetimeを短くして、CursorHoldに使うので
-" swap fileがupdatetimeごと頻繁に作成されないようにnoswapfileにする
-" vimfilerを使っているとnoswapfileに設定される
-" set noswapfile
-"" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
-""   set directory&
-""   set directory-=~/tmp
-""   " 他の人が編集する可能性がない場合はswapファイルを作成しない
-""   if has('win32') || has('mac')
-""       set noswapfile
-""   endif
-" 個人的に便利だと思うVimの基本設定のランキングを発表します！ - プログラムモグモグ
-" http://itchyny.hatenablog.com/entry/2014/12/25/090000
-" FreeBSD, Macでcrontab -eしたときに
-"   crontab: temp file must be edited in place
-" というエラーが出てcrontabが更新されないときの対策
-" [crontabをVimで編集した時に出るエラーの対処法](http://sanrinsha.lolipop.jp/blog/2013/03/post-10825.html)
-set backupskip&
-set backupskip+=/home/tmp/*,/private/tmp/*
-
-" 富豪的バックアップ {{{2
-" ----------------------------------------------------------------------------
-" http://d.hatena.ne.jp/viver/20090723/p1
-" http://synpey.net/?p=127
-" savevers.vimが場合はそちらを使う
-if ! isdirectory(expand('~/.vim/bundle/savevers.vim'))
-    set backup
-    set backupdir=$VIM_CACHE_DIR/backup
-
-    augroup backup
-        autocmd!
-        autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
-        function! UpdateBackupFile()
-            let l:basedir = expand('$VIM_CACHE_DIR/backup')
-            let l:dir = strftime(l:basedir.'/%Y%m/%d', localtime()).substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
-            if !isdirectory(l:dir)
-                call mkdir(l:dir, 'p')
-            endif
-
-            let l:dir = escape(l:dir, ' ')
-            exe 'set backupdir='.l:dir
-            let l:time = strftime('%H-%M', localtime())
-
-            execute 'set backupext=.'.l:time
-        endfunction
-    augroup END
-endif
 
 " アンドゥの履歴をファイルに保存し、Vim を一度終了したとしてもアンドゥやリドゥを行えるようにする {{{2
 " ----------------------------------------------------------------------------
@@ -2763,30 +2714,84 @@ if IsInstalled('Kwbd.vim')
     nmap <Leader>bd <Plug>Kwbd
 endif
 
-" savevers.vim {{{1
+" swap, backup, undo {{{1
 " ============================================================================
-set backup
-set patchmode=.bak
-set backupdir=$VIM_CACHE_DIR/savevers
-execute 'set backupskip+=*'.&patchmode
-execute 'set suffixes+='.&patchmode
+" updatetimeを短くして、CursorHoldに使うので
+" swap fileがupdatetimeごと頻繁に作成されないようにnoswapfileにする
+" vimfilerを使っているとnoswapfileに設定される
+" set noswapfile
+"" デフォルトの設定にある~/tmpを入れておくと、swapファイルが自分のホームディレクトリ以下に生成されてしまい、他の人が編集中か判断できなくなるので除く
+""   set directory&
+""   set directory-=~/tmp
+""   " 他の人が編集する可能性がない場合はswapファイルを作成しない
+""   if has('win32') || has('mac')
+""       set noswapfile
+""   endif
+" スワップファイルがあるときに常にRead-Onlyで開く
+" 個人的に便利だと思うVimの基本設定のランキングを発表します！ - プログラムモグモグ
+" http://itchyny.hatenablog.com/entry/2014/12/25/090000
 
-let g:versdiff_no_resize = 0
+" crontabのエラー対策 {{{2
+" ----------------------------------------------------------------------------
+" FreeBSD, Macでcrontab -eしたときに
+"   crontab: temp file must be edited in place
+" というエラーが出てcrontabが更新されないときの対策
+" [crontabをVimで編集した時に出るエラーの対処法](http://sanrinsha.lolipop.jp/blog/2013/03/post-10825.html)
+set backupskip&
+set backupskip+=/home/tmp/*,/private/tmp/*
 
-autocmd MyVimrc BufEnter * call s:updateSaveversDirs()
-function! s:updateSaveversDirs()
-    " ドライブ名を変更して、連結する (e.g. C: -> /C/)
-    let g:savevers_dirs = &backupdir . substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
-endfunction
+" savevers.vim {{{2
+" ----------------------------------------------------------------------------
+if  IsInstalled('savevers.vim')
+    set backup
+    " pathmodeを設定するとbackupdirで設定されたディレクトリではなく、
+    " 保存したファイルがあるディレクトリにファイルが作成される
+    set patchmode=.bak
+    set backupdir=$VIM_CACHE_DIR/savevers
+    execute 'set backupskip+=*'.&patchmode
+    execute 'set suffixes+='.&patchmode
 
-function! s:existOrMakeSaveversDirs()
-    if !isdirectory(g:savevers_dirs)
-        call mkdir(g:savevers_dirs, 'p')
-    endif
-endfunction
+    let g:versdiff_no_resize = 0
 
-" autocmd MyVimrc BufWritePre * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
-autocmd MyVimrc BufWritePre * call s:existOrMakeSaveversDirs()
+    autocmd MyVimrc BufEnter * call s:updateSaveversDirs()
+    function! s:updateSaveversDirs()
+        " ドライブ名を変更して、連結する (e.g. C: -> /C/)
+        let g:savevers_dirs = &backupdir . substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
+    endfunction
+
+    function! s:existOrMakeSaveversDirs()
+        if !isdirectory(g:savevers_dirs)
+            call mkdir(g:savevers_dirs, 'p')
+        endif
+    endfunction
+
+    " autocmd MyVimrc BufWritePre * call s:updateSaveversDirs() | call s:existOrMakeSaveversDirs()
+    autocmd MyVimrc BufWritePre * call s:existOrMakeSaveversDirs()
+else
+    " 富豪的バックアップ
+    " http://d.hatena.ne.jp/viver/20090723/p1
+    " http://synpey.net/?p=127
+    set backup
+    set backupdir=$VIM_CACHE_DIR/backup
+
+    augroup backup
+        autocmd!
+        autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile()
+        function! UpdateBackupFile()
+            let l:basedir = expand('$VIM_CACHE_DIR/backup')
+            let l:dir = strftime(l:basedir.'/%Y%m/%d', localtime()).substitute(expand('%:p:h'), '\v\c^([a-z]):', '/\1/' , '')
+            if !isdirectory(l:dir)
+                call mkdir(l:dir, 'p')
+            endif
+
+            let l:dir = escape(l:dir, ' ')
+            exe 'set backupdir='.l:dir
+            let l:time = strftime('%H-%M', localtime())
+
+            execute 'set backupext=.'.l:time
+        endfunction
+    augroup END
+endif
 
 " PreserveNoEOL {{{1
 " ============================================================================
