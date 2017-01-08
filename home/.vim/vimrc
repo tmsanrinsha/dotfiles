@@ -50,15 +50,15 @@ augroup MyVimrc
     autocmd!
 augroup END
 
-function! SourceRc(path) " {{{1
+" function, command {{{1
+" ============================================================================
+function! SourceRc(path) " {{{2
     if filereadable(expand('$VIMRC_DIR/'.a:path))
         execute 'source $VIMRC_DIR/'.a:path
     endif
 endfunction
 
-" function {{{1
-" ============================================================================
-" MyHasPatch {{{
+" MyHasPatch {{{2
 if has('patch-7.4.237')
     function! MyHasPatch(str)
         return has(a:str)
@@ -69,17 +69,18 @@ else
         return v:version >  l:patches[0] . 0 . l:patches[1] ||
             \  v:version == l:patches[0] . 0 . l:patches[1] && has('patch' . l:patches[2])
     endfunction
-endif " }}}
-" バッファ名nameを持つウィンドウに移動する {{{
+endif
+
+" バッファ名nameを持つウィンドウに移動する {{{2
 function! GotoWin(name)
     let l:nr = bufwinnr(a:name)
     if l:nr > 0
         execute l:nr . 'wincmd w'
     endif
     return l:nr
-endfunction " }}}
+endfunction
 
-function! IsInstalled(plugin) " {{{
+function! IsInstalled(plugin) " {{{2
     " NeoBundleLazyを使うと最初はruntimepathに含まれないため、
     " runtimepathのチェックでプラグインがインストールされているかをチェックできない
     " neobundle#is_installedを直接使うとneobundleがない場合にエラーが出るので確認
@@ -95,7 +96,8 @@ function! IsInstalled(plugin) " {{{
         " \   || !empty(globpath(&runtimepath, 'colors/'   . a:plugin . '.vim'))
         return match(&runtimepath, a:plugin) >= 0
     endif
-endfunction " }}}
+endfunction
+
 function! GetBufferDir() abort " {{{2
     if exists('b:vimfiler.current_dir')
         " 最後のスラッシュを含めない
@@ -235,6 +237,10 @@ function! S(f, ...)
   \      ? eval(cfunc) : call(cfunc, a:000)
 endfunction
 
+" SetEventIgnore {{{2
+" ----------------------------------------------------------------------------
+" qfreplaceを使うときなどにイベントを無視したいとき
+command! SetEventIgnore set eventignore=BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost
 " 1}}}
 
 if has('mac') && has('kaoriya')
