@@ -10,11 +10,13 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 setlocal iskeyword+=-
 setlocal commentstring=<!--%s-->
 
+" setlocal tabstop=2 " front matterは2スペースにしたいが、リストのネストを考えると4スペース
+
+setlocal nowrap
+
 " イタリックを無効に
 highlight! link markdownItalic Normal
 highlight! link htmlItalic Normal
-
-setlocal nowrap
 
 nmap <buffer> <expr> <C-P> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
 nmap <buffer> <expr> <C-N> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"

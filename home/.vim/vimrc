@@ -240,7 +240,8 @@ endfunction
 " SetEventIgnore {{{2
 " ----------------------------------------------------------------------------
 " qfreplaceを使うときなどにイベントを無視したいとき
-command! SetEventIgnore set eventignore=BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost
+command! SetEventIgnore set eventignore=BufEnter,BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost nobackup
+command! SetEvent set eventignore= backup
 " 1}}}
 
 if has('mac') && has('kaoriya')
@@ -953,7 +954,7 @@ nnoremap [unite]t :<C-u>Unite tag<CR>
 " 暗号化して保存するためには
 "   :set cryptmethod=blowfish2 (Vim 7.4.399以前はblowfish)
 "   :X
-" has('crypt-blowfish'), has('crypt-blowfish')で使用できる暗号化アルゴリズムを確認できる
+" has('crypt-blowfish'), has('crypt-blowfish2')で使用できる暗号化アルゴリズムを確認できる
 autocmd MyVimrc BufReadPost *
 \   if &key != ""
 \ |     setlocal noswapfile nowritebackup noshelltemp secure
@@ -1456,8 +1457,9 @@ else
     nnoremap # g*N
 endif
 
-nmap [:space:]s #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
-vmap [:space:]s #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+" rename
+nmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+vmap [:space:]r #:<C-r>//gc<Home>%s/<C-r>//
 
 " function! s:RegistSearchWord()
 "     silent normal yiw
