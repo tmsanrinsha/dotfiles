@@ -145,7 +145,7 @@ call unite#custom#profile('source/grep', 'context',
 
 call unite#custom_default_action('source/bookmark/directory' , 'vimfiler')
 
-" unite-args {{{1
+" args action {{{1
 " ========================================================================
 function! s:set_arglist(candidates)
     let argslist = {}
@@ -173,6 +173,24 @@ endfunction
 
 call unite#custom#action('file', 'argadd', s:argadd_action)
 call unite#custom#action('file', 'args', s:args_action)
+
+" quickfix action {{{1
+" ============================================================================
+let s:quickfix_action = {'description': 'quickfix', 'is_selectable': 1}
+
+function! s:quickfix_action.func(candidates)
+    let qflist = []
+    for candidate in a:candidates
+        call add(qflist, {
+        \   'filename': candidate.source__info[0],
+        \   'lnum': candidate.source__info[1],
+        \   'text': candidate.source__info[2]
+        \})
+    endfor
+    call setqflist(qflist, 'r')
+endfunction
+
+call unite#custom#action('file', 'quickfix', s:quickfix_action)
 
 " unite-ghq {{{1
 " ============================================================================
