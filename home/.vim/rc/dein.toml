@@ -20,11 +20,11 @@ build = "test -f ~/bin/ghq-list.sh || ln -s `pwd`/bin/ghq-list.sh ~/bin"
 [[plugins]]
 repo = 'thinca/vim-unite-history'
 
-[[plugins]]
-repo = 'ujihisa/unite-locate'
+# [[plugins]]
+# repo = 'ujihisa/unite-locate'
 
-[[plugins]]
-repo = 'tacroe/unite-mark'
+# [[plugins]]
+# repo = 'tacroe/unite-mark'
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'
@@ -43,8 +43,8 @@ repo = 'ujihisa/vimshell-ssh'
 [[plugins]]
 repo = 'Shougo/neco-syntax'
 
-[[plugins]]
-repo = 'ujihisa/neco-look'
+# [[plugins]]
+# repo = 'ujihisa/neco-look'
 # external_commands = 'look'
 # vim_version = '7.3.825'
 
@@ -97,8 +97,8 @@ repo = 'rhysd/vim-textobj-conflict'
 [[plugins]]
 repo = 'osyo-manga/vim-textobj-multiblock'
 
-[[plugins]]
-repo = 'anyakichi/vim-textobj-xbrackets'
+# [[plugins]]
+# repo = 'anyakichi/vim-textobj-xbrackets'
 
 # gf {{{1
 # ============================================================================
@@ -118,14 +118,14 @@ repo = 'ciaranm/detectindent'
 # repo = 'tpope/vim-sleuth'
 # }}}
 
-[[plugins]]
-repo = 'osyo-manga/vim-anzu'
+# [[plugins]]
+# repo = 'osyo-manga/vim-anzu'
 
 # [[plugins]]
 # repo = 'terryma/vim-multiple-cursors'
 
-[[plugins]]
-repo = 'tmsanrinsha/diffchar.vim'
+# [[plugins]]
+# repo = 'tmsanrinsha/diffchar.vim'
 
 [[plugins]]
 repo = 'sudo.vim'
@@ -203,8 +203,8 @@ name = 'my_molokai'
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
 
-[[plugins]]
-repo = 'reedes/vim-colors-pencil'
+# [[plugins]]
+# repo = 'reedes/vim-colors-pencil'
 
 # }}}
 
@@ -223,8 +223,8 @@ let g:transwrd_wordpattern = '\k\+\%(()\)\?'
 # ============================================================================
 # arduino {{{2
 # -----------------------------------------------------------------------------
-[[plugins]]
-repo = '4Evergreen4/vim-hardy'
+# [[plugins]]
+# repo = '4Evergreen4/vim-hardy'
 
 # chef {{{2
 # ============================================================================
@@ -236,10 +236,16 @@ repo = 'vadv/vim-chef'
 [[plugins]]
 repo = 'confluencewiki.vim'
 
+# Go lang {{{2
+# ============================================================================
+# lazyに置くとcommandの設定がうまくいかなかったのでこちらで
+[[plugins]]
+repo = 'fatih/vim-go'
+
 # graphviz {{{2
 # -----------------------------------------------------------------------------
-[[plugins]]
-repo = 'wannesm/wmgraphviz.vim'
+# [[plugins]]
+# repo = 'wannesm/wmgraphviz.vim'
 
 # java {{{2
 # -----------------------------------------------------------------------------
@@ -267,7 +273,7 @@ if = 'executable("npm")'
 [[plugins]]
 repo = 'elzr/vim-json'
 
-# markdown {{{2
+# Markdown {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
@@ -312,8 +318,8 @@ repo = 'chrisbra/vim-sh-indent'
 
 # solidity {{{2
 # -----------------------------------------------------------------------------
-[[plugins]]
-repo = 'tomlion/vim-solidity'
+# [[plugins]]
+# repo = 'tomlion/vim-solidity'
 
 # SQL hive {{{2
 # -----------------------------------------------------------------------------
@@ -332,8 +338,8 @@ repo = 'cespare/vim-toml'
 
 # twig {{{2
 # -----------------------------------------------------------------------------
-[[plugins]]
-repo = 'evidens/vim-twig'
+# [[plugins]]
+# repo = 'evidens/vim-twig'
 
 # vim {{{2
 # -----------------------------------------------------------------------------
