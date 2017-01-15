@@ -121,23 +121,14 @@ if !exists('g:unite_source_alias_aliases')
     let g:unite_source_alias_aliases = {}
 endif
 
-" Unite memo {{{1
+" Unite mtime {{{1
 " ============================================================================
-let g:unite_source_alias_aliases['memo'] = {
+let g:unite_source_alias_aliases['mtime'] = {
 \   'source' : 'file_rec/async',
-\   'args' : g:memo_directory,
 \}
 
-call unite#custom#source('memo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
-
-" Unite hugo {{{1
-" ============================================================================
-let g:unite_source_alias_aliases['hugo'] = {
-\   'source' : 'file_rec/async',
-\   'args' : g:hugo_directory,
-\}
-
-call unite#custom#source('hugo', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+call unite#custom#source('mtime', 'sorters', ['sorter_ftime', 'sorter_reverse'])
+call unite#custom#source('mtime', 'ignore_pattern', '.DS_Store')
 " }}}
 
 call unite#custom#profile('source/grep', 'context',

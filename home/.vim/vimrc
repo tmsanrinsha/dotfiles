@@ -1375,22 +1375,10 @@ endfunction
 
 " memo {{{1
 " ============================================================================
-if !exists('g:memo_directory')
-    let g:memo_directory = expand('~/Dropbox/memo/doc')
-endif
-
-" hugo {{{1
-" ============================================================================
-let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site/content/post'
-
-nnoremap [unite]fh :<C-U>Unite hugo<CR>
-execute 'nnoremap [unite]gh :<C-U>Unite grep:'.g:hugo_directory.'<CR>'
-
-command! HugoNew call s:hugoNew()
-function! s:hugoNew() abort
+function! s:memo_new(base_dir) abort
     let prefix = strftime('%Y/%m/')
     let filename = input('Input file name: ', prefix)
-    let filename = g:hugo_directory . '/' . filename
+    let filename = a:base_dir . '/' . filename
     let dir = fnamemodify(filename, ':h')
     if !isdirectory(dir)
         call mkdir(dir, 'p')
@@ -1399,8 +1387,25 @@ function! s:hugoNew() abort
     execute 'e ' fnameescape(filename)
 endfunction
 
-command! HugoPreview execute 'OpenBrowser http://localhost:1313/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
+let g:memo_directory = expand('~/Dropbox/memo/doc')
+
+command! MemoNew call s:memo_new(g:memo_directory)
+
+nnoremap <Leader>mn  :MemoNew<CR>
+
+nnoremap [unite]fM :<C-U>execute 'Unite mtime:' . g:memo_directory<CR>
+nnoremap [unite]gM :<C-U>execute 'Unite grep:'.g:memo_directory<CR>
+
+" hugo {{{1
+" ============================================================================
+let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site/content/post'
+
+command! HugoNew call s:memo_new(g:hugo_directory)
+command! HugoPreview execute 'OpenBrowser http://localhost:1313/' .   matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
+
+nnoremap [unite]fh :<C-U>execute 'Unite mtime:' . g:hugo_directory<CR>
+nnoremap [unite]gh :<C-U>execute 'Unite grep:' . g:hugo_directory<CR>
 " }}}
 
 if !has('gui_running')
@@ -2088,9 +2093,6 @@ if IsInstalled('unite.vim')
     nnoremap <silent> [unite]B :<C-U>Unite bookmark<CR>
 
     nnoremap <silent> [unite]j :<C-U>Unite jump<CR>
-
-    nnoremap [unite]fM :<C-U>Unite memo<CR>
-    execute 'nnoremap [unite]gM :<C-U>Unite grep:'.g:memo_directory.'<CR>'
 
     nnoremap [unite]D :<C-U>Unite dein -default-action=vimfiler<CR>
 endif
