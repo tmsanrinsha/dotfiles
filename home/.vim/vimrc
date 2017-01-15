@@ -1398,6 +1398,9 @@ function! s:hugoNew() abort
 
     execute 'e ' fnameescape(filename)
 endfunction
+
+command! HugoPreview execute 'OpenBrowser http://localhost:1313/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
+command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 " }}}
 
 if !has('gui_running')
