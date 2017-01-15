@@ -1404,6 +1404,11 @@ command! HugoNew call s:memo_new(g:hugo_directory)
 command! HugoPreview execute 'OpenBrowser http://localhost:1313/' .   matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 
+nnoremap [:hugo:] <Nop>
+nmap <Leader>h [:hugo:]
+nnoremap [:hugo:]n :<C-u>HugoNew<CR>
+nnoremap [:hugo:]p :<C-u>HugoPreview<CR>
+nnoremap [:hugo:]o :<C-u>HugoOpen<CR>
 nnoremap [unite]fh :<C-U>execute 'Unite mtime:' . g:hugo_directory<CR>
 nnoremap [unite]gh :<C-U>execute 'Unite grep:' . g:hugo_directory<CR>
 " }}}
