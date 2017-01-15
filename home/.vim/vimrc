@@ -30,6 +30,10 @@ if has('win32')
     cd ~
 endif
 
+" if has('mac') && has('kaoriya')
+"     set runtimepath-=$VIM/plugins/vimproc
+" endif
+
 if empty($SRC_ROOT)
     let $SRC_ROOT = $HOME . '/src'
 endif
@@ -244,10 +248,6 @@ endfunction
 command! SetEventIgnore set eventignore=BufEnter,BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost nobackup
 command! SetEvent set eventignore= backup
 " 1}}}
-
-if has('mac') && has('kaoriya')
-    set runtimepath-=$VIM/plugins/vimproc
-endif
 
 call SourceRc('local_pre.vim')
 
