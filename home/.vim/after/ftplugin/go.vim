@@ -6,7 +6,7 @@ let g:go_metalinter_autosave = 1
 " let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave_enabled = ['vet']
 
-set errorformat-=%-G%.%#
+setlocal errorformat-=%-G%.%#
 
 nmap <buffer> <Leader>a<CR> <Plug>(go-alternate-edit)
 nmap <buffer> <Leader>as    <Plug>(go-alternate-split)
@@ -16,7 +16,7 @@ nmap <buffer> <Leader>at    :call go#alternate#Switch(<bang>0, 'tabe')<CR>
 nmap <buffer> <Leader>c <Plug>(go-coverage-toggle)
 nmap <buffer> <Leader>i <Plug>(go-info)
 
-inoremap <M-i> <C-o>:GoImport <C-r><C-w><CR>
+inoremap <buffer> <M-i> <C-o>:GoImport <C-r><C-w><CR>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
