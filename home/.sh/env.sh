@@ -158,9 +158,17 @@ export PHP55=0
 export PYTHONUSERBASE="$HOME/python"
 export PATH="$PYTHONUSERBASE/bin:$PATH"
 
-# Anaconda {{{2
+# pyenv {{{2
 # ----------------------------------------------------------------------------
-export PATH="/Users/tmsanrinsha/anaconda/bin:$PATH"
+if command_exists pyenv; then
+    eval "$(pyenv init -)"
+fi
+
+# IPython {{{2
+# ----------------------------------------------------------------------------
+# [Overview of the IPython configuration system — IPython 5.1.0 documentation](http://ipython.readthedocs.io/en/stable/development/config.html#configuration-file-location)
+# defaultは~/.ipython
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 
 # Rlang {{{1
 # ============================================================================
