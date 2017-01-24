@@ -246,6 +246,8 @@ lazy fmaps -u='mail\.google\.com/mail' <C-a>,j <C-x>,k
 " ignorekeysはvimperatorで標準で出来る設定
 " http://vimperator.g.hatena.ne.jp/teramako/20120527/1338101792
 " feedSomeKeys_3.jsとは反対ですべてのキーを無効化して、vimperatorで使うキーを設定する
+ignorekeys add localhost:8888
+
 " ignorekeys add github\\.com  -except F,T,b,c,d,f,g,j,k,o,t,:,<C-l>,<C-h>,<C-f>,<C-b>
 " ignorekeys add twitter\\.com -except F,T,b,c,d,f,g,j,k,o,t,:,<C-l>,<C-h>,<C-f>,<C-b>
 " ignorekeysがなかった頃
@@ -270,6 +272,9 @@ nnoremap <C-w>v :emenu タイル.複製したタブをタイル表示.右<CR>
 set! browser.snapshots.limit=1
 " アドオンのFireGesturesを使っているときはスワイプジェスチャにチェックを入れてないと
 " スワイプ出来ない
+
+" URLバーの候補数
+" set! browser.urlbar.maxRichResults
 
 " タブを隣に開く
 " set! browser.tabs.insertRelatedAfterCurrent=true
