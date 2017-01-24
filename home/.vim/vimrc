@@ -1398,9 +1398,10 @@ nnoremap [unite]gM :<C-U>execute 'Unite grep:'.g:memo_directory<CR>
 
 " hugo {{{1
 " ============================================================================
-let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site/content/post'
+let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site'
+let g:hugo_post_directory = g:hugo_directory . '/content/post'
 
-command! HugoNew call s:memo_new(g:hugo_directory)
+command! HugoNew call s:memo_new(g:hugo_post_directory)
 command! HugoPreview execute 'OpenBrowser http://localhost:1313/' .   matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 
@@ -1409,8 +1410,9 @@ nmap <Leader>h [:hugo:]
 nnoremap [:hugo:]n :<C-u>HugoNew<CR>
 nnoremap [:hugo:]p :<C-u>HugoPreview<CR>
 nnoremap [:hugo:]o :<C-u>HugoOpen<CR>
-nnoremap [unite]fh :<C-U>execute 'Unite mtime:' . g:hugo_directory<CR>
-nnoremap [unite]gh :<C-U>execute 'Unite grep:' . g:hugo_directory<CR>
+nnoremap [:hugo:]d :<C-u>execute 'QuickRun -type sh -srcfile ' . g:hugo_directory  . '/deploy.sh'<CR>
+nnoremap [unite]fh :<C-u>execute 'Unite mtime:' . g:hugo_post_directory<CR>
+nnoremap [unite]gh :<C-u>execute 'Unite grep:' . g:hugo_post_directory<CR>
 " }}}
 
 if !has('gui_running')
