@@ -301,7 +301,7 @@ if = '!$PHP55'
 [[plugins]]
 repo = 'StanAngeloff/php.vim'
 
-# python {{{2
+# Python {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
@@ -310,6 +310,14 @@ repo = 'hynek/vim-python-pep8-indent'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'jcfaria/Vim-R-plugin'
+
+# Ruby {{{2
+# -----------------------------------------------------------------------------
+[[plugins]]
+repo = 'rhysd/unite-ruby-require.vim'
+# hook_source = '''
+# let g:unite_source_ruby_require_cmd = '/usr/local/opt/ruby/bin/ruby'
+# '''
 
 # shell {{{2
 # -----------------------------------------------------------------------------
