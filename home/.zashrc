@@ -72,7 +72,7 @@ fi
 # https://gist.github.com/1462391
 # https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
 # http://yonchu.hatenablog.com/entry/20120514/1337026014
-function tm {
+function t {
     # tmuxの中でもscreenの中でもない場合
     if tmux has-session >/dev/null 2>&1; then
         #  セッションがあるならそこにアタッチ

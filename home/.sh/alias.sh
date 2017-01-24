@@ -61,7 +61,7 @@ alias php-cs-fixer='php-cs-fixer.sh --diff'
 
 # tail {{{1
 # ============================================================================
-alias t='tail'
+# alias t='tail'
 alias tf='tail -f'
 
 if [ "$os" = mac ]; then
