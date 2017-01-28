@@ -2,6 +2,7 @@
 set convert-meta off
 set meta-flag on
 set output-meta on
+set enable-bracketed-paste on
 
 # bashでbind -pを打つと現在のバインド一覧を表示
 # bind -lでバインドできる関数一覧を表示
