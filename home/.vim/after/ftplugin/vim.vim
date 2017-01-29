@@ -8,4 +8,6 @@ setlocal keywordprg=:help
 
 setlocal comments=:\"
 
-setlocal iskeyword+=:
+" g:, s:などをtagで引けるように:を追加
+" :helpで引けるように-を追加
+setlocal iskeyword+=:,-
