@@ -279,6 +279,9 @@ set! browser.snapshots.limit=1
 " タブを隣に開く
 " set! browser.tabs.insertRelatedAfterCurrent=true
 
+" タブ切り替えでプレビューを出す
+" browser.ctrlTab.previews
+
 " helpを英語で見る
 " set! general.useragent.locale=en-US
 
