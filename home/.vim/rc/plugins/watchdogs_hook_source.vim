@@ -15,9 +15,12 @@ let g:quickrun_config['watchdogs_checker/_'] = {}
 " その出力結果が消えてしまうので、0にする
 let g:quickrun_config['watchdogs_checker/_']['hook/close_buffer/enable_empty_data'] = 0
 
-let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'botright cwindow'
-" quickfixを開きたくない場合はopen_cmdを''にする
-" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+" quickfixを自動的に操作しない
+let g:quickrun_config['watchdogs_checker/_']['hook/close_quickfix/enable_hook_loaded'] = 0
+let g:quickrun_config['watchdogs_checker/_']['hook/close_quickfix/enable_success'] = 0
+let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = ''
+
+" let g:quickrun_config['watchdogs_checker/_']['outputter/quickfix/open_cmd'] = 'botright cwindow'
 
 " 出力先をbufixlistににする。hook/close_bufixlistにあたるものがない
 " let g:quickrun_config['watchdogs_checker/_']['outputter'] = 'bufixlist'
