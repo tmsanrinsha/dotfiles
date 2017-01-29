@@ -34,6 +34,14 @@ endif
 "     set runtimepath-=$VIM/plugins/vimproc
 " endif
 
+" MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
+" has('python3')を呼び出すと、python3が有効になる
+" :help has-python
+if has('python3')
+    " let $PYTHONHOME = expand('~/.pyenv/versions/3.5.2')
+    " set pythonthreedll=$HOME/.pyenv/versions/3.5.2/lib/libpython3.5m.dylib
+endif
+
 if empty($SRC_ROOT)
     let $SRC_ROOT = $HOME . '/src'
 endif
@@ -2894,52 +2902,48 @@ let g:vim_json_syntax_conceal = 0
 
 " Python, jedi-vim {{{1
 " ============================================================================
-" pythonのsys.pathの設定 " {{{2
-" ----------------------------------------------------------------------------
-" [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
-" python2は$PYTHON_DLLを設定しなくてもうまくいく
-" /usr/local/Frameworks/Python.framework/Python -> ../../Cellar/python/2.7.10_2/Frameworks/Python.framework/Python
-" とりあえずこう設定しておく
-let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
-" if filereadable('/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib')
-"     let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib'
-" elseif filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
-"     let $PYTHON_DLL = '/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python'
-" elseif filereadable('/usr/local/Frameworks/Python.framework/Python')
-"     let $PYTHON_DLL = '/usr/local/Frameworks/Python.framework/Python'
-" endif
+" " pythonのsys.pathの設定 " {{{2
+" " ----------------------------------------------------------------------------
+" " [VimのPythonインターフェースのパスの問題を解消する - Qiita](http://qiita.com/tmsanrinsha/items/cfa3808b8d0cc915cd75)
+" function! Set_python_path()
+"     if ! exists('g:python_path')
+"         let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+"     endif
+"
+"     python <<EOT
+" import sys
+" import vim
+"
+" python_paths = vim.eval('g:python_path').split(',')
+" for path in python_paths:
+"     if not path in sys.path:
+"         sys.path.insert(0, path)
+" EOT
+" endfunction
+" " call Set_python_path()
+" " }}}
+"
+" autocmd MyVimrc FileType python
+" \   if ! exists('g:python_path')
+" \|      let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
+" \|  endif
+" \|  let &l:path = g:python_path
 
-if filereadable('/usr/local/Frameworks/Python.framework/Versions/3.5/Python')
-    let $PYTHON3_DLL = '/usr/local/Frameworks/Python.framework/Versions/3.5/Python'
+if IsInstalled('jedi-vim') && IsInstalled('vim-pyenv')
+  " let g:jedi#force_py_version = 3
+  function! s:jedi_auto_force_py_version() abort
+    let major_version = pyenv#python#get_internal_major_version()
+    call jedi#force_py_version(major_version)
+  endfunction
+  augroup vim-pyenv-custom-augroup
+    autocmd! *
+    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+  augroup END
 endif
+" $PYTHONHOMEを設定したい場合は
 
-function! Set_python_path()
-    if ! exists('g:python_path')
-        let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
-    endif
-
-    python <<EOT
-import sys
-import vim
-
-python_paths = vim.eval('g:python_path').split(',')
-for path in python_paths:
-    if not path in sys.path:
-        sys.path.insert(0, path)
-EOT
-endfunction
-" call Set_python_path()
-" }}}
-
-autocmd MyVimrc FileType python
-\   if ! exists('g:python_path')
-\|      let g:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
-\|  endif
-\|  let &l:path = g:python_path
-
-if IsInstalled('vim-cpp-auto-include')
-    autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
-endif
+" を参考にする
 
 " R lang, jcfaria/Vim-R-plugin {{{1
 " ============================================================================
