@@ -324,7 +324,7 @@ hook_source = 'source ~/.vim/rc/plugins/jedi_hook_source.vim'
 [[plugins]]
 repo = 'lambdalisue/vim-pyenv'
 depends = ['jedi-vim']
-on_ft = ['python', 'python3']
+on_ft = ['python']
 
 # ruby {{{1
 # ============================================================================
