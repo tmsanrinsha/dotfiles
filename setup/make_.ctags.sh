@@ -1,7 +1,7 @@
 #!/bin/sh
 
 new=0
-if ctags --version | grep Development; then
+if ctags --version | grep Universal >/dev/null 2>&1; then
     new=1
 fi
 
