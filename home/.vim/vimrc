@@ -1900,11 +1900,6 @@ if IsInstalled('diffchar.vim')
     " \   endif
 endif
 
-" Mac {{{1
-" ============================================================================
-if has('mac')
-    " set perldll=/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/libperl.dylib
-endif
 
 " dein.vim {{{1
 " ============================================================================
@@ -2842,19 +2837,11 @@ if IsInstalled('detectindent')
     \|  DetectIndent
 endif
 
-" scrooloose/syntastic {{{1
+" C++ {{{1
 " ============================================================================
-if IsInstalled('syntastic')
-    autocmd MyVimrc BufWrite * NeoBundleSource syntastic
-    let g:syntastic_mode_map = {
-        \   'mode': 'active',
-        \   'passive_filetypes': ['vim']
-        \}
-    let g:syntastic_python_checkers = ['flake8']
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_sh_checkers = ['']
-endif
-
+" if IsInstalled('vim-cpp-auto-include')
+"     autocmd MyVimrc BufWritePre *.cpp :ruby CppAutoInclude::process
+" endif
 
 " phpcomplete.vim {{{1
 " ============================================================================
@@ -2942,7 +2929,7 @@ if IsInstalled('jedi-vim') && IsInstalled('vim-pyenv')
   augroup END
 endif
 " $PYTHONHOMEを設定したい場合は
-
+" [MacVimでPythonの開発環境を構築する (2016/夏) - ryunix's blog](http://ryunix.hatenablog.jp/entry/2016/05/30/090000)
 " を参考にする
 
 " R lang, jcfaria/Vim-R-plugin {{{1
@@ -3373,7 +3360,9 @@ endif
 " ============================================================================
 call SourceRc('local.vim')
 
-finish " backup {{{1
+" backup {{{1
+" ============================================================================
+finish
 " eclim {{{2
 if IsInstalled('eclim')
 
@@ -3401,6 +3390,19 @@ if IsInstalled('eclim')
     nnoremap [eclim]jc :JavaCorrect<CR>
     nnoremap [eclim]ji :JavaImportOrganize<CR>
 endif
+
+" scrooloose/syntastic {{{2
+if IsInstalled('syntastic')
+    autocmd MyVimrc BufWrite * NeoBundleSource syntastic
+    let g:syntastic_mode_map = {
+        \   'mode': 'active',
+        \   'passive_filetypes': ['vim']
+        \}
+    let g:syntastic_python_checkers = ['flake8']
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_sh_checkers = ['']
+endif
+
 " vimwiki {{{2
 if IsInstalled('vimwiki')
 
