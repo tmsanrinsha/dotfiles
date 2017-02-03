@@ -193,12 +193,12 @@ fi
 # cpanm {{{1
 # ============================================================================
 # [perlモジュールのinstallにcpanmを使う｜perl｜@OMAKASE](http://www.omakase.org/perl/cpanm.html)
-if ! command_exists cpanm && command_exists perl; then
-    curl -Lk http://xrl.us/cpanm > ~/bin/cpanm
-    chmod +x ~/bin/cpanm
-    cpanm local::lib
-    perl -I ~/perl5/lib/perl5/ -Mlocal::lib > ~/.sh/cpanm.sh
-fi
+# if ! command_exists cpanm && command_exists perl; then
+#     curl -Lk http://xrl.us/cpanm > ~/bin/cpanm
+#     chmod +x ~/bin/cpanm
+#     cpanm local::lib
+#     perl -I ~/perl5/lib/perl5/ -Mlocal::lib > ~/.sh/cpanm.sh
+# fi
 
 # Golang {{{1
 command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
