@@ -601,7 +601,7 @@ endif
 " ----------------------------------------------------------------------------
 " Always Jump to the Last Known Cursor Position
 autocmd MyVimrc BufReadPost *
-\   if line("`\"") > 1 && line("`\"") <= line("$") |
+\   if line("'\"") > 1 && line("'\"") <= line("$") |
 \       execute "normal! g`\"" |
 \   endif
 
