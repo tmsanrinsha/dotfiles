@@ -1430,11 +1430,13 @@ endif
 
 " plugin load {{{1
 " ============================================================================
-if v:version >= 704
-    call SourceRc('dein.vim')
-elseif MyHasPatch('patch-7.2.051')
-    call SourceRc('neobundle.vim')
-    call SourceRc('plugin.vim')
+if executable('git') && MyHasPatch('patch-7.2.051')
+  if v:version >= 704
+      call SourceRc('dein.vim')
+  else
+      call SourceRc('neobundle.vim')
+      call SourceRc('plugin.vim')
+    endif
 else
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     " let s:load_plugin_list = [
