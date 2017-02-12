@@ -3068,8 +3068,9 @@ endif
 " 72列目に線を引く
 " Insert modeで始める
 autocmd MyVimrc BufRead */.git/COMMIT_EDITMSG
-    \   setlocal colorcolumn=+1
-    \|  startinsert
+\   setlocal colorcolumn=+1
+\|  startinsert
+
 " ftpluginによって、自動で折り返す設定になるので、自分のvimrcで設定したglobalな値に戻す
 autocmd MyVimrc FileType gitcommit
     \  setlocal formatoptions<
