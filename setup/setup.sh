@@ -87,7 +87,9 @@ fi
 if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
     mv ~/.gitconfig{,.bak}
 fi
-cp $git_dir/sample/.gitconfig ~/.gitconfig
+
+ln -s $git_dir/sample/.gitconfig ~/.gitconfig
+# cp $git_dir/sample/.gitconfig ~/.gitconfig
 
 # 消し方
 # git config --global --remove-section "ghq" || :
