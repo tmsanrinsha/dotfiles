@@ -163,6 +163,9 @@ repo = 'tpope/vim-fugitive'
 augroup = 'fugitive'
 
 [[plugins]]
+repo = 'jez/vim-github-hub'
+
+[[plugins]]
 repo = 'osyo-manga/shabadou.vim'
 
 [[plugins]]

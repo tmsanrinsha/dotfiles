@@ -35,13 +35,13 @@
 	openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
 
 	# hub
-	pull-request = !hub pull-request
+	pull-request = !hub -c core.commentChar='%' pull-request
 	fork = !hub fork
 	create = !hub create
 	browse = !hub browse
 	compare = !hub compare
 	release = !hub release
-	issue = !hub issue
+	issue = !hub  -c core.commentChar='%' issue
 	ci-status = !hub ci-status
 [color]
 	ui = auto
@@ -51,6 +51,7 @@
 	# グローバルなgitignore
 	excludesfile = ~/.config/git/.gitignore
 	quotepath = false
+	; commentchar = #
 [diff]
 	# external = git_diff_vim
 	# 賢いdiff algorithm
