@@ -33,6 +33,16 @@
 	# [Commit Hash から、該当 Pull Request を見つける方法 - Qiita](http://qiita.com/awakia/items/f14dc6310e469964a8f7)
 	showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
 	openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
+
+	# hub
+	pull-request = !hub pull-request
+	fork = !hub fork
+	create = !hub create
+	browse = !hub browse
+	compare = !hub compare
+	release = !hub release
+	issue = !hub issue
+	ci-status = !hub ci-status
 [color]
 	ui = auto
 [core]
