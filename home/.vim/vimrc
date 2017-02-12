@@ -820,15 +820,16 @@ vnoremap gm :<C-u>normal gm<CR>
 onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
-" diretory, path {{{1
+" cd, diretory, path {{{1
 " ============================================================================
 "augroup CD
 "    autocmd!
 "    autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 "augroup END
+
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap [:space:]gc :cd %:h <Bar> echo 'cd '.expand('%:p:h')<CR>
-nnoremap [:space:]gc :cd %:h <Bar> echo 'cd '.expand('%:p:h')<CR>
+nnoremap [:space:]gC :execute 'cd ' GetProjectDir()<CR>:echo 'cd ' GetProjectDir()<CR>
 
 command! Shell lcd %:h <Bar> shell
 
