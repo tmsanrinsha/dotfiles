@@ -389,7 +389,7 @@ command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval
 " 挿入モードで<Tab>を押したときにスペースに展開する。タブそのものを使いたいときはコメントアウト
 set expandtab
 " 画面上でタブ文字が占める幅
-set tabstop=4
+set tabstop=2
 
 try
     " <Tab>を挿入したり、<BS>を使った時の幅

@@ -1,4 +1,20 @@
 scriptencoding utf-8
+
+setlocal tabstop=4
+
+" 構文チェック
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+setlocal makeprg=php\ -l\ %
+
+" open_basedirの値をpathに追加
+if !exists('g:php_open_basedir')
+  let tmp = substitute(system("php -r 'echo ini_get(\"open_basedir\");'"), ':', ',', 'g')
+  let g:php_open_basedir = substitute(tmp, "\<NL>", '', '')
+endif
+let &l:path .= g:php_open_basedir
+
+setlocal includeexpr=substitute(v:fname,'^/','','')
+
 " 7.4.52でこのファイルを読み込んだ後、$VIM/ftplugin.vimが読み込まれリセットさ
 " れ、再度このファイルが読み込みれる現象が起きた。b_did_my_after_ftplugin_php
 " のチェックを外して再度設定するようにする。
@@ -20,18 +36,6 @@ let php_parent_error_open = 0   " for skipping an php end tag,
 " setlocal foldmethod=syntax
 let PHP_vintage_case_default_indent = 1 " switch文でcaseをインデントする
 
-" open_basedirの値をpathに追加
-if !exists('g:php_open_basedir')
-  let tmp = substitute(system("php -r 'echo ini_get(\"open_basedir\");'"), ':', ',', 'g')
-  let g:php_open_basedir = substitute(tmp, "\<NL>", '', '')
-endif
-let &l:path .= g:php_open_basedir
-
-setlocal includeexpr=substitute(v:fname,'^/','','')
-
-" 構文チェック
-setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-setlocal makeprg=php\ -l\ %
 
 xnoremap <buffer> <Leader>r :QuickRun -type phpv -mode v<CR>
 
