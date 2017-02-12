@@ -57,10 +57,12 @@ let g:neocomplete#sources.php      = ['neosnippet', 'omni', 'member', 'buffer', 
 let g:neocomplete#sources.vim      = ['neosnippet', 'vim',  'member', 'buffer', 'file']
 let g:neocomplete#sources.vimshell = ['buffer', 'vimshell']
 
-let g:neocomplete#sources#dictionary#dictionaries = {
-\   'default': '',
-\   'vimshell': $HOME.'/.vimshell_hist',
-\ }
+if !exists('g:neocomplete#sources#dictionary#dictionaries')
+    let g:neocomplete#sources#dictionary#dictionaries = {}
+endif
+
+let g:neocomplete#sources#dictionary#dictionaries.default = ''
+let g:neocomplete#sources#dictionary#dictionaries.vimshell = $HOME.'/.vimshell_hist'
 
 " 補完候補の順番
 " defaultの値は ~/.vim/bundle/neocomplete.vim/autoload/neocomplete/sources/ 以下で確認
