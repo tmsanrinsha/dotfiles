@@ -30,8 +30,8 @@ snoremap <BS>     <BS><BS>
 snoremap <C-h>    <BS><BS>
 snoremap <Del>    <BS><BS>
 
-autocmd MyVimrc FileType markdown
-\   inoremap <buffer> <C-k> <C-o>D
+" autocmd MyVimrc FileType markdown
+" \   inoremap <buffer> <C-k> <C-o>D
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
