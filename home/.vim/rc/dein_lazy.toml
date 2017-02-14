@@ -580,6 +580,8 @@ on_cmd = ['Gist']
 # '''
 # # }}}
 
+# Git {{{1
+# ============================================================================
 [[plugins]]
 repo = 'gregsexton/gitv'
 on_cmd = ['Gitv']
@@ -596,6 +598,11 @@ hook_source = '''
         \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
         \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
 '''
+
+[[plugins]]
+repo = 'tmsanrinsha/github-complete.vim'
+on_ft = ['markdown', 'gitcommit']
+# }}}
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
