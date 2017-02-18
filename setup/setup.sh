@@ -84,11 +84,11 @@ fi
 
 # .gitconfigの設定 {{{2
 # ----------------------------------------------------------------------------
-if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
-    mv ~/.gitconfig{,.bak}
-fi
-
-ln -s $git_dir/sample/.gitconfig ~/.gitconfig
+# if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
+#     mv ~/.gitconfig{,.bak}
+# fi
+# 
+# ln -s $git_dir/sample/.gitconfig ~/.gitconfig
 # cp $git_dir/sample/.gitconfig ~/.gitconfig
 
 # 消し方
