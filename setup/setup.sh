@@ -156,6 +156,8 @@ fi
 install 'https://cdn.rawgit.com/harelba/q/1.5.0/bin/q'
 install 'https://raw.githubusercontent.com/mla/ip2host/master/ip2host'
 install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/tools/screenshotTable.sh'
+# https://github.com/nferraz/st/pull/13
+install 'https://raw.githubusercontent.com/creaktive/st/3f4091c2fd68723e01a2064d60913689ca96c491/script/st-standalone' st
 
 if [ $os == mac ]; then
     url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
