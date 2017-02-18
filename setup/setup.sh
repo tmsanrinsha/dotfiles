@@ -70,11 +70,9 @@ function error {
 # ============================================================================
 # [ディレクトリ内のファイル1つ1つに対して一気にシンボリックリンクを作成する - Qiita](http://qiita.com/krsak/items/394850608ffe530cd6b2)
 # lndirのシェルスクリプト版がある
-if command_exists lndir; then
-  lndir $home ~
-else
-  $home/bin/makelink.sh $home
-fi
+# 上書きが出来ないのでコメントアウト
+# lndir $home ~
+$home/bin/makelink.sh $home
 
 # vim {{{2
 # ----------------------------------------------------------------------------
