@@ -118,6 +118,7 @@ alias hist='history'
 # という仕様のため
 # [なんで末尾にスペース入れるだけで sudo で alias を有効にできるわけ？ « blog.hekt.org](http://archive.blog.hekt.org/archives/5085/)
 alias s='sudo '
+alias sudo='sudo '
 
 alias cl="crontab -l"
 alias ce="crontab -e"
