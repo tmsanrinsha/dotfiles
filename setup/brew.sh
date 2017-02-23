@@ -16,16 +16,16 @@ if ! which brew; then
 fi
 
 
-
-brew update  # homebrewの更新
-brew upgrade --all # packageの更新
+# 自動でやっている
+# brew update  # homebrewの更新
+# brew upgrade --all # packageの更新
 brew cleanup
 brew cask cleanup
 
-# for php
-# https://github.com/Homebrew/homebrew-php
 brew tap homebrew/dupes
 brew tap homebrew/versions
+# for php
+# https://github.com/Homebrew/homebrew-php
 brew tap homebrew/homebrew-php
 
 # for r
@@ -34,8 +34,9 @@ brew tap homebrew/science
 brew-install ag
 brew-install ant
 brew-install coreutils
-brew tap ethereum/ethereum
-brew-install ethereum
+# brew tap ethereum/ethereum
+# brew-install ethereum
+brew-install diffutils
 brew-install gnu-sed
 brew-install go
 brew-install graphviz
