@@ -335,6 +335,7 @@ done
 # ============================================================================
 bindkey -e # emacs like
 # bindkey -v # vi like
+
 bindkey "^/" undo
 bindkey "^[/" redo
 bindkey "^[v" quoted-insert
@@ -346,6 +347,11 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 
 bindkey '^[' vi-cmd-mode
+
+# Key待ちを10ミリ秒にする
+# http://zsh.sourceforge.net/Doc/Release/Parameters.html#Parameters-Used-By-The-Shell-1
+KEYTIMEOUT=1
+
 # bindkey '^]'  vi-find-next-char
 # bindkey '^[]' vi-find-prev-char
 
