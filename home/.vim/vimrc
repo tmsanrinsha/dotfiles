@@ -1937,6 +1937,16 @@ let s:sync_save_dir_list = [
 \      'from' : g:dein_dir . '/repos/.*/colors',
 \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
 \    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/ftplugin/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/ftplugin',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
+\    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/ftplugin/**/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/ftplugin',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
+\    },
 \]
 
 call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
