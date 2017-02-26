@@ -36,6 +36,10 @@ alias mv='mv -i'
 if command_exists rmtrash; then
     alias rm=rmtrash
 fi
+
+alias diffl='\diff --old-line-format="%L" --unchanged-line-format="" --new-line-format=""'
+alias diffr='\diff --old-line-format="" --unchanged-line-format="" --new-line-format="%L"'
+alias diffc='\diff --old-line-format="" --unchanged-line-format="%L" --new-line-format=""'
 alias diff='diff -u'
 
 # [su・sudo | SanRin舎](http://sanrinsha.lolipop.jp/blog/2012/05/su%E3%83%BBsudo.html)
