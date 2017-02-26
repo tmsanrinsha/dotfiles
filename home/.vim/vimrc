@@ -2079,7 +2079,6 @@ if IsInstalled('unite.vim')
     nnoremap [unite]fv :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fV :<C-U>Unite file_rec/async:$VIM<CR>
     nnoremap [unite]fd :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-    execute 'nnoremap [unite]fD :<C-U>Unite file_rec/async:' . g:dein_dir . '/github.com/tmsanrinsha/dotfiles<CR>'
 
     " unite grep {{{2
     " ------------------------------------------------------------------------
