@@ -290,6 +290,12 @@ on_ft = ['javascript', 'css', 'html']
 # repo = 'fatih/vim-go'
 # on_ft = 'go'
 
+# Octave {{{1
+# ============================================================================
+[[plugins]]
+repo = 'tmsanrinsha/vim-octave'
+on_ft = 'octave'
+
 # Perl {{{1
 # ============================================================================
 [[plugins]]
