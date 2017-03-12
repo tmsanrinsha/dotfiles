@@ -1539,6 +1539,9 @@ inoremap <M-p> <Up>
 inoremap <C-a> <Esc>I
 inoremap <C-e> <End>
 
+" ポップアップメニューを<C-c>で消す
+inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
+
 if !IsInstalled('lexima.vim')
     inoremap <C-d> <Del>
     " inoremap <expr> <C-d> "\<C-g>u".(col('.') == col('$') ? '<Esc>^y$A<Space>=<Space><C-r>=<C-r>"<CR>' : '<Del>')
