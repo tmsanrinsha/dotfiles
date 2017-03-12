@@ -593,7 +593,7 @@ set_terminal_title_string() {
   local title=${PWD/$HOME/"~"}@${HOST%%.*}
 
   if [[ "${TERM}" =~ kterm\|xterm\|screen ]]; then
-    echo -ne "\e]2;$title\007"
+    echo -ne "\e]0;$title\007"
   fi
 
   # [$PWD in window title bar, both in Bash and Tmux - Stack Overflow](http://stackoverflow.com/questions/21607282/pwd-in-window-title-bar-both-in-bash-and-tmux)
