@@ -580,36 +580,63 @@ setopt share_history
 # http://www.ayu.ics.keio.ac.jp/~mukai/translate/zshoptions.html#SHARE_HISTORY
 
 # 端末のタイトルを変更する title {{{1
-#==============================================================================
-set_terminal_title_string() {
-    case "${TERM}" in
-        kterm*|xterm*)
-            echo -ne "\e]2;${HOST%%.*}:${PWD}\007"
-            ;;
-        screen*) # tmux用
-            echo -ne "\ePtmux;\e\e]2;${HOST%%.*}:${PWD}\007\e\\"
-            ;;
-    esac
-}
-add-zsh-hook precmd set_terminal_title_string
-
-# Tmuxのウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外はディレクトリ名@ホスト名にする {{{1
 # ============================================================================
-if [ $TERM = screen ]; then
-function tmux_preexec() {
-    mycmd=(${(s: :)${1}})
+# [My Future Sight for Past: Dynamic terminal title on bash, zsh, tmux](http://myfuturesightforpast.blogspot.jp/2015/10/dynamic-terminal-title-on-bash-zsh-tmux.html)
+# \e]2の部分は0,1,2で変更する部分が変わる
+# 0: ウィンドウタイトル+アイコン名
+# 1: アイコン名
+# 2: ウィンドウタイトル
+# アイコン名はwindowsだと昔あったタスクバーの名前に相当
+#   参照: [gnome terminal - In xterm, what is "Icon Name"? - Unix & Linux Stack Exchange](http://unix.stackexchange.com/questions/234136/in-xterm-what-is-icon-name)
+# iTerm2だとタブ名
+set_terminal_title_string() {
+  local title=${PWD/$HOME/"~"}@${HOST%%.*}
+
+  if [[ "${TERM}" =~ kterm\|xterm\|screen ]]; then
+    echo -ne "\e]2;$title\007"
+  fi
+
+  # [$PWD in window title bar, both in Bash and Tmux - Stack Overflow](http://stackoverflow.com/questions/21607282/pwd-in-window-title-bar-both-in-bash-and-tmux)
+  # によれば ~/.tmux.confに
+  # set -g set-titles on
+  # set -g set-titles-string '#T' (#Tはpane_title)
+  # をつけるとtmux起動時にも端末のタイトルを変更することができる。
+  # この場合タイトルはpaneごとに保持される
+  #
+  # set-titles [on | off]
+  #         Attempt to set the client terminal title using the tsl and fsl terminfo(5) entries if they exist.  tmux automatically sets these to the
+  #         \e]0;...\007 sequence if the terminal appears to be xterm(1).  This option is off by default.
+  #
+  # set-titles-string string
+  #         String used to set the window title if set-titles is on.  Formats are expanded, see the FORMATS section.
+  #
+  # \e]0;...\007なので、ウィンドウとアイコンの両方。ここも設定できるとよいのだが。
+
+  # 以下のようにパススルーシーケンスでやるとpaneごとに保持されない
+  # echo -ne "\ePtmux;\e\e]2;$title\007\e\\"
+}
+
+add-zsh-hook precmd set_terminal_title_string
+add-zsh-hook preexec set_terminal_title_string
+
+# Tmuxのウィンドウ名をコマンド実行時はコマンド名@ホスト名それ以外は@ホスト名にする {{{1
+# ============================================================================
+if [[ $TERM =~ screen ]]; then
+  function tmux_preexec() {
+    # mycmd=(${(s: :)${1}})
+    # コマンドの名のみ
     echo -ne "\ek${1%% *}@${HOST%%.*}\e\\"
-}
+  }
 
-function tmux_precmd() {
+  function tmux_precmd() {
+    # サブドメインのみ
     echo -ne "\ek@${HOST%%.*}\e\\"
-}
-add-zsh-hook preexec tmux_preexec
-add-zsh-hook precmd  tmux_precmd
-# tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
-# http://qiita.com/items/c166700393481cb15e0c
-DISABLE_AUTO_TITLE=true
-
+  }
+  add-zsh-hook preexec tmux_preexec
+  add-zsh-hook precmd  tmux_precmd
+  # tmuxでset-window-option -g automatic-rename offが聞かない場合の設定
+  # http://qiita.com/items/c166700393481cb15e0c
+  DISABLE_AUTO_TITLE=true
 fi
 
 # iTerm2のタブのタイトルを変える {{{1

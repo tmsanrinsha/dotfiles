@@ -646,11 +646,9 @@ set laststatus=2
 set title
 let &titlestring = "%{expand('%:p')} @" . hostname()
 
-" tmux使用時もtitlestringを変更できるように設定する
-if &term =~? 'screen'
-    let &t_ts = "\ePtmux;\e\e]2;"
-    let &t_fs = "\007\e\\"
-endif
+" tmux使用時（おそらくtermがxterm*ではない場合）t_ts, t_fsがセットされないのでセットする
+let &t_ts = "\e]2;"
+let &t_fs = "\007"
 
 " buffer {{{1
 " ============================================================================
