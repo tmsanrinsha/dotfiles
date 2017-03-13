@@ -284,6 +284,12 @@ repo = 'maksimr/vim-jsbeautify'
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
 
+# JavaScript {{{1
+# ============================================================================
+[[plugins]]
+repo = 'felixge/vim-nodejs-errorformat'
+on_ft = ['javascript']
+
 # Go lang {{{1
 # ============================================================================
 # [[plugins]]
