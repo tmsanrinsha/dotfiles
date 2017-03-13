@@ -580,7 +580,7 @@ inoremap <expr> <M-=> "\<C-g>u" . EvalExpression()
 
 function! EvalExpression() abort
     let expression = getline('.')
-    let expression = matchstr(expression, '[0-9.+\-*/() ]\+')
+    let expression = matchstr(expression, '[0-9.+\-*/()^ ]\+')
     " 1/4を0.25としてほしいのでluaeval()を使う
     return ' = ' . string(luaeval(expression))
 endfunction
