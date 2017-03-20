@@ -290,6 +290,11 @@ repo = 'plasticboy/vim-markdown'
 [[plugins]]
 repo = 'vobornik/vim-mql4'
 
+# Octave {{{1
+# -----------------------------------------------------------------------------
+[[plugins]]
+repo = 'tmsanrinsha/octave.vim--'
+
 # Perl {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
