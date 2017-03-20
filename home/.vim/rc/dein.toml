@@ -59,6 +59,11 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+# template {{{1
+# ============================================================================
+[[plugins]]
+repo = 'thinca/vim-template'
+
 # operator {{{1
 # ============================================================================
 [[plugins]]
@@ -128,15 +133,6 @@ repo = 'ciaranm/detectindent'
 # repo = 'tmsanrinsha/diffchar.vim'
 
 [[plugins]]
-repo = 'sudo.vim'
-
-[[plugins]]
-repo = 'savevers.vim'
-
-[[plugins]]
-repo = 'kopischke/vim-fetch'
-
-[[plugins]]
 repo = 'QuickFixCurrentNumber'
 depends = 'ingo-library'
 
@@ -178,21 +174,11 @@ repo = 'LeafCage/foldCC'
 repo = 'vim-jp/vital.vim'
 
 [[plugins]]
-repo = 'thinca/vim-template'
-
-[[plugins]]
-repo = 'thinca/vim-singleton'
-
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 # depends = ['vim-fugitive', 'tagbar', 'vim-anzu']
 
 [[plugins]]
 repo = 'thinca/vim-prettyprint'
-
-[[plugins]]
-repo = 'PreserveNoEOL'
-if = '!exists("&fixeol")'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
@@ -220,6 +206,32 @@ hook_add = '''
 nmap <S-Tab> <Plug>Transposewords
 imap <S-Tab> <Plug>Transposewords
 let g:transwrd_wordpattern = '\k\+\%(()\)\?'
+'''
+
+# 起動時, 開いたとき {{{1
+# ============================================================================
+[[plugins]]
+repo = 'thinca/vim-singleton'
+
+[[plugins]]
+repo = 'kopischke/vim-fetch'
+
+# 保存時 {{{1
+# ============================================================================
+[[plugins]]
+repo = 'sudo.vim'
+
+[[plugins]]
+repo = 'PreserveNoEOL'
+if = '!exists("&fixeol")'
+hook_add = '''
+let g:PreserveNoEOL = 1
+'''
+
+[[plugins]]
+repo = 'haya14busa/vim-bkup'
+hook_add = '''
+let g:bkup#dir = expand($VIM_CACHE_DIR . '/bkup')
 '''
 
 # filetype {{{1
@@ -290,7 +302,7 @@ repo = 'plasticboy/vim-markdown'
 [[plugins]]
 repo = 'vobornik/vim-mql4'
 
-# Octave {{{1
+# Octave {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'tmsanrinsha/octave.vim--'
