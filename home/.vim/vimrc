@@ -254,7 +254,7 @@ endfunction
 " qfreplaceを使うときなどにイベントを無視したいとき
 " TODO 置換対象が10行を超えたら自動的にeventignoreする
 command! SetEventIgnore set eventignore=BufEnter,BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost nobackup
-command! SetEvent set eventignore= backup
+command! SetEvent set eventignore=
 " 1}}}
 
 call SourceRc('local_pre.vim')
