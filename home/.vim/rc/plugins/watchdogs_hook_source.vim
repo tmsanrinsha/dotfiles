@@ -2,6 +2,8 @@ scriptencoding utf-8
 
 " let g:watchdogs_check_CursorHold_enable = 1
 let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_BufWritePost_enable_on_wq = 0
+
 
 if !exists('g:quickrun_config')
     let g:quickrun_config = {}
@@ -208,6 +210,7 @@ let g:quickrun_config['watchdogs_checker/vint'] = {
 " let g:quickrun_config['zsh/watchdogs_checker'] = {
 " \   'type': ''
 " \}
+" }}}
 
 call SourceRc('watchdogs_local.vim')
 
