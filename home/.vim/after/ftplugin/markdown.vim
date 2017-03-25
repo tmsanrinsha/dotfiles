@@ -12,7 +12,7 @@ setlocal commentstring=<!--%s-->
 
 " setlocal tabstop=2 " front matterは2スペースにしたいが、リストのネストを考えると4スペース
 
-setlocal nowrap
+" setlocal nowrap
 
 " イタリックを無効に
 highlight! link markdownItalic Normal
