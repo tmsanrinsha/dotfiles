@@ -228,11 +228,11 @@ hook_add = '''
 let g:PreserveNoEOL = 1
 '''
 
-[[plugins]]
-repo = 'haya14busa/vim-bkup'
-hook_add = '''
-let g:bkup#dir = expand($VIM_CACHE_DIR . '/bkup')
-'''
+# [[plugins]]
+# repo = 'haya14busa/vim-bkup'
+# hook_add = '''
+# let g:bkup#dir = expand($VIM_CACHE_DIR . '/bkup')
+# '''
 
 # filetype {{{1
 # ============================================================================
