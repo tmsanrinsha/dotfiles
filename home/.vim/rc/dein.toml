@@ -164,8 +164,8 @@ repo = 'jez/vim-github-hub'
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
 
-[[plugins]]
-repo = 'rhysd/clever-f.vim'
+# [[plugins]]
+# repo = 'rhysd/clever-f.vim'
 
 [[plugins]]
 repo = 'LeafCage/foldCC'
