@@ -523,13 +523,13 @@ hook_source = '''
     let g:openbrowser_github_url_exists_check = 'ignore'
 '''
 
-# [[plugins]]
-# repo = 'shikato/vim2browser.vim'
-# on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
-#
-# [[plugins]]
-# repo = 'shikato/keysender.vim'
-# on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
+[[plugins]]
+repo = 'shikato/vim2browser.vim'
+on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
+
+[[plugins]]
+repo = 'shikato/keysender.vim'
+on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
 # }}}
 
 # search, replace {{{1
