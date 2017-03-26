@@ -147,8 +147,13 @@ fg_red=$'\e'"[31m"
 fg_white=$'\e'"[37m"
 bg_red=$'\e'"[41m"
 
-PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f
-%{$fg_yellow%}%~%{${reset_color}%}%0(?||%18(?|}|%{$fg_white%}%{$bg_red%}))%(!|#|$)%{${reset_color}%} "
+PROMPT='${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f'
+PROMPT=$PROMPT' $(git_super_status)'
+# PROMPT=$PROMPT' $(_update_vcs_info_msg)'
+# jobがあるなら表示。SHLVLが3以上（tmux上でvim開いて:shとか）なら表示
+PROMPT=$PROMPT'%(1j| JOBS:%j |)%(3L| SHLVL:%L |)'
+PROMPT=$PROMPT'
+%{$fg_yellow%}%~%{${reset_color}%}%0(?||%18(?|}|%{$fg_white%}%{$bg_red%}))%(!|#|$)%{${reset_color}%} '
 
 # %?: 直前のコマンドの終了ステータスコード
 # [zshの設定 - wasabi0522's blog](http://aircastle.hatenablog.com/entry/20080428/1209313162)

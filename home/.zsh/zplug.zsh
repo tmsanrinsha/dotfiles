@@ -1,25 +1,26 @@
+export ZPLUG_HOME="$HOME/.zplug"
+
 if [ ! -d ~/.zplug ]; then
-    # printf "Install zplug? [y/N]: "
-    # if read -q; then
-        # echo;
-        git clone https://github.com/b4b4r07/zplug ~/.zplug
-        source ~/.zplug/zplug
-        # manage zlug by itself
-        zplug update --self
-    # fi
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
 
-if [ -f ~/.zplug/zplug ]; then
-    source ~/.zplug/zplug
+if [ -f ~/.zplug/init.zsh ]; then
+    source ~/.zplug/init.zsh
 
     # Make sure you use double quotes
-    zplug "b4b4r07/zplug"
+    zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+    # prompt
+    zplug "olivierverdier/zsh-git-prompt", use:"*.sh"
+
+    # completion
     zplug "zsh-users/zsh-completions"
     zplug "Valodim/zsh-curl-completion"
     zplug "srijanshetty/zsh-pandoc-completion"
     zplug "tmsanrinsha/zsh-composer-completion"
-    zplug "Tarrasch/zsh-bd"
     zplug "Dannyzen/cf-zsh-autocomplete-plugin"
+
+    zplug "Tarrasch/zsh-bd"
 
     # Install plugins if there are plugins that have not been installed
     if ! zplug check --verbose; then
@@ -30,5 +31,5 @@ if [ -f ~/.zplug/zplug ]; then
     fi
 
     # Then, source plugins and add commands to $PATH
-    zplug load --verbose
+    zplug load
 fi
