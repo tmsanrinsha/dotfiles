@@ -36,6 +36,7 @@
 
 	# hub
 	pull-request = !hub -c core.commentChar='%' pull-request
+	pr = !hub -c core.commentChar='%' pull-request
 	fork = !hub fork
 	create = !hub create
 	browse = !hub browse
