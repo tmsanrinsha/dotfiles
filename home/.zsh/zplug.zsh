@@ -11,7 +11,7 @@ if [ -f ~/.zplug/init.zsh ]; then
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
     # prompt
-    zplug "olivierverdier/zsh-git-prompt", use:"*.sh"
+    # zplug "olivierverdier/zsh-git-prompt", use:"*.sh"
 
     # completion
     zplug "zsh-users/zsh-completions"
