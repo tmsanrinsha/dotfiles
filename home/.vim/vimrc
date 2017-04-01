@@ -2677,6 +2677,36 @@ if IsInstalled('vim-gf-user')
     call gf#user#extend('GfNewFile', 3000)
 endif
 
+" vim-projectionist {{{1
+" ============================================================================
+if !exists('g:projectionist_heuristics')
+  let g:projectionist_heuristics = {}
+endif
+
+" Chef repo
+let g:projectionist_heuristics['chefignore'] = {
+\ 'attributes/*.rb': {
+\   'type': 'attribute'
+\ },
+\ 'files/*.rb': {
+\   'type': 'file'
+\ },
+\ 'libraries/*.rb': {
+\   'type': 'library',
+\   'alternate': 'spec/unit/libraries/{}_spec.rb'
+\ },
+\ 'recipes/*.rb': {
+\   'type': 'recipe',
+\   'alternate': 'spec/unit/recipes/{}_spec.rb'
+\ },
+\ 'spec/unit/*_spec.rb': {
+\   'type': 'spec',
+\   'alternate': '{}.rb',
+\ },
+\ 'templates/*.rb': {
+\   'type': 'template'
+\ },
+\}
 
 " tcomment_vim {{{1
 " ============================================================================
