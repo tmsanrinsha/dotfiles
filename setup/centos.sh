@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
+# gitのバージョン古い
+sudo yum -y install git
+
+# for vim
 sudo yum -y install gcc make ncurses-devel
 sudo yum -y install perl-devel perl-ExtUtils-Embed
 sudo yum -y install ruby-devel
 sudo yum -y install python-devel
 sudo yum -y install lua-devel
 
-git clone https://github.com/vim/vim.git ~/vim
-cd ~/vim/src
+git clone --depth 1 https://github.com/vim/vim.git ~/src/github.com/vim/vim
+cd ~/src/github.com/vim/vim/src
 
 ./configure \
 --with-features=huge \
