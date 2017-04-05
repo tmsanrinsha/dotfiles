@@ -211,7 +211,7 @@ repo = 'vim-scripts/transpose-words'
 hook_add = '''
 nmap <S-Tab> <Plug>Transposewords
 imap <S-Tab> <Plug>Transposewords
-let g:transwrd_wordpattern = '\k\+\%(()\)\?'
+let g:transwrd_wordpattern = '\k\+\%((\k\+)\)\?'
 '''
 
 # 起動時, 開いたとき {{{1
