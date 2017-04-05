@@ -2033,6 +2033,9 @@ if IsInstalled('unite.vim')
     " :messagesの最後をunite.vimで表示する
     nnoremap [unite]Om :<C-U>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
 
+    " Unite output:autocmd {{{3
+    nnoremap [unite]Om :<C-U>Unite output:autocmd<CR>
+
     " Unite outputでruntimpathを出力する {{{3
     nnoremap [unite]Or :<C-U>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
 
