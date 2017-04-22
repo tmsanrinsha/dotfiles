@@ -108,7 +108,7 @@ qmark v http://www.nicovideo.jp/mylist/9352163
 qmark w https://detail.wallet.yahoo.co.jp/history
 qmark y http://www.yahoo.co.jp/
 
-" bmark {{{1
+" bmark, bookmark {{{1
 " ============================================================================
 bmark -folder search -keyword alc -title 検索:アルク                 http://eow.alc.co.jp/search?q=%s
 bmark -folder search -keyword t   -title 検索:Twitter検索            https://twitter.com/search?vertical=default&q=%s&src=typd
@@ -175,28 +175,40 @@ let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 " titleないときどうにかしたい
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-    { label: 'title',     value: '%TITLE%'},
-    { label: 'markdown',  value: '[%TITLE%](%URL%)'},
-    { label: 'n',         value: '%TITLE%\n%URL%'},
-    { label: 'image',     value: '![](%URL%)'},
-    { label: 'decoded_URI', value: 'copy decoded URI',
-        custom: function () {
-            return decodeURI(content.document.location);
-        }
-    },
-    { label: 'github_repository', value: 'copy repository name of Github',
-        custom: function () {
-            return content.document.location.pathname.replace('/','');
-        }
-    },
-    { label: 'line',      value: '%TITLE% - %URL%'},
-    { label: 'textile',   value: '%TITLE%:%URL%'},
-    { label: 'anchor',    value: '<a href="%URL%">%TITLE%</a>'},
-    { label: 'selanchor', value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+  {label: 'title',     value: '%TITLE%'},
+  {label: 'markdown',  value: '[%TITLE%](%URL%)'},
+  {label: 'n',         value: '%TITLE%\n%URL%'},
+  {label: 'image',     value: '![](%URL%)'},
+  {
+    label: 'decoded_URI', value: 'copy decoded URI',
+    custom: function () {
+      return decodeURI(content.document.location);
+    }
+  },
+  {
+    label: 'github_repository', value: 'copy repository name of Github',
+    custom: function () {
+      return content.document.location.pathname.replace('/','');
+    }
+  },
+  {
+    label: 'amazon_associate',
+    value: 'copy markdown type link of amazon associate',
+    custom: function () {
+      let link = content.document.querySelector('.amzn-ss-text-shortlink-textarea').innerText;
+      let title = content.document.querySelector('#title span').innerText;
+      return `[${title}](${link})`;
+    }
+  },
+  {label: 'line',      value: '%TITLE% - %URL%'},
+  {label: 'textile',   value: '%TITLE%:%URL%'},
+  {label: 'anchor',    value: '<a href="%URL%">%TITLE%</a>'},
+  {label: 'selanchor', value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
 ];
 EOM
 
 " mapを上で設定すると不安定なので、ここで設定
+nnoremap <Leader>ya :copy amazon_associate<CR>
 nnoremap <Leader>yd :copy decoded_URI<CR>
 nnoremap <Leader>yt :copy title<CR>
 nnoremap <Leader>ym :copy markdown<CR>
@@ -205,7 +217,6 @@ nnoremap <Leader>yi :copy image<CR>
 nnoremap <Leader>yg :copy github_repository<CR>
 nnoremap <Leader>yl :copy line<CR>
 nnoremap <Leader>yT :copy textile<CR>
-nnoremap <Leader>ya :copy anchor<CR>
 
 " [VimperatorからAppleScriptを実行して、WebページへのリンクをHTMLのデータとしてクリップボードに保存する - Qiita](http://qiita.com/tmsanrinsha/items/8172063e219c8fcc713e)
 nnoremap <Leader>yh :js io.system('hex="$(echo -E \'<meta charset="utf-8"><a href="' + content.document.location.href.replace(/'/g, "'\\''") + '">' + content.document.title.replace(/'/g, "'\\''") + '</a>\' | hexdump -ve \'1/1 "%.2x"\')"; osascript -e "set the clipboard to «data HTML${hex}»"')<CR>
