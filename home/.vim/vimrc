@@ -152,6 +152,7 @@ function! s:makelink() abort
 endfunction
 
 " FixSpaces {{{2
+" ----------------------------------------------------------------------------
 " original
 " [ntpeters/vim-better-whitespace: Better whitespace highlighting for Vim](https://github.com/ntpeters/vim-better-whitespace)
 " Removes all extraneous whitespace in the file
@@ -172,6 +173,26 @@ function! s:fix_spaces(line1, line2)
     " Restore the saved search and cursor position
     let @/=_s
     call cursor(l, c)
+endfunction
+
+" IndentChange {{{2
+" ----------------------------------------------------------------------------
+" インデント幅を変更する
+"
+" 例
+"   1) バッファ全体のインデントを4から2に変更する
+"     :IndentChange 4 2
+"   2) ビジュアル選択部分のインデントを2から4に変更する
+"     :'<,'>IndentChange 2 4
+"
+" 置換部分は
+"   - vim-jp » Hack #143: 見た目を変えずにタブ文字とスペースを相互に変換する
+"     http://vim-jp.org/vim-users-jp/2010/04/30/Hack-143.html
+" を参考にした
+command! -range=% -nargs=* IndentChange call <SID>indent_change(<line1>, <line2>, <f-args>)
+
+function! s:indent_change(line1, line2, from, to)
+  execute a:line1 . ',' . a:line2 . 's@^\v(%( {' . a:from . '})+)@\=repeat(" ", len(submatch(1))/' . a:from . '*' . a:to . ')@'
 endfunction
 
 " from以下でファイルの保存したら、to以下にディレクトリ構成を保ってコピーする {{{2
