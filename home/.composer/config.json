@@ -3,7 +3,7 @@
     "repositories": {
         "packagist": {
             "type": "composer",
-            "url": "http://packagist.jp"
+            "url": "https://packagist.jp/"
         }
     }
 }
