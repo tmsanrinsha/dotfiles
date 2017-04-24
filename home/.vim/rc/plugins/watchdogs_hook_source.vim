@@ -118,12 +118,22 @@ let g:quickrun_config['mql4/watchdogs_checker'] = {
 "     \       '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity\,Fixable'
 "     \}
 " else
-    let g:quickrun_config['watchdogs_checker/php'] = {
-    \   'command' : 'php',
-    \   'exec'    : '%c %o -l %s:p',
-    \   'errorformat' : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
-    \}
 " endif
+
+let g:quickrun_config['watchdogs_checker/php'] = {
+\ 'command' : 'php',
+\ 'exec'    : '%{PhpCheck()}',
+\ 'hook/cd/directory': '%{FindRootDirectory()}',
+\ 'errorformat' : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
+\}
+
+function! PhpCheck() abort
+  let cmd = 'php -l ' . expand('%:p')
+  if filereadable('phpunit.xml.dist')
+    let cmd = cmd . ' && vendor/bin/phpunit -c phpunit.xml.dist'
+  endif
+  return cmd
+endfunction
 
 
 let g:quickrun_config['php.phpunit/watchdogs_checker'] = {
