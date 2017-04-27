@@ -17,6 +17,10 @@ alias vim-profile='profile=~/.cache/vim/profile.txt; vim --startuptime $profile 
 #     alias vl="$HOME/local/share/vim/vim73/macros/less.sh"
 # fi
 
+# ghq {{{1
+# ============================================================================
+alias gg='ghq get -shallow'
+
 # git {{{1
 # ============================================================================
 alias g='git'
