@@ -133,11 +133,11 @@ repo = 'ciaranm/detectindent'
 # repo = 'tmsanrinsha/diffchar.vim'
 
 [[plugins]]
-repo = 'QuickFixCurrentNumber'
-depends = 'ingo-library'
+repo = 'vim-scripts/QuickFixCurrentNumber'
+depends = 'vim-scripts/ingo-library'
 
 [[plugins]]
-repo = 'ingo-library'
+repo = 'vim-scripts/ingo-library'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
@@ -225,10 +225,10 @@ repo = 'kopischke/vim-fetch'
 # 保存時 {{{1
 # ============================================================================
 [[plugins]]
-repo = 'sudo.vim'
+repo = 'vim-scripts/sudo.vim'
 
 [[plugins]]
-repo = 'PreserveNoEOL'
+repo = 'vim-scripts/PreserveNoEOL'
 if = '!exists("&fixeol")'
 hook_add = '''
 let g:PreserveNoEOL = 1
@@ -255,7 +255,7 @@ repo = 'vadv/vim-chef'
 # confluence {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
-repo = 'confluencewiki.vim'
+repo = 'vim-scripts/confluencewiki.vim'
 
 # Go lang {{{2
 # ============================================================================
@@ -331,6 +331,9 @@ repo = 'StanAngeloff/php.vim'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
+
+# [[plugins]]
+# repo = 'wilywampa/vim-ipython'
 
 # R lang {{{2
 # -----------------------------------------------------------------------------
