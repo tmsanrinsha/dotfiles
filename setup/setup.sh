@@ -251,7 +251,15 @@ elif [ $os == mac ]; then
     fi
 fi
 
-# python {{{1
+: > ~/.sh/cache.sh
+
+# PHP
+# ============================================================================
+if command_exists php; then
+  echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/cache.sh
+fi
+
+# Python {{{1
 # ============================================================================
 # pip3 install numpy
 # pip3 install scipy

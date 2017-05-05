@@ -150,8 +150,6 @@ fi
 # PHP {{{1
 # ============================================================================
 pathmunge "$HOME/.composer/vendor/bin"
-# export PHP55=`php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");' 2>/dev/null`
-export PHP55=0
 
 # Python {{{1
 # ============================================================================
@@ -208,6 +206,12 @@ fi
 if [ "$os" = mac ]; then
     export DATABASE_URL="postgres:///$USER"
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+fi
+
+# cache.sh {{{1
+# ============================================================================
+if [ -f ~/.sh/cache.sh ]; then
+    . ~/.sh/cache.sh
 fi
 
 # local {{{1
