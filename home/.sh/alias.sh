@@ -81,6 +81,8 @@ fi
 if [ "$os" = mac ]; then
     alias excel='open -a Microsoft\ Excel'
     alias firefox='open -a Firefox'
+    alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+    alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 fi
 
 # heroku {{{1
