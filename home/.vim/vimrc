@@ -275,7 +275,7 @@ endfunction
 " qfreplaceを使うときなどにイベントを無視したいとき
 " TODO 置換対象が10行を超えたら自動的にeventignoreする
 command! SetEventIgnore set eventignore=BufEnter,BufWritePost,BufWrite,FileAppendPre,BufWritePost,FileWritePost,FileWritePost nobackup
-command! SetEvent set eventignore=
+command! SetEvent set eventignore= backup
 " 1}}}
 
 call SourceRc('local_pre.vim')
@@ -1966,7 +1966,7 @@ let s:sync_save_dir_list = [
 \    },
 \]
 
-call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+" call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
 " vim-singleton {{{1
 " ============================================================================

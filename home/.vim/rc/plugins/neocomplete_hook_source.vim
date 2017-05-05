@@ -119,7 +119,7 @@ let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h
 " ----------------------------------------------------------------------------
 if IsInstalled('tern_for_vim')
     let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
-    autocmd MyVimrc FileType html,php,vimperator call tern#Enable()
+    autocmd MyVimrc FileType javascript call tern#Enable()
 end
 
 " golang {{{2
@@ -142,8 +142,9 @@ let g:neocomplete#sources#omni#input_patterns.perl =
 " ----------------------------------------------------------------------------
 if dein#tap('padawan.vim')
     " for padawan
-    let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
+    " let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
     " let g:neocomplete#force_omni_input_patterns.php = '[^- \t]->\w*'
+    let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 else
     let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 endif
