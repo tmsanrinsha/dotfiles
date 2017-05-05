@@ -1,9 +1,27 @@
 {
     "require": {
-        "hirak/prestissimo": "^0.1.9",
-        "fabpot/php-cs-fixer": "dev-master",
-        "squizlabs/php_codesniffer": "*",
         "jdorn/sql-formatter": "dev-master",
-        "mkusher/padawan": "dev-master"
-    }
+        "hirak/prestissimo": "^0.3.6",
+        "friendsofphp/php-cs-fixer": "^2.3",
+        "mkusher/padawan": "dev-master",
+        "ocramius/proxy-manager": "^1.0",
+        "aws/aws-sdk-php": "^3.26",
+        "dflydev/markdown": "^1.0",
+        "doctrine/couchdb": "^1.0@beta",
+        "erusev/parsedown": "^1.6",
+        "graylog2/gelf-php": "^1.5",
+        "php-amqplib/php-amqplib": "^2.6",
+        "php-console/php-console": "^3.1",
+        "rollbar/rollbar": "^1.0",
+        "ruflin/elastica": "^5.2",
+        "sentry/sentry": "^1.6",
+        "symfony/dependency-injection": "^3.2",
+        "symfony/http-kernel": "^3.2",
+        "zendframework/zend-json": "^3.0",
+        "zendframework/zend-soap": "^2.6",
+        "zendframework/zend-stdlib": "^3.1",
+        "zendframework/zend-xmlrpc": "^2.6"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
