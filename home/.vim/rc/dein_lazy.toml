@@ -315,6 +315,7 @@ repo = 'mkusher/padawan.vim'
 if = '$PHP55'
 on_ft = 'php'
 hook_source = '''
+let g:padawan#enabled = 1
 let g:padawan#composer_command = 'composer'
 let g:padawan#timeout = 0.3
 '''
@@ -501,7 +502,7 @@ on_map = '<Plug>(quickhl-'
 # draw {{{1
 # ============================================================================
 [[plugins]]
-repo = 'DrawIt'
+repo = 'vim-scripts/DrawIt'
 on_map = ';di'
 on_cmd = 'DrawIt'
 
