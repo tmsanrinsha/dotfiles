@@ -290,6 +290,11 @@ on_ft = ['javascript', 'css', 'html']
 repo = 'felixge/vim-nodejs-errorformat'
 on_ft = ['javascript']
 
+[[plugins]]
+repo = 'moll/vim-node'
+on_ft = 'javascript'
+augroup = 'Node'
+
 # Go lang {{{1
 # ============================================================================
 # [[plugins]]
