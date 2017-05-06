@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -x
+progname=$(basename $0)
+
+usage() {
+  cat <<EOT
+Usage: $progname [OPTIONS] FILE
+
+Options:
+  -h, --help
+  -n, --dry-run
+EOT
+}
+
+# param=()
+for OPT in "$@"
+do
+  case "$OPT" in
+    '-h'|'--help' )
+      usage
+      exit 1
+      ;;
+    '-n'|'--dry-run' )
+      dryrun=1
+      shift 1
+      ;;
+    -*)
+      option+=( "$1" )
+      shift 1
+      ;;
+    *)
+      echo $1
+      param+=( "$1" )
+      shift 1
+      ;;
+  esac
+done
+
+if [ -z "$param" ]; then
+  usage
+  exit 1
+fi
+
+if [ "$dryrun" ]; then
+  exec find . -type f -exec sh -c "sed ${option[@]} '${param[@]}' {} | diff -u {} -" \;
+fi
+
+find . -type f -exec sed -i ${option[@]} "${param[@]}" {} +
