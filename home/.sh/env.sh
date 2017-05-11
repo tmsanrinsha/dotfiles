@@ -125,7 +125,18 @@ pathmunge $GOPATH/bin
 
 # Java {{{1
 # ============================================================================
+if [ -x /usr/libexec/java_home ]; then
+  export JAVA_HOME="$(/usr/libexec/java_home)"
+  export PATH=$JAVA_HOME/bin:$PATH
+fi
+
 export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -Duser.language=en"
+
+# Elasticsearch {{{1
+# ============================================================================
+# [How to Install Elasticsearch on Mac OS X](https://chartio.com/resources/tutorials/how-to-install-elasticsearch-on-mac-os-x/)
+export ES_HOME=/usr/local/Cellar/elasticsearch/5.4.0
+export PATH=$ES_HOME/bin:$PATH
 
 # Node.js {{{1
 # ============================================================================
@@ -176,7 +187,7 @@ test -d $XDG_CACHE_HOME/R || mkdir -p $XDG_CACHE_HOME/R
 export R_HISTFILE="$XDG_CACHE_HOME/R/Rhistory"
 export R_HISTSIZE="5000"
 
-# ruby {{{1
+# Ruby {{{1
 # ============================================================================
 if [ -d /usr/local/opt/ruby/bin ]; then
     export PATH="/usr/local/opt/ruby/bin:$PATH"
