@@ -1,6 +1,3 @@
-. ~/.sh/env.sh
-. ~/.sh/alias.sh
-
 if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local
 fi
