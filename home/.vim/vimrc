@@ -3373,7 +3373,7 @@ endif
 " junkfile.vim {{{1
 " ============================================================================
 if IsInstalled('junkfile.vim')
-    let g:junkfile#directory = $VIM_CACHE_DIR.'/junkfile'
+    let g:junkfile#directory = $JUNKFILE
     let g:junkfile#edit_command = 'new'
 
     command! -nargs=0 JunkfileFiletype call junkfile#open_immediately(
@@ -3383,6 +3383,7 @@ if IsInstalled('junkfile.vim')
     nmap <Leader>j [:junk]
 
     nnoremap [:junk]o :JunkfileOpen<CR>
+    nnoremap [:junk]n :JunkfileOpen<CR>
     nnoremap [:junk]f :JunkfileFiletype<CR>
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
