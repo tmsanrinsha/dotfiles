@@ -43,6 +43,14 @@ on_source = 'unite.vim'
 # }}}
 
 [[plugins]]
+repo = 'Shougo/denite.nvim'
+on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
+if = 'has("python3")'
+hook_source = '''
+    source ~/.vim/rc/plugins/denite_hook_source.vim
+'''
+
+[[plugins]]
 repo = 'Shougo/vimfiler.vim'
 on_source = 'unite.vim'
 on_map = '<Plug>'

@@ -4,6 +4,7 @@ hook_add = '''
     nnoremap [:dein:] <Nop>
     nmap <Leader>D [:dein:]
     nnoremap [:dein:]c :<C-u>call dein#clear_state()<CR>
+    nnoremap [:dein:]u :<C-u>call dein#update()<CR>
 '''
 
 [[plugins]]
