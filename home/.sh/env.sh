@@ -47,14 +47,15 @@ pathmungeR () {
     fi
 }
 
-pathmungeR "$HOME/script/common"
-# 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
-pathmungeR "$HOME/script/pseudo" after
+# pathmungeR "$HOME/script/common"
+# # 正規のコマンドがないときに使う仮のコマンドを置くディレクトリ
+# pathmungeR "$HOME/script/pseudo" after
 
 
 if [[ `uname` = CYGWIN* ]]; then
     # Cygwin用のコマンドを置くディレクトリ
-    pathmungeR "$HOME/script/cygwin"
+    # pathmungeR "$HOME/script/cygwin"
+    :
 elif [[ $OSTYPE == darwin* ]]; then
     # macのcronでPATHを設定するため
     # macのzshが/etc/zprofileを読んでない
@@ -65,7 +66,7 @@ elif [[ $OSTYPE == darwin* ]]; then
     fi
 
     # Mac用のコマンドを置くディレクトリ
-    pathmungeR "$HOME/script/mac"
+    pathmunge "$HOME/script/mac"
 
     pathmunge '/usr/local/sbin'
 
