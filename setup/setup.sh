@@ -123,10 +123,17 @@ ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 
 # zsh {{{1
 # ============================================================================
-export ZDOTDIR=${HOME}/.zsh
-test -d $ZDOTDIR/.cache      || mkdir -p $ZDOTDIR/.cache
-test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
-test -d $ZDOTDIR/completion  || mkdir -p $ZDOTDIR/completion
+if  command_exists zsh; then
+  export ZDOTDIR=${HOME}/.zsh
+  test -d $ZDOTDIR/.cache      || mkdir -p $ZDOTDIR/.cache
+  test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
+  test -d $ZDOTDIR/completion  || mkdir -p $ZDOTDIR/completion
+
+  if [ ! -d ~/.zplug ]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+  fi
+  zsh $ZDOTDIR/zplug.zsh
+fi
 
 if command_exists npm && ! test -f $ZDOTDIR/completion/npm.zsh ; then
     npm completion > $ZDOTDIR/completion/npm.zsh
