@@ -170,9 +170,9 @@ export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # pyenv {{{2
 # ----------------------------------------------------------------------------
-if command_exists pyenv; then
-    eval "$(pyenv init -)"
-fi
+# if command_exists pyenv; then
+#     eval "$(pyenv init -)"
+# fi
 
 # IPython {{{2
 # ----------------------------------------------------------------------------
@@ -226,12 +226,6 @@ if [ -f ~/.sh/cache.sh ]; then
     . ~/.sh/cache.sh
 fi
 
-# local {{{1
-# ============================================================================
-if [ -f ~/.sh/env_local.sh ]; then
-    . ~/.sh/env_local.sh
-fi
-
 # $HOME/bin, $HOME/local/bin {{{1
 # ============================================================================
 # macでtmuxを起動したり、vimで!でコマンド実行をすると
@@ -243,3 +237,9 @@ fi
 export PATH="$HOME/bin:$PATH"
 # makeで作った実行ファイルなどを置くディレクトリ
 export PATH="$HOME/local/bin:$PATH"
+
+# local {{{1
+# ============================================================================
+if [ -f ~/.sh/env_local.sh ]; then
+    . ~/.sh/env_local.sh
+fi
