@@ -875,3 +875,8 @@ alias | awk '{print "alias "$0}' \
     | grep -v 'ls --color' \
     | grep -v 'ls -G' \
     | grep -v 'vi=vim' >! ~/.vim/rc/.vimshrc
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+  unsetopt xtrace
+  exec 2>&3 3>&-
+fi
