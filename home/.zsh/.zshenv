@@ -29,4 +29,3 @@ fi
 if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local
 fi
-echo $PATH
