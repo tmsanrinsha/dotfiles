@@ -15,8 +15,8 @@
 # する
 export LANG='ja_JP.UTF-8'
 
-. ~/.sh/env.sh
-. ~/.sh/alias.sh
+# . ~/.sh/env.sh
+# . ~/.sh/alias.sh
 
 # alias {{{
 # ============================================================================
@@ -105,9 +105,7 @@ function t {
 
 # junkfile {{{1
 # ============================================================================
-export JUNKFILE="$XDG_CACHE_HOME/junkfile"
-
-cdj()
+cdw()
 {
   dir="${JUNKFILE}/$(date +'%Y/%m')"
   test -d "$dir" || mkdir -p "$dir"

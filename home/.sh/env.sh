@@ -121,7 +121,7 @@ if [ -d /usr/local/go/bin ]; then
     export PATH="/usr/local/go/bin:$PATH"
 fi
 export GOPATH=$HOME/go
-pathmunge $GOPATH/bin
+export PATH="$GOPATH/bin:$PATH"
 
 # Java {{{1
 # ============================================================================
@@ -212,6 +212,8 @@ if [ -x "$macvim_dir/Vim" ]; then
 else
     export EDITOR='vim'
 fi
+
+export JUNKFILE="$HOME/work"
 
 # postgres {{{1
 # ============================================================================
