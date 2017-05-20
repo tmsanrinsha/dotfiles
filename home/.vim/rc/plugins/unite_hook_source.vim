@@ -8,6 +8,15 @@ call unite#custom#profile('default', 'context', {
 \   'prompt': '> ',
 \ })
 
+call unite#custom#source(
+\ 'neomru/file', 'ignoer_pattern',
+\ '\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
+\ '\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
+\ '\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
+\ '\|\%(^\%(fugitive\)://\)'.
+\ '\|/mnt/'
+\)
+
 autocmd MyVimrc BufEnter * call s:change_defult_action_for_directory()
 
 

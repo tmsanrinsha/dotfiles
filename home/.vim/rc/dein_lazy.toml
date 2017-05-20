@@ -8,20 +8,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source = 'unite.vim'
-hook_source = '''
-    call unite#custom#source(
-    \'neomru/file', 'ignoer_pattern',
-    \'\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
-    \'\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
-    \'\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-    \'\|\%(^\%(fugitive\)://\)'.
-    \'\|/mnt/'
-    \)
-'''
-
-[[plugins]]
 repo = 'Shougo/unite-outline'
 on_source = 'unite.vim'
 hook_source = '''

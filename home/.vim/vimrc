@@ -2145,21 +2145,6 @@ if IsInstalled('unite.vim')
     nnoremap [unite]D :<C-U>Unite dein -default-action=vimfiler<CR>
 endif
 
-" neomru {{{1
-" ============================================================================
-if IsInstalled('neomru.vim')
-    "最近使用したファイル一覧
-    nnoremap <silent> [unite]fm :<C-U>Unite neomru/file<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-U>Unite neomru/directory<CR>
-
-    " ファイルへの書き込みを60秒ごとにする
-    let g:neomru#update_interval = 60
-    " ファイルが存在するかチェックする
-    let g:neomru#do_validate = 1
-endif
-
-
 " neossh.vim {{{1
 " =========================================================================
 " let g:neossh#ssh_command = 'ftp.sh -p PORT HOSTNAME'
