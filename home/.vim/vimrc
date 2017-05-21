@@ -37,10 +37,10 @@ endif
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
-if has('python3')
-    " let $PYTHONHOME = expand('~/.pyenv/versions/3.5.2')
-    " set pythonthreedll=$HOME/.pyenv/versions/3.5.2/lib/libpython3.5m.dylib
-endif
+" if has('python3')
+"     " let $PYTHONHOME = expand('~/.pyenv/versions/3.5.2')
+"     " set pythonthreedll=$HOME/.pyenv/versions/3.5.2/lib/libpython3.5m.dylib
+" endif
 
 if empty($SRC_ROOT)
     let $SRC_ROOT = $HOME . '/src'
@@ -1968,6 +1968,17 @@ let s:sync_save_dir_list = [
 
 " call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
+autocmd MyVimrc BufNewFile,BufRead dein*.toml call s:syntax_range_dein()
+
+function! s:syntax_range_dein() abort
+  let start = '^\s*hook_\%('.
+  \           'add\|source\|post_source\|post_update'.
+  \           '\)\s*=\s*%s'
+
+  call SyntaxRange#Include(printf(start, "'''"), "'''", 'vim', '')
+  call SyntaxRange#Include(printf(start, '"""'), '"""', 'vim', '')
+endfunction
+
 " vim-singleton {{{1
 " ============================================================================
 if IsInstalled('vim-singleton') && has('gui_running')
@@ -2006,7 +2017,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite] <Nop>
     nmap , [unite]
 
-    " uniteの選択のカラーをPmenuSelにする。uniteバッファ以外もCursorLineの色がPmenuSelになってしまう
+    " uniteの選択のカラー(color)をPmenuSelにする。uniteバッファ以外もCursorLineの色がPmenuSelになってしまう
     " augroup MyVimrc
     "     autocmd Filetype unite hi! link CursorLine PmenuSel
     "     autocmd BufLeave \[unite\]* highlight! link CursorLine NONE
@@ -2243,8 +2254,15 @@ if IsInstalled('unite-zsh-cdr.vim')
     let g:unite_zsh_cdr_chpwd_recent_dirs = g:recent_dirs_file
 endif
 
+" Denite.nvim {{{
+" ============================================================================
+if IsInstalled('denite.nvim')
+  nnoremap [unite]gp :<C-u>DeniteProjectDir grep<CR>
+  nnoremap [unite]gc :<C-u>Denite grep<CR>
+endif
+
 " vimfiler {{{1
-" ==============================================================================
+" ============================================================================
 let g:vimfiler_as_default_explorer = 1
 " セーフモードを無効にした状態で起動する
 let g:vimfiler_safe_mode_by_default = 0

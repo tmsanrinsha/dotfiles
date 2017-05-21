@@ -605,14 +605,19 @@ hook_source = '''
         \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
 '''
 
-[[plugins]]
-repo = 'tmsanrinsha/github-complete.vim'
-on_ft = ['markdown', 'gitcommit']
+# [[plugins]]
+# repo = 'tmsanrinsha/github-complete.vim'
+# on_ft = ['markdown', 'gitcommit']
 # }}}
 
 [[plugins]]
 repo = 'lilydjwg/colorizer'
 on_cmd = ['ColorHighlight', 'ColorToggle']
+
+[[plugins]]
+repo = 'tmsanrinsha/SyntaxRange'
+on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
+on_func = ['SyntaxRange']
 
 [[plugins]]
 repo = 'epeli/slimux'

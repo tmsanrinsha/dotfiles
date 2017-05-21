@@ -71,6 +71,10 @@ repo = 'Shougo/neoinclude.vim'
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
+# [[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+# repo = 'osyo-manga/vim-precious'
+# depends = ['context_filetype.vim']
+
 # snippet {{{1
 # ============================================================================
 [[plugins]]
@@ -140,6 +144,9 @@ repo = 'ciaranm/detectindent'
 # repo = 'tpope/vim-sleuth'
 # }}}
 
+[[plugins]]
+repo = 'kana/vim-submode'
+
 # [[plugins]]
 # repo = 'osyo-manga/vim-anzu'
 
@@ -171,6 +178,10 @@ repo = 'tmsanrinsha/vim-emacscommandline'
 repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_manual_only = 1
+let g:rooter_patterns = [
+\ '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/',
+\ 'composer.json'
+\]
 '''
 
 [[plugins]]

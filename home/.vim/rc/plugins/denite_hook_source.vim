@@ -4,6 +4,8 @@ call denite#custom#map('insert', '<Esc>', '<denite:enter_mode:normal>', 'noremap
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
 
+call denite#custom#map('normal', 'Q', '<denite:do_action:quickfix>', 'noremap')
+
 " grep {{{1
 " ============================================================================
 if executable('ag')
