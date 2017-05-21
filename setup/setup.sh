@@ -106,9 +106,10 @@ if [ $link -eq 1 ]; then
     exit
 fi
 
-# env_cache.shのクリア {{{1
+# その他 {{{1
 # ============================================================================
 : > ~/.sh/env_cache.sh
+mkdir -p ~/tmp
 
 # GitHubのreleaseパッケージのインストールスクリプト {{{1
 # ============================================================================
@@ -142,13 +143,10 @@ if  command_exists zsh; then
   zsh $ZDOTDIR/zplug.zsh
 fi
 
-# macのcronでPATHを設定するため
-# 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
-# - http://koseki.hatenablog.com/entry/20081201/macportPath
-# 高速化のために
-# /etc/zprofileで毎回呼ぶのではなく
-# setopt no_global_rcs
-# で読み込まないようにして、ここで設定する
+# [.zshenv で PATH を管理したら罠にハマった - 大学生からの Web 開発](http://karur4n.hatenablog.com/entry/2016/01/18/100000)
+# zshenvに
+#   setopt no_global_rcs
+# を書く。起動するたびに呼ぶと遅いので、ここで出力して読み込む
 if [ -x /usr/libexec/path_helper ]; then
   /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
 fi
