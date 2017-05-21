@@ -50,7 +50,7 @@ function myplug() {
     local plugin=$1
     local dir=$2
 
-    if type git 1>/dev/null 2>&1; then
+    if ! type git 1>/dev/null 2>&1; then
         return
     fi
 
@@ -169,6 +169,7 @@ if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
     fi
 
     ghq get -u vimpr/vimperator-plugins
+    mkdir -p $vimperatordir/plugin
     ln -fs ~/src/github.com/vimpr/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
 fi
 
