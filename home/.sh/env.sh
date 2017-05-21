@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+# env_cache.sh {{{1
+# ============================================================================
+if [ -f ~/.sh/env_cache.sh ]; then
+  . ~/.sh/env_cache.sh
+fi
+
 # osの判定 {{{1
 # ============================================================================
 if [[ "$OSTYPE" =~ darwin ]]; then
@@ -214,12 +221,6 @@ export JUNKFILE="$HOME/work"
 if [ "$os" = mac ]; then
     export DATABASE_URL="postgres:///$USER"
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-fi
-
-# env_cache.sh {{{1
-# ============================================================================
-if [ -f ~/.sh/env_cache.sh ]; then
-    . ~/.sh/env_cache.sh
 fi
 
 # $HOME/bin, $HOME/local/bin {{{1
