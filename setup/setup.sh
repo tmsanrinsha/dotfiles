@@ -149,9 +149,9 @@ fi
 # /etc/zprofileで毎回呼ぶのではなく
 # setopt no_global_rcs
 # で読み込まないようにして、ここで設定する
-# if [ -x /usr/libexec/path_helper ]; then
-#   /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
-# fi
+if [ -x /usr/libexec/path_helper ]; then
+  /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
+fi
 
 if command_exists npm && ! test -f $ZDOTDIR/completion/npm.zsh ; then
     npm completion > $ZDOTDIR/completion/npm.zsh
@@ -280,8 +280,8 @@ fi
 # ============================================================================
 if [ -x /usr/libexec/java_home ]; then
   cat <<EOT >> ~/.sh/env_cache.sh
-  export JAVA_HOME="$(/usr/libexec/java_home)"
-  export PATH="$JAVA_HOME/bin:$PATH"
+export JAVA_HOME="$(/usr/libexec/java_home)"
+export PATH="$JAVA_HOME/bin:$PATH"
 EOT
 fi
 
