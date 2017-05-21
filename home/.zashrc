@@ -15,11 +15,9 @@
 # する
 export LANG='ja_JP.UTF-8'
 
-# . ~/.sh/env.sh
-# . ~/.sh/alias.sh
-
 # alias {{{
 # ============================================================================
+. ~/.sh/alias.sh
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
 # shell scriptなどでaliasが実行されないようにする
 if ls --version | grep GNU 1>/dev/null 2>&1; then

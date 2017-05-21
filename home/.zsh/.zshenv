@@ -2,15 +2,16 @@
 #   https://tmsanrinsha.net/post/2017/03/zsh-profile/
 if [[ "$PROFILE_STARTUP" == true ]]; then
   zmodload zsh/zprof
-  PS4=$'%D{%M%S%.} %N:%i> '
-  exec 3>&2 2>$HOME/tmp/startlog
+  PS4=$'%D{%s%.} %N:%i> '
+  exec 3>&2 2>$HOME/tmp/zsh_profile
   setopt xtrace prompt_subst
 fi
 
-. ~/.sh/env.sh
-. ~/.sh/alias.sh
+if [ -f ~/.zashenv ]; then
+    . ~/.zashenv
+fi
 
-if [ $os = mac ]; then
+if [[ "$os" = mac ]]; then
     # In order to use this build of zsh as your login shell,
     # it must be added to /etc/shells.
     # Add the following to your zshrc to access the online help:
@@ -22,9 +23,6 @@ if [ $os = mac ]; then
 fi
 
 # zshでログイン・ログアウト時に実行されるファイル - Qiita <http://qiita.com/yuku_t/items/40bcc63bb8ad94f083f1>
-# if [ -f ~/.zashenv ]; then
-#     . ~/.zashenv
-# fi
 
 if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local

@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # osの判定 {{{1
 # ============================================================================
-case "$(uname)" in
+if [[ "$OSTYPE" =~ darwin ]]; then
+  os=mac
+else
+  case "$(uname)" in
     Linux)   os='linux'   ;;
     Darwin)  os='mac'     ;;
     FreeBSD) os='freebsd' ;;
     CYGWIN*) os='cygwin'  ;;
-esac
+  esac
+fi
 
 # コマンドの存在チェック {{{1
 # ============================================================================
@@ -52,19 +56,11 @@ pathmungeR () {
 # pathmungeR "$HOME/script/pseudo" after
 
 
-if [[ `uname` = CYGWIN* ]]; then
+if [[ "$os" = cygwin ]]; then
     # Cygwin用のコマンドを置くディレクトリ
     # pathmungeR "$HOME/script/cygwin"
     :
-elif [[ $OSTYPE == darwin* ]]; then
-    # macのcronでPATHを設定するため
-    # macのzshが/etc/zprofileを読んでない
-    # 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
-    # - http://koseki.hatenablog.com/entry/20081201/macportPath
-    if [ -x /usr/libexec/path_helper ]; then
-        eval `/usr/libexec/path_helper -s`
-    fi
-
+elif [[ "$os" == mac ]]; then
     # Mac用のコマンドを置くディレクトリ
     pathmunge "$HOME/script/mac"
 
@@ -125,11 +121,6 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Java {{{1
 # ============================================================================
-if [ -x /usr/libexec/java_home ]; then
-  export JAVA_HOME="$(/usr/libexec/java_home)"
-  export PATH=$JAVA_HOME/bin:$PATH
-fi
-
 export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -Duser.language=en"
 
 # Elasticsearch {{{1
@@ -148,7 +139,10 @@ fi
 # ============================================================================
 if command_exists perl; then
     # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
-    alias perl-pm-list="find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\""
+    function perl-pm-list {
+      find `perl -e 'print "@INC"' | sed -e 's/ .$//'` -type f -name \"*.pm\"
+    }
+
     function perl-pm-version {
         perl -M$1 -e 'print $'"$1::VERSION"' . "\n"'
     }
@@ -222,10 +216,10 @@ if [ "$os" = mac ]; then
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi
 
-# cache.sh {{{1
+# env_cache.sh {{{1
 # ============================================================================
-if [ -f ~/.sh/cache.sh ]; then
-    . ~/.sh/cache.sh
+if [ -f ~/.sh/env_cache.sh ]; then
+    . ~/.sh/env_cache.sh
 fi
 
 # $HOME/bin, $HOME/local/bin {{{1

@@ -1,3 +1,5 @@
+. ~/.sh/env.sh
+
 if [ -f ~/.zashenv.local ]; then
     . ~/.zashenv.local
 fi

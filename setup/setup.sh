@@ -106,7 +106,12 @@ if [ $link -eq 1 ]; then
     exit
 fi
 
-# GitHubのreleaseパッケージのインストールスクリプト
+# env_cache.shのクリア {{{1
+# ============================================================================
+: > ~/.sh/env_cache.sh
+
+# GitHubのreleaseパッケージのインストールスクリプト {{{1
+# ============================================================================
 if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/ghinst/.git ]; then
     cd $SRC_ROOT/github.com/tmsanrinsha
     git clone https://github.com/tmsanrinsha/ghinst.git
@@ -116,10 +121,12 @@ fi
 # b4b4r07/cli
 # https://github.com/b4b4r07/cli
 
+# ghq {{{1
+# ============================================================================
 command_exists ghq || ghinst motemen/ghq || error 'Failed: ghinst motemen/ghq'
 
-ghq get -u tmsanrinsha/tmux_multi
-ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
+# ghq get -u tmsanrinsha/tmux_multi
+# ln -sf $SRC_ROOT/github.com/tmsanrinsha/tmux_multi/tmux_multi ~/bin
 
 # zsh {{{1
 # ============================================================================
@@ -134,6 +141,17 @@ if  command_exists zsh; then
   fi
   zsh $ZDOTDIR/zplug.zsh
 fi
+
+# macのcronでPATHを設定するため
+# 最近のMac OSXで、PATHをスマート(?)に管理するやり方。 - こせきの技術日記
+# - http://koseki.hatenablog.com/entry/20081201/macportPath
+# 高速化のために
+# /etc/zprofileで毎回呼ぶのではなく
+# setopt no_global_rcs
+# で読み込まないようにして、ここで設定する
+# if [ -x /usr/libexec/path_helper ]; then
+#   /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
+# fi
 
 if command_exists npm && ! test -f $ZDOTDIR/completion/npm.zsh ; then
     npm completion > $ZDOTDIR/completion/npm.zsh
@@ -258,12 +276,19 @@ elif [ $os == mac ]; then
     fi
 fi
 
-: > ~/.sh/cache.sh
+# Java {{{1
+# ============================================================================
+if [ -x /usr/libexec/java_home ]; then
+  cat <<EOT >> ~/.sh/env_cache.sh
+  export JAVA_HOME="$(/usr/libexec/java_home)"
+  export PATH="$JAVA_HOME/bin:$PATH"
+EOT
+fi
 
-# PHP
+# PHP {{{1
 # ============================================================================
 if command_exists php; then
-  echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/cache.sh
+  echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/env_cache.sh
 fi
 
 # Python {{{1
