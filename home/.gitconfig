@@ -73,10 +73,8 @@
 # githubでhttpsのURLを指定してもgitプロトコルやssh経由にする方法 - @znz blog
 # http://blog.n-z.jp/blog/2013-11-28-git-insteadof.html
 [url "git@github.com:"]
-  pushInsteadOf = git://github.com/
-  pushInsteadOf = https://github.com/
-[url "git://github.com/"]
-  insteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
+
 [init]
 	templatedir = ~/.git_template
 
