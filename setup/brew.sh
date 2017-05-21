@@ -32,11 +32,12 @@ brew tap homebrew/homebrew-php
 brew tap homebrew/science
 
 brew-install ag
-brew-install ant
+# brew-install ant
 brew-install coreutils
 # brew tap ethereum/ethereum
 # brew-install ethereum
 brew-install diffutils
+brew-install git
 brew-install gnu-sed
 brew-install go
 brew-install graphviz
@@ -57,13 +58,6 @@ brew-install tmux
 brew-install tree
 brew-install wget
 brew-install zsh
-
-# [Patched ctags · shawncplus/phpcomplete.vim Wiki](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
-if ! test -f /usr/local/Library/Formula/ctags-better-php.rb; then
-    curl https://raw.githubusercontent.com/shawncplus/phpcomplete.vim/master/misc/ctags-better-php.rb > /usr/local/Library/Formula/ctags-better-php.rb
-    echo ctags-better-php.rb >> /usr/local/Library/Formula/.gitignore
-    brew install ctags-better-php
-fi
 
 ## caskroom/cask
 # brew-install caskroom/cask/brew-cask
