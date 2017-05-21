@@ -12,7 +12,11 @@ fi
 # zplug {{{1
 # ============================================================================
 if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
-    source $ZDOTDIR/zplug.zsh
+  source $ZDOTDIR/zplug.zsh
+else
+  # [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
+  # によれば、zprogがcompinitはしてくれているので必要ない
+  autoload -U compinit && compinit
 fi
 
 
@@ -174,10 +178,6 @@ SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
 # }}}
 # complete {{{1
 # ============================================================================
-# [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
-# によれば、zprogがcompinitはしてくれているので必要ない
-# autoload -U compinit && compinit
-
 # bash用の補完を使うためには以下の設定をする
 # https://github.com/dsanson/pandoc-completion
 # autoload bashcompinit
