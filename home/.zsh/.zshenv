@@ -7,7 +7,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
   setopt xtrace prompt_subst
 fi
 
-if [ -f ~/.zashenv ]; then
+if [[ -f ~/.zashenv ]]; then
     . ~/.zashenv
 fi
 
@@ -24,6 +24,6 @@ fi
 
 # zshでログイン・ログアウト時に実行されるファイル - Qiita <http://qiita.com/yuku_t/items/40bcc63bb8ad94f083f1>
 
-if [ -f ~/.zashenv.local ]; then
+if [[ -f ~/.zashenv.local ]]; then
     . ~/.zashenv.local
 fi

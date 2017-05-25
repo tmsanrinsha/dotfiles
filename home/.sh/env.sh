@@ -69,9 +69,9 @@ if [[ "$os" = cygwin ]]; then
     :
 elif [[ "$os" == mac ]]; then
     # Mac用のコマンドを置くディレクトリ
-    pathmunge "$HOME/script/mac"
+    # pathmunge "$HOME/script/mac"
 
-    pathmunge '/usr/local/sbin'
+    # pathmunge '/usr/local/sbin'
 
     # coreutils
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -207,7 +207,7 @@ fi
 
 if [ -x "$macvim_dir/Vim" ]; then
     export EDITOR="$macvim_dir/Vim"
-    pathmunge $macvim_dir
+    export PATH="$macvim_dir:$PATH"
     alias vim="$macvim_dir/Vim"
     unset macvim_dir
 else
@@ -218,7 +218,7 @@ export JUNKFILE="$HOME/work"
 
 # postgres {{{1
 # ============================================================================
-if [ "$os" = mac ]; then
+if [[ "$os" = mac ]]; then
     export DATABASE_URL="postgres:///$USER"
     export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi

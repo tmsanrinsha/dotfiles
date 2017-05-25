@@ -151,8 +151,13 @@ if [ -x /usr/libexec/path_helper ]; then
   /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
 fi
 
-if command_exists npm && ! test -f $ZDOTDIR/completion/npm.zsh ; then
+if command_exists npm; then
+  if ! test -f $ZDOTDIR/completion/npm.zsh ; then
     npm completion > $ZDOTDIR/completion/npm.zsh
+  fi
+  pushd ~
+  npm install jsonlint
+  popd
 fi
 
 if command_exists kubectl && ! test -f $ZDOTDIR/completion/kubectl.zsh ; then
