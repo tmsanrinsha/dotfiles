@@ -306,7 +306,7 @@ build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
 # ============================================================================
 [[plugins]]
 repo = 'mkusher/padawan.vim'
-if = '$PHP55'
+if = '$PHP55 && has("python")'
 on_ft = 'php'
 hook_source = '''
 let g:padawan#enabled = 1
