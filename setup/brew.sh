@@ -67,16 +67,16 @@ brew-install zsh
 
 # brew-cask-install alfred
 # brew-cask-install bettertouchtool
-# brew-cask-install clipmenu
 # brew cask install firefox
 # brew cask install google-chrome
 # brew cask install google-japanese-ime
-# brew cask install karabiner
-# brew cask install playonmac
+# brew cask install java
+
+# brew-cask-install evernote
+
 # # formuraでもinstallできる
 # brew-cask-install pandoc
 
-# brew-cask-install evernote
 
 # brew-cask-install android-studio
 # brew-cask-install cheatsheet
