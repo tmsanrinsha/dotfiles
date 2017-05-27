@@ -5,6 +5,8 @@ if ctags --version | grep Universal >/dev/null 2>&1; then
     new=1
 fi
 
+exec 1>~/.ctags
+
 cat <<EOT
 --tag-relative=yes
 --recurse=yes
@@ -16,8 +18,11 @@ EOT
 # PHP {{{1
 # ============================================================================
 if [ $new -eq 1 ]; then
-    cat <<EOT
+  # kindの（namespaceの）aliasがあるとuseにマッチしすぎるので外す
+  # ctags --list-kinds-full=php で使えるkindが表示できる
+  cat <<EOT
 --fields=+aimS
+--php-kinds=-a
 EOT
 else
     cat <<EOT

@@ -99,7 +99,7 @@ fi
 if [ -L "$HOME/.ctags" ]; then
     rm "$HOME/.ctags"
 fi
-$setup_dir/make_.ctags.sh > ~/.ctags
+$setup_dir/make_.ctags.sh
 # }}}
 
 if [ $link -eq 1 ]; then
