@@ -68,11 +68,11 @@ let g:neocomplete#sources#dictionary#dictionaries.vimshell = $HOME.'/.vimshell_h
 " defaultの値は ~/.vim/bundle/neocomplete.vim/autoload/neocomplete/sources/ 以下で確認
 " ファイル名補完
 call neocomplete#custom#source('vim',          'rank', 500)
+call neocomplete#custom#source('omni',         'rank', 500)
 call neocomplete#custom#source('file',         'rank', 450)
 call neocomplete#custom#source('neosnippet',   'rank', 440)
 call neocomplete#custom#source('member',       'rank', 430)
 call neocomplete#custom#source('buffer',       'rank', 420)
-call neocomplete#custom#source('omni',         'rank', 410)
 call neocomplete#custom#source('file/include', 'rank', 370)
 call neocomplete#custom#source('tag',          'rank', 360)
 call neocomplete#custom#source('syntax',       'rank', 300)
