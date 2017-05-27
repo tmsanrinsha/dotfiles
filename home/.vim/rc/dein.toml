@@ -145,7 +145,22 @@ repo = 'ciaranm/detectindent'
 # }}}
 
 [[plugins]]
-repo = 'kana/vim-submode'
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+    map ' <Plug>(easymotion-s2)
+    map f <Plug>(easymotion-fl)
+    map t <Plug>(easymotion-tl)
+    nmap ct c<Plug>(easymotion-tl)
+    map F <Plug>(easymotion-Fl)
+    map T <Plug>(easymotion-Tl)
+    " map ' <Plug>(easymotion-bd-jk)
+    let g:EasyMotion_smartcase = 1
+    let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
+    let g:EasyMotion_do_mapping = 0
+'''
+
+# [[plugins]]
+# repo = 'kana/vim-submode'
 
 # [[plugins]]
 # repo = 'osyo-manga/vim-anzu'
@@ -424,4 +439,3 @@ repo = 'thinca/vim-localrc'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
-# }}}

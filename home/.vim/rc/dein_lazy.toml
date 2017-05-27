@@ -407,23 +407,6 @@ on_i = 1
 hook_source = 'source ~/.vim/rc/plugins/lexima_hook_source.vim'
 
 [[plugins]]
-repo = 'Lokaltog/vim-easymotion'
-on_map = '<Plug>(easymotion-'
-hook_add = '''
-    map ' <Plug>(easymotion-s2)
-    map f <Plug>(easymotion-fl)
-    map t <Plug>(easymotion-tl)
-    map F <Plug>(easymotion-Fl)
-    map T <Plug>(easymotion-Tl)
-    " map ' <Plug>(easymotion-bd-jk)
-'''
-hook_source = '''
-    let g:EasyMotion_smartcase = 1
-    let g:EasyMotion_keys = 'asdfgghjkl;:qwertyuiop@zxcvbnm,./1234567890-'
-    let g:EasyMotion_do_mapping = 0
-'''
-
-[[plugins]]
 repo = 'thinca/vim-ref'
 on_cmd = ['Ref', 'Man']
 hook_source = '''
