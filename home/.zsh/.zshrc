@@ -845,6 +845,24 @@ if hash peco 2>/dev/null; then
     }
     # }}}
 fi
+
+# Vim {{{1
+# ============================================================================
+# [vimrc のどこが重いのかを調べるもう1つの方法 - 永遠に未完成](http://thinca.hatenablog.com/entry/20120316/1331836420)
+function vim-profile() {
+  local profile=~/tmp/vim_profile
+  test -f $profile && \rm $profile
+  vim --startuptime $profile +q
+  vim $profile
+  # :sort f /^.\{18\}\zs./
+}
+
+function vim-profile-vimrc() {
+  local profile=~/tmp/vim_profile_vimrc
+  test -f $profile && \rm $profile
+  vim --cmd "profile start $profile" --cmd "profile file $HOME/.vim/vimrc" +q
+  vim $profile
+}
 # }}}
 
 # if [ -f $ZDOTDIR/plugin/z.sh ]; then
