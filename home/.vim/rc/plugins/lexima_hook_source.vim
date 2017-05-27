@@ -170,6 +170,11 @@ call lexima#add_rule(s:make_rule('^\s*\%(begin\)\s*\%#', 'end', 'ruby.chef', [])
 call lexima#add_rule(s:make_rule('\%(^\s*#.*\)\@<!do\%(\s*|.*|\)\?\s*\%#', 'end', 'ruby.chef', []))
 call lexima#add_rule(s:make_rule('\<\%(if\|unless\)\>.*\%#', 'end', 'ruby.chef', 'rubyConditionalExpression'))
 
+" expand {{{1
+" ----------------------------------------------------------------------------
+iunmap \[
+iunmap \]
+
 " neocomplete.vimとの連携 {{{1
 " ============================================================================
 " これで出来そう
