@@ -34,6 +34,7 @@ endif
 "     set runtimepath-=$VIM/plugins/vimproc
 " endif
 
+call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
@@ -2257,8 +2258,10 @@ endif
 " Denite.nvim {{{
 " ============================================================================
 if IsInstalled('denite.nvim')
-  nnoremap [unite]gp :<C-u>DeniteProjectDir grep<CR>
+  nnoremap [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
   nnoremap [unite]gc :<C-u>Denite grep<CR>
+  nnoremap [unite]fh :<C-u>Denite mtime:<C-r>=g:hugo_post_directory<CR><CR>
+  nnoremap [unite]gh :<C-u>Denite grep:<C-r>=g:hugo_post_directory<CR><CR>
 endif
 
 " vimfiler {{{1
