@@ -44,6 +44,7 @@ brew-install graphviz
 brew-install hub
 brew-install jq
 brew-install lftp
+brew-install mysql
 brew-install nkf
 brew-install node
 brew-install pwgen
