@@ -1,12 +1,14 @@
 progname=$(basename $0)
 
 usage() {
-    echo "Usage: $progname [OPTIONS] FILE"
-    echo
-    echo "Options:"
-    echo "  -h, --help"
-    echo "  -n, --dry-run"
-    echo
+  cat <<EOT
+Usage: $progname [OPTIONS] FILE
+
+Options:
+  -h, --help
+  -n, --dry-run
+EOT
+
     exit 1
 }
 
@@ -14,7 +16,6 @@ for OPT in "$@"
 do
     case "$OPT" in
         '-h'|'--help' )
-            usage
             exit 1
             ;;
         '-n'|'--dry-run' )
