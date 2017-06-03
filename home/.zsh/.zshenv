@@ -7,8 +7,8 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
   setopt xtrace prompt_subst
 fi
 
-if [[ -f ~/.zashenv ]]; then
-    . ~/.zashenv
+if [[ -f ~/.sh/env.sh ]]; then
+    . ~/.sh/env.sh
 fi
 
 if [[ "$os" = mac ]]; then
@@ -24,6 +24,6 @@ fi
 
 # zshでログイン・ログアウト時に実行されるファイル - Qiita <http://qiita.com/yuku_t/items/40bcc63bb8ad94f083f1>
 
-if [[ -f ~/.zashenv.local ]]; then
-    . ~/.zashenv.local
+if [[ -f ~/.sh/env_local.sh ]]; then
+    . ~/.sh/env_local.sh
 fi

@@ -10,8 +10,8 @@
 #     done
 # fi
 #
-# if [ -f ~/.zash_profile.local ];then
-#     . ~/.zash_profile.local
+# if [ -f ~/.sh/logout_local.sh ];then
+#     . ~/.sh/logout_local.sh
 # fi
 
 # vim:filetype=sh

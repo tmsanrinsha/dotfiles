@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bash, zsh共通設定
 
-# .zashenvに設定するとDirDiff.vimでのLANG設定(https://github.com/tmsanrinsha/DirDiff.vim/commit/84f11927ae9a915cd7a0d330a1abba26a9982e32)を上書きしてしまうのでここに書く
+# .sh/env.shに設定するとDirDiff.vimでのLANG設定(https://github.com/tmsanrinsha/DirDiff.vim/commit/84f11927ae9a915cd7a0d330a1abba26a9982e32)を上書きしてしまうのでここに書く
 # 以下のようなエラーが出る場合は
 #   perl: warning: Setting locale failed.
 #   perl: warning: Please check that your locale settings:
@@ -142,16 +142,16 @@ if [ "$os" = mac ]; then
     }
 fi
 
-# .zashrc.cygwin {{{1
+# .sh/rc_cygwin.sh {{{1
 # ============================================================================
-if [[ `uname` = CYGWIN* && -f ~/.zashrc.cygwin ]]; then
-    . ~/.zashrc.cygwin
+if [[ `uname` = CYGWIN* && -f ~/.sh/rc_cygwin.sh ]]; then
+    . ~/.sh/rc_cygwin.sh
 fi
 
-# .zashrc.local {{{1
+# .sh/rc_local.sh {{{1
 # ============================================================================
-if [ -f ~/.zashrc.local ]; then
-    . ~/.zashrc.local
+if [ -f ~/.sh/rc_local.sh ]; then
+    . ~/.sh/rc_local.sh
 fi
 
 # if [ $SHLVL -eq 1 ]; then # tmux, screenを起動していないとき

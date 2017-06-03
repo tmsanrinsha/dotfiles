@@ -10,8 +10,8 @@ if [[ `hostname` == *ua.sakura.ne.jp ]]; then
     fi
 fi
 
-if [ -f ~/.zash_logout.local ]; then
-    . ~/.zash_logout.local
+if [ -f ~/.sh/logout_local.sh ]; then
+    . ~/.sh/logout_local.sh
 fi
 
 # vim:filetype=sh

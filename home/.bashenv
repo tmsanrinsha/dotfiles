@@ -1,4 +1,4 @@
 shopt -s expand_aliases
-if [ -f ~/.zashenv ]; then
-    . ~/.zashenv
+if [ -f ~/.sh/env.sh ]; then
+    . ~/.sh/env.sh
 fi

@@ -1,3 +1,3 @@
-if [ -f ~/.zash_profile ]; then
-        . ~/.zash_profile
+if [ -f ~/.sh/logout.sh ]; then
+        . ~/.sh/logout.sh
 fi

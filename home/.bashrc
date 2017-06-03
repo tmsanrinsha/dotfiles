@@ -1,10 +1,10 @@
 # 対話シェルもしくはsshのコマンド実行時に読み込まれる
 # bash, zsh共通設定の読み込み
-if [ -f ~/.zashenv ]; then
-    . ~/.zashenv
+if [ -f ~/.sh/env.sh ]; then
+    . ~/.sh/env.sh
 fi
-if [ -f ~/.zashrc ]; then
-    . ~/.zashrc
+if [ -f ~/.sh/rc.sh ]; then
+    . ~/.sh/rc.sh
 fi
 
 # sshのコマンド実行時はこれ以降を読み込ませない

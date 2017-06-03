@@ -2261,7 +2261,7 @@ if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
   nnoremap [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
   nnoremap [unite]gc :<C-u>Denite grep<CR>
-  nnoremap [unite]fh :<C-u>Denite mtime:<C-r>=g:hugo_post_directory<CR><CR>
+  " nnoremap [unite]fh :<C-u>Denite file_rec:<C-r>=g:hugo_post_directory<CR><CR>
   nnoremap [unite]gh :<C-u>Denite grep:<C-r>=g:hugo_post_directory<CR><CR>
 endif
 

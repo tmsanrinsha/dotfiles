@@ -1,6 +1,6 @@
 #bash, zsh共通設定の読み込み
-if [ -f ~/.zashrc ]; then
-    . ~/.zashrc
+if [ -f ~/.sh/rc.sh ]; then
+    . ~/.sh/rc.sh
 fi
 
 if command_exists tac;then
