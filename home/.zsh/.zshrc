@@ -9,17 +9,6 @@ else
     tac='tail -r'
 fi
 
-# zplug {{{1
-# ============================================================================
-if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
-  source $ZDOTDIR/zplug.zsh
-else
-  # [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
-  # によれば、zprogがcompinitはしてくれているので必要ない
-  autoload -U compinit && compinit
-fi
-
-
 # path {{{1
 # ============================================================================
 # 重複パスの除去
@@ -36,8 +25,15 @@ fpath=(
     $fpath
 )
 
-# ghqの補完
-# fpath=($GOPATH/src/github.com/motemen/ghq/zsh(N) $fpath)
+# zplug {{{1
+# ============================================================================
+if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
+  source $ZDOTDIR/zplug.zsh
+else
+  # [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
+  # によれば、zprogがcompinitはしてくれているので必要ない
+  autoload -U compinit && compinit
+fi
 
 # 基本設定 {{{1
 # ============================================================================
