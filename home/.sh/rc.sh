@@ -109,7 +109,7 @@ if [[ "$SSH_AUTH_SOCK" =~ /tmp/ssh-.*/agent\.[0-9]+ ]]; then
   export SSH_AUTH_SOCK="$HOME/.ssh/auth_sock"
 fi
 
-if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
+if [[ -n "$SSH_AUTH_SOCK" && ! -S "$SSH_AUTH_SOCK" ]]; then
   for s in /tmp/ssh-*/agent.[0-9]*; do
     if [[ -S "$s" ]]; then
       ln -fs "$s" "$HOME/.ssh/auth_sock"
