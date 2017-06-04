@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e
+
 PATH="/Applications/MacVim.app/Contents/MacOS:/usr/local/bin:/usr/bin:$PATH"
 
 if ! ctags --version | grep 'Exuberant Ctags' 1>/dev/null 2>&1; then
@@ -8,6 +9,12 @@ if ! ctags --version | grep 'Exuberant Ctags' 1>/dev/null 2>&1; then
 fi
 
 cd "$(dirname "${BASH_SOURCE:-$0}")"; cd ../../
+
+if test -f .git/tags.* >/dev/null 2>&1; then
+  echo 'Already running'
+  exit
+fi
+
 trap "rm -f .git/tags.$$" EXIT
 ctags --tag-relative=yes -R -f .git/tags.$$ --exclude=.git
 mv .git/tags.$$ .git/tags
