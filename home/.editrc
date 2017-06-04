@@ -1,10 +1,25 @@
-# あんまり変わらない
+bind -v
 # bind -e
 
+bind "^A" ed-move-to-beg
+bind "^B" ed-prev-char
+bind "^C" ed-tty-sigint
+bind "^D" em-delete-or-list
+bind "^E" ed-move-to-end
+bind "^F" ed-next-char
+bind "^I" rl_complete
+bind "^K" ed-kill-line
+bind "^L" ed-clear-screen
 bind '^N' ed-search-next-history
+bind '^O' ed-tty-flush-output
 bind '^P' ed-search-prev-history
 bind '^R' em-inc-search-prev
 bind '^S' em-inc-search-next
+bind '^T' ed-transpose-chars
+bind '^W' ed-delete-prev-word
+bind '^X' ed-sequence-lead-in
+bind '^Y' em-yank
+
 
 mysql:bind -s "^xd" "show databases;"
 mysql:bind -s "^xt" "show tables;"
