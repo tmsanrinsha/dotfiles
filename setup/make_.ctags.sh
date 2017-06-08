@@ -12,7 +12,7 @@ cat <<EOT
 --recurse=yes
 --exclude=.svn
 --exclude=.git
---langmap=C:+.mq4
+--langmap=c:+.mq4
 EOT
 
 # PHP {{{1
@@ -22,12 +22,12 @@ if [ $new -eq 1 ]; then
   # ctags --list-kinds-full=php で使えるkindが表示できる
   cat <<EOT
 --fields=+aimS
+--langmap=php:+.inc.tpl.conf
 --php-kinds=-a
 EOT
 else
     cat <<EOT
 --php-kinds=cidfv
---langmap=PHP:+.inc.tpl
 --regex-php=/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i
 --regex-php=/^[ \t]*abstract class ([^ ]*)/\1/c/
 --regex-php=/^[ \t]*interface ([^ ]*)/\1/c/
@@ -35,15 +35,14 @@ else
 EOT
 fi
 
-# JavaSctipt {{{1
+# JavaScript {{{1
 # ============================================================================
 # Using ctags on modern Javascript
 # http://raygrasso.com/posts/2015/04/using-ctags-on-modern-javascript.html
 cat <<EOT
 --languages=-javascript
 --langdef=js
---langmap=js:.js
---langmap=js:+.jsx
+--langmap=js:+.js.jsx
 EOT
 
 #

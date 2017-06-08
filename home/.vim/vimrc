@@ -917,6 +917,8 @@ if has('path_extra')
     set tags+=~/tags
 endif
 
+nnoremap <C-w>g] :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+
 function! s:ctags(dir)
     call system('ctags -R -f ~/tags "'.fnamemodify(a:dir, ':p').'" &')
 endfunction
