@@ -76,7 +76,7 @@ $home/bin/makelink.sh $home
 
 # vim {{{2
 # ----------------------------------------------------------------------------
-if [ $os == mac ]; then
+if [ "$os" == mac ]; then
     ln -fs ~/_gvimrc ~/.gvimrc
 fi
 
@@ -166,8 +166,8 @@ fi
 
 # vimperator {{{1
 # ============================================================================
-if [[ `uname` = CYGWIN* || `uname` = Darwin ]]; then
-    if [[ `uname` = CYGWIN* ]]; then
+if [[ "$os" = msys || "$os" = mac ]]; then
+    if [[ "$os" = msys ]]; then
         vimperatordir="$HOME/vimperator"
     else
         vimperatordir="$HOME/.vimperator"
@@ -186,11 +186,12 @@ install 'https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master
 # https://github.com/nferraz/st/pull/13
 install 'https://raw.githubusercontent.com/creaktive/st/3f4091c2fd68723e01a2064d60913689ca96c491/script/st-standalone' st
 
-if [ $os == mac ]; then
+if [ "$os" == mac ]; then
     url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-osx-amd64'
-elif [ $os == linux ]; then
+elif [ "$os" == linux ]; then
     url='https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64'
 fi
+
 install $url jq
 
 command_exists pt     || ghinst monochromegane/the_platinum_searcher
@@ -261,7 +262,7 @@ if [[ `uname` = CYGWIN* ]]; then
 
 # mac {{{1
 # ============================================================================
-elif [ $os == mac ]; then
+elif [ "$os" == mac ]; then
     if [ ! -x ~/bin/rmtrash ];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash

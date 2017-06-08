@@ -10,10 +10,11 @@ fi
 # ============================================================================
 if [[ "$OSTYPE" =~ darwin ]]; then
   os=mac
+elif [[ "$OSTYPE" == msys ]]; then
+  os=msys
 else
   case "$(uname)" in
     Linux)   os='linux'   ;;
-    Darwin)  os='mac'     ;;
     FreeBSD) os='freebsd' ;;
     CYGWIN*) os='cygwin'  ;;
   esac
