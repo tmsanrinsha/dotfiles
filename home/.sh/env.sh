@@ -141,6 +141,8 @@ export PATH=$ES_HOME/bin:$PATH
 # ============================================================================
 if command_exists npm; then
   export PATH="$HOME/node_modules/.bin:$PATH"
+  # これをやってもコマンド補完の候補に出てこない&コマンドが正しいかを毎回聞かれる
+  # export PATH="./node_modules/.bin:$PATH"
 fi
 
 # Perl {{{1

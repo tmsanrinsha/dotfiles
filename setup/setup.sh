@@ -140,7 +140,7 @@ if  command_exists zsh; then
   if [ ! -d ~/.zplug ]; then
     git clone https://github.com/zplug/zplug ~/.zplug
   fi
-  zsh $ZDOTDIR/zplug.zsh
+  zsh $ZDOTDIR/zplug/zplug.zsh
 fi
 
 # [.zshenv で PATH を管理したら罠にハマった - 大学生からの Web 開発](http://karur4n.hatenablog.com/entry/2016/01/18/100000)
@@ -149,15 +149,6 @@ fi
 # を書く。起動するたびに呼ぶと遅いので、ここで出力して読み込む
 if [ -x /usr/libexec/path_helper ]; then
   /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
-fi
-
-if command_exists npm; then
-  if ! test -f $ZDOTDIR/completion/npm.zsh ; then
-    npm completion > $ZDOTDIR/completion/npm.zsh
-  fi
-  pushd ~
-  npm install jsonlint
-  popd
 fi
 
 if command_exists kubectl && ! test -f $ZDOTDIR/completion/kubectl.zsh ; then
@@ -235,9 +226,43 @@ fi
 # Golang {{{1
 command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
 
+# Java {{{1
+# ============================================================================
+if [ -x /usr/libexec/java_home ]; then
+  cat <<EOT >> ~/.sh/env_cache.sh
+export JAVA_HOME="$(/usr/libexec/java_home)"
+export PATH="$JAVA_HOME/bin:$PATH"
+EOT
+fi
+
+# Node.js {{{1
+# ============================================================================
+if command_exists npm; then
+  if ! test -f $ZDOTDIR/completion/npm.zsh ; then
+    npm completion > $ZDOTDIR/completion/npm.zsh
+  fi
+  if [[ "$os" == mac ]]; then
+    npm install eslint -g
+    npm install eslint-plugin-node -g
+  fi
+fi
+
+# PHP {{{1
+# ============================================================================
+if command_exists php; then
+  echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/env_cache.sh
+fi
+
+# Python {{{1
+# ============================================================================
+# pip3 install numpy
+# pip3 install scipy
+# pip3 install matplotlib
+# pip3 install scikit-lern
+
 # CYGWIN {{{1
 # ============================================================================
-if [[ `uname` = CYGWIN* ]]; then
+if [[ "$os" = CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         $downloader https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
@@ -262,8 +287,8 @@ if [[ `uname` = CYGWIN* ]]; then
 
 # mac {{{1
 # ============================================================================
-elif [ "$os" == mac ]; then
-    if [ ! -x ~/bin/rmtrash ];then
+elif [[ "$os" == mac ]]; then
+    if [[ ! -x ~/bin/rmtrash ]];then
         $downloader https://raw.githubusercontent.com/dankogai/osx-mv2trash/master/bin/mv2trash > ~/bin/rmtrash
         chmod a+x ~/bin/rmtrash
     fi
@@ -280,28 +305,6 @@ elif [ "$os" == mac ]; then
         ./brew.sh -b
     fi
 fi
-
-# Java {{{1
-# ============================================================================
-if [ -x /usr/libexec/java_home ]; then
-  cat <<EOT >> ~/.sh/env_cache.sh
-export JAVA_HOME="$(/usr/libexec/java_home)"
-export PATH="$JAVA_HOME/bin:$PATH"
-EOT
-fi
-
-# PHP {{{1
-# ============================================================================
-if command_exists php; then
-  echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/env_cache.sh
-fi
-
-# Python {{{1
-# ============================================================================
-# pip3 install numpy
-# pip3 install scipy
-# pip3 install matplotlib
-# pip3 install scikit-lern
 
 # remote2local {{{1
 # ============================================================================

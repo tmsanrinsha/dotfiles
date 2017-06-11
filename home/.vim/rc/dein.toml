@@ -421,7 +421,7 @@ repo = 'cespare/vim-toml'
 # [[plugins]]
 # repo = 'evidens/vim-twig'
 
-# vim {{{2
+# Vim {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'

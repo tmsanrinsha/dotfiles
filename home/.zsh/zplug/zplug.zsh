@@ -1,6 +1,6 @@
 # $ZPLUG_LOADFILEがないと遅くなるので、使う
 # https://github.com/zplug/zplug/issues/368#issuecomment-282566102
-export ZPLUG_LOADFILE="$ZDOTDIR/packages.zsh"
+export ZPLUG_LOADFILE="$ZDOTDIR/zplug/packages.zsh"
 
 source ~/.zplug/init.zsh
 

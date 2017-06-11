@@ -28,7 +28,7 @@ fpath=(
 # zplug {{{1
 # ============================================================================
 if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
-  source $ZDOTDIR/zplug.zsh
+  source $ZDOTDIR/zplug/zplug.zsh
 else
   # [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
   # によれば、zprogがcompinitはしてくれているので必要ない

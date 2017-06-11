@@ -172,10 +172,11 @@ call lexima#add_rule(s:make_rule('\<\%(if\|unless\)\>.*\%#', 'end', 'ruby.chef',
 
 " expand {{{1
 " ----------------------------------------------------------------------------
-if maparg('\[', 'i')
-  iunmap \[
-  iunmap \]
-endif
+" うまくいかない
+" if !maparg('\[', 'i')
+"   iunmap \[
+"   iunmap \]
+" endif
 
 " neocomplete.vimとの連携 {{{1
 " ============================================================================

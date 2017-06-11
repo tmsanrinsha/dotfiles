@@ -2257,10 +2257,12 @@ if IsInstalled('unite-zsh-cdr.vim')
     let g:unite_zsh_cdr_chpwd_recent_dirs = g:recent_dirs_file
 endif
 
-" Denite.nvim {{{
+" Denite.nvim {{{1
 " ============================================================================
+" unite.vimの後で上書きしたいので、tomlではなくここに書く
 if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
+  nnoremap [unite]H :<C-u>Denite help<CR>
   nnoremap [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
   nnoremap [unite]gc :<C-u>Denite grep<CR>
   " nnoremap [unite]fh :<C-u>Denite file_rec:<C-r>=g:hugo_post_directory<CR><CR>
