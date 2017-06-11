@@ -1,3 +1,5 @@
 .DS_Store
 *.swp
 .trash
+node_modules/
+vendor/
