@@ -591,6 +591,10 @@ hook_source = '''
         \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
 '''
 
+[[plugins]]
+repo = 'lambdalisue/vim-gista'
+on_cmd = ['Gista']
+
 # [[plugins]]
 # repo = 'tmsanrinsha/github-complete.vim'
 # on_ft = ['markdown', 'gitcommit']
