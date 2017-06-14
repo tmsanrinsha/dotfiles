@@ -93,7 +93,8 @@ nnoremap ZZ :restart<CR>
 " ============================================================================
 qmark b http://bookstore.yahoo.co.jp/
 qmark c https://www.google.com/calendar/
-qmark d https://github.com/tmsanrinsha/dotfiles
+qmark d https://anime.dmkt-sp.jp/animestore/mp_viw_pc
+qmark D https://github.com/tmsanrinsha/dotfiles
 qmark F https://www.facebook.com/
 qmark f http://finance.yahoo.co.jp/
 qmark h http://b.hatena.ne.jp/tmsanrinsha/bookmark
@@ -102,6 +103,7 @@ qmark M https://mail.google.com/
 qmark n http://www.nicovideo.jp/
 qmark q http://qiita.com/
 qmark s https://tmsanrinsha.net
+qmark S https://www.sbisec.co.jp/ETGate
 qmark t https://twitter.com/
 qmark T http://tv.yahoo.co.jp/listings/realtime/
 qmark v http://www.nicovideo.jp/mylist/9352163
