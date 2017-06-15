@@ -141,7 +141,7 @@ export PATH=$ES_HOME/bin:$PATH
 # ============================================================================
 if command_exists npm; then
   export PATH="$HOME/node_modules/.bin:$PATH"
-  alias npm-path-add="$(npm bin):$PATH"
+  alias npm-path-add='export PATH="$(npm bin):$PATH"'
 fi
 
 # Perl {{{1
