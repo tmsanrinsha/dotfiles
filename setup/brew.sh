@@ -31,34 +31,35 @@ brew tap homebrew/homebrew-php
 # for r
 brew tap homebrew/science
 
-brew-install ag
+brew install ag
 # brew-install ant
-brew-install coreutils
+brew install coreutils
 # brew tap ethereum/ethereum
 # brew-install ethereum
-brew-install diffutils
-brew-install git
-brew-install gnu-sed
-brew-install go
-brew-install graphviz
-brew-install hub
-brew-install jq
-brew-install lftp
-brew-install mysql
-brew-install nkf
-brew-install node
-brew-install pwgen
-brew-install pyenv
-brew-install python
-brew-install r
+brew install diffutils
+brew install git
+brew install gnu-sed
+brew install go
+brew install graphviz
+brew install hub
+brew install jq
+brew install lftp
+brew install mysql
+brew install nkf
+brew install node
+brew install pstree
+brew install pwgen
+brew install pyenv
+brew install python
+brew install r
 brew install reattach-to-user-namespace
-brew-install ruby
-brew-install screen
-brew-install ssh-copy-id
-brew-install tmux
-brew-install tree
-brew-install wget
-brew-install zsh
+brew install ruby
+brew install screen
+brew install ssh-copy-id
+brew install tmux
+brew install tree
+brew install wget
+brew install zsh
 
 ## caskroom/cask
 # brew-install caskroom/cask/brew-cask
