@@ -840,7 +840,7 @@ vnoremap gm :<C-u>normal gm<CR>
 onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
-" cd, diretory, path {{{1
+" cd, file, diretory, path {{{1
 " ============================================================================
 "augroup CD
 "    autocmd!
@@ -866,7 +866,7 @@ cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 " yank file name
 nnoremap yf :let @" = expand("%:t") <Bar> echo 'yanked: ' . expand("%:t")<CR>
 " yank full path of file
-nnoremap yF :let @" = expand('%:p') <Bar> echo 'yanked: ' . expand("%:p")<CR>
+nnoremap yF :let @" = vimrc#full_path() <Bar> echo 'yanked: ' . vimrc#full_path()<CR>
 " yank full path of directory
 nnoremap yd :let @" = expand('%:p:h') <Bar> echo 'yanked: ' . expand("%:p:h")<CR>
 
@@ -2718,7 +2718,8 @@ if !exists('g:projectionist_heuristics')
   let g:projectionist_heuristics = {}
 endif
 
-" Chef repo
+" Chef repo {{{2
+" ----------------------------------------------------------------------------
 let g:projectionist_heuristics['chefignore'] = {
 \ 'attributes/*.rb': {
 \   'type': 'attribute'
@@ -2742,6 +2743,32 @@ let g:projectionist_heuristics['chefignore'] = {
 \   'type': 'template'
 \ },
 \}
+
+" PHP {{{2
+" ----------------------------------------------------------------------------
+let g:projectionist_heuristics['phpunit.xml'] = {
+\   'src/*.php': {
+\     'type': 'src',
+\     'alternate': 'tests/{}Test.php'
+\   },
+\   'tests/*Test.php': {
+\     'type': 'src',
+\     'alternate': 'src/{}.php'
+\   }
+\}
+
+" memo {{{2
+" ----------------------------------------------------------------------------
+let g:projectionist_heuristics['content/'] = {
+\   'content/*.md': {
+\     'type': 'content',
+\     'alternate': 'static/files/{}/'
+\   }
+\}
+
+" complete {{{2
+" ----------------------------------------------------------------------------
+inoremap <expr><C-x><C-a> vimrc#alternate()
 
 " tcomment_vim {{{1
 " ============================================================================
