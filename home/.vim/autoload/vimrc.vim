@@ -6,9 +6,11 @@ function! vimrc#alternate()
   return projectionist#query('alternate')[0][1]
 endfunction
 
+" path {{{1
+" ============================================================================
 function! vimrc#full_path() abort
   if exists('b:vimfiler') && match(b:vimfiler.current_dir, '/static/')
-    let l:dirname = matchstr(b:vimfiler.current_dir, 'static/\zs.*')
+    let l:dirname = matchstr(b:vimfiler.current_dir, '/static\zs/.*')
     let l:filename = matchstr(getline('.'), g:vimfiler_tree_closed_icon . '\?\s\+\zs\F\+')
     return l:dirname . l:filename
   endif

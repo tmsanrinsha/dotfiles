@@ -1418,7 +1418,7 @@ function! s:memo_new(base_dir) abort
     execute 'e ' fnameescape(filename)
 endfunction
 
-let g:memo_directory = expand('~/Dropbox/memo/doc')
+let g:memo_directory = expand('~/Dropbox/memo/content')
 
 command! MemoNew call s:memo_new(g:memo_directory)
 
@@ -1438,12 +1438,12 @@ command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(e
 
 nnoremap [:hugo:] <Nop>
 nmap <Leader>h [:hugo:]
-nnoremap [:hugo:]n :<C-u>HugoNew<CR>
-nnoremap [:hugo:]p :<C-u>HugoPreview<CR>
-nnoremap [:hugo:]o :<C-u>HugoOpen<CR>
-nnoremap [:hugo:]d :<C-u>execute 'QuickRun -type sh -srcfile ' . g:hugo_directory  . '/deploy.sh'<CR>
-nnoremap [unite]fh :<C-u>execute 'Unite mtime:' . g:hugo_post_directory<CR>
-nnoremap [unite]gh :<C-u>execute 'Unite grep:' . g:hugo_post_directory<CR>
+nnoremap <silent> [:hugo:]n :<C-u>HugoNew<CR>
+nnoremap <silent> [:hugo:]p :<C-u>HugoPreview<CR>
+nnoremap <silent> [:hugo:]o :<C-u>HugoOpen<CR>
+nnoremap <silent> [:hugo:]d :<C-u>execute 'QuickRun -type sh -srcfile ' . g:hugo_directory  . '/deploy.sh'<CR>
+nnoremap <silent> [unite]fh :<C-u>execute 'Unite mtime:' . g:hugo_post_directory<CR>
+nnoremap <silent> [unite]gh :<C-u>execute 'Unite grep:' . g:hugo_post_directory<CR>
 " }}}
 
 if !has('gui_running')
