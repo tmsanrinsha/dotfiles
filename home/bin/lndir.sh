@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
-set -ex
 
-if [ "$#" -ne 1 ]; then
+# lndirというコマンドがある
+# [ディレクトリ内のファイル1つ1つに対して一気にシンボリックリンクを作成する - Qiita](http://qiita.com/krsak/items/394850608ffe530cd6b2)
+#   lndirのシェルスクリプト版がある
+# 上書きが出来ないので自作
+
+set -e
+
+if [ "$#" -ne 2 ]; then
     exit
 fi
 
-home=${1%/}
+fromdir=${1%/}
+todir=${2%/}
 
 if [[ "$OSTYPE" =~ cygwin ]];then
     # Windowsのメッセージの文字コードをcp932からutf-8に変更
@@ -16,29 +23,32 @@ if [[ "$OSTYPE" =~ cygwin ]];then
 fi
 
 
-cd $home
+cd $fromdir
 
 # ディレクトリがなければ作る
 # 空白があるディレクトリに対応するため、ヌル文字で区切ってfindする
 # [delimiter - bash "for in" looping on null delimited string variable - Stack Overflow](http://stackoverflow.com/questions/8677546/bash-for-in-looping-on-null-delimited-string-variable)
 while IFS= read -r -d '' dir; do
     dir=${dir#./}
-    test -d "$HOME/$dir" || mkdir "$HOME/$dir"
+    test -d "$todir/$dir" || mkdir "$todir/$dir"
 done < <(find . -mindepth 1 -type d -print0)
 
-# whileを使わないでxargsを使う方法
-# find $home -type d -mindepth 1 -print0 | sed "s,$home,$HOME,g" | xargs -0 -I{} mkdir -p {}
+# whileを使わないでxargsを使う版
+# find $fromdir -type d -mindepth 1 -print0 | sed "s,$fromdir,$todir,g" | xargs -0 -I{} mkdir -p {}
 
 # ファイルに関してはシンボリックリンクを貼る
 while IFS= read -r -d '' file; do
     file=${file#./}
+
     # 実体ファイルがある場合はバックアップをとる
-    if [ -f "$HOME/$file" -a ! -L "$HOME/$file" ]; then
-        mv "$HOME/$file" "$HOME/${file}.bak"
+    if [ -f "$todir/$file" -a ! -L "$todir/$file" ]; then
+        mv "$todir/$file" "$todir/${file}.bak"
     fi
+
     # シンボリックリンクは削除
-    if [ -L "$HOME/$file" ]; then
-        rm "$HOME/$file"
-    fi
-    ln -sv "$home/$file" "$HOME/$file"
+    # if [ -L "$todir/$file" ]; then
+    #     rm "$todir/$file"
+    # fi
+
+    ln -sfv "$fromdir/$file" "$todir/$file"
 done < <(find . -type f ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)

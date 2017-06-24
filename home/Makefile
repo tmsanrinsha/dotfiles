@@ -15,7 +15,7 @@ setup:
 
 .PHONY: link
 link:
-	$(HOME_DIR)bin/makelink.sh $(HOME_DIR)
+	$(HOME_DIR)bin/lndir.sh $(HOME_DIR) ~
 
 .PHONY: brew
 brew:
