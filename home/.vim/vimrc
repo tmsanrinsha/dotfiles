@@ -2620,7 +2620,8 @@ if IsInstalled('vim-partedit')
         let startline = context['range'][0][0] ? context['range'][0][0] : 1
         let endline   = context['range'][1][0] ? context['range'][1][0] : '$'
         let filetype  = context['filetype']
-        call partedit#start(startline, endline, {'filetype': filetype, 'opener': 'split'})
+        " openerはedit以外は保存時にエラーが出る
+        call partedit#start(startline, endline, {'filetype': filetype, 'opener': 'edit'})
     endf
     command! MyParteditContext call s:partedit_context()
 
@@ -2876,6 +2877,7 @@ if  !IsInstalled('vim-bkup')
   augroup backup
     autocmd!
     autocmd BufWritePre,FileWritePre,FileAppendPre * call UpdateBackupFile(expand('%'))
+
     function! UpdateBackupFile(file)
       let dir = fnamemodify(a:file, ':p:h')
       " Windowsのドライブ名を置換 (e.g. C: -> /C/)
