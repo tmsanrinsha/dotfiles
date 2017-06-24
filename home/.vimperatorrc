@@ -298,15 +298,6 @@ set! browser.snapshots.limit=1
 " helpを英語で見る
 " set! general.useragent.locale=en-US
 
-" Vimperatorrc.localの読み込み {{{1
-" ============================================================================
-javascript <<EOF
-// [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
-if (io.File('~/.vimperatorrc.local').exists()){
-    io.source('~/.vimperatorrc.local', false);
-}
-EOF
-
 " サイトを指定してGoogle検索 {{{1
 " ============================================================================
 javascript <<EOT
@@ -318,6 +309,41 @@ javascript <<EOT
     });
 })();
 EOT
+
+" vimpMonkey {{{1
+" ============================================================================
+" [VimperatorでGreasemonkeyみたいな事をする - wltの日記](http://d.hatena.ne.jp/wlt/20110105/1294204461)
+javascript <<EOT
+function vimpMonkey(urlRegexPattern, func) {
+  autocommands.add(
+    'PageLoad', // DOMLoadの後にPageLoadが呼ばれる
+    urlRegexPattern,
+    (args) => {
+      var content = tabs.getTab(args.tab - 1).linkedBrowser.contentWindow;
+      var unsafeContent = content.wrappedJSObject;
+      func();
+    }
+  );
+}
+
+function waitForElement(selector, callback) {
+  var nIntervId = setInterval(() => {
+    if (content.document.querySelector(selector)) {
+      clearInterval(nIntervId);
+      callback();
+    }
+  }, 100);
+}
+EOT
+
+" Vimperatorrc.localの読み込み {{{1
+" ============================================================================
+javascript <<EOF
+// [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
+if (io.File('~/.vimperatorrc.local').exists()){
+    io.source('~/.vimperatorrc.local', false);
+}
+EOF
 
 " vimperatorを自分でビルドしたいとき
 " $ git clone https://github.com/vimperator/vimperator-labs/
