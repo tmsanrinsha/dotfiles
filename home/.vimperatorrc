@@ -336,12 +336,15 @@ function waitForElement(selector, callback) {
 }
 EOT
 
-" Vimperatorrc.localの読み込み {{{1
+" vimperatorrc.local, secretの読み込み {{{1
 " ============================================================================
 javascript <<EOF
 // [liberator.io - Vimperator](http://seesaawiki.jp/w/shin_yan/d/liberator.io#content_22)
 if (io.File('~/.vimperatorrc.local').exists()){
     io.source('~/.vimperatorrc.local', false);
+}
+if (io.File('~/.vimperatorrc.secret').exists()){
+    io.source('~/.vimperatorrc.secret', false);
 }
 EOF
 
