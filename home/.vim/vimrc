@@ -1427,7 +1427,7 @@ nnoremap <Leader>mn  :MemoNew<CR>
 nnoremap [unite]fM :<C-U>execute 'Unite mtime:' . g:memo_directory<CR>
 nnoremap [unite]gM :<C-U>execute 'Unite grep:'.g:memo_directory<CR>
 
-" hugo {{{1
+" Hugo {{{1
 " ============================================================================
 let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site'
 let g:hugo_post_directory = g:hugo_directory . '/content/post'
@@ -2049,6 +2049,8 @@ if IsInstalled('unite.vim')
     " ファイル内検索結果
     nnoremap <silent> [unite]l :<C-U>Unite line<CR>
 
+    nnoremap <silent> [unite]: :<C-U>Unite command<CR>
+
     " Unite output {{{2
     " ------------------------------------------------------------------------
     " Unite output:map {{{3
@@ -2271,11 +2273,11 @@ endif
 " unite.vimの後で上書きしたいので、tomlではなくここに書く
 if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
-  nnoremap [unite]H :<C-u>Denite help<CR>
-  nnoremap [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
-  nnoremap [unite]gc :<C-u>Denite grep<CR>
+  nnoremap <silent> [unite]H :<C-u>Denite help<CR>
+  nnoremap <silent> [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
+  nnoremap <silent> [unite]gc :<C-u>Denite grep<CR>
   " nnoremap [unite]fh :<C-u>Denite file_rec:<C-r>=g:hugo_post_directory<CR><CR>
-  nnoremap [unite]gh :<C-u>Denite grep:<C-r>=g:hugo_post_directory<CR><CR>
+  " nnoremap <silent> [unite]gh :<C-u>Denite grep:<C-r>=g:hugo_post_directory<CR><CR>
 endif
 
 " vimfiler {{{1
