@@ -139,14 +139,6 @@ if  command_exists zsh; then
   zsh $ZDOTDIR/zplug/zplug.zsh
 fi
 
-# [.zshenv で PATH を管理したら罠にハマった - 大学生からの Web 開発](http://karur4n.hatenablog.com/entry/2016/01/18/100000)
-# zshenvに
-#   setopt no_global_rcs
-# を書く。起動するたびに呼ぶと遅いので、ここで出力して読み込む
-if [ -x /usr/libexec/path_helper ]; then
-  /usr/libexec/path_helper -s >> ~/.sh/env_cache.sh
-fi
-
 if command_exists kubectl && ! test -f $ZDOTDIR/completion/kubectl.zsh ; then
     kubectl completion zsh > $ZDOTDIR/completion/kubectl.zsh
 fi
@@ -248,13 +240,6 @@ fi
 if command_exists php; then
   echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/env_cache.sh
 fi
-
-# Python {{{1
-# ============================================================================
-# pip3 install numpy
-# pip3 install scipy
-# pip3 install matplotlib
-# pip3 install scikit-lern
 
 # CYGWIN {{{1
 # ============================================================================

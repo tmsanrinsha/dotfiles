@@ -65,27 +65,40 @@ pathmungeR () {
 
 
 if [[ "$os" = cygwin ]]; then
-    # Cygwin用のコマンドを置くディレクトリ
-    # pathmungeR "$HOME/script/cygwin"
-    :
+  # Cygwin用のコマンドを置くディレクトリ
+  # pathmungeR "$HOME/script/cygwin"
+  :
 elif [[ "$os" == mac ]]; then
-    # Mac用のコマンドを置くディレクトリ
-    # pathmunge "$HOME/script/mac"
+  # [.zshenv で PATH を管理したら罠にハマった - 大学生からの Web 開発](http://karur4n.hatenablog.com/entry/2016/01/18/100000)
+  #
+  # /etc/profileの
+  #   if [ -x /usr/libexec/path_helper ]; then
+  #     eval `/usr/libexec/path_helper -s`
+  #   fi
+  # が.zshenvの読み込み後に実行されるとPATHの順番が変わってしまうので、
+  #   setopt no_global_rcs
+  # を.zshenv書いて、/etc/profileが読まれないようにする。
+  # しかし、
+  #   eval `/usr/libexec/path_helper -s`
+  # を実行しないと/usr/local/binなどのPATHが設定されないので、.zshenvより実行してやる。
+  # 起動するたびに呼ぶと遅いので、すでに設定されている場合は読まないようにする。
+  if [[ -x /usr/libexec/path_helper && -z $PATH_HELPER_INIT ]]; then
+    eval `/usr/libexec/path_helper -s`
+    export PATH_HELPER_INIT=1
+  fi
 
-    # pathmunge '/usr/local/sbin'
+  # coreutils
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-    # coreutils
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+  # gnu-sed
+  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
-    # gnu-sed
-    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
-
-    # wine
-    if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
-        pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
-    fi
+  # wine
+  if [ -d ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin ]; then
+      pathmunge ~/Applications/PlayOnMac.app/Contents/Resources/unix/wine/bin after
+  fi
 fi
 
 export PAGER=less
