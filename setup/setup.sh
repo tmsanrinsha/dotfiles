@@ -219,6 +219,8 @@ command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
 if [ -x /usr/libexec/java_home ]; then
   cat <<EOT >> ~/.sh/env_cache.sh
 export JAVA_HOME="$(/usr/libexec/java_home)"
+EOT
+  cat <<'EOT' >> ~/.sh/env_cache.sh
 export PATH="$JAVA_HOME/bin:$PATH"
 EOT
 fi
