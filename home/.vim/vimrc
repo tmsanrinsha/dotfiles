@@ -1433,17 +1433,26 @@ let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site'
 let g:hugo_post_directory = g:hugo_directory . '/content/post'
 
 command! HugoNew call s:memo_new(g:hugo_post_directory)
-command! HugoPreview execute 'OpenBrowser http://localhost:1313/' .   matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 
 nnoremap [:hugo:] <Nop>
 nmap <Leader>h [:hugo:]
 nnoremap <silent> [:hugo:]n :<C-u>HugoNew<CR>
-nnoremap <silent> [:hugo:]p :<C-u>HugoPreview<CR>
+nnoremap <silent> [:hugo:]p :<C-u>call <SID>hugo_preview()<CR>
 nnoremap <silent> [:hugo:]o :<C-u>HugoOpen<CR>
-nnoremap <silent> [:hugo:]d :<C-u>execute 'QuickRun -type sh -srcfile ' . g:hugo_directory  . '/deploy.sh'<CR>
-nnoremap <silent> [unite]fh :<C-u>execute 'Unite mtime:' . g:hugo_post_directory<CR>
-nnoremap <silent> [unite]gh :<C-u>execute 'Unite grep:' . g:hugo_post_directory<CR>
+nnoremap <silent> [:hugo:]d :<C-u>QuickRun -type sh -srcfile <C-r>=g:hugo_directory<CR>/deploy.sh<CR>
+nnoremap <silent> [unite]fh :<C-u>Unite mtime:<C-r>=g:hugo_post_directory<CR><CR>
+nnoremap <silent> [unite]gh :<C-u>Unite grep:<C-r>=g:hugo_post_directory<CR><CR>
+
+function! s:hugo_preview() abort
+  let result = system("ps | grep 'hugo server --watch --buildDrafts=tru[e]'")
+
+  if result == ''
+    call system("$HOME/src/github.com/tmsanrinsha/site/deploy.sh -D 1> $HOME/tmp/hugo.log 2>&1 &")
+  endif
+  execute 'OpenBrowser http://localhost:1313/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
+endfunction
+
 " }}}
 
 if !has('gui_running')
