@@ -51,6 +51,7 @@ brew install node
 brew install pstree
 brew install pwgen
 brew install pyenv
+brew install pyenv-virtualenv
 brew install python
 brew install r
 brew install reattach-to-user-namespace
