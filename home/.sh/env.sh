@@ -186,14 +186,18 @@ export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # pyenv {{{2
 # ----------------------------------------------------------------------------
+# 環境変数が設定されている場合は設定しない
+if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
+  eval "$(command pyenv init -)"
+  eval "$(command pyenv virtualenv-init -)"
+fi
+
+# 補完などは必要になってから設定
 pyenv() {
-    eval "$( command pyenv init - )"
-    pyenv "$@"
+  eval "$(command pyenv init -)"
+  eval "$(command pyenv virtualenv-init -)"
+  pyenv "$@"
 }
-# TODO: vim-pyenvでpyenvで設定したPythonを呼び出すためにはどこかで
-#   eval "$( command pyenv init - )"
-# しておく必要あり
-# [MacVim-KaoriYaでpyenvのPythonを使う - Qiita](http://qiita.com/tmsanrinsha/items/cd2c276f7f1a16aeeaea)
 
 # IPython {{{2
 # ----------------------------------------------------------------------------
