@@ -41,8 +41,10 @@ repo = 'Shougo/vimfiler.vim'
 on_source = 'unite.vim'
 on_map = '<Plug>'
 
-# vimshell {{{1
+# shell / repl {{{1
 # ============================================================================
+# vimshell {{{2
+# ----------------------------------------------------------------------------
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
 depends = ['vim-vcs', 'unite.vim']
@@ -51,6 +53,49 @@ on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
 [[plugins]]
 repo = 'Shougo/vim-vcs'
 # }}}
+
+# ipyhonで複数行を送信できない
+# [[python] fix sending lines to ipython by lotabout · Pull Request #75 · epeli/slimux](https://github.com/epeli/slimux/pull/75)
+# [[plugins]]
+# repo = 'epeli/slimux'
+# on_cmd = [
+#   'SlimuxGlobalConfigure',
+#   'SlimuxREPLConfigure',
+#   'SlimuxREPLSendBuffer',
+#   'SlimuxREPLSendLine',
+#   'SlimuxREPLSendParagraph',
+#   'SlimuxREPLSendSelection',
+#   'SlimuxSendKeys',
+#   'SlimuxSendKeysConfigure',
+#   'SlimuxSendKeysLast',
+#   'SlimuxSendKeysPrompt',
+#   'SlimuxShellConfigure',
+#   'SlimuxShellLast',
+#   'SlimuxShellPrompt',
+#   'SlimuxShellRun',
+# ]
+# hook_add = '''
+# noremap [:slimux:] <Nop>
+# map <Leader>s [:slimux:]
+#
+# nnoremap [:slimux:]<CR> :SlimuxREPLSendLine<CR>
+# xnoremap [:slimux:]<CR> :SlimuxREPLSendSelection<CR>
+# nnoremap [:slimux:]b :SlimuxREPLSendBuffer<CR>
+#
+# xnoremap <M-CR> <C-o>:SlimuxREPLSendLine<CR>
+# '''
+# hook_source = '''
+# let g:slimux_select_from_current_window = 1
+# '''
+
+[[plugins]]
+repo = 'jpalardy/vim-slime'
+on_ft = ['python']
+hook_source = '''
+let g:slime_python_ipython = 1
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.2"}
+'''
 
 # [[plugins]]
 # repo = 'oplatek/Conque-Shell'
@@ -614,6 +659,3 @@ on_func = ['SyntaxRange']
 # 設定はvimrc
 # [dein.vimのtomlのhook_*部分をシンタックスハイライトさせる - Qiita](http://qiita.com/tmsanrinsha/items/9670628aef3144c7919b)
 # }}}
-
-[[plugins]]
-repo = 'epeli/slimux'
