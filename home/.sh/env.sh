@@ -186,18 +186,20 @@ export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # pyenv {{{2
 # ----------------------------------------------------------------------------
-# 環境変数が設定されている場合は設定しない
-if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
-  eval "$(command pyenv init -)"
-  eval "$(command pyenv virtualenv-init -)"
-fi
+if command_exists pyenv; then
+  # 環境変数が設定されている場合は設定しない
+  if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+  fi
 
-# 補完などは必要になってから設定
-pyenv() {
-  eval "$(command pyenv init -)"
-  eval "$(command pyenv virtualenv-init -)"
-  pyenv "$@"
-}
+  # 補完などは必要になってから設定
+  pyenv() {
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+    pyenv "$@"
+  }
+fi
 
 # IPython {{{2
 # ----------------------------------------------------------------------------
