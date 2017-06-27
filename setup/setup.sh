@@ -133,10 +133,12 @@ if  command_exists zsh; then
   test -d $ZDOTDIR/functions   || mkdir -p $ZDOTDIR/functions
   test -d $ZDOTDIR/completion  || mkdir -p $ZDOTDIR/completion
 
-  if [ ! -d ~/.zplug ]; then
+  : > $ZDOTDIR/.zshrc.cache
+
+  if [[ ! -d ~/.zplug && $(echo "$(zsh --version | awk '{print $2}') > 5" | bc) == 1 ]]; then
     git clone https://github.com/zplug/zplug ~/.zplug
+    zsh $ZDOTDIR/zplug/zplug.zsh
   fi
-  zsh $ZDOTDIR/zplug/zplug.zsh
 fi
 
 if command_exists kubectl && ! test -f $ZDOTDIR/completion/kubectl.zsh ; then
@@ -241,6 +243,12 @@ fi
 # ============================================================================
 if command_exists php; then
   echo "export PHP55=$(php -r 'echo (int)version_compare(phpversion(), "5.5", ">=");')" >> ~/.sh/env_cache.sh
+fi
+
+# Python {{{1
+# ============================================================================
+if command_exists pip; then
+  pip completion --zsh > $ZDOTDIR/.zshrc.cache
 fi
 
 # CYGWIN {{{1

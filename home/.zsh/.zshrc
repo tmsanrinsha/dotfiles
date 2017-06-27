@@ -866,6 +866,10 @@ function vim-profile-vimrc() {
 #     source $ZDOTDIR/plugin/z.sh
 # fi
 
+if [ -f $ZDOTDIR/.zshrc.cache ]; then
+    source $ZDOTDIR/.zshrc.cache
+fi
+
 if [ -f $ZDOTDIR/.zshrc.local ]; then
     . $ZDOTDIR/.zshrc.local
 fi
