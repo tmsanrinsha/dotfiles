@@ -1,7 +1,7 @@
-# http://qiita.com/items/8d5a627d773758dd8078
+# [zsh の vcs_info に独自の処理を追加して stash 数とか push していない件数とか何でも表示する - Qiita](http://qiita.com/mollifier/items/8d5a627d773758dd8078)
 # vcs_info 設定
 
-RPROMPT=""
+# RPROMPT=""
 
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
@@ -153,7 +153,7 @@ if is-at-least 4.3.11; then
 
 fi
 
-function _update_vcs_info_msg() {
+function update_vcs_info_msg() {
     local -a messages
     local prompt
 
@@ -171,10 +171,14 @@ function _update_vcs_info_msg() {
         [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
 
         # 間にスペースを入れて連結する
-        prompt="${(j: :)messages}"
+        prompt=" ${(j: :)messages}"
     fi
 
     echo $prompt
     # RPROMPT="%(1j|JOBS:%j |)%(3L|SHLVL:%L |)%l $prompt"
 }
 # add-zsh-hook precmd _update_vcs_info_msg
+
+update_vcs_info_msg "$@"
+
+# vim: ft=zsh

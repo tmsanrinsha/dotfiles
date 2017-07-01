@@ -20,10 +20,11 @@ fi
 [ -z "$include" ] && typeset -T INCLUDE include
 typeset -U path cdpath fpath manpath ld_library_path include
 
-fpath=(
-    $ZDOTDIR/functions
-    $fpath
-)
+# $ZDOTDIR/functions以下のディレクトリに再帰的にPATHを通す
+# N: use NULL_GLOB
+# -: follow symlinks toggle
+# /: directories
+fpath=($ZDOTDIR/functions/*(N-/) $fpath)
 
 # zplug {{{1
 # ============================================================================
@@ -122,23 +123,31 @@ host_num=$((0x`hostname | $md5 | cut -c1-8` % 6 + 31)) # 31から赤
 user_num=$(((0x`(hostname; whoami) | $md5 | cut -c1-8`) % 6 + 31))
 host_color="%{"$'\e'"[${host_num}m%}"
 user_color="%{"$'\e'"[${user_num}m%}"
-
-reset_color=$'\e'"[0m"
-fg_yellow=$'\e'"[33m"
-fg_red=$'\e'"[31m"
-fg_white=$'\e'"[37m"
-bg_red=$'\e'"[41m"
+reset_color="%{"$'\e'"[0m%}"
 
 # リポジトリの情報を表示
-test -f $ZDOTDIR/.zshrc.vcs && . $ZDOTDIR/.zshrc.vcs
+autoload -Uz update_vcs_info_msg
+
+PROMPT_HOST="${host_color}%M${reset_color}"
 
 function _update_prompt() {
-  PROMPT="${user_color}%n%{${reset_color}%}@${host_color}%M%{${reset_color}%} %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f"
-  PROMPT="$PROMPT $(_update_vcs_info_msg)"
+  # username
+  PROMPT="${user_color}%n${reset_color}@"
+  # host
+  PROMPT+="$PROMPT_HOST"
+  # datetime
+  PROMPT+=" %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f"
+  # git
+  PROMPT+=" $(update_vcs_info_msg)"
+  # localの設定
+  PROMPT+="$PROMPT_LOCAL"
   # jobがあるなら表示。SHLVLが3以上（tmux上でvim開いて:shとか）なら表示
-  PROMPT="$PROMPT %(1j| JOBS:%j |)%(3L| SHLVL:%L |)"
-  PROMPT="$PROMPT
-%{$fg_yellow%}%~%{${reset_color}%}%0(?||%18(?|}|%{$fg_white%}%{$bg_red%}))%(!|#|$)%{${reset_color}%} "
+  PROMPT+=" %(1j| JOBS:%j |)%(3L| SHLVL:%L |)"
+  # path
+  PROMPT+="
+%F{yellow}%~%f"
+  # 終了ステータスによって$(#)の色を変更
+  PROMPT+="%0(?||%18(?||%F{white}%K{red}))%(!|#|$)%k%f "
 }
 
 add-zsh-hook precmd _update_prompt
@@ -154,7 +163,7 @@ PROMPT2="%_> "
 
 # command correct edition before each completion attempt
 setopt correct
-SPROMPT="%{$fg_yellow%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+SPROMPT="%F{yellow}%r is correct? [n,y,a,e]:%f "
 
 # 参考にしたサイト
 # ■zshで究極のオペレーションを：第3回　zsh使いこなしポイント即効編｜gihyo.jp … 技術評論社
