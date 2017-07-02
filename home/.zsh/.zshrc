@@ -850,7 +850,7 @@ if hash peco 2>/dev/null; then
           return
         fi
 
-        print -z "$action ${selected//$'\n'/ }\C-m"
+        print -z "$action ${selected//$'\n'/ }"
 
         # echo execute: $action ${selected//$'\n'/ }
         # eval $action ${selected/$'\n'/ } </dev/tty
