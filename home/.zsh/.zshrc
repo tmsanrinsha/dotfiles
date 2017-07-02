@@ -830,23 +830,38 @@ if hash peco 2>/dev/null; then
     }
     alias pgv=peco-grep-vim
 
+    # peco_with_action {{{2
+    # ------------------------------------------------------------------------
+    function peco_with_action {
+        local selected action
+        selected=$(peco)
+        if [ -z "$selected" ]; then
+          return
+        fi
+
+        echo $selected
+
+        echo -n "action: "
+
+        # この関数はパイプの中で使うので、入力を待つには/dev/ttyを指定する必要がある
+        read action </dev/tty
+
+        if [ -z "$action" ]; then
+          return
+        fi
+
+        print -z "$action ${selected//$'\n'/ }\C-m"
+
+        # echo execute: $action ${selected//$'\n'/ }
+        # eval $action ${selected/$'\n'/ } </dev/tty
+    }
+
     # p {{{2
+    # ------------------------------------------------------------------------
     # pecoの出力結果に対してコマンド実行
     # http://r7kamura.github.io/2014/06/21/ghq.html
     function p() {
         peco | while read LINE; do $@ $LINE; done
-    }
-
-    function peco_with_action {
-        local selected action
-        peco | selected=`cat -` </dev/tty
-        if [ -z "$selected" ]; then
-            return
-        fi
-        echo -n "command: "
-        read action </dev/tty
-        echo $ $action ${selected/$'\n'/ }
-        eval $action ${selected/$'\n'/ } </dev/tty
     }
     # }}}
 fi

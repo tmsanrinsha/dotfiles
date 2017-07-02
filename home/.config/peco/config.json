@@ -1,4 +1,9 @@
 {
+    "StickySelection": true,
+    "Keymap": {
+        "ArrowLeft": "peco.BackwardChar",
+        "ArrowRight": "peco.ForwardChar"
+    },
     "Style": {
         "Basic": ["default", "on_default"],
         "Selected": ["default", "on_black", "bold"],
