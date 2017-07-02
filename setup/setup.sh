@@ -109,14 +109,14 @@ mkdir -p ~/tmp
 
 # GitHubのreleaseパッケージのインストールスクリプト {{{1
 # ============================================================================
-if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/ghinst/.git ]; then
+if !command_exists ghinst; then
     cd $SRC_ROOT/github.com/tmsanrinsha
     git clone https://github.com/tmsanrinsha/ghinst.git
     ln -sf $SRC_ROOT/github.com/tmsanrinsha/ghinst/ghinst ~/bin/
 fi
 # こういうのもある
-# b4b4r07/cli
 # https://github.com/b4b4r07/cli
+# https://github.com/Songmu/ghg
 
 # ghq {{{1
 # ============================================================================
@@ -214,7 +214,9 @@ fi
 # fi
 
 # Golang {{{1
-command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
+if command_exists go; then
+  command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
+fi
 
 # Java {{{1
 # ============================================================================
