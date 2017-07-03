@@ -833,8 +833,10 @@ if hash peco 2>/dev/null; then
     # peco_with_action {{{2
     # ------------------------------------------------------------------------
     function peco_with_action {
-        local selected action
-        selected=$(peco)
+        local tmp selected action
+        # 一回tmpに入れてやらないとうまくいかない環境がある
+        tmp=$(cat -)
+        selected=$(echo $tmp | peco)
         if [ -z "$selected" ]; then
           return
         fi
