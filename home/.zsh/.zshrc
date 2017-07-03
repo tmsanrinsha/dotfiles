@@ -24,7 +24,7 @@ typeset -U path cdpath fpath manpath ld_library_path include
 # N: use NULL_GLOB
 # -: follow symlinks toggle
 # /: directories
-fpath=($ZDOTDIR/functions/*(N-/) $fpath)
+fpath=($ZDOTDIR/functions $ZDOTDIR/functions/*(N-/) $fpath)
 
 # zplug {{{1
 # ============================================================================
