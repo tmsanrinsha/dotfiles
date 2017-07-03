@@ -17,12 +17,15 @@ EOT
 
 # PHP {{{1
 # ============================================================================
+cat <<EOT
+--langmap=php:+.inc.tpl.conf
+EOT
+
 if [ $new -eq 1 ]; then
   # kindの（namespaceの）aliasがあるとuseにマッチしすぎるので外す
   # ctags --list-kinds-full=php で使えるkindが表示できる
   cat <<EOT
 --fields=+aimS
---langmap=php:+.inc.tpl.conf
 --php-kinds=-a
 EOT
 else
@@ -42,7 +45,7 @@ fi
 cat <<EOT
 --languages=-javascript
 --langdef=js
---langmap=js:+.js.jsx
+--langmap=js:+.jsx
 EOT
 
 #
