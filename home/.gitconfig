@@ -78,6 +78,9 @@
 [init]
 	templatedir = ~/.git_template
 
+[rerere]
+	enabled = true
+
 [prevent-push-master]
 	allow = tmsanrinsha
 	allow = heroku
