@@ -197,6 +197,8 @@ export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # pyenv {{{2
 # ----------------------------------------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if command_exists pyenv; then
   # 環境変数が設定されている場合は設定しない
   if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
