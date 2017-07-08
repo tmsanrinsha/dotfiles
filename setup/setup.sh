@@ -135,7 +135,7 @@ if  command_exists zsh; then
 
   : > $ZDOTDIR/.zshrc.cache
 
-  if [[ ! -d ~/.zplug && $(echo "$(zsh --version | awk '{print $2}') > 5" | bc) == 1 ]]; then
+  if [[ ! -d ~/.zplug && $(zsh -c 'echo ${ZSH_VERSION%%.*}') -ge 5 ]]; then
     git clone https://github.com/zplug/zplug ~/.zplug
     zsh $ZDOTDIR/zplug/zplug.zsh
   fi
