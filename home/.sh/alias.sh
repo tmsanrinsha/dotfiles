@@ -98,15 +98,6 @@ if command_exists knife; then
     alias ksna='knife search node "*:*"'
 fi
 
-# ls {{{1
-# ============================================================================
-alias l='ls'
-alias ll='ls -l'
-# . ..以外の.で始まるファイルも表示
-alias la='ls -A'
-alias lla='ls -la'
-alias lld='ls -ld'
-
 # other {{{1
 # ============================================================================
 alias bc='bc -l'
