@@ -82,9 +82,14 @@ elif [[ "$os" == mac ]]; then
   #   eval `/usr/libexec/path_helper -s`
   # を実行しないと/usr/local/binなどのPATHが設定されないので、.zshenvより実行してやる。
   # 起動するたびに呼ぶと遅いので、すでに設定されている場合は読まないようにする。
-  if [[ -x /usr/libexec/path_helper && -z $PATH_HELPER_INIT ]]; then
+  # if [[ -x /usr/libexec/path_helper && -z $PATH_HELPER_INIT ]]; then
+  #   eval `/usr/libexec/path_helper -s`
+  #   export PATH_HELPER_INIT=1
+  # fi
+
+  # やっぱり毎回読む
+  if [[ -x /usr/libexec/path_helper ]]; then
     eval `/usr/libexec/path_helper -s`
-    export PATH_HELPER_INIT=1
   fi
 
   # coreutils
@@ -194,6 +199,25 @@ pathmunge "$HOME/.composer/vendor/bin"
 # ============================================================================
 export PYTHONUSERBASE="$HOME/python"
 export PATH="$PYTHONUSERBASE/bin:$PATH"
+
+# pyenv {{{2
+# ----------------------------------------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command_exists pyenv; then
+  # 環境変数が設定されている場合は設定しない
+  if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+  fi
+
+  # 補完などは必要になってから設定
+  pyenv() {
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+    pyenv "$@"
+  }
+fi
 
 # IPython {{{2
 # ----------------------------------------------------------------------------

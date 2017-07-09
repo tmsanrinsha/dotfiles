@@ -24,6 +24,6 @@ fi
 
 # zshでログイン・ログアウト時に実行されるファイル - Qiita <http://qiita.com/yuku_t/items/40bcc63bb8ad94f083f1>
 
-if [[ -f ~/.sh/env_local.sh ]]; then
-    . ~/.sh/env_local.sh
-fi
+for file in $ZDOTDIR/.zshenv.d/*.zsh(N); do
+  source $file
+done
