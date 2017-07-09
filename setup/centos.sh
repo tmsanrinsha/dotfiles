@@ -2,7 +2,6 @@
 
 sudo yum -y install ctags
 sudo yum -y install git
-sudo yum -y install zlib-devel
 
 # for vim
 sudo yum -y install gcc make ncurses-devel
@@ -26,3 +25,8 @@ cd ~/src/github.com/vim/vim/src
 
 make
 sudo make install
+
+# pyenv
+sudo yum -y install bzip2-devel openssl-devel readline-devel sqlite-devel zlib-devel
+
+sudo yum -y boost-devel cmake cmake3 gcc-c++
