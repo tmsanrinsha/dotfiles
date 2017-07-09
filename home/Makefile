@@ -29,6 +29,10 @@ php:
 R:
 	R --vanilla --slave < $(SETUP_DIR)R-lang.R
 
+.PHONY: pyenv
+pyenv:
+	$(SETUP_DIR)pyenv.sh
+
 .PHONY: ruby
 ruby:
 	$(SETUP_DIR)ruby.sh
