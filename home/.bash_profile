@@ -6,10 +6,8 @@ elif type zsh 1>/dev/null 2>&1; then
     exec zsh -l
 fi
 
-if [ -f ~/.sh/logout.sh ]; then
-        . ~/.sh/logout.sh
-fi
-
 if [ -f ~/.bashrc ]; then
         . ~/.bashrc
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
