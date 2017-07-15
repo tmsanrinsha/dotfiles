@@ -164,7 +164,6 @@ let g:quickrun_config['sh/watchdogs_checker'] = {
 let g:quickrun_config['watchdogs_checker/bash'] = {
 \   'command':     'bash',
 \   'exec':        '%c -n %o %s:p',
-\   'errorformat': '%f:\ line\ %l:%m',
 \}
 
 " solidity {{{1

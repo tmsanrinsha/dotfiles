@@ -1015,8 +1015,9 @@ autocmd MyVimrc BufReadPost *
 set printoptions=wrap:y,number:y,header:0
 set printfont=Andale\ Mono:h12:cUTF8
 
-" quickfix, make {{{1
+" errorformat, quickfix, make {{{1
 " ============================================================================
+set errorformat+=%f:\ 行\ %l:\ %m
 nmap [q <Plug>(QuickFixCurrentNumberQPrev)
 nmap ]q <Plug>(QuickFixCurrentNumberQNext)
 nnoremap [Q :cprevious<CR>
@@ -1066,7 +1067,7 @@ autocmd MyVimrc FileType qf
 " ----------------------------------------------------------------------------
 " Vim - errorformatについて(入門編) - Qiita
 " <http://qiita.com/rbtnn/items/92f80d53803ce756b4b8>
-function! TestErrFmt(errfmt,lines)
+function! ErrFmtTest(errfmt,lines)
     let l:temp_errorfomat = &errorformat
     try
         let &errorformat = a:errfmt
@@ -1282,10 +1283,6 @@ function! s:override_plugin_setting()
     setlocal textwidth=0
     setlocal formatoptions<
 endfunction
-
-" shell {{{2
-" ----------------------------------------------------------------------------
-autocmd MyVimrc FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 
 " HTML {{{2
 " ----------------------------------------------------------------------------
