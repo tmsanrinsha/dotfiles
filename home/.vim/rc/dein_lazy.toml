@@ -571,7 +571,8 @@ on_map = '<Plug>(asterisk-'
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
-on_source = 'unite.vim'
+on_source = ['unite.vim', 'denite.nvim']
+on_cmd = ['Qfreplace']
 # 一時的にBufWriteを無効にしたいときは'eventignore'を使うといいかも
 
 # memo {{{1
