@@ -110,9 +110,12 @@ mkdir -p ~/tmp
 # GitHubのreleaseパッケージのインストールスクリプト {{{1
 # ============================================================================
 if ! command_exists ghinst; then
-    cd $SRC_ROOT/github.com/tmsanrinsha
-    git clone https://github.com/tmsanrinsha/ghinst.git
-    ln -sf $SRC_ROOT/github.com/tmsanrinsha/ghinst/ghinst ~/bin/
+  cd $SRC_ROOT/github.com/tmsanrinsha
+  git clone https://github.com/tmsanrinsha/ghinst.git
+  ln -sf $SRC_ROOT/github.com/tmsanrinsha/ghinst/ghinst ~/bin/
+else
+  cd $SRC_ROOT/github.com/tmsanrinsha/ghinst
+  git pull
 fi
 # こういうのもある
 # https://github.com/b4b4r07/cli
