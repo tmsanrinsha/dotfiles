@@ -2271,11 +2271,11 @@ endif
 if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
   nnoremap <silent> [unite]H :<C-u>Denite help<CR>
-  nnoremap <silent> [unite]gp :<C-u>Denite grep:<C-r>=GetProjectDir()<CR><CR>
+  nnoremap <silent> [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
   nnoremap <silent> [unite]gc :<C-u>Denite grep<CR>
   nnoremap <silent> [unite]g. :<C-u>Denite grep:<CR>
-  nnoremap <silent> [unite]fh :<C-u>Denite file_rec:<C-r>=g:hugo_post_directory<CR><CR>
-  nnoremap <silent> [unite]gh :<C-u>Denite grep:<C-r>=g:hugo_post_directory<CR><CR>
+  nnoremap <silent> [unite]fh :<C-u>Denite file_rec:`g:hugo_post_directory`<CR>
+  nnoremap <silent> [unite]gh :<C-u>Denite grep:`g:hugo_post_directory`<CR>
 endif
 
 
