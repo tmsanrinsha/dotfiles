@@ -90,6 +90,7 @@ repo = 'Shougo/vim-vcs'
 
 [[plugins]]
 repo = 'jpalardy/vim-slime'
+if = "exists('$TMUX')"
 on_ft = ['python']
 hook_source = '''
 let g:slime_python_ipython = 1
