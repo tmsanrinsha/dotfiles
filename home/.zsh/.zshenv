@@ -3,6 +3,7 @@
 if [[ "$PROFILE_STARTUP" == true ]]; then
   zmodload zsh/zprof
   PS4=$'%D{%s%.} %N:%i> '
+  zprof
   exec 3>&2 2>$HOME/tmp/zsh_profile
   setopt xtrace prompt_subst
 fi

@@ -3,12 +3,6 @@ if [ -f ~/.sh/rc.sh ]; then
     . ~/.sh/rc.sh
 fi
 
-if command_exists tac;then
-    tac=`which tac`
-else
-    tac='tail -r'
-fi
-
 # path {{{1
 # ============================================================================
 # 重複パスの除去
@@ -519,31 +513,31 @@ DIRSTACKSIZE=10
 
 ## ディレクトリスタックをファイルに保存することで端末間で共有したり、ログアウトしても残るようにする {{{
 # http://sanrinsha.lolipop.jp/blog/2012/02/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%82%92%E7%AB%AF%E6%9C%AB%E9%96%93%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%97%E3%81%9F%E3%82%8A%E3%80%81%E4%BF%9D.html
-test ! -d ~/.zsh && mkdir ~/.zsh
-test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
-# プロンプトが表示される前にディレクトリスタックを更新する
-function share_dirs_precmd {
-    if command_exists tac;then
-        taccmd=`which tac`
-    else
-        taccmd='tail -r'
-    fi
-
-    pwd >> ~/.zsh/.dirstack
-    # ファイルの書き込まれたディレクトリを移動することでディレクトリスタックを更新
-    while read line
-    do
-        # ディレクトリが削除されていることもあるので調べる
-        [ -d $line ] && cd $line
-    done < ~/.zsh/.dirstack
-    # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
-    dirs -v | awk '{print $2}' | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
-}
-# ファイルサーバーに接続している環境だと遅くなるので設定しない
-if [[ `uname` != Darwin ]]; then
-    # autoload -Uz add-zsh-hookが必要
-    add-zsh-hook precmd  share_dirs_precmd
-fi
+# test ! -d ~/.zsh && mkdir ~/.zsh
+# test ! -f ~/.zsh/.dirstack && touch ~/.zsh/.dirstack
+# # プロンプトが表示される前にディレクトリスタックを更新する
+# function share_dirs_precmd {
+#     if command_exists tac;then
+#         taccmd=`which tac`
+#     else
+#         taccmd='tail -r'
+#     fi
+#
+#     pwd >> ~/.zsh/.dirstack
+#     # ファイルの書き込まれたディレクトリを移動することでディレクトリスタックを更新
+#     while read line
+#     do
+#         # ディレクトリが削除されていることもあるので調べる
+#         [ -d $line ] && cd $line
+#     done < ~/.zsh/.dirstack
+#     # 削除されたディレクトリが取り除かれた新しいdirsを時間の昇順で書き込む
+#     dirs -v | awk '{print $2}' | sed "s|~|${HOME}|" | eval ${taccmd} >! ~/.zsh/.dirstack
+# }
+# # ファイルサーバーに接続している環境だと遅くなるので設定しない
+# if [[ `uname` != Darwin ]]; then
+#     # autoload -Uz add-zsh-hookが必要
+#     add-zsh-hook precmd  share_dirs_precmd
+# fi
 # }}} }}}
 # cdr {{{2
 # ----------------------------------------------------------------------------

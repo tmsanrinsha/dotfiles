@@ -3,7 +3,7 @@ set -e
 sudo yum -y install ctags
 sudo yum -y install git
 
-# pyenv
+# for pyenv
 sudo yum -y install bzip2-devel openssl-devel readline-devel sqlite-devel zlib-devel
 
 # for vim
