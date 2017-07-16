@@ -3374,7 +3374,8 @@ function! GetCurrentColumn()
         return ''
     endif
 endfunction
-" call lightline#update()
+
+" call lightline#init()
 
 " vim-quickhl {{{1
 " ============================================================================
