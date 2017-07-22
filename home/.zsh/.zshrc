@@ -22,13 +22,13 @@ fpath=($ZDOTDIR/functions $ZDOTDIR/functions/*(N-/) $fpath)
 
 # zplug {{{1
 # ============================================================================
-if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
-  source $ZDOTDIR/zplug/zplug.zsh
-else
+# if [ "${ZSH_VERSION%%.*}" -ge 5 ]; then
+#   source $ZDOTDIR/zplug/zplug.zsh
+# else
   # [zshの起動が遅いのでなんとかしたい - Qiita](http://qiita.com/vintersnow/items/7343b9bf60ea468a4180)
   # によれば、zprogがcompinitはしてくれているので必要ない
   autoload -U compinit && compinit
-fi
+# fi
 
 # 基本設定 {{{1
 # ============================================================================
@@ -898,10 +898,10 @@ if [[ `uname` = CYGWIN* ]]; then
     test -f $ZDOTDIR/.zshrc.cygwin && . $ZDOTDIR/.zshrc.cygwin
 fi
 
-alias | awk '{print "alias "$0}' \
-    | grep -v 'ls --color' \
-    | grep -v 'ls -G' \
-    | grep -v 'vi=vim' >! ~/.vim/rc/.vimshrc
+# alias | awk '{print "alias "$0}' \
+#     | grep -v 'ls --color' \
+#     | grep -v 'ls -G' \
+#     | grep -v 'vi=vim' >! ~/.vim/rc/.vimshrc
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
   unsetopt xtrace
