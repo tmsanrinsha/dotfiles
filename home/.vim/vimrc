@@ -587,6 +587,9 @@ xnoremap <C-w>gF <C-w>gf
 nnoremap ]h /\vhttps?:\/\/<CR>
 nnoremap [h ?\vhttps\?://<CR>
 
+inoremap <expr> <C-x>dt strftime('%Y-%m-%d')
+cnoremap <expr> <C-x>dt strftime('%Y-%m-%d')
+
 nnoremap <M-s> :<C-u>w<CR>
 inoremap <M-s> <Esc>:w<CR>
 
