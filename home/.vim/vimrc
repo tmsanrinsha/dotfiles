@@ -1406,13 +1406,19 @@ endfunction
 function! s:memo_new(base_dir) abort
     let prefix = strftime('%Y/%m/')
     let filename = input('Input file name: ', prefix)
+
+    if filename == ''
+      return
+    endif
+
     let filename = a:base_dir . '/' . filename
+
     let dir = fnamemodify(filename, ':h')
     if !isdirectory(dir)
         call mkdir(dir, 'p')
     endif
 
-    execute 'e ' fnameescape(filename)
+    execute 'new ' fnameescape(filename)
 endfunction
 
 let g:memo_directory = expand('~/Dropbox/memo/content')
