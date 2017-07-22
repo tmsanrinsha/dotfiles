@@ -286,6 +286,9 @@ set! browser.snapshots.limit=1
 " アドオンのFireGesturesを使っているときはスワイプジェスチャにチェックを入れてないと
 " スワイプ出来ない
 
+" backspace (delete)で戻らない
+set! browser.backspace_action=2
+
 " URLバーの候補数
 " set! browser.urlbar.maxRichResults
 
