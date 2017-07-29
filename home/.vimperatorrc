@@ -197,9 +197,8 @@ liberator.globalVariables.copy_templates = [
     label: 'amazon_associate',
     value: 'copy markdown type link of amazon associate',
     custom: function () {
-      let link = content.document.querySelector('.amzn-ss-text-shortlink-textarea').innerText;
-      let title = content.document.title;
-      return `[${title}](${link})`;
+      let asin = content.document.location.href.match(/\d+$/);
+      return `{{% amazon ${asin} %}}`;
     }
   },
   {label: 'line',      value: '%TITLE% - %URL%'},
