@@ -5,7 +5,13 @@
 	# 外部エディタを起動せず、diffを単語単位で
 	d = diff --no-ext-diff
 	dw = diff --no-ext-diff --word-diff
-	hist = "log --pretty=format:\"%h %ad %s%d by %an\" --graph --date=short"
+
+	## log
+	# [A better git log (Example)](https://coderwall.com/p/euwpig/a-better-git-log)
+	# --pretty-formatの設定については [Git - git-log Documentation](https://git-scm.com/docs/git-log)
+	graph = "log --graph --date=short --pretty=format:'%C(auto)%h%d %s (%ad) <%an>%Creset'"
+	# すべてのブランチのlogがみたいときは--allを付ける
+
 	st = status
 	rt = remote -v
 	# Githubのpushのurlをsshに変更

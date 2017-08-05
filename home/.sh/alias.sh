@@ -19,6 +19,7 @@ alias gg='ghq get -shallow'
 
 # git {{{1
 # ============================================================================
+# see also ~/.gitconfig
 alias g='git'
 alias gal='alias | grep git | peco'
 alias ga='git add'
@@ -31,8 +32,8 @@ alias gdr='git diff remotes/origin/master'
 alias gfo='git fetch origin'
 alias gfu='git fetch upstream'
 alias gi='git init'
-alias gl='git hist -n 10'
-alias gla='git hist'
+alias gl='git graph -n 10'
+alias gll='git graph'
 alias glv='git log | vim -R -'
 alias gm='git merge'
 alias gpl='git pull'
