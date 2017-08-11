@@ -867,18 +867,20 @@ inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
 
 " yank file name
-nnoremap yf :let @" = expand("%:t") <Bar> echo 'yanked: ' . expand("%:t")<CR>
+nnoremap yf :let @" = expand("%:t") <Bar> echo 'yanked: ' . @"<CR>
 " yank full path of file
-nnoremap yF :let @" = vimrc#full_path() <Bar> echo 'yanked: ' . vimrc#full_path()<CR>
+nnoremap yF :let @" = vimrc#full_path() <Bar> echo 'yanked: ' . @")<CR>
 " yank full path of directory
-nnoremap yd :let @" = expand('%:p:h') <Bar> echo 'yanked: ' . expand("%:p:h")<CR>
+nnoremap yd :let @" = expand('%:p:h') <Bar> echo 'yanked: ' . @"<CR>
+" yank Hugo用のMarkdownのリンク
+nnoremap ym :let @" = vimrc#hugo_ref(expand('%:p')) <Bar> echo 'yanked: ' . @"<CR>
 
 " copy file name
-nnoremap [:space:]yf :let @* = expand("%:t") <Bar> echo 'copied: ' . expand("%:t")<CR>
+nnoremap [:space:]yf :let @* = expand("%:t") <Bar> echo 'copied: ' . @*<CR>
 " copy full path of file
-nnoremap [:space:]yF :let @* = expand('%:p') <Bar> echo 'copied: ' . expand("%:p")<CR>
+nnoremap [:space:]yF :let @* = expand('%:p') <Bar> echo 'copied: ' . @*<CR>
 " copy full path of directory
-nnoremap [:space:]yd :let @* = expand('%:p:h') <Bar> echo 'copied: ' . expand("%:P:h")<CR>
+nnoremap [:space:]yd :let @* = expand('%:p:h') <Bar> echo 'copied: ' . @*<CR>
 
 " Rename {{{2
 " ----------------------------------------------------------------------------

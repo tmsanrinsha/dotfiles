@@ -17,11 +17,21 @@ function! vimrc#full_path() abort
   return expand('%:p')
 endfunction
 
-
-
-
 " Hugo {{{1
 " ============================================================================
+" Hugo用Markdownのリンクを返す
+" [<title>]({{< ref "<path>" >}})
+function! vimrc#hugo_ref(fname) abort
+  for line in readfile(a:fname)
+    if line =~ '^title:'
+      let title = matchstr(line, '^title:\s*\zs.*$')
+      break
+    endif
+  endfor
+  let path = matchstr(a:fname, '/content/\zs.*$')
+  return '[' . title . ' - SanRin舎]({{< ref "' . path . '" >}})'
+endfunction
+
 function! vimrc#create_hugo_shortcode_img(url) abort
   return system('identify -format ''{{< img src="' . a:url . '" w="%w" h="%h" >}}'' <(curl -s "' . a:url . '")')
 endfunction
