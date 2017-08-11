@@ -341,6 +341,7 @@ repo = 'elzr/vim-json'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
+# 設定はvimrcに記述
 
 # yaml frontmatterがヘッダーと判定されてしまうのでコメントアウト
 # [[plugins]]

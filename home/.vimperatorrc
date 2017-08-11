@@ -167,9 +167,10 @@ let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins"
 " errorが出るのでmigemo_completionを削除
 let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,prevent-pseudo-domain"
 
-" forcefocuscontentはタイミングが遅いのでやめる
 " テキストボックスにフォーカスさせない
-" set focuscontent
+" PageLoadくらいのタイミングでフォーカスが外れるので遅い
+" chefのdocumentのサイトなどで有効
+set focuscontent
 
 " copy.js, link {{{1
 " ============================================================================

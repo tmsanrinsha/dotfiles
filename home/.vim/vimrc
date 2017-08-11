@@ -3081,6 +3081,9 @@ if IsInstalled('vim-markdown')
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_conceal = 1
 
+    " [link text](link-url)の上でge打ったときに、link-url.mdに飛ぶようにする
+    let g:vim_markdown_no_extensions_in_markdown = 1
+
     " plasticboy/vim-markdownでfiletypeをmkd.markdownにする {{{3
     " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
     " function! MyAddToFileType(ft)
