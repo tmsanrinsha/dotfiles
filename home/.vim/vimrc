@@ -2464,12 +2464,14 @@ endif
 " quickfix系プラグインのアップデート {{{1
 " ============================================================================
 " quickfixを開いてHierUpdateなどをしたい場合は以下のようにする
-autocmd MyVimrc FileType qf call s:qf_update()
-function! s:qf_update()
-    windo HierUpdate
-    windo QfsignsUpdate
-    windo QuickfixStatusEnable
-endfunction
+" autocmd MyVimrc FileType qf call s:qf_update()
+" function! s:qf_update()
+"   " error 788| in s:qf_update | 現在は他のバッファを編集することは許されません
+"   " というエラーがでる
+"   windo HierUpdate
+"   windo QfsignsUpdate
+"   windo QuickfixStatusEnable
+" endfunction
 
 " qfsigns {{{1
 " ============================================================================
