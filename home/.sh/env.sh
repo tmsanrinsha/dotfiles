@@ -204,12 +204,12 @@ export PATH="$PYTHONUSERBASE/bin:$PATH"
 # ----------------------------------------------------------------------------
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-if command_exists pyenv; then
-  # 環境変数が設定されている場合は設定しない
-  if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
-    eval "$(command pyenv init -)"
-    eval "$(command pyenv virtualenv-init -)"
-  fi
+# if command_exists pyenv; then
+#   # 環境変数が設定されている場合は設定しない
+#   if [[ -z $PYENV_VIRTUALENV_INIT ]]; then
+#     eval "$(command pyenv init -)"
+#     eval "$(command pyenv virtualenv-init -)"
+#   fi
 
   # 補完などは必要になってから設定
   pyenv() {
@@ -217,7 +217,7 @@ if command_exists pyenv; then
     eval "$(command pyenv virtualenv-init -)"
     pyenv "$@"
   }
-fi
+# fi
 
 # IPython {{{2
 # ----------------------------------------------------------------------------
