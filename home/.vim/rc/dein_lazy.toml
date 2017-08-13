@@ -658,6 +658,12 @@ repo = 'tmsanrinsha/SyntaxRange'
 on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
 on_func = ['SyntaxRange']
 
+# game {{{1
+# ============================================================================
+[[plugins]]
+repo = 'johngrib/vim-game-code-break'
+on_cmd = ['VimGameCodeBreak ']
+
 # 設定はvimrc
 # [dein.vimのtomlのhook_*部分をシンタックスハイライトさせる - Qiita](http://qiita.com/tmsanrinsha/items/9670628aef3144c7919b)
 # }}}
