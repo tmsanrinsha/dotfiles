@@ -1547,15 +1547,15 @@ else
   vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
 
   function! s:search_forward_p()
-      return exists('v:searchforward') ? v:searchforward : 1
+    return exists('v:searchforward') ? v:searchforward : 1
   endfunction
-
-  " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-  cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
-  cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-  cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
-  cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 endif
+
+" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
+cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
 xnoremap <Leader>/ <ESC>/\%V
