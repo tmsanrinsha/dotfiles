@@ -1499,7 +1499,7 @@ else
     filetype plugin indent on
 endif
 
-" search/substitute {{{1
+" search, substitute {{{1
 " ============================================================================
 " インクリメンタルサーチ
 set incsearch
@@ -1513,49 +1513,57 @@ set hlsearch   "検索結果をハイライト
 nnoremap <Esc><Esc> :<C-u>set hlsearch!<CR>
 
 if IsInstalled('vim-asterisk')
-    map *  <Plug>(asterisk-z*)
-    " map #  <Plug>(asterisk-z#)
-    map #  <Plug>(asterisk-gz#)
-    " map g* <Plug>(asterisk-gz*)
-    " map g# <Plug>(asterisk-gz#)
-    let g:asterisk#keeppos = 1
+  nmap n <Plug>(anzu-n)
+  nmap N <Plug>(anzu-N)
+  map * <Plug>(asterisk-z*)<Plug>(anzu-update-search-status)
+  map # <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status)
+  let g:asterisk#keeppos = 1
+
+  " /で検索語句を入力してEnter押した直後にunite.vimを使うとhighlightがなくなる
+  " denite.nvimなら大丈夫かも
+  " map /  <Plug>(incsearch-forward)
+  " map ?  <Plug>(incsearch-backward)
+  " " map g/ <Plug>(incsearch-stay)
+  "
+  " augroup incsearch-keymap
+  "   autocmd!
+  "   autocmd VimEnter * call s:incsearch_keymap()
+  " augroup END
+  " function! s:incsearch_keymap()
+  "   IncSearchNoreMap <C-g> <Over>(incsearch-next)
+  "   IncSearchNoreMap <C-t>  <Over>(incsearch-prev)
+  " endfunction
+  "
+  " let g:incsearch#emacs_like_keymap = 1
 else
-    nnoremap * *N
-    nnoremap # g*N
+  nnoremap * *N
+  nnoremap # g*N
+
+  " /で検索しても、?で検索してもnで前方検索、Nで後方検索
+  " http://deris.hatenablog.jp/entry/2014/05/20/235807
+  nnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+  nnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+  vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+  vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
+
+  function! s:search_forward_p()
+      return exists('v:searchforward') ? v:searchforward : 1
+  endfunction
+
+  " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
+  cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+  cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+  cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
+  cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 endif
-
-" rename
-nmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
-vmap [:space:]r #:<C-r>//gc<Home>%s/<C-r>//
-
-" function! s:RegistSearchWord()
-"     silent normal yiw
-"     let @/ = '\<'.@".'\>'
-" endfunction
-"
-" command! -range RegistSearchWord :call s:RegistSearchWord()
-" nnoremap <silent> * :RegistSearchWord<CR>
-
-" /で検索しても、?で検索してもnで前方検索、Nで後方検索
-" http://deris.hatenablog.jp/entry/2014/05/20/235807
-nnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
-nnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
-vnoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
-vnoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
-
-function! s:search_forward_p()
-    return exists('v:searchforward') ? v:searchforward : 1
-endfunction
-
-" バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-cnoremap <expr> \/ getcmdtype() == '/' ? '/'  : '\/'
-cnoremap <expr> \? getcmdtype() == '?' ? '?'  : '\?'
 
 "ヴィビュアルモードで選択した範囲だけ検索
 xnoremap <Leader>/ <ESC>/\%V
 xnoremap <Leader>? <ESC>?\%V
+
+" rename
+nmap [:space:]r #:%s/<C-r>//<C-r>//gc<M-b><M-b><M-b>
+vmap [:space:]r #:<C-r>//gc<Home>%s/<C-r>//
 
 " <C-n>, <C-p> {{{1
 " ============================================================================
@@ -1678,6 +1686,7 @@ if IsInstalled('my_molokai')
     " let g:rehash256 = 1
     let g:molokai_16_color = 1
     colorscheme molokai-customized
+    " colorscheme monokai
 endif
 
 " let g:solarized_termcolors=256

@@ -163,9 +163,6 @@ hook_add = '''
 # repo = 'kana/vim-submode'
 
 # [[plugins]]
-# repo = 'osyo-manga/vim-anzu'
-
-# [[plugins]]
 # repo = 'terryma/vim-multiple-cursors'
 
 # [[plugins]]

@@ -567,8 +567,18 @@ on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName',
 # search, replace {{{1
 # ============================================================================
 [[plugins]]
+repo = 'haya14busa/incsearch.vim'
+on_map = '<Plug>'
+depends = ['vim-asterisk', 'vim-anzu']
+
+[[plugins]]
 repo = 'haya14busa/vim-asterisk'
-on_map = '<Plug>(asterisk-'
+on_map = '<Plug>'
+depends = ['vim-anzu']
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+on_map = '<Plug>'
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
