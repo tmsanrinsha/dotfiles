@@ -211,11 +211,10 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 #     eval "$(command pyenv virtualenv-init -)"
 #   fi
 
-  # 補完などは必要になってから設定
-  pyenv() {
+  # 必要になってから設定
+  py() {
     eval "$(command pyenv init -)"
     eval "$(command pyenv virtualenv-init -)"
-    pyenv "$@"
   }
 # fi
 
