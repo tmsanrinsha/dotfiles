@@ -1207,7 +1207,7 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1182 1136 228 297 -349 800 1920 1057 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>629 194 445 77 0 0 1280 777 </string>
+	<string>568 197 445 77 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>336 1399 606 456 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -1217,7 +1217,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>273 1156 796 473 -349 800 1920 1057 </string>
+	<string>207 133 918 495 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1204 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1240,7 +1240,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<false/>
+			<true/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -2012,7 +2012,16 @@
 			<key>Transparency</key>
 			<real>0.1407290125739645</real>
 			<key>Triggers</key>
-			<array/>
+			<array>
+				<dict>
+					<key>action</key>
+					<string>ScriptTrigger</string>
+					<key>parameter</key>
+					<string>open \1</string>
+					<key>regex</key>
+					<string>iterm-(https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z\-]+(\.[a-z0-9A-Z]+)*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%~?!&amp;@=#\(]*)?)</string>
+				</dict>
+			</array>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -2139,7 +2148,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-08T05:47:40Z</date>
+	<date>2017-08-21T12:46:19Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
