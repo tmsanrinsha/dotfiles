@@ -10,7 +10,6 @@ call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'nor
 call denite#custom#map('normal', 'R', '<denite:do_action:qfreplace>', 'noremap')
 call denite#custom#map('normal', 'Q', '<denite:do_action:quickfix>', 'noremap')
 
-
 " grep {{{1
 " ============================================================================
 if executable('ag')
@@ -22,6 +21,3 @@ if executable('ag')
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'final_opts', [])
 endif
-
-
-

@@ -649,6 +649,10 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo = 'tpope/vim-rhubarb'
+on_cmd = ['Gbrowse']
+
+[[plugins]]
 repo = 'lambdalisue/vim-gista'
 on_cmd = ['Gista']
 
