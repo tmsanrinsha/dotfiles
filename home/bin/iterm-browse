@@ -1,3 +1,5 @@
-#!/bin/sh
-echo "iterm-$@"
-clear
+#!/usr/bin/env bash
+echo -en '\E[?1049h'
+echo  "iterm-$@"
+sleep 0.01
+echo -en '\E[?1049l'
