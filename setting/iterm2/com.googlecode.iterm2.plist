@@ -1217,7 +1217,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>207 133 918 495 0 0 1280 777 </string>
+	<string>332 250 796 473 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1204 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1534,7 +1534,7 @@
 			<key>Disable Window Resizing</key>
 			<false/>
 			<key>Flashing Bell</key>
-			<false/>
+			<true/>
 			<key>Foreground Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1895,7 +1895,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
-			<true/>
+			<false/>
 			<key>Smart Cursor Color</key>
 			<false/>
 			<key>Smart Selection Rules</key>
@@ -2019,7 +2019,7 @@
 					<key>parameter</key>
 					<string>open \1</string>
 					<key>regex</key>
-					<string>iterm-(https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z\-]+(\.[a-z0-9A-Z]+)*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%~?!&amp;@=#\(]*)?)</string>
+					<string>(https?://([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z\-]+(\.[a-z0-9A-Z]+)*((:[0-9]+)?)(/[a-zA-Z0-9;/\.\-_+%~?!&amp;@=#\(]*)?) iterm-browse trigger</string>
 				</dict>
 			</array>
 			<key>Unlimited Scrollback</key>
@@ -2148,7 +2148,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-08-21T12:46:19Z</date>
+	<date>2017-08-23T12:46:29Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
