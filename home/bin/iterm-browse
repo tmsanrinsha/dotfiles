@@ -1,5 +1,2 @@
 #!/usr/bin/env bash
-echo -en '\E[?1049h'
-echo  "iterm-$@"
-sleep 0.01
-echo -en '\E[?1049l'
+echo -e "$@ iterm-browse trigger\b\b\b\b\b\b\bopen   " >/dev/tty
