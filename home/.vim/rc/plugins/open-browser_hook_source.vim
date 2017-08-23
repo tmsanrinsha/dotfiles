@@ -15,8 +15,9 @@ let g:openbrowser_search_engines.mql4 =
 if $SSH_CLIENT !=# ''
     let g:openbrowser_browser_commands = [
     \   {
-    \       'name': 'rfbrowser',
-    \       'args': 'rfbrowser {uri}'
+    \       'name': 'iterm-browse',
+    \       'args': ['{browser}', '{uri}']
     \   }
     \]
+    let g:openbrowser_use_vimproc = 0
 endif
