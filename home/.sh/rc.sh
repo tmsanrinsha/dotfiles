@@ -58,7 +58,7 @@ fi
 # cygwinだとcolがなかった、macでもwarningが出たが…
 if [[ `uname` == Linux || `uname` == Darwin ]]; then
     export MANPAGER="/bin/sh -c \"col -b -x | \
-        $EDITOR -c 'setlocal ft=man nonumber nomod nomodifiable nolist' -c 'noremap q :q<CR>' \
+        $EDITOR -c 'setlocal ft=man nonumber nomod nomodifiable nolist' -c 'noremap <buffer> q :q<CR>' \
                 -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 fi
 # man manでman以外出たり、lessになったりする

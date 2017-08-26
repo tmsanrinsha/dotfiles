@@ -1014,6 +1014,7 @@ autocmd MyVimrc BufReadPost *
 " let $PAGER=''
 " コマンドラインでmanを使ったとき、vimの:Manで見るようにするためには
 ".zshrc .bashrc等にも記述が必要
+cabbrev Man Ref man
 
 " printing {{{1
 " ============================================================================
@@ -1037,9 +1038,6 @@ noremap [*location] <Nop>
 nmap <Leader>l [*location]
 noremap [*location]o :lopen<CR>
 noremap [*location]q :lclose<CR>
-
-autocmd MyVimrc FileType qf
-\   nnoremap <buffer> q :q<CR>
 
 " 現在のカーソル位置の次/前のquickfix/location listに飛ぶにはQuickFixCurrentNumberを使う
 " http://www.vim.org/scripts/script.php?script_id=4449
