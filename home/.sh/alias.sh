@@ -125,9 +125,10 @@ if [ "$os" = freebsd ];then
     alias find='find -E'
 fi
 
+alias p='ps auxf'
 alias pg='ps aux | grep -v grep | grep'
 alias pe='ps aux | egrep'
-alias pk='pkill -f'
+# alias pk='pkill -f'
 
 # tree
 # -F:ディレクトリなら/をつけるなど

@@ -856,9 +856,9 @@ if hash peco 2>/dev/null; then
     # ------------------------------------------------------------------------
     # pecoの出力結果に対してコマンド実行
     # http://r7kamura.github.io/2014/06/21/ghq.html
-    function p() {
-        peco | while read LINE; do $@ $LINE; done
-    }
+    # function p() {
+    #     peco | while read LINE; do $@ $LINE; done
+    # }
     # }}}
 fi
 
