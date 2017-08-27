@@ -40,6 +40,8 @@ endif
 filetype plugin indent on
 
 let g:dein#install_process_timeout = 1200
+let g:dein#types#git#clone_depth = 1
+let g:dein#install_max_processes = 4
 
 " vimprocは先にインストールする
 if dein#check_install(['vimproc.vim'])
