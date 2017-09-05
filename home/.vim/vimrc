@@ -402,7 +402,7 @@ endif
 "□や○の文字があってもカーソル位置がずれないようにはdoubleを設定する
 " デフォルトはsingle
 " singleに設定したほうが画面が乱れにくい
-set ambiwidth=double
+" set ambiwidth=double
 
 command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval("0x".submatch(1)),1)/g
 
@@ -739,28 +739,28 @@ nnoremap <S-C-Tab> :tabp<CR>
 nnoremap [TAB]n :tabn<CR>
 nnoremap [TAB]p :tabp<CR>
 
-nnoremap <M-n> gt
-nnoremap <M-p> gT
-nnoremap <M-1> :1tabn<CR>
-nnoremap <M-2> :2tabn<CR>
-nnoremap <M-3> :3tabn<CR>
-nnoremap <M-4> :4tabn<CR>
-nnoremap <M-5> :5tabn<CR>
-nnoremap <M-6> :6tabn<CR>
-nnoremap <M-7> :7tabn<CR>
-nnoremap <M-8> :8tabn<CR>
-nnoremap <M-9> :9tabn<CR>
-nnoremap <M-0> :10tabn<CR>
-nnoremap [TAB]1 :1tabn<CR>
-nnoremap [TAB]2 :2tabn<CR>
-nnoremap [TAB]3 :3tabn<CR>
-nnoremap [TAB]4 :4tabn<CR>
-nnoremap [TAB]5 :5tabn<CR>
-nnoremap [TAB]6 :6tabn<CR>
-nnoremap [TAB]7 :7tabn<CR>
-nnoremap [TAB]8 :8tabn<CR>
-nnoremap [TAB]9 :9tabn<CR>
-nnoremap [TAB]0 :10tabn<CR>
+nnoremap <silent> <M-n> gt
+nnoremap <silent> <M-p> gT
+nnoremap <silent> <M-1> :1tabn<CR>
+nnoremap <silent> <M-2> :2tabn<CR>
+nnoremap <silent> <M-3> :3tabn<CR>
+nnoremap <silent> <M-4> :4tabn<CR>
+nnoremap <silent> <M-5> :5tabn<CR>
+nnoremap <silent> <M-6> :6tabn<CR>
+nnoremap <silent> <M-7> :7tabn<CR>
+nnoremap <silent> <M-8> :8tabn<CR>
+nnoremap <silent> <M-9> :9tabn<CR>
+nnoremap <silent> <M-0> :10tabn<CR>
+nnoremap <silent> [TAB]1 :1tabn<CR>
+nnoremap <silent> [TAB]2 :2tabn<CR>
+nnoremap <silent> [TAB]3 :3tabn<CR>
+nnoremap <silent> [TAB]4 :4tabn<CR>
+nnoremap <silent> [TAB]5 :5tabn<CR>
+nnoremap <silent> [TAB]6 :6tabn<CR>
+nnoremap <silent> [TAB]7 :7tabn<CR>
+nnoremap <silent> [TAB]8 :8tabn<CR>
+nnoremap <silent> [TAB]9 :9tabn<CR>
+nnoremap <silent> [TAB]0 :10tabn<CR>
 
 " Command-line mode {{{1
 " ============================================================================
@@ -1993,7 +1993,7 @@ let s:sync_save_dir_list = [
 \    },
 \]
 
-" call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
 
 autocmd MyVimrc BufNewFile,BufRead dein*.toml call s:syntax_range_dein()
 

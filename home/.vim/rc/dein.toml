@@ -236,7 +236,7 @@ repo = 'tmsanrinsha/molokai'
 name = 'my_molokai'
 
 [[plugins]]
-repo = 'crusoexia/vim-monokai'
+repo = 'tmsanrinsha/vim-monokai'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'

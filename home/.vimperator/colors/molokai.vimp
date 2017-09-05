@@ -52,7 +52,7 @@ hi Null                 color: #005F87;
 hi Number               color: #005F87;
 hi StatusLine           color: #D0CFD0; background: #333333;
 
-hi URL                  color: #87FF00; text-decoration:  none;               
+hi URL                  color: #87FF00; text-decoration:  none;
 hi PromptText           color: white;   background: rgba(51,51,51,0.6);
 hi Tag                  color: #005F87;
 hi Title                color: #FF005F; font-weight: bold;
