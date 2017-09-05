@@ -179,6 +179,11 @@ fi
 
 # Perl {{{1
 # ============================================================================
+# vdebug
+export PERL5LIB=~/perl5/lib/Komodo-PerlRemoteDebugging-8.0.2-78971-linux-x86_64
+export PERL5DB="BEGIN { require q($PERL5LIB/perl5db.pl)}"
+export PERLDB_OPTS="RemotePort=localhost:9000"
+
 if command_exists perl; then
     # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く
     function perl-pm-list {

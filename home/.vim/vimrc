@@ -2962,28 +2962,6 @@ let g:php_cs_fixer_verbose = 1
 let g:php_cs_fixer_level = 'all'
 " let g:php_cs_fixer_path = '~/sample/vendor/bin/php-cs-fixer'
 
-" joonty/vdebug {{{1
-" ============================================================================
-let g:vdebug_options = {
-\   'port' : 9000,
-\   'server' : '',
-\   'timeout' : 20,
-\   'on_close' : 'detach',
-\   'break_on_open' : 1,
-\   'ide_key': $USER,
-\   'path_maps' : {},
-\   'debug_window_level' : 0,
-\   'debug_file_level' : 0,
-\   'debug_file' : '',
-\   'watch_window_style' : 'expanded',
-\   'marker_default' : '⬦',
-\   'marker_closed_tree' : '▸',
-\   'marker_open_tree' : '▾'
-\}
-
-autocmd MyVimrc BufWinEnter DebuggerBreakpoints
-\   nnoremap <buffer> dd ^:BreakpointRemove <C-r><C-w><CR>
-
 " vim-json {{{1
 " ============================================================================
 let g:vim_json_syntax_conceal = 0
