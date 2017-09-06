@@ -147,6 +147,10 @@ alias la='ls -A'
 alias lla='ls -la'
 alias lld='ls -ld'
 
+# Android {{{1
+# ============================================================================
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+
 # Git {{{1
 # ============================================================================
 export BROWSER=iterm-browse
