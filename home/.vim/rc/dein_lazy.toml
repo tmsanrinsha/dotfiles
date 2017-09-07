@@ -113,7 +113,7 @@ depends = [
     'neosnippet.vim', 'vim-snippets'
 ]
 on_i = 1
-if = 'has("lua")'
+if = 'has("lua") && v:version >= 704'
 hook_source = 'source ~/.vim/rc/plugins/neocomplete_hook_source.vim'
 
 [[plugins]]
