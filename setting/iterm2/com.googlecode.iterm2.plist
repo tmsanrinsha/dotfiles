@@ -1217,11 +1217,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>62 1143 796 473 -349 800 1920 1057 </string>
+	<string>177 147 796 473 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1204 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 15 1277 762 0 0 1280 777 </string>
+	<string>173 4 570 473 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1240,7 +1240,7 @@
 			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -2148,7 +2148,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-08-28T12:46:34Z</date>
+	<date>2017-09-07T12:47:16Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
