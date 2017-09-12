@@ -198,7 +198,7 @@ liberator.globalVariables.copy_templates = [
     label: 'amazon_associate',
     value: 'copy markdown type link of amazon associate',
     custom: function () {
-      let asin = content.document.location.href.match(/\/dp\/([^/]+)\//)[1];
+      let asin = content.document.location.href.match(/\/dp\/([^/]+)/)[1];
       return `{{% amazon ${asin} %}}`;
     }
   },
