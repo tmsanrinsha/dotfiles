@@ -195,6 +195,12 @@ liberator.globalVariables.copy_templates = [
     }
   },
   {
+    label: 'ghq', value: 'ghq',
+    custom: function () {
+      return 'gg ' + content.document.location.pathname.replace('/','');
+    }
+  },
+  {
     label: 'amazon_associate',
     value: 'copy markdown type link of amazon associate',
     custom: function () {
@@ -217,6 +223,7 @@ nnoremap <Leader>ym :copy markdown<CR>
 nnoremap <Leader>yn :copy n<CR>
 nnoremap <Leader>yi :copy image<CR>
 nnoremap <Leader>yg :copy github_repository<CR>
+nnoremap <Leader>yg :copy ghq<CR>
 nnoremap <Leader>yl :copy line<CR>
 nnoremap <Leader>yT :copy textile<CR>
 
