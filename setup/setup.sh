@@ -218,7 +218,7 @@ fi
 
 # Golang {{{1
 if command_exists go; then
-  command_exists || go get github.com/BurntSushi/toml/cmd/tomlv
+  command_exists tomlv || go get github.com/BurntSushi/toml/cmd/tomlv
 fi
 
 # Java {{{1
