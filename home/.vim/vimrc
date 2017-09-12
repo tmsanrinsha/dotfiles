@@ -1427,8 +1427,10 @@ endfunction
 let g:memo_directory = expand('~/Dropbox/memo/content')
 
 command! MemoNew call s:memo_new(g:memo_directory)
+command! MemoDiaryNew call s:memo_new(g:memo_directory . '/diary')
 
 nnoremap <Leader>mn  :MemoNew<CR>
+nnoremap <Leader>md  :MemoDiaryNew<CR>
 
 nnoremap [unite]fM :<C-U>execute 'Unite mtime:' . g:memo_directory<CR>
 nnoremap [unite]gM :<C-U>execute 'Unite grep:'.g:memo_directory<CR>
