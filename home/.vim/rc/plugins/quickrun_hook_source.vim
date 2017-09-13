@@ -28,15 +28,19 @@ let g:quickrun_config['_'] = {
 \ 'hook/hier_update/priority_exit':            2,
 \ 'hook/qfsigns_update/enable_exit':           1,
 \ 'hook/qfsigns_update/priority_exit':         2,
-\ 'hook/quickfix_status_enable/enable_exit':   1,
-\ 'hook/quickfix_status_enable/priority_exit': 2,
-\ 'hook/qfstatusline_update/enable_exit':      1,
-\ 'hook/qfstatusline_update/priority_exit':    2,
-\ 'hook/unya/enable': 1,
-\ 'hook/echo/enable': 1,
-\ 'hook/echo/output_success': 'Let''s＼(・ω・)／にゃー！',
-\ 'hook/echo/output_failure': '＼(・ω・＼)SAN値!(/・ω・)/ピンチ!',
 \}
+
+" 現在の行がquickfixに含まれるなら、その内容を画面下にメッセージとして表示する
+let g:quickrun_config['_']['hook/quickfix_status_enable/enable_exit'] = 1
+let g:quickrun_config['_']['hook/quickfix_status_enable/priority_exit'] = 2
+
+let g:quickrun_config['_']['hook/qfstatusline_update/enable_exit'] = 1
+let g:quickrun_config['_']['hook/qfstatusline_update/priority_exit'] = 2
+
+let g:quickrun_config['_']['hook/unya/enable'] = 1
+let g:quickrun_config['_']['hook/echo/enable'] = 1
+let g:quickrun_config['_']['hook/echo/output_success'] = 'Let''s＼(・ω・)／にゃー！'
+let g:quickrun_config['_']['hook/echo/output_failure'] = '＼(・ω・＼)SAN値!(/・ω・)/ピンチ!'
 
 " cwindowは認識されたエラーがるときにQuickFixウィンドを開く
 " hook/cd/diretoryで%sを使うとパスがダブルクォートで囲まれてうまくいかない
