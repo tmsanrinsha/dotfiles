@@ -1028,10 +1028,11 @@ nmap [q <Plug>(QuickFixCurrentNumberQPrev)
 nmap ]q <Plug>(QuickFixCurrentNumberQNext)
 nnoremap [Q :cprevious<CR>
 nnoremap ]Q :cnext<CR>
-noremap [*quickfix] <Nop>
-nmap <Leader>q [*quickfix]
-noremap [*quickfix]o :botright copen<CR>
-noremap [*quickfix]q :cclose<CR>
+noremap [:quickfix:] <Nop>
+nmap <Leader>q [:quickfix:]
+noremap [:quickfix:]c :cexpr [] <Bar> QfstatuslineUpdate<CR>
+noremap [:quickfix:]o :botright copen<CR>
+noremap [:quickfix:]q :cclose<CR>
 nnoremap [L :<C-u>lprevious<CR>
 nnoremap ]L :<C-u>lnext<CR>
 noremap [*location] <Nop>
@@ -1237,7 +1238,7 @@ function! s:parse_error_messages(messages) abort
 endfunction
 
 command! -nargs=0 QfMessages call s:qf_messages()
-nnoremap [*quickfix]m :<C-u>QfMessages<CR>
+nnoremap [:quickfix:]m :<C-u>QfMessages<CR>
 
 " 参考サイト
 " * [Vim scriptをsourceしてエラーがあればquickfixに表示する - ぼっち勉強会](http://kannokanno.hatenablog.com/entry/20120723/1343147069)
