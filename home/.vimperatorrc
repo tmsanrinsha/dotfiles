@@ -122,7 +122,7 @@ bmark -folder search -keyword yr  -title 検索:Yahoo!リアルタイム検索 h
 " コマンドモード開始時に自動的にIMEをOFFにする {{{1
 " ============================================================================
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
-style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+" style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
 " migemo-hint.js
 " set hintmatching=custom
@@ -275,7 +275,8 @@ nnoremap <Leader>yh :js io.system('hex="$(echo -E \'<meta charset="utf-8"><a hre
 
 " colorscheme {{{1
 " ============================================================================
-colorscheme molokai
+source ~/.vimperator/colors/liberator.css
+" colorscheme molokai
 
 " feedsomekeys_3.js {{{1
 " ============================================================================

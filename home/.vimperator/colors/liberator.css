@@ -317,25 +317,6 @@
     [liberator|highlight~=URL]:hover { text-decoration: underline!important; cursor: pointer!important; }
     [liberator|highlight~=WarningMsg] { color: red!important; background: white!important; }
     [liberator|highlight~=WarningMsg] { color: #E6DB74!important; }
-
-    * { border-color: silver!important; border-width: 0px!important; border-style: solid!important; }
-    html|a { text-decoration: none!important; }
-    html|a[href]:hover { text-decoration: underline!important; }
-    html|column { display: table-column!important; }
-    html|column:first-child { width: 25%!important; }
-    html|dd { display: table-cell!important; padding: .1ex 1ex!important; border-width: 0px!important; }
-    html|dl { display: table!important; width: 100%!important; margin: 1em 0!important; border-bottom-width: 1px!important; border-top-width: 1px!important; padding: .5ex 0!important; table-layout: fixed!important; }
-    html|dl>html|tr { display: table-row!important; }
-    html|dt { display: table-cell!important; padding: .1ex 1ex!important; font-weight: bold!important; }
-    html|em { font-weight: bold!important; font-style: normal!important; }
-    html|h1 { display: block!important; margin: 1em 0!important; padding-bottom: .2ex!important; border-bottom-width: 1px!important; font-size: 2em!important; font-weight: bold!important; color: #527BBD!important; clear: both!important; }
-    html|h2 { display: block!important; margin: 1em 0!important; padding-bottom: .2ex!important; border-bottom-width: 1px!important; font-size: 1.2em!important; font-weight: bold!important; color: #527BBD!important; clear: both!important; }
-    html|h3 { display: block!important; margin: 1em 0!important; padding-bottom: .2ex!important; font-size: 1.1em!important; font-weight: bold!important; color: #527BBD!important; clear: both!important; }
-    html|li { display: list-item!important; }
-    html|ol { display: block!important; list-style: outside decimal!important; }
-    html|p { display: block!important; margin: 1em 0em!important; }
-    html|p:first-child { margin-top: 0!important; }
-    html|ul { display: block!important; list-style: outside disc!important; }
 }
 
 /* highlight defined by common/content/liberator.xul */
