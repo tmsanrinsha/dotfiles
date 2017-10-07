@@ -3158,6 +3158,7 @@ if IsInstalled('vim-fugitive')
     nnoremap [fugitive]d   :Gdiff<CR>
     nnoremap [fugitive]s   :Gstatus<CR>
     nnoremap [fugitive]l   :Glog<CR>
+    nnoremap [fugitive]b   :Git browse<CR>
     nnoremap [fugitive]ps  :Git push
     nnoremap [fugitive]psf :Git push -f
     nnoremap [fugitive]pso :Git push origin
