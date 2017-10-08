@@ -9,7 +9,7 @@ elseif has('gui_macvim')
     set transparency=10
 endif
 
-if dein#tap('my_molokai')
+if IsInstalled('my_molokai')
     "let g:rehash256 = 1
     " set background=dark
     colorscheme molokai-customized
