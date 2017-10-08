@@ -33,10 +33,6 @@ if has('win32')
     cd ~
 endif
 
-" if has('mac') && has('kaoriya')
-"     set runtimepath-=$VIM/plugins/vimproc
-" endif
-
 let $VIMRC_DIR = g:vim_home .'/.vim/rc'
 
 let $VIM_CACHE_DIR = g:vim_home . '/.cache/vim'
@@ -1496,6 +1492,10 @@ else
     nnoremap <Leader>W :w sudo:%<CR>
 
     filetype plugin indent on
+endif
+
+if has('win32') && has('kaoriya')
+    set runtimepath+=$VIM/plugins/vimproc
 endif
 
 " search, substitute {{{1

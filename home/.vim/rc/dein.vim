@@ -85,7 +85,10 @@ let s:sync_save_dir_list = [
 \    },
 \]
 
-call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+" windowsのときはうまくいかない
+if $OS !~ 'Windows_NT'
+  call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+endif
 
 autocmd MyVimrc BufNewFile,BufRead dein*.toml call s:syntax_range_dein()
 

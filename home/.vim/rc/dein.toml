@@ -10,7 +10,7 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
-if = 'executable("cc")'
+if = 'executable("cc") && $OS !~ "Windows_NT"'
 
 # unite.vim, vimfiler {{{1
 # ============================================================================
