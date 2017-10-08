@@ -20,4 +20,5 @@ if [[ ! -d "$dein_repo_dir" ]]; then
   git clone https://github.com/Shougo/dein.vim "$dein_repo_dir"
 fi
 
-yes | $vim -N -u $HOME/.vimrc -c "try | call dein#update() | finally | qall! | endtry" -U NONE -i NONE -V1 -e -s || :
+# yes | $vim -N -c "try | call dein#update() | finally | qall! | endtry" -U NONE -i NONE -V1 -e -s || :
+$vim -N -c "try | call dein#update() | finally | qall! | endtry" -U NONE -i NONE -V1 -e -s || :

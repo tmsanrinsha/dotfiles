@@ -24,7 +24,7 @@ scriptencoding utf-8
 " 例えばkaoriya版vimのディレクトリにvimrcとvimfiles(.vim)を入れておくと、ディレクトリごと持ち運ぶことができる。
 
 " vimrcがあるディレクトリ
-let g:vim_home = fnamemodify($MYVIMRC, ':h')
+let g:vim_home = expand('<sfile>:p:h:h')
 
 if has('win32')
     set runtimepath&
