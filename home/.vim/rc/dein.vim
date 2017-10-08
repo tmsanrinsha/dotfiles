@@ -4,23 +4,20 @@ if &compatible
   set nocompatible
 endif
 
-let s:dein_dir = g:dein_dir
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
 " dein.vim がなければgit clone
-if !isdirectory(s:dein_repo_dir)
-    if !executable('git')
-        echomsg 'git not found'
-    else
-        echo 'git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir
-        echo system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
-    endif
-endif
+" if !isdirectory(s:dein_repo_dir)
+"     if !executable('git')
+"         echomsg 'git not found'
+"     else
+"         echo 'git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir
+"         echo system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
+"     endif
+" endif
 
-execute 'set runtimepath^=' . s:dein_repo_dir
+execute 'set runtimepath^=' . g:dein_repo_dir
 
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+if dein#load_state(g:dein_dir)
+  call dein#begin(g:dein_dir)
   let s:toml_files = split(glob('$VIMRC_DIR/*.toml'), "\n")
   for s:toml_file in s:toml_files
       " lazyがついているtomlファイルはlazyとして処理する。

@@ -13,26 +13,38 @@ scriptencoding utf-8
 
 " 初期設定 {{{1
 " ============================================================================
-if empty($XDG_CACHE_HOME)
-    let $XDG_CACHE_HOME = $HOME . '/.cache'
-endif
-let $VIM_CACHE_DIR = expand('$XDG_CACHE_HOME/vim')
-if !isdirectory($VIM_CACHE_DIR)
-    call mkdir($VIM_CACHE_DIR, 'p')
-endif
+" vimrcが検索される順番 (:help vimrc)
+"
+"   Unix        $HOME/.vimrc、$HOME/.vim/vimrc
+"   MS-Windows  $HOME/_vimrc、$HOME/vimfiles/vimrc、
+"               $VIM/_vimrc
+"
+" windowsでは$VIM(vim.exeがあるディレクトリ)も検索される。
+" 例えばkaoriya版vimのディレクトリにvimrcとvimfiles(.vim)を入れておくと、ディレクトリごと持ち運ぶことができる。
 
-let $VIMRC_DIR = $HOME.'/.vim/rc'
+" vimrcがあるディレクトリ
+let g:vim_home = fnamemodify($MYVIMRC, ':h')
 
 if has('win32')
     set runtimepath&
-    set runtimepath^=$HOME/.vim
-    set runtimepath+=$HOME/.vim/after
+    execute 'set runtimepath^=' . g:vim_home . '/.vim'
+    execute 'set runtimepath+=' . g:vim_home . '/.vim/after'
     cd ~
 endif
 
 " if has('mac') && has('kaoriya')
 "     set runtimepath-=$VIM/plugins/vimproc
 " endif
+
+let $VIMRC_DIR = g:vim_home .'/.vim/rc'
+
+let $VIM_CACHE_DIR = g:vim_home . '/.cache/vim'
+
+if !isdirectory($VIM_CACHE_DIR)
+    call mkdir($VIM_CACHE_DIR, 'p')
+endif
+
+let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
 
 call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
@@ -43,16 +55,15 @@ call has('python3')
 "     " set pythonthreedll=$HOME/.pyenv/versions/3.5.2/lib/libpython3.5m.dylib
 " endif
 
+if !exists('g:memo_directory')
+    let g:memo_directory = expand('~/Dropbox/memo/doc')
+endif
+
 if empty($SRC_ROOT)
     let $SRC_ROOT = $HOME . '/src'
 endif
 
 let s:dotfiles_home = $SRC_ROOT.'/github.com/tmsanrinsha/dotfiles/home'
-let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
-
-if !exists('g:memo_directory')
-    let g:memo_directory = expand('~/Dropbox/memo/doc')
-endif
 
 " vimrc全体で使うaugroup {{{1
 " ============================================================================
@@ -1470,13 +1481,13 @@ endif
 
 " plugin load {{{1
 " ============================================================================
-if executable('git') && MyHasPatch('patch-7.2.051')
-  if v:version >= 704
-      call SourceRc('dein.vim')
-  else
-      call SourceRc('neobundle.vim')
-      call SourceRc('plugin.vim')
-    endif
+let g:dein_repo_dir = g:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if isdirectory(g:dein_repo_dir)
+  call SourceRc('dein.vim')
+elseif IsInstalled('neobundle.vim')
+  call SourceRc('neobundle.vim')
+  call SourceRc('plugin.vim')
 else
     " bundle以下にあるpluginをいくつかruntimepathへ追加する
     " let s:load_plugin_list = [
