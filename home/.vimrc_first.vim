@@ -1,3 +1,5 @@
 scriptencoding utf-8
-" Kaoriya Vimの設定を読まない
-" let g:vimrc_first_finish = 1
+" Macの場合はKaoriya Vimの設定を読まない
+if has('kaoriya') && has('mac')
+  let g:vimrc_first_finish = 1
+endif
