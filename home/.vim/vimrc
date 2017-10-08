@@ -736,19 +736,12 @@ nnoremap <M-b> zH
 "  2: 常に表示
 set showtabline=1
 
-nnoremap [TAB] <Nop>
-nmap <Leader>t [TAB]
 " 一番右にタブを作る
 " nnoremap <M-t> :tablast <Bar> tabnew<CR>
 nnoremap <M-t> :tabnew<CR>
 
-nnoremap [TAB]q :tabclose<CR>
-
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <S-C-Tab> :tabp<CR>
-
-nnoremap [TAB]n :tabn<CR>
-nnoremap [TAB]p :tabp<CR>
 
 nnoremap <silent> <M-n> gt
 nnoremap <silent> <M-p> gT
@@ -762,16 +755,8 @@ nnoremap <silent> <M-7> :7tabn<CR>
 nnoremap <silent> <M-8> :8tabn<CR>
 nnoremap <silent> <M-9> :9tabn<CR>
 nnoremap <silent> <M-0> :10tabn<CR>
-nnoremap <silent> [TAB]1 :1tabn<CR>
-nnoremap <silent> [TAB]2 :2tabn<CR>
-nnoremap <silent> [TAB]3 :3tabn<CR>
-nnoremap <silent> [TAB]4 :4tabn<CR>
-nnoremap <silent> [TAB]5 :5tabn<CR>
-nnoremap <silent> [TAB]6 :6tabn<CR>
-nnoremap <silent> [TAB]7 :7tabn<CR>
-nnoremap <silent> [TAB]8 :8tabn<CR>
-nnoremap <silent> [TAB]9 :9tabn<CR>
-nnoremap <silent> [TAB]0 :10tabn<CR>
+
+" [【vim】タブを自由に移動させる | blog.remora.cx](http://blog.remora.cx/2012/10/move-tab-in-vim.html)
 
 " Command-line mode {{{1
 " ============================================================================
