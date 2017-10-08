@@ -1,3 +1,4 @@
+" {{{1
 set encoding=utf-8
 scriptencoding utf-8
 " vimrcでマルチバイト文字を使うためにscriptencodingを設定する。
@@ -1020,6 +1021,7 @@ set printfont=Andale\ Mono:h12:cUTF8
 " errorformat, quickfix, make {{{1
 " ============================================================================
 set errorformat+=%f:\ 行\ %l:\ %m,%f:\ %l\ 行:\ %m
+set errorformat-=%-G%.%#
 nmap [q <Plug>(QuickFixCurrentNumberQPrev)
 nmap ]q <Plug>(QuickFixCurrentNumberQNext)
 nnoremap [Q :cprevious<CR>
@@ -1068,7 +1070,7 @@ noremap [*location]q :lclose<CR>
 " Vim - errorformatについて(入門編) - Qiita
 " <http://qiita.com/rbtnn/items/92f80d53803ce756b4b8>
 function! ErrFmtTest(errfmt,lines)
-    let l:temp_errorfomat = &errorformat
+    let l:temp_errorformat = &errorformat
     try
         let &errorformat = a:errfmt
         cexpr join(a:lines,"\n")
@@ -1077,7 +1079,7 @@ function! ErrFmtTest(errfmt,lines)
         echo v:exception
         echo v:throwpoint
     finally
-        let &errorformat = l:temp_errorfomat
+        let &errorformat = l:temp_errorformat
     endtry
 endfunction
 

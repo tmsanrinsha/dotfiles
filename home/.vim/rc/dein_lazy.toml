@@ -592,6 +592,8 @@ repo = 'haya14busa/incsearch.vim'
 on_map = '<Plug>'
 depends = ['vim-asterisk', 'vim-anzu']
 
+# [osyo-manga/vim-over: :substitute preview](https://github.com/osyo-manga/vim-over)
+
 [[plugins]]
 repo = 'haya14busa/vim-asterisk'
 on_map = '<Plug>'
