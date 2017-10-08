@@ -132,7 +132,9 @@ function _update_prompt() {
   # datetime
   PROMPT+=" %F{blue}%U%D{%Y-%m-%d %H:%M:%S}%u%f"
   # git
-  PROMPT+="$(update_vcs_info_msg)"
+  if [[ "$OSTYPE" != msys ]]; then
+    PROMPT+="$(update_vcs_info_msg)"
+  fi
   # localの設定
   PROMPT+="$PROMPT_LOCAL"
   # jobがあるなら表示。SHLVLが3以上（tmux上でvim開いて:shとか）なら表示
