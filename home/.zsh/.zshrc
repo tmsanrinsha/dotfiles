@@ -125,6 +125,10 @@ autoload -Uz update_vcs_info_msg
 PROMPT_HOST="${host_color}%M${reset_color}"
 
 function _update_prompt() {
+  if [[ $prompt_simple -eq 1 ]]; then
+    PROMPT='$ '
+    return
+  fi
   # username
   PROMPT="${user_color}%n${reset_color}@"
   # host
