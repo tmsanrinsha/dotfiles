@@ -40,15 +40,6 @@ let g:dein#install_process_timeout = 1200
 let g:dein#types#git#clone_depth = 1
 let g:dein#install_max_processes = 4
 
-" vimprocは先にインストールする
-if !IsInstalled('vimproc.vim')
-    if !executable('cc')
-        echomsg 'cc not found'
-    else
-        call dein#install(['vimproc.vim'])
-    endif
-endif
-
 if dein#check_install()
     " vimがサイレンスモード(-s)で起動した場合はデフォルトのNoが選ばれる
     " これによってcall dein#install()した後にdein#update()するという
