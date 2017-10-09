@@ -70,8 +70,12 @@ if has('multi_byte_ime') || has('xim')
   "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 endif
 
-" inoremap <M-v> <C-O>:set paste<CR><C-R>*<C-O>:set nopaste<CR>
-" cnoremap <M-v> <C-R>*
+if has('win32')
+  nnoremap <M-v> "+gP
+  inoremap <M-v> <C-O>:set paste<CR><C-R>+<C-O>:set nopaste<CR>
+  cnoremap <M-v> <C-R>+
+endif
+
 " xnoremap <M-c> "*y
 " nnoremap <M-a> ggVG
 
