@@ -1,1 +1,1 @@
-execute 'source ' . fnamemodify($MYVIMRC, ':h') . '/.vim/vimrc'
+execute 'source ' . expand('<sfile>:p:h') . '/.vim/gvimrc'
