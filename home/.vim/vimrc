@@ -412,7 +412,13 @@ endif
 " singleに設定したほうが画面が乱れにくい
 " set ambiwidth=double
 
-command! DecodeUnicode %s/\\u\([0-9a-fA-Z]\{4}\|[0-9a-zA-Z]\{2}\)/\=nr2char(eval("0x".submatch(1)),1)/g
+" decode, encode {{{1
+" ============================================================================
+" 数値文字参照をデコード
+command! DecodeNumCharRef s/&#\(\d\+\);/\=nr2char(submatch(1))/gc
+
+" URIデコード
+command! -range DecodeUri <line1>,<line2>!decode_uri
 
 " tab, indent {{{1
 " ============================================================================
