@@ -659,7 +659,7 @@ repo = 'gregsexton/gitv'
 on_cmd = ['Gitv']
 hook_source = '''
     function! GitvGetCurrentHash()
-        return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+        return matchstr(getline('.'), '\[\zs\w\+\ze\]$')
     endfunction
 
     autocmd MyVimrc FileType gitv
