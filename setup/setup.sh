@@ -76,26 +76,8 @@ if [ "$os" == mac ]; then
     ln -fs ~/_gvimrc ~/.gvimrc
 fi
 
-# .gitconfigの設定 {{{2
-# ----------------------------------------------------------------------------
-# if [ -f ~/.gitconfig -a ! -L ~/.gitconfig ]; then
-#     mv ~/.gitconfig{,.bak}
-# fi
-# 
-# ln -s $git_dir/sample/.gitconfig ~/.gitconfig
-# cp $git_dir/sample/.gitconfig ~/.gitconfig
-
-# 消し方
-# git config --global --remove-section "ghq" || :
-# git config --global --unset ghq.root
-# git config --global "ghq.root" "$SRC_ROOT"
-
-# .ctagsの設定 {{{2
-# ----------------------------------------------------------------------------
-if [ -L "$HOME/.ctags" ]; then
-    rm "$HOME/.ctags"
-fi
-$setup_dir/make_.ctags.sh
+# template {{{1
+$git_dir/template/home/.ctags.sh
 # }}}
 
 if [ $link -eq 1 ]; then
@@ -200,11 +182,7 @@ fi
 
 # grep系 {{{1
 # ============================================================================
-# http://beyondgrep.com
-if ! command_exists ack; then
-    $downloader http://beyondgrep.com/ack-2.10-single-file > $HOME/bin/ack
-    chmod a+x $HOME/bin/ack
-fi
+install https://beyondgrep.com/ack-2.18-single-file ack
 
 # cpanm {{{1
 # ============================================================================
