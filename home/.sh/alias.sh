@@ -164,7 +164,7 @@ alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
 # リンク切れのリンクを削除する
 function clean-symlink() {
     if [ "$1" = '--force' ]; then
-        find . -type l -exec bash -c 'test -e "{}" || echo "{}" && rm -r "{}"' \;
+        find . -type l -exec bash -c 'test -e "{}" || echo "{}" && \rm -r "{}"' \;
     else
         find . -type l -exec bash -c 'test -e "{}" || echo "{}"' \;
     fi
