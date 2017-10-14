@@ -1,0 +1,60 @@
+let homedirectory = '/Users/tmsanrinsha'
+let configpath = '~/.config/cvim/cvimrc'
+set localconfig
+
+set noautofocus
+let barposition = "bottom"
+let locale = "jp"
+let hintchars = "asdfghjklqwertyuiopzxcvbnm1234567890"
+
+let nextmatchpattern = '((?!first)(next|older|more|>|›|»|forward|次へ|次のページ| )+)'
+let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前へ|前のページ|前に| )+)'
+
+" Movement
+map <C-f> scrollFullPageDown
+map <C-b> scrollFullPageUp
+
+" Tab Navigation
+map K previousTab
+map J nextTab
+
+map d closeTab
+map u lastClosedTab
+
+" map <C-o> goBack
+let mapleader = ";"
+map <Leader>vr = :source configpath
+
+" 選択した語句でタブを開く
+unmap gxT
+unmap gxt
+unmap gx0
+unmap gx$
+map gx :execute vyP<CR>
+
+let qmark b = ['http://bookstore.yahoo.co.jp']
+let qmark c = ['https://www.google.com/calendar/']
+let qmark d = ['https://anime.dmkt-sp.jp/animestore/mp_viw_pc']
+let qmark D = ['https://github.com/tmsanrinsha/dotfiles']
+let qmark F = ['https://www.facebook.com/']
+let qmark f = ['http://finance.yahoo.co.jp/']
+let qmark h = ['http://b.hatena.ne.jp/tmsanrinsha/bookmark']
+let qmark m = ['https://moneyforward.com/']
+let qmark M = ['https://mail.google.com/']
+let qmark n = ['http://www.nicovideo.jp/']
+let qmark q = ['http://qiita.com/']
+let qmark s = ['https://tmsanrinsha.net']
+let qmark S = ['https://www.sbisec.co.jp/ETGate']
+let qmark t = ['https://twitter.com/']
+let qmark T = ['http://tv.yahoo.co.jp/listings/realtime/']
+let qmark v = ["http://www.nicovideo.jp/mylist/9352163"]
+let qmark w = ['https://detail.wallet.yahoo.co.jp/history']
+let qmark y = ['http://www.yahoo.co.jp/']
+
+let searchengine alc = 'http://eow.alc.co.jp/search?q=%s'
+let searchengine gs  = 'https://www.google.co.jp/search?q=site%3Atmsanrinsha.net+%s'
+let searchengine t   = 'https://twitter.com/search?vertical=default&q=%s&src=typd'
+" let searchalias t = 'twitter'
+let searchengine y   = 'http://search.yahoo.co.jp/search?ei=UTF-8&p=%s'
+let searchengine yf  = 'http://info.finance.yahoo.co.jp/search/?query=%s'
+let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
