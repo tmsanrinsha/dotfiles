@@ -1,3 +1,7 @@
+" 拡張機能の画面に行ってcVimの「ファイルのURLへのアクセスを許可」をチェックする
+" :source /path/to/this/cvimrc
+" :settings で確認
+
 let homedirectory = '/Users/tmsanrinsha'
 let configpath = '~/.config/cvim/cvimrc'
 set localconfig
@@ -14,6 +18,11 @@ let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前�
 map <C-f> scrollFullPageDown
 map <C-b> scrollFullPageUp
 
+" Miscellaneous
+map g/ openLinkSearchBar
+unmap R
+map R reloadTabUncached
+
 " Tab Navigation
 map K previousTab
 map J nextTab
@@ -21,9 +30,28 @@ map J nextTab
 map d closeTab
 map u lastClosedTab
 
+" Text boxes
+imap <C-a> beginningOfLine
+imap <C-k> deleteToEnd
+" iunmap <C-w>
+" unmap <C-w>
+imap <C-w> deleteWord
+imap <M-d> deleteForwardWord
+iunmap <C-h>
+unmap <C-h>
+map <C-h> deleteChar
+imap <C-h> deleteChar
+imap <C-d> deleteForwardChar
+imap <M-b> backwardWord
+imap <M-f> forwardWord
+imap <C-n> forwardLine
+imap <C-p> backwardLine
+imap <M-a> selectAll
+imap <C-v> editWithVim
+
 " map <C-o> goBack
 let mapleader = ";"
-map <Leader>vr = :source configpath
+map <Leader>vr = :source ~/.config/cvim/cvimrc
 
 " 選択した語句でタブを開く
 unmap gxT
