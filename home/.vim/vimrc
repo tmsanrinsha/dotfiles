@@ -35,13 +35,13 @@ endif
 
 let $VIMRC_DIR = g:vim_home .'/.vim/rc'
 
-let $VIM_CACHE_DIR = g:vim_home . '/.cache/vim'
+let $VIM_CACHE_DIR = $HOME . '/.cache/vim'
 
 if !isdirectory($VIM_CACHE_DIR)
     call mkdir($VIM_CACHE_DIR, 'p')
 endif
 
-let g:dein_dir = expand('$VIM_CACHE_DIR/dein')
+let g:dein_dir = g:vim_home . '/.cache/vim/dein'
 
 call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。

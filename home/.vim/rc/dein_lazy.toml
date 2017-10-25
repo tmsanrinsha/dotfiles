@@ -4,7 +4,7 @@
 repo = 'Shougo/unite.vim'
 on_cmd = 'Unite'
 hook_source = '''
-    source ~/.vim/rc/plugins/unite_hook_source.vim
+    call SourceRc('plugins/unite_hook_source.vim')
 '''
 
 [[plugins]]
@@ -33,7 +33,7 @@ repo = 'Shougo/denite.nvim'
 on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
 if = 'has("python3")'
 hook_source = '''
-    source ~/.vim/rc/plugins/denite_hook_source.vim
+    call SourceRc('plugins/denite_hook_source.vim')
 '''
 
 [[plugins]]
@@ -101,7 +101,7 @@ let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane"
 # [[plugins]]
 # repo = 'oplatek/Conque-Shell'
 # on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
-# hook_source = 'source ~/.vim/rc/plugins/Conque-Shell_hook_source.vim'
+# hook_source = 'call SourceRc('plugins/Conque-Shell_hook_source.vim'')
 
 # neocomplete {{{1
 # ============================================================================
@@ -114,7 +114,7 @@ depends = [
 ]
 on_i = 1
 if = 'has("lua") && v:version >= 704'
-hook_source = 'source ~/.vim/rc/plugins/neocomplete_hook_source.vim'
+hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
@@ -128,7 +128,7 @@ repo = 'Shougo/neoinclude.vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
-hook_source = 'source ~/.vim/rc/plugins/neosnippet_hook_source.vim'
+hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
 
 [[plugins]]
 repo = 'honza/vim-snippets'
@@ -308,7 +308,7 @@ on_cmd = 'DirDiff'
 [[plugins]]
 repo = 'osyo-manga/vim-marching'
 on_ft = ['c', 'cpp']
-hook_source = 'source ~/.vim/rc/plugins/marching_hook_source.vim'
+hook_source = 'call SourceRc("plugins/marching_hook_source.vim")'
 
 [[plugins]]
 repo = 'quark-zju/vim-cpp-auto-include'
@@ -371,7 +371,7 @@ on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
-hook_source = 'source ~/.vim/rc/plugins/jedi_hook_source.vim'
+hook_source = 'call SourceRc("plugins/jedi_hook_source.vim")'
 
 [[plugins]]
 repo = 'lambdalisue/vim-pyenv'
@@ -453,7 +453,7 @@ on_cmd = 'GundoToggle'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 on_i = 1
-hook_source = 'source ~/.vim/rc/plugins/lexima_hook_source.vim'
+hook_source = 'call SourceRc("plugins/lexima_hook_source.vim")'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
@@ -477,12 +477,12 @@ on_cmd = 'Man'
 repo = 'thinca/vim-quickrun'
 on_cmd = ['QuickRun', 'QuickRunReplace']
 depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
-hook_source = 'source ~/.vim/rc/plugins/quickrun_hook_source.vim'
+hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
 depends = ['vim-quickrun', 'vim-bufixlist']
-hook_source = 'source ~/.vim/rc/plugins/watchdogs_hook_source.vim'
+hook_source = 'call SourceRc("plugins/watchdogs_hook_source.vim")'
 
 [[plugins]]
 repo = 'cohama/vim-hier'
@@ -564,7 +564,7 @@ on_cmd = ['OpenBrowser']
 on_func = ['openbrowser#search', 'OpenBrowser']
 on_map = '<Plug>(openbrowser-'
 hook_source = '''
-    source ~/.vim/rc/plugins/open-browser_hook_source.vim
+    call SourceRc('plugins/open-browser_hook_source.vim')
 '''
 
 [[plugins]]
