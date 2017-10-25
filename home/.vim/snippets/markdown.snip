@@ -1,3 +1,18 @@
+# MathJax {{{1
+# ============================================================================
+snippet mathjax
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [['$','$'], ["\\(","\\)"]],
+	        displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+	    }
+	});
+	</script>
+	<script type="text/javascript" async
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+
 snippet math
 	<div>
 	$$ ${1} $$
@@ -13,7 +28,12 @@ snippet matha
 snippet frac
 	\frac{${1}}{${2}}
 
+# Hugo short code {{{1
+# ============================================================================
 snippet amazon
 	{{% amazon ${1:asin} %}}
+
+snippet tweet
+	{{< tweet ${1.tweet} >}}
 
 # vim: set noexpandtab :
