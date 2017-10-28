@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+HTTPS = (File.basename(__FILE__) == 'https')
+
+require 'webrick'
+
+if HTTPS
+  require 'webrick/https'
+end
+
+port = ARGV.shift || 3000
+
+# ここで自由に MIME を設定できるのが便利
+mime = WEBrick::HTTPUtils::DefaultMimeTypes.merge({
+  "js"       => "text/javascript",
+  "json"     => "text/json",
+  "log"      => "text/plain",
+  "md"       => "text/plain",
+  "markdown" => "text/plain",
+})
+
+config = {
+  :Port         => port,
+  :DocumentRoot => '.',
+  :MimeTypes    => mime,
+}
+
+if HTTPS
+  config = config.merge({
+    :SSLEnable    => true,
+    :SSLCertName  => [["CN", "devserver"]], # 証明書を自動で生成してくれる
+  })
+end
+
+server = WEBrick::HTTPServer.new(config)
+Signal.trap('INT') { server.shutdown }
+server.start
