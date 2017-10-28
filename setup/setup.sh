@@ -184,7 +184,7 @@ fi
 # ============================================================================
 install https://beyondgrep.com/ack-2.18-single-file ack
 
-# cpanm {{{1
+# Perl {{{1
 # ============================================================================
 # [perlモジュールのinstallにcpanmを使う｜perl｜@OMAKASE](http://www.omakase.org/perl/cpanm.html)
 # if ! command_exists cpanm && command_exists perl; then
