@@ -51,4 +51,4 @@ while IFS= read -r -d '' file; do
     # fi
 
     ln -sfv "$fromdir/$file" "$todir/$file"
-done < <(find . -type f ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)
+  done < <(find . \( -type f -o -type l \) ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)
