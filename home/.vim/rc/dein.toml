@@ -305,6 +305,7 @@ repo = 'vim-scripts/confluencewiki.vim'
 # lazyに置くとcommandの設定がうまくいかなかったのでこちらで
 [[plugins]]
 repo = 'fatih/vim-go'
+if = "MyHasPatch('patch-7.4.1689')"
 
 # graphviz {{{2
 # -----------------------------------------------------------------------------
