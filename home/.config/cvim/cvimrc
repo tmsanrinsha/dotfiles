@@ -12,6 +12,9 @@ let barposition = "bottom"
 let locale = "jp"
 let hintchars = "asdfghjklqwertyuiopzxcvbnm1234567890"
 
+" let searchengine g = 'https://www.google.co.jp/search?q=%s'
+" let completionengines = ["g", "amazon", "imdb", "dogpile"]
+
 let nextmatchpattern = '((?!first)(next|older|more|>|›|»|forward|次へ|次のページ| )+)'
 let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前へ|前のページ|前に| )+)'
 
@@ -19,6 +22,7 @@ let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前�
 map <C-f> scrollFullPageDown
 map <C-b> scrollFullPageUp
 
+map I passKeys
 " Miscellaneous
 map g/ openLinkSearchBar
 unmap R
@@ -52,7 +56,7 @@ imap <C-v> editWithVim
 
 " map <C-o> goBack
 let mapleader = ";"
-map <Leader>vr = :source ~/.config/cvim/cvimrc
+map <Leader>vr :source /Users/tmsanrinsha/.config/cvim/cvimrc<CR>
 
 " 選択した語句でタブを開く
 unmap gxT
