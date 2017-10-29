@@ -80,6 +80,7 @@ function! SourceRc(path) " {{{2
 endfunction
 
 " MyHasPatch {{{2
+" 引数の書き方はpatch-x.x.xxx
 if has('patch-7.4.237')
     function! MyHasPatch(str)
         return has(a:str)
@@ -2380,11 +2381,11 @@ endif
 " let g:UltiSnipsEditSplit="vertical"
 
 " Valloric/Youcompleteme {{{1
-" ==============================================================================
+" =============================================================================
 let g:ycm_filetype_whitelist = { 'java': 1 }
 
-" Shougo/context_filetype.vim {{{1
-" ==============================================================================
+" Shougo/context_filetype.vim: 部分的にfiletypeを変更する{{{1
+" =============================================================================
 if IsInstalled('context_filetype.vim')
     let g:context_filetype#filetypes = deepcopy(context_filetype#default_filetypes())
 
@@ -2398,6 +2399,30 @@ if IsInstalled('context_filetype.vim')
     " Rmd
     let g:context_filetype#filetypes.rmd = g:context_filetype#filetypes.markdown
 
+    " cvim
+    call add(g:context_filetype#filetypes.vim, {
+    \   'filetype': 'javascript',
+    \   'start': ' -> {{',
+    \   'end': '}}'
+    \})
+endif
+
+" tmsanrinsha/SyntaxRange: 部分的にsyntaxを変更する{{{1
+" =============================================================================
+" [dein.vimのtomlのhook_*部分をシンタックスハイライトさせる - Qiita](http://qiita.com/tmsanrinsha/items/9670628aef3144c7919b)
+if IsInstalled('SyntaxRange')
+  autocmd MyVimrc BufNewFile,BufRead dein*.toml call s:syntax_range_dein()
+
+  function! s:syntax_range_dein() abort
+    let start = '^\s*hook_\%('.
+    \           'add\|source\|post_source\|post_update'.
+    \           '\)\s*=\s*%s'
+
+    call SyntaxRange#Include(printf(start, "'''"), "'''", 'vim', '')
+    call SyntaxRange#Include(printf(start, '"""'), '"""', 'vim', '')
+  endfunction
+
+  autocmd MyVimrc BufNewFile,BufRead cvimrc call SyntaxRange#Include(' -> {{', '}}', 'javascript', '')
 endif
 
 

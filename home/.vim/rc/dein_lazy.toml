@@ -700,7 +700,3 @@ on_func = ['SyntaxRange']
 [[plugins]]
 repo = 'johngrib/vim-game-code-break'
 on_cmd = ['VimGameCodeBreak ']
-
-# 設定はvimrc
-# [dein.vimのtomlのhook_*部分をシンタックスハイライトさせる - Qiita](http://qiita.com/tmsanrinsha/items/9670628aef3144c7919b)
-# }}}
