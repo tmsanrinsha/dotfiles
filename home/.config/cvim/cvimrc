@@ -91,3 +91,30 @@ let searchengine t   = 'https://twitter.com/search?vertical=default&q=%s&src=typ
 let searchengine y   = 'http://search.yahoo.co.jp/search?ei=UTF-8&p=%s'
 let searchengine yf  = 'http://info.finance.yahoo.co.jp/search/?query=%s'
 let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
+
+" JavaScriptを実行するには
+" :script console.log(settings.hintchars)
+" など
+
+" :call echo('hoge')
+echo(str) -> {{
+  Status.setMessage(str);
+  console.log(str)
+}}
+
+yankMarkdownLink() -> {{
+  var markdownLink = `[${window.document.title}](${window.location.href})`
+  Clipboard.copy(markdownLink);
+  Status.setMessage(markdownLink);
+}}
+
+map ym :call yankMarkdownLink<CR>
+
+yankAmazonShortcode() -> {{
+  var asin = window.location.href.match(/\/dp\/([^?/]+)/)[1];
+  var amazonShortcode = `{{% amazon ${asin} %}` + `}`;
+  Clipboard.copy(amazonShortcode);
+  Status.setMessage(amazonShortcode);
+}}
+
+map ya :call yankAmazonShortcode<CR>
