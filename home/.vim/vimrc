@@ -557,8 +557,8 @@ xmap <Space> [:space:]
 
 nnoremap [Colon] :
 
-inoremap jj <ESC>
-cnoremap jj <ESC>
+" inoremap jj <ESC>
+" cnoremap jj <ESC>
 
 nnoremap Y y$
 
