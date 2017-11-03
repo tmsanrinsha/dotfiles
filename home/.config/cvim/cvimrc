@@ -12,9 +12,6 @@ let barposition = "bottom"
 let locale = "jp"
 let hintchars = "asdfghjklqwertyuiopzxcvbnm1234567890"
 
-" let searchengine g = 'https://www.google.co.jp/search?q=%s'
-" let completionengines = ["g", "amazon", "imdb", "dogpile"]
-
 let nextmatchpattern = '((?!first)(next|older|more|>|›|»|forward|次へ|次のページ| )+)'
 let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前へ|前のページ|前に| )+)'
 
@@ -84,6 +81,10 @@ let qmark v = ["http://www.nicovideo.jp/mylist/9352163"]
 let qmark w = ['https://detail.wallet.yahoo.co.jp/history']
 let qmark y = ['http://www.yahoo.co.jp/']
 
+
+" let searchengine g = 'https://www.google.co.jp/search?q=%s'
+" let completionengines = ["g", "amazon", "imdb", "dogpile"]
+
 let searchengine alc = 'http://eow.alc.co.jp/search?q=%s'
 let searchengine gs  = 'https://www.google.co.jp/search?q=site%3Atmsanrinsha.net+%s'
 let searchengine t   = 'https://twitter.com/search?vertical=default&q=%s&src=typd'
@@ -91,6 +92,12 @@ let searchengine t   = 'https://twitter.com/search?vertical=default&q=%s&src=typ
 let searchengine y   = 'http://search.yahoo.co.jp/search?ei=UTF-8&p=%s'
 let searchengine yf  = 'http://info.finance.yahoo.co.jp/search/?query=%s'
 let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
+
+site 'https://mail.google.com/mail/*' {
+      unmap n
+      unmap p
+      unmap u
+}
 
 " JavaScriptを実行するには
 " :script console.log(settings.hintchars)
