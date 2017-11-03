@@ -1123,6 +1123,8 @@
 	<integer>105</integer>
 	<key>HotkeyCode</key>
 	<integer>34</integer>
+	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
 	<key>HotkeyModifiers</key>
 	<integer>1048840</integer>
 	<key>IRMemory</key>
@@ -1172,7 +1174,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAczAAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAc7AAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -1207,7 +1209,7 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1182 1136 228 297 -349 800 1920 1057 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>568 197 445 77 0 0 1280 777 </string>
+	<string>568 63 445 77 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>336 1399 606 456 -349 800 1920 1057 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -1217,11 +1219,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>177 147 796 473 0 0 1280 777 </string>
+	<string>177 145 796 473 0 0 1280 777 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>259 1204 592 584 -349 800 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>173 4 570 473 0 0 1280 777 </string>
+	<string>0 4 1280 773 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1 318 585 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2132,7 +2134,7 @@
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
 	<key>RightCommand</key>
@@ -2148,7 +2150,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-09-07T12:47:16Z</date>
+	<date>2017-11-02T14:58:23Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2211,7 +2213,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.15</string>
+	<string>3.1.4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
