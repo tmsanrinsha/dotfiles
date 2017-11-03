@@ -82,16 +82,19 @@ let qmark w = ['https://detail.wallet.yahoo.co.jp/history']
 let qmark y = ['http://www.yahoo.co.jp/']
 
 
-" let searchengine g = 'https://www.google.co.jp/search?q=%s'
-" let completionengines = ["g", "amazon", "imdb", "dogpile"]
+" これを設定すると検索語句をサジェスチョンされる
+let completionengines = []
 
 let searchengine alc = 'http://eow.alc.co.jp/search?q=%s'
+let searchengine g = 'https://www.google.co.jp/search?q=%s'
 let searchengine gs  = 'https://www.google.co.jp/search?q=site%3Atmsanrinsha.net+%s'
 let searchengine t   = 'https://twitter.com/search?vertical=default&q=%s&src=typd'
-" let searchalias t = 'twitter'
 let searchengine y   = 'http://search.yahoo.co.jp/search?ei=UTF-8&p=%s'
 let searchengine yf  = 'http://info.finance.yahoo.co.jp/search/?query=%s'
 let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
+
+" searchaliasを設定しても:openしたときに表示されない
+" let searchalias t = 'twitter'
 
 site 'https://mail.google.com/mail/*' {
       unmap n
