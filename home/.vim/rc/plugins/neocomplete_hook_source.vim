@@ -120,7 +120,7 @@ let g:neocomplete#sources#omni#input_patterns.java = '\h\w\{2,\}\|[^. \t]\.\%(\h
 " ----------------------------------------------------------------------------
 if IsInstalled('tern_for_vim')
     let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
-    autocmd MyVimrc FileType javascript call tern#Enable()
+    autocmd MyVimrc FileType javascript,cvim call tern#Enable()
 end
 
 " golang {{{2

@@ -1097,7 +1097,7 @@ function! s:qf_messages()
 
   let qflist = s:parse_error_messages(str_messages)
   call setqflist(qflist, 'r')
-  cwindow
+  botright cwindow
 endfunction
 
 function! s:parse_error_messages(messages) abort
@@ -2400,11 +2400,13 @@ if IsInstalled('context_filetype.vim')
     let g:context_filetype#filetypes.rmd = g:context_filetype#filetypes.markdown
 
     " cvim
-    call add(g:context_filetype#filetypes.vim, {
+    let g:context_filetype#filetypes.cvim = [
+    \ {
     \   'filetype': 'javascript',
     \   'start': ' -> {{',
     \   'end': '}}'
-    \})
+    \ }
+    \]
 endif
 
 " tmsanrinsha/SyntaxRange: 部分的にsyntaxを変更する{{{1
@@ -2587,7 +2589,7 @@ endif
 " -423  ←これは <C-A> される
 " d-423 ←これは <C-X> される
 
-if IsInstalled('vital-coaster')
+if IsInstalled('vital-coaster') && IsInstalled('vimtal.vim')
     nmap <C-A> <Plug>(my-increment)
     nmap <C-X> <Plug>(my-decriment)
 

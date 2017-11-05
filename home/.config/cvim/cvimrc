@@ -112,6 +112,8 @@ echo(str) -> {{
   console.log(str)
 }}
 
+" yank {{{1
+" ============================================================================
 yankMarkdownLink() -> {{
   var markdownLink = `[${window.document.title}](${window.location.href})`
   Clipboard.copy(markdownLink);
@@ -128,3 +130,11 @@ yankAmazonShortcode() -> {{
 }}
 
 map ya :call yankAmazonShortcode<CR>
+
+yankGitHub() -> {{
+  var user_repo = window.location.pathname.match(/^\/([^/]+\/[^/]+)/)[1];
+  Clipboard.copy(user_repo);
+  Status.setMessage(user_repo);
+}}
+
+map yg :call yankGitHub<CR>

@@ -22,6 +22,8 @@ augroup MyVimrc
     autocmd BufRead,BufNewFile *.csv setlocal filetype=csv
     autocmd BufRead,BufNewFile *.tsv setlocal filetype=tsv
 
+    autocmd BufRead,BufNewFile *cvimrc setlocal filetype=cvim
+
 
     " MySQLのEditorの設定
     " http://lists.ccs.neu.edu/pipermail/tipz/2003q2/000030.html
