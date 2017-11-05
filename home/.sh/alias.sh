@@ -143,8 +143,6 @@ alias sr="exec $SHELL -l"
 
 # カレントディレクトリ以下のファイルに書き込み権限を与える
 alias smw='find . -type f -print0 | xargs -0 -I{} sudo chmod a+w {}'
-# カレントディレクトリのファイル名をFull Pathで表示
-alias fp='find `pwd` -maxdepth 1 -mindepth 1'
 # ファイルを解凍するシェルスクリプト
 alias dc='decomp.sh'
 # find $1 type f -print0 | xargs -0 egrep --color=auto $2

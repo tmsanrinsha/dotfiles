@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # bash, zsh共通設定
 
 # .sh/env.shに設定するとDirDiff.vimでのLANG設定(https://github.com/tmsanrinsha/DirDiff.vim/commit/84f11927ae9a915cd7a0d330a1abba26a9982e32)を上書きしてしまうのでここに書く
@@ -15,7 +14,7 @@
 # する
 export LANG='ja_JP.UTF-8'
 
-# alias {{{
+# alias {{{1
 # ============================================================================
 . ~/.sh/alias.sh
 # すでにあるコマンドと同名のaliasの設定はここに書いて、
