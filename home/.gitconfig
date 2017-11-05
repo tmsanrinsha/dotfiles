@@ -74,6 +74,7 @@
 [pager]
 	diff =
 [push]
+	# [gitのpush.defaultに関するノウハウ - Qiita](https://qiita.com/awakia/items/6aaea1ffecba725be601)
 	# pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
 	default = current
 
