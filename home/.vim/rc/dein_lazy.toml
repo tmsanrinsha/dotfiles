@@ -694,8 +694,34 @@ repo = 'tmsanrinsha/SyntaxRange'
 on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
 on_func = ['SyntaxRange']
 
-# game {{{1
+# tool {{{1
 # ============================================================================
+[[plugins]]
+repo = 'basyura/TweetVim'
+on_cmd= [
+  'TweetVimHomeTimeline',
+  'TweetVimVersion',
+  'TweetVimAddAccount',
+  'TweetVimSwitchAccount',
+  'TweetVimHomeTimeline',
+  'TweetVimMentions',
+  'TweetVimListStatuses',
+  'TweetVimUserTimeline',
+  'TweetVimSay',
+  'TweetVimUserStream',
+  'TweetVimCommandSay',
+  'TweetVimCurrentLineSay',
+  'TweetVimSearch',
+]
+on_map = '<Plug>'
+depends = ['twibill.vim']
+hook_source = '''
+let g:tweetvim_display_icon = 1
+'''
+
+[[plugins]]
+repo = 'basyura/twibill.vim'
+
 [[plugins]]
 repo = 'johngrib/vim-game-code-break'
 on_cmd = ['VimGameCodeBreak ']
