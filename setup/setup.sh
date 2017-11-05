@@ -269,10 +269,12 @@ elif [[ "$os" == mac ]]; then
 
     myplug https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-    if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/edit-server ]; then
-        ghq get tmsanrinsha/edit-server
-        launchctl load ~/Library/LaunchAgents/edit-server.plist
-    fi
+    ghq get -u tmsanrinsha/chromium-vim
+
+    # if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/edit-server ]; then
+    #     ghq get tmsanrinsha/edit-server
+    #     launchctl load ~/Library/LaunchAgents/edit-server.plist
+    # fi
 
     if [ $brew -eq 1 ]; then
         cd $setup_dir
