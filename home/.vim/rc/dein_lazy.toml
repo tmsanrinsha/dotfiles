@@ -583,7 +583,6 @@ on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplase
 [[plugins]]
 repo = 'shikato/keysender.vim'
 on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
-# }}}
 
 # search, replace {{{1
 # ============================================================================
@@ -687,7 +686,7 @@ on_cmd = ['Gista']
 # color {{{1
 # ============================================================================
 [[plugins]]
-repo = 'lilydjwg/colorizer'
+repo = 'chrisbra/Colorizer'
 on_cmd = ['ColorHighlight', 'ColorToggle']
 
 [[plugins]]
