@@ -61,6 +61,11 @@ unmap gxt
 unmap gx0
 unmap gx$
 map gx :execute vyP<CR>
+" aで:tabnew googleして<CR>てきな挙動になる
+" map gxa :execute vy:open alc @"<CR>
+" map a :tabnew alc
+" map gxa :execute vy: a @"<CR>
+
 
 let qmark b = ['http://bookstore.yahoo.co.jp']
 let qmark c = ['https://www.google.com/calendar/']
