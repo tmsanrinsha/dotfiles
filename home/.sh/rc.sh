@@ -50,6 +50,17 @@ if grep --help 2>&1 | grep color 1>/dev/null 2>&1; then
     alias grep='grep --color=auto'
 fi
 
+# function {{{1
+# ============================================================================
+# fullpath
+function fp {
+  if type realpath 1>/dev/null 2>&1; then
+    realpath -s $1
+  else
+    readlink -f $1
+  fi
+}
+
 # Man {{{1
 # ============================================================================
 # manのpagerとしてvimの:Manを使う。
