@@ -132,17 +132,17 @@ fi
 
 # vimperator {{{1
 # ============================================================================
-if [[ "$os" = msys || "$os" = mac ]]; then
-    if [[ "$os" = msys ]]; then
-        vimperatordir="$HOME/vimperator"
-    else
-        vimperatordir="$HOME/.vimperator"
-    fi
-
-    ghq get -u vimpr/vimperator-plugins
-    mkdir -p $vimperatordir/plugin
-    ln -fs ~/src/github.com/vimpr/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
-fi
+# if [[ "$os" = msys || "$os" = mac ]]; then
+#     if [[ "$os" = msys ]]; then
+#         vimperatordir="$HOME/vimperator"
+#     else
+#         vimperatordir="$HOME/.vimperator"
+#     fi
+#
+#     ghq get -u vimpr/vimperator-plugins
+#     mkdir -p $vimperatordir/plugin
+#     ln -fs ~/src/github.com/vimpr/vimperator-plugins/plugin_loader.js $vimperatordir/plugin
+# fi
 
 # script {{{1
 # ============================================================================
@@ -234,9 +234,15 @@ if command_exists pip; then
   pip completion --zsh > $ZDOTDIR/.zshrc.cache
 fi
 
+# cVim {{{1
+# ============================================================================
+if [[ "$os" == msys || "$os" == mac ]]; then
+  ghq get -u tmsanrinsha/chromium-vim
+fi
+
 # CYGWIN {{{1
 # ============================================================================
-if [[ "$os" = CYGWIN* ]]; then
+if [[ "$os" == CYGWIN* ]]; then
     if [ ! -x ~/script/cygwin/apt-cyg ]; then
         $downloader https://raw.github.com/rcmdnk/apt-cyg/master/apt-cyg > ~/script/cygwin/apt-cyg
         chmod a+x ~/script/cygwin/apt-cyg
@@ -268,8 +274,6 @@ elif [[ "$os" == mac ]]; then
     fi
 
     myplug https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    ghq get -u tmsanrinsha/chromium-vim
 
     # if [ ! -d $SRC_ROOT/github.com/tmsanrinsha/edit-server ]; then
     #     ghq get tmsanrinsha/edit-server
