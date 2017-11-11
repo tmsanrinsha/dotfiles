@@ -3,9 +3,9 @@
 " :source /path/to/this/cvimrc
 " :settings で確認
 
+set localconfig
 let homedirectory = '/Users/tmsanrinsha'
 let configpath = '~/.config/cvim/cvimrc'
-set localconfig
 
 set noautofocus
 let barposition = "bottom"
@@ -53,7 +53,7 @@ imap <C-v> editWithVim
 
 " map <C-o> goBack
 let mapleader = ";"
-map <Leader>vr :source /Users/tmsanrinsha/.config/cvim/cvimrc<CR>
+map <Leader>vr :source ~/.config/cvim/cvimrc<CR>
 
 " 選択した語句でタブを開く
 unmap gxT
