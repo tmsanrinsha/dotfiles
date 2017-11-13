@@ -2258,6 +2258,7 @@ if IsInstalled('denite.nvim')
   nnoremap <silent> [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
   nnoremap <silent> [unite]gc :<C-u>Denite grep<CR>
   nnoremap <silent> [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
+  nnoremap <silent> [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
   nnoremap <silent> [unite]fh :<C-u>Denite file_rec:`g:hugo_post_directory`<CR>
   nnoremap <silent> [unite]gh :<C-u>Denite grep:`g:hugo_post_directory`<CR>
 endif
