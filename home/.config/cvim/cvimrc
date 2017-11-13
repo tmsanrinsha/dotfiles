@@ -10,7 +10,7 @@ let configpath = '~/.config/cvim/cvimrc'
 set noautofocus
 let barposition = "bottom"
 let locale = "jp"
-let hintchars = "asdfghjklqwertyuiopzxcvbnm1234567890"
+let hintcharacters = "asdfghjklqwertyuiopzxcvbnm1234567890"
 
 let nextmatchpattern = '((?!first)(next|older|more|>|›|»|forward|次へ|次のページ| )+)'
 let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前へ|前のページ|前に| )+)'
