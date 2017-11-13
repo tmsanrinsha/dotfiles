@@ -12,76 +12,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 10,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 38,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 17,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 9,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 70,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,117",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 2,
@@ -100,58 +32,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 64,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 19,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 11,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 62,
@@ -168,236 +50,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 32,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 15,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 16,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 18,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 8,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,121",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 6,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 61,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,116",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 7,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 67,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 0,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 1,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 59,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 13,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 12,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,123",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 0,
@@ -416,9 +70,11 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 69,
+          "BTTOrder" : 59,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -432,6 +88,128 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 1,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 70,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 9,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 14,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 0,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,125",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 14,
@@ -449,7 +227,47 @@
         },
         {
           "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 61,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 16,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,126",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 0,
@@ -467,7 +285,185 @@
         },
         {
           "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 67,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 10,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 13,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 12,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,121",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 6,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 64,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 18,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 11,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 19,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 38,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 17,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,124",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 14,
@@ -486,15 +482,57 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,124",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,116",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 7,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 69,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 32,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 14,
+          "BTTOrder" : 15,
           "BTTAdditionalActions" : [
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "51",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
@@ -511,6 +549,26 @@
               }
             }
           ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 8,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -532,25 +590,9 @@
       "BTTTriggers" : [
         {
           "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 115,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 101,
@@ -567,259 +609,12 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,116",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 111,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 112,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : 21,
+          "BTTPredefinedActionName" : "Maximize Window",
           "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 106,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 109,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 99,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 124,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 32,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 120,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 121,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 104,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 102,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 98,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 107,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 97,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 13,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 116,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 117,
+          "BTTShortcutKeyCode" : 7,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 92,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -851,46 +646,12 @@
         },
         {
           "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 125,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 103,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,121",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 110,
+          "BTTOrder" : 98,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -923,29 +684,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,123",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,51",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 113,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutKeyCode" : 13,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 96,
+          "BTTOrder" : 116,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -959,6 +704,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "125",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 45,
@@ -975,7 +722,149 @@
           }
         },
         {
+          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,121",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 110,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 107,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 115,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 112,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 122,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,116",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 111,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 114,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "53",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 41,
@@ -985,6 +874,8 @@
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "102",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
@@ -1012,62 +903,6 @@
           }
         },
         {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 118,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 119,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 38,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 123,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
           "BTTPredefinedActionType" : 20,
           "BTTPredefinedActionName" : "Maximize Window Right",
@@ -1075,6 +910,44 @@
           "BTTShortcutKeyCode" : 124,
           "BTTShortcutModifierKeys" : 1572864,
           "BTTOrder" : 89,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 106,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 97,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1106,12 +979,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 21,
-          "BTTPredefinedActionName" : "Maximize Window",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 7,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 92,
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 113,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1125,9 +999,227 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 103,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 108,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 118,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 119,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 38,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 123,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 117,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 125,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 102,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 100,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 104,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 109,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 96,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1159,187 +1251,24 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 105,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 122,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 114,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 108,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        }
-      ]
-    },
-    {
-      "BTTAppBundleIdentifier" : "org.vim.MacVim",
-      "BTTAppName" : "MacVim",
-      "BTTAppSpecificSettings" : {
-
-      },
-      "BTTTriggers" : [
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 161,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 38,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 162,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 139,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 153,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 146,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "56,55,123",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 32,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 159,
+          "BTTOrder" : 120,
           "BTTAdditionalActions" : [
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "51",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
               "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 160,
+              "BTTOrder" : 121,
               "BTTIconData" : "",
               "BTTAlternateIconData" : "",
               "BTTKeySequence" : {
@@ -1364,27 +1293,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,117",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 156,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 137,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 124,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1398,6 +1313,57 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 105,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 99,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        }
+      ]
+    },
+    {
+      "BTTAppBundleIdentifier" : "org.vim.MacVim",
+      "BTTAppName" : "MacVim",
+      "BTTAppSpecificSettings" : {
+
+      },
+      "BTTTriggers" : [
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,123",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 11,
@@ -1415,30 +1381,12 @@
         },
         {
           "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 154,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 136,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 142,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1471,27 +1419,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,124",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "51",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 151,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 147,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 153,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1505,6 +1439,48 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 156,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 164,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,121",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 9,
@@ -1523,31 +1499,30 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "53",
+          "BTTPredefinedActionType" : 95,
+          "BTTPredefinedActionName" : "Maximize Window to Bottom Half",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 41,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 132,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "102",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 133,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
+          "BTTShortcutKeyCode" : 125,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 129,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
 
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 140,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1561,6 +1536,48 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 161,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 154,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "56,55,124",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 40,
@@ -1570,6 +1587,8 @@
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "51",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
@@ -1599,241 +1618,35 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,116",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 150,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 45,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 134,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 35,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 135,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 163,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 13,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 155,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 143,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "53",
           "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 145,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutKeyCode" : 41,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 138,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
+          "BTTOrder" : 132,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "102",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 133,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
 
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 21,
-          "BTTPredefinedActionName" : "Maximize Window",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 7,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 131,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 142,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 141,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 19,
-          "BTTPredefinedActionName" : "Maximize Window Left",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 123,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 127,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 164,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 140,
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1866,11 +1679,230 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,126",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 138,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
           "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 144,
+          "BTTOrder" : 146,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 19,
+          "BTTPredefinedActionName" : "Maximize Window Left",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 123,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 127,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 136,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 32,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 159,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 160,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 135,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 148,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 137,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 38,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 162,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 45,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 134,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 13,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 155,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1902,10 +1934,50 @@
         },
         {
           "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 163,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 148,
+          "BTTOrder" : 139,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 147,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1919,12 +1991,130 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 95,
-          "BTTPredefinedActionName" : "Maximize Window to Bottom Half",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 151,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 125,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 145,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,116",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 150,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 143,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 21,
+          "BTTPredefinedActionName" : "Maximize Window",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 7,
           "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 129,
+          "BTTOrder" : 131,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 144,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 141,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -1947,61 +2137,51 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,117",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 13,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,126",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 4,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 1,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 189,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 5,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,116",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 7,
+          "BTTOrder" : 0,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2015,6 +2195,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "51",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 4,
@@ -2033,6 +2215,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 191,
@@ -2048,268 +2232,8 @@
         },
         {
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 0,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 192,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 187,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 4,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 13,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 38,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 17,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 19,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 14,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 32,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 15,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 16,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 18,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 2,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 193,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,124",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 14,
@@ -2327,6 +2251,122 @@
         },
         {
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 38,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 17,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 189,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 19,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,116",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 7,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 5,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 11,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,123",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 11,
@@ -2345,6 +2385,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,121",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 9,
@@ -2361,8 +2403,51 @@
           }
         },
         {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 32,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 15,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 190,
@@ -2378,12 +2463,32 @@
         },
         {
           "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 192,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 13,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 12,
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 16,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2397,9 +2502,52 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 188,
+          "BTTOrder" : 193,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 14,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2413,6 +2561,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,124",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 3,
@@ -2431,11 +2581,109 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,123",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutKeyCode" : 0,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 11,
+          "BTTOrder" : 2,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 13,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 12,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 1,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 187,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 18,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 188,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2458,68 +2706,50 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 13,
-          "BTTPredefinedActionName" : "Sleep Display",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "51",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 1,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 0,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 35,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 33,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutKeyCode" : 4,
           "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 19,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 9,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 8,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 10,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "36",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 46,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 21,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,121",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 15,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 96,
-          "BTTPredefinedActionName" : "Maximize Window to Top Half",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 126,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 4,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2533,15 +2763,58 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,124",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,125",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 14,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 31,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 17,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 32,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 24,
+          "BTTOrder" : 25,
           "BTTAdditionalActions" : [
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "51",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
@@ -2556,10 +2829,86 @@
         },
         {
           "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 95,
+          "BTTPredefinedActionName" : "Maximize Window to Bottom Half",
           "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 9,
+          "BTTShortcutKeyCode" : 125,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 3,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 24,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : ""
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "36",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 46,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 21,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 38,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 27,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 21,
+          "BTTPredefinedActionName" : "Maximize Window",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 7,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 5,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -2585,6 +2934,164 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 13,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 45,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 32,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 11,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 13,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 9,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,121",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 9,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 15,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 20,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : 96,
+          "BTTPredefinedActionName" : "Maximize Window to Top Half",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 126,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 4,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTEnabled" : 1,
+          "BTTRequiredModifierKeys" : 0,
+          "BTTOrder" : 15,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 18,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 14,
@@ -2601,52 +3108,20 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,123",
+          "BTTPredefinedActionType" : 13,
+          "BTTPredefinedActionName" : "Sleep Display",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 32,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 25,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : ""
-            }
-          ],
+          "BTTShortcutKeyCode" : 1,
+          "BTTShortcutModifierKeys" : 1572864,
+          "BTTOrder" : 0,
           "BTTIconData" : "",
           "BTTAlternateIconData" : ""
         },
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 11,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 26,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "55,124",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 14,
@@ -2658,28 +3133,21 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 45,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 32,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 11,
           "BTTIconData" : "",
           "BTTAlternateIconData" : ""
         },
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,116",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 9,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 16,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,51",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 13,
@@ -2691,28 +3159,60 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutKeyCode" : 37,
           "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 31,
+          "BTTOrder" : 29,
           "BTTIconData" : "",
           "BTTAlternateIconData" : ""
         },
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,123",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 26,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,116",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 9,
           "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 18,
+          "BTTOrder" : 16,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 33,
           "BTTIconData" : "",
           "BTTAlternateIconData" : ""
         },
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTEnabled" : 1,
           "BTTRequiredModifierKeys" : 0,
           "BTTOrder" : 12,
@@ -2725,6 +3225,86 @@
             "BTTTouchBarItemIconHeight" : 0,
             "BTTTouchBarItemIconWidth" : 0
           }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,117",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 23,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 28,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 48,
+          "BTTShortcutModifierKeys" : 1048576,
+          "BTTOrder" : 30,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "125",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 45,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 7,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "53",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 41,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 6,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "102",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : ""
+            }
+          ],
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : ""
         },
         {
           "BTTTriggerType" : -1,
@@ -2741,269 +3321,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 20,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 21,
-          "BTTPredefinedActionName" : "Maximize Window",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 7,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 5,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 11,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 45,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 7,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "125",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 38,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 27,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 8,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "126",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 28,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTPredefinedActionType" : 95,
-          "BTTPredefinedActionName" : "Maximize Window to Bottom Half",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 125,
-          "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 3,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 48,
-          "BTTShortcutModifierKeys" : 1048576,
-          "BTTOrder" : 30,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 13,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
+          "BTTShortcutKeyCode" : 35,
+          "BTTShortcutModifierKeys" : 262144,
           "BTTOrder" : 10,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,117",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 2,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 23,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,126",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 13,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "51",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 4,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 19,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "53",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 41,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 6,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "102",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : ""
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 9,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeMagicMouse",
-          "BTTEnabled" : 1,
-          "BTTRequiredModifierKeys" : 0,
-          "BTTOrder" : 15,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,125",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 14,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 29,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : ""
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 17,
           "BTTIconData" : "",
           "BTTAlternateIconData" : ""
         }
@@ -3019,42 +3343,9 @@
       },
       "BTTTriggers" : [
         {
-          "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 37,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 19,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 0,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "56,55,124",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 40,
@@ -3064,6 +3355,8 @@
             {
               "BTTTriggerType" : -1,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
               "BTTShortcutToSend" : "51",
               "BTTEnabled" : 1,
               "BTTShortcutKeyCode" : -1,
@@ -3093,11 +3386,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,123",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 11,
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,125",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
           "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 9,
+          "BTTOrder" : 5,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -3111,67 +3406,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,123",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,126",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 2,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "56,55,123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 32,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 15,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-              "BTTShortcutToSend" : "51",
-              "BTTEnabled" : 1,
-              "BTTShortcutKeyCode" : -1,
-              "BTTShortcutModifierKeys" : -1,
-              "BTTOrder" : 0,
-              "BTTIconData" : "",
-              "BTTAlternateIconData" : "",
-              "BTTKeySequence" : {
-
-              },
-              "BTTTriggerConfig" : {
-                "BTTTouchBarItemIconHeight" : 0,
-                "BTTTouchBarItemIconWidth" : 0
-              }
-            }
-          ],
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,117",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
           "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 13,
+          "BTTOrder" : 4,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -3185,6 +3426,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,121",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 9,
@@ -3203,11 +3446,35 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "117",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "56,55,123",
           "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutKeyCode" : 32,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 11,
+          "BTTOrder" : 15,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTPredefinedActionType" : -1,
+              "BTTPredefinedActionName" : "No Action",
+              "BTTShortcutToSend" : "51",
+              "BTTEnabled" : 1,
+              "BTTShortcutKeyCode" : -1,
+              "BTTShortcutModifierKeys" : -1,
+              "BTTOrder" : 0,
+              "BTTIconData" : "",
+              "BTTAlternateIconData" : "",
+              "BTTKeySequence" : {
+
+              },
+              "BTTTriggerConfig" : {
+                "BTTTouchBarItemIconHeight" : 0,
+                "BTTTouchBarItemIconWidth" : 0
+              }
+            }
+          ],
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -3221,81 +3488,32 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,51",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 13,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 12,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "126",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "123",
           "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 40,
-          "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 18,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,126",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 0,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 4,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "58,124",
-          "BTTEnabled" : 1,
-          "BTTShortcutKeyCode" : 3,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 8,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "51",
-          "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 16,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 3,
           "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 10,
+          "BTTOrder" : 0,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -3309,6 +3527,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "125",
           "BTTEnabled" : 1,
           "BTTShortcutKeyCode" : 38,
@@ -3327,11 +3547,13 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "123",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 11,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 1,
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "124",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutModifierKeys" : 1310720,
+          "BTTOrder" : 19,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
@@ -3345,42 +3567,8 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,125",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 524288,
-          "BTTOrder" : 5,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTShortcutToSend" : "55,124",
-          "BTTEnabled" : 0,
-          "BTTShortcutKeyCode" : 14,
-          "BTTShortcutModifierKeys" : 262144,
-          "BTTOrder" : 3,
-          "BTTIconData" : "",
-          "BTTAlternateIconData" : "",
-          "BTTKeySequence" : {
-
-          },
-          "BTTTriggerConfig" : {
-            "BTTTouchBarItemIconHeight" : 0,
-            "BTTTouchBarItemIconWidth" : 0
-          }
-        },
-        {
-          "BTTTriggerType" : -1,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "58,116",
           "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 9,
@@ -3399,11 +3587,191 @@
         {
           "BTTTriggerType" : -1,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
           "BTTShortcutToSend" : "123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 1,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,123",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 0,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 2,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,124",
           "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 3,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 8,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "51",
+          "BTTEnabled" : 0,
           "BTTShortcutKeyCode" : 4,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 10,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "55,124",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 14,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 3,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,123",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 11,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 9,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 11,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,51",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 13,
+          "BTTShortcutModifierKeys" : 262144,
+          "BTTOrder" : 12,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "58,117",
+          "BTTEnabled" : 0,
+          "BTTShortcutKeyCode" : 2,
+          "BTTShortcutModifierKeys" : 524288,
+          "BTTOrder" : 13,
+          "BTTIconData" : "",
+          "BTTAlternateIconData" : "",
+          "BTTKeySequence" : {
+
+          },
+          "BTTTriggerConfig" : {
+            "BTTTouchBarItemIconHeight" : 0,
+            "BTTTouchBarItemIconWidth" : 0
+          }
+        },
+        {
+          "BTTTriggerType" : -1,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTPredefinedActionType" : -1,
+          "BTTPredefinedActionName" : "No Action",
+          "BTTShortcutToSend" : "126",
+          "BTTEnabled" : 1,
+          "BTTShortcutKeyCode" : 40,
           "BTTShortcutModifierKeys" : 1310720,
-          "BTTOrder" : 16,
+          "BTTOrder" : 18,
           "BTTIconData" : "",
           "BTTAlternateIconData" : "",
           "BTTKeySequence" : {
