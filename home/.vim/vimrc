@@ -43,7 +43,7 @@ endif
 
 let g:dein_dir = g:vim_home . '/.cache/vim/dein'
 
-call has('python3')
+" call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
@@ -759,6 +759,19 @@ nnoremap <silent> <M-7> :7tabn<CR>
 nnoremap <silent> <M-8> :8tabn<CR>
 nnoremap <silent> <M-9> :9tabn<CR>
 nnoremap <silent> <M-0> :10tabn<CR>
+
+tnoremap <silent> <M-1> <C-w>:1tabn<CR>
+tnoremap <silent> <M-2> <C-w>:2tabn<CR>
+tnoremap <silent> <M-3> <C-w>:3tabn<CR>
+tnoremap <silent> <M-4> <C-w>:4tabn<CR>
+tnoremap <silent> <M-5> <C-w>:5tabn<CR>
+tnoremap <silent> <M-6> <C-w>:6tabn<CR>
+tnoremap <silent> <M-7> <C-w>:7tabn<CR>
+tnoremap <silent> <M-8> <C-w>:8tabn<CR>
+tnoremap <silent> <M-9> <C-w>:9tabn<CR>
+tnoremap <silent> <M-0> <C-w>:10tabn<CR>
+
+tnoremap <silent> <C-w>[ <C-w>N
 
 " [【vim】タブを自由に移動させる | blog.remora.cx](http://blog.remora.cx/2012/10/move-tab-in-vim.html)
 
