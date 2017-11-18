@@ -38,17 +38,13 @@ done < <(find . -mindepth 1 -type d -print0)
 
 # ファイルに関してはシンボリックリンクを貼る
 while IFS= read -r -d '' file; do
-    file=${file#./}
+  file=${file#./}
 
-    # 実体ファイルがある場合はバックアップをとる
-    if [ -f "$todir/$file" -a ! -L "$todir/$file" ]; then
-        mv "$todir/$file" "$todir/${file}.bak"
-    fi
-
-    # シンボリックリンクは削除
-    # if [ -L "$todir/$file" ]; then
-    #     rm "$todir/$file"
-    # fi
-
+  # 実体ファイルがある場合はバックアップをとる
+  if [ -f "$todir/$file" -a ! -L "$todir/$file" ]; then
+    ln -sfvb "$fromdir/$file" "$todir/$file"
+  else
     ln -sfv "$fromdir/$file" "$todir/$file"
-  done < <(find . \( -type f -o -type l \) ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)
+  fi
+
+done < <(find . \( -type f -o -type l \) ! -regex '.*swp.*' ! -regex '.*.DS_Store' -print0)
