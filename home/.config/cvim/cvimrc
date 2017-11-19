@@ -29,6 +29,7 @@ map R reloadTabUncached
 map K previousTab
 map J nextTab
 
+unmap x
 map d closeTab
 map u lastClosedTab
 
@@ -54,6 +55,8 @@ imap <C-v> editWithVim
 " map <C-o> goBack
 let mapleader = ";"
 map <Leader>vr :source ~/.config/cvim/cvimrc<CR>
+map ,h :history<Space>
+
 
 " 選択した語句でタブを開く
 unmap gxT
