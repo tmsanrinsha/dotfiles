@@ -639,7 +639,9 @@ if [[ $TERM =~ screen ]]; then
 
   function tmux_precmd() {
     # サブドメインのみ
-    echo -ne "\ek@${HOST%%.*}\e\\"
+    # echo -ne "\ek@${HOST%%.*}\e\\"
+    # FQDN
+    echo -ne "\ek@${HOST}\e\\"
   }
   add-zsh-hook preexec tmux_preexec
   add-zsh-hook precmd  tmux_precmd
