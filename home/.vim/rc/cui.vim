@@ -2,29 +2,41 @@ scriptencoding utf-8
 " key setting {{{1
 " ============================================================================
 if v:version > 701
-    " :h terminal-info
-    " cuiのvimでaltを使う設定 {{{2
-    " ------------------------------------------------------------------------
-    " このプラグインを使ってもいいかも
-    " [vim-utils/vim-alt-mappings: (experimental!) Enables ALT key mappings in terminal vim](https://github.com/vim-utils/vim-alt-mappings)
-    for i in range(32,126)
-        let c = nr2char(i)
-        if c ==# '|'
-            exec "set <M-\\".c.">=\<Esc>\\".c
-        elseif c ==# ' ' || c ==# ':' || c ==# '>' || c ==# 'P' || c ==# '[' || c ==# '"'
-            "set <M-Space>=\<Esc>\<Space> 他のsetに影響する?
-            "set <M-\>>=\<Esc>> <M->>に対してsetできない
-            "set <M-:>はインサートモードから抜けて、コマンド打つときに引っかかる
-            "set <M-P>=\<Esc>P  \ePは制御シーケンスで使用するためsetしない
-            "set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
-        else
-            " シングルクォートだとと\<Esc>が文字列になってしまう
-            exec 'set <M-'.c.">=\<Esc>".c
-        endif
-    endfor
-    exec "set <M-CR>=\<Esc>\<CR>"
-    exec "set <M-C-h>=\<Esc>\<C-H>"
-    exec "set <M-C-?>=\<Esc>\<C-?>"
+  " :h terminal-info
+  " cuiのvimでaltを使う設定 {{{2
+  " ------------------------------------------------------------------------
+  " このプラグインを使ってもいいかも
+  " [vim-utils/vim-alt-mappings: (experimental!) Enables ALT key mappings in terminal vim](https://github.com/vim-utils/vim-alt-mappings)
+
+  for i in range(32,126)
+    let c = nr2char(i)
+
+    " set <M-Space>=\<Esc>\<Space> 他のsetに影響する?
+    " set <M-:>はインサートモードから抜けて、コマンド打つときに引っかかる
+    " set <M-\>>=\<Esc>> <M->>に対してsetできない
+    " set <M-P>=\<Esc>P  \ePは制御シーケンスで使用するためsetしない
+    " set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
+    let skip_chars = [' ', ':', '>', 'P', '[', '"']
+
+    " xtermの場合はOを設定するとファンクションキーが使えなくなるのでスキップ
+    if &term  =~? 'xterm'
+      call add(skip_chars, 'O')
+    endif
+
+    " E33がでるので~をescapeする
+    if match(skip_chars, escape(c, '~')) >= 0
+      continue
+    endif
+
+    let c = escape(c, '|')
+
+    " シングルクォートだとと\<Esc>が文字列になってしまうでダブルクォートで設定
+    exec 'set <M-'.c.">=\<Esc>".c
+  endfor
+
+  exec "set <M-CR>=\<Esc>\<CR>"
+  exec "set <M-C-h>=\<Esc>\<C-H>"
+  exec "set <M-C-?>=\<Esc>\<C-?>"
 
     " cuiのvimで<C-Space>を使う設定 {{{2
     " ------------------------------------------------------------------------
