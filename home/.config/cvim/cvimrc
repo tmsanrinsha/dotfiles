@@ -8,7 +8,7 @@ let homedirectory = '/Users/tmsanrinsha'
 let configpath = '~/.config/cvim/cvimrc'
 
 set noautofocus
-let barposition = "bottom"
+let barposition = "top"
 let locale = "jp"
 let hintcharacters = "asdfghjklqwertyuiopzxcvbnm1234567890"
 
