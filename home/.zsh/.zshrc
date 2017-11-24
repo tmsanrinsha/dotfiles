@@ -61,7 +61,8 @@ alias -g J='| jq .'
 alias -g L='| less -R'
 alias -g PB='| pbcopy'
 alias -g PT='| tee >(pbcopy)'
-alias -g P='| peco_with_action'
+alias -g P='| peco'
+alias -g PP='| peco_with_action'
 # Vim: Warning: Input is not from a terminal
 # http://hateda.hatenadiary.jp/entry/2012/09/06/000000
 # http://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
@@ -854,14 +855,14 @@ if hash peco 2>/dev/null; then
 
         echo $selected
 
-        echo -n "action: "
+        # echo -n "action: "
 
         # この関数はパイプの中で使うので、入力を待つには/dev/ttyを指定する必要がある
-        read action </dev/tty
+        # read action </dev/tty
 
-        if [ -z "$action" ]; then
-          return
-        fi
+        # if [ -z "$action" ]; then
+        #   return
+        # fi
 
         print -z "$action ${selected//$'\n'/ }"
 
