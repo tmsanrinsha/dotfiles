@@ -1,29 +1,12 @@
-function! s:IndentLevel(lnum)
-    return indent(a:lnum) / &shiftwidth
-endfunction
-
-function! s:NextNonBlankLine(lnum)
-    let lnum = nextnonblank(a:lnum + 1)
-    if lnum == 0
-        return -2
-    else
-        return lnum
-    endif
-endfunction
-
 function! fold#indent(lnum)
-    if getline(a:lnum) =~? '\v^\s*$'
-        return '-1'
-    endif
+  if getline(a:lnum) =~? '\v^\s*$'
+    return '-1'
+  endif
+  return '>' . (indent(a:lnum) / &shiftwidth + 1)
+endfunction
 
-    let this_indent = s:IndentLevel(a:lnum)
-    let next_indent = s:IndentLevel(s:NextNonBlankLine(a:lnum))
-
-    if next_indent == this_indent
-        return this_indent
-    elseif next_indent < this_indent
-        return this_indent
-    elseif next_indent > this_indent
-        return '>' . next_indent
-    endif
+function! fold#text(foldstart)
+ let [_, indent, text; _] = matchlist(getline(a:foldstart), '^\([\t\s]*\)\(.*\)')
+ let width = strdisplaywidth(indent)
+ return repeat(' ', width) . text . repeat(' ', winwidth(''))
 endfunction
