@@ -95,7 +95,7 @@ autocmd MyVimrc BufRead,BufNewFile composer.json
 \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
 \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
 
-" ruby {{{1
+" Ruby {{{1
 " ============================================================================
 let g:quickrun_config['ruby.chef'] = deepcopy(g:quickrun#default_config['ruby'])
 let g:quickrun_config['ruby.chef']['command'] = 'ruby'
