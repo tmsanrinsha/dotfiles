@@ -853,7 +853,7 @@ if has('terminal')
 
   function! s:terminal_open(args) abort
     if empty(term_list())
-        execute "terminal" a:args
+        execute "botright terminal" a:args
     else
         let bufnr = term_list()[0]
         execute 'botright ' . term_getsize(bufnr)[0] . 'new'
@@ -1467,16 +1467,11 @@ let g:hugo_directory = $SRC_ROOT.'/github.com/tmsanrinsha/site'
 let g:hugo_post_directory = g:hugo_directory . '/content/post'
 
 command! HugoNew call s:memo_new(g:hugo_post_directory)
-command! HugoOpen    execute 'OpenBrowser https://tmsanrinsha.net/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
 
-nnoremap [:hugo:] <Nop>
-nmap <Leader>h [:hugo:]
-nnoremap <silent> [:hugo:]n :<C-u>HugoNew<CR>
-nnoremap <silent> [:hugo:]p :<C-u>call <SID>hugo_preview()<CR>
-nnoremap <silent> [:hugo:]o :<C-u>HugoOpen<CR>
-nnoremap <silent> [:hugo:]d :<C-u>QuickRun -type sh -srcfile <C-r>=g:hugo_directory<CR>/deploy.sh<CR>
-nnoremap <silent> [unite]fh :<C-u>Unite mtime:<C-r>=g:hugo_post_directory<CR><CR>
-nnoremap <silent> [unite]gh :<C-u>Unite grep:<C-r>=g:hugo_post_directory<CR><CR>
+function! s:hugo_get_path() abort
+  let matches = matchlist(expand('%:p:r'), '\([^/]\+/[^/]\+/[^/]\+/\)\([^/]\+\)$')
+  return matches[1] . system('encode_uri', matches[2])
+endfunction
 
 function! s:hugo_preview() abort
   let result = system("ps | grep 'hugo server --watch --buildDrafts=tru[e]'")
@@ -1484,8 +1479,21 @@ function! s:hugo_preview() abort
   if result == ''
     call system("$HOME/src/github.com/tmsanrinsha/site/deploy.sh -D 1> $HOME/tmp/hugo.log 2>&1 &")
   endif
-  execute 'OpenBrowser http://localhost:1313/' . matchstr(expand('%:p:r'), '[^/]\+/[^/]\+/[^/]\+/[^/]\+$')
+  call openbrowser#open('http://localhost:1313/' . s:hugo_get_path())
 endfunction
+
+function! s:hugo_open() abort
+  call openbrowser#open('https://tmsanrinsha.net/' . s:hugo_get_path())
+endfunction
+
+nnoremap [:hugo:] <Nop>
+nmap <Leader>h [:hugo:]
+nnoremap <silent> [:hugo:]n :<C-u>HugoNew<CR>
+nnoremap <silent> [:hugo:]p :<C-u>call <SID>hugo_preview()<CR>
+nnoremap <silent> [:hugo:]o :<C-u>call <SID>hugo_open()<CR>
+nnoremap <silent> [:hugo:]d :<C-u>QuickRun -type sh -srcfile <C-r>=g:hugo_directory<CR>/deploy.sh<CR>
+nnoremap <silent> [unite]fh :<C-u>Unite mtime:<C-r>=g:hugo_post_directory<CR><CR>
+nnoremap <silent> [unite]gh :<C-u>Unite grep:<C-r>=g:hugo_post_directory<CR><CR>
 
 " }}}
 
