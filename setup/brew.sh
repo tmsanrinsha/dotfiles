@@ -41,6 +41,7 @@ brew install git
 brew install gnu-sed
 brew install go
 brew install graphviz
+brew install grep --with-default-names
 brew install hub
 brew install jq
 brew install lftp
