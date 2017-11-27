@@ -540,6 +540,9 @@ on_cmd = 'WinResizerStartResize'
 hook_add = '''
   let g:winresizer_start_key = '<M-w>'
   nmap <M-w> :<C-u>WinResizerStartResize<CR>
+  if has('terminal')
+    tmap <M-w> <C-w>:<C-u>WinResizerStartResize<CR>
+  endif
 '''
 
 [[plugins]]
