@@ -1836,8 +1836,6 @@ command! -nargs=1 Xterm2rgb echo s:xterm2rgb(<f-args>)
 
 " その他の参考になりそうな変換
 " [xterm - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Xterm)
-" [lightline.vimをカスタマイズする - cafegale](http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize)
-" .vim/bundle/lightline.vim/autoload/lightline/colorscheme.vim の変換や
 " [vim-coloresque/vim-coloresque.vim at master · gorodinskiy/vim-coloresque](https://github.com/gorodinskiy/vim-coloresque/blob/master/after/syntax/css/vim-coloresque.vim)
 
 " syntaxの遡る行数を上げる {{{2
@@ -3313,15 +3311,10 @@ let g:lightline = {
 \           ['flag', 'filename', 'fugitive', 'currenttag', 'anzu']
 \       ],
 \       'right': [
-\           ['column', 'lineinfo'],
+\           ['syntaxcheck', 'column', 'lineinfo'],
 \           ['percent'],
 \           ['fileformat', 'fileencoding', 'filetype']
 \       ]
-\   },
-\   'component': {
-\       'flag_red': '%{&paste?"PASTE":""}%R%W%<',
-\       'flag': '%H%q',
-\       'lineinfo': '%3l:%-2v',
 \   },
 \   'component_visible_condition': {
 \       'flag': '(&filetype == "help" || &filetype == "qf")',
@@ -3334,11 +3327,21 @@ let g:lightline = {
 \   },
 \}
 
+" %R: 読み込み専用フラグ ,RO
+" $W: プレビューウィンドフラグ ,PRV
+" %<: 行が長過ぎるときに切り詰める位置
+let g:lightline['component'] = {
+\       'flag_red': '%{&paste?"PASTE":""}%R%W',
+\       'flag': '%H%q',
+\       'lineinfo': '%l:%v',
+\       'fileformat': '%<%{&ff}'
+\}
+
+
 let g:lightline['component_function'] = {
 \   'mode': 'lightline#mode',
 \   'fugitive': 'MyFugitive',
 \   'filename': 'MyFilename',
-\   'fileformat': 'MyFileformat',
 \   'filetype': 'MyFiletype',
 \   'fileencoding': 'MyFileencoding',
 \   'anzu': 'anzu#search_status',
@@ -3389,16 +3392,28 @@ function! MyReadonly()
 endfunction
 
 function! MyFilename()
-    return (
-    \   &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
-    \   &filetype ==# 'unite' ? unite#get_status_string() :
-    \   &filetype ==# 'vimshell' ? vimshell#get_status_string() :
-    \   &filetype ==# 'help' ? expand('%:t') :
-    \   &filetype ==# 'qf' ? '' :
-    \   &filetype ==# 'gitcommit' ? '' :
-    \   '' !=# expand('%:~:.') ? expand('%:~:.') : '[No Name]'
-    \) .
-    \('' !=# MyModified() ? ' ' . MyModified() : '')
+    if &filetype ==# 'vimfiler'
+      return vimfiler#get_status_string()
+    elseif &filetype ==# 'unite'
+      return unite#get_status_string()
+    elseif &filetype ==# 'vimshell'
+      return vimshell#get_status_string()
+    elseif &filetype ==# 'help'
+      return expand('%:t')
+    elseif &filetype ==# 'qf' || &filetype ==# 'gitcommit'
+      return ''
+    endif
+
+    let filename = expand('%:~:.')
+
+    if filename ==# ''
+      let filename = '[No Name]'
+    elseif strlen(filename) > winwidth(0) - strlen(MyFugitive() . anzu#search_status()) - 10
+    " elseif strlen(filename) > winwidth(0) - 40
+      let filename = substitute(filename, '/\zs\(.\)[^/]\+\ze/' , '\1', 'g')
+    endif
+
+    return filename . MyModified()
 endfunction
 
 function! MyFugitive()
@@ -3412,15 +3427,15 @@ function! MyFugitive()
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 50 ? &fileformat : ''
-endfunction
-
-function! MyFiletype()
-  return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 0 ? &fileformat : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth(0) > 50 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
+  return winwidth(0) > 0 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 0 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyCurrentTag()
