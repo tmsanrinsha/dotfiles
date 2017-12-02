@@ -184,9 +184,10 @@ fi
 # Perl {{{1
 # ============================================================================
 # vdebug
-export PERL5LIB=~/perl5/lib/Komodo-PerlRemoteDebugging-8.0.2-78971-linux-x86_64
-export PERL5DB="BEGIN { require q($PERL5LIB/perl5db.pl)}"
+export PERL5LIB="$HOME/perl5/lib/perl5/Komodo-PerlRemoteDebugging${PERL5LIB:+:${PERL5LIB}}"
+export PERL5DB="BEGIN {require q($HOME/perl5/lib/perl5/Komodo-PerlRemoteDebugging/perl5db.pl)}"
 export PERLDB_OPTS="RemotePort=localhost:9000"
+export DBGP_IDEKEY="PHPSTORM"
 
 if command_exists perl; then
     # perlモジュールの一覧表示。@INCから.（カレントディレクトリ）は取り除く

@@ -1902,7 +1902,7 @@ let g:vdebug_options = {
 \   'timeout' : 20,
 \   'on_close' : 'detach',
 \   'break_on_open' : 1,
-\   'ide_key': $USER,
+\   'ide_key': '',
 \   'path_maps' : {},
 \   'debug_window_level' : 0,
 \   'debug_file_level' : 0,
