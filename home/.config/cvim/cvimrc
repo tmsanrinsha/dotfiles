@@ -104,6 +104,9 @@ let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
 " searchaliasを設定しても:openしたときに表示されない
 " let searchalias t = 'twitter'
 
+" jupyter notebook
+let blacklists = ['*://localhost:8888']
+
 site 'https://mail.google.com/mail/*' {
       unmap n
       unmap p
