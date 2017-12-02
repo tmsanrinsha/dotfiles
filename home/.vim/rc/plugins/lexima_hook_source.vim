@@ -129,7 +129,7 @@ call lexima#add_rule({'char': '1', 'at': '{{{\%#}}}', 'delete': 3})
 call lexima#add_rule({'char': '2', 'at': '{{{\%#}}}', 'delete': 3})
 call lexima#add_rule({'char': '3', 'at': '{{{\%#}}}', 'delete': 3})
 
-call lexima#add_rule({'char': '"', 'filetype': ['vimperator']})
+call lexima#add_rule({'char': '"', 'filetype': ['cvim', 'vimperator']})
 
 " <!-- | -->
 call lexima#add_rule({'char': '!', 'at': '<\%#', 'input': '!-- ', 'input_after': ' -->', 'filetype': ['html', 'xml', 'apache']})
