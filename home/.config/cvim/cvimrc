@@ -133,6 +133,14 @@ yankMarkdownLink() -> {{
 
 map ym :call yankMarkdownLink<CR>
 
+yankTitleAndLink() -> {{
+  var titleAndLink = `${window.document.title}\n${window.location.href}`
+  Clipboard.copy(titleAndLink);
+  Status.setMessage(titleAndLink);
+}}
+
+map yn :call yankTitleAndLink<CR>
+
 yankAmazonShortcode() -> {{
   var asin = window.location.href.match(/\/dp\/([^?/]+)/)[1];
   var amazonShortcode = `{{% amazon ${asin} %}` + `}`;
