@@ -854,6 +854,7 @@ if has('terminal')
   function! s:terminal_open(args) abort
     if empty(term_list())
         execute "botright terminal" a:args
+        resize 12
     else
         let bufnr = term_list()[0]
         execute 'botright ' . term_getsize(bufnr)[0] . 'new'
