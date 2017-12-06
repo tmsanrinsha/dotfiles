@@ -785,6 +785,16 @@ if hash peco 2>/dev/null; then
     zle -N peco-cdr
     bindkey '^[r' peco-cdr
 
+    function peco-dir () {
+        local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | peco --prompt="dir>")"
+        if [ -n "$selected_dir" ]; then
+            BUFFER="${BUFFER}${selected_dir}"
+            CURSOR=$#BUFFER
+        fi
+    }
+    zle -N peco-dir
+    bindkey '^[R' peco-dir
+
     # fd {{{2
     # ------------------------------------------------------------------------
     function fd () {
