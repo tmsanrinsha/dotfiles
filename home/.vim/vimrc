@@ -868,6 +868,21 @@ if has('terminal')
   nnoremap <silent> ;to :Terminal<CR>
 endif
 
+" complete {{{1
+" ============================================================================
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" ポップアップメニューを<C-c>で消す
+inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
+
+" previewしない
+set completeopt-=preview
+if MyHasPatch('patch-7.4.775')
+    " insert,selectしない
+    " set completeopt+=noinsert,noselect
+endif
+
 " cd, file, diretory, path {{{1
 " ============================================================================
 "augroup CD
@@ -1626,9 +1641,6 @@ inoremap <M-p> <Up>
 
 inoremap <C-a> <Esc>I
 inoremap <C-e> <End>
-
-" ポップアップメニューを<C-c>で消す
-inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
 
 if !IsInstalled('lexima.vim')
     inoremap <C-d> <Del>

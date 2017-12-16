@@ -187,13 +187,6 @@ inoremap <expr><C-l> neocomplete#complete_common_string()
 inoremap <expr><C-u>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-u>" : "\<C-g>u<C-u>"
 inoremap <expr><C-w>  pumvisible() ? neocomplete#smart_close_popup()."\<C-g>u<C-w>" : "\<C-g>u<C-w>"
 
-" previewしない
-set completeopt-=preview
-if MyHasPatch('patch-7.4.775')
-    " insert,selectしない
-    " set completeopt+=noinsert,noselect
-endif
-
 " auto_selectするとsnippetの方でうまくいかない
 " let g:neocomplete#enable_auto_select = 1
 " leximaとバッティングする
