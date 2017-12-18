@@ -142,10 +142,14 @@ yankTitleAndLink() -> {{
 map yn :call yankTitleAndLink<CR>
 
 yankAmazonShortcode() -> {{
-  var asin = window.location.href.match(/\/dp\/([^?/]+)/)[1];
-  var amazonShortcode = `{{% amazon ${asin} %}` + `}`;
-  Clipboard.copy(amazonShortcode);
-  Status.setMessage(amazonShortcode);
+  try {
+    var asin = window.location.href.match(/\/(?:dp|gp\/product)\/([^?/]+)/)[1];
+    var amazonShortcode = `{{% amazon ${asin} %}` + `}`;
+    Clipboard.copy(amazonShortcode);
+    Status.setMessage(amazonShortcode);
+  } catch(e) {
+    Status.setMessage(e);
+  }
 }}
 
 map ya :call yankAmazonShortcode<CR>
