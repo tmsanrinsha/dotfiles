@@ -17,6 +17,10 @@ function! vimrc#full_path() abort
   return expand('%:p')
 endfunction
 
+function! vimrc#project_relative_path() abort
+  return substitute(vimrc#full_path(), GetProjectDir() . '/', '', '')
+endfunction
+
 " Hugo {{{1
 " ============================================================================
 " Hugo用Markdownのリンクを返す
