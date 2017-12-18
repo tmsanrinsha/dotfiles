@@ -43,8 +43,7 @@ endif
 
 let g:dein_dir = g:vim_home . '/.cache/vim/dein'
 
-call has('python')
-" call has('python3')
+call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
@@ -2302,6 +2301,8 @@ if IsInstalled('denite.nvim') && has('python3')
   nnoremap <silent> [unite]gc :<C-u>Denite grep<CR>
   nnoremap <silent> [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
   nnoremap <silent> [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
+  nnoremap <silent> [unite]fc :<C-u>Denite file_rec<CR>
+  nnoremap <silent> [unite]f. :<C-u>Denite file_rec:`GetBufferDir()`<CR>
   nnoremap <silent> [unite]fh :<C-u>Denite file_rec:`g:hugo_post_directory`<CR>
   nnoremap <silent> [unite]gh :<C-u>Denite grep:`g:hugo_post_directory`<CR>
 endif
@@ -2327,10 +2328,7 @@ nnoremap <silent> [VIMFILER]c :VimFilerCurrentDir<CR>
 nnoremap <silent> [VIMFILER]t :cd %:h<CR>:VimFilerTab<CR>
 nnoremap <silent> [VIMFILER]p :execute "VimFilerExplorer ". unite#util#path2project_directory(expand('%'))<CR>
 
-autocmd MyVimrc FileType vimfiler
-    \   nmap <buffer> \\ <Plug>(vimfiler_switch_to_root_directory)
-" vimfilerでvim-surroundのmapを消す。vimfilerからunite.vimを使った時エラーがでるので
-" silentする
+" vimfilerでvim-surroundのmapを消す。vimfilerからunite.vimを使った時エラーがでるのでsilentする
 autocmd MyVimrc BufEnter vimfiler*
     \   silent! nunmap ds
     \|  silent! nunmap cs
