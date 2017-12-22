@@ -1542,8 +1542,8 @@ else
     "     endif
     " endfor
 
-    let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
-    nnoremap <Leader>W :w sudo:%<CR>
+    " let &runtimepath = &runtimepath . ',' . g:dein_dir . '/repos/github.com/vim-scripts/sudo.vim'
+    " nnoremap <Leader>W :w sudo:%<CR>
 
     filetype plugin indent on
 endif
@@ -2025,7 +2025,9 @@ endif
 " sudo権限で保存する
 " http://sanrinsha.lolipop.jp/blog/2012/01/sudo-vim.html
 if IsInstalled('sudo.vim')
-    nnoremap <Leader>W :w sudo:%<CR>
+  nnoremap <Leader>W :w sudo:%<CR><CR>
+else
+  nnoremap <Leader>W :w !sudo tee % >/dev/null<CR><CR>
 endif
 
 " vim-smartword {{{1
