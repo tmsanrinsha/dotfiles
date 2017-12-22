@@ -328,11 +328,6 @@ repo = 'jelera/vim-javascript-syntax'
 [[plugins]]
 repo = 'nono/jquery.vim'
 
-[[plugins]]
-repo = 'ternjs/tern_for_vim'
-build = 'npm install'
-if = 'executable("npm")'
-
 # JSON {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]

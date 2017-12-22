@@ -106,17 +106,6 @@ let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane"
 # neocomplete {{{1
 # ============================================================================
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
-depends = [
-    'FastFold',
-    'neoinclude.vim',
-    'neosnippet.vim', 'vim-snippets'
-]
-on_i = 1
-if = 'has("lua") && v:version >= 704'
-hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
-
-[[plugins]]
 repo = 'Konfekt/FastFold'
 
 [[plugins]]
@@ -326,6 +315,12 @@ on_ft = ['javascript', 'css', 'html']
 
 # JavaScript {{{1
 # ============================================================================
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+if = 'executable("npm")'
+on_ft = 'javascript'
+hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
+
 [[plugins]]
 repo = 'felixge/vim-nodejs-errorformat'
 on_ft = ['javascript']
