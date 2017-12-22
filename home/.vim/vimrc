@@ -608,6 +608,16 @@ cnoremap <expr> <C-x>dt strftime('%Y-%m-%d')
 nnoremap <M-s> :<C-u>w<CR>
 inoremap <M-s> <Esc>:w<CR>
 
+" [【Vim】シェルの実行結果を行としてではなく現在のカーソル位置に挿入する - Qiita](https://qiita.com/tmsanrinsha/items/44a4377e3c3ce024fa16)
+" ----------------------------------------------------------------------------
+" inoremap <expr> <C-r>! <SID>system()
+" cnoremap <expr> <C-r>! <SID>system()
+
+function! s:system()
+  let command = input("!", '', 'shellcmd')
+  return substitute(system(command), '\n\+$', '', '')
+endfunction
+
 " <M-=>でカーソル前の数式の結果を=の後に出力する {{{2
 " ----------------------------------------------------------------------------
 " Vim scriptテクニックバイブル4-3によると
