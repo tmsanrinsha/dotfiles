@@ -360,9 +360,9 @@ repo = 'c9s/perlomni.vim'
 
 # PHP {{{2
 # -----------------------------------------------------------------------------
-[[plugins]]
-repo = 'shawncplus/phpcomplete.vim'
-if = '!$PHP55'
+# [[plugins]]
+# repo = 'shawncplus/phpcomplete.vim'
+# if = '!$PHP55'
 
 # [[plugins]]
 # repo = 'StanAngeloff/php.vim'
