@@ -811,28 +811,49 @@ vnoremap gm :<C-u>normal gm<CR>
 onoremap gm :<C-u>normal gm<CR>
 "}}}
 "}}}
-" terminal {{{1
+" :terminal {{{1
 " =============================================================================
 if has('terminal')
+  for i in range(32,126)
+    let c = nr2char(i)
+
+    " set <M-Space>=\<Esc>\<Space> 他のsetに影響する?
+    " set <M-:>はインサートモードから抜けて、コマンド打つときに引っかかる
+    " set <M-\>>=\<Esc>> <M->>に対してsetできない
+    " set <M-P>=\<Esc>P  \ePは制御シーケンスで使用するためsetしない
+    " set <M-[>=\<Esc>[  これがあるとvim起動した後、2cが打たれる
+    let skip_chars = [' ', ':', '>', 'P', '[', '"']
+
+    " E33がでるので~をescapeする
+    if match(skip_chars, escape(c, '~')) >= 0
+      continue
+    endif
+
+    let c = escape(c, '|')
+
+    " シングルクォートだとと\<Esc>が文字列になってしまうでダブルクォートで設定
+    execute 'tnoremap <M-'.c.'> <Esc>'.c
+  endfor
+
   tnoremap <silent> <M-t> <C-w>:tabnew<CR>
 
-  tnoremap <silent> <M-1> <C-w>:1tabn<CR>
-  tnoremap <silent> <M-2> <C-w>:2tabn<CR>
-  tnoremap <silent> <M-3> <C-w>:3tabn<CR>
-  tnoremap <silent> <M-4> <C-w>:4tabn<CR>
-  tnoremap <silent> <M-5> <C-w>:5tabn<CR>
-  tnoremap <silent> <M-6> <C-w>:6tabn<CR>
-  tnoremap <silent> <M-7> <C-w>:7tabn<CR>
-  tnoremap <silent> <M-8> <C-w>:8tabn<CR>
-  tnoremap <silent> <M-9> <C-w>:9tabn<CR>
-  tnoremap <silent> <M-0> <C-w>:10tabn<CR>
+  tnoremap <M-1> <C-w>:1tabn<CR>
+  tnoremap <M-2> <C-w>:2tabn<CR>
+  tnoremap <M-3> <C-w>:3tabn<CR>
+  tnoremap <M-4> <C-w>:4tabn<CR>
+  tnoremap <M-5> <C-w>:5tabn<CR>
+  tnoremap <M-6> <C-w>:6tabn<CR>
+  tnoremap <M-7> <C-w>:7tabn<CR>
+  tnoremap <M-8> <C-w>:8tabn<CR>
+  tnoremap <M-9> <C-w>:9tabn<CR>
+  tnoremap <M-0> <C-w>:10tabn<CR>
 
-  tnoremap <silent> <C-w>[ <C-w>N
+  tnoremap <C-w>[ <C-w>N
+  " tnoremap q :bdelete!
 
   function! s:terminal_open(args) abort
     if empty(term_list())
-        execute "botright terminal" a:args
-        resize 12
+        execute "botright terminal ++rows=12" a:args
     else
         let bufnr = term_list()[0]
         execute 'botright ' . term_getsize(bufnr)[0] . 'new'
@@ -843,7 +864,7 @@ if has('terminal')
   " すでに :terminal が存在していればその :terminal を使用する
   command! -nargs=* Terminal call s:terminal_open(<q-args>)
 
-  nnoremap <silent> ;to :Terminal<CR>
+  nnoremap <silent> <Leader>to :Terminal<CR>
 endif
 
 " complete {{{1
