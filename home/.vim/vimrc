@@ -625,27 +625,6 @@ function! EvalExpression() abort
     return ' = ' . string(luaeval(expression))
 endfunction
 
-
-" 前回のカーソル位置にジャンプ {{{2
-" ----------------------------------------------------------------------------
-" Always Jump to the Last Known Cursor Position
-autocmd MyVimrc BufReadPost *
-\   if line("'\"") > 1 && line("'\"") <= line("$") |
-\       execute "normal! g`\"" |
-\   endif
-
-" session {{{2
-" ----------------------------------------------------------------------------
-" optionsを設定するとおかしくなる
-set sessionoptions-=options
-autocmd MyVimrc VimLeavePre * call s:save_session()
-
-function! s:save_session()
-    if !empty(expand('%'))
-        mksession! $VIM_CACHE_DIR/session.vim 
-    endif
-endfunction
-
 " statusline {{{1
 " ============================================================================
 " 最下ウィンドウにいつステータス行が表示されるかを設定する。
@@ -2960,6 +2939,28 @@ if  !IsInstalled('vim-bkup')
     endfunction
   augroup END
 endif
+
+" session {{{1
+" ============================================================================
+" 前回のカーソル位置にジャンプ {{{2
+" ----------------------------------------------------------------------------
+" Always Jump to the Last Known Cursor Position
+autocmd MyVimrc BufReadPost *
+\   if line("'\"") > 1 && line("'\"") <= line("$") |
+\       execute "normal! g`\"" |
+\   endif
+
+" session {{{2
+" ----------------------------------------------------------------------------
+" optionsを設定するとおかしくなる
+set sessionoptions-=options
+autocmd MyVimrc VimLeavePre * call s:save_session()
+
+function! s:save_session()
+    if !empty(expand('%'))
+        mksession! $VIM_CACHE_DIR/session.vim 
+    endif
+endfunction
 
 " undo {{{1
 " ============================================================================
