@@ -163,3 +163,12 @@ yankGitHub() -> {{
 map yg :call yankGitHub<CR>
 
 map yh yankDocumentUrlHtmlFormatted
+
+" facebookObjectDebugger {{{1
+" ============================================================================
+facebookObjectDebugger() -> {{
+  var markdownLink = `[${window.document.title}](${window.location.href})`
+  window.location.href=`https://developers.facebook.com/tools/debug/og/object?q=${encodeURIComponent(window.window.location.href)}`
+}}
+
+map <Leader>f :call facebookObjectDebugger<CR>
