@@ -905,31 +905,25 @@ nnoremap [:space:]gC :execute 'cd ' GetProjectDir()<CR>:echo 'cd ' GetProjectDir
 
 command! Shell lcd %:h <Bar> shell
 
+" pathの情報を挿入したり、レジストリに書き込むmapの設定 {{{2
+" ----------------------------------------------------------------------------
+function! s:set_map_registers(map_key, expr) abort
+  execute 'inoremap <C-r>'      . a:map_key . ' <C-r>='     . a:expr . '<CR>'
+  execute 'cnoremap <C-r>'      . a:map_key . ' <C-r>='     . a:expr . '<CR>'
+  execute 'nnoremap y'          . a:map_key . ' :let @" = ' . a:expr . ' <Bar> echo "yanked: " . @"<CR>'
+  execute 'nnoremap [:space:]y' . a:map_key . ' :let @* = ' . a:expr . ' <Bar> echo "yanked: " . @*<CR>'
+endfunction
+
 " file name
-inoremap <C-r>f <C-r>=expand("%:t")<CR>
-cnoremap <C-r>f <C-r>=expand("%:t")<CR>
+call s:set_map_registers('f', 'expand("%:t")')
 " full path of file
-inoremap <C-r>F <C-r>=expand('%:p')<CR>
-cnoremap <C-r>F <C-r>=expand('%:p')<CR>
+call s:set_map_registers('F', 'expand("%:p")')
 " full path of directory
-inoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
-cnoremap <C-r>d <C-r>=expand('%:p:h')<CR>/
-
-" yank file name
-nnoremap yf :let @" = expand("%:t") <Bar> echo 'yanked: ' . @"<CR>
-" yank full path of file
-nnoremap yF :let @" = vimrc#full_path() <Bar> echo 'yanked: ' . @")<CR>
-" yank full path of directory
-nnoremap yd :let @" = expand('%:p:h') <Bar> echo 'yanked: ' . @"<CR>
+call s:set_map_registers('d', 'expand("%:p:h") . "/"')
+" project relative path
+call s:set_map_registers('p', 'vimrc#project_relative_path()')
 " yank Hugo用のMarkdownのリンク
-nnoremap ym :let @" = vimrc#hugo_ref(expand('%:p')) <Bar> echo 'yanked: ' . @"<CR>
-
-" copy file name
-nnoremap [:space:]yf :let @* = expand("%:t") <Bar> echo 'copied: ' . @*<CR>
-" copy full path of file
-nnoremap [:space:]yF :let @* = expand('%:p') <Bar> echo 'copied: ' . @*<CR>
-" copy full path of directory
-nnoremap [:space:]yd :let @* = expand('%:p:h') <Bar> echo 'copied: ' . @*<CR>
+call s:set_map_registers('h', 'vimrc#hugo_ref(expand("%:p"))')
 
 " Rename {{{2
 " ----------------------------------------------------------------------------
