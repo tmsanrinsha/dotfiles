@@ -12,6 +12,16 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 if = 'executable("cc") && $OS !~ "Windows_NT"'
 
+# Neovim compatible {{{1
+# ============================================================================
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+if = 'EnableDeoplete() && !has("nvim")'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if = 'EnableDeoplete() && !has("nvim")'
+
 # unite.vim, vimfiler {{{1
 # ============================================================================
 [[plugins]]
@@ -55,7 +65,7 @@ repo = 'Shougo/neossh.vim'
 [[plugins]]
 repo = 'ujihisa/vimshell-ssh'
 
-# neocomplete {{{1
+# neocomplete, deoplete {{{1
 # ============================================================================
 [[plugins]]
 repo = 'Shougo/neco-syntax'
@@ -360,9 +370,9 @@ repo = 'c9s/perlomni.vim'
 
 # PHP {{{2
 # -----------------------------------------------------------------------------
-# [[plugins]]
-# repo = 'shawncplus/phpcomplete.vim'
-# if = '!$PHP55'
+[[plugins]]
+repo = 'shawncplus/phpcomplete.vim'
+if = '!EnableDeoplete()'
 
 # [[plugins]]
 # repo = 'StanAngeloff/php.vim'

@@ -120,6 +120,10 @@ function! IsInstalled(plugin) " {{{2
     endif
 endfunction
 
+function! EnableDeoplete() abort
+  return (has('nvim') || has('timers')) && has('python3')
+endfunction
+
 function! GetBufferDir() abort " {{{2
     if exists('b:vimfiler.current_dir')
         " 最後のスラッシュを含めない

@@ -103,8 +103,32 @@ let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane"
 # on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
 # hook_source = 'call SourceRc('plugins/Conque-Shell_hook_source.vim'')
 
-# neocomplete {{{1
+# neocomplete, deoplete {{{1
 # ============================================================================
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = [
+  'FastFold',
+  'neoinclude.vim',
+  'neosnippet.vim',
+  'vim-snippets'
+]
+on_i = 1
+hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
+if = 'EnableDeoplete()'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+depends = [
+  'FastFold',
+  'neoinclude.vim',
+  'neosnippet.vim',
+  'vim-snippets'
+]
+on_i = 1
+hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
+if = '!EnableDeoplete()'
+
 [[plugins]]
 repo = 'Konfekt/FastFold'
 
@@ -349,7 +373,7 @@ build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
 repo = 'lvht/phpcd.vim'
 on_ft = 'php'
 build = 'composer install'
-if = 'executable("composer")'
+if = 'EnableDeoplete() && executable("composer")'
 
 # [[plugins]]
 # repo = 'mkusher/padawan.vim'
