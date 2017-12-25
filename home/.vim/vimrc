@@ -614,8 +614,8 @@ inoremap <M-s> <Esc>:w<CR>
 
 " [【Vim】シェルの実行結果を行としてではなく現在のカーソル位置に挿入する - Qiita](https://qiita.com/tmsanrinsha/items/44a4377e3c3ce024fa16)
 " ----------------------------------------------------------------------------
-" inoremap <expr> <C-r>! <SID>system()
-" cnoremap <expr> <C-r>! <SID>system()
+inoremap <expr> <C-r>! <SID>system()
+cnoremap <expr> <C-r>! <SID>system()
 
 function! s:system()
   let command = input("!", '', 'shellcmd')
