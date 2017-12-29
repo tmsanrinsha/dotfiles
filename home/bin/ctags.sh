@@ -6,6 +6,10 @@ if ! ctags --version | grep 'Exuberant Ctags' 1>/dev/null 2>&1; then
     exit
 fi
 
+if [[ $(ps | grep 'ctags.s[h]' | wc -l) -gt 2 ]]; then
+  exit
+fi
+
 progname=$(basename $0)
 
 usage() {
