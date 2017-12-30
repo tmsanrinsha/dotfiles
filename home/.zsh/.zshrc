@@ -909,7 +909,11 @@ function vim-profile-vimrc() {
   vim --cmd "profile start $profile" --cmd "profile file $HOME/.vim/vimrc" +q
   vim $profile
 }
-# }}}
+
+# IBM Cloud CLI {{{1
+# ============================================================================
+### Added by IBM Cloud CLI
+[[ -e /usr/local/Bluemix/bx/zsh_autocomplete ]] && source /usr/local/Bluemix/bx/zsh_autocomplete
 
 # if [ -f $ZDOTDIR/plugin/z.sh ]; then
 #     _Z_CMD=j

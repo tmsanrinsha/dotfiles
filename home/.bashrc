@@ -110,3 +110,6 @@ bind -x '"\C-r": peco-select-history'
 if [ -f ~/.bashrc.local ]; then
     . ~/.bashrc.local
 fi
+
+### Added by IBM Cloud CLI
+source /usr/local/Bluemix/bx/bash_autocomplete
