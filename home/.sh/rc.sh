@@ -142,6 +142,10 @@ cdw()
 export GISTY_DIR="$HOME/gists"
 export GISTY_SSL_VERIFY="NONE"
 
+# PHP {{{1
+# ============================================================================
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
 # mac {{{1
 # ==============================================================================
 if [ "$os" = mac ]; then
