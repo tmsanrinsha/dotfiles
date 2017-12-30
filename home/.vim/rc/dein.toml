@@ -14,13 +14,13 @@ if = 'executable("cc") && $OS !~ "Windows_NT"'
 
 # Neovim compatible {{{1
 # ============================================================================
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-if = 'EnableDeoplete() && !has("nvim")'
-
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-if = 'EnableDeoplete() && !has("nvim")'
+# [[plugins]]
+# repo = 'roxma/nvim-yarp'
+# if = 'EnableDeoplete() && !has("nvim")'
+#
+# [[plugins]]
+# repo = 'roxma/vim-hug-neovim-rpc'
+# if = 'EnableDeoplete() && !has("nvim")'
 
 # unite.vim, vimfiler {{{1
 # ============================================================================
