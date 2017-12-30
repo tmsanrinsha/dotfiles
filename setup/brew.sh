@@ -49,6 +49,7 @@ brew install lha    # lzhの解凍
 brew install mysql
 brew install nkf
 brew install node
+brew install phpbrew
 brew install pstree
 brew install pwgen
 brew install pyenv
@@ -61,6 +62,7 @@ brew install screen
 brew install ssh-copy-id
 brew install tmux
 brew install tree
+brew install watch
 brew install wget
 brew install zsh
 
