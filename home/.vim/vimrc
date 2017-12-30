@@ -3460,9 +3460,11 @@ function! MyFilename()
 
     if filename ==# ''
       let filename = '[No Name]'
-    elseif strlen(filename) > winwidth(0) - strlen(MyFugitive() . anzu#search_status()) - 10
-    " elseif strlen(filename) > winwidth(0) - 40
-      let filename = substitute(filename, '/\zs\(.\)[^/]\+\ze/' , '\1', 'g')
+    " elseif strlen(filename) > winwidth(0) - strlen(MyFugitive() . anzu#search_status()) - 10
+    " " elseif strlen(filename) > winwidth(0) - 40
+    "   " 長いときに/と最初の文字だけにする
+    "   " /Users/tmsanrinsha/src/github.com/tmsanrinsha/dotfiles -> /U/t/s/g/t/d
+    "   let filename = substitute(filename, '/\zs\(.\)[^/]\+\ze/' , '\1', 'g')
     endif
 
     return filename . MyModified()
