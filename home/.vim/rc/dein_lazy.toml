@@ -348,10 +348,6 @@ on_ft = 'javascript'
 hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
 
 [[plugins]]
-repo = 'felixge/vim-nodejs-errorformat'
-on_ft = ['javascript']
-
-[[plugins]]
 repo = 'moll/vim-node'
 on_ft = 'javascript'
 augroup = 'Node'
@@ -361,13 +357,6 @@ augroup = 'Node'
 # [[plugins]]
 # repo = 'fatih/vim-go'
 # on_ft = 'go'
-
-# Perl {{{1
-# ============================================================================
-[[plugins]]
-repo = 'tmsanrinsha/vim-perl'
-on_ft = 'perl'
-build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
 
 # PHP {{{1
 # ============================================================================
@@ -407,10 +396,6 @@ on_ft = ['python']
 
 # ruby {{{1
 # ============================================================================
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
-on_ft = 'ruby'
-
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
 on_ft = 'ruby'
@@ -749,9 +734,6 @@ depends = ['twibill.vim']
 hook_source = '''
 let g:tweetvim_display_icon = 1
 '''
-
-[[plugins]]
-repo = 'basyura/twibill.vim'
 
 [[plugins]]
 repo = 'johngrib/vim-game-code-break'

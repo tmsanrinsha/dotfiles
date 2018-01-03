@@ -338,6 +338,9 @@ repo = 'jelera/vim-javascript-syntax'
 [[plugins]]
 repo = 'nono/jquery.vim'
 
+[[plugins]]
+repo = 'felixge/vim-nodejs-errorformat'
+
 # JSON {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
@@ -366,6 +369,10 @@ repo = 'tmsanrinsha/octave.vim--'
 # Perl {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
+repo = 'vim-perl/vim-perl'
+build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
+
+[[plugins]]
 repo = 'c9s/perlomni.vim'
 
 # PHP {{{2
@@ -392,6 +399,9 @@ repo = 'jcfaria/Vim-R-plugin'
 
 # Ruby {{{2
 # -----------------------------------------------------------------------------
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+
 [[plugins]]
 repo = 'rhysd/unite-ruby-require.vim'
 # hook_source = '''
@@ -446,3 +456,10 @@ repo = 'thinca/vim-localrc'
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
+
+# other {{{1
+# ============================================================================
+[[plugins]]
+repo = 'basyura/twibill.vim'
+
+
