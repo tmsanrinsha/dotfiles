@@ -1,5 +1,11 @@
 scriptencoding utf-8
 
+if IsInstalled('deoplete-jedi')
+  let g:jedi#completions_enabled = 0
+else
+  let g:jedi#completions_enabled = 1
+endif
+
 " call s:set_python_path()
 
 autocmd MyVimrc FileType python setlocal omnifunc=jedi#completions
@@ -14,7 +20,6 @@ endif
 let g:neocomplete#force_omni_input_patterns.python =
 \ '\%([^. \t]\.\|^>*\s*@\|^>*\s*from\s.\+import \|^>*\s*from \|^>*\s*import \)\w*'
 
-let g:jedi#completions_enabled = 0
 " completeopt, <C-c>の変更をしない
 let g:jedi#auto_vim_configuration = 0
 

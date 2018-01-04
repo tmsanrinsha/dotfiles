@@ -19,15 +19,16 @@ execute 'set runtimepath^=' . g:dein_repo_dir
 if dein#load_state(g:dein_dir)
   call dein#begin(g:dein_dir)
 
-  if (has('nvim')  || has('timers')) && has('python3')
+  if EnableDeoplete()
     call dein#add('Shougo/deoplete.nvim', {
+    \   'lazy': 1,
+    \   'on_i': 1,
     \   'depends': [
     \     'FastFold',
     \     'neoinclude.vim',
     \     'neosnippet.vim',
     \     'vim-snippets'
     \   ],
-    \   'on_i': 1,
     \   'hook_source': 'call SourceRc("plugins/deoplete_hook_source.vim")'
     \})
     if !has('nvim')
@@ -36,13 +37,14 @@ if dein#load_state(g:dein_dir)
     endif
   elseif has('lua')
     call dein#add('Shougo/neocomplete.vim', {
+    \   'lazy': 1,
+    \   'on_i': 1,
     \   'depends': [
     \     'FastFold',
     \     'neoinclude.vim',
     \     'neosnippet.vim',
     \     'vim-snippets'
     \   ],
-    \   'on_i': 1,
     \   'hook_source': 'call SourceRc("plugins/neocomplete_hook_source.vim")'
     \})
   endif
@@ -73,7 +75,7 @@ if dein#check_install()
     " vimがサイレンスモード(-s)で起動した場合はデフォルトのNoが選ばれる
     " これによってcall dein#install()した後にdein#update()するという
     " 無駄な処理を行わずにすむ
-    if confirm('Install bundles now?', "yes\nNo", 2) == 1
+    if confirm('Install bundles now?', "&yes\n&No", 2) == 1
         call dein#install()
     endif
 endif

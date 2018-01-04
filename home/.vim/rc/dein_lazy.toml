@@ -382,34 +382,6 @@ if = 'EnableDeoplete() && executable("composer")'
 repo = 'stephpy/vim-php-cs-fixer'
 on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
-# Python {{{1
-# ============================================================================
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python']
-hook_source = 'call SourceRc("plugins/jedi_hook_source.vim")'
-
-[[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-depends = ['jedi-vim']
-on_ft = ['python']
-
-# ruby {{{1
-# ============================================================================
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-on_ft = 'ruby'
-# # debug
-# let g:monster#debug#enable=1 
-# echo monster#debug#log()
-# call monster#debug#clear_log()#
-#
-# # rcodetools進んでいるリポジトリ
-# https://github.com/raa0121/rcodetools
-#
-# # rsenseのvim plugin
-# https://github.com/marcus/rsense
-
 # SQL {{{1
 # ============================================================================
 [[plugins]]

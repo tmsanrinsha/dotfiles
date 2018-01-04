@@ -9,11 +9,9 @@ let g:deoplete#enable_yarp = 1
 " let g:deoplete#enable_refresh_always = 1 " defalult 0
 " let g:deoplete#file#enable_buffer_path = 1 " default 0
 
-let g:deoplete#auto_complete_delay = 50 " default 50
-let g:deoplete#auto_refresh_delay = 500 " default 500
+" let g:deoplete#auto_complete_delay = 50 " default 50
+" let g:deoplete#auto_refresh_delay = 500 " default 500
 " 候補が更新される
-let g:deoplete#enable_refresh_always = 0 " defalult 0
-let g:deoplete#file#enable_buffer_path = 0 " default 0
 
 " let g:deoplete#max_list = 20
 " set pumheight=10
