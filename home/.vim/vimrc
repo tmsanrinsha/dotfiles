@@ -1522,7 +1522,7 @@ nnoremap <silent> [unite]gh :<C-u>Unite grep:<C-r>=g:hugo_post_directory<CR><CR>
 " }}}
 
 if !has('gui_running')
-    call SourceRc('cui.vim')
+    call SourceRc('non-gui.vim')
 endif
 
 " plugin load {{{1
