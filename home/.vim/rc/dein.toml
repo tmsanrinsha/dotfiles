@@ -295,6 +295,54 @@ let g:PreserveNoEOL = 1
 
 # filetype {{{1
 # =============================================================================
+## debug {{{2
+# -----------------------------------------------------------------------------
+[[plugins]]
+repo = 'joonty/vdebug'
+lazy = 1
+hook_add = '''
+nmap <F5>  <Plug>(vdebug-run)
+nmap <F10> <Plug>(vdebug-set_breakpoint)
+'''
+on_map = { n = '<Plug>' }
+hook_source = '''
+nnoremap <Plug>(vdebug-set_run) :python debugger.run()<CR>
+nnoremap <Plug>(vdebug-set_breakpoint) :python debugger.set_breakpoint()<CR>
+
+let g:vdebug_options= {
+\    "port" : 9000,
+\    "timeout" : 20,
+\    "on_close" : 'detach',
+\    "break_on_open" : 1,
+\    "ide_key" : '',
+\    "path_maps" : {},
+\    "debug_window_level" : 0,
+\    "debug_file_level" : 0,
+\    "debug_file" : "",
+\    "watch_window_style" : 'expanded',
+\    "marker_default" : '⬦',
+\    "marker_closed_tree" : '▸',
+\    "marker_open_tree" : '▾'
+\}
+" let g:vdebug_options['break_on_open']= 0
+
+let g:vdebug_keymap = {
+\    "step_over" : "<F2>",
+\    "step_into" : "<F3>",
+\    "step_out" : "<F4>",
+\    "run" : "<F5>",
+\    "close" : "<F6>",
+\    "detach" : "<F7>",
+\    "run_to_cursor" : "<F9>",
+\    "set_breakpoint" : "<F10>",
+\    "get_context" : "<F11>",
+\    "eval_under_cursor" : "<F12>",
+\    "eval_visual" : "<Leader>e",
+\}
+
+autocmd MyVimrc BufWinEnter DebuggerBreakpoints
+\   nnoremap <buffer> dd ^:BreakpointRemove <C-r><C-w><CR>
+'''
 ## arduino {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
