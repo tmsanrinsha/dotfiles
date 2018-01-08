@@ -84,9 +84,9 @@ repo = 'Shougo/neoinclude.vim'
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
-# [[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
-# repo = 'osyo-manga/vim-precious'
-# depends = ['context_filetype.vim']
+[[plugins]]
+repo = 'tmsanrinsha/deoplete-mozc'
+if = 'EnableDeoplete()'
 
 # snippet {{{1
 # ============================================================================
@@ -346,6 +346,13 @@ let g:vdebug_keymap = {
 autocmd MyVimrc BufWinEnter DebuggerBreakpoints
 \   nnoremap <buffer> dd ^:BreakpointRemove <C-r><C-w><CR>
 '''
+
+## vim-precious {{{2
+# -----------------------------------------------------------------------------
+# [[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+# repo = 'osyo-manga/vim-precious'
+# depends = ['context_filetype.vim']
+
 ## arduino {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
@@ -541,5 +548,3 @@ repo = 'vimperator/vimperator.vim'
 # ============================================================================
 [[plugins]]
 repo = 'basyura/twibill.vim'
-
-

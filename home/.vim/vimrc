@@ -896,6 +896,10 @@ if MyHasPatch('patch-7.4.775')
     " set completeopt+=noinsert,noselect
 endif
 
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
+
 " cd, file, diretory, path {{{1
 " ============================================================================
 "augroup CD
@@ -2117,7 +2121,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]Om :<C-U>Unite output:messages -log -buffer-name=messages -no-start-insert<CR>
 
     " Unite output:autocmd {{{3
-    nnoremap [unite]Om :<C-U>Unite output:autocmd<CR>
+    nnoremap [unite]Oa :<C-U>Unite output:autocmd<CR>
 
     " Unite outputでruntimpathを出力する {{{3
     nnoremap [unite]Or :<C-U>Unite output:echo\ join(split(&runtimepath,','),\"\\n\")<CR>
