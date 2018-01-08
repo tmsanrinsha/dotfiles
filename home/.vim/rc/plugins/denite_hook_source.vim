@@ -21,7 +21,7 @@ call denite#custom#map('normal', 'Q', '<denite:do_action:quickfix>', 'noremap')
 if executable('ag')
   call denite#custom#var('grep', 'command', ['ag'])
   call denite#custom#var('grep', 'default_opts',
-  \ ['-iS', '--vimgrep'])
+  \ ['-iS', '--vimgrep', '--hidden'])
   call denite#custom#var('grep', 'recursive_opts', [])
   call denite#custom#var('grep', 'pattern_opt', [])
   call denite#custom#var('grep', 'separator', ['--'])
