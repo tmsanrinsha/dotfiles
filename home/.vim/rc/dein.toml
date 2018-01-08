@@ -294,40 +294,40 @@ let g:PreserveNoEOL = 1
 # '''
 
 # filetype {{{1
-# ============================================================================
-# arduino {{{2
+# =============================================================================
+## arduino {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
 # repo = '4Evergreen4/vim-hardy'
 
-# chef {{{2
+## chef {{{2
 # ============================================================================
 [[plugins]]
 repo = 'vadv/vim-chef'
 
-# confluence {{{2
+## confluence {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vim-scripts/confluencewiki.vim'
 
-# Go lang {{{2
+## Go lang {{{2
 # ============================================================================
 # lazyに置くとcommandの設定がうまくいかなかったのでこちらで
 [[plugins]]
 repo = 'fatih/vim-go'
 if = "MyHasPatch('patch-7.4.1689')"
 
-# graphviz {{{2
+## graphviz {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
 # repo = 'wannesm/wmgraphviz.vim'
 
-# java {{{2
+## java {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
 
-# javascript {{{2
+## javascript {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'pangloss/vim-javascript'
@@ -341,12 +341,12 @@ repo = 'nono/jquery.vim'
 [[plugins]]
 repo = 'felixge/vim-nodejs-errorformat'
 
-# JSON {{{2
+## JSON {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'elzr/vim-json'
 
-# Markdown {{{2
+## Markdown {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
@@ -356,17 +356,17 @@ repo = 'plasticboy/vim-markdown'
 # [[plugins]]
 # repo = 'nelstrom/vim-markdown-folding'
 
-# MQL4 {{{2
+## MQL4 {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vobornik/vim-mql4'
 
-# Octave {{{2
+## Octave {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'tmsanrinsha/octave.vim--'
 
-# Perl {{{2
+## Perl {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vim-perl/vim-perl'
@@ -375,7 +375,7 @@ build = 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'
 [[plugins]]
 repo = 'c9s/perlomni.vim'
 
-# PHP {{{2
+## PHP {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'shawncplus/phpcomplete.vim'
@@ -384,7 +384,7 @@ if = '!EnableDeoplete()'
 # [[plugins]]
 # repo = 'StanAngeloff/php.vim'
 
-# Python {{{2
+## Python {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
@@ -406,12 +406,12 @@ repo = 'hynek/vim-python-pep8-indent'
 # [[plugins]]
 # repo = 'wilywampa/vim-ipython'
 
-# R lang {{{2
+## R lang {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'jcfaria/Vim-R-plugin'
 
-# Ruby {{{2
+## Ruby {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
@@ -437,37 +437,37 @@ repo = 'rhysd/unite-ruby-require.vim'
 # let g:unite_source_ruby_require_cmd = '/usr/local/opt/ruby/bin/ruby'
 # '''
 
-# shell {{{2
+## shell {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'chrisbra/vim-sh-indent'
 
-# solidity {{{2
+## solidity {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
 # repo = 'tomlion/vim-solidity'
 
-# SQL hive {{{2
+## SQL hive {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'autowitch/hive.vim'
 
-# tmux {{{2
+## tmux {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'zaiste/tmux.vim'
 
-# toml {{{2
+## toml {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'cespare/vim-toml'
 
-# twig {{{2
+## twig {{{2
 # -----------------------------------------------------------------------------
 # [[plugins]]
 # repo = 'evidens/vim-twig'
 
-# Vim {{{2
+## Vim {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'ynkdir/vim-vimlparser'
@@ -481,7 +481,7 @@ repo = 'thinca/vim-ft-help_fold'
 [[plugins]]
 repo = 'thinca/vim-localrc'
 
-# vimperator {{{2
+## vimperator {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
