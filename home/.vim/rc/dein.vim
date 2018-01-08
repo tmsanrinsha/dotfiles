@@ -31,10 +31,6 @@ if dein#load_state(g:dein_dir)
     \   ],
     \   'hook_source': 'call SourceRc("plugins/deoplete_hook_source.vim")'
     \})
-    if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
   elseif has('lua')
     call dein#add('Shougo/neocomplete.vim', {
     \   'lazy': 1,
