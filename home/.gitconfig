@@ -14,7 +14,9 @@
 
 	st = status
 	rt = remote -v
-	unshallow = config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+
+	all = !git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch
+
 	# Githubのpushのurlをsshに変更
 	rtc = !git remote set-url --push `git remote -v | sed -e '1d' -e 's|://\\([^/]*\\)/\\([^(]*\\).*$|@\\1:\\2|'` && git remote -v
 	ctags = !.git/hooks/ctags
