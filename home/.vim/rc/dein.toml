@@ -354,7 +354,7 @@ autocmd MyVimrc BufWinEnter DebuggerBreakpoints
 # depends = ['context_filetype.vim']
 
 ## arduino {{{2
-# -----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # [[plugins]]
 # repo = '4Evergreen4/vim-hardy'
 
@@ -364,9 +364,14 @@ autocmd MyVimrc BufWinEnter DebuggerBreakpoints
 repo = 'vadv/vim-chef'
 
 ## confluence {{{2
-# -----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 [[plugins]]
 repo = 'vim-scripts/confluencewiki.vim'
+
+## Fluentd {{{2
+# ----------------------------------------------------------------------------
+[[plugins]]
+repo = 'yoppi/fluentd.vim'
 
 ## Go lang {{{2
 # ============================================================================
