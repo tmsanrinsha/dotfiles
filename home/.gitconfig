@@ -12,6 +12,7 @@
 	graph = "log --graph --date=short --pretty=format:'%C(auto)%h%d %s (%ad) <%an>%Creset'"
 	# すべてのブランチのlogがみたいときは--allを付ける
 
+	push = push -u
 	st = status
 	rt = remote -v
 
@@ -67,6 +68,9 @@
 	# 賢いdiff algorithm
 	# http://www.justinleegrant.com/?p=339
 	algorithm = patience
+[fetch]
+	# remote branchが消されたら、そのremote tracking branchをfetchのタイミングで消す
+	prune = true
 [merge]
 	tool = diffconflicts
 [mergetool "diffconflicts"]
@@ -79,6 +83,9 @@
 	# [gitのpush.defaultに関するノウハウ - Qiita](https://qiita.com/awakia/items/6aaea1ffecba725be601)
 	# pushでrefspecが与えられたかったときにカレントブランチと同じブランチにpushする
 	default = current
+[rebase]
+	# stashが必要なときに自動的にする
+	autostash = true
 
 # githubでhttpsのURLを指定してもgitプロトコルやssh経由にする方法 - @znz blog
 # http://blog.n-z.jp/blog/2013-11-28-git-insteadof.html
