@@ -3,3 +3,4 @@
 .trash
 node_modules/
 vendor/
+.local.*.vimrc
