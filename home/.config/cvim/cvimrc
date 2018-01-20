@@ -18,6 +18,8 @@ let previousmatchpattern = '((?!last)(prev(ious)?|newer|back|«|less|<|‹|前�
 " Movement
 map <C-f> scrollFullPageDown
 map <C-b> scrollFullPageUp
+map <C-u> scrollPageUp
+map <C-d> scrollPageDown
 
 map I passKeys
 " Miscellaneous
