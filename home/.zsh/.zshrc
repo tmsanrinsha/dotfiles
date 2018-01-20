@@ -574,12 +574,16 @@ fi
 # history {{{1
 # =============================================================================
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+# メモリに保存される履歴の件数。(保存数だけ履歴を検索できる)
+HISTSIZE=100000
+# HISTFILE で指定したファイルに保存される履歴の件数。
+SAVEHIST=100000
 # ヒストリファイルにコマンドラインだけではなく実行時刻と実行時間も保存する。
 setopt extended_history
 # 同じコマンドラインを連続で実行した場合はヒストリに登録しない。
 setopt hist_ignore_dups
+# Expire duplicate entries first when trimming history.
+setopt hist_expire_dups_first
 # スペースで始まるコマンドラインはヒストリに追加しない。
 setopt hist_ignore_space
 # 余分な空白は詰めて記録
