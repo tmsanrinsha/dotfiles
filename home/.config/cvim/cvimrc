@@ -173,4 +173,20 @@ facebookObjectDebugger() -> {{
   window.location.href=`https://developers.facebook.com/tools/debug/og/object?q=${encodeURIComponent(window.window.location.href)}`
 }}
 
-map <Leader>f :call facebookObjectDebugger<CR>
+command bmFacebookObjectDebugger call facebookObjectDebugger()
+
+" headerLinkify {{{1
+" ============================================================================
+headerLinkify() -> {{
+  let url = new URL(location.href);
+  for (let $h of document.querySelectorAll('h1, h2, h3, h4')) {
+    if ($h.id == '') continue;
+    let $a = document.createElement('a');
+    $a.textContent = '¶';
+    url.hash = $h.id;
+    $a.href = url.toString();
+    $h.appendChild($a);
+  };
+}}
+
+command bmHeaderLinkify call headerLinkify()
