@@ -180,6 +180,9 @@ if [ -f ~/go/src/github.com/motemen/ghq/zsh/_ghq ]; then
     ln -fs ~/go/src/github.com/motemen/ghq/zsh/_ghq ~/.zsh/functions
 fi
 
+ghq get -u tmsanrinsha/backup-file
+ln -fs ~/src/github.com/tmsanrinsha/backup-file/bin/* ~/bin
+
 # grep系 {{{1
 # ============================================================================
 install https://beyondgrep.com/ack-2.18-single-file ack
