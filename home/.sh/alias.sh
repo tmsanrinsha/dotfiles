@@ -54,7 +54,7 @@ alias cdt='cd `git rev-parse --show-toplevel`'
 # ============================================================================
 # https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
 # Load xdebug Zend extension with php command
-alias php='php -dzend_extension=xdebug.so'
+# alias php='php -dzend_extension=xdebug.so'
 # PHPUnit needs xdebug for coverage. In this case, just make an alias with php command prefix.
 # alias phpunit='php $(which phpunit)'
 alias phpunit='php $(which phpunit.sh) --colors'
