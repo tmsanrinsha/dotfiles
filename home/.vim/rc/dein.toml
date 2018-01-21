@@ -552,4 +552,9 @@ repo = 'vimperator/vimperator.vim'
 # other {{{1
 # ============================================================================
 [[plugins]]
+repo = 'b4b4r07/vim-shellutils'
+lazy = 1
+on_cmd = ['Vim', 'Ls', 'Mv', 'Cp', 'File', 'Cat', 'Head', 'Tail', 'Touch', 'Mkdir']
+
+[[plugins]]
 repo = 'basyura/twibill.vim'
