@@ -160,7 +160,7 @@ repo = 'ciaranm/detectindent'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 hook_add = '''
-    map ' <Plug>(easymotion-s2)
+    map ' <Plug>(easymotion-overwin-f2)
     map f <Plug>(easymotion-fl)
     map t <Plug>(easymotion-tl)
     nmap ct c<Plug>(easymotion-tl)
