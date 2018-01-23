@@ -1,5 +1,5 @@
 [alias]
-	br = branch -vv
+	br = branch
 	co = checkout
 	ci = commit
 	# 外部エディタを起動せず、diffを単語単位で
