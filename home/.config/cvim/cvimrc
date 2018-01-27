@@ -107,7 +107,7 @@ let searchengine yr  = 'http://realtime.search.yahoo.co.jp/search?p=%s&ei=UTF-8'
 " let searchalias t = 'twitter'
 
 " jupyter notebook
-let blacklists = ['*://localhost:8888']
+let blacklists = ['http://localhost:8888/*']
 
 site 'https://mail.google.com/mail/*' {
       unmap n
@@ -163,6 +163,14 @@ yankGitHub() -> {{
 }}
 
 map yg :call yankGitHub<CR>
+
+yankGo() -> {{
+  var user_repo = window.location.href.match(/:\/\/([^/]+\/[^/]+\/[^/]+)/)[1];
+  Clipboard.copy(user_repo);
+  Status.setMessage(user_repo);
+}}
+
+map yG :call yankGo<CR>
 
 map yh yankDocumentUrlHtmlFormatted
 
