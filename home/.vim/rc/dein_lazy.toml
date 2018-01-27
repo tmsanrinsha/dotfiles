@@ -2,6 +2,7 @@
 # ============================================================================
 [[plugins]]
 repo = 'Shougo/unite.vim'
+lazy = 1
 on_cmd = 'Unite'
 hook_source = '''
     call SourceRc('plugins/unite_hook_source.vim')
@@ -9,6 +10,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
+lazy = 1
 on_source = 'unite.vim'
 hook_source = '''
     call unite#sources#outline#alias('mql4', 'c')
@@ -21,15 +23,18 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
+lazy = 1
 on_source = 'unite.vim'
 
 [[plugins]]
 repo = 'basyura/unite-mdfind'
+lazy = 1
 on_source = 'unite.vim'
 # }}}
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
+lazy = 1
 on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
 if = 'has("python3")'
 hook_source = '''
@@ -38,6 +43,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
+lazy = 1
 on_source = 'unite.vim'
 on_map = '<Plug>'
 
@@ -53,11 +59,13 @@ on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
 [[plugins]]
 repo = 'Shougo/vim-vcs'
 # }}}
+lazy = 1
 
 # ipyhonで複数行を送信できない
 # [[python] fix sending lines to ipython by lotabout · Pull Request #75 · epeli/slimux](https://github.com/epeli/slimux/pull/75)
 # [[plugins]]
 # repo = 'epeli/slimux'
+lazy = 1
 # on_cmd = [
 #   'SlimuxGlobalConfigure',
 #   'SlimuxREPLConfigure',
@@ -90,6 +98,7 @@ repo = 'Shougo/vim-vcs'
 
 [[plugins]]
 repo = 'jpalardy/vim-slime'
+lazy = 1
 if = "exists('$TMUX')"
 on_ft = ['python']
 hook_source = '''
@@ -133,20 +142,25 @@ let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane"
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
+lazy = 1
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
+lazy = 1
 on_ft = ['vim', 'toml']
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
+lazy = 1
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
+lazy = 1
 hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
 
 [[plugins]]
 repo = 'honza/vim-snippets'
+lazy = 1
 
 # [[plugins]]
 # repo = 'SirVer/ultisnips'
@@ -155,26 +169,31 @@ repo = 'honza/vim-snippets'
 # ============================================================================
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
+lazy = 1
 depends = 'vim-operator-user'
 on_map = '<plug>(operator-surround-'
 
 [[plugins]]
 repo = 'tyru/operator-camelize.vim'
+lazy = 1
 depends = 'vim-operator-user'
 on_map = '<Plug>(operator-camelize-'
 
 [[plugins]]
 repo = 'kana/vim-operator-replace'
+lazy = 1
 depends = 'vim-operator-user'
 on_map = '<Plug>(operator-replace)'
 
 [[plugins]]
 repo = 'osyo-manga/vim-operator-search'
+lazy = 1
 depends = 'vim-operator-user'
 on_map = '<Plug>(operator-search)'
 
 [[plugins]]
 repo = 'tyru/caw.vim'
+lazy = 1
 depends = ['vim-operator-user', 'vim-repeat', 'context_filetype.vim']
 on_map = '<Plug>(caw:'
 hook_add = '''
@@ -206,12 +225,14 @@ on_map = '<Plug>(textobj-comment-'
 
 [[plugins]]
 repo = 'kana/vim-smartword'
+lazy = 1
 [plugins.on_map]
 nxo = '<Plug>'
 
 # bufferを閉じてもレイアウトを崩さない
 [[plugins]]
 repo = 'moll/vim-bbye'
+lazy = 1
 on_cmd = 'Bdelete'
 hook_add = '''
     nnoremap <Leader>bd :<C-U>Bdelete<CR>
@@ -318,24 +339,29 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tmsanrinsha/DirDiff.vim'
+lazy = 1
 on_cmd = 'DirDiff'
 
 [[plugins]]
 repo = 'osyo-manga/vim-marching'
+lazy = 1
 on_ft = ['c', 'cpp']
 hook_source = 'call SourceRc("plugins/marching_hook_source.vim")'
 
 [[plugins]]
 repo = 'quark-zju/vim-cpp-auto-include'
+lazy = 1
 external_commands = 'ruby'
 on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
+lazy = 1
 on_ft = ['html', 'xml', 'apache', 'php']
 
 [[plugins]]
 repo = 'maksimr/vim-jsbeautify'
+lazy = 1
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
 
@@ -343,12 +369,14 @@ on_ft = ['javascript', 'css', 'html']
 # ============================================================================
 [[plugins]]
 repo = 'carlitux/deoplete-ternjs'
+lazy = 1
 if = 'executable("npm")'
 on_ft = 'javascript'
 hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
 
 [[plugins]]
 repo = 'moll/vim-node'
+lazy = 1
 on_ft = 'javascript'
 augroup = 'Node'
 
@@ -362,6 +390,7 @@ augroup = 'Node'
 # ============================================================================
 [[plugins]]
 repo = 'lvht/phpcd.vim'
+lazy = 1
 on_ft = 'php'
 build = 'composer install'
 if = 'EnableDeoplete() && executable("composer")'
@@ -380,12 +409,14 @@ if = 'EnableDeoplete() && executable("composer")'
 
 [[plugins]]
 repo = 'stephpy/vim-php-cs-fixer'
+lazy = 1
 on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
 # SQL {{{1
 # ============================================================================
 [[plugins]]
 repo = 'tmsanrinsha/dbext.vim'
+lazy = 1
 on_ft = ['sql', 'markdown']
 
 # vim {{{1
@@ -403,12 +434,14 @@ on_cmd = 'VimConsoleTogggle'
 
 [[plugins]]
 repo = 'tmsanrinsha/previm'
+lazy = 1
 on_cmd = ['PrevimOpen']
 on_ft = ['markdown']
 depends = 'open-browser.vim'
 
 [[plugins]]
 repo = 'dhruvasagar/vim-table-mode'
+lazy = 1
 on_cmd = ['TableModeToggle', 'Tableize', 'TableAddFormula', 'TableEvalFormulaLine']
 on_func = 'tablemode#Toggle'
 hook_add = '''
@@ -422,25 +455,30 @@ hook_source = '''
 
 [[plugins]]
 repo = 'vim-scripts/AnsiEsc.vim'
+lazy = 1
 on_cmd = ['AnsiEsc']
 
 [[plugins]]
 repo = 'LeafCage/yankround.vim'
+lazy = 1
 on_map = '<Plug>'
 on_sources = 'unite.vim'
 # vim_version = '7.3'
 
 [[plugins]]
 repo = 'sjl/gundo.vim'
+lazy = 1
 on_cmd = 'GundoToggle'
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
+lazy = 1
 on_i = 1
 hook_source = 'call SourceRc("plugins/lexima_hook_source.vim")'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
+lazy = 1
 on_cmd = ['Ref', 'Man']
 hook_source = '''
     if has('mac')
@@ -451,50 +489,62 @@ hook_source = '''
 
 [[plugins]]
 repo = 'kannokanno/vim-helpnew'
+lazy = 1
 on_cmd = 'HelpNew'
 
 [[plugins]]
 repo = "vim-utils/vim-man"
+lazy = 1
 on_cmd = 'Man'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+lazy = 1
 on_cmd = ['QuickRun', 'QuickRunReplace']
 depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
 hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
 
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
+lazy = 1
 depends = ['vim-quickrun', 'vim-bufixlist']
 hook_source = 'call SourceRc("plugins/watchdogs_hook_source.vim")'
 
 [[plugins]]
 repo = 'cohama/vim-hier'
+lazy = 1
 
 [[plugins]]
 repo = 'dannyob/quickfixstatus'
+lazy = 1
 
 [[plugins]]
 repo = 'KazuakiM/vim-qfsigns'
+lazy = 1
 
 [[plugins]]
 repo = 'KazuakiM/vim-qfstatusline'
+lazy = 1
 hook_source = '''
     let g:Qfstatusline#Text = 'E'
 '''
 
 [[plugins]]
 repo = 'osyo-manga/quickrun-outputter-replace_region'
+lazy = 1
 
 [[plugins]]
 repo = 'osyo-manga/vim-bufixlist'
+lazy = 1
 
 [[plugins]]
 repo = 'thinca/vim-partedit'
+lazy = 1
 on_cmd = 'Partedit'
 
 [[plugins]]
 repo = 'simeji/winresizer'
+lazy = 1
 on_cmd = 'WinResizerStartResize'
 hook_add = '''
   let g:winresizer_start_key = '<M-w>'
@@ -506,23 +556,27 @@ hook_add = '''
 
 [[plugins]]
 repo = 't9md/vim-quickhl'
+lazy = 1
 on_map = '<Plug>(quickhl-'
 
 # draw {{{1
 # ============================================================================
 [[plugins]]
 repo = 'vim-scripts/DrawIt'
+lazy = 1
 on_map = ';di'
 on_cmd = 'DrawIt'
 
 [[plugins]]
 repo = 'shinespark/vim-list2tree'
+lazy = 1
 on_cmd = 'List2Tree'
 
 # browser {{{1
 # ============================================================================
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+lazy = 1
 on_cmd = ['OpenBrowser']
 on_func = ['openbrowser#search', 'OpenBrowser']
 on_map = '<Plug>(openbrowser-'
@@ -532,6 +586,7 @@ hook_source = '''
 
 [[plugins]]
 repo= 'tyru/open-browser-github.vim'
+lazy = 1
 depends = 'open-browser.vim'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
 hook_source = '''
@@ -541,16 +596,19 @@ hook_source = '''
 
 [[plugins]]
 repo = 'shikato/vim2browser.vim'
+lazy = 1
 on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
 
 [[plugins]]
 repo = 'shikato/keysender.vim'
+lazy = 1
 on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
 
 # search, replace {{{1
 # ============================================================================
 [[plugins]]
 repo = 'haya14busa/incsearch.vim'
+lazy = 1
 on_map = '<Plug>'
 depends = ['vim-asterisk', 'vim-anzu']
 
@@ -558,15 +616,18 @@ depends = ['vim-asterisk', 'vim-anzu']
 
 [[plugins]]
 repo = 'haya14busa/vim-asterisk'
+lazy = 1
 on_map = '<Plug>'
 depends = ['vim-anzu']
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
+lazy = 1
 on_map = '<Plug>'
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
+lazy = 1
 on_source = ['unite.vim', 'denite.nvim']
 on_cmd = ['Qfreplace']
 # 一時的にBufWriteを無効にしたいときは'eventignore'を使うといいかも
@@ -650,10 +711,12 @@ on_cmd = ['Gista']
 # ============================================================================
 [[plugins]]
 repo = 'chrisbra/Colorizer'
+lazy = 1
 on_cmd = ['ColorHighlight', 'ColorToggle']
 
 [[plugins]]
 repo = 'tmsanrinsha/SyntaxRange'
+lazy = 1
 on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
 on_func = ['SyntaxRange']
 
@@ -661,6 +724,7 @@ on_func = ['SyntaxRange']
 # ============================================================================
 [[plugins]]
 repo = 'basyura/TweetVim'
+lazy = 1
 on_cmd= [
   'TweetVimHomeTimeline',
   'TweetVimVersion',
@@ -684,4 +748,5 @@ let g:tweetvim_display_icon = 1
 
 [[plugins]]
 repo = 'johngrib/vim-game-code-break'
+lazy = 1
 on_cmd = ['VimGameCodeBreak ']
