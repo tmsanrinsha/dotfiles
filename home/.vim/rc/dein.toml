@@ -558,3 +558,754 @@ on_cmd = ['Vim', 'Ls', 'Mv', 'Cp', 'File', 'Cat', 'Head', 'Tail', 'Touch', 'Mkdi
 
 [[plugins]]
 repo = 'basyura/twibill.vim'
+
+# unite {{{1
+# ============================================================================
+[[plugins]]
+repo = 'Shougo/unite.vim'
+lazy = 1
+on_cmd = 'Unite'
+hook_source = '''
+    call SourceRc('plugins/unite_hook_source.vim')
+'''
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+lazy = 1
+on_source = 'unite.vim'
+hook_source = '''
+    call unite#sources#outline#alias('mql4', 'c')
+    call unite#sources#outline#alias('ref-man', 'man')
+    call unite#sources#outline#alias('rmd', 'markdown')
+    call unite#sources#outline#alias('tmux', 'conf')
+    call unite#sources#outline#alias('vimperator', 'conf')
+    call unite#sources#outline#alias('zsh', 'conf')
+'''
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+lazy = 1
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'basyura/unite-mdfind'
+lazy = 1
+on_source = 'unite.vim'
+# }}}
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+lazy = 1
+on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
+if = 'has("python3")'
+hook_source = '''
+    call SourceRc('plugins/denite_hook_source.vim')
+'''
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+lazy = 1
+on_source = 'unite.vim'
+on_map = '<Plug>'
+
+# shell / repl {{{1
+# ============================================================================
+# vimshell {{{2
+# ----------------------------------------------------------------------------
+[[plugins]]
+repo = 'Shougo/vimshell.vim'
+depends = ['vim-vcs', 'unite.vim']
+on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
+
+[[plugins]]
+repo = 'Shougo/vim-vcs'
+# }}}
+
+# ipyhonで複数行を送信できない
+# [[python] fix sending lines to ipython by lotabout · Pull Request #75 · epeli/slimux](https://github.com/epeli/slimux/pull/75)
+# [[plugins]]
+# repo = 'epeli/slimux'
+# on_cmd = [
+#   'SlimuxGlobalConfigure',
+#   'SlimuxREPLConfigure',
+#   'SlimuxREPLSendBuffer',
+#   'SlimuxREPLSendLine',
+#   'SlimuxREPLSendParagraph',
+#   'SlimuxREPLSendSelection',
+#   'SlimuxSendKeys',
+#   'SlimuxSendKeysConfigure',
+#   'SlimuxSendKeysLast',
+#   'SlimuxSendKeysPrompt',
+#   'SlimuxShellConfigure',
+#   'SlimuxShellLast',
+#   'SlimuxShellPrompt',
+#   'SlimuxShellRun',
+# ]
+# hook_add = '''
+# noremap [:slimux:] <Nop>
+# map <Leader>s [:slimux:]
+#
+# nnoremap [:slimux:]<CR> :SlimuxREPLSendLine<CR>
+# xnoremap [:slimux:]<CR> :SlimuxREPLSendSelection<CR>
+# nnoremap [:slimux:]b :SlimuxREPLSendBuffer<CR>
+#
+# xnoremap <M-CR> <C-o>:SlimuxREPLSendLine<CR>
+# '''
+# hook_source = '''
+# let g:slimux_select_from_current_window = 1
+# '''
+
+[[plugins]]
+repo = 'jpalardy/vim-slime'
+lazy = 1
+if = "exists('$TMUX')"
+on_ft = ['python']
+hook_source = '''
+let g:slime_python_ipython = 1
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.2"}
+'''
+
+# [[plugins]]
+# repo = 'oplatek/Conque-Shell'
+# on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
+# hook_source = 'call SourceRc('plugins/Conque-Shell_hook_source.vim'')
+
+# neocomplete, deoplete {{{1
+# ============================================================================
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# depends = [
+#   'FastFold',
+#   'neoinclude.vim',
+#   'neosnippet.vim',
+#   'vim-snippets',
+#   'nvim-yarp',
+#   'vim-hug-neovim-rpc'
+# ]
+# on_i = 1
+# hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
+# if = 'EnableDeoplete()'
+#
+# [[plugins]]
+# repo = 'Shougo/neocomplete.vim'
+# depends = [
+#   'FastFold',
+#   'neoinclude.vim',
+#   'neosnippet.vim',
+#   'vim-snippets'
+# ]
+# on_i = 1
+# hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
+# if = '!EnableDeoplete()'
+
+[[plugins]]
+repo = 'Konfekt/FastFold'
+lazy = 1
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+lazy = 1
+on_ft = ['vim', 'toml']
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+lazy = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+lazy = 1
+hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+lazy = 1
+
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+
+# operator {{{1
+# ============================================================================
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+lazy = 1
+depends = 'vim-operator-user'
+on_map = '<plug>(operator-surround-'
+
+[[plugins]]
+repo = 'tyru/operator-camelize.vim'
+lazy = 1
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-camelize-'
+
+[[plugins]]
+repo = 'kana/vim-operator-replace'
+lazy = 1
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-replace)'
+
+[[plugins]]
+repo = 'osyo-manga/vim-operator-search'
+lazy = 1
+depends = 'vim-operator-user'
+on_map = '<Plug>(operator-search)'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+lazy = 1
+depends = ['vim-operator-user', 'vim-repeat', 'context_filetype.vim']
+on_map = '<Plug>(caw:'
+hook_add = '''
+    nmap gc <Plug>(caw:hatpos:toggle:operator)
+    xmap gc <Plug>(caw:hatpos:toggle:operator)
+    nmap gcc <Plug>(caw:hatpos:toggle)
+    nmap <C-_> yy<Plug>(caw:hatpos:toggle)p
+    xmap <C-_> ygv<Plug>(caw:hatpos:toggle)gv<C-c>p
+'''
+
+# [[plugins]]
+# repo = 'tomtom/tcomment_vim'
+# on_map = ['<Plug>TComment_', 'gc']
+
+# textobj {{{1
+# ============================================================================
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-context'
+on_map = '<Plug>(textobj-context-'
+
+[[plugins]]
+repo = 'kana/vim-textobj-lastpat'
+on_map = '<Plug>(textobj-lastpat-'
+
+[[plugins]]
+repo = 'glts/vim-textobj-comment'
+on_map = '<Plug>(textobj-comment-'
+# }}}
+
+[[plugins]]
+repo = 'kana/vim-smartword'
+lazy = 1
+[plugins.on_map]
+nxo = '<Plug>'
+
+# bufferを閉じてもレイアウトを崩さない
+[[plugins]]
+repo = 'moll/vim-bbye'
+lazy = 1
+on_cmd = 'Bdelete'
+hook_add = '''
+    nnoremap <Leader>bd :<C-U>Bdelete<CR>
+'''
+
+# tmsanrinsha/vim-fakeclip {{{
+[[plugins]]
+repo = 'tmsanrinsha/vim-fakeclip'
+if = "$SSH_CLIENT != ''"
+on_map = '<Plug>'
+hook_add = '''
+    xmap  "&D           <Plug>(fakeclip-screen-D)
+    nmap  "&D           <Plug>(fakeclip-screen-D)
+    nmap  "&dd          <Plug>(fakeclip-screen-dd)
+    xmap  "&d           <Plug>(fakeclip-screen-d)
+    nmap  "&d           <Plug>(fakeclip-screen-d)
+    xmap  "&[P          <Plug>(fakeclip-screen-[P)
+    xmap  "&[p          <Plug>(fakeclip-screen-[p)
+    xmap  "&]P          <Plug>(fakeclip-screen-]P)
+    xmap  "&]p          <Plug>(fakeclip-screen-]p)
+    xmap  "&gP          <Plug>(fakeclip-screen-gP)
+    xmap  "&gp          <Plug>(fakeclip-screen-gp)
+    xmap  "&P           <Plug>(fakeclip-screen-P)
+    xmap  "&p           <Plug>(fakeclip-screen-p)
+    nmap  "&[P          <Plug>(fakeclip-screen-[P)
+    nmap  "&[p          <Plug>(fakeclip-screen-[p)
+    nmap  "&]P          <Plug>(fakeclip-screen-]P)
+    nmap  "&]p          <Plug>(fakeclip-screen-]p)
+    nmap  "&gP          <Plug>(fakeclip-screen-gP)
+    nmap  "&gp          <Plug>(fakeclip-screen-gp)
+    nmap  "&P           <Plug>(fakeclip-screen-P)
+    nmap  "&p           <Plug>(fakeclip-screen-p)
+    xmap  "&Y           <Plug>(fakeclip-screen-Y)
+    xmap  "&y           <Plug>(fakeclip-screen-y)
+    nmap  "&yy          <Plug>(fakeclip-screen-Y)
+    nmap  "&Y           <Plug>(fakeclip-screen-Y)
+    nmap  "&y           <Plug>(fakeclip-screen-y)
+    xmap  "*D           <Plug>(fakeclip-D)
+    nmap  "*D           <Plug>(fakeclip-D)
+    nmap  "*dd          <Plug>(fakeclip-dd)
+    xmap  "*d           <Plug>(fakeclip-d)
+    nmap  "*d           <Plug>(fakeclip-d)
+    xmap  "*[P          <Plug>(fakeclip-[P)
+    xmap  "*[p          <Plug>(fakeclip-[p)
+    xmap  "*]P          <Plug>(fakeclip-]P)
+    xmap  "*]p          <Plug>(fakeclip-]p)
+    xmap  "*gP          <Plug>(fakeclip-gP)
+    xmap  "*gp          <Plug>(fakeclip-gp)
+    xmap  "*P           <Plug>(fakeclip-P)
+    xmap  "*p           <Plug>(fakeclip-p)
+    nmap  "*[P          <Plug>(fakeclip-[P)
+    nmap  "*[p          <Plug>(fakeclip-[p)
+    nmap  "*]P          <Plug>(fakeclip-]P)
+    nmap  "*]p          <Plug>(fakeclip-]p)
+    nmap  "*gP          <Plug>(fakeclip-gP)
+    nmap  "*gp          <Plug>(fakeclip-gp)
+    nmap  "*P           <Plug>(fakeclip-P)
+    nmap  "*p           <Plug>(fakeclip-p)
+    xmap  "*Y           <Plug>(fakeclip-Y)
+    xmap  "*y           <Plug>(fakeclip-y)
+    nmap  "*yy          <Plug>(fakeclip-Y)
+    nmap  "*Y           <Plug>(fakeclip-Y)
+    nmap  "*y           <Plug>(fakeclip-y)
+    xmap  "+D           <Plug>(fakeclip-D)
+    nmap  "+D           <Plug>(fakeclip-D)
+    nmap  "+dd          <Plug>(fakeclip-dd)
+    xmap  "+d           <Plug>(fakeclip-d)
+    nmap  "+d           <Plug>(fakeclip-d)
+    xmap  "+[P          <Plug>(fakeclip-[P)
+    xmap  "+[p          <Plug>(fakeclip-[p)
+    xmap  "+]P          <Plug>(fakeclip-]P)
+    xmap  "+]p          <Plug>(fakeclip-]p)
+    xmap  "+gP          <Plug>(fakeclip-gP)
+    xmap  "+gp          <Plug>(fakeclip-gp)
+    xmap  "+P           <Plug>(fakeclip-P)
+    xmap  "+p           <Plug>(fakeclip-p)
+    nmap  "+[P          <Plug>(fakeclip-[P)
+    nmap  "+[p          <Plug>(fakeclip-[p)
+    nmap  "+]P          <Plug>(fakeclip-]P)
+    nmap  "+]p          <Plug>(fakeclip-]p)
+    nmap  "+gP          <Plug>(fakeclip-gP)
+    nmap  "+gp          <Plug>(fakeclip-gp)
+    nmap  "+P           <Plug>(fakeclip-P)
+    nmap  "+p           <Plug>(fakeclip-p)
+    xmap  "+Y           <Plug>(fakeclip-Y)
+    xmap  "+y           <Plug>(fakeclip-y)
+    nmap  "+yy          <Plug>(fakeclip-Y)
+    nmap  "+Y           <Plug>(fakeclip-Y)
+    nmap  "+y           <Plug>(fakeclip-y)
+    imap  <C-R><C-P>&   <Plug>(fakeclip-screen-insert-p)
+    map!  <C-R><C-O>&   <Plug>(fakeclip-screen-insert-o)
+    map!  <C-R><C-R>&   <Plug>(fakeclip-screen-insert-r)
+    map!  <C-R>&        <Plug>(fakeclip-screen-insert)
+    imap  <C-R><C-P>*   <Plug>(fakeclip-insert-p)
+    map!  <C-R><C-O>*   <Plug>(fakeclip-insert-o)
+    map!  <C-R><C-R>*   <Plug>(fakeclip-insert-r)
+    map!  <C-R>*        <Plug>(fakeclip-insert)
+    imap  <C-R><C-P>+   <Plug>(fakeclip-insert-p)
+    map!  <C-R><C-O>+   <Plug>(fakeclip-insert-o)
+    map!  <C-R><C-R>+   <Plug>(fakeclip-insert-r)
+    map!  <C-R>+        <Plug>(fakeclip-insert)
+'''
+# }}}
+
+[[plugins]]
+repo = 'tmsanrinsha/DirDiff.vim'
+lazy = 1
+on_cmd = 'DirDiff'
+
+[[plugins]]
+repo = 'osyo-manga/vim-marching'
+lazy = 1
+on_ft = ['c', 'cpp']
+hook_source = 'call SourceRc("plugins/marching_hook_source.vim")'
+
+[[plugins]]
+repo = 'quark-zju/vim-cpp-auto-include'
+lazy = 1
+external_commands = 'ruby'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+lazy = 1
+on_ft = ['html', 'xml', 'apache', 'php']
+
+[[plugins]]
+repo = 'maksimr/vim-jsbeautify'
+lazy = 1
+external_commands = 'node'
+on_ft = ['javascript', 'css', 'html']
+
+# JavaScript {{{1
+# ============================================================================
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+lazy = 1
+if = 'executable("npm")'
+on_ft = 'javascript'
+hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
+
+[[plugins]]
+repo = 'moll/vim-node'
+lazy = 1
+on_ft = 'javascript'
+augroup = 'Node'
+
+# Go lang {{{1
+# ============================================================================
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = 'go'
+
+# PHP {{{1
+# ============================================================================
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+lazy = 1
+on_ft = 'php'
+build = 'composer install'
+if = 'EnableDeoplete() && executable("composer")'
+
+# [[plugins]]
+# repo = 'mkusher/padawan.vim'
+# if = '$PHP55 && has("python")'
+# on_ft = 'php'
+# hook_source = '''
+# let g:padawan#enabled = 1
+# let g:padawan#composer_command = 'composer'
+# let g:padawan#timeout = 0.3
+# '''
+# # [does not obey @property dockblock · Issue #26 · mkusher/padawan.php](https://github.com/mkusher/padawan.php/issues/26)
+# # [Completion scopes and built\-in php functions by mkusher · Pull Request \#14 · mkusher/padawan\.php](https://github.com/mkusher/padawan.php/pull/14#event-612270301)
+
+[[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+lazy = 1
+on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
+
+# SQL {{{1
+# ============================================================================
+[[plugins]]
+repo = 'tmsanrinsha/dbext.vim'
+lazy = 1
+on_ft = ['sql', 'markdown']
+
+# vim {{{1
+# ============================================================================
+[[plugins]]
+repo = 'rbtnn/vimconsole.vim'
+on_func = 'vimconsole#log'
+on_cmd = 'VimConsoleTogggle'
+
+# [[plugins]]
+# repo = 'haya14busa/vim-stacktrace'
+# build = 'make'
+# on_cmd = 'CStacktraceFromhist'
+# }}}
+
+[[plugins]]
+repo = 'tmsanrinsha/previm'
+lazy = 1
+on_cmd = ['PrevimOpen']
+on_ft = ['markdown']
+depends = 'open-browser.vim'
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+lazy = 1
+on_cmd = ['TableModeToggle', 'Tableize', 'TableAddFormula', 'TableEvalFormulaLine']
+on_func = 'tablemode#Toggle'
+hook_add = '''
+  nnoremap [:table-mode:] <Nop>
+  nmap <Leader>t [:table-mode:]
+  map [:table-mode:]m :call tablemode#Toggle()<CR>
+'''
+hook_source = '''
+  let g:table_mode_corner = '|'
+'''
+
+[[plugins]]
+repo = 'vim-scripts/AnsiEsc.vim'
+lazy = 1
+on_cmd = ['AnsiEsc']
+
+[[plugins]]
+repo = 'LeafCage/yankround.vim'
+lazy = 1
+on_map = '<Plug>'
+on_sources = 'unite.vim'
+# vim_version = '7.3'
+
+[[plugins]]
+repo = 'sjl/gundo.vim'
+lazy = 1
+on_cmd = 'GundoToggle'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+lazy = 1
+on_i = 1
+hook_source = 'call SourceRc("plugins/lexima_hook_source.vim")'
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+lazy = 1
+on_cmd = ['Ref', 'Man']
+hook_source = '''
+    if has('mac')
+        let g:ref_man_cmd = 'man -P cat'
+    endif
+    " command! -nargs=* Man Ref man <args>
+'''
+
+[[plugins]]
+repo = 'kannokanno/vim-helpnew'
+lazy = 1
+on_cmd = 'HelpNew'
+
+[[plugins]]
+repo = "vim-utils/vim-man"
+lazy = 1
+on_cmd = 'Man'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+lazy = 1
+on_cmd = ['QuickRun', 'QuickRunReplace']
+depends = ['shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
+hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
+
+[[plugins]]
+repo = 'osyo-manga/vim-watchdogs'
+lazy = 1
+depends = ['vim-quickrun', 'vim-bufixlist']
+hook_source = 'call SourceRc("plugins/watchdogs_hook_source.vim")'
+
+[[plugins]]
+repo = 'cohama/vim-hier'
+lazy = 1
+
+[[plugins]]
+repo = 'dannyob/quickfixstatus'
+lazy = 1
+
+[[plugins]]
+repo = 'KazuakiM/vim-qfsigns'
+lazy = 1
+
+[[plugins]]
+repo = 'KazuakiM/vim-qfstatusline'
+lazy = 1
+hook_source = '''
+    let g:Qfstatusline#Text = 'E'
+'''
+
+[[plugins]]
+repo = 'osyo-manga/quickrun-outputter-replace_region'
+lazy = 1
+
+[[plugins]]
+repo = 'osyo-manga/vim-bufixlist'
+lazy = 1
+
+[[plugins]]
+repo = 'thinca/vim-partedit'
+lazy = 1
+on_cmd = 'Partedit'
+
+[[plugins]]
+repo = 'simeji/winresizer'
+lazy = 1
+on_cmd = 'WinResizerStartResize'
+hook_add = '''
+  let g:winresizer_start_key = '<M-w>'
+  nmap <M-w> :<C-u>WinResizerStartResize<CR>
+  if has('terminal')
+    tmap <M-w> <C-w>:<C-u>WinResizerStartResize<CR>
+  endif
+'''
+
+[[plugins]]
+repo = 't9md/vim-quickhl'
+lazy = 1
+on_map = '<Plug>(quickhl-'
+
+# draw {{{1
+# ============================================================================
+[[plugins]]
+repo = 'vim-scripts/DrawIt'
+lazy = 1
+on_map = ';di'
+on_cmd = 'DrawIt'
+
+[[plugins]]
+repo = 'shinespark/vim-list2tree'
+lazy = 1
+on_cmd = 'List2Tree'
+
+# browser {{{1
+# ============================================================================
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+lazy = 1
+on_cmd = ['OpenBrowser']
+on_func = ['openbrowser#search', 'OpenBrowser']
+on_map = '<Plug>(openbrowser-'
+hook_source = '''
+    call SourceRc('plugins/open-browser_hook_source.vim')
+'''
+
+[[plugins]]
+repo= 'tyru/open-browser-github.vim'
+lazy = 1
+depends = 'open-browser.vim'
+on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
+hook_source = '''
+    let g:openbrowser_github_always_use_commit_hash = 0
+    let g:openbrowser_github_url_exists_check = 'ignore'
+'''
+
+[[plugins]]
+repo = 'shikato/vim2browser.vim'
+lazy = 1
+on_cmd = ['Vim2BrowserSetVimAppName', 'Vim2ChromeReplaseAll', 'Vim2ChromeReplaseSelected', 'Vim2ChromeAppendAll', 'Vim2ChromeAppendSelected', 'Chrome2VimReplaseAll', 'Chrome2VimReplaseSelected', 'Chrome2VimAppendAll', 'Chrome2VimAppendSelected']
+
+[[plugins]]
+repo = 'shikato/keysender.vim'
+lazy = 1
+on_cmd = ['KeysenderKeystroke', 'KeysenderKeyCode', 'KeysenderSetTargetAppName', 'KeysenderSetVimAppName']
+
+# search, replace {{{1
+# ============================================================================
+[[plugins]]
+repo = 'haya14busa/incsearch.vim'
+lazy = 1
+on_map = '<Plug>'
+depends = ['vim-asterisk', 'vim-anzu']
+
+# [osyo-manga/vim-over: :substitute preview](https://github.com/osyo-manga/vim-over)
+
+[[plugins]]
+repo = 'haya14busa/vim-asterisk'
+lazy = 1
+on_map = '<Plug>'
+depends = ['vim-anzu']
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+lazy = 1
+on_map = '<Plug>'
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+lazy = 1
+on_source = ['unite.vim', 'denite.nvim']
+on_cmd = ['Qfreplace']
+# 一時的にBufWriteを無効にしたいときは'eventignore'を使うといいかも
+
+# memo {{{1
+# ============================================================================
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+on_cmd = ['MemoNew', 'MemoList', 'MemoGrep', 'MemoNewCopyingMeta']
+hook_add = '''
+    nnoremap <Leader>mn  :MemoNew<CR>
+    nnoremap <Leader>ml  :Unite memo<CR>
+    execute 'nnoremap <Leader>mg :<C-u>Unite grep:'.g:memo_directory.'<CR>'
+'''
+hook_source = '''
+    let g:memolist_path = g:memo_directory.'/'.strftime('%Y/%m')
+    let g:memolist_memo_suffix = 'md'
+    let g:memolist_template_dir_path = '~/.vim/template/memolist'
+    let g:memolist_unite = 1
+    let g:memolist_delimiter_yaml_end  = "---"
+    let g:memolist_delimiter_yaml_start = "---"
+    let g:memolist_filename_prefix_none = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/junkfile.vim'
+on_source = 'unite.vim'
+on_cmd = ['Junkfile', 'JunkfileOpen', 'JunkfileFiletype']
+
+# [[plugins]]
+# repo = 'mattn/qiita-vim'
+# on_source = 'unite.vim'
+# on_cmd = ['Qiita']
+
+[[plugins]]
+repo = 'mattn/gist-vim'
+depends = 'webapi-vim'
+on_cmd = ['Gist']
+
+# [[plugins]]
+# repo = 'neilagabriel/vim-geeknote'
+# on_cmd = ['Geeknote']
+# hook_source = '''
+#     call Set_python_path()
+# '''
+# # }}}
+
+# Git {{{1
+# ============================================================================
+[[plugins]]
+repo = 'gregsexton/gitv'
+on_cmd = ['Gitv']
+hook_source = '''
+    function! GitvGetCurrentHash()
+        return matchstr(getline('.'), '\[\zs\w\+\ze\]$')
+    endfunction
+
+    autocmd MyVimrc FileType gitv
+        \   setlocal iskeyword+=/,-,.
+        \|  nnoremap <buffer> <LocalLeader>rb :<C-u>Git rebase -i    <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <LocalLeader>rs :<C-u>Git reset        <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <LocalLeader>rv :<C-u>Git revert       <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <LocalLeader>h  :<C-u>Git cherry-pick  <C-r>=GitvGetCurrentHash()<CR><CR>
+        \|  nnoremap <buffer> <LocalLeader>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR><CR>
+'''
+
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
+on_cmd = ['Gbrowse']
+
+[[plugins]]
+repo = 'lambdalisue/vim-gista'
+on_cmd = ['Gista']
+
+# [[plugins]]
+# repo = 'tmsanrinsha/github-complete.vim'
+# on_ft = ['markdown', 'gitcommit']
+# }}}
+
+# color {{{1
+# ============================================================================
+[[plugins]]
+repo = 'chrisbra/Colorizer'
+lazy = 1
+on_cmd = ['ColorHighlight', 'ColorToggle']
+
+[[plugins]]
+repo = 'tmsanrinsha/SyntaxRange'
+lazy = 1
+on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
+on_func = ['SyntaxRange']
+
+# tool {{{1
+# ============================================================================
+[[plugins]]
+repo = 'basyura/TweetVim'
+lazy = 1
+on_cmd= [
+  'TweetVimHomeTimeline',
+  'TweetVimVersion',
+  'TweetVimAddAccount',
+  'TweetVimSwitchAccount',
+  'TweetVimHomeTimeline',
+  'TweetVimMentions',
+  'TweetVimListStatuses',
+  'TweetVimUserTimeline',
+  'TweetVimSay',
+  'TweetVimUserStream',
+  'TweetVimCommandSay',
+  'TweetVimCurrentLineSay',
+  'TweetVimSearch',
+]
+on_map = '<Plug>'
+depends = ['twibill.vim']
+hook_source = '''
+let g:tweetvim_display_icon = 1
+'''
+
+[[plugins]]
+repo = 'johngrib/vim-game-code-break'
+lazy = 1
+on_cmd = ['VimGameCodeBreak ']
