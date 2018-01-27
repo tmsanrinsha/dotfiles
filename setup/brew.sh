@@ -36,6 +36,7 @@ brew install ag
 brew install coreutils
 # brew tap ethereum/ethereum
 # brew-install ethereum
+brew install p7zip
 brew install diffutils
 brew install git
 brew install gnu-sed
