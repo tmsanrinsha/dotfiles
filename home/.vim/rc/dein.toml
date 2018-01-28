@@ -53,8 +53,8 @@ repo = 'thinca/vim-unite-history'
 # [[plugins]]
 # repo = 'ujihisa/unite-locate'
 
-# [[plugins]]
-# repo = 'tacroe/unite-mark'
+[[plugins]]
+repo = 'tacroe/unite-mark'
 
 [[plugins]]
 repo = 'tsukkee/unite-tag'
@@ -403,6 +403,19 @@ repo = 'nono/jquery.vim'
 
 [[plugins]]
 repo = 'felixge/vim-nodejs-errorformat'
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+lazy = 1
+if = 'executable("npm")'
+on_ft = 'javascript'
+hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
+
+[[plugins]]
+repo = 'moll/vim-node'
+lazy = 1
+on_ft = 'javascript'
+augroup = 'Node'
 
 ## JSON {{{2
 # -----------------------------------------------------------------------------
@@ -923,21 +936,6 @@ repo = 'maksimr/vim-jsbeautify'
 lazy = 1
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
-
-# JavaScript {{{1
-# ============================================================================
-[[plugins]]
-repo = 'carlitux/deoplete-ternjs'
-lazy = 1
-if = 'executable("npm")'
-on_ft = 'javascript'
-hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
-
-[[plugins]]
-repo = 'moll/vim-node'
-lazy = 1
-on_ft = 'javascript'
-augroup = 'Node'
 
 # Go lang {{{1
 # ============================================================================
