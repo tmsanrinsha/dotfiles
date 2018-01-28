@@ -3585,6 +3585,25 @@ if IsInstalled('junkfile.vim')
     nnoremap [unite]fj :Unite junkfile<CR>
 endif
 
+" insertPrintDebug {{{1
+" ============================================================================
+function! s:insertPrintDebug(mode) abort
+  if a:mode == 'n'
+    let str = expand('<cword>')
+  else
+    let tmp = @"
+    silent normal! gvy
+    let str = @"
+    let @" = tmp
+  endif
+
+  let debug = printf("console.log('%s: ' + %s)", str, str)
+  execute 'normal! o' . debug
+endfunction
+
+nnoremap <Leader>P :<C-u>call <SID>insertPrintDebug('n')<CR>
+xnoremap <Leader>P :<C-u>call <SID>insertPrintDebug('v')<CR>
+
 " local {{{1
 " ============================================================================
 call SourceRc('local.vim')
