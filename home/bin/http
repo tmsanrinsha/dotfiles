@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# [手軽な HTTP/HTTPS サーバコマンド - Qiita](https://qiita.com/Jxck_/items/725aa73bb3067c7e10e6)
+
 HTTPS = (File.basename(__FILE__) == 'https')
 
 require 'webrick'
@@ -34,4 +36,5 @@ end
 
 server = WEBrick::HTTPServer.new(config)
 Signal.trap('INT') { server.shutdown }
+`#{ENV['BROWSER'] || 'open'} #{HTTPS ? 'https' : 'http'}://localhost:3000`
 server.start
