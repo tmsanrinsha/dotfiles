@@ -38,6 +38,7 @@ inoremap <expr><C-Space> deoplete#mappings#manual_complete()
 " let g:deoplete#sources._ = ['mozc']
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources._ = ['mozc', 'tag']
 let g:deoplete#ignore_sources.php = ['omni']
 
 let g:deoplete#sources#mozc#mozc_emacs_helper_path = 'mozc_emacs_helper'
