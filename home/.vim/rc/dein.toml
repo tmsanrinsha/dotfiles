@@ -375,10 +375,16 @@ repo = 'yoppi/fluentd.vim'
 
 ## Go lang {{{2
 # ============================================================================
-# lazyに置くとcommandの設定がうまくいかなかったのでこちらで
 [[plugins]]
 repo = 'fatih/vim-go'
 if = "MyHasPatch('patch-7.4.1689')"
+# lazyにするとcommandの設定がうまくいかなかったのでしない
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+build = 'make'
+lazy = 1
+on_ft = 'go'
 
 ## graphviz {{{2
 # -----------------------------------------------------------------------------
@@ -409,6 +415,7 @@ repo = 'carlitux/deoplete-ternjs'
 lazy = 1
 if = 'executable("npm")'
 on_ft = 'javascript'
+build = 'npm install -g tern'
 hook_source = 'call SourceRc("plugins/deoplete-ternjs_hook_source.vim")'
 
 [[plugins]]
@@ -936,12 +943,6 @@ repo = 'maksimr/vim-jsbeautify'
 lazy = 1
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
-
-# Go lang {{{1
-# ============================================================================
-# [[plugins]]
-# repo = 'fatih/vim-go'
-# on_ft = 'go'
 
 # PHP {{{1
 # ============================================================================
