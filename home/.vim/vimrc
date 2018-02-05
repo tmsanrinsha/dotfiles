@@ -3225,6 +3225,9 @@ let g:markdown_quote_syntax_filetypes = {
 \   'sh' : {
 \       'start' : 'sh',
 \   },
+\   'groovy' : {
+\       'start' : 'groovy',
+\   },
 \}
 
 " nelstrom/vim-markdown-folding {{{2
