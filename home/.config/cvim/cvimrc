@@ -174,14 +174,25 @@ map yG :call yankGo<CR>
 
 map yh yankDocumentUrlHtmlFormatted
 
+" GoogleSearchSite {{{1
+" ============================================================================
+GoogleSearchSite() -> {{
+  let q = prompt('サイト内検索')
+    if (q) {
+      Command.execute(`tabnew site:${window.document.domain} ${q}`)
+    }
+}}
+
+command GoogleSearchSite call GoogleSearchSite()
+
 " facebookObjectDebugger {{{1
 " ============================================================================
-facebookObjectDebugger() -> {{
+FacebookObjectDebugger() -> {{
   var markdownLink = `[${window.document.title}](${window.location.href})`
   window.location.href=`https://developers.facebook.com/tools/debug/og/object?q=${encodeURIComponent(window.window.location.href)}`
 }}
 
-command bmFacebookObjectDebugger call facebookObjectDebugger()
+command FacebookObjectDebugger call FacebookObjectDebugger()
 
 " headerLinkify {{{1
 " ============================================================================
@@ -197,4 +208,4 @@ headerLinkify() -> {{
   };
 }}
 
-command bmHeaderLinkify call headerLinkify()
+command HeaderLinkify call HeaderLinkify()
