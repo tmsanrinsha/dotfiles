@@ -43,7 +43,7 @@ endif
 
 let g:dein_dir = g:vim_home . '/.cache/vim/dein'
 
-call has('python3')
+" call has('python3')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
@@ -213,9 +213,10 @@ endfunction
 " ----------------------------------------------------------------------------
 function! SetAutocmdSyncSaveDir(sync_save_dir_list) abort
     for sync_save_dir in a:sync_save_dir_list
-        if len(glob(sync_save_dir['glob'])) == 0
-            echoerr 'no match glob'
-        endif
+        " この処理は時間がかかるので、コメントアウト
+        " if len(glob(sync_save_dir['glob'])) == 0
+        "     echoerr 'no match glob'
+        " endif
 
         execute 'autocmd MyVimrc BufWritePost ' . sync_save_dir['glob']
         \   . ' call s:syncSaveDir("' . sync_save_dir['from'] . '", "' . sync_save_dir['to'] . '")'
@@ -1760,9 +1761,10 @@ if IsInstalled('my_molokai')
     " colorscheme monokai
 endif
 
-let g:solarized_termcolors=256
-let g:solarized_contrast = 'high'
+" let g:solarized_termcolors=256
+" let g:solarized_contrast = 'high'
 " colorscheme solarized
+" colorscheme pencil
 
 " 16色の色見本
 " :so $VIMRUNTIME/syntax/colortest.vim 
@@ -2317,7 +2319,7 @@ endif
 " Denite.nvim {{{1
 " ============================================================================
 " unite.vimの後で上書きしたいので、tomlではなくここに書く
-if IsInstalled('denite.nvim') && has('python3')
+if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
   nnoremap <silent> [unite]H :<C-u>Denite help<CR>
   nnoremap <silent> [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
