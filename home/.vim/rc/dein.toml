@@ -1,3 +1,5 @@
+# on_mapなどがあるとlazy = 1を設定しなくてもlazyになる
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
