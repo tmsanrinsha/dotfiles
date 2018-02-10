@@ -1134,8 +1134,11 @@ on_cmd = 'Man'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 lazy = 1
-on_cmd = ['QuickRun', 'QuickRunReplace']
+on_cmd = ['QuickRun', 'QuickRunReplace', 'Capture']
 depends = ['vimproc.vim', 'shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
+hook_add = '''
+cabbrev Echo Capture echo
+'''
 hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
 
 [[plugins]]

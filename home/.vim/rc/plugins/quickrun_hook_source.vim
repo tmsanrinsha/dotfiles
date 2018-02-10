@@ -119,69 +119,12 @@ let g:quickrun_config['dot'] = {
 \ 'outputter/quickfix/errorformat' : 'Error: %f: %m in line %l %.%#,%EError: %m,%C%m,%Z%m'
 \}
 
-" Android Dev {{{1
+" バッファに出力する {{{1
 " ============================================================================
-" function! s:QuickRunAndroidProject()
-"     let l:project_dir = unite#util#path2project_directory(expand('%'))
-"
-"     for l:line in readfile(l:project_dir.'/AndroidManifest.xml')
-"         " package名の取得
-"         " ex) com.sample.helloworld
-"         if !empty(matchstr(l:line, 'package="\zs.*\ze"'))
-"             let l:package = matchstr(l:line, 'package="\zs.*\ze"')
-"             continue
-"         endif
-"
-"         " android:nameの取得
-"         " ex) com.sample.helloworld.HelloWorldActivity
-"         if !empty(matchstr(l:line, 'android:name="\zs.*\ze"'))
-"             let l:android_name = matchstr(l:line, 'android:name="\zs.*\ze"')
-"             break
-"         endif
-"     endfor
-"
-"     if empty(l:package)
-"         echo 'package名が見つかりません'
-"         return -1
-"     elseif empty(l:android_name)
-"         echo 'android:nameが見つかりません'
-"         return -1
-"     endif
-"
-"     let l:apk_file = l:project_dir.'/bin/'.matchstr(l:android_name, '[^.]\+$').'-debug.apk'
-"     " ex) com.sample.helloworld/.HelloWorldActivity
-"     let l:component = substitute(l:android_name, '\zs\.\ze[^.]*$', '/.', '')
-"
-"     let g:quickrun_config['androidProject'] = {
-"     \   'hook/cd/directory'           : l:project_dir,
-"     \   'hook/output_encode/encoding' : 'sjis',
-"     \   'exec'                        : [
-"     \       'android update project --path .',
-"     \       'ant debug',
-"     \       'adb -d install -r '.l:apk_file,
-"     \       'adb shell am start -a android.intent.action.MAIN -n '.l:package.'/'.l:android_name
-"     \   ]
-"     \}
-"
-"     QuickRun androidProject
-" endfunction
-"
-" command! QuickRunAndroidProject call s:QuickRunAndroidProject()
-" autocmd MyVimrc BufRead,BufNewFile */workspace/* nnoremap <buffer> <Leader>r :QuickRunAndroidProject<CR>
+" [QuickRunでVimのメッセージの出力をキャプチャするコマンドを定義する - Qiita](https://qiita.com/sgur/items/9e243f13caa4ff294fa8)
+command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 
-" tail {{{1
-" ============================================================================
-" let g:quickrun_config['node'] = {
-"             \   'runner/vimproc/updatetime' : 1000,
-"             \   'command'                : 'tail',
-"             \   'cmdopt'                 : '',
-"             \   'exec'                   : '%c %o ~/git/jidaraku_schedular/log',
-"             \   'outputter/multi'   : [ 'buffer', 'quickfix' , 'message'],
-"             \}
-" "
-" set errorformat=debug:\%s
-" 1}}}
-
+" 選択範囲を実行して、出力で置き換え {{{1
 " [quickrun-outputter-replace_region つくった - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20130224/1361703750)
 command! -nargs=* -range=0 -complete=customlist,quickrun#complete
 \   QuickRunReplace
@@ -192,5 +135,6 @@ command! -nargs=* -range=0 -complete=customlist,quickrun#complete
 \       -outputter/error message
 \       -outputter/message/log 1
 \       <args>
+" }}}
 
 call SourceRc('quickrun_local.vim')
