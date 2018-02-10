@@ -65,6 +65,10 @@ if = '!has("nvim")'
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
 if = '!has("nvim")'
+hook_add = '''
+" これを指定してないとpythonxの実行でエラーになる
+set pyxversion=3
+'''
 
 # unite.vim, vimfiler {{{1
 # ============================================================================
