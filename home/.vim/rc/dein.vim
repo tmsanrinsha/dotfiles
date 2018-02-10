@@ -75,35 +75,3 @@ if dein#check_install()
         call dein#install()
     endif
 endif
-
-" repo以下のautoloadを保存したら.dein以下にコピーする {{{2
-" ----------------------------------------------------------------------------
-" dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
-" repo以下を編集・保存したら.dein以下にコピーするようにする
-let s:sync_save_dir_list = [
-\    {
-\      'glob' : g:dein_dir . '/repos/**/autoload/**/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/autoload',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/colors',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/ftplugin/**/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/ftplugin',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/indent/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/indent',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/indent',
-\    },
-\]
-
-" windowsのときはうまくいかない
-if $OS !~ 'Windows_NT'
-  call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
-endif

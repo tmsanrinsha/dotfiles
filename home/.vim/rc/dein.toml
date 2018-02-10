@@ -1,10 +1,48 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 hook_add = '''
-    nnoremap [:dein:] <Nop>
-    nmap <Leader>D [:dein:]
-    nnoremap [:dein:]c :<C-u>call dein#clear_state()<CR>
-    nnoremap [:dein:]u :<C-u>call dein#update()<CR>
+nnoremap [:dein:] <Nop>
+nmap <Leader>D [:dein:]
+nnoremap [:dein:]c :<C-u>call dein#clear_state()<CR>
+nnoremap [:dein:]u :<C-u>call dein#update()<CR>
+
+" 不要なプラグインを削除する
+nnoremap [:dein:]d :call map(dein#check_clean(), "delete(v:val, 'rf')") <Bar> call dein#recache_runtimepath()<CR>
+" y/nを付けたいならこちら
+" [dein.vimで未使用プラグインを削除するコマンドを定義する | Vimとボクと、ときどき、PHP](http://tti.matrix.jp/blog/2016-04-19/dein-vim%E3%81%A7%E6%9C%AA%E4%BD%BF%E7%94%A8%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E5%AE%9A%E7%BE%A9/)
+
+" repo以下のautoloadを保存したら.dein以下にコピーする {{{2
+" ----------------------------------------------------------------------------
+" dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
+" repo以下を編集・保存したら.dein以下にコピーするようにする
+let s:sync_save_dir_list = [
+\    {
+\      'glob' : g:dein_dir . '/repos/**/autoload/**/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/autoload',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
+\    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/colors',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
+\    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/ftplugin/**/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/ftplugin',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
+\    },
+\    {
+\      'glob' : g:dein_dir . '/repos/**/indent/*.vim',
+\      'from' : g:dein_dir . '/repos/.*/indent',
+\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/indent',
+\    },
+\]
+
+" windowsのときはうまくいかない
+if $OS !~ 'Windows_NT'
+  call SetAutocmdSyncSaveDir(s:sync_save_dir_list)
+endif
+" }}}
 '''
 
 [[plugins]]
@@ -1089,7 +1127,6 @@ hook_source = '''
 
 [[plugins]]
 repo = 'osyo-manga/quickrun-outputter-replace_region'
-lazy = 1
 
 [[plugins]]
 repo = 'osyo-manga/vim-bufixlist'
