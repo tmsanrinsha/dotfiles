@@ -26,6 +26,7 @@ if dein#load_state(g:dein_dir)
     \   'depends': [
     \     'FastFold',
     \     'neoinclude.vim',
+    \     'neco-syntax',
     \     'neosnippet.vim',
     \     'vim-snippets'
     \   ],
@@ -38,6 +39,7 @@ if dein#load_state(g:dein_dir)
     \   'depends': [
     \     'FastFold',
     \     'neoinclude.vim',
+    \     'neco-syntax',
     \     'neosnippet.vim',
     \     'vim-snippets'
     \   ],
