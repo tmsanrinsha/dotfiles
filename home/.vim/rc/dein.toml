@@ -299,7 +299,7 @@ repo = 'osyo-manga/vital-coaster'
 
 [[plugins]]
 repo = 'tmsanrinsha/vim-emacscommandline'
-# lazy = 1
+lazy = 1
 
 # project {{{1
 # ============================================================================
