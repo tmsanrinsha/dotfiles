@@ -898,20 +898,27 @@ fi
 
 # Vim {{{1
 # ============================================================================
-# [vimrc のどこが重いのかを調べるもう1つの方法 - 永遠に未完成](http://thinca.hatenablog.com/entry/20120316/1331836420)
-function vim-profile() {
-  local profile=~/tmp/vim_profile
+# [Vim scriptの実行時間の計測 - SanRin舎](https://tmsanrinsha.net/post/2017/03/vim-script-profile/)
+# vimの起動のプロファイル
+function vim_profile_startup() {
+  profile=~/tmp/vim_profile
   test -f $profile && \rm $profile
   vim --startuptime $profile +q
-  vim $profile
-  # :sort f /^.\{18\}\zs./
+  vim $profile -c 'sort f /^.\{18\}\zs./'
 }
 
-function vim-profile-vimrc() {
-  local profile=~/tmp/vim_profile_vimrc
+# 特定のファイルのプロファイル
+function vim_profile_file() {
+  file=$1
+  local profile=~/tmp/vim_profile
   test -f $profile && \rm $profile
-  vim --cmd "profile start $profile" --cmd "profile file $HOME/.vim/vimrc" +q
-  vim $profile
+  vim --cmd "profile start $profile" --cmd "profile file $file" +q
+  vim $profile -c 'sort f /^.\{18\}\zs./'
+}
+
+# vimrcのプロファイル
+function vim_profile_vimrc() {
+  vim_profile_file ${HOME}/.vim/vimrc
 }
 
 # IBM Cloud CLI {{{1
