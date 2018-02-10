@@ -68,6 +68,46 @@ if = '!has("nvim")'
 # unite.vim, vimfiler {{{1
 # ============================================================================
 [[plugins]]
+repo = 'Shougo/unite.vim'
+lazy = 1
+depends = ['neomru.vim']
+on_cmd = 'Unite'
+hook_source = '''
+    call SourceRc('plugins/unite_hook_source.vim')
+'''
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+lazy = 1
+on_source = 'unite.vim'
+hook_source = '''
+    call unite#sources#outline#alias('mql4', 'c')
+    call unite#sources#outline#alias('ref-man', 'man')
+    call unite#sources#outline#alias('rmd', 'markdown')
+    call unite#sources#outline#alias('tmux', 'conf')
+    call unite#sources#outline#alias('vimperator', 'conf')
+    call unite#sources#outline#alias('zsh', 'conf')
+'''
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+lazy = 1
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'basyura/unite-mdfind'
+lazy = 1
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+lazy = 1
+on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
+if = 'has("python3")'
+hook_source = '''
+    call SourceRc('plugins/denite_hook_source.vim')
+'''
+[[plugins]]
 repo = 'Shougo/neomru.vim'
 hook_add = '''
     "最近使用したファイル一覧
@@ -618,49 +658,6 @@ on_cmd = ['Vim', 'Ls', 'Mv', 'Cp', 'File', 'Cat', 'Head', 'Tail', 'Touch', 'Mkdi
 
 [[plugins]]
 repo = 'basyura/twibill.vim'
-
-# unite {{{1
-# ============================================================================
-[[plugins]]
-repo = 'Shougo/unite.vim'
-lazy = 1
-on_cmd = 'Unite'
-hook_source = '''
-    call SourceRc('plugins/unite_hook_source.vim')
-'''
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-lazy = 1
-on_source = 'unite.vim'
-hook_source = '''
-    call unite#sources#outline#alias('mql4', 'c')
-    call unite#sources#outline#alias('ref-man', 'man')
-    call unite#sources#outline#alias('rmd', 'markdown')
-    call unite#sources#outline#alias('tmux', 'conf')
-    call unite#sources#outline#alias('vimperator', 'conf')
-    call unite#sources#outline#alias('zsh', 'conf')
-'''
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-lazy = 1
-on_source = 'unite.vim'
-
-[[plugins]]
-repo = 'basyura/unite-mdfind'
-lazy = 1
-on_source = 'unite.vim'
-# }}}
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-lazy = 1
-on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
-if = 'has("python3")'
-hook_source = '''
-    call SourceRc('plugins/denite_hook_source.vim')
-'''
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
