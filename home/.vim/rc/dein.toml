@@ -244,6 +244,18 @@ repo = 'kana/vim-gf-user'
 repo = 'kana/vim-gf-diff'
 # lazy = 1
 
+# <C-a>, <C-x>
+# ============================================================================
+# hoge-1で<C-a>したときにhoge-2にする
+[[plugins]]
+repo = 'osyo-manga/vim-trip'
+lazy = 1
+on_map = '<Plug>'
+hook_add = '''
+nmap <C-a> <Plug>(trip-increment)
+nmap <C-x> <Plug>(trip-decrement)
+'''
+
 # indent {{{1
 # ============================================================================
 [[plugins]]
