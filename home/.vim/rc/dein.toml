@@ -19,28 +19,47 @@ nnoremap [:dein:]d :call map(dein#check_clean(), "delete(v:val, 'rf')") <Bar> ca
 " ----------------------------------------------------------------------------
 " dein.vimは.dein以下にautoloadをコピーし、それを使うので、pluginのデバック時に
 " repo以下を編集・保存したら.dein以下にコピーするようにする
-let s:sync_save_dir_list = [
-\    {
-\      'glob' : g:dein_dir . '/repos/**/autoload/**/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/autoload',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/colors',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/ftplugin/**/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/ftplugin',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
-\    },
-\    {
-\      'glob' : g:dein_dir . '/repos/**/indent/*.vim',
-\      'from' : g:dein_dir . '/repos/.*/indent',
-\      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/indent',
-\    },
-\]
+" *: 0個以上の文字にマッチ
+" **: ディレクトリにのみマッチ
+let s:sync_save_dir_list = []
+
+for dir in ['autoload', 'colors', 'ftplugin', 'indent', 'plugin']
+  let s:sync_save_dir = {
+  \      'glob' : g:dein_dir . '/repos/**/' . dir . '/*.vim',
+  \      'from' : g:dein_dir . '/repos/.*/' . dir . '',
+  \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/' . dir . '',
+  \    }
+
+  call insert(s:sync_save_dir_list, s:sync_save_dir)
+endfor
+
+" let s:sync_save_dir_list = [
+" \    {
+" \      'glob' : g:dein_dir . '/repos/**/autoload/*.vim',
+" \      'from' : g:dein_dir . '/repos/.*/autoload',
+" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
+" \    },
+" \    {
+" \      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
+" \      'from' : g:dein_dir . '/repos/.*/colors',
+" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
+" \    },
+" \    {
+" \      'glob' : g:dein_dir . '/repos/**/ftplugin/*.vim',
+" \      'from' : g:dein_dir . '/repos/.*/ftplugin',
+" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
+" \    },
+" \    {
+" \      'glob' : g:dein_dir . '/repos/**/indent/*.vim',
+" \      'from' : g:dein_dir . '/repos/.*/indent',
+" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/indent',
+" \    },
+" \    {
+" \      'glob' : g:dein_dir . '/repos/**/plugin/*.vim',
+" \      'from' : g:dein_dir . '/repos/.*/plugin',
+" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/plugin',
+" \    },
+" \]
 
 " windowsのときはうまくいかない
 if $OS !~ 'Windows_NT'
@@ -246,7 +265,7 @@ repo = 'kana/vim-gf-user'
 repo = 'kana/vim-gf-diff'
 # lazy = 1
 
-# <C-a>, <C-x>
+# <C-a>, <C-x> {{{1
 # ============================================================================
 # hoge-1で<C-a>したときにhoge-2にする
 [[plugins]]
@@ -257,6 +276,23 @@ hook_add = '''
 nmap <C-a> <Plug>(trip-increment)
 nmap <C-x> <Plug>(trip-decrement)
 '''
+
+# [[plugins]]
+# repo = 'tmsanrinsha/monday'
+# hook_add = '''
+# nmap <C-a> <Plug>(monday-increase)
+# nmap <C-x> <Plug>(monday-decrease)
+#
+# call monday#add_word_pair('一', '二')
+# call monday#add_word_pair('二', '三')
+# call monday#add_word_pair('三', '四')
+# call monday#add_word_pair('四', '五')
+# call monday#add_word_pair('五', '六')
+# call monday#add_word_pair('六', '七')
+# call monday#add_word_pair('七', '八')
+# call monday#add_word_pair('八', '九')
+# call monday#add_word_pair('九', '一')
+# '''
 
 # indent {{{1
 # ============================================================================
