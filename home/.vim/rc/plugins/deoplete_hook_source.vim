@@ -3,10 +3,11 @@ scriptencoding utf-8
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_yarp = 1
 " 入力を止めてから表示するまでの時間
-" let g:deoplete#auto_complete_delay = 1 " default 50
-" let g:deoplete#auto_refresh_delay = 1 " default 500
+let g:deoplete#auto_complete_delay = 50 " default 50
+let g:deoplete#auto_refresh_delay = 500 " default 500
 
-" Memo: g:deoplete#enable_refresh_always を1にすると、通常の
+" Memo:
+" g:deoplete#enable_refresh_always を1にすると、通常の
 " ```Shougo/deoplete.nvim/autoload/deoplete/handler.vim
 "   autocmd TextChangedI * call s:completion_begin('TextChangedI')
 " ```
@@ -36,6 +37,10 @@ inoremap <expr><C-Space> deoplete#mappings#manual_complete()
 
 " let g:deoplete#sources = get(g:, 'deoplete#sources', {})
 " let g:deoplete#sources._ = ['mozc']
+
+" g:deoplete#keyword_patterns
+" defaultはecho g:deoplete#_keyword_patternsで確認
+" 現在の値は{'_': '[a-zA-Z_]\k*'}
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources._ = ['mozc', 'tag']

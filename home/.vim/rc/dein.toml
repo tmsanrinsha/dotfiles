@@ -6,6 +6,8 @@ hook_add = '''
 nnoremap [:dein:] <Nop>
 nmap <Leader>D [:dein:]
 nnoremap [:dein:]c :<C-u>call dein#clear_state()<CR>
+" lazyの設定を変更した時はやったほうがいいかも
+nnoremap [:dein:]C :<C-u>call dein#recache_runtimepath()<CR>
 nnoremap [:dein:]u :<C-u>call dein#update()<CR>
 
 " 不要なプラグインを削除する
@@ -311,7 +313,9 @@ repo = 'osyo-manga/vital-coaster'
 
 [[plugins]]
 repo = 'tmsanrinsha/vim-emacscommandline'
-lazy = 1
+# 初回にcommand line windowに入った時はまだマップが効かない
+# lazy = 1
+# on_event = 'CmdwinEnter'
 
 # project {{{1
 # ============================================================================
