@@ -128,7 +128,9 @@ echo(str) -> {{
 " yank {{{1
 " ============================================================================
 yankMarkdownLink() -> {{
-  var markdownLink = `[${window.document.title}](${window.location.href})`
+  var title = window.document.title.replace(/(<|>)/g, '\\$1')
+
+  var markdownLink = `[${title}](${window.location.href})`
   Clipboard.copy(markdownLink);
   Status.setMessage(markdownLink);
 }}
