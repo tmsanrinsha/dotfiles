@@ -309,7 +309,7 @@ on_cmd = 'DetectIndent'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 lazy = 1
-on_map = '<Plug>'
+on_map = {no = '<Plug>'}
 hook_add = '''
     map ' <Plug>(easymotion-overwin-f2)
     map f <Plug>(easymotion-fl)
