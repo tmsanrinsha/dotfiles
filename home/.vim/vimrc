@@ -134,28 +134,6 @@ function! GetBufferDir() abort " {{{2
     endif
 endfunction
 
-function! GetProjectDir() abort " {{{2
-  let l:buffer_dir = GetBufferDir()
-
-  let l:project_dir = projectionist#path()
-
-  if empty(l:project_dir)
-    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir, 1)
-  endif
-
-  if empty(l:project_dir) && exists('g:project_dir_pattern')
-    let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
-  endif
-
-  if empty(l:project_dir)
-    return l:buffer_dir
-  else
-    return l:project_dir
-  endif
-  " windowsでドライブのC:をC\:に変更する必要がある
-  " let l:project_dir = escape(l:project_dir, ':')
-endfunction
-
 function! GetPassword() abort " {{{2
     if !exists('g:password')
         let g:password = inputsecret('password: ')
@@ -934,11 +912,14 @@ function! s:set_map_registers(map_key, expr) abort
 endfunction
 
 " file name
-call s:set_map_registers('f', 'expand("%:t")')
+call s:set_map_registers('f', 'expand("%")')
+" call s:set_map_registers('f', 'expand("%:t")')
 " full path of file
 call s:set_map_registers('F', 'expand("%:p")')
+" path of directory
+call s:set_map_registers('d', 'expand("%:h") . "/"')
 " full path of directory
-call s:set_map_registers('d', 'expand("%:p:h") . "/"')
+call s:set_map_registers('D', 'expand("%:p:h") . "/"')
 " project relative path
 call s:set_map_registers('p', 'vimrc#project_relative_path()')
 " yank Hugo用のMarkdownのリンク
@@ -2770,15 +2751,38 @@ if IsInstalled('vim-gf-user')
     call gf#user#extend('GfNewFile', 3000)
 endif
 
-" vim-projectionist {{{1
+" Project {{{1
 " ============================================================================
+function! GetProjectDir() abort " {{{2
+  let l:buffer_dir = GetBufferDir()
+
+  let l:project_dir = projectionist#path()
+
+  if empty(l:project_dir)
+    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir, 1)
+  endif
+
+  if empty(l:project_dir) && exists('g:project_dir_pattern')
+    let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
+  endif
+
+  if empty(l:project_dir)
+    return l:buffer_dir
+  else
+    return l:project_dir
+  endif
+  " windowsでドライブのC:をC\:に変更する必要がある
+  " let l:project_dir = escape(l:project_dir, ':')
+endfunction
+
+" vim-projectionist {{{2
+" ----------------------------------------------------------------------------
 " [Vimでプロジェクトを扱う - SanRin舎](https://tmsanrinsha.net/post/2017/07/vim-project/)
 if !exists('g:projectionist_heuristics')
   let g:projectionist_heuristics = {}
 endif
 
-"" Chef repo {{{2
-" ----------------------------------------------------------------------------
+"" Chef repo {{{3
 let g:projectionist_heuristics['chefignore'] = {
 \ 'attributes/*.rb': {
 \   'type': 'attribute'
@@ -2803,8 +2807,7 @@ let g:projectionist_heuristics['chefignore'] = {
 \ },
 \}
 
-"" PHP {{{2
-" ----------------------------------------------------------------------------
+"" PHP {{{3
 let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 \   'src/*.php': {
 \     'type': 'src',
@@ -2816,8 +2819,7 @@ let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 \   }
 \}
 
-"" memo {{{2
-" ----------------------------------------------------------------------------
+"" memo {{{3
 let g:projectionist_heuristics['content/'] = {
 \   'content/*.md': {
 \     'type': 'content',
@@ -2825,8 +2827,7 @@ let g:projectionist_heuristics['content/'] = {
 \   }
 \}
 
-" complete {{{2
-" ----------------------------------------------------------------------------
+" complete {{{3
 inoremap <expr><C-x><C-a> vimrc#alternate()
 
 " tcomment_vim {{{1
