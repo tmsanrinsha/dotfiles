@@ -123,7 +123,7 @@ let g:quickrun_config['mql4/watchdogs_checker'] = {
 let g:quickrun_config['watchdogs_checker/php'] = {
 \ 'command' : 'php',
 \ 'exec'    : '%{PhpCheck()}',
-\ 'hook/cd/directory': '%{FindRootDirectory()}',
+\ 'hook/cd/directory': '%{GetProjectDir()}',
 \ 'errorformat' : '%m\ in\ %f\ on\ line\ %l,%Z%m,%-G%.%#',
 \}
 

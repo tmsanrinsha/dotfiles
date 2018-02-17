@@ -135,20 +135,25 @@ function! GetBufferDir() abort " {{{2
 endfunction
 
 function! GetProjectDir() abort " {{{2
-    let l:buffer_dir = GetBufferDir()
+  let l:buffer_dir = GetBufferDir()
 
+  let l:project_dir = projectionist#path()
+
+  if empty(l:project_dir)
     let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir, 1)
-    if empty(l:project_dir) && exists('g:project_dir_pattern')
-        let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
-    endif
+  endif
 
-    if empty(l:project_dir)
-        return l:buffer_dir
-    else
-        return l:project_dir
-    endif
-    " windowsでドライブのC:をC\:に変更する必要がある
-    " let l:project_dir = escape(l:project_dir, ':')
+  if empty(l:project_dir) && exists('g:project_dir_pattern')
+    let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
+  endif
+
+  if empty(l:project_dir)
+    return l:buffer_dir
+  else
+    return l:project_dir
+  endif
+  " windowsでドライブのC:をC\:に変更する必要がある
+  " let l:project_dir = escape(l:project_dir, ':')
 endfunction
 
 function! GetPassword() abort " {{{2
@@ -2767,11 +2772,12 @@ endif
 
 " vim-projectionist {{{1
 " ============================================================================
+" [Vimでプロジェクトを扱う - SanRin舎](https://tmsanrinsha.net/post/2017/07/vim-project/)
 if !exists('g:projectionist_heuristics')
   let g:projectionist_heuristics = {}
 endif
 
-" Chef repo {{{2
+"" Chef repo {{{2
 " ----------------------------------------------------------------------------
 let g:projectionist_heuristics['chefignore'] = {
 \ 'attributes/*.rb': {
@@ -2797,9 +2803,9 @@ let g:projectionist_heuristics['chefignore'] = {
 \ },
 \}
 
-" PHP {{{2
+"" PHP {{{2
 " ----------------------------------------------------------------------------
-let g:projectionist_heuristics['phpunit.xml'] = {
+let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 \   'src/*.php': {
 \     'type': 'src',
 \     'alternate': 'tests/{}Test.php'
@@ -2810,7 +2816,7 @@ let g:projectionist_heuristics['phpunit.xml'] = {
 \   }
 \}
 
-" memo {{{2
+"" memo {{{2
 " ----------------------------------------------------------------------------
 let g:projectionist_heuristics['content/'] = {
 \   'content/*.md': {

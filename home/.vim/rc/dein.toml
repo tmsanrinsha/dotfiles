@@ -356,19 +356,19 @@ repo = 'tmsanrinsha/vim-emacscommandline'
 # project {{{1
 # ============================================================================
 [[plugins]]
-repo = 'airblade/vim-rooter'
-# lazy = 1
-hook_add = '''
-let g:rooter_manual_only = 1
-let g:rooter_patterns = [
-\ '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/',
-\ 'composer.json'
-\]
-'''
-
-[[plugins]]
 repo = 'tpope/vim-projectionist'
 # lazy = 1
+
+# [[plugins]]
+# repo = 'airblade/vim-rooter'
+# # lazy = 1
+# hook_add = '''
+# let g:rooter_manual_only = 1
+# let g:rooter_patterns = [
+# \ '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/',
+# \ 'composer.json'
+# \]
+# '''
 # }}}
 
 [[plugins]]
