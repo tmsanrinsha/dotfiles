@@ -633,6 +633,30 @@ repo = 'c9s/perlomni.vim'
 repo = 'shawncplus/phpcomplete.vim'
 if = '!EnableDeoplete()'
 
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+lazy = 1
+on_ft = 'php'
+build = 'composer install'
+if = 'EnableDeoplete() && executable("composer")'
+
+# [[plugins]]
+# repo = 'mkusher/padawan.vim'
+# if = '$PHP55 && has("python")'
+# on_ft = 'php'
+# hook_source = '''
+# let g:padawan#enabled = 1
+# let g:padawan#composer_command = 'composer'
+# let g:padawan#timeout = 0.3
+# '''
+# # [does not obey @property dockblock · Issue #26 · mkusher/padawan.php](https://github.com/mkusher/padawan.php/issues/26)
+# # [Completion scopes and built\-in php functions by mkusher · Pull Request \#14 · mkusher/padawan\.php](https://github.com/mkusher/padawan.php/pull/14#event-612270301)
+
+[[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+lazy = 1
+on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
+
 # [[plugins]]
 # repo = 'StanAngeloff/php.vim'
 
@@ -1071,32 +1095,6 @@ repo = 'maksimr/vim-jsbeautify'
 lazy = 1
 external_commands = 'node'
 on_ft = ['javascript', 'css', 'html']
-
-# PHP {{{1
-# ============================================================================
-[[plugins]]
-repo = 'lvht/phpcd.vim'
-lazy = 1
-on_ft = 'php'
-build = 'composer install'
-if = 'EnableDeoplete() && executable("composer")'
-
-# [[plugins]]
-# repo = 'mkusher/padawan.vim'
-# if = '$PHP55 && has("python")'
-# on_ft = 'php'
-# hook_source = '''
-# let g:padawan#enabled = 1
-# let g:padawan#composer_command = 'composer'
-# let g:padawan#timeout = 0.3
-# '''
-# # [does not obey @property dockblock · Issue #26 · mkusher/padawan.php](https://github.com/mkusher/padawan.php/issues/26)
-# # [Completion scopes and built\-in php functions by mkusher · Pull Request \#14 · mkusher/padawan\.php](https://github.com/mkusher/padawan.php/pull/14#event-612270301)
-
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-lazy = 1
-on_cmd = ['PhpCsFixerFixDirectory', 'PhpCsFixerFixFile']
 
 # SQL {{{1
 # ============================================================================
