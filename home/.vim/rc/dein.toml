@@ -333,14 +333,6 @@ hook_add = '''
 # repo = 'tmsanrinsha/diffchar.vim'
 
 # [[plugins]]
-# repo = 'vim-scripts/QuickFixCurrentNumber'
-# lazy = 1
-# depends = 'vim-scripts/ingo-library'
-#
-# [[plugins]]
-# repo = 'vim-scripts/ingo-library'
-#
-# [[plugins]]
 # repo = 'majutsushi/tagbar'
 # lazy = 1
 
@@ -1192,6 +1184,9 @@ cabbrev Echo Capture echo
 hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
 
 [[plugins]]
+repo = 'osyo-manga/quickrun-outputter-replace_region'
+
+[[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
 lazy = 1
 depends = ['vim-quickrun', 'vim-bufixlist']
@@ -1217,7 +1212,12 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'osyo-manga/quickrun-outputter-replace_region'
+repo = 'vim-scripts/QuickFixCurrentNumber'
+lazy = 1
+depends = 'vim-scripts/ingo-library'
+
+[[plugins]]
+repo = 'vim-scripts/ingo-library'
 
 [[plugins]]
 repo = 'osyo-manga/vim-bufixlist'
