@@ -15,6 +15,12 @@ call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'nor
 call denite#custom#map('normal', 'R', '<denite:do_action:qfreplace>', 'noremap')
 call denite#custom#map('normal', 'Q', '<denite:do_action:quickfix>', 'noremap')
 
+" file {{{1
+" ============================================================================
+if executable('ag')
+  call denite#custom#var('file_rec', 'command',
+  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
 
 " grep {{{1
 " ============================================================================
