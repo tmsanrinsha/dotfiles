@@ -18,9 +18,9 @@ function! vimrc#shogi#start()
   new
   call setline(1, shogiban)
 
-  nnoremap <buffer> <Up>    vyr　kvp
-  nnoremap <buffer> <Right> vyr　lvp
-  nnoremap <buffer> <Down>  vyr　jvp
-  nnoremap <buffer> <Left>  vyr　hvp
+  nnoremap <buffer> <M-k>    vyr　kvp
+  nnoremap <buffer> <M-l> vyr　lvp
+  nnoremap <buffer> <M-j>  vyr　jvp
+  nnoremap <buffer> <M-h>  vyr　hvp
 endfunction
 
