@@ -3,8 +3,8 @@ scriptencoding utf-8
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_yarp = 1
 " 入力を止めてから表示するまでの時間
-let g:deoplete#auto_complete_delay = 50 " default 50
-let g:deoplete#auto_refresh_delay = 500 " default 500
+" let g:deoplete#auto_complete_delay = 50 " default 50
+" let g:deoplete#auto_refresh_delay = 500 " default 500
 
 " Memo:
 " g:deoplete#enable_refresh_always を1にすると、通常の
