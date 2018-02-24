@@ -2307,13 +2307,39 @@ endif
 " unite.vimの後で上書きしたいので、tomlではなくここに書く
 if IsInstalled('denite.nvim')
   nnoremap [unite], :<C-u>Denite -resume<CR>
-  nnoremap <silent> [unite]H :<C-u>Denite help<CR>
-  nnoremap <silent> [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
-  nnoremap <silent> [unite]gc :<C-u>Denite grep<CR>
-  nnoremap <silent> [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
-  nnoremap <silent> [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
-  nnoremap <silent> [unite]fc :<C-u>Denite file_rec<CR>
-  nnoremap <silent> [unite]f. :<C-u>Denite file_rec:`GetBufferDir()`<CR>
+  nnoremap [unite]H :<C-u>Denite help<CR>
+
+  " カレントディレクトリ以下
+  nnoremap [unite]f<CR> :<C-u>Denite file_rec<CR>
+  nnoremap [unite]d<CR> :<C-u>Denite directory_rec -default-action=vimfiler<CR>
+  nnoremap [unite]g<CR> :<C-u>Denite grep<CR>
+
+  " カレントバッファディレクトリ
+  nnoremap [unite]f. :<C-u>Denite file_rec:`GetBufferDir()`<CR>
+  nnoremap [unite]d. :<C-u>Denite directory_rec:`GetBufferDir()`<CR>
+  nnoremap [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
+
+  " プロジェクトディレクトリ
+  nnoremap [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
+  nnoremap [unite]dp :<C-u>Denite directory_rec:`GetProjectDir()`<CR>
+  nnoremap [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
+
+  " dotfiles
+  nnoremap [unite]fd :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+  nnoremap [unite]dd :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+  nnoremap [unite]gd :<C-u>Denite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+
+  " Vim
+  nnoremap [unite]fv :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+  nnoremap [unite]dv :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+  nnoremap [unite]gv :<C-u>Denite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+
+  " $Vim
+  nnoremap [unite]fV :<C-u>Denite file_rec:$VIM<CR>
+  nnoremap [unite]dV :<C-u>Denite directory_rec:$VIM<CR>
+  nnoremap [unite]gV :<C-u>Denite grep:$VIM<CR>
+
+  " Hugo
   nnoremap <silent> [unite]fh :<C-u>Denite file_rec:`g:hugo_post_directory`<CR>
   nnoremap <silent> [unite]gh :<C-u>Denite grep:`g:hugo_post_directory`<CR>
 endif
