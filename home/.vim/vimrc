@@ -850,11 +850,14 @@ if has('terminal')
 
   tnoremap <C-w>[ <C-w>N
   tnoremap <C-w>; <C-w>N
+  tnoremap <C-w><C-w> <C-w>.
   " tnoremap q :bdelete!
 
   function! s:terminal_open(args) abort
     if empty(term_list())
-        execute "botright terminal ++rows=12" a:args
+        execute 'lcd ' . GetBufferDir()
+        " execute "botright terminal ++rows=12" a:args
+        execute "botright terminal" a:args
     else
         let bufnr = term_list()[0]
         execute 'botright ' . term_getsize(bufnr)[0] . 'new'
@@ -866,6 +869,7 @@ if has('terminal')
   command! -nargs=* Terminal call s:terminal_open(<q-args>)
 
   nnoremap <silent> <Leader>to :Terminal<CR>
+  noremap !! :terminal ++close<Space>
 endif
 
 " complete {{{1
