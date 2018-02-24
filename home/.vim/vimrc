@@ -897,7 +897,7 @@ endif
 "augroup END
 
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
-nnoremap [:space:]gc :cd %:h <Bar> echo 'cd '.expand('%:p:h')<CR>
+nnoremap [:space:]gc :cd <C-r>=GetBufferDir()<CR> <Bar> echo 'cd '.GetBufferDir()<CR>
 nnoremap [:space:]gC :execute 'cd ' GetProjectDir()<CR>:echo 'cd ' GetProjectDir()<CR>
 
 command! Shell lcd %:h <Bar> shell
@@ -2316,27 +2316,27 @@ if IsInstalled('denite.nvim')
 
   " カレントバッファディレクトリ
   nnoremap [unite]f. :<C-u>Denite file_rec:`GetBufferDir()`<CR>
-  nnoremap [unite]d. :<C-u>Denite directory_rec:`GetBufferDir()`<CR>
+  nnoremap [unite]d. :<C-u>Denite directory_rec:`GetBufferDir()` -default-action=vimfiler<CR>
   nnoremap [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
 
   " プロジェクトディレクトリ
   nnoremap [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
-  nnoremap [unite]dp :<C-u>Denite directory_rec:`GetProjectDir()`<CR>
+  nnoremap [unite]dp :<C-u>Denite directory_rec:`GetProjectDir()` -default-action=vimfiler<CR>
   nnoremap [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
 
   " dotfiles
   nnoremap [unite]fd :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-  nnoremap [unite]dd :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+  nnoremap [unite]dd :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles -default-action=vimfiler<CR>
   nnoremap [unite]gd :<C-u>Denite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
 
   " Vim
   nnoremap [unite]fv :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
-  nnoremap [unite]dv :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
+  nnoremap [unite]dv :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim -default-action=vimfiler<CR>
   nnoremap [unite]gv :<C-u>Denite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
 
   " $Vim
   nnoremap [unite]fV :<C-u>Denite file_rec:$VIM<CR>
-  nnoremap [unite]dV :<C-u>Denite directory_rec:$VIM<CR>
+  nnoremap [unite]dV :<C-u>Denite directory_rec:$VIM -default-action=vimfiler<CR>
   nnoremap [unite]gV :<C-u>Denite grep:$VIM<CR>
 
   " Hugo

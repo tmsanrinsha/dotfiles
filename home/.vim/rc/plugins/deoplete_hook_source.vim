@@ -29,7 +29,7 @@ let g:deoplete#enable_yarp = 1
 " 候補が更新される
 
 " let g:deoplete#max_list = 20
-" set pumheight=10
+set pumheight=10
 
 inoremap <expr><C-l> deoplete#complete_common_string()
 " inoremap <expr><C-l> deoplete#refresh()
