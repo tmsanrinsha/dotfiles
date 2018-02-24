@@ -133,6 +133,7 @@ if = 'has("python3")'
 hook_source = '''
     call SourceRc('plugins/denite_hook_source.vim')
 '''
+
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 lazy = 1
@@ -391,6 +392,8 @@ repo = 'itchyny/lightline.vim'
 repo = 'thinca/vim-prettyprint'
 lazy = 1
 on_cmd = 'PP'
+# PPをactionで使うために必要
+on_source = 'denite.nvim'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
