@@ -178,6 +178,57 @@ repo = 'ujihisa/vimshell-ssh'
 
 # neocomplete, deoplete {{{1
 # ============================================================================
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# depends = [
+#   'FastFold',
+#   'neoinclude.vim',
+#   'neosnippet.vim',
+#   'vim-snippets',
+#   'nvim-yarp',
+#   'vim-hug-neovim-rpc'
+# ]
+# on_i = 1
+# hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
+# if = 'EnableDeoplete()'
+#
+# [[plugins]]
+# repo = 'Shougo/neocomplete.vim'
+# depends = [
+#   'FastFold',
+#   'neoinclude.vim',
+#   'neosnippet.vim',
+#   'vim-snippets'
+# ]
+# on_i = 1
+# hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
+# if = '!EnableDeoplete()'
+
+[[plugins]]
+repo = 'Konfekt/FastFold'
+lazy = 1
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+lazy = 1
+on_ft = ['vim', 'toml']
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+lazy = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+lazy = 1
+hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+lazy = 1
+
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+
 [[plugins]]
 repo = 'Shougo/neco-syntax'
 lazy = 1
@@ -837,59 +888,6 @@ let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane"
 # repo = 'oplatek/Conque-Shell'
 # on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
 # hook_source = 'call SourceRc('plugins/Conque-Shell_hook_source.vim'')
-
-# neocomplete, deoplete {{{1
-# ============================================================================
-# [[plugins]]
-# repo = 'Shougo/deoplete.nvim'
-# depends = [
-#   'FastFold',
-#   'neoinclude.vim',
-#   'neosnippet.vim',
-#   'vim-snippets',
-#   'nvim-yarp',
-#   'vim-hug-neovim-rpc'
-# ]
-# on_i = 1
-# hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
-# if = 'EnableDeoplete()'
-#
-# [[plugins]]
-# repo = 'Shougo/neocomplete.vim'
-# depends = [
-#   'FastFold',
-#   'neoinclude.vim',
-#   'neosnippet.vim',
-#   'vim-snippets'
-# ]
-# on_i = 1
-# hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
-# if = '!EnableDeoplete()'
-
-[[plugins]]
-repo = 'Konfekt/FastFold'
-lazy = 1
-
-[[plugins]]
-repo = 'Shougo/neco-vim'
-lazy = 1
-on_ft = ['vim', 'toml']
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-lazy = 1
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-lazy = 1
-hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
-
-[[plugins]]
-repo = 'honza/vim-snippets'
-lazy = 1
-
-# [[plugins]]
-# repo = 'SirVer/ultisnips'
 
 # operator {{{1
 # ============================================================================
