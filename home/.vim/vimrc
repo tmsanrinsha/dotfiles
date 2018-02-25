@@ -2343,6 +2343,11 @@ if IsInstalled('denite.nvim')
   nnoremap [unite]dV :<C-u>Denite directory_rec:$VIM -default-action=vimfiler<CR>
   nnoremap [unite]gV :<C-u>Denite grep:$VIM<CR>
 
+  " dein.vim
+  nnoremap [unite]fD :<C-u>Denite file_rec:`g:dein_dir`<CR>
+  nnoremap [unite]dD :<C-u>Denite directory_rec:`g:dein_dir` -default-action=vimfiler<CR>
+  nnoremap [unite]gD :<C-u>Denite grep:`g:dein_dir`<CR>
+
   " Hugo
   nnoremap <silent> [unite]fh :<C-u>Denite file_rec:`g:hugo_post_directory`<CR>
   nnoremap <silent> [unite]gh :<C-u>Denite grep:`g:hugo_post_directory`<CR>
