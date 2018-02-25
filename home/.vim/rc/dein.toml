@@ -245,6 +245,13 @@ repo = 'Shougo/neoinclude.vim'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
+repo = 'inkarkat/vim-SyntaxRange'
+lazy = 1
+on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
+on_func = ['SyntaxRange']
+depends = 'vim-scripts/ingo-library'
+
+[[plugins]]
 repo = 'tmsanrinsha/deoplete-mozc'
 if = 'EnableDeoplete()'
 
@@ -647,7 +654,8 @@ repo = 'elzr/vim-json'
 ## Markdown {{{2
 # -----------------------------------------------------------------------------
 [[plugins]]
-repo = 'plasticboy/vim-markdown'
+# repo = 'plasticboy/vim-markdown'
+repo = 'tmsanrinsha/vim-markdown'
 # 設定はvimrcに記述
 
 # yaml frontmatterがヘッダーと判定されてしまうのでコメントアウト
@@ -1218,7 +1226,7 @@ lazy = 1
 depends = 'vim-scripts/ingo-library'
 
 [[plugins]]
-repo = 'vim-scripts/ingo-library'
+repo = 'inkarkat/vim-ingo-library'
 
 [[plugins]]
 repo = 'osyo-manga/vim-bufixlist'
@@ -1382,12 +1390,6 @@ on_cmd = ['Gista']
 repo = 'chrisbra/Colorizer'
 lazy = 1
 on_cmd = ['ColorHighlight', 'ColorToggle']
-
-[[plugins]]
-repo = 'tmsanrinsha/SyntaxRange'
-lazy = 1
-on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
-on_func = ['SyntaxRange']
 
 # tool {{{1
 # ============================================================================

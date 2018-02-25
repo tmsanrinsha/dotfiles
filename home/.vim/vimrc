@@ -2495,7 +2495,7 @@ endif
 " tmsanrinsha/SyntaxRange: 部分的にsyntaxを変更する{{{1
 " =============================================================================
 " [dein.vimのtomlのhook_*部分をシンタックスハイライトさせる - Qiita](http://qiita.com/tmsanrinsha/items/9670628aef3144c7919b)
-if IsInstalled('SyntaxRange')
+if IsInstalled('vim-SyntaxRange')
   autocmd MyVimrc BufNewFile,BufRead dein*.toml call s:syntax_range_dein()
 
   function! s:syntax_range_dein() abort
@@ -3211,26 +3211,26 @@ endif
 
 " joker1007/vim-markdown-quote-syntax {{{2
 " ----------------------------------------------------------------------------
-let g:markdown_quote_syntax_filetypes = {
-\   'css' : {
-\       'start' : "\\%(css\\|scss\\)",
-\   },
-\   'dot' : {
-\       'start' : 'dot',
-\   },
-\   'javascript' : {
-\       'start' : 'javascript',
-\   },
-\   'php' : {
-\       'start' : 'php',
-\   },
-\   'sh' : {
-\       'start' : 'sh',
-\   },
-\   'groovy' : {
-\       'start' : 'groovy',
-\   },
-\}
+" let g:markdown_quote_syntax_filetypes = {
+" \   'css' : {
+" \       'start' : "\\%(css\\|scss\\)",
+" \   },
+" \   'dot' : {
+" \       'start' : 'dot',
+" \   },
+" \   'javascript' : {
+" \       'start' : 'javascript',
+" \   },
+" \   'php' : {
+" \       'start' : 'php',
+" \   },
+" \   'sh' : {
+" \       'start' : 'sh',
+" \   },
+" \   'groovy' : {
+" \       'start' : 'groovy',
+" \   },
+" \}
 
 " nelstrom/vim-markdown-folding {{{2
 " ----------------------------------------------------------------------------
