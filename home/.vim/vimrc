@@ -925,9 +925,9 @@ call s:set_map_registers('d', 'expand("%:h") . "/"')
 " full path of directory
 call s:set_map_registers('D', 'expand("%:p:h") . "/"')
 " project relative path
-call s:set_map_registers('p', 'vimrc#project_relative_path()')
+call s:set_map_registers('p', 'my#project_relative_path()')
 " yank Hugo用のMarkdownのリンク
-call s:set_map_registers('h', 'vimrc#hugo_ref(expand("%:p"))')
+call s:set_map_registers('h', 'my#hugo_ref(expand("%:p"))')
 
 " Rename {{{2
 " ----------------------------------------------------------------------------
@@ -2858,7 +2858,7 @@ let g:projectionist_heuristics['content/'] = {
 \}
 
 " complete {{{3
-inoremap <expr><C-x><C-a> vimrc#alternate()
+inoremap <expr><C-x><C-a> my#alternate()
 
 " tcomment_vim {{{1
 " ============================================================================

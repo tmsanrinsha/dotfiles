@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! vimrc#shogi#start()
+function! my#shogi#start()
 
   let shogiban = [
   \ '９８７６５４３２１',

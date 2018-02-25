@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! vimrc#denite#qfreplace#action(context)
+function! my#denite#action#qfreplace(context) " {{{1
   let qflist = []
   for target in a:context['targets']
     if !has_key(target, 'action__path') | continue | endif
@@ -15,4 +15,8 @@ function! vimrc#denite#qfreplace#action(context)
   endfor
   call setqflist(qflist)
   call qfreplace#start('')
+endfunction
+
+function! my#denite#action#vimfiler(context) " {{{1
+  execute 'VimFiler ' . a:context.targets[0].action__path
 endfunction

@@ -7,15 +7,13 @@ call denite#custom#option('_', 'highlight_matched_range', 'DeniteMatchedRange')
 call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
 call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
 
-call denite#custom#action('file', 'qfreplace', 'vimrc#denite#qfreplace#action')
-
-call denite#custom#action('directory', 'debug', {context -> execute('PP! context', '')})
-call denite#custom#action('directory', 'vimfiler', 'vimrc#denite#action#vimfiler')
+call denite#custom#action('file',      'qfreplace', 'my#denite#action#qfreplace')
+call denite#custom#action('directory', 'vimfiler',  'my#denite#action#vimfiler')
+call denite#custom#action('directory', 'debug',     {context -> execute('PP! context', '')})
 
 " Denite directory_rec -default_action=vimfilerを常にしたいが、デフォルトのactionをオプションで指定はできないらしい。
 " call denite#custom#option('directory', 'default_action', 'vimfiler')
 " 第一引数はbuffer-nameを指定する必要があるため、これだとうまくいかない
-
 
 call denite#custom#map('insert', '<Esc>', '<denite:enter_mode:normal>',     'noremap')
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>',     'noremap')
