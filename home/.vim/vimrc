@@ -858,6 +858,8 @@ if has('terminal')
         execute 'lcd ' . GetBufferDir()
         " execute "botright terminal ++rows=12" a:args
         execute "botright terminal" a:args
+        setlocal nonumber
+        setlocal foldcolumn=0
     else
         let bufnr = term_list()[0]
         execute 'botright ' . term_getsize(bufnr)[0] . 'new'
