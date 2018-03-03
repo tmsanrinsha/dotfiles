@@ -52,8 +52,15 @@ fi
 
 # function {{{1
 # ============================================================================
-# fullpath
+# full path
 function fp {
+  if [ $# -eq 0 ]; then
+    for file in *; do
+      fp $file
+    done
+    return
+  fi
+
   if type realpath 1>/dev/null 2>&1; then
     realpath -s $1
   else
