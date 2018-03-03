@@ -249,7 +249,7 @@ repo = 'inkarkat/vim-SyntaxRange'
 lazy = 1
 on_cmd = ['SyntaxIgnore', 'SyntaxInclude']
 on_func = ['SyntaxRange']
-depends = 'vim-scripts/ingo-library'
+depends = 'vim-ingo-library'
 
 [[plugins]]
 repo = 'tmsanrinsha/deoplete-mozc'
@@ -1223,7 +1223,7 @@ hook_source = '''
 [[plugins]]
 repo = 'vim-scripts/QuickFixCurrentNumber'
 lazy = 1
-depends = 'vim-scripts/ingo-library'
+depends = 'vim-ingo-library'
 
 [[plugins]]
 repo = 'inkarkat/vim-ingo-library'
