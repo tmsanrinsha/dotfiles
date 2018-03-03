@@ -1284,9 +1284,15 @@ repo= 'tyru/open-browser-github.vim'
 lazy = 1
 depends = 'open-browser.vim'
 on_cmd = ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
+hook_add = '''
+nnoremap <Leader>ogf :<C-u>OpenGithubFile<CR>
+xnoremap <Leader>ogf :OpenGithubFile<CR>
+nnoremap <Leader>ogi :<C-u>OpenGithubIssue<CR>
+nnoremap <Leader>ogp :<C-u>OpenGithubPullReq<CR>
+'''
 hook_source = '''
-    let g:openbrowser_github_always_use_commit_hash = 0
-    let g:openbrowser_github_url_exists_check = 'ignore'
+let g:openbrowser_github_always_use_commit_hash = 0
+let g:openbrowser_github_url_exists_check = 'ignore'
 '''
 
 # [[plugins]]
