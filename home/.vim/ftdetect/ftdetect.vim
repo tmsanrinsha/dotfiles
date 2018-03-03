@@ -42,8 +42,11 @@ augroup MyVimrc
     autocmd BufNew * call timer_start(0, { -> s:detect_terminal() })
 
     function! s:detect_terminal()
-      if &buftype == "terminal" && &filetype == ""
-          setlocal filetype=terminal
+      if &buftype == "terminal"
+        " filetypeを設定するとautocmdのSyntaxが発火し、
+        " neosnippetのsyntax match neosnippetExpandSnippetsが設定され
+        " Terminal-Normal modeで色がなくなるので、設定を読み込むだけにする
+        runtime! ftplugin/terminal.vim
       endif
     endfunction
 
