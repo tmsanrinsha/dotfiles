@@ -382,10 +382,26 @@ zstyle ':completion:*' use-cache true
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# _complete
+#   普通の補完関数
+# _approximate
+#   ミススペルを訂正した上で補完を行う。
+# _match
+#   *などのグロブによってコマンドを補完できる(例えばvi* と打つとviとかvimとか補完候補が表示される)
+# _expand
+#   グロブや変数の展開を行う。もともとあった展開と比べて、細かい制御が可能
+# _history
+#   履歴から補完を行う。_history_complete_wordから使われる
+# _prefix
+#   カーソルの位置で補完を行う
+# _gnu_generic
+#   --helpの結果からいい感じに補完する
+#   http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
+#
 # _expandはグロブを使ったときファイルが補完対象に入るので使わない
 # _historyも関係ない文脈で補完されるので使わない
 # _matchはファイルパスに空白があるとうまくいかないので使わない
-zstyle ':completion:*' completer _complete _prefix _list
+zstyle ':completion:*' completer _complete _prefix _list _gnu_generic
 
 # menu complition {{{2
 zmodload -i zsh/complist
@@ -443,12 +459,6 @@ bindkey "^Xh" _complete_help
 # MacVimでvimの補完を使う
 compdef Vim=vim
 
-# Zsh - へルプオプション `--help` を受け付けるコマンドのオプション補完をある程度自動的にしてくれる `_gnu_generic` 関数の使い方です。 - Qiita
-# http://qiita.com/hchbaw/items/c1df29fe55b9929e9bef
-compdef _gnu_generic bc
-# compdef _gnu_generic composer
-compdef _gnu_generic phpunit
-compdef _gnu_generic phpunit.sh
 
 # zsh + tmux で端末に表示されてる文字列を補完する - Qiita {{{2
 # ----------------------------------------------------------------------------
@@ -489,6 +499,12 @@ complete_files () {
 }
 zle -C complete-files complete-word complete_files
 bindkey '^x^f' complete-files
+
+# もしくは
+# zle -C complete-file complete-word _generic
+# zstyle ':completion:complete-file::::' completer _files
+# bindkey '^xF' complete-file
+# https://zsh.sourceforge.net/FAQ/zshfaq04.html
 
 # gcloud {{{2
 # ----------------------------------------------------------------------------
