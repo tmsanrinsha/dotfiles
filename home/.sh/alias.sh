@@ -160,10 +160,15 @@ alias lcc="export LC_CTYPE='C'"
 alias lcu="export LC_CTYPE='ja_JP.UTF-8'"
 
 # リンク切れのリンクを削除する
-function clean-symlink() {
-    if [ "$1" = '--force' ]; then
-        find . -type l -exec bash -c 'test -e "{}" || echo "{}" && \rm -r "{}"' \;
-    else
-        find . -type l -exec bash -c 'test -e "{}" || echo "{}"' \;
-    fi
+function ln-clean() {
+  if [ "$1" = '--help' ]; then
+    cat <<EOT
+Options:
+  -f, --force delete unlinked links
+EOT
+  elif [[ "$1" = '--force' || "$1" = '-f' ]]; then
+    find . -type l -exec bash -c 'test -e "{}" || ( echo "{}" && \rm -r "{}" )' \;
+  else
+    find . -type l -exec bash -c 'test -e "{}" || echo "{}"' \;
+  fi
 }
