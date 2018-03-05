@@ -220,6 +220,7 @@ lazy = 1
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 lazy = 1
+on_ft = 'neosnippet'
 hook_source = 'call SourceRc("plugins/neosnippet_hook_source.vim")'
 
 [[plugins]]
@@ -725,10 +726,10 @@ repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
 hook_source = 'call SourceRc("plugins/jedi_hook_source.vim")'
 
-[[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-depends = ['jedi-vim']
-on_ft = ['python']
+# [[plugins]]
+# repo = 'lambdalisue/vim-pyenv'
+# depends = ['jedi-vim']
+# on_ft = ['python']
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
