@@ -3,4 +3,7 @@ snippet if
 		${0:#statements}
 	fi
 
+snippet trap
+	trap '${0:command} exit' 0 1 2 3 15
+
 # vim: set noexpandtab :
