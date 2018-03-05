@@ -1,11 +1,17 @@
 scriptencoding utf-8
 
+" denite#custom#get()でカスタム設定の確認
+
 call denite#custom#option('_', 'prompt', '>')
+" 候補が空なら開かない
+call denite#custom#option('_', 'empty', v:false)
 
 hi DeniteMatchedRange cterm=underline gui=underline
 call denite#custom#option('_', 'highlight_matched_range', 'DeniteMatchedRange')
 call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
 call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
+
+call denite#custom#source('_', 'matchers', ['matcher_regexp'])
 
 call denite#custom#action('file',      'qfreplace', 'my#denite#action#qfreplace')
 call denite#custom#action('directory', 'vimfiler',  'my#denite#action#vimfiler')
