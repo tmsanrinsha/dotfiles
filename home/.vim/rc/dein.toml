@@ -254,7 +254,7 @@ depends = 'vim-ingo-library'
 
 [[plugins]]
 repo = 'tmsanrinsha/deoplete-mozc'
-if = 'EnableDeoplete()'
+if = 'EnableDeoplete() && executable("mozc_emacs_helper")'
 
 # snippet {{{1
 # ============================================================================
