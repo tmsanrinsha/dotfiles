@@ -6,9 +6,10 @@ call denite#custom#option('_', 'prompt', '>')
 " 候補が空なら開かない
 call denite#custom#option('_', 'empty', v:false)
 
+hi DeniteMatchedChar ctermbg=none ctermfg=red
 hi DeniteMatchedRange cterm=underline gui=underline
+call denite#custom#option('_', 'highlight_matched_char', 'DeniteMatchedChar')
 call denite#custom#option('_', 'highlight_matched_range', 'DeniteMatchedRange')
-call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
 call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
 
 call denite#custom#source('_', 'matchers', ['matcher_regexp'])
