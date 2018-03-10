@@ -861,7 +861,12 @@ if has('terminal')
   " tnoremap q :bdelete!
 
   function! s:terminal_new(args) abort
-    execute 'lcd ' . GetBufferDir()
+    try
+      " ディレクトリに権限がない時は失敗する
+      execute 'lcd ' . GetBufferDir()
+    catch /E472/
+    endtry
+
     " execute "botright terminal ++rows=12" a:args
     execute "botright terminal" a:args
   endfunction
