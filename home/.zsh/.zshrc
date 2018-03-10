@@ -224,9 +224,10 @@ stty stop undef
 # コマンドラインをeditorで編集する
 # ----------------------------------------------------------------------------
 # [zshのコマンドラインを任意のテキストエディタで編集する - Qiita](http://qiita.com/mollifier/items/7b1cfe609a7911a69706)
+# [How to edit command line in full screen editor in ZSH? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/6620/how-to-edit-command-line-in-full-screen-editor-in-zsh)
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^xv' edit-command-line
+bindkey '^X^E' edit-command-line
 
 # M-.を賢くする {{{2
 # ----------------------------------------------------------------------------
@@ -515,9 +516,12 @@ bindkey '^x^f' complete-files
 
 # kubectl.zshが^Xeを上書きしているので注意
 # (N)はグロブにマッチしなくてもエラーを出さないオプション
-# for file in $ZDOTDIR/completion/*.zsh(N); do
-#     source $file
-# done
+
+# $ZDOTDIR/completion から読み込み {{{2
+# ----------------------------------------------------------------------------
+for file in $ZDOTDIR/completion/*.zsh(N); do
+    source $file
+done
 
 # Incremental completion on zsh {{{2
 # ----------------------------------------------------------------------------
