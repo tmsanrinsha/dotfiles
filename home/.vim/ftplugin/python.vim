@@ -3,7 +3,9 @@ scriptencoding utf-8
 if exists("b:my_did_ftplugin") | finish | endif
 let b:my_did_ftplugin = 1
 
-compiler pyunit
+" :compiler pythonでセットされるerrorformatだとTracebackが表示されないので修正
+setlocal errorformat+=%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%m
+
 
 " lightlineにpyenvのバージョンを設定する {{{1
 " ============================================================================
