@@ -125,9 +125,13 @@ if [ "$os" = freebsd ];then
     alias find='find -E'
 fi
 
-alias p='ps auxf'
-alias pg='ps aux | grep -v grep | grep'
-alias pe='ps aux | egrep'
+if is_mac; then
+  alias p='ps auxww'
+else
+  alias p='ps auxwwf'
+fi
+alias pg='ps auxww | grep -v grep | grep'
+alias pe='ps auxww | egrep'
 # alias pk='pkill -f'
 
 # tree

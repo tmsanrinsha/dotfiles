@@ -736,7 +736,7 @@ if hash peco 2>/dev/null; then
     # kill {{{2
     # ------------------------------------------------------------------------
     function peco_kill() {
-        ps aux | peco | awk '{ print $2 }' | xargs kill
+        ps auxww | peco | awk '{ print $2 }' | xargs kill
     }
     alias pk=peco_kill
 
