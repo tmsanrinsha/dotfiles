@@ -48,5 +48,5 @@ autocmd MyVimrc FileType php.phpunit
 \|  nnoremap <buffer> <Leader>rcF :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p')<CR>
 \|  nnoremap <buffer> <Leader>rcd :<C-U>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' expand('%:p:h')<CR>
 \|  nnoremap <buffer> <Leader>rcD :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h')<CR>
-\|  nnoremap <buffer> <Leader>rcp :<C-U>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' GetProjectDir()<CR>
-\|  nnoremap <buffer> <Leader>rcP :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h') GetProjectDir()<CR>
+\|  nnoremap <buffer> <Leader>rcp :<C-U>execute 'QuickRun -type php-cs-fixer -cmdopt --dry-run -args' my#path#project_dir()<CR>
+\|  nnoremap <buffer> <Leader>rcP :<C-U>execute 'QuickRun -type php-cs-fixer -args' expand('%:p:h') my#path#project_dir()<CR>

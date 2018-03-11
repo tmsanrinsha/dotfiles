@@ -105,7 +105,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]fp :<C-u>call <SID>unite_file_project('-start-insert')<CR>
     function! s:unite_file_project(...)
         let l:opts = (a:0 ? join(a:000, ' ') : '')
-        let l:project_dir = GetProjectDir()
+        let l:project_dir = my#path#project_dir()
 
         if isdirectory(l:project_dir.'/.git')
             execute 'lcd '.l:project_dir
@@ -131,7 +131,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]gp :<C-u>call <SID>unite_grep_project('-start-insert')<CR>
     function! s:unite_grep_project(...)
         let opts = (a:0 ? join(a:000, ' ') : '')
-        let l:project_dir = GetProjectDir()
+        let l:project_dir = my#path#project_dir()
         if !executable('ag') && isdirectory(l:project_dir.'/.git')
             execute 'Unite '.opts.' grep/git:/:--untracked'
         else

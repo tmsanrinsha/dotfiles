@@ -125,23 +125,6 @@ function! EnableDeoplete() abort
   return (has('nvim') || has('timers')) && has('python3')
 endfunction
 
-function! GetBufferDir() abort " {{{2
-  if exists('b:vimfiler.current_dir')
-    " 最後のスラッシュを含めない
-    return b:vimfiler.current_dir[:-2]
-  endif
-
-  let buffer_file = expand('%')
-
-  if buffer_file =~# '^sudo:'
-    let buffer_file = matchstr(buffer_file, '^sudo:\zs.*')
-  endif
-
-  let buffer_dir = fnamemodify(buffer_file, ':p:h')
-
-  return isdirectory(buffer_dir) ? buffer_dir : ''
-endfunction
-
 function! GetPassword() abort " {{{2
     if !exists('g:password')
         let g:password = inputsecret('password: ')
@@ -865,7 +848,7 @@ if has('terminal')
   function! s:terminal_new(args) abort
     try
       " ディレクトリに権限がない時は失敗する
-      execute 'lcd ' . GetBufferDir()
+      execute 'lcd ' . my#path#buffer_dir()
     catch /E472/
     endtry
 
@@ -928,8 +911,8 @@ endif
 "augroup END
 
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
-nnoremap [:space:]gc :cd <C-r>=GetBufferDir()<CR> <Bar> echo 'cd '.GetBufferDir()<CR>
-nnoremap [:space:]gC :execute 'cd ' GetProjectDir()<CR>:echo 'cd ' GetProjectDir()<CR>
+nnoremap [:space:]gc :cd <C-r>=my#path#buffer_dir()<CR> <Bar> echo 'cd '.my#path#buffer_dir()<CR>
+nnoremap [:space:]gC :execute 'cd ' my#path#project_dir()<CR>:echo 'cd ' my#path#project_dir()<CR>
 
 command! Shell lcd %:h <Bar> shell
 
@@ -939,22 +922,23 @@ function! s:set_map_registers(map_key, expr) abort
   execute 'inoremap <C-r>'      . a:map_key . ' <C-r>='     . a:expr . '<CR>'
   execute 'cnoremap <C-r>'      . a:map_key . ' <C-r>='     . a:expr . '<CR>'
   execute 'nnoremap y'          . a:map_key . ' :let @" = ' . a:expr . ' <Bar> echo "yanked: " . @"<CR>'
-  execute 'nnoremap [:space:]y' . a:map_key . ' :let @* = ' . a:expr . ' <Bar> echo "yanked: " . @*<CR>'
+  execute 'nnoremap [:space:]y' . a:map_key . ' :let @* = ' . a:expr . ' <Bar> echo "copied: " . @*<CR>'
 endfunction
 
 " file name
-" call s:set_map_registers('f', 'expand("%")')
-call s:set_map_registers('f', 'expand("%:t")')
+" call s:set_map_registers('f', 'my#path#buffer("")')
+call s:set_map_registers('f', 'my#path#buffer(":t")')
 " full path of file
-call s:set_map_registers('F', 'expand("%:p")')
+call s:set_map_registers('F', 'my#path#buffer(":p")')
 " path of directory
-call s:set_map_registers('d', 'expand("%:h") . "/"')
+call s:set_map_registers('d', 'my#path#buffer(":h") . "/"')
 " full path of directory
-call s:set_map_registers('D', 'expand("%:p:h") . "/"')
+call s:set_map_registers('D', 'my#path#buffer_dir() . "/"')
 " project relative path
-call s:set_map_registers('p', 'my#project_relative_path()')
+call s:set_map_registers('p', 'my#path#project_relative_path("")')
+call s:set_map_registers('P', 'my#path#project_relative_path(":h")')
 " yank Hugo用のMarkdownのリンク
-call s:set_map_registers('h', 'my#hugo_ref(expand("%:p"))')
+call s:set_map_registers('h', 'my#hugo_ref(my#path#buffer(":p"))')
 
 " Rename {{{2
 " ----------------------------------------------------------------------------
@@ -1390,7 +1374,7 @@ function! s:live_reload(dir) abort
 endfunction
 
 command! LiveReloadBufferDir call s:live_reload(expand('%:p:h'))
-command! LiveReloadProjectDir call s:live_reload(GetProjectDir())
+command! LiveReloadProjectDir call s:live_reload(my#path#project_dir())
 
 " Markdown {{{2
 " ----------------------------------------------------------------------------
@@ -2155,8 +2139,8 @@ if IsInstalled('unite.vim')
     " カレントディレクトリ以下のディレクトリ
     nnoremap [unite]dc :<C-U>Unite directory<CR>
     " カレントバッファのディレクトリ以下
-    nnoremap [unite]d. :<C-U>execute "Unite directory:" . GetBufferDir()<CR>
-    nnoremap [unite]dp :<C-U>execute "Unite directory:" . GetProjectDir()<CR>
+    nnoremap [unite]d. :<C-U>execute "Unite directory:" . my#path#buffer_dir()<CR>
+    nnoremap [unite]dp :<C-U>execute "Unite directory:" . my#path#project_dir()<CR>
     nnoremap [unite]dd :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
     nnoremap [unite]dv :<C-U>Unite directory:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]dV :<C-U>Unite directory:$VIM<CR>
@@ -2172,7 +2156,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]fp :<C-U>call <SID>unite_file_project('-start-insert')<CR>
     function! s:unite_file_project(...)
         let l:opts = (a:0 ? join(a:000, ' ') : '')
-        let l:project_dir = GetProjectDir()
+        let l:project_dir = my#path#project_dir()
 
         call unite#custom#source(
         \   'neomru/file', 'matchers',
@@ -2190,7 +2174,7 @@ if IsInstalled('unite.vim')
         \   ['matcher_context'])
     endfunction
 
-    nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:" . GetBufferDir()<CR>
+    nnoremap [unite]f. :<C-U>execute "Unite file_rec/async:" . my#path#buffer_dir()<CR>
     nnoremap [unite]fv :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
     nnoremap [unite]fV :<C-U>Unite file_rec/async:$VIM<CR>
     nnoremap [unite]fd :<C-U>Unite file_rec/async:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
@@ -2207,7 +2191,7 @@ if IsInstalled('unite.vim')
     nnoremap [unite]gp :<C-U>call <SID>unite_grep_project('-start-insert')<CR>
     function! s:unite_grep_project(...)
         let opts = (a:0 ? join(a:000, ' ') : '')
-        let l:project_dir = GetProjectDir()
+        let l:project_dir = my#path#project_dir()
         if !executable('ag') && isdirectory(l:project_dir.'/.git')
             execute 'Unite '.opts.' grep/git:/:--untracked'
         else
@@ -2301,7 +2285,7 @@ if IsInstalled('vital.vim')
     let g:recent_dirs_file = $ZDOTDIR.'/.cache/chpwd-recent-dirs'
     augroup cdr
         autocmd!
-        autocmd BufEnter * call s:update_cdr(GetBufferDir())
+        autocmd BufEnter * call s:update_cdr(my#path#buffer_dir())
     augroup END
 
     function! s:update_cdr(dir)
@@ -2346,14 +2330,14 @@ if IsInstalled('denite.nvim')
   nnoremap [unite]g<CR> :<C-u>Denite grep<CR>
 
   " カレントバッファディレクトリ
-  nnoremap [unite]f. :<C-u>Denite file_rec:`GetBufferDir()`<CR>
-  nnoremap [unite]d. :<C-u>Denite directory_rec:`GetBufferDir()` -default-action=vimfiler<CR>
-  nnoremap [unite]g. :<C-u>Denite grep:`GetBufferDir()`<CR>
+  nnoremap [unite]f. :<C-u>Denite file_rec:`my#path#buffer_dir()`<CR>
+  nnoremap [unite]d. :<C-u>Denite directory_rec:`my#path#buffer_dir()` -default-action=vimfiler<CR>
+  nnoremap [unite]g. :<C-u>Denite grep:`my#path#buffer_dir()`<CR>
 
   " プロジェクトディレクトリ
-  nnoremap [unite]fp :<C-u>Denite file_rec:`GetProjectDir()`<CR>
-  nnoremap [unite]dp :<C-u>Denite directory_rec:`GetProjectDir()` -default-action=vimfiler<CR>
-  nnoremap [unite]gp :<C-u>Denite grep:`GetProjectDir()`<CR>
+  nnoremap [unite]fp :<C-u>Denite file_rec:`my#path#project_dir()`<CR>
+  nnoremap [unite]dp :<C-u>Denite directory_rec:`my#path#project_dir()` -default-action=vimfiler<CR>
+  nnoremap [unite]gp :<C-u>Denite grep:`my#path#project_dir()`<CR>
 
   " dotfiles
   nnoremap [unite]fd :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
@@ -2815,28 +2799,6 @@ endif
 
 " Project {{{1
 " ============================================================================
-function! GetProjectDir() abort " {{{2
-  let l:buffer_dir = GetBufferDir()
-
-  let l:project_dir = projectionist#path()
-
-  if empty(l:project_dir)
-    let l:project_dir = vital#of('vital').import('Prelude').path2project_directory(l:buffer_dir, 1)
-  endif
-
-  if empty(l:project_dir) && exists('g:project_dir_pattern')
-    let l:project_dir = matchstr(l:buffer_dir, g:project_dir_pattern)
-  endif
-
-  if empty(l:project_dir)
-    return l:buffer_dir
-  else
-    return l:project_dir
-  endif
-  " windowsでドライブのC:をC\:に変更する必要がある
-  " let l:project_dir = escape(l:project_dir, ':')
-endfunction
-
 " vim-projectionist {{{2
 " ----------------------------------------------------------------------------
 " [Vimでプロジェクトを扱う - SanRin舎](https://tmsanrinsha.net/post/2017/07/vim-project/)
