@@ -618,6 +618,9 @@ on_ft = 'go'
 repo = 'artur-shaik/vim-javacomplete2'
 lazy = 1
 on_ft = 'java'
+hook_add = '''
+let g:JavaComplete_EnableDefaultMappings = 0
+'''
 
 ## javascript {{{2
 # -----------------------------------------------------------------------------

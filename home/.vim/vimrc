@@ -864,7 +864,7 @@ if has('terminal')
     endif
   endfunction
 
-  set switchbuf=useopen
+  set switchbuf=usetab
 
   command! -nargs=* TerminalNew  call s:terminal_new(<q-args>)
 
@@ -3574,16 +3574,20 @@ if IsInstalled('junkfile.vim')
     let g:junkfile#directory = $JUNKFILE
     let g:junkfile#edit_command = 'new'
 
+    language time C
+
+    command! -nargs=0 MyJunkfile call junkfile#open(strftime('%b_%d_%a_%H%M%S.'))
+
     command! -nargs=0 JunkfileFiletype call junkfile#open_immediately(
-    \ strftime('%Y-%m-%d-%H%M%S.') . &filetype)
+    \ strftime('%b_%d_%a_%H%M%S.') . &filetype)
 
     nnoremap [:junk] <Nop>
     nmap <Leader>j [:junk]
 
-    nnoremap [:junk]o :JunkfileOpen<CR>
-    nnoremap [:junk]n :JunkfileOpen<CR>
-    nnoremap [:junk]f :JunkfileFiletype<CR>
-    nnoremap [unite]fj :Unite junkfile<CR>
+    nnoremap [:junk]o :<C-u>MyJunkfile<CR>
+    nnoremap [:junk]n :<C-u>MyJunkfile<CR>
+    nnoremap [:junk]f :<C-u>JunkfileFiletype<CR>
+    nnoremap [unite]fj :<C-u>Unite junkfile<CR>
 endif
 
 " insertPrintDebug {{{1
