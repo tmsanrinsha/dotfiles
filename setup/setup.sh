@@ -234,7 +234,7 @@ fi
 # Python {{{1
 # ============================================================================
 if command_exists pip; then
-  pip completion --zsh > $ZDOTDIR/.zshrc.cache
+  pip install --upgrade --user vim-vint
 fi
 
 # cVim {{{1

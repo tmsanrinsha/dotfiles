@@ -19,21 +19,11 @@ endif
 
 " call s:set_python_path()
 
+" let g:jedi#force_py_version = 3
+
 " completeopt, <C-c>の変更をしない
 let g:jedi#auto_vim_configuration = 0
 
 " quickrunと被るため大文字に変更
 let g:jedi#rename_command = '<Leader>R'
 let g:jedi#goto_assignments_command = '<C-]>'
-
-if jedi#init_python()
-    function! s:jedi_auto_force_py_version() abort
-        let major_version = pyenv#python#get_internal_major_version()
-        call jedi#force_py_version(major_version)
-    endfunction
-    augroup vim-pyenv-custom-augroup
-        autocmd! *
-        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-    augroup END
-endif

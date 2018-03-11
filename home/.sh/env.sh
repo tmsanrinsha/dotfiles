@@ -211,7 +211,7 @@ pathmunge "$HOME/.composer/vendor/bin"
 
 # Python {{{1
 # ============================================================================
-export PYTHONUSERBASE="$HOME/python"
+# export PYTHONUSERBASE="$HOME/python"
 export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # pyenv {{{2

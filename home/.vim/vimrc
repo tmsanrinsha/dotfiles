@@ -44,6 +44,7 @@ endif
 let g:dein_dir = g:vim_home . '/.cache/vim/dein'
 
 call has('python3')
+" call has('python')
 " MacVim-KaoriYaでは一度にpython2かpython3の片方しか使えない。
 " has('python3')を呼び出すと、python3が有効になる
 " :help has-python
@@ -491,6 +492,7 @@ augroup MyVimrc
     " \   . ' guifg=' .   synIDattr(synIDtrans(hlID('SpecialKey')), 'fg', 'gui')
     " \   . ' guibg=' .   synIDattr(synIDtrans(hlID('SpecialKey')), 'bg', 'gui')
     " \   . ' cterm=underline gui=underline'
+    highlight UnicodeSpaces cterm=underline ctermfg=59 ctermbg=16 gui=underline guifg=#465457 guibg=#000000
     autocmd VimEnter,WinEnter * match UnicodeSpaces /\%u180E\|\%u2000\|\%u2001\|\%u2002\|\%u2003\|\%u2004\|\%u2005\|\%u2006\|\%u2007\|\%u2008\|\%u2009\|\%u200A\|\%u2028\|\%u2029\|\%u202F\|\%u205F\|\%u3000\|−\|‐/
 augroup END
 
@@ -941,8 +943,8 @@ function! s:set_map_registers(map_key, expr) abort
 endfunction
 
 " file name
-call s:set_map_registers('f', 'expand("%")')
-" call s:set_map_registers('f', 'expand("%:t")')
+" call s:set_map_registers('f', 'expand("%")')
+call s:set_map_registers('f', 'expand("%:t")')
 " full path of file
 call s:set_map_registers('F', 'expand("%:p")')
 " path of directory
@@ -2878,6 +2880,8 @@ let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 \     'alternate': 'src/{}.php'
 \   }
 \}
+
+" let g:projectionist_heuristics['__init__.py'] = {}
 
 "" memo {{{3
 let g:projectionist_heuristics['content/'] = {
