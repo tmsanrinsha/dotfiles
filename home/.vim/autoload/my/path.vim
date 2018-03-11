@@ -38,10 +38,6 @@ function! my#path#project_dir() abort " {{{1
     let project_dir = matchstr(buffer_dir, g:project_dir_pattern)
   endif
 
-  if !empty(project_dir)
-    return project_dir
-  endif
-
   return project_dir
 endfunction
 
