@@ -56,6 +56,7 @@ brew install pwgen
 brew install pyenv
 brew install pyenv-virtualenv
 brew install python
+brew install python@2
 brew install r
 brew install reattach-to-user-namespace
 brew install ruby
