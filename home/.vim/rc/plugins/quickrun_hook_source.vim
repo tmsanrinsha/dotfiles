@@ -13,9 +13,11 @@ endif
 
 " 共通の設定
 " [shabadou.vim を使って quickrun.vim をカスタマイズしよう - C++でゲームプログラミング](http://d.hatena.ne.jp/osyo-manga/20120919/1348054752)
+" let g:quickrun_config['_'] = {
+" \ 'runner':                                    'vimproc',
+" \ 'runner/vimproc/updatetime':                 100,
 let g:quickrun_config['_'] = {
-\ 'runner':                                    'vimproc',
-\ 'runner/vimproc/updatetime':                 100,
+\ 'runner':                                    'terminal',
 \ 'outputter':                                 'multi:buffer:quickfix',
 \ 'outputter/buffer/split':                    'botright 8sp',
 \ 'outputter/quickfix/open_cmd':               'botright cwindow',
@@ -95,6 +97,10 @@ autocmd MyVimrc BufRead,BufNewFile composer.json
 \ | nnoremap <buffer> <Leader>ri :<C-u>QuickRun -args install<CR>
 \ | nnoremap <buffer> <Leader>ru :<C-u>QuickRun -args update<CR>
 
+" Python {{{1
+" ============================================================================
+let g:quickrun_config['python'] = {}
+let g:quickrun_config['python']['command'] = 'python3'
 " Ruby {{{1
 " ============================================================================
 let g:quickrun_config['ruby.chef'] = deepcopy(g:quickrun#default_config['ruby'])

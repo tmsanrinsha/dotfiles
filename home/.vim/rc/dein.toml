@@ -1192,6 +1192,10 @@ lazy = 1
 on_cmd = ['QuickRun', 'QuickRunReplace', 'Capture']
 depends = ['vimproc.vim', 'shabadou.vim', 'vim-hier', 'quickfixstatus', 'vim-qfsigns', 'vim-qfstatusline', 'quickrun-outputter-replace_region']
 hook_add = '''
+let g:quickrun_no_default_key_mappings = 1
+nnoremap <Leader>r<CR> :call my#quickrun#run('n')<CR>
+xnoremap <Leader>r<CR> :call my#quickrun#run('v')<CR>
+
 cabbrev Echo Capture echo
 '''
 hook_source = 'call SourceRc("plugins/quickrun_hook_source.vim")'
