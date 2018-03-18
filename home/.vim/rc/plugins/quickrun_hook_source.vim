@@ -18,8 +18,9 @@ endif
 " \ 'runner/vimproc/updatetime':                 100,
 let g:quickrun_config['_'] = {
 \ 'runner':                                    'terminal',
+\ 'runner/terminal/opener':                    'botright split',
 \ 'outputter':                                 'multi:buffer:quickfix',
-\ 'outputter/buffer/split':                    'botright 8sp',
+\ 'outputter/buffer/split':                    'botright 8split',
 \ 'outputter/quickfix/open_cmd':               'botright cwindow',
 \ 'hook/cd/directory':                         '%S:p:h',
 \ 'hook/close_quickfix/enable_hook_loaded':    1,
