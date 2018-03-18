@@ -947,11 +947,6 @@ function vim_profile_vimrc() {
 ### Added by IBM Cloud CLI
 [[ -e /usr/local/Bluemix/bx/zsh_autocomplete ]] && source /usr/local/Bluemix/bx/zsh_autocomplete
 
-# if [ -f $ZDOTDIR/plugin/z.sh ]; then
-#     _Z_CMD=j
-#     source $ZDOTDIR/plugin/z.sh
-# fi
-
 if [ -f $ZDOTDIR/.zshrc.cache ]; then
     source $ZDOTDIR/.zshrc.cache
 fi
@@ -963,11 +958,6 @@ fi
 if [[ `uname` = CYGWIN* ]]; then
     test -f $ZDOTDIR/.zshrc.cygwin && . $ZDOTDIR/.zshrc.cygwin
 fi
-
-# alias | awk '{print "alias "$0}' \
-#     | grep -v 'ls --color' \
-#     | grep -v 'ls -G' \
-#     | grep -v 'vi=vim' >! ~/.vim/rc/.vimshrc
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
   unsetopt xtrace
