@@ -12,9 +12,7 @@ function! my#quickrun#run(mode) abort range
     let start = a:mode == 'n' ? cf['range'][0][0] : a:firstline
     let end   = a:mode == 'n' ? cf['range'][1][0] : a:lastline
     execute start . ',' . end . 'QuickRun -type '  . cf['filetype']
-  elseif a:mode == 'n'
-    QuickRun -mode n
   else
-    QuickRun -mode v
+    execute 'QuickRun -mode ' . a:mode
   endif
 endfunction
