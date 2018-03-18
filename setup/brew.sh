@@ -44,6 +44,7 @@ brew install go
 brew install graphviz
 brew install grep --with-default-names
 brew install hub
+brew install rpm2cpio
 brew install jq
 brew install lftp
 brew install lha    # lzhの解凍
