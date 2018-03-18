@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
-sudo yum -y install ctags
-sudo yum -y install git
+sudo yum -y install ctags git zsh
 
 # for pyenv
 sudo yum -y install bzip2-devel openssl-devel readline-devel sqlite-devel zlib-devel
