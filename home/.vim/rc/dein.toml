@@ -173,9 +173,6 @@ repo = 'rhysd/unite-zsh-cdr.vim'
 [[plugins]]
 repo = 'Shougo/neossh.vim'
 
-[[plugins]]
-repo = 'ujihisa/vimshell-ssh'
-
 # neocomplete, deoplete {{{1
 # ============================================================================
 # [[plugins]]
@@ -839,18 +836,6 @@ on_map = '<Plug>'
 
 # shell / repl {{{1
 # ============================================================================
-# vimshell {{{2
-# ----------------------------------------------------------------------------
-[[plugins]]
-repo = 'Shougo/vimshell.vim'
-depends = ['vim-vcs', 'unite.vim']
-on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
-
-[[plugins]]
-repo = 'Shougo/vim-vcs'
-lazy = 1
-# }}}
-
 # ipyhonで複数行を送信できない
 # [[python] fix sending lines to ipython by lotabout · Pull Request #75 · epeli/slimux](https://github.com/epeli/slimux/pull/75)
 # [[plugins]]
@@ -1430,6 +1415,23 @@ depends = ['twibill.vim']
 hook_source = '''
 let g:tweetvim_display_icon = 1
 '''
+
+# comment out {{{1
+# ============================================================================
+# vimshell {{{2
+# ----------------------------------------------------------------------------
+# [[plugins]]
+# repo = 'Shougo/vimshell.vim'
+# depends = ['vim-vcs', 'unite.vim']
+# on_cmd = ['VimShell', 'VimShellBufferDir', 'VimShellInteractive', 'VimShellPop']
+#
+# [[plugins]]
+# repo = 'Shougo/vim-vcs'
+# lazy = 1
+#
+# [[plugins]]
+# repo = 'ujihisa/vimshell-ssh'
+# }}}
 
 # [[plugins]]
 # repo = 'johngrib/vim-game-code-break'
