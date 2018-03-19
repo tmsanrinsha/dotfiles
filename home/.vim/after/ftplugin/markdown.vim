@@ -20,3 +20,6 @@ highlight! link htmlItalic Normal
 
 nmap <buffer> <expr> <C-P> yankround#is_active() ? "\<Plug>(yankround-prev)"  : "\<Plug>Markdown_MoveToPreviousHeader"
 nmap <buffer> <expr> <C-N> yankround#is_active() ? "\<Plug>(yankround-next)"  : "\<Plug>Markdown_MoveToNextHeader"
+
+command! -buffer -range=% Markdownize    :<line1>,<line2>!pandoc -f html -t markdown_phpextra --wrap=none
+command! -buffer -range=% MarkdownStrict :<line1>,<line2>!pandoc -f markdown+hard_line_breaks -t markdown_strict --wrap=none

@@ -657,7 +657,21 @@ repo = 'elzr/vim-json'
 [[plugins]]
 # repo = 'plasticboy/vim-markdown'
 repo = 'tmsanrinsha/vim-markdown'
-# 設定はvimrcに記述
+# ```vim:のようなQiitaのコードブロックに対応
+hook_source = '''
+" foldingを使う
+let g:vim_markdown_folding_disabled = 0
+" ヘッダー部分で折りたたむ
+" let g:vim_markdown_folding_style_pythonic = 1
+" macでgxを使いたい場合
+let g:netrw_browsex_viewer= 'open'
+let g:vim_markdown_no_default_key_mappings = 0
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_conceal = 1
+
+" [link text](link-url)の上でge打ったときに、link-url.mdに飛ぶようにする
+let g:vim_markdown_no_extensions_in_markdown = 1
+'''
 
 # yaml frontmatterがヘッダーと判定されてしまうのでコメントアウト
 # [[plugins]]

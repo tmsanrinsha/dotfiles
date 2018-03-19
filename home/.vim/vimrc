@@ -1376,16 +1376,6 @@ endfunction
 command! LiveReloadBufferDir call s:live_reload(expand('%:p:h'))
 command! LiveReloadProjectDir call s:live_reload(my#path#project_dir())
 
-" Markdown {{{2
-" ----------------------------------------------------------------------------
-" pandocでhtmlからmarkdownに変換 {{{3
-autocmd MyVimrc FileType markdown,html
-\   command! Markdownize :%!pandoc -f html -t markdown_phpextra --wrap=none
-
-autocmd MyVimrc FileType markdown
-\   nnoremap <buffer> <Leader>r :<C-u>PrevimOpen<CR>
-\ | command! -range=% MarkdownStrict :<line1>,<line2>!/usr/local/bin/pandoc -f markdown+hard_line_breaks -t markdown_strict --wrap=none
-
 " JavaScript {{{2
 " ----------------------------------------------------------------------------
 autocmd MyVimrc FileType javascript call s:configure_javascript()
@@ -3159,72 +3149,6 @@ autocmd MyVimrc FileType r
 autocmd MyVimrc BufNewFile,BufRead *.hql,*.q
 \   let b:sql_type_overrride = 'hive'
 \|  setlocal filetype=sql
-
-" Markdown {{{1
-" ============================================================================
-" デフォルトで入っているプラグインでfenced code blocksのコードをハイライト {{{2
-" let g:markdown_fenced_languages = [
-" \  'css',
-" \  'javascript',
-" \  'js=javascript',
-" \  'json=javascript',
-" \  'php',
-" \  'sql',
-" \  'xml',
-" \]
-
-" vim-markdown {{{2
-" ----------------------------------------------------------------------------
-if IsInstalled('vim-markdown')
-    let g:vim_markdown_folding_disabled = 0
-    " macでgxを使いたい場合
-    let g:netrw_browsex_viewer= 'open'
-    let g:vim_markdown_no_default_key_mappings = 0
-    let g:vim_markdown_frontmatter = 1
-    let g:vim_markdown_conceal = 1
-
-    " [link text](link-url)の上でge打ったときに、link-url.mdに飛ぶようにする
-    let g:vim_markdown_no_extensions_in_markdown = 1
-
-    " plasticboy/vim-markdownでfiletypeをmkd.markdownにする {{{3
-    " [Use "markdown" filetype instead of "mkd" (or both)?! · Issue #64 · plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown/issues/64)
-    " function! MyAddToFileType(ft)
-    "   if index(split(&ft, '\.'), a:ft) == -1
-    "     let &ft .= '.'.a:ft
-    "   endif
-    " endfun
-    " au FileType markdown call MyAddToFileType('mkd')
-    " au FileType mkd      call MyAddToFileType('markdown')
-endif
-
-" joker1007/vim-markdown-quote-syntax {{{2
-" ----------------------------------------------------------------------------
-" let g:markdown_quote_syntax_filetypes = {
-" \   'css' : {
-" \       'start' : "\\%(css\\|scss\\)",
-" \   },
-" \   'dot' : {
-" \       'start' : 'dot',
-" \   },
-" \   'javascript' : {
-" \       'start' : 'javascript',
-" \   },
-" \   'php' : {
-" \       'start' : 'php',
-" \   },
-" \   'sh' : {
-" \       'start' : 'sh',
-" \   },
-" \   'groovy' : {
-" \       'start' : 'groovy',
-" \   },
-" \}
-
-" nelstrom/vim-markdown-folding {{{2
-" ----------------------------------------------------------------------------
-" if IsInstalled('vim-markdown-folding')
-"     let g:markdown_fold_style = 'nested'
-" endif
 
 " vimconsole.vim {{{1
 " ==============================================================================

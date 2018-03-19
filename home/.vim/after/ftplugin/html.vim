@@ -6,6 +6,8 @@ let b:did_my_after_ftplugin_html = 1
 let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . ' | ' : '')
 \ . 'setlocal includeexpr< path<'
 
+command! -buffer -range=% Markdownize    :<line1>,<line2>!pandoc -f html -t markdown_phpextra --wrap=none
+
 " gf(goto file)の設定 {{{1
 " ============================================================================
 " http://sanrinsha.lolipop.jp/blog/2012/01/vim%E3%81%AEgf%E3%82%92%E6%94%B9%E8%89%AF%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B.html
