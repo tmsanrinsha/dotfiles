@@ -129,6 +129,18 @@ echo(str) -> {{
 
 " yank {{{1
 " ============================================================================
+yankConfluenceLink() -> {{
+  // escape
+  title = window.document.title.replace(/[|\[\]]/g, function(match) {
+      return `&#${match.charCodeAt(0)};`;
+  });
+  var confluenceLink = `[${title}|${window.location.href}]`
+  Clipboard.copy(confluenceLink);
+  Status.setMessage(confluenceLink);
+}}
+
+map yc :call yankConfluenceLink<CR>
+
 yankMarkdownLink() -> {{
   var title = window.document.title.replace(/(<|>)/g, '\\$1')
 
