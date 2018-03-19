@@ -38,19 +38,22 @@ augroup MyVimrc
   " :terminal {{{1
   " ========================================================================
   if has('terminal')
-    " BufNew の時点では 'buftype' が設定されていないので timer を使う
-    autocmd BufNew * call timer_start(0, { -> s:detect_terminal() })
+    if exists("##TerminalOpen")
+      autocmd TerminalOpen * runtime! ftplugin/terminal.vim
+    else
+      " BufNew の時点では 'buftype' が設定されていないので timer を使う
+      autocmd BufNew * call timer_start(10, { -> s:detect_terminal() })
 
-    function! s:detect_terminal()
-      if &buftype == "terminal"
-        " filetypeを設定するとautocmdのSyntaxが発火し、
-        " neosnippetのsyntax match neosnippetExpandSnippetsが設定され
-        " Terminal-Normal modeで色がなくなるので、設定を読み込むだけにする
-        runtime! ftplugin/terminal.vim
-      endif
-    endfunction
-
-    " - Vim で :terminal の使い勝手をよくした - Secret Garden(Instrumental)
-    "   http://secret-garden.hatenablog.com/entry/2017/11/14/113127
+      function! s:detect_terminal()
+        if &buftype == "terminal"
+          " filetypeを設定するとautocmdのSyntaxが発火し、
+          " neosnippetのsyntax match neosnippetExpandSnippetsが設定され
+          " Terminal-Normal modeで色がなくなるので、設定を読み込むだけにする
+          runtime! ftplugin/terminal.vim
+        endif
+      endfunction
+      " - Vim で :terminal の使い勝手をよくした - Secret Garden(Instrumental)
+      "   http://secret-garden.hatenablog.com/entry/2017/11/14/113127
+    endif
   endif
 augroup END
