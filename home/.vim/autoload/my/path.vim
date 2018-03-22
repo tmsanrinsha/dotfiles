@@ -20,7 +20,11 @@ function! my#path#buffer_dir() abort
 endfunction
 
 function! my#path#project_dir() abort " {{{1
-  let project_dir = projectionist#path()
+  try
+    let project_dir = projectionist#path()
+  catch /E121/
+    let project_dir = ''
+  endtry
 
   if !empty(project_dir)
     return project_dir
