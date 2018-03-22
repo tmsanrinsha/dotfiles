@@ -556,6 +556,9 @@ repo = 'vadv/vim-chef'
 [[plugins]]
 repo = 'vim-scripts/confluencewiki.vim'
 
+[[plugins]]
+repo = 'tmsanrinsha/deoplete-confluencewiki'
+
 ## Fluentd {{{2
 # ----------------------------------------------------------------------------
 [[plugins]]
