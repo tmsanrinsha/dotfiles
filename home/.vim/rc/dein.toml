@@ -23,43 +23,15 @@ nnoremap [:dein:]d :call map(dein#check_clean(), "delete(v:val, 'rf')") <Bar> ca
 " **: ディレクトリにのみマッチ
 let s:sync_save_dir_list = []
 
-for dir in ['autoload', 'colors', 'ftplugin', 'indent', 'plugin']
+for dir in ['autoload', 'colors', 'ftplugin', 'indent', 'plugin', 'rplugin']
   let s:sync_save_dir = {
-  \      'glob' : g:dein_dir . '/repos/**/' . dir . '/*.vim',
-  \      'from' : g:dein_dir . '/repos/.*/' . dir . '',
-  \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/' . dir . '',
+  \      'glob' : g:dein_dir . '/repos/**/' . dir . '/*',
+  \      'from' : g:dein_dir . '/repos/.*/' . dir,
+  \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/' . dir,
   \    }
 
   call insert(s:sync_save_dir_list, s:sync_save_dir)
 endfor
-
-" let s:sync_save_dir_list = [
-" \    {
-" \      'glob' : g:dein_dir . '/repos/**/autoload/*.vim',
-" \      'from' : g:dein_dir . '/repos/.*/autoload',
-" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/autoload',
-" \    },
-" \    {
-" \      'glob' : g:dein_dir . '/repos/**/colors/*.vim',
-" \      'from' : g:dein_dir . '/repos/.*/colors',
-" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/colors',
-" \    },
-" \    {
-" \      'glob' : g:dein_dir . '/repos/**/ftplugin/*.vim',
-" \      'from' : g:dein_dir . '/repos/.*/ftplugin',
-" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/ftplugin',
-" \    },
-" \    {
-" \      'glob' : g:dein_dir . '/repos/**/indent/*.vim',
-" \      'from' : g:dein_dir . '/repos/.*/indent',
-" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/indent',
-" \    },
-" \    {
-" \      'glob' : g:dein_dir . '/repos/**/plugin/*.vim',
-" \      'from' : g:dein_dir . '/repos/.*/plugin',
-" \      'to'   : g:dein_dir . '/.cache/.vimrc/.dein/plugin',
-" \    },
-" \]
 
 " windowsのときはうまくいかない
 if $OS !~ 'Windows_NT'
