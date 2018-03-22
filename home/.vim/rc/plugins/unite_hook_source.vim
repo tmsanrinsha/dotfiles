@@ -13,7 +13,7 @@ call unite#custom#source(
 \ '\~$\|\.\%(o\|exe\|dll\|bak\|zwc\|pyc\|sw[po]\)$'.
 \ '\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'.
 \ '\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)'.
-\ '\|\%(^\%(fugitive\)://\)'.
+\ '\|\%(^\%(fugitive|quickrun\)://\)'.
 \ '\|/mnt/'
 \)
 
