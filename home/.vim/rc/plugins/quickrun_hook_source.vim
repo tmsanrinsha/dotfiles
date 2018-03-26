@@ -56,6 +56,14 @@ call quickrun#module#register(shabadou#make_quickrun_hook_anim(
 \   4,
 \), 1)
 
+" make {{{1
+" ============================================================================
+let g:quickrun_config['make'] = {
+\ 'command': 'make',
+\ 'hook/cd/directory': '%S:p:h',
+\ 'exec': '%c %o',
+\}
+
 " PHP {{{1
 " ============================================================================
 let g:quickrun_config['php'] = deepcopy(g:quickrun#default_config['php'])
