@@ -72,11 +72,12 @@ map gx :execute vyP<CR>
 " map gxa :execute vy: a @"<CR>
 
 
-let qmark b = ['http://bookstore.yahoo.co.jp']
+let qmark a = ['https://www.amazon.co.jp/']
+let qmark b = ['https://bookstore.yahoo.co.jp']
 let qmark c = ['https://www.google.com/calendar/']
 let qmark d = ['https://anime.dmkt-sp.jp/animestore/mp_viw_pc']
 let qmark D = ['https://github.com/tmsanrinsha/dotfiles']
-let qmark f = ['http://finance.yahoo.co.jp/']
+let qmark f = ['https://finance.yahoo.co.jp/']
 let qmark F = ['https://www.facebook.com/']
 let qmark g = ['https://mail.google.com/']
 let qmark h = ['http://b.hatena.ne.jp/tmsanrinsha/bookmark']
