@@ -33,7 +33,7 @@ call denite#custom#map('normal', '<Esc>', '<denite:quit>',                  'nor
 " ============================================================================
 if executable('ag')
   call denite#custom#var('file_rec', 'command',
-  \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
 endif
 
 " grep {{{1
