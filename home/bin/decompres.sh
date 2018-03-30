@@ -38,15 +38,23 @@ case $1 in
     *.arj)
         unarj "$1";;
     *.rpm)
-        if ! which rpm2cpio.pl 1>/dev/null 2>&1; then
-            cat <<EOS
+        if [[ "$OSTYPE" =~ darwin ]]; then
+            if ! which rpm2cpio.pl 1>/dev/null 2>&1; then
+                cat <<EOS
 rpm2cpio.pl not found. Please install
-for Mac:
     brew install rpm2cpio
 EOS
-            exit 1
+                exit 1
+            fi
+            rpm2cpio=rpm2cpio.pl
+        else
+            rpm2cpio=rpm2cpio
         fi
-        rpm2cpio.pl "$1" | cpio -id;;
+            dir=${1%.rpm}
+            mkdir $dir
+            cd $dir
+            $rpm2cpio "../$1" | cpio -id
+        ;;
     *)
         echo 'unknown extension';
         exit 1;;
