@@ -264,18 +264,23 @@ fi
 # if [ -d /usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS ]; then
 #     macvim_dir=/usr/local/Cellar/macvim-kaoriya/HEAD/MacVim.app/Contents/MacOS
 # elif [ -d /Applications/MacVim.app/Contents/MacOS ]; then
-    macvim_dir=/Applications/MacVim.app/Contents/MacOS
+    # macvim_dir=/Applications/MacVim.app/Contents/MacOS
 # fi
 
-if [ -x "$macvim_dir/Vim" ]; then
-    export EDITOR="$macvim_dir/Vim"
-    export PATH="$macvim_dir:$PATH"
-    alias vim="$macvim_dir/Vim"
-    unset macvim_dir
-else
-    export EDITOR='vim'
+# if [ -x "$macvim_dir/Vim" ]; then
+#     export EDITOR="$macvim_dir/Vim"
+#     export PATH="$macvim_dir:$PATH"
+#     alias vim="$macvim_dir/Vim"
+#     unset macvim_dir
+# else
+#     export EDITOR='vim'
+# fi
+
+if [ -d /Applications/MacVim.app/Contents/bin ]; then
+    export PATH="/Applications/MacVim.app/Contents/bin:$PATH"
 fi
 
+export EDITOR='vim'
 export JUNKFILE="$HOME/work"
 
 # postgres {{{1
