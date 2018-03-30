@@ -63,115 +63,35 @@ hook_add = '''
 set pyxversion=3
 '''
 
-# unite.vim, vimfiler {{{1
-# ============================================================================
-[[plugins]]
-repo = 'Shougo/unite.vim'
-lazy = 1
-depends = ['neomru.vim']
-on_cmd = 'Unite'
-hook_source = '''
-    call SourceRc('plugins/unite_hook_source.vim')
-'''
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-lazy = 1
-on_source = 'unite.vim'
-hook_source = '''
-    call unite#sources#outline#alias('mql4', 'c')
-    call unite#sources#outline#alias('ref-man', 'man')
-    call unite#sources#outline#alias('rmd', 'markdown')
-    call unite#sources#outline#alias('tmux', 'conf')
-    call unite#sources#outline#alias('vimperator', 'conf')
-    call unite#sources#outline#alias('zsh', 'conf')
-'''
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-lazy = 1
-on_source = 'unite.vim'
-
-[[plugins]]
-repo = 'basyura/unite-mdfind'
-lazy = 1
-on_source = 'unite.vim'
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-lazy = 1
-on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
-if = 'has("python3")'
-hook_source = '''
-    call SourceRc('plugins/denite_hook_source.vim')
-'''
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-lazy = 1
-hook_add = '''
-    "最近使用したファイル一覧
-    nnoremap <silent> [unite]fm :<C-U>Unite neomru/file<CR>
-    "最近使用したディレクトリ一覧
-    nnoremap <silent> [unite]dm :<C-U>Unite neomru/directory<CR>
-
-    " ファイルへの書き込みを60秒ごとにする
-    let g:neomru#update_interval = 60
-    " ファイルが存在するかチェックする
-    let g:neomru#do_validate = 1
-
-    let g:neomru#file_mru_limit = 2000
-'''
-
-[[plugins]]
-repo = 'tmsanrinsha/unite-ghq'
-build = "test -f ~/bin/ghq-list.sh || ln -s `pwd`/bin/ghq-list.sh ~/bin"
-
-[[plugins]]
-repo = 'thinca/vim-unite-history'
-
-# [[plugins]]
-# repo = 'ujihisa/unite-locate'
-
-[[plugins]]
-repo = 'tacroe/unite-mark'
-
-[[plugins]]
-repo = 'tsukkee/unite-tag'
-
-[[plugins]]
-repo = 'rhysd/unite-zsh-cdr.vim'
-
-[[plugins]]
-repo = 'Shougo/neossh.vim'
-
 # neocomplete, deoplete {{{1
 # ============================================================================
-# [[plugins]]
-# repo = 'Shougo/deoplete.nvim'
-# depends = [
-#   'FastFold',
-#   'neoinclude.vim',
-#   'neosnippet.vim',
-#   'vim-snippets',
-#   'nvim-yarp',
-#   'vim-hug-neovim-rpc'
-# ]
-# on_i = 1
-# hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
-# if = 'EnableDeoplete()'
-#
-# [[plugins]]
-# repo = 'Shougo/neocomplete.vim'
-# depends = [
-#   'FastFold',
-#   'neoinclude.vim',
-#   'neosnippet.vim',
-#   'vim-snippets'
-# ]
-# on_i = 1
-# hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
-# if = '!EnableDeoplete()'
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = [
+  'FastFold',
+  'neoinclude.vim',
+  'neosnippet.vim',
+  'vim-snippets',
+  'nvim-yarp',
+  'vim-hug-neovim-rpc'
+]
+lazy = 1
+on_i = 1
+hook_source = 'call SourceRc("plugins/deoplete_hook_source.vim")'
+if = 'EnableDeoplete()'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+depends = [
+  'FastFold',
+  'neoinclude.vim',
+  'neosnippet.vim',
+  'vim-snippets'
+]
+lazy = 1
+on_i = 1
+hook_source = 'call SourceRc("plugins/neocomplete_hook_source.vim")'
+if = '!EnableDeoplete() && has("lua")'
 
 [[plugins]]
 repo = 'Konfekt/FastFold'
@@ -224,6 +144,88 @@ depends = 'vim-ingo-library'
 [[plugins]]
 repo = 'tmsanrinsha/deoplete-mozc'
 if = 'EnableDeoplete() && executable("mozc_emacs_helper")'
+
+# denite.nvim, unite.vim {{{1
+# ============================================================================
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+lazy = 1
+on_cmd = ['Denite', 'DeniteBufferDir', 'DeniteCursorWord', 'DeniteProjectDir']
+if = 'has("python3")'
+hook_source = '''
+    call SourceRc('plugins/denite_hook_source.vim')
+'''
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+lazy = 1
+depends = ['neomru.vim']
+on_cmd = 'Unite'
+hook_source = '''
+    call SourceRc('plugins/unite_hook_source.vim')
+'''
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+lazy = 1
+on_source = 'unite.vim'
+hook_source = '''
+    call unite#sources#outline#alias('mql4', 'c')
+    call unite#sources#outline#alias('ref-man', 'man')
+    call unite#sources#outline#alias('rmd', 'markdown')
+    call unite#sources#outline#alias('tmux', 'conf')
+    call unite#sources#outline#alias('vimperator', 'conf')
+    call unite#sources#outline#alias('zsh', 'conf')
+'''
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+lazy = 1
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'basyura/unite-mdfind'
+lazy = 1
+on_source = 'unite.vim'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+lazy = 1
+hook_add = '''
+    "最近使用したファイル一覧
+    nnoremap <silent> [unite]fm :<C-U>Unite neomru/file<CR>
+    "最近使用したディレクトリ一覧
+    nnoremap <silent> [unite]dm :<C-U>Unite neomru/directory<CR>
+
+    " ファイルへの書き込みを60秒ごとにする
+    let g:neomru#update_interval = 60
+    " ファイルが存在するかチェックする
+    let g:neomru#do_validate = 1
+
+    let g:neomru#file_mru_limit = 2000
+'''
+
+[[plugins]]
+repo = 'tmsanrinsha/unite-ghq'
+build = "test -f ~/bin/ghq-list.sh || ln -s `pwd`/bin/ghq-list.sh ~/bin"
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+
+# [[plugins]]
+# repo = 'ujihisa/unite-locate'
+
+[[plugins]]
+repo = 'tacroe/unite-mark'
+
+[[plugins]]
+repo = 'tsukkee/unite-tag'
+
+[[plugins]]
+repo = 'rhysd/unite-zsh-cdr.vim'
+
+[[plugins]]
+repo = 'Shougo/neossh.vim'
 
 # snippet {{{1
 # ============================================================================

@@ -19,34 +19,6 @@ execute 'set runtimepath^=' . g:dein_repo_dir
 if dein#load_state(g:dein_dir)
   call dein#begin(g:dein_dir)
 
-  if EnableDeoplete()
-    call dein#add('Shougo/deoplete.nvim', {
-    \   'lazy': 1,
-    \   'on_i': 1,
-    \   'depends': [
-    \     'FastFold',
-    \     'neoinclude.vim',
-    \     'neco-syntax',
-    \     'neosnippet.vim',
-    \     'vim-snippets'
-    \   ],
-    \   'hook_source': 'call SourceRc("plugins/deoplete_hook_source.vim")'
-    \})
-  elseif has('lua')
-    call dein#add('Shougo/neocomplete.vim', {
-    \   'lazy': 1,
-    \   'on_i': 1,
-    \   'depends': [
-    \     'FastFold',
-    \     'neoinclude.vim',
-    \     'neco-syntax',
-    \     'neosnippet.vim',
-    \     'vim-snippets'
-    \   ],
-    \   'hook_source': 'call SourceRc("plugins/neocomplete_hook_source.vim")'
-    \})
-  endif
-
   let s:toml_files = split(glob('$VIMRC_DIR/*.toml'), "\n")
   for s:toml_file in s:toml_files
       " lazyがついているtomlファイルはlazyとして処理する。
