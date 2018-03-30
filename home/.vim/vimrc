@@ -2448,16 +2448,6 @@ if IsInstalled('vimshell.vim')
     \   'call s:vimshell_on_source()'
 endif
 
-" Conque-Shell {{{1
-" ============================================================================
-if IsInstalled('Conque-Shell')
-    " 現在のバッファのディレクトリでzshを立ち上げる
-    noremap <Leader>C<CR> :ConqueTerm zsh<CR>
-    noremap <Leader>Cb    :cd %:h <bar> ConqueTerm zsh<CR>
-
-    let g:neocomplete#lock_buffer_name_pattern = 'zsh -'
-endif
-
 " SirVer/ultisnips {{{1
 " ==============================================================================
 " let g:UltiSnipsUsePythonVersion = 2
@@ -2468,10 +2458,6 @@ endif
 "
 " " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
-
-" Valloric/Youcompleteme {{{1
-" =============================================================================
-let g:ycm_filetype_whitelist = { 'java': 1 }
 
 " Shougo/context_filetype.vim: 部分的にfiletypeを変更する{{{1
 " =============================================================================

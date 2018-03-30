@@ -872,11 +872,6 @@ let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.2"}
 '''
 
-# [[plugins]]
-# repo = 'oplatek/Conque-Shell'
-# on_cmd = ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermTab', 'ConqueTermVSplit']
-# hook_source = 'call SourceRc('plugins/Conque-Shell_hook_source.vim'')
-
 # operator {{{1
 # ============================================================================
 [[plugins]]
