@@ -3015,20 +3015,6 @@ map U :call <SID>undoline()<CR>
 " [Undo certain modifications - Vi and Vim Stack Exchange](https://vi.stackexchange.com/questions/4026/undo-certain-modifications)
 " diff-fold, patchutils
 
-" detectindent {{{1
-" ============================================================================
-if IsInstalled('detectindent')
-    " let g:detectindent_verbosity = 0
-    autocmd MyVimrc FileType yml
-    \   let g:detectindent_preferred_indent = &shiftwidth
-    \|  if &expandtab == 0
-    \|      unlet! g:detectindent_preferred_expandtab
-    \|  else
-    \|      let g:detectindent_preferred_expandtab = 1
-    \|  endif
-    \|  DetectIndent
-endif
-
 " C++ {{{1
 " ============================================================================
 " if IsInstalled('vim-cpp-auto-include')

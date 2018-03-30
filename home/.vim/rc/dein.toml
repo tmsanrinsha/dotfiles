@@ -328,14 +328,16 @@ nmap <C-x> <Plug>(trip-decrement)
 # indent {{{1
 # ============================================================================
 [[plugins]]
-repo = 'ciaranm/detectindent'
+repo = 'lambdalisue/vim-findent'
 lazy = 1
-on_cmd = 'DetectIndent'
+on_cmd = 'Findent'
+hook_add = '''
+augroup findent
+  autocmd!
+  autocmd FileType * Findent --no-messages --no-warnings
+augroup END
 
-# 重い
-# [[plugins]]
-# repo = 'tpope/vim-sleuth'
-# }}}
+'''
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
