@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
 # [手軽な HTTP/HTTPS サーバコマンド - Qiita](https://qiita.com/Jxck_/items/725aa73bb3067c7e10e6)
 
@@ -19,6 +20,7 @@ mime = WEBrick::HTTPUtils::DefaultMimeTypes.merge({
   "log"      => "text/plain",
   "md"       => "text/plain",
   "markdown" => "text/plain",
+  "kif"      => "text/plain",
 })
 
 config = {
