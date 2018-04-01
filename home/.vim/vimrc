@@ -912,7 +912,10 @@ endif
 
 " 現在編集中のファイルのディレクトリをカレントディレクトリにする
 nnoremap [:space:]gc :cd <C-r>=my#path#buffer_dir()<CR> <Bar> echo 'cd '.my#path#buffer_dir()<CR>
-nnoremap [:space:]gC :execute 'cd ' my#path#project_dir()<CR>:echo 'cd ' my#path#project_dir()<CR>
+nnoremap [:space:]gC :cd <C-r>=my#path#project_dir()<CR><Bar> echo 'cd ' my#path#project_dir()<CR>
+
+nnoremap [:space:]Gc :windo cd <C-r>=my#path#buffer_dir()<CR><CR>
+nnoremap [:space:]GC :windo cd <C-r>=my#path#project_dir()<CR><CR>
 
 command! Shell lcd %:h <Bar> shell
 
