@@ -25,6 +25,7 @@ case $1 in
         bzip2 -dc "$1" | tar xvf -;;
     *.tar.Z)
         uncompress -c "$1" | tar xvf -;;
+
     *.lzh)
         lha e "$1";;
     *.zip)
