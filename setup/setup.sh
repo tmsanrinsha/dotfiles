@@ -233,8 +233,9 @@ fi
 
 # Python {{{1
 # ============================================================================
-if command_exists pip; then
-  pip install --upgrade --user vim-vint
+if command_exists pip3; then
+  pip3 install --upgrade --user vim-vint
+  pip3 install --upgrade --user flake8
 fi
 
 # cVim {{{1
