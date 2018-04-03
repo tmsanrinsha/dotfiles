@@ -650,11 +650,6 @@ let &titlestring = "%{expand('%:p')} @" . hostname()
 let &t_ts = "\e]0;"
 let &t_fs = "\007"
 
-" buffer {{{1
-" ============================================================================
-" nnoremap <M-n> :bnext<CR>
-" nnoremap <M-p> :bprevious<CR>
-
 " window {{{1
 " ============================================================================
 " nnoremap <M-h> <C-w>h
@@ -829,6 +824,8 @@ if has('terminal')
 
   tnoremap <silent> <M-t> <C-w>:tabnew<CR>
 
+  tnoremap <M-n> <C-w>:tabnext<CR>
+  tnoremap <M-p> <C-w>:tabprevious<CR>
   tnoremap <M-1> <C-w>:1tabn<CR>
   tnoremap <M-2> <C-w>:2tabn<CR>
   tnoremap <M-3> <C-w>:3tabn<CR>
