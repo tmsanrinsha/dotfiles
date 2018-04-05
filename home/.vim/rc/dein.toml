@@ -1326,18 +1326,12 @@ on_cmd = ['Junkfile', 'JunkfileOpen', 'JunkfileFiletype']
 # on_source = 'unite.vim'
 # on_cmd = ['Qiita']
 
-[[plugins]]
-repo = 'mattn/gist-vim'
-depends = 'webapi-vim'
-on_cmd = ['Gist']
-
 # [[plugins]]
 # repo = 'neilagabriel/vim-geeknote'
 # on_cmd = ['Geeknote']
 # hook_source = '''
 #     call Set_python_path()
 # '''
-# # }}}
 
 # Git {{{1
 # ============================================================================
@@ -1364,12 +1358,10 @@ on_cmd = ['Gbrowse']
 
 [[plugins]]
 repo = 'lambdalisue/vim-gista'
-on_cmd = ['Gista']
 
 # [[plugins]]
 # repo = 'tmsanrinsha/github-complete.vim'
 # on_ft = ['markdown', 'gitcommit']
-# }}}
 
 # color {{{1
 # ============================================================================
