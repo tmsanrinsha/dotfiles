@@ -1085,7 +1085,9 @@ set printfont=Andale\ Mono:h12:cUTF8
 
 " errorformat, quickfix, make {{{1
 " ============================================================================
-set errorformat+=%f:\ 行\ %l:\ %m,%f:\ %l\ 行:\ %m
+set errorformat+=%f:\ line\ %l:\ %m
+set errorformat+=%f:\ 行\ %l:\ %m
+set errorformat+=%f:\ %l\ 行:\ %m
 set errorformat-=%-G%.%#
 nmap [q <Plug>(QuickFixCurrentNumberQPrev)
 nmap ]q <Plug>(QuickFixCurrentNumberQNext)
