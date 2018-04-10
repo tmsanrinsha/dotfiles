@@ -5,12 +5,21 @@ scriptencoding utf-8
 call denite#custom#option('_', 'prompt', '>')
 " 候補が空なら開かない
 call denite#custom#option('_', 'empty', v:false)
+" Deniteのwindowの高さを自動でリサイズする
+call denite#custom#option('_', 'auto_resize', v:true)
+
+" カーソルが一番上もしくは下に行ったときに回る
+call denite#custom#option('_', 'cursor_wrap', v:true)
+
+call denite#custom#option('_', 'auto_resume', v:true)
 
 hi DeniteMatchedChar ctermbg=none ctermfg=red
 hi DeniteMatchedRange cterm=underline gui=underline
 call denite#custom#option('_', 'highlight_matched_char', 'DeniteMatchedChar')
 call denite#custom#option('_', 'highlight_matched_range', 'DeniteMatchedRange')
-call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
+" call denite#custom#option('_', 'highlight_mode_normal', 'CursorLine')
+call denite#custom#option('_', 'smartcase', v:true)
+" -unique
 
 call denite#custom#source('_', 'matchers', ['matcher_regexp'])
 
@@ -25,6 +34,12 @@ call denite#custom#action('directory', 'debug',     {context -> execute('PP! con
 call denite#custom#map('insert', '<Esc>', '<denite:enter_mode:normal>',     'noremap')
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>',     'noremap')
 call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
+
+call denite#custom#map('normal', '<C-w><C-h>', '<denite:wincmd:h>', 'noremap')
+call denite#custom#map('normal', '<C-w><C-j>', '<denite:wincmd:j>', 'noremap')
+call denite#custom#map('normal', '<C-w><C-k>', '<denite:wincmd:k>', 'noremap')
+call denite#custom#map('normal', '<C-w><C-l>', '<denite:wincmd:l>', 'noremap')
+
 call denite#custom#map('normal', 'R',     '<denite:do_action:qfreplace>',   'noremap')
 call denite#custom#map('normal', 'Q',     '<denite:do_action:quickfix>',    'noremap')
 call denite#custom#map('normal', '<Esc>', '<denite:quit>',                  'noremap')
