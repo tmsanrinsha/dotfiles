@@ -2769,14 +2769,14 @@ endif
 
 " Project {{{1
 " ============================================================================
-" vim-projectionist {{{2
+"" vim-projectionist {{{2
 " ----------------------------------------------------------------------------
 " [Vimでプロジェクトを扱う - SanRin舎](https://tmsanrinsha.net/post/2017/07/vim-project/)
 if !exists('g:projectionist_heuristics')
   let g:projectionist_heuristics = {}
 endif
 
-"" Chef repo {{{3
+""" Chef repo {{{3
 let g:projectionist_heuristics['chefignore'] = {
 \ 'attributes/*.rb': {
 \   'type': 'attribute'
@@ -2801,7 +2801,10 @@ let g:projectionist_heuristics['chefignore'] = {
 \ },
 \}
 
-"" PHP {{{3
+""" Java {{{3
+let g:projectionist_heuristics['build.gradle'] = {}
+
+""" PHP {{{3
 let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 \   'src/*.php': {
 \     'type': 'src',
@@ -2815,7 +2818,7 @@ let g:projectionist_heuristics['composer.json|phpunit.xml'] = {
 
 " let g:projectionist_heuristics['__init__.py'] = {}
 
-"" memo {{{3
+""" memo {{{3
 let g:projectionist_heuristics['content/'] = {
 \   'content/*.md': {
 \     'type': 'content',
@@ -2823,7 +2826,7 @@ let g:projectionist_heuristics['content/'] = {
 \   }
 \}
 
-" complete {{{3
+""" complete {{{3
 inoremap <expr><C-x><C-a> my#alternate()
 
 " tcomment_vim {{{1
