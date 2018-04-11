@@ -41,6 +41,7 @@ brew install diffutils
 brew install git
 brew install gnu-sed
 brew install go
+brew install gradle
 brew install graphviz
 brew install grep --with-default-names
 brew install hub
@@ -87,15 +88,6 @@ brew install zsh
 # # formuraでもinstallできる
 # brew-cask-install pandoc
 
-
 # brew-cask-install android-studio
 # brew-cask-install cheatsheet
 # brew-cask-install eclipse-ide
-
-# brew-install matplotlib
-# brew install pythonでインストールされるpipでインストール
-# 失敗
-# pip install numpy
-# pip install nosy
-# pip install ipython
-# pip install six
