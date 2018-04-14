@@ -41,6 +41,7 @@ if v:version > 701
   " cuiのvimで<C-Space>を使う設定 {{{2
   " ------------------------------------------------------------------------
   " 端末でCtrl+Spaceを打つと<NUL>(^@)が送られるのでmapしておく
+  " <C-Space>に対してsetはできない
   imap  <NUL> <C-Space>
   cmap  <NUL> <C-Space>
   " map! <NUL> <C-Space>
