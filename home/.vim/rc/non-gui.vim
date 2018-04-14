@@ -34,9 +34,9 @@ if v:version > 701
     exec 'set <M-'.c.">=\<Esc>".c
   endfor
 
-  exec "set <M-CR>=\<Esc>\<CR>"
-  exec "set <M-C-h>=\<Esc>\<C-H>"
-  exec "set <M-C-?>=\<Esc>\<C-?>"
+  execute "set <M-CR>=\<Esc>\<CR>"
+  execute "set <M-C-h>=\<Esc>\<C-H>"
+  execute "set <M-C-?>=\<Esc>\<C-?>"
 
   " cuiのvimで<C-Space>を使う設定 {{{2
   " ------------------------------------------------------------------------
@@ -45,13 +45,29 @@ if v:version > 701
   cmap  <NUL> <C-Space>
   " map! <NUL> <C-Space>
 
-  " cuiでShift+カーソルキーを使う設定{{{2
+  " cuiのvimでShift+カーソルキーを使う設定{{{2
   " ------------------------------------------------------------------------
   " executeを書かないと、vintでひっかかる
   execute "set <S-Left>=\<Esc>[1;2D"
   execute "set <S-Right>=\<Esc>[1;2C"
   execute "set <S-Up>=\<Esc>[1;2A"
   execute "set <S-Down>=\<Esc>[1;2B"
+
+  " cuiのvimで<S-F1>などを使う設定 {{{2
+  " ------------------------------------------------------------------------
+  " iterm2の「Profiles」-「Keys」の設定
+  execute "set <S-F1>=\<Esc>[1;2P"
+  execute "set <S-F2>=\<Esc>[1;2Q"
+  execute "set <S-F3>=\<Esc>[1;2R"
+  execute "set <S-F4>=\<Esc>[1;2S"
+  execute "set <S-F5>=\<Esc>[15;2~"
+  execute "set <S-F6>=\<Esc>[17;2~"
+  execute "set <S-F7>=\<Esc>[18;2~"
+  execute "set <S-F8>=\<Esc>[19;2~"
+  execute "set <S-F9>=\<Esc>[20;2~"
+  execute "set <S-F10>=\<Esc>[21;2~"
+  execute "set <S-F11>=\<Esc>[23;2~"
+  execute "set <S-F12>=\<Esc>[24;2~"
 
   " <C-Tab><S-C-Tab>など、ターミナル上で定義されていないキーを設定するためのトリック {{{2
   " ------------------------------------------------------------------------
