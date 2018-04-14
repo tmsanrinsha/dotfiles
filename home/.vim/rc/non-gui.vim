@@ -123,17 +123,6 @@ vnoremap <A-c> :Paste64Copy<CR>
 
 " mouse {{{1
 " ==============================================================================
-" For screen, tmux
-" if &term == "xterm-256color"
-"     augroup MyAutoCmd
-"         autocmd VimLeave * :set mouse=
-"     augroup END
-" 
-"     " screenでマウスを使用するとフリーズするのでその対策
-"     " Tere Termだと自動で認識されているかも
-"     " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
-"     set ttymouse=xterm2
-" endif
 " Using the mouse on a terminal.
 if has('mouse')
     " インサートモードではマウスを使わない
@@ -146,6 +135,18 @@ if has('mouse')
         set ttymouse=xterm2
     endif
 endif
+
+" For screen, tmux
+" if &term == "xterm-256color"
+"     augroup MyAutoCmd
+"         autocmd VimLeave * :set mouse=
+"     augroup END
+" 
+"     " screenでマウスを使用するとフリーズするのでその対策
+"     " Tere Termだと自動で認識されているかも
+"     " http://slashdot.jp/journal/514186/vim-%E3%81%A7%E3%81%AE-xterm-%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%87%AA%E5%8B%95%E8%AA%8D%E8%AD%98
+"     set ttymouse=xterm2
+" endif
 
 " 制御シーケンス {{{1
 " ==============================================================================
