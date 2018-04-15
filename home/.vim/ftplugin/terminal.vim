@@ -3,6 +3,8 @@ scriptencoding utf-8
 setlocal nonumber
 setlocal foldcolumn=0
 
+nnoremap <buffer> q :q
+
 " PROMPTに飛ぶ
 nnoremap <silent><buffer> [[ m':call search('^' . $USER . '@', "bW")<CR>
 vnoremap <silent><buffer> [[ m':<C-U>exe "normal! gv"<Bar>call search('^' . $USER . '@', "bW")<CR>
