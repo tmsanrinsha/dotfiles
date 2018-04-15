@@ -6,7 +6,7 @@ call denite#custom#option('_', 'prompt', '>')
 " 候補が空なら開かない
 call denite#custom#option('_', 'empty', v:false)
 " Deniteのwindowの高さを自動でリサイズする
-call denite#custom#option('_', 'auto_resize', v:true)
+" call denite#custom#option('_', 'auto_resize', v:true)
 
 " カーソルが一番上もしくは下に行ったときに回る
 call denite#custom#option('_', 'cursor_wrap', v:true)
