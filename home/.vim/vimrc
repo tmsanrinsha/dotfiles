@@ -2332,9 +2332,26 @@ if IsInstalled('denite.nvim')
   nnoremap [unite]gp :<C-u>Denite grep:`my#path#project_dir()`<CR>
 
   " dotfiles
-  nnoremap [unite]fd :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
-  nnoremap [unite]dd :<C-u>Denite directory_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles -default-action=vimfiler<CR>
-  nnoremap [unite]gd :<C-u>Denite grep:$SRC_ROOT/github.com/tmsanrinsha/dotfiles<CR>
+  let dotfiles_dirs = ['$SRC_ROOT/github.com/tmsanrinsha/dotfiles']
+
+  function! s:denite_multi_args(name, args_arr, ...) abort
+    let context = get(a:, 1, [])
+
+    let arr = []
+    for args in a:args_arr
+      call add(arr, {'name': a:name, 'args': [args]})
+    endfor
+
+    if empty(context)
+      call denite#start(arr)
+    else
+      call denite#start(arr, context)
+    endif
+  endfunction
+
+  nnoremap [unite]fd :<C-u>call <SID>denite_multi_args('file_rec', dotfiles_dirs)<CR>
+  nnoremap [unite]dd :<C-u>call <SID>denite_multi_args('directory_rec', dotfiles_dirs, {'default_action': 'vimfiler'})<CR>
+  nnoremap [unite]gd :<C-u>call denite#start([{'name': 'grep', 'args': [dotfiles_dirs]}])<CR>
 
   " Vim
   nnoremap [unite]fv :<C-u>Denite file_rec:$SRC_ROOT/github.com/tmsanrinsha/dotfiles/home/.vim<CR>
