@@ -1,0 +1,75 @@
+{
+  "title": "slack",
+  "rules": [
+    {
+      "description": "ctrl + j :Move next channel or DM in slack (unread if shift is pressed).",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.tinyspeck\\.slackmacgap$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "ctrl + k :Move previous channel or DM in slack (unread if shift is pressed).",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.tinyspeck\\.slackmacgap$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
