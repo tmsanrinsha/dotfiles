@@ -2,15 +2,15 @@
   "title": "slack",
   "rules": [
     {
-      "description": "ctrl + j :Move next channel or DM in slack (unread if shift is pressed).",
+      "description": "cmd + n :Move next channel or DM in slack (unread if shift is pressed).",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "j",
+            "key_code": "n",
             "modifiers": {
               "mandatory": [
-                "control"
+                "command"
               ],
               "optional": [
                 "shift"
@@ -37,15 +37,15 @@
       ]
     },
     {
-      "description": "ctrl + k :Move previous channel or DM in slack (unread if shift is pressed).",
+      "description": "cmd + p :Move previous channel or DM in slack (unread if shift is pressed).",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "k",
+            "key_code": "p",
             "modifiers": {
               "mandatory": [
-                "control"
+                "command"
               ],
               "optional": [
                 "shift"
