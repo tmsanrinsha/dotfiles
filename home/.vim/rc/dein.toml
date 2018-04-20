@@ -811,6 +811,13 @@ repo = 'thinca/vim-localrc'
 [[plugins]]
 repo = 'vimperator/vimperator.vim'
 
+## Vue.js {{{2
+# -----------------------------------------------------------------------------
+[[plugins]]
+repo = 'posva/vim-vue'
+lazy = 1
+on_ft = 'vue'
+
 # other {{{1
 # ============================================================================
 [[plugins]]
