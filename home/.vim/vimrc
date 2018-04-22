@@ -1388,18 +1388,6 @@ function! s:configure_javascript()
     " setlocal iskeyword+=.
 endfunction
 
-" Java {{{2
-" ----------------------------------------------------------------------------
-if isdirectory(expand('~/AppData/Local/Android/android-sdk/sources/android-17'))
-    autocmd MyVimrc FileType java setlocal path+=~/AppData/Local/Android/android-sdk/sources/android-17
-elseif isdirectory(expand('/Program Files (x86)/Android/android-sdk/sources/android-17'))
-    autocmd MyVimrc FileType java setlocal path+=/Program\ Files\ (x86)/Android/android-sdk/sources/android-17
-endif
-autocmd MyVimrc FileType java
-            \   setlocal foldmethod=syntax
-            \|  nnoremap <buffer>  [[ [m
-            \|  nnoremap <buffer>  ]] ]m
-
 " Vim {{{2
 " ----------------------------------------------------------------------------
 " \を打った時のindentの幅
